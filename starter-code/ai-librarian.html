@@ -148,6 +148,13 @@
         </div>
       </div>
 
+      <!-- Book Discovery link -->
+      <div class="control-panel" style="margin-top:16px;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(6,182,212,0.06));border:1px solid rgba(99,102,241,0.2);">
+        <div class="panel-title">🔍 Find More Books</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Search public domain books, connect your school library, or upload your own files.</p>
+        <a href="book-discovery.html" class="btn btn-primary w-full" style="text-align:center;">Open Book Discovery Agent →</a>
+      </div>
+
       <!-- Reading List -->
       <div class="control-panel" style="margin-top:16px;">
         <div class="panel-title">📋 My Reading List</div>
@@ -211,6 +218,22 @@ function filterBooks() {
   renderBooks(filtered);
 }
 
+function sourceAvailability(b) {
+  const avail = b.availability || [];
+  if (!avail.length) return '';
+  const icons = { gutenberg:'🌍', openlibrary:'📚', preview:'👁️', upload:'📄', library:'🏫' };
+  const labels = {
+    gutenberg: CS.lang.t('bd_avail_gutenberg') || 'Available from Project Gutenberg',
+    openlibrary: CS.lang.t('bd_avail_preview') || 'Available as preview',
+    preview: CS.lang.t('bd_avail_preview') || 'Available as preview',
+    upload: CS.lang.t('bd_avail_upload') || 'Upload your own copy',
+    library: CS.lang.t('bd_avail_library') || 'Ask your library for access',
+  };
+  return '<div style="margin:6px 0 10px;display:flex;flex-direction:column;gap:3px;">' +
+    avail.map(a => `<span style="font-size:10px;color:#4f46e5;font-weight:600;">${icons[a]||'📌'} ${labels[a]||a}</span>`).join('') +
+    '</div>';
+}
+
 function renderBooks(list) {
   const grid = document.getElementById('bookGrid');
   const noRes = document.getElementById('noResults');
@@ -223,10 +246,14 @@ function renderBooks(list) {
         <div class="book-title">${b.title}</div>
         <div class="book-author">by ${b.author}</div>
         <div class="book-tags">${b.tags.map(tag=>tagBadge(tag)).join('')}</div>
+        ${sourceAvailability(b)}
         <div style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px;">${b.desc}</div>
         <div class="book-footer">
           <a href="reading-companion.html" class="btn btn-primary btn-sm">▶ Read</a>
           <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add ${b.title} to reading list">+ Add</button>
+        </div>
+        <div style="margin-top:8px;">
+          <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-outline btn-sm" style="font-size:11px;width:100%;text-align:center;" aria-label="Find ${b.title} in Book Discovery Agent">🔍 Find in Book Discovery</a>
         </div>
       </div>
     </div>
@@ -263,11 +290,30 @@ function renderReadingList() {
   `).join('');
 }
 
+const AVAILABILITY_MAP = {
+  adhd:    ['gutenberg','upload'],
+  dyslexia:['gutenberg','openlibrary','upload'],
+  blind:   ['gutenberg','upload'],
+  deaf:    ['preview','library'],
+  all:     ['gutenberg','openlibrary','preview','upload'],
+};
+
 function updateRecommendations() {
   const type = document.getElementById('learnerType').value;
   const recs = books.filter(b => type==='all' || b.tags.includes(type)).slice(0,3);
   const el = document.getElementById('recommendList');
   if (!recs.length) { el.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No recommendations for this profile.</p>'; return; }
+  const avail = AVAILABILITY_MAP[type] || AVAILABILITY_MAP.all;
+  const availLabels = {
+    gutenberg: CS.lang.t('bd_avail_gutenberg'),
+    openlibrary: CS.lang.t('bd_avail_preview'),
+    preview: CS.lang.t('bd_avail_preview'),
+    upload: CS.lang.t('bd_avail_upload'),
+    library: CS.lang.t('bd_avail_library'),
+  };
+  const availHTML = avail.map(a =>
+    `<div style="font-size:10px;color:#4f46e5;font-weight:600;margin-top:2px;">📌 ${availLabels[a]||a}</div>`
+  ).join('');
   el.innerHTML = recs.map(b=>`
     <div class="recommend-card">
       <div class="recommend-reason">⭐ Recommended for ${type==='all'?'All Learners':type.toUpperCase()}</div>
@@ -278,9 +324,11 @@ function updateRecommendations() {
           <div style="font-size:12px;color:var(--text-muted);">${b.author}</div>
         </div>
       </div>
-      <div style="margin-top:10px;display:flex;gap:8px;">
+      <div style="margin:8px 0 4px;">${availHTML}</div>
+      <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
         <a href="reading-companion.html" class="btn btn-primary btn-sm">▶ Read</a>
         <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add ${b.title} to reading list">+ Add</button>
+        <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-outline btn-sm" style="font-size:11px;" aria-label="Find ${b.title} in Book Discovery">🔍 Find</a>
       </div>
     </div>
   `).join('');

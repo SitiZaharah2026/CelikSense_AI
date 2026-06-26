@@ -212,12 +212,48 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     <span id="psTodayText"></span>
   </div>
 
+  <!-- Offline Status Widget -->
+  <div id="offlineWidget" style="
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+    border-radius:16px;padding:14px 20px;margin-bottom:28px;
+  " role="complementary" aria-label="Offline status">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span id="offlineDot" style="width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block;" aria-hidden="true"></span>
+      <span id="offlineLabel" style="font-size:13px;font-weight:700;color:#e0e7ff;" data-i18n="offline_status_online">Online</span>
+    </div>
+    <div style="font-size:12px;color:#94a3b8;flex:1;">
+      <span data-i18n="offline_storage_used">Storage:</span>
+      <strong id="dashStorageUsed" style="color:#c7d2fe;">—</strong>
+      &nbsp;·&nbsp;
+      <span data-i18n="offline_pending_sync">Pending sync:</span>
+      <strong id="dashPendingSync" style="color:#c7d2fe;">0</strong>
+      &nbsp;·&nbsp;
+      <span data-i18n="offline_last_sync_label">Last sync:</span>
+      <strong id="dashLastSync" style="color:#c7d2fe;">—</strong>
+    </div>
+    <a href="offline-library.html" style="
+      font-size:12px;font-weight:600;color:#a5b4fc;
+      text-decoration:none;white-space:nowrap;
+      padding:5px 12px;border:1px solid rgba(99,102,241,0.4);border-radius:8px;
+    " data-i18n="offline_lib_title">Offline Library →</a>
+  </div>
+
   <!-- Agents Grid -->
   <div class="section-header">
     <h2 class="section-title" data-i18n="dash_agents_title">AI Agents</h2>
     <p class="section-desc" data-i18n="dash_select_desc">Select an agent to start your personalised session</p>
   </div>
   <div class="grid grid-auto" style="margin-bottom:40px;">
+
+    <a href="book-discovery.html" class="agent-card" style="border-top:3px solid #6366f1;" aria-label="Open AI Book Discovery Agent">
+      <div class="agent-icon" style="background:linear-gradient(135deg,#6366f1,#06b6d4);">🔍</div>
+      <div class="agent-info">
+        <div class="agent-name" data-i18n="bd_title">AI Book Discovery Agent</div>
+        <div class="agent-desc" data-i18n="bd_agent_desc">Find legal reading materials from public domain books, personal files, library systems and approved previews.</div>
+      </div>
+      <span class="agent-badge" style="background:linear-gradient(135deg,#6366f1,#06b6d4);" data-i18n="bd_agent_badge">Book Discovery</span>
+    </a>
 
     <div class="agent-card" style="--agent-top:linear-gradient(90deg,#6366f1,#8b5cf6);" aria-label="AI Librarian agent – Find and recommend books tailored to your learning profile and accessibility needs" tabindex="0">
       <div class="agent-icon" style="background:rgba(99,102,241,0.12)" aria-hidden="true">📚</div>
@@ -595,6 +631,46 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}</script>
+<script>
+/* ── Offline widget init ── */
+document.addEventListener('DOMContentLoaded', function() {
+  if (!window.CS || !CS.offline) return;
+  CS.offline.init();
+
+  function updateOfflineWidget() {
+    var online = CS.offline.isOnline();
+    var dot   = document.getElementById('offlineDot');
+    var label = document.getElementById('offlineLabel');
+    if (dot)   { dot.style.background = online ? '#22c55e' : '#f59e0b'; }
+    if (label) {
+      label.setAttribute('data-i18n', online ? 'offline_status_online' : 'offline_status_offline');
+      label.textContent = CS.lang.t(online ? 'offline_status_online' : 'offline_status_offline');
+    }
+    CS.offline.getStorageInfo().then(function(info) {
+      var el = document.getElementById('dashStorageUsed');
+      if (el) el.textContent = info.usedMB + ' MB';
+    });
+    CS.offline.getSyncQueue().then(function(items) {
+      var el = document.getElementById('dashPendingSync');
+      if (el) el.textContent = items.length;
+    });
+    var lastSync = localStorage.getItem('cs_last_sync');
+    var syncEl = document.getElementById('dashLastSync');
+    if (syncEl) {
+      if (lastSync) {
+        var d = new Date(parseInt(lastSync));
+        syncEl.textContent = d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      } else {
+        syncEl.textContent = CS.lang.t('offline_never_synced');
+      }
+    }
+  }
+
+  window.addEventListener('cs:online',  updateOfflineWidget);
+  window.addEventListener('cs:offline', updateOfflineWidget);
+  updateOfflineWidget();
+});
+</script>
 </body>
 </html>
 

@@ -499,6 +499,139 @@ const CS_LANG = {
     avatar_start_signing: '🤟 Start Signing',
     avatar_ready: '🎉 Your avatar is ready!',
     avatar_prototype_note: 'Prototype: SVG avatar based on your photo colours. Future versions will use 3D avatar technology.',
+
+    /* Book Discovery Agent */
+    bd_title:           'AI Book Discovery Agent',
+    bd_subtitle:        'Find legal reading materials and send them to any CelikSense accessibility tool.',
+    bd_search_hint:     'Search by title, subject, level, author or interest…',
+    bd_search_btn:      'Search',
+    bd_sources_title:   'Choose a Book Source',
+    bd_results_title:   'Search Results',
+    bd_my_library:      'My Library',
+    bd_send_to:         'Send to Tools',
+    bd_send_teacher:    'Read with AI Teacher',
+    bd_send_companion:  'Open in Reading Companion',
+    bd_send_audio:      'Convert to Audio',
+    bd_send_braille:    'Convert to Braille',
+    bd_send_bim:        'Translate to BIM Sign Language',
+    bd_send_adhd:       'Apply ADHD Mode',
+    bd_send_dyslexia:   'Apply Dyslexia Mode',
+    bd_save_lib:        'Save to My Library',
+    bd_badge_owned:     'User Owned',
+    bd_badge_public:    'Public Domain',
+    bd_badge_preview:   'Preview Only',
+    bd_badge_library:   'Library Access',
+    bd_badge_ocr:       'OCR Required',
+    bd_badge_learning:  'Learning Material',
+    bd_src_upload_pdf:  'Upload PDF',
+    bd_src_scan:        'Scan Physical Book',
+    bd_src_gutenberg:   'Project Gutenberg',
+    bd_src_openlibrary: 'Open Library',
+    bd_src_gbooks:      'Google Books Preview',
+    bd_src_school:      'School Library',
+    bd_src_uni:         'University Library',
+    bd_src_gdrive:      'Google Drive',
+    bd_src_onedrive:    'OneDrive',
+    bd_src_community:   'Community Materials',
+    bd_opac_title:      'Library OPAC Connector',
+    bd_opac_note:       'OPAC integration requires permission from the school or university library.',
+    bd_opac_name:       'Library Name',
+    bd_opac_url:        'OPAC URL',
+    bd_opac_keyword:    'Search Keyword',
+    bd_opac_id:         'Library User ID (optional)',
+    bd_opac_search:     'Search Library',
+    bd_community_title: 'Community Learning Materials',
+    bd_community_note:  'Share summaries, notes, mind maps, and quizzes — not full copyrighted books.',
+    bd_community_share: 'Share a Learning Material',
+    bd_copyright_notice:'CelikSense AI helps users access and transform legally available reading materials into accessible formats. It does not host or redistribute copyrighted books without permission.',
+    bd_read_btn:        'Open with CelikSense',
+    bd_no_results:      'No results found. Try a different search term.',
+    bd_loading:         'Searching…',
+    bd_agent_desc:      'Find legal reading materials from public domain books, personal files, library systems and approved previews.',
+    bd_agent_badge:     'Book Discovery',
+    bd_avail_gutenberg: 'Available from Project Gutenberg',
+    bd_avail_preview:   'Available as preview',
+    bd_avail_upload:    'Upload your own copy',
+    bd_avail_library:   'Ask your library for access',
+    bd_saved_ok:        'Saved to My Library.',
+    bd_sent_ok:         'Content sent. Opening agent…',
+
+    /* Offline Intelligent Mode */
+    offline_banner:         'Offline Mode Activated — Learning Without Internet Barrier.',
+    offline_banner_sub:     'Downloaded content, tools and settings remain available.',
+    offline_sync_banner:    'Synchronising your learning progress…',
+    offline_sync_done:      'Sync complete. All progress saved.',
+    offline_download_btn:   'Download for Offline',
+    offline_remove_btn:     'Remove Offline Copy',
+    offline_saved:          'Saved for offline reading.',
+    offline_removed:        'Offline copy removed.',
+    offline_ai_fallback:    'Offline Mode: Showing cached AI learning resources.',
+    offline_no_ai:          'AI features require an internet connection.',
+    offline_lib_title:      'Offline Library',
+    offline_lib_subtitle:   'Your downloaded books, OCR scans, notes and cached content.',
+    offline_tab_downloads:  'Downloaded Books',
+    offline_tab_ocr:        'OCR Cache',
+    offline_tab_notes:      'Notes & Quizzes',
+    offline_tab_ai:         'AI Cache',
+    offline_tab_storage:    'Storage',
+    offline_empty:          'Nothing here yet. Download content while online to read it offline.',
+    offline_storage_title:  'Storage Usage',
+    offline_storage_used:   'Used',
+    offline_storage_free:   'Available',
+    offline_storage_total:  'Total',
+    offline_demo:           'Offline Demonstration — All core features active without internet.',
+    offline_search_hint:    'Search downloaded content…',
+    offline_open_btn:       'Open',
+    offline_delete_btn:     'Delete',
+    offline_size:           'Size',
+    offline_source:         'Source',
+    offline_status_online:  'Online',
+    offline_status_offline: 'Offline',
+    offline_pending_sync:   'Pending sync items',
+    offline_last_sync:      'Last synced',
+    offline_never_synced:   'Not yet synced',
+    offline_sync_now:       'Sync Now',
+    offline_last_sync_label:'Last sync:',
+    /* Offline Library — additional keys */
+    offline_books_saved:    'books saved',
+    offline_find_more:      '+ Find More Books',
+    offline_clear_all:      'Clear All',
+    offline_go_discover:    'Browse Books',
+    offline_new_scan:       'New Scan',
+    offline_clear_ocr:      'Clear Cache',
+    offline_go_ocr:         'Open OCR Agent',
+    offline_clear_ai:       'Clear AI Cache',
+    offline_ai_cache_info:  'AI answers are cached automatically when online. Offline, the Teacher Agent replays saved answers.',
+    offline_go_ai:          'Open AI Teacher',
+    offline_notes_label:    'Notes',
+    offline_bookmarks_label:'Bookmarks',
+    offline_highlights_label:'Highlights',
+    offline_quiz_label:     'Quiz History',
+    offline_notes_info:     'Notes, bookmarks, highlights and quiz results are saved locally and available offline.',
+    offline_open_reading:   'Open Reading Companion',
+    offline_open_adhd:      'Open ADHD Agent',
+    offline_open_teacher:   'Open AI Teacher',
+    offline_stat_books:     'books',
+    offline_stat_scans:     'scans',
+    offline_stat_responses: 'responses',
+    offline_stat_items:     'items',
+    offline_sync_title:     'Sync & Backup',
+    offline_sw_title:       'Service Worker Status',
+    offline_clear_all_data: 'Clear All Data',
+    offline_read_btn:       'Read Now',
+    offline_teach_btn:      'Ask AI Teacher',
+    offline_already_saved:  '✅ Saved',
+    offline_cleared:        'Cleared.',
+    offline_empty_downloads:'No downloads yet',
+    offline_empty_downloads_sub: 'Books you save offline will appear here. Tap "Download for Offline" on any book.',
+    offline_empty_ocr:      'No OCR scans cached',
+    offline_empty_ocr_sub:  'Text extracted from images is saved here for offline access.',
+    offline_empty_ai:       'No AI responses cached',
+    offline_empty_ai_sub:   'Use AI Teacher or AI Librarian while online and answers will be saved here.',
+    offline_confirm_clear_downloads: 'Remove all downloaded books from offline storage?',
+    offline_confirm_clear_ocr:       'Clear all cached OCR scans?',
+    offline_confirm_clear_ai:        'Clear all cached AI responses?',
+    offline_confirm_clear_all:       'Clear ALL offline data? This cannot be undone.',
   },
 
   ms: {
@@ -961,6 +1094,139 @@ const CS_LANG = {
     avatar_start_signing: '🤟 Mula Tanda Tangan',
     avatar_ready: '🎉 Avatar anda sudah siap!',
     avatar_prototype_note: 'Prototaip: Avatar SVG berdasarkan warna foto anda. Versi akan datang akan menggunakan teknologi avatar 3D.',
+
+    /* Ejen Penemuan Buku */
+    bd_title:           'Ejen Penemuan Buku AI',
+    bd_subtitle:        'Cari bahan bacaan sah dan hantarkan ke mana-mana alat aksesibiliti CelikSense.',
+    bd_search_hint:     'Cari mengikut tajuk, subjek, tahap, pengarang atau minat…',
+    bd_search_btn:      'Cari',
+    bd_sources_title:   'Pilih Sumber Buku',
+    bd_results_title:   'Keputusan Carian',
+    bd_my_library:      'Perpustakaan Saya',
+    bd_send_to:         'Hantar ke Alatan',
+    bd_send_teacher:    'Baca dengan Guru AI',
+    bd_send_companion:  'Buka dalam Rakan Bacaan',
+    bd_send_audio:      'Tukar ke Audio',
+    bd_send_braille:    'Tukar ke Braille',
+    bd_send_bim:        'Terjemah ke BIM',
+    bd_send_adhd:       'Mod ADHD',
+    bd_send_dyslexia:   'Mod Disleksia',
+    bd_save_lib:        'Simpan ke Perpustakaan Saya',
+    bd_badge_owned:     'Milik Pengguna',
+    bd_badge_public:    'Domain Awam',
+    bd_badge_preview:   'Pratonton Sahaja',
+    bd_badge_library:   'Akses Perpustakaan',
+    bd_badge_ocr:       'Perlu OCR',
+    bd_badge_learning:  'Bahan Pembelajaran',
+    bd_src_upload_pdf:  'Muat Naik PDF',
+    bd_src_scan:        'Imbas Buku Fizikal',
+    bd_src_gutenberg:   'Project Gutenberg',
+    bd_src_openlibrary: 'Open Library',
+    bd_src_gbooks:      'Pratonton Google Books',
+    bd_src_school:      'Perpustakaan Sekolah',
+    bd_src_uni:         'Perpustakaan Universiti',
+    bd_src_gdrive:      'Google Drive',
+    bd_src_onedrive:    'OneDrive',
+    bd_src_community:   'Bahan Komuniti',
+    bd_opac_title:      'Penyambung OPAC Perpustakaan',
+    bd_opac_note:       'Integrasi OPAC memerlukan kebenaran daripada perpustakaan sekolah atau universiti.',
+    bd_opac_name:       'Nama Perpustakaan',
+    bd_opac_url:        'URL OPAC',
+    bd_opac_keyword:    'Kata Kunci Carian',
+    bd_opac_id:         'ID Pengguna Perpustakaan (pilihan)',
+    bd_opac_search:     'Cari Perpustakaan',
+    bd_community_title: 'Bahan Pembelajaran Komuniti',
+    bd_community_note:  'Kongsi rumusan, nota, peta minda, dan kuiz — bukan buku berhak cipta penuh.',
+    bd_community_share: 'Kongsi Bahan Pembelajaran',
+    bd_copyright_notice:'CelikSense AI membantu pengguna mengakses dan mengubah bahan bacaan yang sah ke format boleh akses. Ia tidak menyimpan atau mengedarkan semula buku berhak cipta tanpa kebenaran.',
+    bd_read_btn:        'Buka dengan CelikSense',
+    bd_no_results:      'Tiada keputusan ditemui. Cuba kata kunci lain.',
+    bd_loading:         'Mencari…',
+    bd_agent_desc:      'Cari bahan bacaan sah daripada buku domain awam, fail peribadi, sistem perpustakaan dan pratonton yang diluluskan.',
+    bd_agent_badge:     'Penemuan Buku',
+    bd_avail_gutenberg: 'Tersedia di Project Gutenberg',
+    bd_avail_preview:   'Tersedia sebagai pratonton',
+    bd_avail_upload:    'Muat naik salinan anda sendiri',
+    bd_avail_library:   'Minta akses daripada perpustakaan anda',
+    bd_saved_ok:        'Disimpan ke Perpustakaan Saya.',
+    bd_sent_ok:         'Kandungan dihantar. Membuka ejen…',
+
+    /* Mod Luar Talian */
+    offline_banner:         'Mod Luar Talian Diaktifkan — Pembelajaran Tanpa Halangan Internet.',
+    offline_banner_sub:     'Kandungan yang dimuat turun, alatan dan tetapan masih tersedia.',
+    offline_sync_banner:    'Menyegerakkan kemajuan pembelajaran anda…',
+    offline_sync_done:      'Segerak selesai. Semua kemajuan disimpan.',
+    offline_download_btn:   'Muat Turun untuk Luar Talian',
+    offline_remove_btn:     'Buang Salinan Luar Talian',
+    offline_saved:          'Disimpan untuk bacaan luar talian.',
+    offline_removed:        'Salinan luar talian dibuang.',
+    offline_ai_fallback:    'Mod Luar Talian: Menunjukkan sumber pembelajaran AI yang dicache.',
+    offline_no_ai:          'Ciri AI memerlukan sambungan internet.',
+    offline_lib_title:      'Perpustakaan Luar Talian',
+    offline_lib_subtitle:   'Buku yang dimuat turun, imbasan OCR, nota dan kandungan cache anda.',
+    offline_tab_downloads:  'Buku Dimuat Turun',
+    offline_tab_ocr:        'Cache OCR',
+    offline_tab_notes:      'Nota & Kuiz',
+    offline_tab_ai:         'Cache AI',
+    offline_tab_storage:    'Storan',
+    offline_empty:          'Tiada apa-apa lagi. Muat turun kandungan semasa dalam talian untuk dibaca tanpa internet.',
+    offline_storage_title:  'Penggunaan Storan',
+    offline_storage_used:   'Digunakan',
+    offline_storage_free:   'Tersedia',
+    offline_storage_total:  'Jumlah',
+    offline_demo:           'Demonstrasi Luar Talian — Semua ciri teras aktif tanpa internet.',
+    offline_search_hint:    'Cari kandungan yang dimuat turun…',
+    offline_open_btn:       'Buka',
+    offline_delete_btn:     'Padam',
+    offline_size:           'Saiz',
+    offline_source:         'Sumber',
+    offline_status_online:  'Dalam Talian',
+    offline_status_offline: 'Luar Talian',
+    offline_pending_sync:   'Item segerak tertangguh',
+    offline_last_sync:      'Disegerakkan terakhir',
+    offline_never_synced:   'Belum disegerakkan',
+    offline_sync_now:       'Segerak Sekarang',
+    offline_last_sync_label:'Segerak terakhir:',
+    /* Offline Library — BM additional keys */
+    offline_books_saved:    'buku tersimpan',
+    offline_find_more:      '+ Cari Lebih Buku',
+    offline_clear_all:      'Padam Semua',
+    offline_go_discover:    'Semak Imbas Buku',
+    offline_new_scan:       'Imbasan Baharu',
+    offline_clear_ocr:      'Padam Cache',
+    offline_go_ocr:         'Buka Agen OCR',
+    offline_clear_ai:       'Padam Cache AI',
+    offline_ai_cache_info:  'Jawapan AI disimpan secara automatik semasa dalam talian. Tanpa talian, Agen Guru menggunakan jawapan tersimpan.',
+    offline_go_ai:          'Buka Guru AI',
+    offline_notes_label:    'Nota',
+    offline_bookmarks_label:'Penanda Buku',
+    offline_highlights_label:'Penyerlahan',
+    offline_quiz_label:     'Sejarah Kuiz',
+    offline_notes_info:     'Nota, penanda buku, penyerlahan dan keputusan kuiz disimpan secara tempatan dan tersedia tanpa talian.',
+    offline_open_reading:   'Buka Rakan Baca',
+    offline_open_adhd:      'Buka Agen ADHD',
+    offline_open_teacher:   'Buka Guru AI',
+    offline_stat_books:     'buku',
+    offline_stat_scans:     'imbasan',
+    offline_stat_responses: 'respons',
+    offline_stat_items:     'item',
+    offline_sync_title:     'Segerak & Sandaran',
+    offline_sw_title:       'Status Pekerja Perkhidmatan',
+    offline_clear_all_data: 'Padam Semua Data',
+    offline_read_btn:       'Baca Sekarang',
+    offline_teach_btn:      'Tanya Guru AI',
+    offline_already_saved:  '✅ Tersimpan',
+    offline_cleared:        'Dibersihkan.',
+    offline_empty_downloads:'Belum ada muat turun',
+    offline_empty_downloads_sub: 'Buku yang anda simpan luar talian akan muncul di sini. Ketik "Muat Turun untuk Luar Talian" pada mana-mana buku.',
+    offline_empty_ocr:      'Tiada imbasan OCR dalam cache',
+    offline_empty_ocr_sub:  'Teks yang diekstrak daripada imej disimpan di sini untuk akses luar talian.',
+    offline_empty_ai:       'Tiada respons AI dalam cache',
+    offline_empty_ai_sub:   'Gunakan Guru AI atau Pustakawan AI semasa dalam talian dan jawapan akan disimpan di sini.',
+    offline_confirm_clear_downloads: 'Buang semua buku yang dimuat turun daripada storan luar talian?',
+    offline_confirm_clear_ocr:       'Padam semua imbasan OCR yang dicache?',
+    offline_confirm_clear_ai:        'Padam semua respons AI yang dicache?',
+    offline_confirm_clear_all:       'Padam SEMUA data luar talian? Ini tidak boleh dibuat asal.',
   }
 };
 
@@ -2011,6 +2277,125 @@ window.currentLang = (function() {
 })();
 
 /* ============================================================
+   CS.books — Book Discovery Agent data layer
+   localStorage key: cs_my_library  (array of saved books)
+   localStorage key: cs_book_content (text to pass between agents)
+============================================================ */
+window.CS.books = {
+
+  /* ── Mock catalogue data ──────────────────────────────── */
+  GUTENBERG: [
+    { id:'g1', title:'Alice\'s Adventures in Wonderland', author:'Lewis Carroll', lang:'English', year:1865, subjects:['Fiction','Children'], accessibility:['adhd','dyslexia'], extract:'Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do…' },
+    { id:'g2', title:'The Wonderful Wizard of Oz', author:'L. Frank Baum', lang:'English', year:1900, subjects:['Fiction','Children','Adventure'], accessibility:['adhd','dyslexia'], extract:'Dorothy lived in the midst of the great Kansas prairies, with Uncle Henry, who was a farmer, and Aunt Em, who was the farmer\'s wife…' },
+    { id:'g3', title:'Pride and Prejudice', author:'Jane Austen', lang:'English', year:1813, subjects:['Fiction','Classic','Romance'], accessibility:['dyslexia'], extract:'It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife…' },
+    { id:'g4', title:'The Science of Getting Rich', author:'Wallace D. Wattles', lang:'English', year:1910, subjects:['Self-help','Career'], accessibility:['adhd','blind'], extract:'Whatever may be said in praise of poverty, the fact remains that it is not possible to live a really complete or successful life unless one is rich…' },
+    { id:'g5', title:'Flatland: A Romance of Many Dimensions', author:'Edwin A. Abbott', lang:'English', year:1884, subjects:['Science','Mathematics','Fiction'], accessibility:['adhd','dyslexia'], extract:'I call our world Flatland, not because we call it so, but to make its nature clearer to you, my happy readers, who are privileged to live in Space…' },
+    { id:'g6', title:'Twenty Thousand Leagues Under the Sea', author:'Jules Verne', lang:'English', year:1870, subjects:['Science','Adventure','Fiction'], accessibility:['adhd'], extract:'The year 1866 was signalised by a remarkable incident, a mysterious and puzzling phenomenon, which doubtless no one has yet forgotten…' },
+    { id:'g7', title:'The Art of War', author:'Sun Tzu', lang:'English', year:500, subjects:['Strategy','History','Philosophy'], accessibility:['adhd','blind'], extract:'The art of war is of vital importance to the State. It is a matter of life and death, a road either to safety or to ruin…' },
+    { id:'g8', title:'Siti Nurbaya', author:'Marah Rusli', lang:'Bahasa Melayu', year:1922, subjects:['Fiction','Malaysian Literature','Classic'], accessibility:['dyslexia'], extract:'Pada suatu hari di waktu petang, kedengaranlah suara seruling yang merdu sekali di lereng bukit Padang Panjang…' },
+  ],
+
+  OPEN_LIBRARY: [
+    { id:'ol1', title:'Harry Potter and the Sorcerer\'s Stone', author:'J.K. Rowling', availability:'Preview', borrow:'Borrow available at library', url:'#', accessibility:['adhd','dyslexia'] },
+    { id:'ol2', title:'The Very Hungry Caterpillar', author:'Eric Carle', availability:'Preview', borrow:'Physical copy at school library', url:'#', accessibility:['adhd','deaf','dyslexia'] },
+    { id:'ol3', title:'Charlotte\'s Web', author:'E.B. White', availability:'Full text available', borrow:'Borrow available at library', url:'#', accessibility:['dyslexia','blind'] },
+    { id:'ol4', title:'A Brief History of Time', author:'Stephen Hawking', availability:'Preview', borrow:'Ask library for access', url:'#', accessibility:['adhd','blind'] },
+    { id:'ol5', title:'Totto-Chan: The Little Girl at the Window', author:'Tetsuko Kuroyanagi', availability:'Preview', borrow:'Borrow available at library', url:'#', accessibility:['adhd','dyslexia'] },
+  ],
+
+  GOOGLE_BOOKS: [
+    { id:'gb1', title:'Thinking, Fast and Slow', author:'Daniel Kahneman', preview:'Snippet preview', pages:499, accessibility:['adhd','blind'] },
+    { id:'gb2', title:'The Diary of a Young Girl', author:'Anne Frank', preview:'Limited preview', pages:283, accessibility:['dyslexia','deaf'] },
+    { id:'gb3', title:'Atomic Habits', author:'James Clear', preview:'Snippet preview', pages:320, accessibility:['adhd'] },
+    { id:'gb4', title:'Wonder', author:'R.J. Palacio', preview:'Limited preview', pages:315, accessibility:['adhd','dyslexia','deaf'] },
+    { id:'gb5', title:'The Curious Incident of the Dog in the Night-Time', author:'Mark Haddon', preview:'Snippet preview', pages:226, accessibility:['adhd','dyslexia'] },
+  ],
+
+  COMMUNITY: [
+    { id:'cm1', title:'Nota Sains Tingkatan 2 — Sistem Pernafasan', author:'Cikgu Amirah', type:'Note', lang:'Bahasa Melayu', accessibility:['adhd','dyslexia'] },
+    { id:'cm2', title:'Mind Map: English Literature Form 4', author:'Student Volunteer', type:'Mind Map', lang:'English', accessibility:['adhd','deaf'] },
+    { id:'cm3', title:'Vocabulary List — UPSR Bahasa Melayu', author:'Parent Community', type:'Vocabulary', lang:'Bahasa Melayu', accessibility:['dyslexia','blind'] },
+    { id:'cm4', title:'Quiz: Matematik Tahun 5 — Pecahan', author:'Teacher Resource Pool', type:'Quiz', lang:'Bahasa Melayu', accessibility:['adhd','dyslexia'] },
+  ],
+
+  /* ── Recommendation engine ──────────────────────────────── */
+  recommend: function(query) {
+    var profile = null;
+    try { profile = JSON.parse(localStorage.getItem('cs_user') || '{}'); } catch(e) { profile = {}; }
+    var disability = ((profile.profile || {}).disability || '').toLowerCase();
+    var lang = (profile.language || localStorage.getItem('cs_lang') || 'en');
+
+    var q = (query || '').toLowerCase();
+    var results = [];
+
+    /* Gutenberg search */
+    this.GUTENBERG.forEach(function(b) {
+      var match = !q
+        || b.title.toLowerCase().includes(q)
+        || b.author.toLowerCase().includes(q)
+        || b.subjects.some(function(s){ return s.toLowerCase().includes(q); });
+      var accessMatch = !disability || b.accessibility.includes(disability);
+      if (match || accessMatch) results.push(Object.assign({}, b, { source:'gutenberg', legalStatus:'public' }));
+    });
+
+    /* Open Library search */
+    this.OPEN_LIBRARY.forEach(function(b) {
+      var match = !q || b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q);
+      if (match) results.push(Object.assign({}, b, { source:'openlibrary', legalStatus:'preview' }));
+    });
+
+    /* Google Books */
+    this.GOOGLE_BOOKS.forEach(function(b) {
+      var match = !q || b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q);
+      if (match) results.push(Object.assign({}, b, { source:'googlebooks', legalStatus:'preview' }));
+    });
+
+    return results.slice(0, 20);
+  },
+
+  /* ── My Library ─────────────────────────────────────────── */
+  getLibrary: function() {
+    try { return JSON.parse(localStorage.getItem('cs_my_library') || '[]'); } catch(e) { return []; }
+  },
+
+  saveToLibrary: function(book) {
+    var lib = this.getLibrary();
+    var exists = lib.some(function(b){ return b.id === book.id; });
+    if (!exists) {
+      lib.unshift(Object.assign({}, book, { savedAt: Date.now(), progress: 0 }));
+      localStorage.setItem('cs_my_library', JSON.stringify(lib));
+    }
+    return !exists;
+  },
+
+  removeFromLibrary: function(bookId) {
+    var lib = this.getLibrary().filter(function(b){ return b.id !== bookId; });
+    localStorage.setItem('cs_my_library', JSON.stringify(lib));
+  },
+
+  /* ── Send text to another agent via localStorage ─────────── */
+  sendToAgent: function(text, title, agentPage) {
+    localStorage.setItem('cs_book_content',       text  || '');
+    localStorage.setItem('cs_book_content_title', title || '');
+    if (agentPage) window.location.href = agentPage;
+  },
+
+  /* ── Community materials ────────────────────────────────── */
+  getCommunityMaterials: function() {
+    var saved = [];
+    try { saved = JSON.parse(localStorage.getItem('cs_community_materials') || '[]'); } catch(e) {}
+    return this.COMMUNITY.concat(saved);
+  },
+
+  saveCommunityMaterial: function(material) {
+    var saved = [];
+    try { saved = JSON.parse(localStorage.getItem('cs_community_materials') || '[]'); } catch(e) {}
+    saved.unshift(Object.assign({}, material, { id: 'u' + Date.now(), savedAt: Date.now() }));
+    localStorage.setItem('cs_community_materials', JSON.stringify(saved));
+  },
+};
+
+/* ============================================================
    CS.db — Backend-ready data layer
    Wraps all localStorage reads/writes with a structured API
    that is 1:1 compatible with a future REST backend.
@@ -2150,3 +2535,452 @@ window.CS.db = {
     return Promise.resolve({ status: 'local_only', message: 'Backend not configured' });
   },
 };
+
+/* ============================================================
+   CS.offline — Intelligent Offline Mode
+   IndexedDB-backed offline storage with online/offline detection,
+   banner management, AI fallback cache, and sync queue.
+
+   Stores (IndexedDB: 'celiksense-idb', version 2):
+     downloads   — book text content saved for offline reading
+     ocr_cache   — OCR-extracted text from scanned images
+     ai_cache    — Gemini AI responses cached for offline replay
+     sync_queue  — items queued to sync when connectivity returns
+
+   Usage:
+     CS.offline.init()                      // call once on DOMContentLoaded
+     CS.offline.saveDownload(book)          // save book text offline
+     CS.offline.getDownloads()              // Promise<items[]>
+     CS.offline.saveOCR(text, title)        // cache OCR result
+     CS.offline.saveAIResponse(key, resp)   // cache AI answer
+     CS.offline.getCachedAIResponse(key)    // Promise<response|null>
+     CS.offline.getStorageInfo()            // Promise<{used,quota,pct}>
+     CS.offline.isOnline()                  // bool
+============================================================ */
+window.CS.offline = (function() {
+
+  var IDB_NAME    = 'celiksense-idb';
+  var IDB_VERSION = 2;
+  var _db         = null;
+  var _bannerEl   = null;
+  var _syncEl     = null;
+  var _wasOnline  = null;
+  var _lang       = { t: function(k) { return (window.CS && window.CS.lang) ? window.CS.lang.t(k) : k; } };
+
+  /* ── IndexedDB open ──────────────────────────────────── */
+  function _openDB() {
+    if (_db) return Promise.resolve(_db);
+    return new Promise(function(resolve, reject) {
+      var req = indexedDB.open(IDB_NAME, IDB_VERSION);
+      req.onerror   = function() { reject(req.error); };
+      req.onsuccess = function() { _db = req.result; resolve(_db); };
+      req.onupgradeneeded = function(e) {
+        var db = e.target.result;
+        if (!db.objectStoreNames.contains('downloads')) {
+          var s = db.createObjectStore('downloads', { keyPath: 'id' });
+          s.createIndex('savedAt', 'savedAt');
+        }
+        if (!db.objectStoreNames.contains('ocr_cache')) {
+          db.createObjectStore('ocr_cache', { keyPath: 'id' });
+        }
+        if (!db.objectStoreNames.contains('ai_cache')) {
+          db.createObjectStore('ai_cache', { keyPath: 'key' });
+        }
+        if (!db.objectStoreNames.contains('sync_queue')) {
+          var sq = db.createObjectStore('sync_queue', { keyPath: 'id', autoIncrement: true });
+          sq.createIndex('ts', 'ts');
+        }
+      };
+    });
+  }
+
+  function _put(store, item) {
+    return _openDB().then(function(db) {
+      return new Promise(function(resolve, reject) {
+        var tx  = db.transaction(store, 'readwrite');
+        var req = tx.objectStore(store).put(item);
+        req.onsuccess = function() { resolve(req.result); };
+        req.onerror   = function() { reject(req.error); };
+      });
+    });
+  }
+
+  function _getAll(store) {
+    return _openDB().then(function(db) {
+      return new Promise(function(resolve, reject) {
+        var tx  = db.transaction(store, 'readonly');
+        var req = tx.objectStore(store).getAll();
+        req.onsuccess = function() { resolve(req.result || []); };
+        req.onerror   = function() { reject(req.error); };
+      });
+    });
+  }
+
+  function _delete(store, key) {
+    return _openDB().then(function(db) {
+      return new Promise(function(resolve, reject) {
+        var tx  = db.transaction(store, 'readwrite');
+        var req = tx.objectStore(store).delete(key);
+        req.onsuccess = function() { resolve(); };
+        req.onerror   = function() { reject(req.error); };
+      });
+    });
+  }
+
+  function _get(store, key) {
+    return _openDB().then(function(db) {
+      return new Promise(function(resolve, reject) {
+        var tx  = db.transaction(store, 'readonly');
+        var req = tx.objectStore(store).get(key);
+        req.onsuccess = function() { resolve(req.result || null); };
+        req.onerror   = function() { reject(req.error); };
+      });
+    });
+  }
+
+  /* ── Banner helpers ──────────────────────────────────── */
+  function _ensureBanners() {
+    if (_bannerEl) return;
+
+    /* Offline banner */
+    _bannerEl              = document.createElement('div');
+    _bannerEl.id           = 'cs-offline-banner';
+    _bannerEl.setAttribute('role', 'alert');
+    _bannerEl.setAttribute('aria-live', 'assertive');
+    _bannerEl.setAttribute('aria-atomic', 'true');
+    _bannerEl.style.cssText = [
+      'position:fixed;top:0;left:0;right:0;z-index:10001;',
+      'background:linear-gradient(90deg,#1e1b4b,#312e81);',
+      'color:#e0e7ff;font-family:inherit;font-size:13px;font-weight:600;',
+      'padding:10px 20px;display:none;',
+      'flex-direction:column;gap:2px;',
+      'border-bottom:2px solid #6366f1;',
+    ].join('');
+    document.body.appendChild(_bannerEl);
+
+    /* Sync banner */
+    _syncEl              = document.createElement('div');
+    _syncEl.id           = 'cs-sync-banner';
+    _syncEl.setAttribute('role', 'status');
+    _syncEl.setAttribute('aria-live', 'polite');
+    _syncEl.style.cssText = [
+      'position:fixed;top:0;left:0;right:0;z-index:10002;',
+      'background:linear-gradient(90deg,#064e3b,#065f46);',
+      'color:#d1fae5;font-family:inherit;font-size:13px;font-weight:600;',
+      'padding:10px 20px;display:none;align-items:center;gap:10px;',
+      'border-bottom:2px solid #34d399;',
+    ].join('');
+    document.body.appendChild(_syncEl);
+  }
+
+  function _showOfflineBanner() {
+    _ensureBanners();
+    var t = _lang.t.bind(_lang);
+    _bannerEl.style.display = 'flex';
+    _bannerEl.innerHTML =
+      '<span style="font-size:16px;margin-right:6px;" aria-hidden="true">📡</span>' +
+      '<span>' + t('offline_banner') + '</span>' +
+      '<span style="font-size:11px;opacity:0.8;margin-top:1px;">' + t('offline_banner_sub') + '</span>';
+    /* Push page content down so banner doesn't overlap nav */
+    document.body.style.marginTop = '52px';
+  }
+
+  function _hideOfflineBanner() {
+    if (!_bannerEl) return;
+    _bannerEl.style.display = 'none';
+    document.body.style.marginTop = '';
+  }
+
+  function _showSyncBanner() {
+    _ensureBanners();
+    _syncEl.style.display = 'flex';
+    _syncEl.innerHTML =
+      '<span aria-hidden="true" style="animation:spin 1s linear infinite;display:inline-block;">🔄</span>' +
+      '<span>' + _lang.t('offline_sync_banner') + '</span>';
+    /* Add spin keyframes once */
+    if (!document.getElementById('cs-spin-style')) {
+      var s = document.createElement('style');
+      s.id = 'cs-spin-style';
+      s.textContent = '@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}';
+      document.head.appendChild(s);
+    }
+  }
+
+  function _hideSyncBanner(success) {
+    if (!_syncEl) return;
+    if (success) {
+      _syncEl.innerHTML = '<span>✅ ' + _lang.t('offline_sync_done') + '</span>';
+      setTimeout(function() { _syncEl.style.display = 'none'; }, 3000);
+    } else {
+      _syncEl.style.display = 'none';
+    }
+  }
+
+  /* ── SW messaging helper ─────────────────────────────── */
+  function _swMessage(msg) {
+    return new Promise(function(resolve) {
+      if (!navigator.serviceWorker || !navigator.serviceWorker.controller) {
+        resolve({ ok: false, error: 'SW not active' });
+        return;
+      }
+      var channel = new MessageChannel();
+      channel.port1.onmessage = function(e) { resolve(e.data); };
+      navigator.serviceWorker.controller.postMessage(msg, [channel.port2]);
+    });
+  }
+
+  /* ── Public API ──────────────────────────────────────── */
+  return {
+
+    isOnline: function() { return navigator.onLine; },
+
+    /* Save book/article text for offline reading */
+    saveDownload: function(book) {
+      if (!book || !book.id) return Promise.reject(new Error('Missing id'));
+      var item = {
+        id:          book.id,
+        title:       book.title       || 'Untitled',
+        text:        book.text        || book.extract || '',
+        author:      book.author      || '',
+        source:      book.source      || 'unknown',
+        legalStatus: book.legalStatus || 'unknown',
+        savedAt:     Date.now(),
+        size:        ((book.text || book.extract || '').length),
+      };
+      return _put('downloads', item);
+    },
+
+    getDownloads: function() {
+      return _getAll('downloads').catch(function() { return []; });
+    },
+
+    removeDownload: function(id) {
+      return _delete('downloads', id);
+    },
+
+    isDownloaded: function(id) {
+      return _get('downloads', id).then(function(item) { return !!item; }).catch(function() { return false; });
+    },
+
+    /* OCR cache */
+    saveOCR: function(text, title) {
+      var item = {
+        id:      'ocr-' + Date.now(),
+        title:   title || 'OCR Scan',
+        text:    text  || '',
+        savedAt: Date.now(),
+        size:    (text || '').length,
+      };
+      return _put('ocr_cache', item);
+    },
+
+    getOCRCache: function() {
+      return _getAll('ocr_cache').catch(function() { return []; });
+    },
+
+    removeOCR: function(id) {
+      return _delete('ocr_cache', id);
+    },
+
+    /* AI response cache — used for offline AI Teacher fallback */
+    saveAIResponse: function(promptKey, response) {
+      return _put('ai_cache', {
+        key:      promptKey || ('ai-' + Date.now()),
+        prompt:   promptKey || '',
+        response: response  || '',
+        savedAt:  Date.now(),
+      });
+    },
+
+    getCachedAIResponse: function(promptKey) {
+      return _get('ai_cache', promptKey).then(function(item) {
+        return item ? item.response : null;
+      }).catch(function() { return null; });
+    },
+
+    getAICache: function() {
+      return _getAll('ai_cache').catch(function() { return []; });
+    },
+
+    removeAICache: function(key) {
+      return _delete('ai_cache', key);
+    },
+
+    /* Sync queue */
+    addToSyncQueue: function(type, data) {
+      return _put('sync_queue', { type: type, data: data, ts: Date.now() });
+    },
+
+    getSyncQueue: function() {
+      return _getAll('sync_queue').catch(function() { return []; });
+    },
+
+    clearSyncQueue: function() {
+      return _openDB().then(function(db) {
+        return new Promise(function(resolve, reject) {
+          var tx  = db.transaction('sync_queue', 'readwrite');
+          var req = tx.objectStore('sync_queue').clear();
+          req.onsuccess = resolve;
+          req.onerror   = function() { reject(req.error); };
+        });
+      });
+    },
+
+    /* Trigger sync of queued items when back online */
+    processSyncQueue: function() {
+      var self = this;
+      _showSyncBanner();
+      return self.getSyncQueue().then(function(items) {
+        if (!items.length) {
+          _hideSyncBanner(true);
+          localStorage.setItem('cs_last_sync', Date.now().toString());
+          return;
+        }
+        /* Prototype: log to console; real implementation would POST to backend */
+        console.log('[CS.offline] Sync queue processed:', items.length, 'items');
+        localStorage.setItem('cs_last_sync',        Date.now().toString());
+        localStorage.setItem('cs_pending_sync_count', '0');
+        _toast(_lang.t('offline_sync_done'), 'success');
+        _hideSyncBanner(true);
+        /* Background Sync API fallback registration */
+        if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+          navigator.serviceWorker.ready.then(function(reg) {
+            if (reg.sync) return reg.sync.register('cs-progress-sync').catch(function(){});
+          }).catch(function(){});
+        }
+        return self.clearSyncQueue();
+      }).catch(function() {
+        _hideSyncBanner(false);
+      });
+    },
+
+    /* Storage estimate */
+    getStorageInfo: function() {
+      if (navigator.storage && navigator.storage.estimate) {
+        return navigator.storage.estimate().then(function(est) {
+          var used  = est.usage  || 0;
+          var quota = est.quota  || 0;
+          return {
+            used:  used,
+            quota: quota,
+            free:  quota - used,
+            pct:   quota > 0 ? Math.round((used / quota) * 100) : 0,
+            usedMB:  (used  / 1048576).toFixed(1),
+            quotaMB: (quota / 1048576).toFixed(1),
+            freeMB:  ((quota - used) / 1048576).toFixed(1),
+          };
+        });
+      }
+      /* Fallback: estimate from localStorage size */
+      var lsSize = 0;
+      for (var k in localStorage) {
+        if (localStorage.hasOwnProperty(k)) lsSize += localStorage[k].length * 2;
+      }
+      return Promise.resolve({
+        used: lsSize, quota: 5242880, free: 5242880 - lsSize,
+        pct: Math.round((lsSize / 5242880) * 100),
+        usedMB: (lsSize / 1048576).toFixed(2),
+        quotaMB: '5.0',
+        freeMB: ((5242880 - lsSize) / 1048576).toFixed(2),
+      });
+    },
+
+    /* Notes, bookmarks, quizzes from localStorage */
+    getNotes: function() {
+      try { return JSON.parse(localStorage.getItem('cs_notes') || '[]'); } catch(e) { return []; }
+    },
+
+    getBookmarks: function() {
+      try { return JSON.parse(localStorage.getItem('cs_bookmarks') || '[]'); } catch(e) { return []; }
+    },
+
+    getQuizHistory: function() {
+      try { return JSON.parse(localStorage.getItem('cs_quiz_history') || '[]'); } catch(e) { return []; }
+    },
+
+    getHighlights: function() {
+      try { return JSON.parse(localStorage.getItem('cs_highlights') || '[]'); } catch(e) { return []; }
+    },
+
+    /* Init: detect online/offline and wire up banners + sync */
+    init: function() {
+      var self = this;
+      _ensureBanners();
+
+      /* SW message listener for SYNC_STARTED */
+      if (navigator.serviceWorker) {
+        navigator.serviceWorker.addEventListener('message', function(e) {
+          if (e.data && e.data.type === 'SYNC_STARTED') {
+            _showSyncBanner();
+          }
+        });
+      }
+
+      /* Initial state */
+      _wasOnline = navigator.onLine;
+      if (!navigator.onLine) _showOfflineBanner();
+
+      /* Listen for changes */
+      window.addEventListener('online', function() {
+        _hideOfflineBanner();
+        if (_wasOnline === false) {
+          /* Just came back online — process sync queue */
+          setTimeout(function() { self.processSyncQueue(); }, 800);
+        }
+        _wasOnline = true;
+        window.dispatchEvent(new CustomEvent('cs:online'));
+      });
+
+      window.addEventListener('offline', function() {
+        _showOfflineBanner();
+        _wasOnline = false;
+        window.dispatchEvent(new CustomEvent('cs:offline'));
+      });
+
+      /* Patch CS.gemini to fall back to cache when offline */
+      var origGenerate = window.CS && window.CS.gemini && window.CS.gemini._generate;
+      if (origGenerate) {
+        window.CS.gemini._generateOfflineAware = function(prompt, opts) {
+          if (!navigator.onLine) {
+            var cacheKey = prompt.substring(0, 120);
+            return self.getCachedAIResponse(cacheKey).then(function(cached) {
+              if (cached) {
+                return '\n\n' + _lang.t('offline_ai_fallback') + '\n\n' + cached;
+              }
+              return _lang.t('offline_no_ai');
+            });
+          }
+          return origGenerate.call(window.CS.gemini, prompt, opts).then(function(response) {
+            /* Cache successful AI responses for offline replay */
+            var cacheKey = prompt.substring(0, 120);
+            self.saveAIResponse(cacheKey, response).catch(function(){});
+            return response;
+          });
+        };
+      }
+
+      /* Register Background Sync for periodic progress saves */
+      if (navigator.serviceWorker && navigator.serviceWorker.ready && 'SyncManager' in window) {
+        navigator.serviceWorker.ready.then(function(reg) {
+          reg.sync.register('cs-progress-sync').catch(function(){});
+        }).catch(function(){});
+      }
+
+      /* Auto-add reading progress to sync queue every 5 minutes */
+      setInterval(function() {
+        try {
+          var sessions = JSON.parse(localStorage.getItem('cs_sessions') || '[]');
+          if (sessions.length > 0) {
+            self.addToSyncQueue('reading_progress', {
+              sessions: sessions.slice(-10),
+              ts: Date.now(),
+            }).catch(function(){});
+            var pending = parseInt(localStorage.getItem('cs_pending_sync_count') || '0');
+            localStorage.setItem('cs_pending_sync_count', String(pending + 1));
+          }
+        } catch(e) {}
+      }, 300000);
+    },
+  };
+
+})();

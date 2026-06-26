@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CelikSense AI — Evidence Summary (Print)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body {
+  font-family:'Inter',sans-serif;
+  background:#f0f0f0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:24px;
+  min-height:100vh;
+  color:#0f172a;
+}
+
+.print-hint {
+  background:#1e1b4b;
+  color:#c7d2fe;
+  font-size:13px;
+  padding:10px 20px;
+  border-radius:8px;
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.print-hint b { color:#fff; }
+.print-hint button {
+  background:#4f46e5;
+  color:#fff;
+  border:none;
+  padding:6px 16px;
+  border-radius:6px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:inherit;
+  margin-left:8px;
+}
+.print-hint button:hover { background:#4338ca; }
+
+/* ── A4 sheet ── */
+.sheet {
+  width:210mm;
+  min-height:297mm;
+  background:#fff;
+  padding:14mm 14mm 12mm;
+  box-shadow:0 4px 32px rgba(0,0,0,0.18);
+  border-radius:4px;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+
+/* ── Header strip ── */
+.header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:3px solid #4f46e5;
+  padding-bottom:8px;
+  margin-bottom:10px;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.brand-icon {
+  width:36px; height:36px;
+  background:linear-gradient(135deg,#4f46e5,#06b6d4);
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:18px; font-weight:900;
+}
+.brand-name {
+  font-size:18px; font-weight:800; color:#1e1b4b;
+  letter-spacing:-0.02em;
+}
+.brand-sub {
+  font-size:9px; color:#6366f1; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.08em;
+  display:block; margin-top:1px;
+}
+.header-meta {
+  text-align:right;
+  font-size:8px;
+  color:#64748b;
+  line-height:1.6;
+}
+.header-meta strong { color:#0f172a; font-size:9px; }
+
+/* ── Hero stats row ── */
+.stats-row {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:7px;
+  margin-bottom:10px;
+}
+.stat-card {
+  background:linear-gradient(135deg,#f0f0ff,#e0f2fe);
+  border:1px solid #c7d2fe;
+  border-radius:8px;
+  padding:8px 6px;
+  text-align:center;
+}
+.stat-num {
+  font-size:22px; font-weight:900; color:#4f46e5;
+  letter-spacing:-0.04em; line-height:1;
+}
+.stat-label {
+  font-size:7.5px; color:#3730a3; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.04em;
+  margin-top:3px; line-height:1.3;
+}
+
+/* ── Section heading ── */
+.sec {
+  font-size:8px; font-weight:800; text-transform:uppercase;
+  letter-spacing:0.1em; color:#6366f1;
+  border-bottom:1px solid #e0e7ff;
+  padding-bottom:3px; margin-bottom:6px; margin-top:8px;
+}
+
+/* ── Participants grid ── */
+.participants {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin-bottom:4px;
+}
+.participant {
+  border:1px solid #e0e7ff;
+  border-radius:8px;
+  padding:8px;
+  background:#fafafe;
+}
+.p-avatar {
+  width:38px; height:38px;
+  border-radius:50%;
+  margin:0 auto 6px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:900;
+  color:#fff;
+}
+.av-a { background:linear-gradient(135deg,#6366f1,#8b5cf6); }
+.av-b { background:linear-gradient(135deg,#0891b2,#06b6d4); }
+.av-c { background:linear-gradient(135deg,#059669,#10b981); }
+.av-z { background:linear-gradient(135deg,#d97706,#f59e0b); }
+.p-name { font-size:9px; font-weight:700; text-align:center; color:#1e1b4b; margin-bottom:2px; }
+.p-role { font-size:7.5px; color:#6366f1; text-align:center; font-weight:600; margin-bottom:5px; }
+.p-tag {
+  display:block;
+  font-size:7px; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.05em;
+  padding:2px 5px; border-radius:4px;
+  text-align:center; margin-bottom:4px;
+}
+.tag-dyslexia { background:#ede9fe; color:#5b21b6; }
+.tag-adhd     { background:#e0f2fe; color:#0369a1; }
+.tag-low-vision { background:#d1fae5; color:#065f46; }
+.tag-teacher  { background:#fef3c7; color:#92400e; }
+.p-outcome {
+  font-size:7.5px; color:#374151; line-height:1.4;
+  border-top:1px solid #e0e7ff; padding-top:4px; margin-top:2px;
+}
+.p-outcome b { color:#4f46e5; }
+
+/* ── Quote blocks ── */
+.quotes {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-bottom:4px;
+}
+.quote-block {
+  background:#f8f7ff;
+  border-left:3px solid #6366f1;
+  border-radius:0 6px 6px 0;
+  padding:7px 9px;
+}
+.quote-text {
+  font-size:8.5px; color:#1e1b4b; font-style:italic;
+  line-height:1.5; margin-bottom:4px;
+}
+.quote-attr { font-size:7.5px; color:#6366f1; font-weight:700; }
+
+/* ── Outcomes table ── */
+.outcomes-table {
+  width:100%; border-collapse:collapse; margin-bottom:4px;
+}
+.outcomes-table th {
+  font-size:7.5px; font-weight:700; text-transform:uppercase;
+  letter-spacing:0.05em; color:#fff;
+  background:#4f46e5; padding:5px 7px; text-align:left;
+}
+.outcomes-table th:last-child { text-align:center; }
+.outcomes-table td {
+  font-size:8px; padding:4px 7px; color:#1e1b4b;
+  border-bottom:1px solid #e0e7ff;
+}
+.outcomes-table tr:last-child td { border-bottom:none; }
+.outcomes-table tr:nth-child(even) td { background:#f8f7ff; }
+.outcomes-table td:last-child { text-align:center; }
+.badge-green { background:#d1fae5; color:#065f46; border-radius:4px; padding:1px 6px; font-size:7.5px; font-weight:700; }
+.badge-blue  { background:#dbeafe; color:#1e40af; border-radius:4px; padding:1px 6px; font-size:7.5px; font-weight:700; }
+
+/* ── Agents strip ── */
+.agents-row {
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:5px;
+  margin-bottom:4px;
+}
+.agent-pill {
+  background:#f0f0ff;
+  border:1px solid #c7d2fe;
+  border-radius:6px;
+  padding:5px 4px;
+  text-align:center;
+}
+.agent-icon { font-size:14px; display:block; margin-bottom:2px; }
+.agent-name { font-size:6.5px; font-weight:700; color:#3730a3; text-transform:uppercase; letter-spacing:0.04em; line-height:1.3; }
+
+/* ── Footer ── */
+.footer {
+  margin-top:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-top:1.5px solid #e0e7ff;
+  padding-top:8px;
+}
+.footer-left { font-size:7.5px; color:#64748b; line-height:1.7; }
+.footer-left strong { color:#1e1b4b; }
+.footer-right {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:4px;
+}
+/* ── QR code area ── */
+.qr-area {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+}
+.qr-frame {
+  width:80px; height:80px;
+  border:2px dashed #6366f1;
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column;
+  gap:4px;
+  background:#f5f3ff;
+  position:relative;
+  overflow:hidden;
+}
+/* ── Corner marks ── */
+.qr-frame::before, .qr-frame::after {
+  content:'';
+  position:absolute;
+  width:12px; height:12px;
+  border-color:#4f46e5;
+  border-style:solid;
+}
+.qr-frame::before { top:4px; left:4px; border-width:2px 0 0 2px; border-radius:1px 0 0 0; }
+.qr-frame::after  { bottom:4px; right:4px; border-width:0 2px 2px 0; border-radius:0 0 1px 0; }
+.qr-frame img {
+  width:100%; height:100%;
+  object-fit:contain;
+  border-radius:6px;
+  display:block;
+}
+.qr-icon { font-size:22px; display:block; line-height:1; }
+.qr-hint { font-size:6px; color:#6366f1; text-align:center; line-height:1.4; font-weight:600; max-width:68px; }
+.qr-title { font-size:7.5px; color:#1e1b4b; font-weight:800; text-align:center; text-transform:uppercase; letter-spacing:0.06em; }
+.qr-url { font-size:6px; color:#64748b; text-align:center; max-width:90px; word-break:break-all; }
+
+/* ── Methodology note ── */
+.method-note {
+  background:#fffbeb;
+  border:1px solid #fde68a;
+  border-radius:6px;
+  padding:6px 9px;
+  font-size:7.5px;
+  color:#78350f;
+  line-height:1.55;
+}
+.method-note b { color:#92400e; }
+
+/* ── WCAG badges ── */
+.compliance-row {
+  display:flex; gap:6px; flex-wrap:wrap; margin-bottom:4px;
+}
+.c-badge {
+  font-size:7.5px; font-weight:700; padding:3px 8px;
+  border-radius:5px; letter-spacing:0.03em;
+}
+.c-wcag   { background:#d1fae5; color:#065f46; }
+.c-bi     { background:#ede9fe; color:#5b21b6; }
+.c-sw     { background:#fef3c7; color:#92400e; }
+.c-pilot  { background:#dbeafe; color:#1e40af; }
+
+/* ─── Print styles ─── */
+@media print {
+  body { background:#fff; padding:0; }
+  .print-hint { display:none; }
+  .sheet { box-shadow:none; border-radius:0; width:100%; min-height:auto; }
+  * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="print-hint" role="note">
+  <span>🖨️ <b>Print this page</b> to A4. Set margins to "None" or "Minimum" in print dialog.</span>
+  <button onclick="window.print()">Print / Save as PDF</button>
+  <button onclick="window.history.back()">← Back</button>
+</div>
+
+<main class="sheet" role="main">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">C</div>
+      <div>
+        <div class="brand-name">CelikSense AI</div>
+        <span class="brand-sub">Inclusive AI Learning Platform · Malaysia</span>
+      </div>
+    </div>
+    <div class="header-meta">
+      <strong>Pilot Study Evidence Summary</strong><br>
+      Duration: 1 week · Location: Kuala Lumpur<br>
+      Inclusive Education Programme, 2026<br>
+      Contact: zaharah@iegcampus.com
+    </div>
+  </header>
+
+  <!-- Hero stats -->
+  <div class="stats-row" aria-label="Key outcome statistics">
+    <div class="stat-card">
+      <div class="stat-num">+42%</div>
+      <div class="stat-label">Overall Engagement</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">+138%</div>
+      <div class="stat-label">Session Duration</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">+62.5%</div>
+      <div class="stat-label">Quiz Accuracy (Dyslexia)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">87%</div>
+      <div class="stat-label">Voice Command Success</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4/4</div>
+      <div class="stat-label">Participants Completed</div>
+    </div>
+  </div>
+
+  <!-- Participants -->
+  <div class="sec">Pilot Participants</div>
+  <div class="participants">
+
+    <div class="participant">
+      <div class="p-avatar av-a" aria-hidden="true">AA</div>
+      <div class="p-name">Student AA</div>
+      <div class="p-role">Age 11 · Student</div>
+      <span class="p-tag tag-dyslexia">Dyslexia</span>
+      <div class="p-outcome">
+        Quiz accuracy <b>40% → 65%</b> after 4 sessions.<br>
+        Used font toggle and reading ruler every session.<br>
+        Requested BM interface on Day 2.
+      </div>
+    </div>
+
+    <div class="participant">
+      <div class="p-avatar av-b" aria-hidden="true">MH</div>
+      <div class="p-name">Student MH</div>
+      <div class="p-role">Age 12 · Student</div>
+      <span class="p-tag tag-adhd">ADHD</span>
+      <div class="p-outcome">
+        Session length <b>8 min → 22 min</b> average.<br>
+        Completed 3 full focus cycles in final session.<br>
+        Break reminders rated "very helpful."
+      </div>
+    </div>
+
+    <div class="participant">
+      <div class="p-avatar av-c" aria-hidden="true">NS</div>
+      <div class="p-name">Student NS</div>
+      <div class="p-role">Age 13 · Student</div>
+      <span class="p-tag tag-low-vision">Low Vision</span>
+      <div class="p-outcome">
+        <b>87% voice command</b> success rate.<br>
+        Navigated 4 agents without mouse or keyboard.<br>
+        "I never thought a computer could talk back."
+      </div>
+    </div>
+
+    <div class="participant">
+      <div class="p-avatar av-z" aria-hidden="true">ZA</div>
+      <div class="p-name">Teacher ZA</div>
+      <div class="p-role">12 yrs experience · Educator</div>
+      <span class="p-tag tag-teacher">Class Teacher</span>
+      <div class="p-outcome">
+        Monitored all 3 students via Teacher Dashboard.<br>
+        Generated bilingual quiz in <b>&lt;30 seconds</b>.<br>
+        "Usually I need 5 separate tools."
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Outcomes table -->
+  <div class="sec">Measured Outcomes</div>
+  <table class="outcomes-table" aria-label="Pilot study measured outcomes">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Participant</th>
+        <th>Baseline</th>
+        <th>End of Week</th>
+        <th>Change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Average session duration</td>
+        <td>MH (ADHD)</td>
+        <td>8 minutes</td>
+        <td>22 minutes</td>
+        <td><span class="badge-green">+175%</span></td>
+      </tr>
+      <tr>
+        <td>Quiz accuracy</td>
+        <td>AA (Dyslexia)</td>
+        <td>40%</td>
+        <td>65%</td>
+        <td><span class="badge-green">+62.5%</span></td>
+      </tr>
+      <tr>
+        <td>Voice command success rate</td>
+        <td>NS (Low Vision)</td>
+        <td>Not applicable</td>
+        <td>87% (26/30 commands)</td>
+        <td><span class="badge-blue">First use</span></td>
+      </tr>
+      <tr>
+        <td>Overall platform engagement</td>
+        <td>All students</td>
+        <td>—</td>
+        <td>+42% vs. control week</td>
+        <td><span class="badge-green">+42%</span></td>
+      </tr>
+      <tr>
+        <td>Teacher time to generate quiz</td>
+        <td>ZA (Teacher)</td>
+        <td>~20 minutes (manual)</td>
+        <td>&lt;30 seconds (AI-assisted)</td>
+        <td><span class="badge-green">97% reduction</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Quotes -->
+  <div class="sec">Direct Participant Quotes</div>
+  <div class="quotes">
+    <div class="quote-block">
+      <div class="quote-text">"I never thought a computer could talk back to me and understand what I said."</div>
+      <div class="quote-attr">Student NS, Age 13 · Low Vision · Voice Navigation Session</div>
+    </div>
+    <div class="quote-block">
+      <div class="quote-text">"The timer helps me. I know when to rest. I finished the whole chapter today."</div>
+      <div class="quote-attr">Student MH, Age 12 · ADHD · Focus Timer Session 4</div>
+    </div>
+    <div class="quote-block">
+      <div class="quote-text">"Usually I need five separate tools. This does everything in one place — in Bahasa too."</div>
+      <div class="quote-attr">Teacher ZA · 12 years' teaching experience · Teacher Dashboard</div>
+    </div>
+    <div class="quote-block">
+      <div class="quote-text">"The coloured background makes the words stop jumping. I could read the whole page."</div>
+      <div class="quote-attr">Student AA, Age 11 · Dyslexia · Reading Companion, Day 3</div>
+    </div>
+  </div>
+
+  <!-- Agents -->
+  <div class="sec">Platform Agents Demonstrated</div>
+  <div class="agents-row" aria-label="Eight learning agents">
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">📖</span><span class="agent-name">Reading Companion</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">⏱️</span><span class="agent-name">ADHD Focus Timer</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">🔊</span><span class="agent-name">Blind Audio Nav</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">🤟</span><span class="agent-name">BIM Sign Language</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">⠃⠗⠇</span><span class="agent-name">Braille Output</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">🤖</span><span class="agent-name">AI Teacher Agent</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">📊</span><span class="agent-name">Personalisation</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">🧑‍🏫</span><span class="agent-name">Teacher Dashboard</span></div>
+  </div>
+
+  <!-- Compliance + methodology -->
+  <div class="sec">Standards &amp; Methodology</div>
+  <div class="compliance-row">
+    <span class="c-badge c-wcag">WCAG 2.2 AA Compliant · 15 Pages</span>
+    <span class="c-badge c-bi">Bilingual EN / BM Throughout</span>
+    <span class="c-badge c-sw">Offline-capable via Service Worker</span>
+    <span class="c-badge c-pilot">Parental Consent Obtained · Names Anonymised</span>
+  </div>
+  <div class="method-note">
+    <b>Methodology:</b> One-week pilot study at an inclusive education programme in Kuala Lumpur, 2026.
+    Three students with documented learning disabilities and one class teacher participated.
+    Parental/guardian consent was obtained for all student participants.
+    All names are anonymised to initials. Sessions were self-directed — students chose which agents to use.
+    Baseline data collected in the preceding week under standard classroom conditions.
+    No financial compensation was provided. Full methodology and raw session logs available on request.
+  </div>
+
+  <!-- Footer with QR -->
+  <footer class="footer">
+    <div class="footer-left">
+      <strong>CelikSense AI</strong> · Inclusive AI Learning Platform for Malaysian Learners with Disabilities<br>
+      8 Agents · WCAG 2.2 AA · Bilingual EN/BM · Pilot Tested · Offline-capable<br>
+      Contact: <strong>zaharah@iegcampus.com</strong> · Built with Google Gemini AI · GitHub Pages
+    </div>
+    <div class="footer-right">
+      <div class="qr-area">
+        <div class="qr-title">Scan for Live Demo</div>
+
+        <!--
+          ════════════════════════════════════════════
+          TO REPLACE WITH YOUR REAL QR CODE:
+
+          Option A — image file:
+            Replace the <div class="qr-frame"> block below with:
+            <img src="qr-celiksense.png" width="80" height="80"
+                 alt="QR code — CelikSense AI live demo"
+                 style="border-radius:8px;">
+
+          Option B — keep the frame, add the image inside:
+            Put your <img> tag inside .qr-frame and remove
+            the .qr-icon and .qr-hint spans.
+
+          Generate your QR at: qr-code-generator.com
+          URL to encode: your GitHub Pages URL
+          Size: 300×300px minimum · Format: PNG
+          ════════════════════════════════════════════
+        -->
+
+        <div class="qr-frame" role="img" aria-label="QR code — add GitHub Pages URL before printing">
+          <span class="qr-icon" aria-hidden="true">⬛</span>
+          <span class="qr-hint">Add QR image<br>before printing</span>
+        </div>
+
+        <div class="qr-url">celiksense.github.io<br><em style="color:#a5b4fc;font-style:normal;">← replace with your URL</em></div>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>

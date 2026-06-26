@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Offline Library — CelikSense AI</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Page layout ─────────────────────────────── */
+    .ol-hero {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a5f 100%);
+      padding: 48px 24px 32px;
+      text-align: center;
+    }
+    .ol-hero h1 { font-size: 2rem; color: #e0e7ff; margin: 0 0 8px; }
+    .ol-hero p  { color: #a5b4fc; margin: 0 0 20px; font-size: 0.95rem; }
+
+    /* ── Status bar ──────────────────────────────── */
+    .ol-status-bar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 16px 24px;
+      background: #1e1b4b;
+    }
+    .ol-stat-chip {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: #c7d2fe;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ol-stat-chip .chip-icon { font-size: 14px; }
+    .ol-stat-chip .chip-val  { font-weight: 700; color: #a5b4fc; }
+
+    /* ── Tabs ────────────────────────────────────── */
+    .ol-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      background: #1e1b4b;
+      overflow-x: auto;
+      padding: 0 16px;
+    }
+    .ol-tab {
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #a5b4fc;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .ol-tab:hover  { color: #e0e7ff; }
+    .ol-tab.active { color: #818cf8; border-bottom-color: #818cf8; }
+
+    /* ── Panels ──────────────────────────────────── */
+    .ol-panel { display: none; padding: 24px 20px; }
+    .ol-panel.active { display: block; }
+
+    /* ── Cards ───────────────────────────────────── */
+    .ol-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .ol-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+    .ol-card:hover { border-color: rgba(129,140,248,0.5); }
+    .ol-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e0e7ff;
+      margin: 0 0 4px;
+      line-height: 1.3;
+    }
+    .ol-card-meta {
+      font-size: 11px;
+      color: #94a3b8;
+      margin: 0 0 10px;
+    }
+    .ol-card-excerpt {
+      font-size: 12px;
+      color: #c7d2fe;
+      line-height: 1.5;
+      margin: 0 0 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .ol-card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ol-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: #e0e7ff;
+      transition: all 0.2s;
+    }
+    .ol-btn:hover { background: rgba(99,102,241,0.3); border-color: #6366f1; }
+    .ol-btn.primary {
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      border: none;
+    }
+    .ol-btn.danger { background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.4); }
+    .ol-btn.danger:hover { background: rgba(239,68,68,0.4); }
+
+    /* ── Legal badge ─────────────────────────────── */
+    .legal-badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+    .legal-pd   { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+    .legal-own  { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+    .legal-prev { background: rgba(245,158,11,0.2); color: #fcd34d; }
+    .legal-lib  { background: rgba(6,182,212,0.2);  color: #67e8f9; }
+    .legal-ocr  { background: rgba(139,92,246,0.2); color: #c4b5fd; }
+
+    /* ── Empty state ─────────────────────────────── */
+    .ol-empty {
+      text-align: center;
+      padding: 60px 24px;
+      color: #64748b;
+    }
+    .ol-empty .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .ol-empty h3 { color: #94a3b8; margin: 0 0 8px; font-size: 1.1rem; }
+    .ol-empty p  { font-size: 13px; margin: 0 0 20px; line-height: 1.6; }
+
+    /* ── Storage meter ───────────────────────────── */
+    .storage-meter {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .storage-meter h3 { margin: 0 0 12px; font-size: 14px; color: #c7d2fe; }
+    .storage-bar-bg {
+      height: 10px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .storage-bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      background: linear-gradient(90deg, #4f46e5, #06b6d4);
+      transition: width 0.8s ease;
+    }
+    .storage-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* ── Sync queue ──────────────────────────────── */
+    .sync-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: #c7d2fe;
+    }
+    .sync-item-type { font-weight: 600; color: #a5b4fc; }
+    .sync-item-ts   { font-size: 11px; color: #64748b; }
+
+    /* ── Responsive ──────────────────────────────── */
+    @media (max-width: 480px) {
+      .ol-hero h1 { font-size: 1.5rem; }
+      .ol-grid    { grid-template-columns: 1fr; }
+      .ol-tabs    { gap: 0; }
+      .ol-tab     { padding: 10px 12px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+    <a href="dashboard.html" class="nav-brand" aria-label="CelikSense AI home">
+      <span class="brand-icon" aria-hidden="true">🧠</span>
+      <span class="brand-text">CelikSense AI</span>
+    </a>
+    <div class="nav-links" role="list">
+      <a href="dashboard.html"   class="nav-link" role="listitem" data-i18n="nav_dashboard">Dashboard</a>
+      <a href="book-discovery.html" class="nav-link" role="listitem" data-i18n="bd_title">Book Discovery</a>
+      <a href="settings.html"    class="nav-link" role="listitem" data-i18n="nav_settings">Settings</a>
+    </div>
+    <button class="lang-toggle" id="langToggle" onclick="CS.lang.toggle()" aria-label="Switch language">BM / EN</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="ol-hero" role="banner">
+    <div class="hero-icon" aria-hidden="true" style="font-size:3rem;margin-bottom:12px;">📚</div>
+    <h1 data-i18n="offline_lib_title">Offline Library</h1>
+    <p data-i18n="offline_lib_subtitle">Saved books, OCR scans, AI answers &amp; sync queue — all available without internet.</p>
+  </section>
+
+  <!-- Status bar -->
+  <div class="ol-status-bar" role="complementary" aria-label="Storage status">
+    <div class="ol-stat-chip">
+      <span class="chip-icon" aria-hidden="true">📶</span>
+      <span id="statusChip" data-i18n="offline_status_online">Online</span>
+    </div>
+    <div class="ol-stat-chip">
+      <span class="chip-icon" aria-hidden="true">📥</span>
+      <span id="downloadCount">0</span>
+      <span data-i18n="offline_books_saved">books saved</span>
+    </div>
+    <div class="ol-stat-chip">
+      <span class="chip-icon" aria-hidden="true">💾</span>
+      <span id="storageUsed">—</span>
+      <span data-i18n="offline_storage_used">used</span>
+    </div>
+    <div class="ol-stat-chip">
+      <span class="chip-icon" aria-hidden="true">🔄</span>
+      <span id="pendingSync">0</span>
+      <span data-i18n="offline_pending_sync">pending sync</span>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="ol-tabs" role="tablist" aria-label="Offline content categories">
+    <button class="ol-tab active" role="tab" aria-selected="true"  aria-controls="tab-downloads"  onclick="switchTab('downloads')"  data-i18n="offline_tab_downloads">📥 Downloads</button>
+    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-ocr"        onclick="switchTab('ocr')"        data-i18n="offline_tab_ocr">📷 OCR Cache</button>
+    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-ai"         onclick="switchTab('ai')"         data-i18n="offline_tab_ai">🤖 AI Cache</button>
+    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-notes"      onclick="switchTab('notes')"      data-i18n="offline_tab_notes">📝 Notes</button>
+    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-storage"    onclick="switchTab('storage')"    data-i18n="offline_tab_storage">💾 Storage</button>
+  </div>
+
+  <!-- Tab: Downloads -->
+  <div id="tab-downloads" class="ol-panel active" role="tabpanel" aria-label="Downloaded books">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <h2 style="margin:0;font-size:1.1rem;color:#e0e7ff;" data-i18n="offline_tab_downloads">Downloaded Books</h2>
+      <div style="display:flex;gap:8px;">
+        <a href="book-discovery.html" class="ol-btn primary" data-i18n="offline_find_more">+ Find More Books</a>
+        <button class="ol-btn danger" onclick="clearAllDownloads()" data-i18n="offline_clear_all">Clear All</button>
+      </div>
+    </div>
+    <div id="downloadsGrid" class="ol-grid" aria-live="polite" aria-label="Downloaded books list">
+      <div class="ol-empty">
+        <div class="empty-icon" aria-hidden="true">📭</div>
+        <h3 data-i18n="offline_empty_downloads">No downloads yet</h3>
+        <p data-i18n="offline_empty_downloads_sub">Books you save offline will appear here. Tap "Download for Offline" on any book in Book Discovery.</p>
+        <a href="book-discovery.html" class="ol-btn primary" data-i18n="offline_go_discover">Browse Books</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: OCR Cache -->
+  <div id="tab-ocr" class="ol-panel" role="tabpanel" aria-label="OCR scan cache">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <h2 style="margin:0;font-size:1.1rem;color:#e0e7ff;" data-i18n="offline_tab_ocr">OCR Scans</h2>
+      <div style="display:flex;gap:8px;">
+        <a href="ocr-agent.html" class="ol-btn primary" data-i18n="offline_new_scan">New Scan</a>
+        <button class="ol-btn danger" onclick="clearOCRCache()" data-i18n="offline_clear_ocr">Clear Cache</button>
+      </div>
+    </div>
+    <div id="ocrGrid" class="ol-grid" aria-live="polite" aria-label="OCR scan cache list">
+      <div class="ol-empty">
+        <div class="empty-icon" aria-hidden="true">📷</div>
+        <h3 data-i18n="offline_empty_ocr">No OCR scans cached</h3>
+        <p data-i18n="offline_empty_ocr_sub">Text extracted from images is saved here for offline access. Scan a document to begin.</p>
+        <a href="ocr-agent.html" class="ol-btn primary" data-i18n="offline_go_ocr">Open OCR Agent</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: AI Cache -->
+  <div id="tab-ai" class="ol-panel" role="tabpanel" aria-label="Cached AI responses">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <h2 style="margin:0;font-size:1.1rem;color:#e0e7ff;" data-i18n="offline_tab_ai">AI Response Cache</h2>
+      <button class="ol-btn danger" onclick="clearAICache()" data-i18n="offline_clear_ai">Clear Cache</button>
+    </div>
+    <p style="font-size:12px;color:#64748b;margin:0 0 20px;" data-i18n="offline_ai_cache_info">AI answers are cached automatically when you are online. When offline, the Teacher Agent replays these saved answers.</p>
+    <div id="aiGrid" class="ol-grid" aria-live="polite" aria-label="Cached AI responses list">
+      <div class="ol-empty">
+        <div class="empty-icon" aria-hidden="true">🤖</div>
+        <h3 data-i18n="offline_empty_ai">No AI responses cached</h3>
+        <p data-i18n="offline_empty_ai_sub">Use AI Teacher or AI Librarian while online and answers will be saved here for offline access.</p>
+        <a href="ai-teacher-agent.html" class="ol-btn primary" data-i18n="offline_go_ai">Open AI Teacher</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Notes & Bookmarks -->
+  <div id="tab-notes" class="ol-panel" role="tabpanel" aria-label="Notes and bookmarks">
+    <div style="margin-bottom:24px;">
+      <h2 style="margin:0 0 6px;font-size:1.1rem;color:#e0e7ff;" data-i18n="offline_tab_notes">Notes &amp; Bookmarks</h2>
+      <p style="margin:0;font-size:12px;color:#64748b;" data-i18n="offline_notes_info">All notes, bookmarks, highlights and quiz results are saved locally and available offline.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:24px;">
+      <!-- Notes summary -->
+      <div class="ol-card" style="border-top:3px solid #a78bfa;">
+        <div class="ol-card-title" data-i18n="offline_notes_label">📝 Notes</div>
+        <div class="ol-card-meta" id="notesCount">Loading…</div>
+        <div class="ol-card-actions">
+          <a href="reading-companion.html" class="ol-btn" data-i18n="offline_open_reading">Open Reading Companion</a>
+        </div>
+      </div>
+      <!-- Bookmarks -->
+      <div class="ol-card" style="border-top:3px solid #f59e0b;">
+        <div class="ol-card-title" data-i18n="offline_bookmarks_label">🔖 Bookmarks</div>
+        <div class="ol-card-meta" id="bookmarksCount">Loading…</div>
+        <div class="ol-card-actions">
+          <a href="reading-companion.html" class="ol-btn" data-i18n="offline_open_reading">Open Reading Companion</a>
+        </div>
+      </div>
+      <!-- Highlights -->
+      <div class="ol-card" style="border-top:3px solid #f472b6;">
+        <div class="ol-card-title" data-i18n="offline_highlights_label">🖍️ Highlights</div>
+        <div class="ol-card-meta" id="highlightsCount">Loading…</div>
+        <div class="ol-card-actions">
+          <a href="adhd-agent.html" class="ol-btn" data-i18n="offline_open_adhd">Open ADHD Agent</a>
+        </div>
+      </div>
+      <!-- Quiz history -->
+      <div class="ol-card" style="border-top:3px solid #34d399;">
+        <div class="ol-card-title" data-i18n="offline_quiz_label">🧩 Quiz History</div>
+        <div class="ol-card-meta" id="quizCount">Loading…</div>
+        <div class="ol-card-actions">
+          <a href="ai-teacher-agent.html" class="ol-btn" data-i18n="offline_open_teacher">Open AI Teacher</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Storage -->
+  <div id="tab-storage" class="ol-panel" role="tabpanel" aria-label="Storage management">
+    <h2 style="margin:0 0 20px;font-size:1.1rem;color:#e0e7ff;" data-i18n="offline_tab_storage">Storage &amp; Sync</h2>
+
+    <!-- Storage meter -->
+    <div class="storage-meter">
+      <h3 data-i18n="offline_storage_title">Device Storage</h3>
+      <div class="storage-bar-bg">
+        <div class="storage-bar-fill" id="storageFill" style="width:0%"></div>
+      </div>
+      <div class="storage-labels">
+        <span id="storageUsedLabel">0 MB used</span>
+        <span id="storageQuotaLabel">— MB total</span>
+      </div>
+      <div style="margin-top:10px;font-size:12px;color:#64748b;" id="storageDetail">Calculating…</div>
+    </div>
+
+    <!-- Cache breakdown -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px;">
+      <div class="ol-card">
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:4px;" data-i18n="offline_tab_downloads">Downloads</div>
+        <div style="font-size:22px;font-weight:700;color:#a5b4fc;" id="statsDownloads">0</div>
+        <div style="font-size:11px;color:#64748b;" data-i18n="offline_stat_books">books</div>
+      </div>
+      <div class="ol-card">
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:4px;" data-i18n="offline_tab_ocr">OCR Cache</div>
+        <div style="font-size:22px;font-weight:700;color:#c4b5fd;" id="statsOCR">0</div>
+        <div style="font-size:11px;color:#64748b;" data-i18n="offline_stat_scans">scans</div>
+      </div>
+      <div class="ol-card">
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:4px;" data-i18n="offline_tab_ai">AI Cache</div>
+        <div style="font-size:22px;font-weight:700;color:#67e8f9;" id="statsAI">0</div>
+        <div style="font-size:11px;color:#64748b;" data-i18n="offline_stat_responses">responses</div>
+      </div>
+      <div class="ol-card">
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:4px;" data-i18n="offline_pending_sync">Sync Queue</div>
+        <div style="font-size:22px;font-weight:700;color:#6ee7b7;" id="statsSyncQueue">0</div>
+        <div style="font-size:11px;color:#64748b;" data-i18n="offline_stat_items">items</div>
+      </div>
+    </div>
+
+    <!-- Sync controls -->
+    <div class="ol-card" style="margin-bottom:16px;">
+      <div class="ol-card-title" style="margin-bottom:8px;" data-i18n="offline_sync_title">Sync &amp; Backup</div>
+      <div style="font-size:12px;color:#94a3b8;margin-bottom:12px;">
+        <span data-i18n="offline_last_sync_label">Last sync:</span>
+        <strong id="lastSyncTime" style="color:#c7d2fe;">Never</strong>
+      </div>
+      <div class="ol-card-actions">
+        <button class="ol-btn primary" onclick="triggerSync()" id="syncBtn" data-i18n="offline_sync_now">Sync Now</button>
+        <button class="ol-btn danger"  onclick="clearAllData()" data-i18n="offline_clear_all_data">Clear All Data</button>
+      </div>
+    </div>
+
+    <!-- SW status -->
+    <div class="ol-card">
+      <div class="ol-card-title" style="margin-bottom:8px;" data-i18n="offline_sw_title">Service Worker Status</div>
+      <div style="font-size:12px;color:#94a3b8;" id="swStatus">Checking…</div>
+    </div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>
+    /* ── Helpers ─────────────────────────────────── */
+    function escHtml(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function formatDate(ts) {
+      if (!ts) return '—';
+      var d = new Date(ts);
+      return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+    }
+
+    function formatSize(bytes) {
+      if (!bytes) return '0 B';
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / 1048576).toFixed(2) + ' MB';
+    }
+
+    function legalBadge(status) {
+      var map = {
+        'public_domain': ['legal-pd',   'Public Domain'],
+        'user_owned':    ['legal-own',  'You Own It'],
+        'preview_only':  ['legal-prev', 'Preview Only'],
+        'library_access':['legal-lib',  'Library Access'],
+        'ocr_required':  ['legal-ocr',  'OCR Required'],
+      };
+      var pair = map[status] || ['legal-own', status || 'Unknown'];
+      return '<span class="legal-badge ' + pair[0] + '">' + escHtml(pair[1]) + '</span>';
+    }
+
+    /* ── Tab switching ──────────────────────────── */
+    function switchTab(id) {
+      document.querySelectorAll('.ol-tab').forEach(function(t) {
+        var active = t.getAttribute('onclick').indexOf("'" + id + "'") !== -1;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      document.querySelectorAll('.ol-panel').forEach(function(p) {
+        p.classList.toggle('active', p.id === 'tab-' + id);
+      });
+    }
+
+    /* ── Downloads ──────────────────────────────── */
+    function loadDownloads() {
+      CS.offline.getDownloads().then(function(items) {
+        var grid = document.getElementById('downloadsGrid');
+        document.getElementById('downloadCount').textContent = items.length;
+
+        if (!items.length) {
+          grid.innerHTML = '<div class="ol-empty">' +
+            '<div class="empty-icon" aria-hidden="true">📭</div>' +
+            '<h3>' + CS.lang.t('offline_empty_downloads') + '</h3>' +
+            '<p>' + CS.lang.t('offline_empty_downloads_sub') + '</p>' +
+            '<a href="book-discovery.html" class="ol-btn primary">' + CS.lang.t('offline_go_discover') + '</a>' +
+          '</div>';
+          return;
+        }
+
+        grid.innerHTML = items.map(function(item) {
+          return '<div class="ol-card" role="article" aria-label="' + escHtml(item.title) + '">' +
+            '<div class="ol-card-title">' + escHtml(item.title) + legalBadge(item.legalStatus) + '</div>' +
+            '<div class="ol-card-meta">' + escHtml(item.author || '') + ' · ' + escHtml(item.source || '') + ' · ' + formatSize(item.size) + ' · ' + formatDate(item.savedAt) + '</div>' +
+            '<div class="ol-card-excerpt">' + escHtml((item.text || '').substring(0, 200)) + '…</div>' +
+            '<div class="ol-card-actions">' +
+              '<button class="ol-btn primary" onclick="sendToReading(' + JSON.stringify(item).replace(/"/g,'&quot;') + ')" data-i18n="offline_read_btn">Read Now</button>' +
+              '<button class="ol-btn" onclick="sendToTeacher(' + JSON.stringify(item).replace(/"/g,'&quot;') + ')" data-i18n="offline_teach_btn">Ask AI Teacher</button>' +
+              '<button class="ol-btn danger" onclick="removeDownload(\'' + escHtml(item.id) + '\')" data-i18n="offline_remove_btn">Remove</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        CS.lang.apply();
+        document.getElementById('statsDownloads').textContent = items.length;
+      });
+    }
+
+    function removeDownload(id) {
+      CS.offline.removeDownload(id).then(function() {
+        CS.toast(CS.lang.t('offline_removed'), 'success');
+        loadDownloads();
+      });
+    }
+
+    function clearAllDownloads() {
+      if (!confirm(CS.lang.t('offline_confirm_clear_downloads'))) return;
+      CS.offline.getDownloads().then(function(items) {
+        return Promise.all(items.map(function(item) { return CS.offline.removeDownload(item.id); }));
+      }).then(function() {
+        CS.toast(CS.lang.t('offline_cleared'), 'success');
+        loadDownloads();
+      });
+    }
+
+    function sendToReading(item) {
+      localStorage.setItem('cs_book_content',       item.text  || '');
+      localStorage.setItem('cs_book_content_title', item.title || '');
+      window.location.href = 'reading-companion.html';
+    }
+
+    function sendToTeacher(item) {
+      localStorage.setItem('cs_book_content',       item.text  || '');
+      localStorage.setItem('cs_book_content_title', item.title || '');
+      window.location.href = 'ai-teacher-agent.html';
+    }
+
+    /* ── OCR Cache ──────────────────────────────── */
+    function loadOCRCache() {
+      CS.offline.getOCRCache().then(function(items) {
+        var grid = document.getElementById('ocrGrid');
+        if (!items.length) {
+          grid.innerHTML = '<div class="ol-empty">' +
+            '<div class="empty-icon" aria-hidden="true">📷</div>' +
+            '<h3>' + CS.lang.t('offline_empty_ocr') + '</h3>' +
+            '<p>' + CS.lang.t('offline_empty_ocr_sub') + '</p>' +
+            '<a href="ocr-agent.html" class="ol-btn primary">' + CS.lang.t('offline_go_ocr') + '</a>' +
+          '</div>';
+          return;
+        }
+
+        grid.innerHTML = items.map(function(item) {
+          return '<div class="ol-card">' +
+            '<div class="ol-card-title">' + escHtml(item.title) + '</div>' +
+            '<div class="ol-card-meta">' + formatSize(item.size) + ' · ' + formatDate(item.savedAt) + '</div>' +
+            '<div class="ol-card-excerpt">' + escHtml((item.text || '').substring(0, 200)) + '…</div>' +
+            '<div class="ol-card-actions">' +
+              '<button class="ol-btn primary" onclick="sendOCRToReading(\'' + escHtml(item.id) + '\')">' + CS.lang.t('offline_read_btn') + '</button>' +
+              '<button class="ol-btn danger" onclick="removeOCR(\'' + escHtml(item.id) + '\')">' + CS.lang.t('offline_remove_btn') + '</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        document.getElementById('statsOCR').textContent = items.length;
+      });
+    }
+
+    function sendOCRToReading(id) {
+      CS.offline.getOCRCache().then(function(items) {
+        var item = items.find(function(i) { return i.id === id; });
+        if (item) {
+          localStorage.setItem('cs_book_content',       item.text  || '');
+          localStorage.setItem('cs_book_content_title', item.title || '');
+          window.location.href = 'reading-companion.html';
+        }
+      });
+    }
+
+    function removeOCR(id) {
+      CS.offline.removeOCR(id).then(function() {
+        CS.toast(CS.lang.t('offline_removed'), 'success');
+        loadOCRCache();
+      });
+    }
+
+    function clearOCRCache() {
+      if (!confirm(CS.lang.t('offline_confirm_clear_ocr'))) return;
+      CS.offline.getOCRCache().then(function(items) {
+        return Promise.all(items.map(function(item) { return CS.offline.removeOCR(item.id); }));
+      }).then(function() {
+        CS.toast(CS.lang.t('offline_cleared'), 'success');
+        loadOCRCache();
+      });
+    }
+
+    /* ── AI Cache ───────────────────────────────── */
+    function loadAICache() {
+      CS.offline.getAICache().then(function(items) {
+        var grid = document.getElementById('aiGrid');
+        if (!items.length) {
+          grid.innerHTML = '<div class="ol-empty">' +
+            '<div class="empty-icon" aria-hidden="true">🤖</div>' +
+            '<h3>' + CS.lang.t('offline_empty_ai') + '</h3>' +
+            '<p>' + CS.lang.t('offline_empty_ai_sub') + '</p>' +
+            '<a href="ai-teacher-agent.html" class="ol-btn primary">' + CS.lang.t('offline_go_ai') + '</a>' +
+          '</div>';
+          return;
+        }
+
+        grid.innerHTML = items.map(function(item) {
+          var promptPreview = (item.prompt || item.key || '').substring(0, 80);
+          var respPreview   = (item.response || '').substring(0, 200);
+          return '<div class="ol-card">' +
+            '<div class="ol-card-title">🤖 ' + escHtml(promptPreview) + (promptPreview.length >= 80 ? '…' : '') + '</div>' +
+            '<div class="ol-card-meta">' + formatSize((item.response || '').length * 2) + ' · ' + formatDate(item.savedAt) + '</div>' +
+            '<div class="ol-card-excerpt">' + escHtml(respPreview) + (respPreview.length >= 200 ? '…' : '') + '</div>' +
+            '<div class="ol-card-actions">' +
+              '<button class="ol-btn danger" onclick="removeAICache(\'' + escHtml(item.key) + '\')">' + CS.lang.t('offline_remove_btn') + '</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        document.getElementById('statsAI').textContent = items.length;
+      });
+    }
+
+    function removeAICache(key) {
+      CS.offline.removeAICache(key).then(function() {
+        CS.toast(CS.lang.t('offline_removed'), 'success');
+        loadAICache();
+      });
+    }
+
+    function clearAICache() {
+      if (!confirm(CS.lang.t('offline_confirm_clear_ai'))) return;
+      CS.offline.getAICache().then(function(items) {
+        return Promise.all(items.map(function(item) { return CS.offline.removeAICache(item.key); }));
+      }).then(function() {
+        CS.toast(CS.lang.t('offline_cleared'), 'success');
+        loadAICache();
+      });
+    }
+
+    /* ── Notes tab ──────────────────────────────── */
+    function loadNotesTab() {
+      var notes     = CS.offline.getNotes();
+      var bookmarks = CS.offline.getBookmarks();
+      var highlights = CS.offline.getHighlights();
+      var quizzes   = CS.offline.getQuizHistory();
+      document.getElementById('notesCount').textContent     = notes.length     + ' ' + CS.lang.t('offline_stat_items');
+      document.getElementById('bookmarksCount').textContent = bookmarks.length + ' ' + CS.lang.t('offline_stat_items');
+      document.getElementById('highlightsCount').textContent= highlights.length+ ' ' + CS.lang.t('offline_stat_items');
+      document.getElementById('quizCount').textContent      = quizzes.length   + ' ' + CS.lang.t('offline_stat_items');
+    }
+
+    /* ── Storage tab ────────────────────────────── */
+    function loadStorageTab() {
+      CS.offline.getStorageInfo().then(function(info) {
+        document.getElementById('storageFill').style.width    = Math.min(info.pct, 100) + '%';
+        document.getElementById('storageUsedLabel').textContent = info.usedMB + ' MB used';
+        document.getElementById('storageQuotaLabel').textContent= info.quotaMB + ' MB total';
+        document.getElementById('storageUsed').textContent     = info.usedMB + ' MB';
+        document.getElementById('storageDetail').textContent   =
+          info.pct + '% used · ' + info.freeMB + ' MB free of ' + info.quotaMB + ' MB';
+      });
+
+      CS.offline.getSyncQueue().then(function(items) {
+        document.getElementById('statsSyncQueue').textContent = items.length;
+        document.getElementById('pendingSync').textContent    = items.length;
+      });
+
+      var lastSync = localStorage.getItem('cs_last_sync');
+      document.getElementById('lastSyncTime').textContent = lastSync ? formatDate(parseInt(lastSync)) : CS.lang.t('offline_never_synced');
+
+      /* SW status */
+      var swEl = document.getElementById('swStatus');
+      if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+        var sw = navigator.serviceWorker.controller;
+        swEl.innerHTML = '✅ Active · Scope: ' + escHtml(sw.scriptURL || '—') + '<br>' +
+          'State: ' + escHtml(sw.state || '—');
+      } else if ('serviceWorker' in navigator) {
+        swEl.textContent = '⏳ Service Worker registered but not yet controlling this page. Reload to activate.';
+      } else {
+        swEl.textContent = '⚠️ Service Worker not supported in this browser.';
+      }
+    }
+
+    /* ── Sync ───────────────────────────────────── */
+    function triggerSync() {
+      var btn = document.getElementById('syncBtn');
+      btn.disabled = true;
+      btn.textContent = CS.lang.t('offline_sync_banner');
+      CS.offline.processSyncQueue().then(function() {
+        btn.disabled = false;
+        btn.setAttribute('data-i18n', 'offline_sync_now');
+        CS.lang.apply();
+        loadStorageTab();
+      });
+    }
+
+    function clearAllData() {
+      if (!confirm(CS.lang.t('offline_confirm_clear_all'))) return;
+      Promise.all([
+        CS.offline.getDownloads().then(function(items) {
+          return Promise.all(items.map(function(i) { return CS.offline.removeDownload(i.id); }));
+        }),
+        CS.offline.getOCRCache().then(function(items) {
+          return Promise.all(items.map(function(i) { return CS.offline.removeOCR(i.id); }));
+        }),
+        CS.offline.getAICache().then(function(items) {
+          return Promise.all(items.map(function(i) { return CS.offline.removeAICache(i.key); }));
+        }),
+        CS.offline.clearSyncQueue(),
+      ]).then(function() {
+        CS.toast(CS.lang.t('offline_cleared'), 'success');
+        loadAll();
+      });
+    }
+
+    /* ── Full load ──────────────────────────────── */
+    function loadAll() {
+      loadDownloads();
+      loadOCRCache();
+      loadAICache();
+      loadNotesTab();
+      loadStorageTab();
+    }
+
+    /* ── Init ───────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', function() {
+      CS.lang.apply();
+      CS.offline.init();
+      loadAll();
+
+      /* Status chip */
+      var chip = document.getElementById('statusChip');
+      function updateChip() {
+        chip.textContent = navigator.onLine ? CS.lang.t('offline_status_online') : CS.lang.t('offline_status_offline');
+        chip.closest('.ol-stat-chip').querySelector('.chip-icon').textContent = navigator.onLine ? '📶' : '📡';
+      }
+      window.addEventListener('cs:online',  updateChip);
+      window.addEventListener('cs:offline', updateChip);
+      updateChip();
+    });
+  </script>
+</body>
+</html>

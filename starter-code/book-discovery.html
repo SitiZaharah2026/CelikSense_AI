@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Book Discovery Agent – CelikSense AI</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); min-height:100vh; }
+
+/* ── Hero ── */
+.bd-hero {
+  background: linear-gradient(135deg,rgba(99,102,241,0.13),rgba(6,182,212,0.09));
+  border: 1px solid rgba(99,102,241,0.22);
+  border-radius: 24px;
+  padding: 40px 44px 36px;
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.bd-hero::before {
+  content:'';
+  position:absolute;
+  top:-60px;left:50%;transform:translateX(-50%);
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(99,102,241,0.13),transparent 68%);
+  pointer-events:none;
+}
+.bd-hero-eyebrow {
+  display:inline-flex;
+  align-items:center;gap:8px;
+  padding:5px 16px;
+  background:rgba(255,255,255,0.78);
+  border:1.5px solid rgba(99,102,241,0.3);
+  border-radius:30px;
+  font-size:11px;font-weight:800;
+  color:#4f46e5;text-transform:uppercase;letter-spacing:0.08em;
+  margin-bottom:18px;
+}
+.bd-hero-title {
+  font-size:clamp(24px,4vw,42px);
+  font-weight:900;letter-spacing:-0.02em;color:#0f172a;
+  margin-bottom:10px;
+}
+.bd-hero-title span {
+  background:linear-gradient(135deg,#4f46e5,#06b6d4);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.bd-hero-sub {
+  font-size:15px;color:#374151;max-width:600px;
+  margin:0 auto 24px;line-height:1.65;
+}
+
+/* ── Copyright notice ── */
+.copyright-notice {
+  background:rgba(255,255,255,0.72);
+  border:1px solid rgba(99,102,241,0.22);
+  border-left:4px solid #6366f1;
+  border-radius:0 12px 12px 0;
+  padding:10px 16px;
+  font-size:12px;color:#374151;
+  line-height:1.55;
+  margin-bottom:28px;
+}
+.copyright-notice strong { color:#4f46e5; }
+
+/* ── Search bar ── */
+.bd-search-wrap {
+  display:flex;gap:10px;
+  max-width:760px;margin:0 auto;
+}
+.bd-search-input {
+  flex:1;
+  padding:14px 20px;
+  border:1.5px solid rgba(99,102,241,0.3);
+  border-radius:14px;
+  background:rgba(255,255,255,0.9);
+  font-size:15px;color:#0f172a;
+  outline:none;
+  transition:border-color 0.2s;
+  font-family:inherit;
+}
+.bd-search-input:focus { border-color:#6366f1; }
+.bd-search-btn {
+  padding:14px 28px;
+  background:linear-gradient(135deg,#6366f1,#06b6d4);
+  color:#fff;border:none;border-radius:14px;
+  font-size:15px;font-weight:700;
+  cursor:pointer;font-family:inherit;
+  white-space:nowrap;
+  transition:opacity 0.2s;
+}
+.bd-search-btn:hover { opacity:0.88; }
+
+/* ── Section headings ── */
+.bd-section-title {
+  font-size:18px;font-weight:800;letter-spacing:-0.01em;color:#1e1b4b;
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.bd-section-badge {
+  font-size:10px;font-weight:700;
+  background:linear-gradient(135deg,#6366f1,#06b6d4);
+  color:#fff;padding:3px 10px;border-radius:20px;
+  text-transform:uppercase;letter-spacing:0.06em;
+}
+
+/* ── Source cards grid ── */
+.source-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:12px;
+  margin-bottom:36px;
+}
+.source-card {
+  background:rgba(255,255,255,0.88);
+  border:1.5px solid rgba(99,102,241,0.15);
+  border-radius:16px;
+  padding:18px 14px 14px;
+  text-align:center;
+  cursor:pointer;
+  transition:all 0.2s;
+  display:flex;flex-direction:column;gap:6px;align-items:center;
+  position:relative;
+}
+.source-card:hover,.source-card:focus {
+  border-color:#6366f1;
+  box-shadow:0 6px 20px rgba(99,102,241,0.15);
+  transform:translateY(-2px);
+  outline:none;
+}
+.source-card.active {
+  background:rgba(99,102,241,0.1);
+  border-color:#6366f1;
+}
+.source-icon { font-size:30px;line-height:1; }
+.source-name { font-size:12px;font-weight:700;color:#1e1b4b;line-height:1.3; }
+.source-badge {
+  font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;
+  text-transform:uppercase;letter-spacing:0.04em;margin-top:2px;
+}
+.sb-owned   { background:#d1fae5;color:#065f46; }
+.sb-public  { background:#dbeafe;color:#1e40af; }
+.sb-preview { background:#fef3c7;color:#92400e; }
+.sb-library { background:#ede9fe;color:#5b21b6; }
+.sb-ocr     { background:#ffedd5;color:#9a3412; }
+.sb-learning{ background:#f0fdf4;color:#14532d; }
+
+/* ── Results panel ── */
+.results-panel {
+  background:rgba(255,255,255,0.88);
+  border:1px solid rgba(99,102,241,0.15);
+  border-radius:20px;
+  padding:24px;
+  margin-bottom:24px;
+  display:none;
+}
+.results-panel.visible { display:block; }
+.results-panel-title {
+  font-size:14px;font-weight:800;color:#4f46e5;
+  text-transform:uppercase;letter-spacing:0.08em;
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.book-result-list {
+  display:flex;flex-direction:column;gap:12px;
+}
+.book-result {
+  background:#f8f7ff;
+  border:1px solid rgba(99,102,241,0.12);
+  border-radius:12px;
+  padding:14px 16px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+  align-items:start;
+}
+.book-result-meta { display:flex;flex-direction:column;gap:3px; }
+.book-result-title { font-size:14px;font-weight:700;color:#1e1b4b; }
+.book-result-author { font-size:12px;color:#6366f1;font-weight:600; }
+.book-result-info { font-size:12px;color:#374151;line-height:1.5; }
+.book-result-actions {
+  display:flex;flex-direction:column;gap:6px;align-items:flex-end;
+}
+.btn-open-cs {
+  padding:7px 14px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  color:#fff;border:none;border-radius:8px;
+  font-size:12px;font-weight:700;cursor:pointer;
+  font-family:inherit;white-space:nowrap;
+  transition:opacity 0.2s;
+}
+.btn-open-cs:hover { opacity:0.85; }
+.btn-save-lib {
+  padding:5px 12px;
+  background:transparent;
+  color:#6366f1;
+  border:1px solid #6366f1;border-radius:8px;
+  font-size:11px;font-weight:600;cursor:pointer;
+  font-family:inherit;white-space:nowrap;
+  transition:all 0.2s;
+}
+.btn-save-lib:hover { background:#6366f1;color:#fff; }
+.legal-badge {
+  display:inline-block;font-size:9px;font-weight:700;
+  padding:2px 8px;border-radius:10px;
+  text-transform:uppercase;letter-spacing:0.04em;
+  margin-top:4px;
+}
+
+/* ── Send to tools panel ── */
+.send-panel {
+  background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(6,182,212,0.06));
+  border:1px solid rgba(99,102,241,0.2);
+  border-radius:20px;
+  padding:24px;
+  margin-bottom:24px;
+  display:none;
+}
+.send-panel.visible { display:block; }
+.send-title { font-size:15px;font-weight:800;color:#1e1b4b;margin-bottom:6px; }
+.send-book-name { font-size:13px;color:#6366f1;font-weight:600;margin-bottom:16px; }
+.send-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+.send-btn {
+  padding:12px 16px;
+  background:#fff;
+  border:1.5px solid rgba(99,102,241,0.2);
+  border-radius:12px;
+  font-size:12px;font-weight:700;
+  color:#1e1b4b;cursor:pointer;
+  font-family:inherit;
+  text-align:left;
+  display:flex;align-items:center;gap:8px;
+  transition:all 0.2s;
+}
+.send-btn:hover { border-color:#6366f1;background:rgba(99,102,241,0.06); }
+.send-btn-icon { font-size:18px;flex-shrink:0; }
+
+/* ── Upload area ── */
+.upload-zone {
+  border:2px dashed rgba(99,102,241,0.4);
+  border-radius:16px;
+  background:rgba(255,255,255,0.7);
+  padding:32px;
+  text-align:center;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+.upload-zone:hover { border-color:#6366f1;background:rgba(99,102,241,0.05); }
+.upload-zone.dragover { border-color:#6366f1;background:rgba(99,102,241,0.1); }
+.upload-icon { font-size:40px;margin-bottom:10px;display:block; }
+.upload-text { font-size:14px;font-weight:700;color:#1e1b4b;margin-bottom:4px; }
+.upload-sub { font-size:12px;color:#64748b; }
+#fileInput { display:none; }
+
+/* ── OPAC form ── */
+.opac-form {
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+@media(max-width:600px) { .opac-form { grid-template-columns:1fr; } }
+.opac-note {
+  grid-column:1/-1;
+  background:#fffbeb;border:1px solid #fde68a;border-radius:8px;
+  padding:10px 14px;font-size:12px;color:#78350f;
+  line-height:1.55;
+}
+.opac-note strong { color:#92400e; }
+
+/* ── My Library ── */
+.my-lib-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:14px;
+}
+.lib-card {
+  background:rgba(255,255,255,0.88);
+  border:1px solid rgba(99,102,241,0.15);
+  border-radius:14px;
+  padding:16px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.lib-card-title { font-size:14px;font-weight:700;color:#1e1b4b; }
+.lib-card-meta { font-size:12px;color:#6366f1;font-weight:600; }
+.lib-card-source { font-size:11px;color:#64748b; }
+.lib-card-actions { display:flex;gap:8px;flex-wrap:wrap;margin-top:4px; }
+.lib-empty { text-align:center;color:#64748b;font-size:14px;padding:32px; }
+
+/* ── Community materials ── */
+.community-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:12px;
+}
+.community-card {
+  background:rgba(255,255,255,0.88);
+  border:1px solid rgba(16,185,129,0.2);
+  border-radius:12px;
+  padding:14px;
+}
+.community-type {
+  display:inline-block;font-size:9px;font-weight:800;
+  background:#d1fae5;color:#065f46;
+  padding:2px 8px;border-radius:8px;
+  text-transform:uppercase;letter-spacing:0.05em;
+  margin-bottom:6px;
+}
+.community-title { font-size:13px;font-weight:700;color:#1e1b4b;margin-bottom:3px; }
+.community-author { font-size:11px;color:#64748b; }
+
+/* ── Card wrapper ── */
+.bd-card {
+  background:rgba(255,255,255,0.8);
+  border:1px solid rgba(99,102,241,0.13);
+  border-radius:20px;
+  padding:24px;
+  margin-bottom:24px;
+  backdrop-filter:blur(8px);
+}
+
+/* ── Tabs ── */
+.bd-tabs {
+  display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;
+}
+.bd-tab {
+  padding:7px 16px;border-radius:20px;
+  border:1px solid rgba(99,102,241,0.25);
+  background:rgba(255,255,255,0.7);
+  color:#374151;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all 0.2s;font-family:inherit;
+}
+.bd-tab.active,.bd-tab:hover {
+  background:#6366f1;color:#fff;border-color:#6366f1;
+}
+
+/* ── share form ── */
+.share-form { display:flex;flex-direction:column;gap:12px;max-width:500px; }
+
+.skip-link:focus { left:8px !important; }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#6366f1;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;font-family:sans-serif;" data-i18n="skip_to_main">Skip to main content</a>
+
+<nav class="navbar">
+  <div class="container nav-container">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-icon">CS</div>
+      <div><span class="brand-name">CelikSense AI</span><span class="brand-tagline" data-i18n="tagline">Agentic Multi-Sensory Learning</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a>
+      <div class="nav-dropdown">
+        <button data-i18n="nav_agents" aria-haspopup="true" aria-expanded="false">Agents ▾</button>
+        <div class="dropdown-menu">
+          <a href="book-discovery.html">🔍 Book Discovery</a>
+          <a href="ai-librarian.html">📚 AI Librarian</a>
+          <a href="reading-companion.html">📖 Reading Companion</a>
+          <a href="adhd-agent.html">🧠 ADHD Agent</a>
+          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
+          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
+          <a href="sign-language.html">🤟 Sign Language Agent</a>
+          <a href="ocr-agent.html">📷 OCR Agent</a>
+          <a href="early-warning.html">⚠️ Early Warning Agent</a>
+          <a href="intervention.html">💡 Intervention Agent</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch language">BM</button>
+      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="dashboard.html" class="btn btn-outline btn-sm">← Dashboard</a>
+      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings">⚙️</a>
+      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+    </div>
+  </div>
+</nav>
+
+<main id="main-content" class="container" style="padding-top:28px;padding-bottom:60px;">
+
+  <!-- Hero -->
+  <div class="bd-hero" role="banner">
+    <div class="bd-hero-eyebrow" aria-hidden="true">🔍 <span data-i18n="bd_agent_badge">Book Discovery</span></div>
+    <h1 class="bd-hero-title"><span data-i18n="bd_title">AI Book Discovery Agent</span></h1>
+    <p class="bd-hero-sub" data-i18n="bd_subtitle">Find legal reading materials and send them to any CelikSense accessibility tool.</p>
+    <!-- Search -->
+    <div class="bd-search-wrap" role="search">
+      <label for="bdSearchInput" class="sr-only" data-i18n="bd_search_btn">Search books</label>
+      <input id="bdSearchInput" class="bd-search-input" type="search"
+             data-i18n-placeholder="bd_search_hint"
+             placeholder="Search by title, subject, level, author or interest…"
+             aria-label="Search books"
+             onkeydown="if(event.key==='Enter') runSearch()">
+      <button class="bd-search-btn" onclick="runSearch()" aria-label="Search" data-i18n="bd_search_btn">Search</button>
+    </div>
+    <!-- Quick filters -->
+    <div class="bd-tabs" style="justify-content:center;margin-top:16px;" role="list" aria-label="Quick searches">
+      <button class="bd-tab" role="listitem" onclick="quickSearch('Science Form 2')">Science Form 2</button>
+      <button class="bd-tab" role="listitem" onclick="quickSearch('ADHD friendly')">ADHD Friendly</button>
+      <button class="bd-tab" role="listitem" onclick="quickSearch('Dyslexia')">Dyslexia</button>
+      <button class="bd-tab" role="listitem" onclick="quickSearch('Children')">Children's Books</button>
+      <button class="bd-tab" role="listitem" onclick="quickSearch('Adventure')">Adventure</button>
+      <button class="bd-tab" role="listitem" onclick="quickSearch('Bahasa Melayu')">Bahasa Melayu</button>
+    </div>
+  </div>
+
+  <!-- Copyright notice -->
+  <div class="copyright-notice" role="note" aria-label="Copyright policy">
+    <strong>⚖️ Copyright Policy:</strong> <span data-i18n="bd_copyright_notice">CelikSense AI helps users access and transform legally available reading materials into accessible formats. It does not host or redistribute copyrighted books without permission.</span>
+  </div>
+
+  <!-- Send to tools panel (shown after selecting a book) -->
+  <div class="send-panel" id="sendPanel" role="region" aria-label="Send to accessibility tools" aria-live="polite">
+    <div class="send-title" data-i18n="bd_send_to">Send to Tools</div>
+    <div class="send-book-name" id="sendBookName"></div>
+    <div class="send-grid">
+      <button class="send-btn" onclick="sendTo('ai-teacher-agent.html')" aria-label="Read with AI Teacher">
+        <span class="send-btn-icon" aria-hidden="true">👩‍🏫</span><span data-i18n="bd_send_teacher">Read with AI Teacher</span>
+      </button>
+      <button class="send-btn" onclick="sendTo('reading-companion.html')" aria-label="Open in Reading Companion">
+        <span class="send-btn-icon" aria-hidden="true">📖</span><span data-i18n="bd_send_companion">Open in Reading Companion</span>
+      </button>
+      <button class="send-btn" onclick="sendTo('blind-audio.html')" aria-label="Convert to Audio">
+        <span class="send-btn-icon" aria-hidden="true">🔊</span><span data-i18n="bd_send_audio">Convert to Audio</span>
+      </button>
+      <button class="send-btn" onclick="sendTo('blind-audio.html?mode=braille')" aria-label="Convert to Braille">
+        <span class="send-btn-icon" aria-hidden="true">⠃</span><span data-i18n="bd_send_braille">Convert to Braille</span>
+      </button>
+      <button class="send-btn" onclick="sendTo('sign-language.html')" aria-label="Translate to BIM Sign Language">
+        <span class="send-btn-icon" aria-hidden="true">🤟</span><span data-i18n="bd_send_bim">Translate to BIM</span>
+      </button>
+      <button class="send-btn" onclick="sendTo('adhd-agent.html')" aria-label="Apply ADHD Mode">
+        <span class="send-btn-icon" aria-hidden="true">🧠</span><span data-i18n="bd_send_adhd">Apply ADHD Mode</span>
+      </button>
+      <button class="send-btn" onclick="sendTo('dyslexia-agent.html')" aria-label="Apply Dyslexia Mode">
+        <span class="send-btn-icon" aria-hidden="true">🔤</span><span data-i18n="bd_send_dyslexia">Apply Dyslexia Mode</span>
+      </button>
+      <button class="send-btn" onclick="sendTo('ocr-agent.html')" aria-label="Open in OCR Agent">
+        <span class="send-btn-icon" aria-hidden="true">📷</span>OCR Agent
+      </button>
+      <button class="send-btn" id="downloadOfflineBtn" onclick="downloadForOffline()" aria-label="Download this book for offline reading" style="border-color:rgba(16,185,129,0.5);background:rgba(16,185,129,0.12);">
+        <span class="send-btn-icon" aria-hidden="true">📥</span><span data-i18n="offline_download_btn">Download for Offline</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Source cards -->
+  <section aria-labelledby="sourcesHeading" style="margin-bottom:32px;">
+    <div class="bd-section-title">
+      <h2 id="sourcesHeading" data-i18n="bd_sources_title">Choose a Book Source</h2>
+    </div>
+    <div class="source-grid" role="list">
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('upload')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('upload')}"
+           aria-label="Upload PDF or document — User Owned">
+        <span class="source-icon" aria-hidden="true">📄</span>
+        <div class="source-name" data-i18n="bd_src_upload_pdf">Upload PDF</div>
+        <span class="source-badge sb-owned" data-i18n="bd_badge_owned">User Owned</span>
+      </div>
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('scan')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('scan')}"
+           aria-label="Scan physical book — OCR Required">
+        <span class="source-icon" aria-hidden="true">📷</span>
+        <div class="source-name" data-i18n="bd_src_scan">Scan Physical Book</div>
+        <span class="source-badge sb-ocr" data-i18n="bd_badge_ocr">OCR Required</span>
+      </div>
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('gutenberg')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('gutenberg')}"
+           aria-label="Project Gutenberg — Public Domain">
+        <span class="source-icon" aria-hidden="true">🌍</span>
+        <div class="source-name" data-i18n="bd_src_gutenberg">Project Gutenberg</div>
+        <span class="source-badge sb-public" data-i18n="bd_badge_public">Public Domain</span>
+      </div>
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('openlibrary')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('openlibrary')}"
+           aria-label="Open Library — Preview and Borrow">
+        <span class="source-icon" aria-hidden="true">📚</span>
+        <div class="source-name" data-i18n="bd_src_openlibrary">Open Library</div>
+        <span class="source-badge sb-preview" data-i18n="bd_badge_preview">Preview Only</span>
+      </div>
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('googlebooks')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('googlebooks')}"
+           aria-label="Google Books Preview — Preview Only">
+        <span class="source-icon" aria-hidden="true">📘</span>
+        <div class="source-name" data-i18n="bd_src_gbooks">Google Books Preview</div>
+        <span class="source-badge sb-preview" data-i18n="bd_badge_preview">Preview Only</span>
+      </div>
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('school')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('school')}"
+           aria-label="School Library OPAC — Library Access">
+        <span class="source-icon" aria-hidden="true">🏫</span>
+        <div class="source-name" data-i18n="bd_src_school">School Library</div>
+        <span class="source-badge sb-library" data-i18n="bd_badge_library">Library Access</span>
+      </div>
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('university')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('university')}"
+           aria-label="University Library OPAC — Library Access">
+        <span class="source-icon" aria-hidden="true">🎓</span>
+        <div class="source-name" data-i18n="bd_src_uni">University Library</div>
+        <span class="source-badge sb-library" data-i18n="bd_badge_library">Library Access</span>
+      </div>
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('gdrive')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('gdrive')}"
+           aria-label="Google Drive — User Owned">
+        <span class="source-icon" aria-hidden="true">☁️</span>
+        <div class="source-name" data-i18n="bd_src_gdrive">Google Drive</div>
+        <span class="source-badge sb-owned" data-i18n="bd_badge_owned">User Owned</span>
+      </div>
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('onedrive')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('onedrive')}"
+           aria-label="OneDrive — User Owned">
+        <span class="source-icon" aria-hidden="true">☁️</span>
+        <div class="source-name" data-i18n="bd_src_onedrive">OneDrive</div>
+        <span class="source-badge sb-owned" data-i18n="bd_badge_owned">User Owned</span>
+      </div>
+
+      <div class="source-card" role="listitem" tabindex="0"
+           onclick="activateSource('community')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('community')}"
+           aria-label="Community Learning Materials — Learning Material Only">
+        <span class="source-icon" aria-hidden="true">🧠</span>
+        <div class="source-name" data-i18n="bd_src_community">Community Materials</div>
+        <span class="source-badge sb-learning" data-i18n="bd_badge_learning">Learning Material</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Dynamic source panels -->
+
+  <!-- Upload PDF -->
+  <section class="bd-card" id="panel-upload" style="display:none;" aria-labelledby="uploadHeading">
+    <h3 id="uploadHeading" class="bd-section-title">📄 Upload Your Book or Document</h3>
+    <div class="upload-zone" id="uploadZone"
+         onclick="document.getElementById('fileInput').click()"
+         ondragover="event.preventDefault();this.classList.add('dragover')"
+         ondragleave="this.classList.remove('dragover')"
+         ondrop="handleDrop(event)"
+         role="button" tabindex="0" aria-label="Upload PDF or document"
+         onkeydown="if(event.key==='Enter'||event.key===' ')document.getElementById('fileInput').click()">
+      <span class="upload-icon" aria-hidden="true">📄</span>
+      <div class="upload-text">Click or drag to upload a PDF or document</div>
+      <div class="upload-sub">Supports PDF, DOC, DOCX, TXT — your files stay in your browser only</div>
+    </div>
+    <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt" onchange="handleFileUpload(event)" aria-label="Choose file">
+    <div id="uploadResult" style="margin-top:16px;display:none;" aria-live="polite"></div>
+  </section>
+
+  <!-- Scan Physical Book -->
+  <section class="bd-card" id="panel-scan" style="display:none;" aria-labelledby="scanHeading">
+    <h3 id="scanHeading" class="bd-section-title">📷 Scan a Physical Book</h3>
+    <p style="font-size:14px;color:#374151;margin-bottom:16px;line-height:1.6;">
+      Use the OCR Agent to photograph a page from a book you own or have legal access to. The text will be extracted and sent directly to your chosen accessibility tool.
+    </p>
+    <a href="ocr-agent.html" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+      <span aria-hidden="true">📷</span> Open OCR Scanner
+    </a>
+    <div class="copyright-notice" style="margin-top:16px;">
+      <strong>Important:</strong> Only scan books you own or have legal access to. Camera OCR is designed for personally owned or library-borrowed physical books.
+    </div>
+  </section>
+
+  <!-- Project Gutenberg results -->
+  <section class="results-panel" id="panel-gutenberg" aria-labelledby="gutenbergHeading" aria-live="polite">
+    <div class="results-panel-title" id="gutenbergHeading">🌍 <span data-i18n="bd_src_gutenberg">Project Gutenberg</span> — <span style="color:#1e40af;font-size:11px;" data-i18n="bd_badge_public">Public Domain</span></div>
+    <div class="book-result-list" id="gutenbergResults"></div>
+  </section>
+
+  <!-- Open Library results -->
+  <section class="results-panel" id="panel-openlibrary" aria-labelledby="openLibHeading" aria-live="polite">
+    <div class="results-panel-title" id="openLibHeading">📚 <span data-i18n="bd_src_openlibrary">Open Library</span> — <span style="color:#92400e;font-size:11px;" data-i18n="bd_badge_preview">Preview Only</span></div>
+    <div class="book-result-list" id="openLibResults"></div>
+  </section>
+
+  <!-- Google Books results -->
+  <section class="results-panel" id="panel-googlebooks" aria-labelledby="gBooksHeading" aria-live="polite">
+    <div class="results-panel-title" id="gBooksHeading">📘 <span data-i18n="bd_src_gbooks">Google Books Preview</span> — <span style="color:#92400e;font-size:11px;" data-i18n="bd_badge_preview">Preview Only</span></div>
+    <div class="book-result-list" id="gBooksResults"></div>
+  </section>
+
+  <!-- OPAC connector (school + university) -->
+  <section class="bd-card" id="panel-school" style="display:none;" aria-labelledby="opacHeading">
+    <h3 id="opacHeading" class="bd-section-title">🏫 <span data-i18n="bd_opac_title">Library OPAC Connector</span></h3>
+    <div class="opac-form" role="form" aria-label="OPAC library search form">
+      <div class="opac-note" data-i18n="bd_opac_note">OPAC integration requires permission from the school or university library.</div>
+      <div>
+        <label class="form-label" for="opacName" data-i18n="bd_opac_name">Library Name</label>
+        <input id="opacName" class="form-control" type="text" placeholder="e.g. SMK Taman Melati Library">
+      </div>
+      <div>
+        <label class="form-label" for="opacUrl" data-i18n="bd_opac_url">OPAC URL</label>
+        <input id="opacUrl" class="form-control" type="url" placeholder="https://library.school.edu.my/opac">
+      </div>
+      <div>
+        <label class="form-label" for="opacKeyword" data-i18n="bd_opac_keyword">Search Keyword</label>
+        <input id="opacKeyword" class="form-control" type="text" placeholder="Science Form 2">
+      </div>
+      <div>
+        <label class="form-label" for="opacId" data-i18n="bd_opac_id">Library User ID (optional)</label>
+        <input id="opacId" class="form-control" type="text" placeholder="Student or staff ID">
+      </div>
+      <div style="grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="searchOPAC()" data-i18n="bd_opac_search">Search Library</button>
+        <span style="font-size:11px;color:#64748b;">Future integration: Koha, SLiMS, and standard OPAC APIs</span>
+      </div>
+    </div>
+    <div id="opacResults" style="margin-top:20px;" aria-live="polite"></div>
+  </section>
+
+  <!-- University uses same OPAC panel with different heading -->
+  <section class="bd-card" id="panel-university" style="display:none;" aria-labelledby="uniOpacHeading">
+    <h3 id="uniOpacHeading" class="bd-section-title">🎓 <span data-i18n="bd_src_uni">University Library OPAC Connector</span></h3>
+    <div class="opac-form" role="form">
+      <div class="opac-note" data-i18n="bd_opac_note">OPAC integration requires permission from the school or university library.</div>
+      <div>
+        <label class="form-label" for="uniName" data-i18n="bd_opac_name">Library Name</label>
+        <input id="uniName" class="form-control" type="text" placeholder="e.g. UKM Main Library">
+      </div>
+      <div>
+        <label class="form-label" for="uniUrl" data-i18n="bd_opac_url">OPAC URL</label>
+        <input id="uniUrl" class="form-control" type="url" placeholder="https://pustaka.ukm.my/opac">
+      </div>
+      <div>
+        <label class="form-label" for="uniKeyword" data-i18n="bd_opac_keyword">Search Keyword</label>
+        <input id="uniKeyword" class="form-control" type="text" placeholder="Educational Psychology">
+      </div>
+      <div>
+        <label class="form-label" for="uniId" data-i18n="bd_opac_id">Library User ID (optional)</label>
+        <input id="uniId" class="form-control" type="text" placeholder="Student matric number">
+      </div>
+      <div style="grid-column:1/-1;">
+        <button class="btn btn-primary" onclick="searchOPACUni()" data-i18n="bd_opac_search">Search Library</button>
+      </div>
+    </div>
+    <div id="uniOpacResults" style="margin-top:20px;" aria-live="polite"></div>
+  </section>
+
+  <!-- Google Drive -->
+  <section class="bd-card" id="panel-gdrive" style="display:none;" aria-labelledby="gdriveHeading">
+    <h3 id="gdriveHeading" class="bd-section-title">☁️ Import from Google Drive</h3>
+    <p style="font-size:14px;color:#374151;margin-bottom:16px;line-height:1.6;">
+      Import a document from your Google Drive. Requires signing in to your Google account. CelikSense AI will only read the file you explicitly choose.
+    </p>
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#78350f;">
+      <strong>Prototype mode:</strong> Google Drive OAuth integration is planned for Phase 2. For now, upload your file directly using the Upload PDF option.
+    </div>
+    <button class="btn btn-primary" onclick="simulateDriveImport()" style="opacity:0.7;" disabled aria-disabled="true">
+      ☁️ Connect Google Drive (Coming Soon)
+    </button>
+    <a href="#" onclick="activateSource('upload');return false;" class="btn btn-outline" style="margin-left:10px;">
+      📄 Upload File Instead
+    </a>
+  </section>
+
+  <!-- OneDrive -->
+  <section class="bd-card" id="panel-onedrive" style="display:none;" aria-labelledby="onedriveHeading">
+    <h3 id="onedriveHeading" class="bd-section-title">☁️ Import from OneDrive</h3>
+    <p style="font-size:14px;color:#374151;margin-bottom:16px;line-height:1.6;">
+      Import a document from your Microsoft OneDrive. Requires Microsoft account authentication.
+    </p>
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#78350f;">
+      <strong>Prototype mode:</strong> OneDrive integration is planned for Phase 2. Upload your file directly for now.
+    </div>
+    <button class="btn btn-primary" style="opacity:0.7;" disabled aria-disabled="true">
+      ☁️ Connect OneDrive (Coming Soon)
+    </button>
+    <a href="#" onclick="activateSource('upload');return false;" class="btn btn-outline" style="margin-left:10px;">
+      📄 Upload File Instead
+    </a>
+  </section>
+
+  <!-- Community Materials -->
+  <section class="bd-card" id="panel-community" style="display:none;" aria-labelledby="communityHeading">
+    <h3 id="communityHeading" class="bd-section-title" data-i18n="bd_community_title">Community Learning Materials</h3>
+    <p class="bd-section-sub" style="font-size:13px;color:#64748b;margin-bottom:20px;" data-i18n="bd_community_note">Share summaries, notes, mind maps, and quizzes — not full copyrighted books.</p>
+
+    <!-- Share form -->
+    <details style="margin-bottom:20px;">
+      <summary class="btn btn-outline btn-sm" style="cursor:pointer;display:inline-block;" data-i18n="bd_community_share">Share a Learning Material</summary>
+      <div class="share-form" style="margin-top:14px;padding:16px;background:#f8f7ff;border-radius:12px;">
+        <div>
+          <label class="form-label" for="shareTitle">Title</label>
+          <input id="shareTitle" class="form-control" type="text" placeholder="e.g. Nota Sains Tingkatan 3">
+        </div>
+        <div>
+          <label class="form-label" for="shareType">Type</label>
+          <select id="shareType" class="form-control">
+            <option>Note</option><option>Summary</option><option>Mind Map</option>
+            <option>Quiz</option><option>Vocabulary</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label" for="shareContent">Content</label>
+          <textarea id="shareContent" class="form-control" rows="4" placeholder="Paste your notes, summary, or quiz here…"></textarea>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="shareCommunityMaterial()">Share</button>
+      </div>
+    </details>
+
+    <div class="community-grid" id="communityGrid" aria-label="Community learning materials"></div>
+  </section>
+
+  <!-- All results (search) -->
+  <section id="allResultsSection" style="display:none;" aria-labelledby="allResultsHeading" aria-live="polite">
+    <div class="bd-section-title">
+      <h2 id="allResultsHeading" data-i18n="bd_results_title">Search Results</h2>
+      <span class="bd-section-badge" id="resultCount"></span>
+    </div>
+  </section>
+
+  <!-- My Library -->
+  <section class="bd-card" aria-labelledby="myLibHeading" style="margin-top:16px;">
+    <div class="bd-section-title">
+      <h2 id="myLibHeading" data-i18n="bd_my_library">My Library</h2>
+    </div>
+    <div class="my-lib-grid" id="myLibGrid" aria-label="Saved books and materials"></div>
+  </section>
+
+</main>
+
+<script src="shared.js"></script>
+<script>
+/* ── Helpers ─────────────────────────────────────────────── */
+var _selectedBook = null;
+var _activeSource = null;
+var ALL_PANELS = ['upload','scan','gutenberg','openlibrary','googlebooks',
+                  'school','university','gdrive','onedrive','community'];
+
+function hideAllPanels() {
+  ALL_PANELS.forEach(function(id) {
+    var el = document.getElementById('panel-' + id);
+    if (el) el.style.display = 'none';
+    var rp = document.getElementById('panel-' + id);
+    if (rp) rp.classList && rp.classList.remove('visible');
+  });
+  document.querySelectorAll('.source-card').forEach(function(c){ c.classList.remove('active'); });
+}
+
+function activateSource(id) {
+  hideAllPanels();
+  _activeSource = id;
+
+  /* highlight the clicked card */
+  document.querySelectorAll('.source-card').forEach(function(c){
+    var onclick = c.getAttribute('onclick') || '';
+    if (onclick.includes("'" + id + "'")) c.classList.add('active');
+  });
+
+  if (id === 'upload') {
+    document.getElementById('panel-upload').style.display = 'block';
+  } else if (id === 'scan') {
+    document.getElementById('panel-scan').style.display = 'block';
+  } else if (id === 'gutenberg') {
+    showGutenberg('');
+  } else if (id === 'openlibrary') {
+    showOpenLibrary('');
+  } else if (id === 'googlebooks') {
+    showGoogleBooks('');
+  } else if (id === 'school') {
+    document.getElementById('panel-school').style.display = 'block';
+  } else if (id === 'university') {
+    document.getElementById('panel-university').style.display = 'block';
+  } else if (id === 'gdrive') {
+    document.getElementById('panel-gdrive').style.display = 'block';
+  } else if (id === 'onedrive') {
+    document.getElementById('panel-onedrive').style.display = 'block';
+  } else if (id === 'community') {
+    document.getElementById('panel-community').style.display = 'block';
+    renderCommunity();
+  }
+  /* scroll to panel */
+  setTimeout(function(){
+    var target = document.getElementById('panel-' + id) ||
+                 document.getElementById('allResultsSection');
+    if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 80);
+}
+
+/* ── Search ──────────────────────────────────────────────── */
+function runSearch() {
+  var q = (document.getElementById('bdSearchInput').value || '').trim();
+  if (!q) { showAllSources(); return; }
+  hideAllPanels();
+  document.getElementById('allResultsSection').style.display = 'block';
+  var results = CS.books.recommend(q);
+  document.getElementById('resultCount').textContent = results.length + ' results';
+  showGutenberg(q);
+  showOpenLibrary(q);
+  showGoogleBooks(q);
+}
+
+function quickSearch(term) {
+  document.getElementById('bdSearchInput').value = term;
+  runSearch();
+}
+
+function showAllSources() {
+  hideAllPanels();
+  document.getElementById('allResultsSection').style.display = 'none';
+}
+
+/* ── Gutenberg ──────────────────────────────────────────── */
+function legalBadgeHTML(status) {
+  var t = CS.lang.t;
+  var map = {
+    public:  ['sb-public', t('bd_badge_public')],
+    preview: ['sb-preview', t('bd_badge_preview')],
+    owned:   ['sb-owned', t('bd_badge_owned')],
+    library: ['sb-library', t('bd_badge_library')],
+    ocr:     ['sb-ocr', t('bd_badge_ocr')],
+    learning:['sb-learning', t('bd_badge_learning')],
+  };
+  var info = map[status] || map.preview;
+  return '<span class="legal-badge ' + info[0] + '">' + info[1] + '</span>';
+}
+
+function showGutenberg(q) {
+  var panel = document.getElementById('panel-gutenberg');
+  panel.classList.add('visible');
+  var list = CS.books.GUTENBERG.filter(function(b) {
+    if (!q) return true;
+    return b.title.toLowerCase().includes(q.toLowerCase()) ||
+           b.author.toLowerCase().includes(q.toLowerCase()) ||
+           b.subjects.join(' ').toLowerCase().includes(q.toLowerCase());
+  });
+  var html = list.length ? list.map(function(b) {
+    return '<div class="book-result">' +
+      '<div class="book-result-meta">' +
+        '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
+        '<div class="book-result-author">' + escHtml(b.author) + ' · ' + escHtml(b.lang) + ' · ' + b.year + '</div>' +
+        legalBadgeHTML('public') +
+        '<div class="book-result-info" style="margin-top:6px;font-style:italic;">"' + escHtml((b.extract||'').substring(0,120)) + '…"</div>' +
+      '</div>' +
+      '<div class="book-result-actions">' +
+        '<button class="btn-open-cs" onclick="selectBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" ' +
+          'data-i18n="bd_read_btn" aria-label="Open ' + escHtml(b.title) + ' with CelikSense">Open with CelikSense</button>' +
+        '<button class="btn-save-lib" onclick="saveBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" ' +
+          'data-i18n="bd_save_lib" aria-label="Save ' + escHtml(b.title) + ' to My Library">Save</button>' +
+      '</div>' +
+    '</div>';
+  }).join('') : '<p style="color:#64748b;font-size:13px;padding:12px 0;" data-i18n="bd_no_results">No results found.</p>';
+  document.getElementById('gutenbergResults').innerHTML = html;
+}
+
+function showOpenLibrary(q) {
+  var panel = document.getElementById('panel-openlibrary');
+  panel.classList.add('visible');
+  var list = CS.books.OPEN_LIBRARY.filter(function(b) {
+    if (!q) return true;
+    return b.title.toLowerCase().includes(q.toLowerCase()) ||
+           b.author.toLowerCase().includes(q.toLowerCase());
+  });
+  var html = list.length ? list.map(function(b) {
+    return '<div class="book-result">' +
+      '<div class="book-result-meta">' +
+        '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
+        '<div class="book-result-author">' + escHtml(b.author) + '</div>' +
+        legalBadgeHTML('preview') +
+        '<div class="book-result-info" style="margin-top:6px;">📍 ' + escHtml(b.borrow) + '</div>' +
+      '</div>' +
+      '<div class="book-result-actions">' +
+        '<button class="btn-open-cs" onclick="selectBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" ' +
+          'aria-label="Open ' + escHtml(b.title) + ' with CelikSense">Preview with CelikSense</button>' +
+        '<button class="btn-save-lib" onclick="saveBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" aria-label="Save to library">Save</button>' +
+      '</div>' +
+    '</div>';
+  }).join('') : '<p style="color:#64748b;font-size:13px;padding:12px 0;">No results found.</p>';
+  document.getElementById('openLibResults').innerHTML = html;
+}
+
+function showGoogleBooks(q) {
+  var panel = document.getElementById('panel-googlebooks');
+  panel.classList.add('visible');
+  var list = CS.books.GOOGLE_BOOKS.filter(function(b) {
+    if (!q) return true;
+    return b.title.toLowerCase().includes(q.toLowerCase()) ||
+           b.author.toLowerCase().includes(q.toLowerCase());
+  });
+  var html = list.length ? list.map(function(b) {
+    return '<div class="book-result">' +
+      '<div class="book-result-meta">' +
+        '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
+        '<div class="book-result-author">' + escHtml(b.author) + ' · ' + b.pages + ' pages</div>' +
+        legalBadgeHTML('preview') +
+        '<div class="book-result-info" style="margin-top:6px;">🔍 ' + escHtml(b.preview) + ' — do not extract full copyrighted content</div>' +
+      '</div>' +
+      '<div class="book-result-actions">' +
+        '<button class="btn-open-cs" onclick="selectBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" ' +
+          'aria-label="Open ' + escHtml(b.title) + ' preview with CelikSense">Preview</button>' +
+        '<button class="btn-save-lib" onclick="saveBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" aria-label="Save to library">Save</button>' +
+      '</div>' +
+    '</div>';
+  }).join('') : '<p style="color:#64748b;font-size:13px;padding:12px 0;">No results found.</p>';
+  document.getElementById('gBooksResults').innerHTML = html;
+}
+
+/* ── OPAC mock ───────────────────────────────────────────── */
+function searchOPAC() {
+  var kw = document.getElementById('opacKeyword').value || 'Science';
+  var name = document.getElementById('opacName').value || 'School Library';
+  var html = '<div class="book-result-list">' + [
+    { t:'Buku Teks Sains Tingkatan 2', a:'Kementerian Pendidikan Malaysia', s:'Physical copy available' },
+    { t:'Science Form 3 Activity Book', a:'Sasbadi', s:'Physical copy — reserve at counter' },
+    { t:'Integrated Science Practice', a:'Oxford Fajar', s:'Limited copies remaining' },
+  ].map(function(b) {
+    return '<div class="book-result">' +
+      '<div class="book-result-meta">' +
+        '<div class="book-result-title">' + escHtml(b.t) + '</div>' +
+        '<div class="book-result-author">' + escHtml(b.a) + '</div>' +
+        legalBadgeHTML('library') +
+        '<div class="book-result-info" style="margin-top:6px;">📍 ' + escHtml(b.s) + ' · ' + escHtml(name) + '</div>' +
+      '</div>' +
+      '<div class="book-result-actions">' +
+        '<button class="btn-open-cs" onclick="CS.toast(\'Visit your library to borrow this book.\',\'info\')" aria-label="Request from library">Request</button>' +
+      '</div></div>';
+  }).join('') + '</div>';
+  document.getElementById('opacResults').innerHTML = '<p style="font-size:12px;color:#6366f1;margin-bottom:10px;">Mock results for "' + escHtml(kw) + '" — real OPAC search requires library API access.</p>' + html;
+  CS.toast('OPAC search complete (mock data)', 'success');
+}
+
+function searchOPACUni() {
+  var kw = document.getElementById('uniKeyword').value || 'Psychology';
+  document.getElementById('uniOpacResults').innerHTML =
+    '<p style="font-size:12px;color:#6366f1;margin-bottom:10px;">Mock results for "' + escHtml(kw) + '" — Koha/SLiMS integration coming in Phase 2.</p>' +
+    '<div class="book-result">' +
+      '<div class="book-result-meta">' +
+        '<div class="book-result-title">Educational Psychology (10th Ed.)</div>' +
+        '<div class="book-result-author">Anita Woolfolk</div>' +
+        legalBadgeHTML('library') +
+        '<div class="book-result-info" style="margin-top:6px;">📍 Available — 2 copies · Reserve online</div>' +
+      '</div>' +
+      '<div class="book-result-actions">' +
+        '<button class="btn-open-cs" onclick="CS.toast(\'Visit your university library to borrow.\',\'info\')" aria-label="Request">Request</button>' +
+      '</div></div>';
+  CS.toast('University OPAC search complete (mock data)', 'success');
+}
+
+/* ── Select book → show send panel ──────────────────────── */
+function selectBook(book) {
+  if (typeof book === 'string') { try { book = JSON.parse(book); } catch(e){} }
+  _selectedBook = book;
+  var text = book.extract || book.title + ' by ' + (book.author || '') + '. ' +
+    (book.availability ? 'Availability: ' + book.availability + '.' : '') +
+    ' [Preview only — do not reproduce full copyrighted content.]';
+  localStorage.setItem('cs_book_content', text);
+  localStorage.setItem('cs_book_content_title', book.title || '');
+  var panel = document.getElementById('sendPanel');
+  panel.classList.add('visible');
+  document.getElementById('sendBookName').textContent = '📖 ' + (book.title || 'Selected book');
+  panel.scrollIntoView({ behavior:'smooth', block:'start' });
+  CS.toast(CS.lang.t('bd_sent_ok').replace('Opening agent…',''), 'success');
+}
+
+function sendTo(page) {
+  if (!_selectedBook) { CS.toast('Please select a book first.', 'warn'); return; }
+  CS.books.sendToAgent(
+    localStorage.getItem('cs_book_content') || '',
+    _selectedBook.title || '',
+    page
+  );
+}
+
+/* ── Download for offline ────────────────────────────────── */
+function downloadForOffline() {
+  if (!_selectedBook) { CS.toast(CS.lang.t('bd_no_book'), 'warn'); return; }
+  if (!window.CS || !CS.offline) { CS.toast('Offline storage not available.', 'error'); return; }
+  var btn = document.getElementById('downloadOfflineBtn');
+  if (btn) { btn.disabled = true; btn.querySelector('span:last-child').textContent = '⏳ Saving…'; }
+  CS.offline.saveDownload(_selectedBook).then(function() {
+    CS.toast(CS.lang.t('offline_saved') || 'Saved for offline reading!', 'success');
+    if (btn) {
+      btn.querySelector('span:last-child').setAttribute('data-i18n', 'offline_already_saved');
+      btn.querySelector('span:last-child').textContent = '✅ Saved';
+      btn.style.borderColor = 'rgba(16,185,129,0.8)';
+    }
+  }).catch(function(e) {
+    CS.toast('Could not save: ' + e.message, 'error');
+    if (btn) { btn.disabled = false; btn.querySelector('span:last-child').setAttribute('data-i18n','offline_download_btn'); CS.lang.apply(); }
+  });
+}
+
+/* ── Save to library ─────────────────────────────────────── */
+function saveBook(book) {
+  if (typeof book === 'string') { try { book = JSON.parse(book); } catch(e){} }
+  var saved = CS.books.saveToLibrary(book);
+  CS.toast(saved ? CS.lang.t('bd_saved_ok') : 'Already in My Library.', saved ? 'success' : 'info');
+  renderMyLibrary();
+}
+
+/* ── File upload ─────────────────────────────────────────── */
+function handleFileUpload(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var text = '';
+    if (file.type === 'text/plain') {
+      text = e.target.result;
+    } else {
+      text = '[File: ' + file.name + ']\nThis is a prototype. PDF text extraction will be available in Phase 2 with PDF.js integration. For now, copy and paste your text into the Reading Companion or AI Teacher.';
+    }
+    localStorage.setItem('cs_book_content', text);
+    localStorage.setItem('cs_book_content_title', file.name);
+    _selectedBook = { id:'upload_' + Date.now(), title: file.name, source:'upload', legalStatus:'owned', extract:text.substring(0,200) };
+    document.getElementById('uploadResult').style.display = 'block';
+    document.getElementById('uploadResult').innerHTML =
+      '<div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:10px;padding:12px 16px;font-size:13px;color:#065f46;">' +
+      '✅ <strong>' + escHtml(file.name) + '</strong> loaded. Use the Send to Tools buttons to open in any accessibility agent.</div>';
+    document.getElementById('sendPanel').classList.add('visible');
+    document.getElementById('sendBookName').textContent = '📄 ' + file.name;
+    CS.toast('File loaded: ' + file.name, 'success');
+  };
+  if (file.type === 'text/plain') reader.readAsText(file);
+  else reader.readAsArrayBuffer(file);
+}
+
+function handleDrop(event) {
+  event.preventDefault();
+  document.getElementById('uploadZone').classList.remove('dragover');
+  var file = event.dataTransfer.files[0];
+  if (file) {
+    var dt = new DataTransfer();
+    dt.items.add(file);
+    document.getElementById('fileInput').files = dt.files;
+    handleFileUpload({ target: { files: [file] } });
+  }
+}
+
+/* ── Community ───────────────────────────────────────────── */
+function renderCommunity() {
+  var items = CS.books.getCommunityMaterials();
+  var html = items.map(function(m) {
+    return '<div class="community-card">' +
+      '<span class="community-type">' + escHtml(m.type || 'Material') + '</span>' +
+      '<div class="community-title">' + escHtml(m.title) + '</div>' +
+      '<div class="community-author">By ' + escHtml(m.author || 'Anonymous') + ' · ' + escHtml(m.lang || 'EN') + '</div>' +
+      '<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">' +
+        '<button class="btn-open-cs" style="font-size:11px;padding:5px 10px;" onclick="selectBook(' + JSON.stringify(m).replace(/"/g,'&quot;') + ')" aria-label="Open ' + escHtml(m.title) + '">Use in CelikSense</button>' +
+      '</div></div>';
+  }).join('');
+  document.getElementById('communityGrid').innerHTML = html || '<p class="lib-empty">No community materials yet.</p>';
+}
+
+function shareCommunityMaterial() {
+  var title   = document.getElementById('shareTitle').value.trim();
+  var type    = document.getElementById('shareType').value;
+  var content = document.getElementById('shareContent').value.trim();
+  if (!title || !content) { CS.toast('Please add a title and content.', 'warn'); return; }
+  CS.books.saveCommunityMaterial({ title:title, type:type, content:content, author:'You', lang: CS.lang.get() === 'ms' ? 'Bahasa Melayu' : 'English' });
+  document.getElementById('shareTitle').value = '';
+  document.getElementById('shareContent').value = '';
+  CS.toast('Material shared!', 'success');
+  renderCommunity();
+}
+
+/* ── My Library render ───────────────────────────────────── */
+function renderMyLibrary() {
+  var lib = CS.books.getLibrary();
+  var grid = document.getElementById('myLibGrid');
+  if (!lib.length) {
+    grid.innerHTML = '<p class="lib-empty" style="grid-column:1/-1;">Your library is empty. Save books from the search results above.</p>';
+    return;
+  }
+  grid.innerHTML = lib.map(function(b) {
+    return '<div class="lib-card">' +
+      '<div class="lib-card-title">' + escHtml(b.title) + '</div>' +
+      '<div class="lib-card-meta">' + escHtml(b.author || '') + '</div>' +
+      legalBadgeHTML(b.legalStatus || 'preview') +
+      '<div class="lib-card-source" style="margin-top:4px;">Source: ' + escHtml(b.source || '') + '</div>' +
+      '<div class="lib-card-actions">' +
+        '<button class="btn-open-cs" style="font-size:11px;padding:6px 12px;" onclick="selectBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" aria-label="Open ' + escHtml(b.title) + '">Open</button>' +
+        '<button class="btn-save-lib" style="font-size:11px;" onclick="CS.books.removeFromLibrary(\'' + escHtml(b.id) + '\');renderMyLibrary();CS.toast(\'Removed.\',\'info\')" aria-label="Remove from library">Remove</button>' +
+      '</div></div>';
+  }).join('');
+}
+
+/* ── XSS-safe HTML escape ────────────────────────────────── */
+function escHtml(str) {
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ── Simulate Drive (placeholder) ───────────────────────── */
+function simulateDriveImport() {
+  CS.toast('Google Drive integration coming in Phase 2.', 'info');
+}
+
+/* ── Init ────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+  renderMyLibrary();
+  /* If arriving from search or quick nav, show Gutenberg by default */
+  var params = new URLSearchParams(window.location.search);
+  var src = params.get('source') || '';
+  var q   = params.get('q') || '';
+  if (src) activateSource(src);
+  if (q) { document.getElementById('bdSearchInput').value = q; runSearch(); }
+  /* Register SW */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  }
+});
+</script>
+</body>
+</html>
