@@ -1,0 +1,17 @@
+# Claude Code local settings (contains machine-specific config, never commit)
+.claude/settings.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+
+# Environment / secrets (never commit these)
+.env
+.env.*
+*.pem
+*.key
+secrets.*
+credentials.json
