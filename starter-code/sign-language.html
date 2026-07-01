@@ -253,26 +253,30 @@
     justify-content: center;
   }
 
-  /* ── When user HAS an avatar: unified single photo view ── */
+  /* ── When user HAS an avatar: one large photo, no robot body ── */
   body.has-avatar #bimAvatarContainer {
+    order: 2;
     min-height: 0;
-    order: 2;   /* push BIM controls below photo */
   }
-  body.has-avatar #bim-svg {
-    display: none;   /* hide cartoon stick figure */
+  /* Hide the SVG wrapper div (contains the robot figure) */
+  body.has-avatar #bim-avatar {
+    display: none;
   }
   body.has-avatar #bim-pose-label {
     display: none;
   }
+  /* Move photo circle above the BIM controls */
   body.has-avatar .stage-avatar-wrapper {
-    order: 1;        /* photo circle at top */
-    margin: 10px 0 0;
+    order: 1;
+    margin: 16px 0 0;
   }
+  /* Large, clear photo */
   body.has-avatar #stageAvatarImg {
     width: 220px !important;
     height: 220px !important;
     border: 4px solid rgba(99,102,241,.7) !important;
     box-shadow: 0 0 60px rgba(99,102,241,.45), 0 0 0 10px rgba(99,102,241,.12) !important;
+    object-fit: cover !important;
   }
 
   /* CREATE AVATAR PROMPT */
