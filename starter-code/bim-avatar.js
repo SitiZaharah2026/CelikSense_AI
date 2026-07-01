@@ -479,8 +479,8 @@ window.BIM_AVATAR = (function () {
       <stop offset="100%" stop-color="#f59e0b"/>
     </radialGradient>
     <radialGradient id="bim-body-grad" cx="50%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#475569"/>
-      <stop offset="100%" stop-color="#1e293b"/>
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
     </radialGradient>
     <clipPath id="bim-photo-clip">
       <circle cx="150" cy="60" r="32"/>
@@ -495,30 +495,30 @@ window.BIM_AVATAR = (function () {
 
     <!-- Shirt / torso -->
     <rect id="bim-torso" x="120" y="100" width="60" height="70" rx="12" ry="12"
-          fill="url(#bim-body-grad)" stroke="#334155" stroke-width="2"/>
+          fill="url(#bim-body-grad)" stroke="#4338ca" stroke-width="2"/>
     <!-- Collar detail -->
-    <path d="M 143 100 L 150 112 L 157 100" fill="none" stroke="#64748b" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M 143 100 L 150 112 L 157 100" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-linejoin="round"/>
 
     <!-- Left leg -->
-    <line x1="135" y1="170" x2="125" y2="220" stroke="#1e293b" stroke-width="8"
+    <line x1="135" y1="170" x2="125" y2="220" stroke="#4338ca" stroke-width="8"
           stroke-linecap="round"/>
     <!-- Right leg -->
-    <line x1="165" y1="170" x2="175" y2="220" stroke="#1e293b" stroke-width="8"
+    <line x1="165" y1="170" x2="175" y2="220" stroke="#4338ca" stroke-width="8"
           stroke-linecap="round"/>
     <!-- Left foot -->
-    <ellipse cx="121" cy="222" rx="10" ry="5" fill="#0f172a"/>
+    <ellipse cx="121" cy="222" rx="10" ry="5" fill="#3730a3"/>
     <!-- Right foot -->
-    <ellipse cx="179" cy="222" rx="10" ry="5" fill="#0f172a"/>
+    <ellipse cx="179" cy="222" rx="10" ry="5" fill="#3730a3"/>
 
     <!-- Neck -->
     <rect x="143" y="87" width="14" height="16" rx="5" fill="#fbbf24"/>
 
-    <!-- Left arm (shirt sleeve colour) -->
+    <!-- Left arm -->
     <path id="bim-left-arm" d="M 120 120 L 90 160"
-          stroke="#334155" stroke-width="10" stroke-linecap="round" fill="none"/>
+          stroke="#4338ca" stroke-width="10" stroke-linecap="round" fill="none"/>
     <!-- Right arm -->
     <path id="bim-right-arm" d="M 180 120 L 210 160"
-          stroke="#334155" stroke-width="10" stroke-linecap="round" fill="none"/>
+          stroke="#4338ca" stroke-width="10" stroke-linecap="round" fill="none"/>
 
     <!-- Left hand -->
     <circle id="bim-left-hand" cx="88" cy="162" r="9"
