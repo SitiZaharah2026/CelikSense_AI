@@ -253,6 +253,28 @@
     justify-content: center;
   }
 
+  /* ── When user HAS an avatar: unified single photo view ── */
+  body.has-avatar #bimAvatarContainer {
+    min-height: 0;
+    order: 2;   /* push BIM controls below photo */
+  }
+  body.has-avatar #bim-svg {
+    display: none;   /* hide cartoon stick figure */
+  }
+  body.has-avatar #bim-pose-label {
+    display: none;
+  }
+  body.has-avatar .stage-avatar-wrapper {
+    order: 1;        /* photo circle at top */
+    margin: 10px 0 0;
+  }
+  body.has-avatar #stageAvatarImg {
+    width: 220px !important;
+    height: 220px !important;
+    border: 4px solid rgba(99,102,241,.7) !important;
+    box-shadow: 0 0 60px rgba(99,102,241,.45), 0 0 0 10px rgba(99,102,241,.12) !important;
+  }
+
   /* CREATE AVATAR PROMPT */
   .create-avatar-prompt {
     text-align: center;
