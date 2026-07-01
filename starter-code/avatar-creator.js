@@ -470,12 +470,12 @@
     const svg = CS_AVATAR.generateAvatarSVG(merged);
     merged.svgDataUrl = CS_AVATAR.svgToDataUrl(svg);
 
-    // Compressed 100x100 photo thumbnail
+    // Photo thumbnail — 280×280 for realistic avatar display
     const canvas = document.createElement('canvas');
-    canvas.width = 100; canvas.height = 100;
+    canvas.width = 280; canvas.height = 280;
     const ctx = canvas.getContext('2d');
-    ctx.drawImage(imgElement, 0, 0, 100, 100);
-    merged.photoDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+    ctx.drawImage(imgElement, 0, 0, 280, 280);
+    merged.photoDataUrl = canvas.toDataURL('image/jpeg', 0.85);
 
     CS_AVATAR.saveAvatar(merged);
     return merged;

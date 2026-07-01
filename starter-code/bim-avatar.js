@@ -468,7 +468,7 @@ window.BIM_AVATAR = (function () {
 
   function _buildSVG() {
     return `
-<svg id="bim-svg" viewBox="0 0 300 260" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BIM Sign Language Avatar">
+<svg id="bim-svg" viewBox="0 0 300 260" width="220" height="220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BIM Sign Language Avatar">
   <defs>
     <radialGradient id="bim-bg-grad" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#ede9fe"/>
@@ -479,9 +479,12 @@ window.BIM_AVATAR = (function () {
       <stop offset="100%" stop-color="#f59e0b"/>
     </radialGradient>
     <radialGradient id="bim-body-grad" cx="50%" cy="30%" r="70%">
-      <stop offset="0%" stop-color="#818cf8"/>
-      <stop offset="100%" stop-color="#4f46e5"/>
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#1e293b"/>
     </radialGradient>
+    <clipPath id="bim-photo-clip">
+      <circle cx="150" cy="60" r="32"/>
+    </clipPath>
   </defs>
 
   <!-- Background circle -->
@@ -490,30 +493,32 @@ window.BIM_AVATAR = (function () {
   <!-- Avatar group (float target) -->
   <g id="bim-avatar">
 
-    <!-- Torso -->
+    <!-- Shirt / torso -->
     <rect id="bim-torso" x="120" y="100" width="60" height="70" rx="12" ry="12"
-          fill="url(#bim-body-grad)" stroke="#4338ca" stroke-width="2"/>
+          fill="url(#bim-body-grad)" stroke="#334155" stroke-width="2"/>
+    <!-- Collar detail -->
+    <path d="M 143 100 L 150 112 L 157 100" fill="none" stroke="#64748b" stroke-width="2" stroke-linejoin="round"/>
 
     <!-- Left leg -->
-    <line x1="135" y1="170" x2="125" y2="220" stroke="#4338ca" stroke-width="8"
+    <line x1="135" y1="170" x2="125" y2="220" stroke="#1e293b" stroke-width="8"
           stroke-linecap="round"/>
     <!-- Right leg -->
-    <line x1="165" y1="170" x2="175" y2="220" stroke="#4338ca" stroke-width="8"
+    <line x1="165" y1="170" x2="175" y2="220" stroke="#1e293b" stroke-width="8"
           stroke-linecap="round"/>
     <!-- Left foot -->
-    <ellipse cx="121" cy="222" rx="10" ry="5" fill="#4338ca"/>
+    <ellipse cx="121" cy="222" rx="10" ry="5" fill="#0f172a"/>
     <!-- Right foot -->
-    <ellipse cx="179" cy="222" rx="10" ry="5" fill="#4338ca"/>
+    <ellipse cx="179" cy="222" rx="10" ry="5" fill="#0f172a"/>
 
     <!-- Neck -->
     <rect x="143" y="87" width="14" height="16" rx="5" fill="#fbbf24"/>
 
-    <!-- Left arm -->
+    <!-- Left arm (shirt sleeve colour) -->
     <path id="bim-left-arm" d="M 120 120 L 90 160"
-          stroke="#4338ca" stroke-width="8" stroke-linecap="round" fill="none"/>
+          stroke="#334155" stroke-width="10" stroke-linecap="round" fill="none"/>
     <!-- Right arm -->
     <path id="bim-right-arm" d="M 180 120 L 210 160"
-          stroke="#4338ca" stroke-width="8" stroke-linecap="round" fill="none"/>
+          stroke="#334155" stroke-width="10" stroke-linecap="round" fill="none"/>
 
     <!-- Left hand -->
     <circle id="bim-left-hand" cx="88" cy="162" r="9"
@@ -524,14 +529,14 @@ window.BIM_AVATAR = (function () {
 
     <!-- Head group (nod/shake target) -->
     <g id="bim-head-group">
-      <!-- Head -->
+      <!-- Head base (shown when no photo) -->
       <circle id="bim-head" cx="150" cy="60" r="32"
               fill="url(#bim-skin-grad)" stroke="#d97706" stroke-width="2"/>
       <!-- Hair -->
-      <path d="M 118 54 Q 120 28 150 25 Q 180 28 182 54 Q 175 38 150 36 Q 125 38 118 54 Z"
+      <path class="bim-cartoon-head" d="M 118 54 Q 120 28 150 25 Q 180 28 182 54 Q 175 38 150 36 Q 125 38 118 54 Z"
             fill="#92400e" opacity="0.85"/>
-      <!-- Face expression group -->
-      <g id="bim-face-expr">
+      <!-- Face expression group (shown when no photo) -->
+      <g id="bim-face-expr" class="bim-cartoon-head">
         <line data-role="lbrow" x1="136" y1="52" x2="146" y2="52"
               stroke="#78350f" stroke-width="2" stroke-linecap="round"/>
         <line data-role="rbrow" x1="154" y1="52" x2="164" y2="52"
@@ -541,6 +546,10 @@ window.BIM_AVATAR = (function () {
         <path data-role="mouth" d="M 142 67 Q 150 70 158 67"
               stroke="#92400e" stroke-width="2" fill="none" stroke-linecap="round"/>
       </g>
+      <!-- Real user photo (hidden until setUserPhoto is called) -->
+      <image id="bim-user-photo" x="118" y="28" width="64" height="64"
+             clip-path="url(#bim-photo-clip)" preserveAspectRatio="xMidYMid slice"
+             href="" style="display:none;"/>
     </g>
   </g>
 </svg>`;
@@ -882,6 +891,34 @@ window.BIM_AVATAR = (function () {
   function processText(text) { return _processSentences(text); }
   function simplifyWord(word) { return _simplifyWord(word); }
 
+  // ─── User Photo ───────────────────────────────────────────────────────────
+  function setUserPhoto(dataUrl) {
+    var photoEl = document.getElementById('bim-user-photo');
+    var cartoonEls = document.querySelectorAll('.bim-cartoon-head');
+    var headEl = document.getElementById('bim-head');
+    if (!photoEl) return;
+    if (dataUrl) {
+      photoEl.setAttribute('href', dataUrl);
+      photoEl.setAttribute('xlink:href', dataUrl);
+      photoEl.style.display = '';
+      // Hide cartoon face features; keep head circle as border ring
+      cartoonEls.forEach(function(el) { el.style.display = 'none'; });
+      if (headEl) {
+        headEl.setAttribute('fill', 'none');
+        headEl.setAttribute('stroke', 'rgba(99,102,241,0.7)');
+        headEl.setAttribute('stroke-width', '3');
+      }
+    } else {
+      photoEl.style.display = 'none';
+      cartoonEls.forEach(function(el) { el.style.display = ''; });
+      if (headEl) {
+        headEl.setAttribute('fill', 'url(#bim-skin-grad)');
+        headEl.setAttribute('stroke', '#d97706');
+        headEl.setAttribute('stroke-width', '2');
+      }
+    }
+  }
+
   // ─── Return Public API ────────────────────────────────────────────────────
   return {
     init,
@@ -899,6 +936,7 @@ window.BIM_AVATAR = (function () {
     isPlaying,
     processText,
     simplifyWord,
+    setUserPhoto,
     POSES,
     WORD_MAP,
   };
