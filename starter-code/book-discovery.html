@@ -431,8 +431,11 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <button class="send-btn" onclick="sendTo('blind-audio.html?mode=braille')" aria-label="Convert to Braille">
         <span class="send-btn-icon" aria-hidden="true">⠃</span><span data-i18n="bd_send_braille">Convert to Braille</span>
       </button>
-      <button class="send-btn" onclick="sendTo('sign-language.html')" aria-label="Translate to BIM Sign Language">
-        <span class="send-btn-icon" aria-hidden="true">🤟</span><span data-i18n="bd_send_bim">Translate to BIM</span>
+      <button class="send-btn" onclick="sendTo('sign-language.html')" aria-label="Open Visual Communication Agent">
+        <span class="send-btn-icon" aria-hidden="true">🤟</span><span data-i18n="bd_send_bim">Visual Comm Agent</span>
+      </button>
+      <button class="send-btn" onclick="window.location.href='signsense-dictionary.html'" aria-label="Open SignSense Dictionary">
+        <span class="send-btn-icon" aria-hidden="true">📖</span>SignSense Dictionary
       </button>
       <button class="send-btn" onclick="sendTo('adhd-agent.html')" aria-label="Apply ADHD Mode">
         <span class="send-btn-icon" aria-hidden="true">🧠</span><span data-i18n="bd_send_adhd">Apply ADHD Mode</span>

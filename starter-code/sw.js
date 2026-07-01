@@ -27,6 +27,7 @@ const SHELL_FILES = [
   'blind-audio.html',
   'sign-language.html',
   'sign-dictionary.html',
+  'signsense-dictionary.html',
   'adhd-agent.html',
   'dyslexia-agent.html',
   'ai-librarian.html',

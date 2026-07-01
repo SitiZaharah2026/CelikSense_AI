@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SignSense Dictionary – CelikSense AI</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ════════════════════════════════════════════════════
+   SIGNSENSE DICTIONARY — Design Tokens
+   ════════════════════════════════════════════════════ */
+:root {
+  --ss-indigo:   #4f46e5;
+  --ss-violet:   #7c3aed;
+  --ss-teal:     #0891b2;
+  --ss-green:    #059669;
+  --ss-amber:    #d97706;
+  --ss-red:      #dc2626;
+  --ss-bg:       #f0f4ff;
+  --ss-surface:  #ffffff;
+  --ss-border:   #e0e7ff;
+  --ss-text:     #0f172a;
+  --ss-muted:    #475569;
+  --ss-dim:      #94a3b8;
+  --ss-radius:   16px;
+  --ss-shadow:   0 2px 6px rgba(79,70,229,.08), 0 8px 24px rgba(79,70,229,.07);
+  --ss-font-lg:  18px;
+  --ss-font-xl:  22px;
+}
+
+/* ── High-contrast override ── */
+@media (prefers-contrast: high) {
+  :root {
+    --ss-bg:     #ffffff;
+    --ss-border: #000000;
+    --ss-text:   #000000;
+    --ss-muted:  #1a1a1a;
+  }
+  .ss-result-card, .ss-search-wrap, .ss-card { border-width: 2px !important; }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--ss-bg);
+  color: var(--ss-text);
+  min-height: 100vh;
+  font-size: var(--ss-font-lg);
+  line-height: 1.6;
+}
+
+/* Skip link */
+.ss-skip {
+  position: absolute; left: -9999px; top: 8px; z-index: 9999;
+  padding: 8px 18px; background: var(--ss-indigo); color: #fff;
+  border-radius: 6px; font-size: 14px; text-decoration: none; font-weight: 700;
+}
+.ss-skip:focus { left: 8px; }
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+.ss-hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 55%, #0891b2 100%);
+  padding: 60px 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.ss-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 65% 20%,
+    rgba(255,255,255,.1) 0%, transparent 55%);
+  pointer-events: none;
+}
+.ss-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.13);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #c7d2fe;
+  font-size: 11px; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; padding: 6px 18px;
+  border-radius: 999px; margin-bottom: 20px;
+}
+.ss-hero h1 {
+  font-size: clamp(30px, 6vw, 48px);
+  font-weight: 900; color: #fff;
+  letter-spacing: -0.5px; margin-bottom: 8px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+.ss-hero-sub {
+  font-size: clamp(15px, 2.8vw, 19px);
+  color: rgba(255,255,255,.75); font-weight: 400; margin-bottom: 24px;
+}
+.ss-hero-tags {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.ss-hero-tag {
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22);
+  color: rgba(255,255,255,.85);
+  font-size: 11px; font-weight: 700;
+  padding: 4px 12px; border-radius: 6px; letter-spacing: .3px;
+}
+.ss-lang-btn {
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.32);
+  color: #fff; font-size: 13px; font-weight: 800;
+  padding: 9px 22px; border-radius: 9px;
+  cursor: pointer; transition: background .2s; letter-spacing: .5px;
+}
+.ss-lang-btn:hover, .ss-lang-btn:focus-visible {
+  background: rgba(255,255,255,.28);
+  outline: 3px solid rgba(255,255,255,.5); outline-offset: 2px;
+}
+
+/* ── Disclaimer ───────────────────────────────────────────────────────── */
+.ss-disclaimer {
+  background: #fffbeb; border-bottom: 2px solid #fde68a;
+  padding: 13px 24px; text-align: center;
+  font-size: 13px; color: #92400e; line-height: 1.6;
+}
+.ss-disclaimer strong { color: #78350f; }
+
+/* ── Container ────────────────────────────────────────────────────────── */
+.ss-container {
+  max-width: 980px; margin: 0 auto;
+  padding: 40px 20px 80px;
+  display: flex; flex-direction: column; gap: 28px;
+}
+
+/* ── Generic card ─────────────────────────────────────────────────────── */
+.ss-card {
+  background: var(--ss-surface);
+  border: 1px solid var(--ss-border);
+  border-radius: var(--ss-radius);
+  box-shadow: var(--ss-shadow);
+}
+.ss-card-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 18px 24px; border-bottom: 1px solid var(--ss-border);
+}
+.ss-card-icon {
+  width: 40px; height: 40px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px; flex-shrink: 0;
+}
+.ss-card-title {
+  font-size: 15px; font-weight: 800; color: var(--ss-text); flex: 1;
+}
+.ss-card-body { padding: 24px; }
+
+/* ── Search ───────────────────────────────────────────────────────────── */
+.ss-search-wrap {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;
+}
+.ss-search-input {
+  flex: 1; min-width: 200px;
+  padding: 16px 20px;
+  border: 2px solid var(--ss-border);
+  border-radius: 12px;
+  font-size: var(--ss-font-xl); font-weight: 500;
+  color: var(--ss-text); background: #f8faff;
+  outline: none; font-family: inherit;
+  transition: border-color .2s, box-shadow .2s;
+}
+.ss-search-input:focus {
+  border-color: var(--ss-indigo);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+}
+.ss-search-input::placeholder { color: var(--ss-dim); font-size: 15px; }
+
+.ss-search-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--ss-indigo); color: #fff;
+  font-size: 15px; font-weight: 800;
+  padding: 16px 30px; border-radius: 12px; border: none;
+  cursor: pointer; transition: all .2s; white-space: nowrap;
+  letter-spacing: .2px;
+}
+.ss-search-btn:hover { background: #4338ca; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(79,70,229,.35); }
+.ss-search-btn:focus-visible { outline: 3px solid var(--ss-indigo); outline-offset: 3px; }
+.ss-search-btn:active { transform: none; }
+
+/* ── Browse chips ─────────────────────────────────────────────────────── */
+.ss-browse-row {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.ss-chip {
+  background: #eef2ff; border: 1px solid #c7d2fe;
+  color: #4338ca; font-size: 13px; font-weight: 700;
+  padding: 7px 14px; border-radius: 20px;
+  cursor: pointer; transition: all .15s;
+  border: none; font-family: inherit;
+}
+.ss-chip:hover { background: #e0e7ff; color: var(--ss-indigo); transform: translateY(-1px); }
+.ss-chip:focus-visible { outline: 3px solid var(--ss-indigo); outline-offset: 2px; }
+
+/* ── Result card ──────────────────────────────────────────────────────── */
+.ss-result-card {
+  background: #fff;
+  border: 2px solid var(--ss-border);
+  border-top: 4px solid var(--ss-indigo);
+  border-radius: var(--ss-radius);
+  box-shadow: var(--ss-shadow);
+  overflow: hidden;
+  display: none;
+}
+.ss-result-card.visible { display: block; }
+
+.ss-result-hero {
+  background: linear-gradient(135deg, #eef2ff, #f0fdfa);
+  padding: 28px 28px 22px;
+  display: flex; align-items: flex-start;
+  justify-content: space-between; flex-wrap: wrap; gap: 14px;
+}
+.ss-result-word {
+  font-size: clamp(30px, 6vw, 44px);
+  font-weight: 900; color: var(--ss-indigo); letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+.ss-result-word-alt {
+  font-size: 18px; font-weight: 600; color: var(--ss-teal); margin-top: 5px;
+}
+.ss-result-cat {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ss-indigo); color: #fff;
+  font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 14px; border-radius: 7px; white-space: nowrap;
+  align-self: flex-start;
+}
+
+/* ── Info sections ────────────────────────────────────────────────────── */
+.ss-sections { padding: 0 28px 28px; display: flex; flex-direction: column; gap: 18px; }
+
+.ss-section {
+  background: #f8faff;
+  border: 1px solid #e0e7ff;
+  border-left: 4px solid var(--ss-indigo);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 18px;
+}
+.ss-section.teal   { border-left-color: var(--ss-teal);  background: #f0fdfa; border-color: #99f6e4; }
+.ss-section.green  { border-left-color: var(--ss-green); background: #f0fdf4; border-color: #bbf7d0; }
+.ss-section.violet { border-left-color: var(--ss-violet);background: #faf5ff; border-color: #e9d5ff; }
+.ss-section.dark   {
+  background: #0f172a; border: 1px solid rgba(255,255,255,.06);
+  border-left: 4px solid #6366f1; border-radius: 12px;
+}
+.ss-section.bim    {
+  background: linear-gradient(135deg,#1e1b4b,#312e81);
+  border: 1px solid rgba(99,102,241,.3);
+  border-radius: 12px;
+}
+
+.ss-section-label {
+  font-size: 10px; font-weight: 900; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--ss-indigo);
+  margin-bottom: 8px;
+}
+.ss-section.teal   .ss-section-label { color: var(--ss-teal); }
+.ss-section.green  .ss-section-label { color: var(--ss-green); }
+.ss-section.violet .ss-section-label { color: var(--ss-violet); }
+.ss-section.dark   .ss-section-label { color: #a5b4fc; }
+.ss-section.bim    .ss-section-label { color: #c7d2fe; }
+
+.ss-section-body {
+  font-size: 15px; line-height: 1.65; color: #1e293b; font-weight: 500;
+}
+.ss-section.dark  .ss-section-body { color: rgba(255,255,255,.8); }
+.ss-section.bim   .ss-section-body { color: rgba(199,210,254,.75); }
+
+/* ── Visual cue panel ─────────────────────────────────────────────────── */
+.ss-visual-panel {
+  text-align: center; padding: 8px 0 16px;
+}
+.ss-visual-emoji { font-size: 80px; line-height: 1; margin-bottom: 14px; }
+.ss-visual-text  { font-size: 15px; color: rgba(255,255,255,.78); line-height: 1.65; }
+.ss-visual-tip {
+  margin-top: 12px;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(99,102,241,.25); border: 1px solid rgba(99,102,241,.4);
+  color: #a5b4fc; font-size: 12px; font-weight: 700;
+  padding: 5px 14px; border-radius: 20px;
+}
+
+/* ── Fingerspelling ───────────────────────────────────────────────────── */
+.ss-finger-row { display: flex; flex-wrap: wrap; gap: 7px; }
+.ss-finger-cell {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: #fff; border: 1.5px solid #e0e7ff;
+  border-radius: 9px; padding: 11px 10px 7px;
+  min-width: 48px; transition: all .15s; cursor: default;
+}
+.ss-finger-cell:hover { border-color: var(--ss-indigo); transform: translateY(-2px); }
+.ss-finger-emoji { font-size: 28px; line-height: 1; }
+.ss-finger-char  { font-size: 13px; font-weight: 900; color: var(--ss-indigo); }
+
+/* ── Example sentence ─────────────────────────────────────────────────── */
+.ss-example-en {
+  font-size: 16px; line-height: 1.65; font-style: italic;
+  color: #1e293b; margin-bottom: 8px;
+}
+.ss-example-bm {
+  font-size: 14px; font-weight: 600; color: var(--ss-teal);
+  padding-top: 8px; border-top: 1px solid #e0f2fe;
+}
+
+/* ── BIM future placeholder ───────────────────────────────────────────── */
+.ss-bim-video-ph {
+  background: rgba(255,255,255,.06);
+  border: 1px dashed rgba(99,102,241,.4);
+  border-radius: 10px; padding: 20px;
+  text-align: center; margin-top: 4px;
+}
+.ss-bim-video-icon { font-size: 36px; margin-bottom: 8px; }
+.ss-bim-video-text { font-size: 13px; color: rgba(199,210,254,.7); line-height: 1.5; }
+.ss-bim-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  justify-content: center; margin-top: 12px;
+}
+.ss-bim-tag {
+  background: rgba(99,102,241,.2); border: 1px solid rgba(99,102,241,.35);
+  color: #a5b4fc; font-size: 10px; font-weight: 800;
+  padding: 3px 10px; border-radius: 4px; letter-spacing: .5px;
+}
+
+/* ── Not found ────────────────────────────────────────────────────────── */
+.ss-notfound {
+  background: #fff5f5; border: 2px dashed #fca5a5;
+  border-radius: var(--ss-radius); padding: 36px 24px;
+  text-align: center; display: none;
+}
+.ss-notfound.visible { display: block; }
+.ss-notfound-icon { font-size: 48px; margin-bottom: 14px; line-height: 1; }
+.ss-notfound-en {
+  font-size: 16px; font-weight: 700; color: #7f1d1d; margin-bottom: 6px; line-height: 1.5;
+}
+.ss-notfound-bm {
+  font-size: 14px; color: #991b1b; margin-bottom: 24px; line-height: 1.5;
+}
+.ss-request-row {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+}
+.ss-request-input {
+  padding: 12px 16px; border: 2px solid #fca5a5; border-radius: 9px;
+  font-size: 15px; min-width: 200px; background: #fff;
+  outline: none; font-family: inherit; color: var(--ss-text);
+  transition: border-color .2s;
+}
+.ss-request-input:focus { border-color: var(--ss-red); }
+.ss-request-btn {
+  background: var(--ss-red); color: #fff;
+  font-size: 14px; font-weight: 800;
+  padding: 12px 24px; border: none; border-radius: 9px;
+  cursor: pointer; transition: background .2s; white-space: nowrap;
+}
+.ss-request-btn:hover { background: #b91c1c; }
+.ss-request-btn:focus-visible { outline: 3px solid var(--ss-red); outline-offset: 2px; }
+
+/* ── Requested words ──────────────────────────────────────────────────── */
+.ss-req-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.ss-req-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fdf4ff; border: 1px solid #e9d5ff;
+  color: var(--ss-violet); font-size: 14px; font-weight: 700;
+  padding: 7px 14px; border-radius: 20px;
+}
+.ss-req-chip button {
+  background: none; border: none; cursor: pointer;
+  color: #c4b5fd; font-size: 15px; line-height: 1; padding: 0 0 0 2px;
+  font-weight: 900; transition: color .15s;
+}
+.ss-req-chip button:hover { color: var(--ss-violet); }
+.ss-req-chip button:focus-visible { outline: 2px solid var(--ss-violet); border-radius: 2px; }
+.ss-empty-msg { font-size: 14px; color: var(--ss-dim); }
+
+/* ── Related links ────────────────────────────────────────────────────── */
+.ss-related { display: flex; flex-wrap: wrap; gap: 10px; }
+.ss-related-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #f1f5f9; border: 1px solid #e2e8f0;
+  color: #475569; font-size: 13px; font-weight: 700;
+  padding: 10px 16px; border-radius: 9px; text-decoration: none;
+  transition: all .15s;
+}
+.ss-related-link:hover, .ss-related-link:focus-visible {
+  background: #eef2ff; border-color: #c7d2fe; color: var(--ss-indigo);
+  outline: 3px solid transparent;
+}
+
+/* ── Toast ────────────────────────────────────────────────────────────── */
+.ss-toast {
+  position: fixed; bottom: 28px; left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a; color: #fff;
+  font-size: 14px; font-weight: 700;
+  padding: 13px 26px; border-radius: 10px;
+  z-index: 9999; box-shadow: 0 6px 24px rgba(0,0,0,.35);
+  opacity: 0; transition: opacity .25s; pointer-events: none;
+}
+.ss-toast.show { opacity: 1; }
+
+/* ── Two-column info grid ─────────────────────────────────────────────── */
+.ss-two-col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+@media (max-width: 580px) {
+  .ss-two-col { grid-template-columns: 1fr; }
+  .ss-search-btn { width: 100%; justify-content: center; }
+  .ss-hero { padding: 44px 20px 36px; }
+}
+</style>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<a href="#main" class="ss-skip" tabindex="0">Skip to main content</a>
+
+<!-- Nav injected by shared.js -->
+
+<main id="main" style="padding-top:var(--nav-h,60px);">
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+  <div class="ss-hero" role="banner">
+    <div class="ss-hero-badge">&#128400; <span id="heroBadge">SignSense Dictionary</span></div>
+    <h1 id="heroTitle">SignSense Dictionary</h1>
+    <p class="ss-hero-sub" id="heroSub">Visual Sign Learning Companion</p>
+    <div class="ss-hero-tags">
+      <span class="ss-hero-tag" id="tag1">Fingerspelling</span>
+      <span class="ss-hero-tag" id="tag2">Visual Cues</span>
+      <span class="ss-hero-tag" id="tag3">Large Captions</span>
+      <span class="ss-hero-tag" id="tag4">Bilingual</span>
+    </div>
+    <button class="ss-lang-btn" onclick="toggleLang()" id="langBtn"
+      aria-label="Toggle language between Bahasa Melayu and English">
+      &#127760; BM / EN
+    </button>
+  </div>
+
+  <!-- ── Disclaimer ─────────────────────────────────────────────────── -->
+  <div class="ss-disclaimer" role="note" aria-label="Prototype disclaimer">
+    <strong id="discLabel">Prototype Stage:</strong>
+    <span id="discText"> SignSense Dictionary provides visual sign learning support only. Future versions may integrate verified Bahasa Isyarat Malaysia resources through official partnerships.</span>
+  </div>
+
+  <div class="ss-container" id="main-content">
+
+    <!-- ── Search card ─────────────────────────────────────────────── -->
+    <div class="ss-card" role="search" aria-label="Sign language word search">
+      <div class="ss-card-header">
+        <div class="ss-card-icon" style="background:#eef2ff;">&#128269;</div>
+        <div class="ss-card-title" id="searchCardTitle">Search a Word</div>
+      </div>
+      <div class="ss-card-body">
+        <div class="ss-search-wrap">
+          <label for="ssInput" class="sr-only" id="searchLabel">Search a word / Cari perkataan</label>
+          <input id="ssInput" class="ss-search-input" type="search"
+            placeholder="Search a word / Cari perkataan"
+            aria-label="Enter a word to find its sign language guidance"
+            autocomplete="off"
+            onkeydown="if(event.key==='Enter')doSearch()" />
+          <button class="ss-search-btn" onclick="doSearch()" id="searchBtn">
+            <span aria-hidden="true">&#128400;</span>
+            <span id="searchBtnLabel">Find Sign</span>
+          </button>
+        </div>
+        <div id="browseRow" class="ss-browse-row" role="group"
+          aria-label="Browse sample words"></div>
+      </div>
+    </div>
+
+    <!-- ── Result ─────────────────────────────────────────────────── -->
+    <div id="ssResult" class="ss-result-card"
+      role="region" aria-live="polite" aria-label="Sign language result">
+      <!-- populated by renderResult() -->
+    </div>
+
+    <!-- ── Not found ──────────────────────────────────────────────── -->
+    <div id="ssNotFound" class="ss-notfound"
+      role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="ss-notfound-icon" aria-hidden="true">&#128400;</div>
+      <div class="ss-notfound-en" id="nfEn">
+        Sign not available yet. You may use fingerspelling or request this word to be added.
+      </div>
+      <div class="ss-notfound-bm" id="nfBm">
+        Isyarat belum tersedia. Anda boleh menggunakan ejaan jari atau mencadangkan perkataan ini untuk ditambah.
+      </div>
+      <div class="ss-request-row">
+        <input id="ssReqInput" class="ss-request-input" type="text"
+          placeholder="Word / Perkataan"
+          aria-label="Type the word you want to request" />
+        <button class="ss-request-btn" onclick="requestWord()" id="reqBtn">
+          &#43; <span id="reqBtnLabel">Request New Sign</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Requested words ────────────────────────────────────────── -->
+    <div class="ss-card" id="reqSection">
+      <div class="ss-card-header">
+        <div class="ss-card-icon" style="background:#fdf4ff;">&#128203;</div>
+        <div class="ss-card-title" id="reqSectionTitle">Requested Words</div>
+      </div>
+      <div class="ss-card-body">
+        <p class="ss-empty-msg" id="reqEmpty">No words requested yet.</p>
+        <div class="ss-req-list" id="reqList" role="list" aria-label="Requested words list"></div>
+      </div>
+    </div>
+
+    <!-- ── Related links ──────────────────────────────────────────── -->
+    <div class="ss-card">
+      <div class="ss-card-header">
+        <div class="ss-card-icon" style="background:#f0fdf4;">&#128279;</div>
+        <div class="ss-card-title" id="relatedTitle">Related Tools</div>
+      </div>
+      <div class="ss-card-body">
+        <div class="ss-related">
+          <a href="sign-language.html" class="ss-related-link" aria-label="Visual Communication Agent">
+            &#129304; <span id="lnkVCA">Visual Communication Agent</span>
+          </a>
+          <a href="reading-companion.html" class="ss-related-link" aria-label="Reading Companion">
+            &#128214; <span id="lnkRC">Reading Companion</span>
+          </a>
+          <a href="book-discovery.html" class="ss-related-link" aria-label="Book Discovery">
+            &#128218; <span id="lnkBD">Book Discovery</span>
+          </a>
+          <a href="dashboard.html" class="ss-related-link" aria-label="Dashboard">
+            &#127968; <span id="lnkDash">Dashboard</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ss-container -->
+</main>
+
+<div id="ssToast" class="ss-toast" role="status" aria-live="polite"></div>
+
+<!-- ════════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ── Dictionary ─────────────────────────────────────────────────────────────
+var DICT = [
+  {
+    en:'book', ms:'buku', cat:'Education', catMs:'Pendidikan',
+    meanEn:'A written or printed work with pages, used for reading or study.',
+    meanMs:'Hasil tulisan atau cetakan dengan halaman, digunakan untuk membaca atau belajar.',
+    gestureEn:'Hold both hands flat with palms up. Bring them together like closing a book, then open them apart — the open-book gesture.',
+    gestureMs:'Pegang kedua-dua tangan rata dengan tapak tangan ke atas. Bawa bersama seperti menutup buku, kemudian buka semula — isyarat buka buku.',
+    icon:'📖', handTipEn:'Open-book gesture', handTipMs:'Isyarat buka buku',
+    exEn:'She reads a book every evening.',
+    exMs:'Dia membaca sebuah buku setiap petang.',
+  },
+  {
+    en:'read', ms:'baca', cat:'Action', catMs:'Tindakan',
+    meanEn:'To look at and understand written or printed words.',
+    meanMs:'Melihat dan memahami perkataan yang ditulis atau dicetak.',
+    gestureEn:'Hold your non-dominant hand flat like a page. With the other hand, make a "V" shape and move those two fingers down the palm — eyes scanning lines of text.',
+    gestureMs:'Pegang tangan bukan dominan rata seperti halaman. Dengan tangan lain, buat bentuk "V" dan gerakkan dua jari itu ke bawah tapak tangan — mata mengimbas baris teks.',
+    icon:'👁️', handTipEn:'V-hand scans flat palm', handTipMs:'Tangan-V mengimbas tapak tangan',
+    exEn:'Please read the first paragraph carefully.',
+    exMs:'Sila baca perenggan pertama dengan teliti.',
+  },
+  {
+    en:'school', ms:'sekolah', cat:'Education', catMs:'Pendidikan',
+    meanEn:'An institution where children and students go to learn.',
+    meanMs:'Institusi di mana kanak-kanak dan pelajar pergi untuk belajar.',
+    gestureEn:'Bring both flat hands together and clap twice — like a teacher clapping for the class\'s attention.',
+    gestureMs:'Bawa kedua-dua tangan rata bersama dan tepuk dua kali — seperti guru menepuk untuk mendapat perhatian kelas.',
+    icon:'🏫', handTipEn:'Flat clap twice', handTipMs:'Tepuk rata dua kali',
+    exEn:'The children go to school every morning.',
+    exMs:'Kanak-kanak pergi ke sekolah setiap pagi.',
+  },
+  {
+    en:'teacher', ms:'guru', cat:'People', catMs:'Orang',
+    meanEn:'A person who teaches knowledge or skills, especially in a school.',
+    meanMs:'Seseorang yang mengajar ilmu atau kemahiran, terutamanya di sekolah.',
+    gestureEn:'Place both open hands near your temples, fingers spread. Move them forward and slightly down — projecting knowledge outward from your mind.',
+    gestureMs:'Letakkan kedua-dua tangan terbuka berhampiran pelipis, jari-jari rebak. Gerakkan ke hadapan dan sedikit ke bawah — memancarkan ilmu keluar dari minda.',
+    icon:'👩‍🏫', handTipEn:'Project from temples', handTipMs:'Pancarkan dari pelipis',
+    exEn:'The teacher explains the lesson clearly.',
+    exMs:'Guru menerangkan pelajaran dengan jelas.',
+  },
+  {
+    en:'student', ms:'murid', cat:'People', catMs:'Orang',
+    meanEn:'A person who is learning at a school or university.',
+    meanMs:'Seseorang yang belajar di sekolah atau universiti.',
+    gestureEn:'Hold a flat "B" hand on your palm (like holding a book). Then bring the fingers of your other hand together and lift them from the palm — taking knowledge from the book to the mind.',
+    gestureMs:'Pegang tangan "B" rata di atas tapak tangan (seperti memegang buku). Kemudian bawa jari tangan lain bersama dan angkat dari tapak tangan — mengambil ilmu dari buku ke minda.',
+    icon:'🧑‍🎓', handTipEn:'Book-to-mind gesture', handTipMs:'Isyarat buku-ke-minda',
+    exEn:'Every student must complete the homework.',
+    exMs:'Setiap murid mesti menyiapkan kerja rumah.',
+  },
+  {
+    en:'learn', ms:'belajar', cat:'Action', catMs:'Tindakan',
+    meanEn:'To gain knowledge or a skill through study, practice, or experience.',
+    meanMs:'Memperoleh ilmu atau kemahiran melalui kajian, amalan, atau pengalaman.',
+    gestureEn:'Cup your non-dominant hand like a book. Bring the fingers of your dominant hand together and touch the palm, then lift up — like picking up knowledge from a page.',
+    gestureMs:'Cekungkan tangan bukan dominan seperti buku. Bawa jari tangan dominan bersama dan sentuh tapak tangan, kemudian angkat ke atas — seperti mengambil ilmu dari halaman.',
+    icon:'📚', handTipEn:'Lift knowledge from palm', handTipMs:'Angkat ilmu dari tapak tangan',
+    exEn:'We learn something new every day.',
+    exMs:'Kita belajar sesuatu yang baru setiap hari.',
+  },
+  {
+    en:'plant', ms:'tumbuhan', cat:'Nature', catMs:'Alam Semula Jadi',
+    meanEn:'A living organism that grows from the ground and has leaves.',
+    meanMs:'Organisma hidup yang tumbuh dari tanah dan mempunyai daun.',
+    gestureEn:'Start with your dominant hand as a closed fist near the wrist of your other hand. Slowly open your fingers upward — like a seedling sprouting from the soil.',
+    gestureMs:'Mulakan dengan tangan dominan mengepal berhampiran pergelangan tangan lain. Perlahan-lahan buka jari ke atas — seperti anak benih tumbuh dari tanah.',
+    icon:'🌱', handTipEn:'Fist blooms upward', handTipMs:'Pengepal mekar ke atas',
+    exEn:'We water the plant every morning.',
+    exMs:'Kami menyiram tumbuhan setiap pagi.',
+  },
+  {
+    en:'water', ms:'air', cat:'Nature', catMs:'Alam Semula Jadi',
+    meanEn:'A clear liquid essential for life, found in rivers, seas, and rain.',
+    meanMs:'Cecair jernih yang penting untuk kehidupan, terdapat di sungai, laut, dan hujan.',
+    gestureEn:'Make a "W" handshape — hold up three fingers. Tap the side of your index finger to your chin twice.',
+    gestureMs:'Buat bentuk tangan "W" — angkat tiga jari. Ketuk sisi jari telunjuk anda ke dagu dua kali.',
+    icon:'💧', handTipEn:'W-hand taps chin twice', handTipMs:'Tangan-W ketuk dagu dua kali',
+    exEn:'Drink plenty of water each day.',
+    exMs:'Minum banyak air setiap hari.',
+  },
+  {
+    en:'sun', ms:'matahari', cat:'Nature', catMs:'Alam Semula Jadi',
+    meanEn:'The star at the centre of our solar system that provides light and warmth.',
+    meanMs:'Bintang di pusat sistem suria yang memberikan cahaya dan kehangatan.',
+    gestureEn:'Point your index finger up and draw a circle in the air above your head. Then open your whole hand with fingers spread wide — showing rays of sunlight expanding outward.',
+    gestureMs:'Tunjukkan jari telunjuk ke atas dan lukis bulatan di udara di atas kepala. Kemudian buka seluruh tangan dengan jari merebak luas — menunjukkan sinar matahari yang memancar keluar.',
+    icon:'☀️', handTipEn:'Circle then spread fingers', handTipMs:'Bulatan kemudian rebakkan jari',
+    exEn:'The sun rises in the east every morning.',
+    exMs:'Matahari terbit di timur setiap pagi.',
+  },
+  {
+    en:'friend', ms:'kawan', cat:'People', catMs:'Orang',
+    meanEn:'A person you like and enjoy spending time with.',
+    meanMs:'Seseorang yang anda sukai dan gemar meluangkan masa bersama.',
+    gestureEn:'Hook your two index fingers together like chain links. Then swap which one is on top — interlocking both directions to show a mutual bond.',
+    gestureMs:'Kaitkan dua jari telunjuk bersama seperti rantai. Kemudian tukar jari yang berada di atas — saling berkait kedua-dua arah untuk menunjukkan ikatan bersama.',
+    icon:'🤝', handTipEn:'Interlock index fingers both ways', handTipMs:'Saling kait jari telunjuk dua arah',
+    exEn:'She is my best friend at school.',
+    exMs:'Dia ialah kawan baik saya di sekolah.',
+  }
+];
+
+// Fingerspelling hand emoji map (letter → hand symbol)
+var HANDS = {
+  A:'✊',B:'🖐',C:'🤏',D:'☝️',E:'🤞',F:'👌',G:'👉',H:'🫳',I:'🤙',J:'🤙',
+  K:'✌️',L:'👆',M:'✊',N:'✊',O:'👌',P:'✌️',Q:'✌️',R:'✌️',S:'✊',T:'✊',
+  U:'✌️',V:'✌️',W:'🖖',X:'☝️',Y:'🤙',Z:'☝️'
+};
+
+// ── State ──────────────────────────────────────────────────────────────────
+var lang      = localStorage.getItem('cs_lang') || 'ms';
+var requested = JSON.parse(localStorage.getItem('ss_requested') || '[]');
+var lastQuery = '';
+
+// ── i18n strings ───────────────────────────────────────────────────────────
+var I = {
+  en: {
+    heroBadge:'SignSense Dictionary',
+    heroTitle:'SignSense Dictionary',
+    heroSub:'Visual Sign Learning Companion',
+    tag1:'Fingerspelling', tag2:'Visual Cues', tag3:'Large Captions', tag4:'Bilingual',
+    langBtn:'🌐 BM / EN',
+    discLabel:'Prototype Stage:',
+    discText:' SignSense Dictionary provides visual sign learning support only. Future versions may integrate verified Bahasa Isyarat Malaysia resources through official partnerships.',
+    searchCardTitle:'Search a Word',
+    searchBtn:'Find Sign',
+    searchPH:'Search a word / Cari perkataan',
+    nfEn:'Sign not available yet. You may use fingerspelling or request this word to be added.',
+    nfBm:'Isyarat belum tersedia. Anda boleh menggunakan ejaan jari atau mencadangkan perkataan ini untuk ditambah.',
+    reqBtn:'Request New Sign',
+    reqTitle:'Requested Words',
+    reqEmpty:'No words requested yet.',
+    relatedTitle:'Related Tools',
+    lnkVCA:'Visual Communication Agent',
+    lnkRC:'Reading Companion',
+    lnkBD:'Book Discovery',
+    lnkDash:'Dashboard',
+    lMeaning:'MEANING',
+    lGesture:'HAND GESTURE',
+    lFinger:'FINGERSPELLING',
+    lExample:'EXAMPLE SENTENCE',
+    lVisual:'VISUAL CUE',
+    lBim:'FUTURE BIM REFERENCE',
+    lCat:'CATEGORY',
+    bimDesc:'A verified BIM (Bahasa Isyarat Malaysia) video reference for this word will appear here in a future version, through official partnerships.',
+    bimTip:'Coming in future version',
+    toastSaved:'Word requested and saved!',
+    toastDupe:'Already in your request list.',
+    toastEmpty:'Please enter a word first.',
+    toastRemoved:'Removed from requests.'
+  },
+  ms: {
+    heroBadge:'Kamus SignSense',
+    heroTitle:'Kamus SignSense',
+    heroSub:'Teman Pembelajaran Isyarat Visual',
+    tag1:'Ejaan Jari', tag2:'Panduan Visual', tag3:'Kapsyen Besar', tag4:'Dwibahasa',
+    langBtn:'🌐 EN / BM',
+    discLabel:'Peringkat Prototaip:',
+    discText:' SignSense Dictionary menyediakan sokongan pembelajaran isyarat secara visual sahaja. Versi akan datang boleh mengintegrasikan sumber Bahasa Isyarat Malaysia yang disahkan melalui kerjasama rasmi.',
+    searchCardTitle:'Cari Perkataan',
+    searchBtn:'Cari Isyarat',
+    searchPH:'Cari perkataan / Search a word',
+    nfEn:'Isyarat belum tersedia. Anda boleh menggunakan ejaan jari atau mencadangkan perkataan ini untuk ditambah.',
+    nfBm:'Sign not available yet. You may use fingerspelling or request this word to be added.',
+    reqBtn:'Cadang Isyarat Baharu',
+    reqTitle:'Perkataan Dicadangkan',
+    reqEmpty:'Tiada perkataan dicadangkan lagi.',
+    relatedTitle:'Alat Berkaitan',
+    lnkVCA:'Agen Komunikasi Visual',
+    lnkRC:'Teman Membaca',
+    lnkBD:'Penemuan Buku',
+    lnkDash:'Papan Pemuka',
+    lMeaning:'MAKNA',
+    lGesture:'GERAKAN TANGAN',
+    lFinger:'EJAAN JARI',
+    lExample:'CONTOH AYAT',
+    lVisual:'PANDUAN VISUAL',
+    lBim:'RUJUKAN BIM MASA HADAPAN',
+    lCat:'KATEGORI',
+    bimDesc:'Rujukan video BIM (Bahasa Isyarat Malaysia) yang disahkan untuk perkataan ini akan dipaparkan di sini dalam versi akan datang, melalui kerjasama rasmi.',
+    bimTip:'Akan datang dalam versi hadapan',
+    toastSaved:'Perkataan dicadangkan dan disimpan!',
+    toastDupe:'Sudah ada dalam senarai cadangan.',
+    toastEmpty:'Sila masukkan perkataan dahulu.',
+    toastRemoved:'Dibuang dari senarai cadangan.'
+  }
+};
+function t(k) { return (I[lang] && I[lang][k]) || I.en[k] || k; }
+
+// ── Language toggle ────────────────────────────────────────────────────────
+function toggleLang() {
+  lang = lang === 'ms' ? 'en' : 'ms';
+  localStorage.setItem('cs_lang', lang);
+  applyLang();
+  if (lastQuery) doSearch();
+}
+
+function applyLang() {
+  var map = {
+    heroBadge:'heroBadge', heroTitle:'heroTitle', heroSub:'heroSub',
+    tag1:'tag1', tag2:'tag2', tag3:'tag3', tag4:'tag4',
+    langBtn:'langBtn', discLabel:'discLabel', discText:'discText',
+    searchCardTitle:'searchCardTitle', searchBtnLabel:'searchBtn',
+    nfEn:'nfEn', nfBm:'nfBm',
+    reqBtnLabel:'reqBtn', reqSectionTitle:'reqTitle', reqEmpty:'reqEmpty',
+    relatedTitle:'relatedTitle',
+    lnkVCA:'lnkVCA', lnkRC:'lnkRC', lnkBD:'lnkBD', lnkDash:'lnkDash'
+  };
+  Object.keys(map).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = t(map[id]);
+  });
+  var inp = document.getElementById('ssInput');
+  if (inp) inp.placeholder = t('searchPH');
+  document.documentElement.lang = lang === 'ms' ? 'ms' : 'en';
+  buildBrowse();
+  renderRequested();
+}
+
+// ── Browse chips ───────────────────────────────────────────────────────────
+function buildBrowse() {
+  var row = document.getElementById('browseRow');
+  if (!row) return;
+  row.innerHTML = '';
+  DICT.forEach(function(e) {
+    var b = document.createElement('button');
+    b.className = 'ss-chip';
+    b.textContent = lang === 'ms'
+      ? e.ms + ' / ' + e.en
+      : e.en + ' / ' + e.ms;
+    b.setAttribute('aria-label', 'Browse ' + e.en);
+    b.onclick = function() {
+      document.getElementById('ssInput').value = e.en;
+      doSearch();
+    };
+    row.appendChild(b);
+  });
+}
+
+// ── Search ─────────────────────────────────────────────────────────────────
+function doSearch() {
+  var q = (document.getElementById('ssInput').value || '').trim().toLowerCase();
+  if (!q) { showToast(t('toastEmpty')); return; }
+  lastQuery = q;
+
+  var entry = DICT.find(function(e) {
+    return e.en.toLowerCase() === q || e.ms.toLowerCase() === q ||
+           e.en.toLowerCase().startsWith(q) || e.ms.toLowerCase().startsWith(q);
+  });
+
+  var res = document.getElementById('ssResult');
+  var nf  = document.getElementById('ssNotFound');
+  res.classList.remove('visible');
+  nf.classList.remove('visible');
+
+  if (entry) {
+    renderResult(entry);
+    res.classList.add('visible');
+    setTimeout(function() { res.scrollIntoView({ behavior:'smooth', block:'start' }); }, 60);
+  } else {
+    document.getElementById('ssReqInput').value = q;
+    nf.classList.add('visible');
+    setTimeout(function() { nf.scrollIntoView({ behavior:'smooth', block:'start' }); }, 60);
+  }
+}
+
+// ── Render result ──────────────────────────────────────────────────────────
+function renderResult(e) {
+  var iMs = lang === 'ms';
+  var word    = iMs ? e.ms : e.en;
+  var wordAlt = iMs ? e.en : e.ms;
+  var cat     = iMs ? e.catMs : e.cat;
+  var meaning = iMs ? e.meanMs : e.meanEn;
+  var gesture = iMs ? e.gestureMs : e.gestureEn;
+  var handTip = iMs ? e.handTipMs : e.handTipEn;
+  var exMain  = iMs ? e.exMs : e.exEn;
+  var exAlt   = iMs ? e.exEn : e.exMs;
+
+  // Fingerspelling (always use English word)
+  var spelling = e.en.toUpperCase().replace(/[^A-Z]/g,'');
+  var fingerHtml = '';
+  for (var i = 0; i < spelling.length; i++) {
+    var ch = spelling[i];
+    fingerHtml += '<div class="ss-finger-cell" role="img" aria-label="Letter ' + ch + '">' +
+      '<span class="ss-finger-emoji" aria-hidden="true">' + (HANDS[ch] || '✋') + '</span>' +
+      '<span class="ss-finger-char">' + ch + '</span>' +
+      '</div>';
+  }
+
+  document.getElementById('ssResult').innerHTML =
+    /* Header */
+    '<div class="ss-result-hero">' +
+      '<div>' +
+        '<div class="ss-result-word" lang="' + (iMs?'ms':'en') + '">' + x(word) + '</div>' +
+        '<div class="ss-result-word-alt" lang="' + (iMs?'en':'ms') + '">' + x(wordAlt) + '</div>' +
+      '</div>' +
+      '<span class="ss-result-cat" aria-label="' + t('lCat') + ': ' + x(cat) + '">' +
+        t('lCat') + ': ' + x(cat) +
+      '</span>' +
+    '</div>' +
+
+    '<div class="ss-sections">' +
+
+      /* Two-col: meaning + gesture tip */
+      '<div class="ss-two-col">' +
+        '<div class="ss-section">' +
+          '<div class="ss-section-label">' + t('lMeaning') + '</div>' +
+          '<div class="ss-section-body" lang="' + (iMs?'ms':'en') + '">' + x(meaning) + '</div>' +
+        '</div>' +
+        '<div class="ss-section teal">' +
+          '<div class="ss-section-label">' + t('lGesture') + '</div>' +
+          '<div class="ss-section-body">' + x(handTip) + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      /* Visual cue */
+      '<div class="ss-section dark">' +
+        '<div class="ss-section-label">' + t('lVisual') + '</div>' +
+        '<div class="ss-visual-panel">' +
+          '<div class="ss-visual-emoji" aria-hidden="true">' + e.icon + '</div>' +
+          '<div class="ss-visual-text">' + x(gesture) + '</div>' +
+          '<div class="ss-visual-tip">&#128400; ' + x(handTip) + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      /* Fingerspelling */
+      '<div class="ss-section violet">' +
+        '<div class="ss-section-label">' + t('lFinger') + '</div>' +
+        '<div class="ss-finger-row" style="margin-top:10px;" ' +
+          'aria-label="Fingerspelling of ' + x(e.en) + '">' +
+          fingerHtml +
+        '</div>' +
+      '</div>' +
+
+      /* Example sentence */
+      '<div class="ss-section green">' +
+        '<div class="ss-section-label">' + t('lExample') + '</div>' +
+        '<div class="ss-example-en" lang="' + (iMs?'ms':'en') + '">"' + x(exMain) + '"</div>' +
+        '<div class="ss-example-bm" lang="' + (iMs?'en':'ms') + '">' + x(exAlt) + '</div>' +
+      '</div>' +
+
+      /* Future BIM placeholder */
+      '<div class="ss-section bim">' +
+        '<div class="ss-section-label">' + t('lBim') + '</div>' +
+        '<div class="ss-bim-video-ph">' +
+          '<div class="ss-bim-video-icon" aria-hidden="true">&#127908;</div>' +
+          '<div class="ss-bim-video-text">' + x(t('bimDesc')) + '</div>' +
+          '<div class="ss-bim-tags">' +
+            '<span class="ss-bim-tag">BIM Dataset</span>' +
+            '<span class="ss-bim-tag">Jabatan Pendidikan Khas</span>' +
+            '<span class="ss-bim-tag">Official Partnership</span>' +
+            '<span class="ss-bim-tag">' + x(t('bimTip')) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+    '</div>'; /* /ss-sections */
+}
+
+// ── Request word ───────────────────────────────────────────────────────────
+function requestWord() {
+  var val = (document.getElementById('ssReqInput').value || '').trim().toLowerCase();
+  if (!val) { showToast(t('toastEmpty')); return; }
+  if (requested.indexOf(val) !== -1) { showToast(t('toastDupe')); return; }
+  requested.push(val);
+  localStorage.setItem('ss_requested', JSON.stringify(requested));
+  renderRequested();
+  document.getElementById('ssReqInput').value = '';
+  showToast(t('toastSaved'));
+}
+
+function removeRequested(word) {
+  requested = requested.filter(function(w) { return w !== word; });
+  localStorage.setItem('ss_requested', JSON.stringify(requested));
+  renderRequested();
+  showToast(t('toastRemoved'));
+}
+
+function renderRequested() {
+  var list  = document.getElementById('reqList');
+  var empty = document.getElementById('reqEmpty');
+  if (!list) return;
+  list.innerHTML = '';
+  if (!requested.length) {
+    if (empty) { empty.textContent = t('reqEmpty'); empty.style.display = ''; }
+    return;
+  }
+  if (empty) empty.style.display = 'none';
+  requested.forEach(function(w) {
+    var chip = document.createElement('div');
+    chip.className = 'ss-req-chip';
+    chip.setAttribute('role', 'listitem');
+    chip.innerHTML = '&#128203; ' + x(w) +
+      '<button onclick="removeRequested(\'' + w.replace(/'/g,'&#39;') + '\')" ' +
+      'aria-label="Remove ' + x(w) + ' from requests">&#10005;</button>';
+    list.appendChild(chip);
+  });
+}
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+var _tt = null;
+function showToast(msg) {
+  var el = document.getElementById('ssToast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(_tt);
+  _tt = setTimeout(function() { el.classList.remove('show'); }, 3000);
+}
+
+// ── Escape HTML ────────────────────────────────────────────────────────────
+function x(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  lang = localStorage.getItem('cs_lang') || 'ms';
+  applyLang();
+  // If a hash was provided (e.g. signsense-dictionary.html#book), auto-search it
+  var hash = window.location.hash.replace('#','').trim();
+  if (hash) {
+    document.getElementById('ssInput').value = decodeURIComponent(hash);
+    doSearch();
+  }
+});
+</script>
+</body>
+</html>
