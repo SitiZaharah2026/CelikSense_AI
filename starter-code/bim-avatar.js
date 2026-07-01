@@ -456,6 +456,7 @@ window.BIM_AVATAR = (function () {
   let _signTimer = null;
   let _onSentenceChangeCb = null;
   let _onCompleteCb = null;
+  let _onPoseChangeCb = null;
 
   // ─── Helpers ───────────────────────────────────────────────────────────────
   function _injectStyles() {
@@ -609,6 +610,9 @@ window.BIM_AVATAR = (function () {
     // Update label
     const labelEl = document.getElementById('bim-pose-label');
     if (labelEl) labelEl.textContent = pose.label || poseKey;
+
+    // Notify external listener (photo-mode hand animation)
+    if (_onPoseChangeCb) _onPoseChangeCb(poseKey, pose);
   }
 
   function _setPoseClass(poseKey) {
@@ -890,6 +894,9 @@ window.BIM_AVATAR = (function () {
   // Expose helpers for advanced use
   function processText(text) { return _processSentences(text); }
   function simplifyWord(word) { return _simplifyWord(word); }
+  function setPoseChangeCallback(cb) {
+    _onPoseChangeCb = (typeof cb === 'function') ? cb : null;
+  }
 
   // ─── User Photo ───────────────────────────────────────────────────────────
   function setUserPhoto(dataUrl) {
@@ -937,6 +944,7 @@ window.BIM_AVATAR = (function () {
     processText,
     simplifyWord,
     setUserPhoto,
+    setPoseChangeCallback,
     POSES,
     WORD_MAP,
   };

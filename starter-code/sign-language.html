@@ -456,6 +456,27 @@
     color: #92400e;
   }
 
+  /* ── Animated hand overlays over photo ── */
+  .avatar-hand {
+    position: absolute;
+    font-size: 38px;
+    line-height: 1;
+    transition: left .38s cubic-bezier(.4,0,.2,1),
+                top  .38s cubic-bezier(.4,0,.2,1);
+    z-index: 10;
+    pointer-events: none;
+    filter: drop-shadow(0 3px 10px rgba(0,0,0,.55));
+  }
+  .avatar-hand-left  { transform: scaleX( 1); }
+  .avatar-hand-right { transform: scaleX(-1); }
+  body.is-signing .avatar-hand {
+    animation: handPulse 1.2s ease-in-out infinite;
+  }
+  @keyframes handPulse {
+    0%,100% { filter: drop-shadow(0 3px 10px rgba(0,0,0,.55)); }
+    50%      { filter: drop-shadow(0 3px 18px rgba(99,102,241,.8)); }
+  }
+
   /* CREATE AVATAR PROMPT */
   .create-avatar-prompt {
     text-align: center;
@@ -1176,6 +1197,9 @@
             </div>
             <img id="stageAvatarImg" src="" alt="Your signing avatar"
                  style="display:none;width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+            <!-- Animated hands — positioned over photo using BIM pose coordinates -->
+            <div class="avatar-hand avatar-hand-left"  id="avatarHandLeft"  style="display:none;">🤚</div>
+            <div class="avatar-hand avatar-hand-right" id="avatarHandRight" style="display:none;">🤚</div>
           </div>
 
           <!-- Name tag -->
@@ -1400,6 +1424,7 @@ function startSigning() {
     return;
   }
   isSigningActive = true;
+  document.body.classList.add('is-signing');
   currentSentenceWords = text.split(/\s+/).filter(function(w) { return w.length > 0; });
   currentSignIndex = 0;
   updateSigningUI(true);
@@ -1537,9 +1562,14 @@ function pauseSigning() {
 
 function stopSigning() {
   isSigningActive = false;
+  document.body.classList.remove('is-signing');
   currentSignIndex = 0;
   clearTimeout(signingInterval);
   updateSigningUI(false);
+  // Return hands to neutral
+  if (window.BIM_AVATAR && BIM_AVATAR.POSES && BIM_AVATAR.POSES.neutral) {
+    updatePhotoHandPositions(BIM_AVATAR.POSES.neutral);
+  }
   var bar = document.getElementById('captionBar');
   if (bar) bar.textContent = 'Stopped — press Start Signing to begin again';
   var practiceProgressFill = document.getElementById('practiceProgressFill');
@@ -1734,6 +1764,30 @@ function updatePracticeDisplay() {
 // =============================================
 // AVATAR MANAGEMENT
 // =============================================
+// ── Photo hand animation ─────────────────────────────────────────────────────
+// BIM SVG viewBox: 300×260. Map pose hand coords → % position over photo frame.
+function updatePhotoHandPositions(pose) {
+  var lh = document.getElementById('avatarHandLeft');
+  var rh = document.getElementById('avatarHandRight');
+  if (!lh || !rh || !pose) return;
+  // Offset so emoji center aligns with pose point (emoji ~38px, so -19px offset)
+  var lx = (pose.leftHand.cx  / 300 * 100).toFixed(1);
+  var ly = (pose.leftHand.cy  / 260 * 100).toFixed(1);
+  var rx = (pose.rightHand.cx / 300 * 100).toFixed(1);
+  var ry = (pose.rightHand.cy / 260 * 100).toFixed(1);
+  lh.style.left = 'calc(' + lx + '% - 19px)';
+  lh.style.top  = 'calc(' + ly + '% - 19px)';
+  rh.style.left = 'calc(' + rx + '% - 19px)';
+  rh.style.top  = 'calc(' + ry + '% - 19px)';
+}
+
+function showPhotoHands(show) {
+  var lh = document.getElementById('avatarHandLeft');
+  var rh = document.getElementById('avatarHandRight');
+  if (lh) lh.style.display = show ? 'block' : 'none';
+  if (rh) rh.style.display = show ? 'block' : 'none';
+}
+
 function showExistingAvatar() {
   document.body.classList.add('has-avatar');
   if (!window.CS_AVATAR || !CS_AVATAR.hasAvatar()) return;
@@ -1762,6 +1816,12 @@ function showExistingAvatar() {
     if (stageNoAvatar) stageNoAvatar.style.display = 'none';
     if (nameTag && data.name) { nameTag.textContent = data.name; nameTag.style.display = 'block'; }
     if (displayName && data.name) displayName.textContent = data.name;
+
+    // Show animated hands at neutral position
+    showPhotoHands(true);
+    if (window.BIM_AVATAR && BIM_AVATAR.POSES && BIM_AVATAR.POSES.neutral) {
+      updatePhotoHandPositions(BIM_AVATAR.POSES.neutral);
+    }
   } catch(e) {}
 }
 
@@ -1875,6 +1935,10 @@ document.addEventListener('DOMContentLoaded', function() {
   if (window.BIM_AVATAR) {
     var stage = document.getElementById('bimAvatarContainer');
     if (stage) BIM_AVATAR.init('bimAvatarContainer');
+    // Wire pose changes → animated hands over photo
+    BIM_AVATAR.setPoseChangeCallback(function(poseKey, pose) {
+      updatePhotoHandPositions(pose);
+    });
   }
 
   lang = localStorage.getItem('cs_lang') || 'en';
