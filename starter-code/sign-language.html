@@ -253,30 +253,33 @@
     justify-content: center;
   }
 
-  /* ── When user HAS an avatar: one large photo, no robot body ── */
-  body.has-avatar #bimAvatarContainer {
-    order: 2;
-    min-height: 0;
-  }
-  /* Hide the SVG wrapper div (contains the robot figure) */
-  body.has-avatar #bim-avatar {
-    display: none;
-  }
-  body.has-avatar #bim-pose-label {
-    display: none;
-  }
-  /* Move photo circle above the BIM controls */
+  /* ── When user HAS avatar: photo head + animated body below ── */
   body.has-avatar .stage-avatar-wrapper {
     order: 1;
     margin: 16px 0 0;
+    position: relative;
+    z-index: 3;
   }
-  /* Large, clear photo */
   body.has-avatar #stageAvatarImg {
-    width: 220px !important;
-    height: 220px !important;
+    width: 200px !important;
+    height: 200px !important;
     border: 4px solid rgba(99,102,241,.7) !important;
-    box-shadow: 0 0 60px rgba(99,102,241,.45), 0 0 0 10px rgba(99,102,241,.12) !important;
+    box-shadow: 0 0 50px rgba(99,102,241,.5), 0 0 0 8px rgba(99,102,241,.15) !important;
     object-fit: cover !important;
+  }
+  /* Body/arms slide up to connect with photo circle */
+  body.has-avatar #bimAvatarContainer {
+    order: 2;
+    min-height: 0;
+    margin-top: -28px;
+    position: relative;
+    z-index: 2;
+  }
+  body.has-avatar #bim-avatar {
+    display: block !important;
+  }
+  body.has-avatar #bim-pose-label {
+    display: none;
   }
 
   /* CREATE AVATAR PROMPT */
