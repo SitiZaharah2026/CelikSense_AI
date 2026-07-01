@@ -487,8 +487,8 @@ window.BIM_AVATAR = (function () {
     </clipPath>
   </defs>
 
-  <!-- Background circle -->
-  <circle cx="150" cy="130" r="115" fill="url(#bim-bg-grad)" opacity="0.7"/>
+  <!-- Background circle (hidden when user photo is active) -->
+  <circle id="bim-bg-circle" cx="150" cy="130" r="115" fill="url(#bim-bg-grad)" opacity="0.7"/>
 
   <!-- Avatar group (float target) -->
   <g id="bim-avatar">
@@ -893,22 +893,24 @@ window.BIM_AVATAR = (function () {
 
   // ─── User Photo ───────────────────────────────────────────────────────────
   function setUserPhoto(dataUrl) {
-    var svgEl  = document.getElementById('bim-svg');
+    var svgEl   = document.getElementById('bim-svg');
     var headGrp = document.getElementById('bim-head-group');
-    var neckEl  = document.getElementById('bim-neck') ||
-                  document.querySelector('#bim-avatar rect[fill="#fbbf24"]');
+    var bgCircle = document.getElementById('bim-bg-circle');
+    var neckEl  = document.querySelector('[id="bim-avatar"] rect[fill="#fbbf24"]') ||
+                  document.querySelector('rect[fill="#fbbf24"]');
     if (dataUrl) {
-      // Hide cartoon head; crop SVG viewBox to body+arms only
-      if (headGrp) headGrp.style.display = 'none';
-      if (neckEl)  neckEl.style.display  = 'none';
+      if (headGrp)  headGrp.style.display  = 'none';
+      if (neckEl)   neckEl.style.display   = 'none';
+      if (bgCircle) bgCircle.style.display = 'none'; // remove grey background circle
       if (svgEl) {
         svgEl.setAttribute('viewBox', '0 98 300 140');
         svgEl.setAttribute('height',  '118');
         svgEl.setAttribute('width',   '220');
       }
     } else {
-      if (headGrp) headGrp.style.display = '';
-      if (neckEl)  neckEl.style.display  = '';
+      if (headGrp)  headGrp.style.display  = '';
+      if (neckEl)   neckEl.style.display   = '';
+      if (bgCircle) bgCircle.style.display = '';
       if (svgEl) {
         svgEl.setAttribute('viewBox', '0 0 300 260');
         svgEl.setAttribute('height',  '220');
