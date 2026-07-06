@@ -826,17 +826,14 @@ function sortResults(mode){
 
 // ── Read Panel ─────────────────────────────────────────────────────────────
 var TOOLS = [
-  {icon:'📚',key:'btnCompanion',desc:'reading-companion.html',url:'reading-companion.html'},
-  {icon:'🤖',key:'btnTeacher',desc:'ai-teacher-agent.html',url:'ai-teacher-agent.html'},
-  {icon:'📝',key:'btnSummary',desc:'',url:''},
-  {icon:'🧩',key:'btnQuiz',desc:'',url:''},
-  {icon:'🗺️',key:'btnMindMap',desc:'',url:''},
-  {icon:'🔊',key:'btnAudio',desc:'blind-audio.html',url:'blind-audio.html'},
-  {icon:'⠃',key:'btnBraille',desc:'blind-audio.html',url:'blind-audio.html'},
-  {icon:'🧠',key:'btnADHD',desc:'adhd-reader.html',url:'adhd-reader.html'},
-  {icon:'🔡',key:'btnDyslexia',desc:'dyslexia-agent.html',url:'dyslexia-agent.html'},
-  {icon:'🤟',key:'btnVisual',desc:'sign-language.html',url:'sign-language.html'},
-  {icon:'⬇️',key:'btnOffline',desc:'offline-library.html',url:'offline-library.html'},
+  {icon:'🧠',key:'btnADHD',     url:'celiksense-reader.html?mode=adhd'},
+  {icon:'📖',key:'btnDyslexia', url:'celiksense-reader.html?mode=dyslexia'},
+  {icon:'🔊',key:'btnAudio',    url:'celiksense-reader.html?mode=blind'},
+  {icon:'🔍',key:'btnLowVision',url:'celiksense-reader.html?mode=lowvision'},
+  {icon:'🤟',key:'btnVisual',   url:'celiksense-reader.html?mode=deaf'},
+  {icon:'📚',key:'btnCompanion',url:'reading-companion.html'},
+  {icon:'🤖',key:'btnTeacher',  url:'ai-teacher-agent.html'},
+  {icon:'⬇️',key:'btnOffline',  url:'offline-library.html'},
 ];
 
 function openReadPanel(b){
@@ -855,7 +852,8 @@ function openReadPanel(b){
   var tools = document.getElementById('readTools');
   tools.innerHTML = TOOLS.map(function(tool){
     if(!tool.url){ return ''; }
-    var params = '?cv_title='+encodeURIComponent(b.title||'')+'&cv_author='+encodeURIComponent(b.author||'')+'&cv_url='+encodeURIComponent(b.url||'')+'&cv_cover='+encodeURIComponent(b.cover||'')+'&cv_source='+encodeURIComponent(b.source||'');
+    var sep = tool.url.includes('?') ? '&' : '?';
+    var params = sep+'cv_title='+encodeURIComponent(b.title||'')+'&cv_author='+encodeURIComponent(b.author||'')+'&cv_url='+encodeURIComponent(b.url||'')+'&cv_cover='+encodeURIComponent(b.cover||'')+'&cv_source='+encodeURIComponent(b.source||'');
     var href = tool.url + params;
     return '<a href="'+esc(href)+'" class="cv-read-tool" rel="noopener" aria-label="'+esc(t(tool.key))+'">' +
       '<span class="cv-read-tool-icon">'+tool.icon+'</span>' +

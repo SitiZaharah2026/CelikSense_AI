@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CelikSense Adaptive Reader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+:root{
+  --bg:#f8f7ff;--text:#1a1a2e;--card:#fff;--accent:#6366f1;
+  --muted:#6b7280;--border:#e5e7eb;--hl:#fef08a;
+  --rf:'Lexend',sans-serif;--rs:18px;--rl:1.85;--rp:28px;--ls:0em;--ws:0em;
+}
+body.mode-blind   {--bg:#0d0d0d;--text:#f0f0f0;--card:#1a1a1a;--border:#333;--muted:#aaa;--rs:22px;}
+body.mode-lowvision{--bg:#fffff0;--text:#000;--card:#fffff8;--border:#bbb;}
+body.mode-dyslexia {--bg:#fdf8f0;--text:#2d2416;--card:#fefaf2;--border:#e8d8b0;}
+body.mode-adhd    {--bg:#f8f7ff;--text:#1a1a2e;--card:#fff;}
+body.mode-deaf    {--bg:#f0f8ff;--text:#0c2d4e;--card:#f8fcff;--border:#bee3f8;}
+body.hc-dark      {--bg:#000!important;--text:#fff!important;--card:#111!important;--border:#444!important;}
+body.hc-yellow    {--bg:#000!important;--text:#ff0!important;--card:#111!important;--border:#555!important;}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--rf);transition:background .25s,color .25s;min-height:100vh;}
+
+/* skip link */
+.skip{position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#6366f1;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;}
+.skip:focus{left:8px;}
+
+/* MODE SWITCHER */
+#mode-bar{
+  position:fixed;top:64px;left:0;right:0;height:46px;z-index:210;
+  background:var(--card);border-bottom:2px solid var(--border);
+  display:flex;align-items:center;gap:6px;padding:0 16px;overflow-x:auto;
+  scrollbar-width:none;
+}
+#mode-bar::-webkit-scrollbar{display:none;}
+.mode-pill{
+  background:none;border:1.5px solid var(--border);border-radius:99px;
+  padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  color:var(--muted);white-space:nowrap;transition:all .15s;font-family:inherit;flex-shrink:0;
+}
+.mode-pill.on{background:var(--accent);color:#fff;border-color:var(--accent);}
+#mode-label{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--muted);white-space:nowrap;flex-shrink:0;}
+
+/* TOOLBARS */
+#toolbars{
+  position:fixed;top:calc(64px+46px);left:0;right:0;z-index:209;
+  background:var(--card);border-bottom:1.5px solid var(--border);
+  min-height:48px;display:flex;align-items:center;gap:4px;
+  padding:0 14px;overflow-x:auto;scrollbar-width:none;
+}
+#toolbars::-webkit-scrollbar{display:none;}
+.tb{display:none;align-items:center;gap:4px;flex-shrink:0;}
+.tb.on{display:flex;}
+.tbg{display:flex;align-items:center;gap:3px;padding:0 10px 0 0;border-right:1px solid var(--border);flex-shrink:0;}
+.tbg:last-child{border-right:none;}
+.tbl{font-size:9px;font-weight:800;letter-spacing:1.5px;color:var(--muted);}
+.tbb{background:none;border:1px solid var(--border);border-radius:7px;padding:4px 9px;font-size:12px;font-weight:600;cursor:pointer;color:var(--text);white-space:nowrap;transition:all .15s;font-family:inherit;}
+.tbb:hover,.tbb.on{background:var(--accent);color:#fff;border-color:var(--accent);}
+.tbb-v{font-size:12px;font-weight:700;min-width:28px;text-align:center;color:var(--text);}
+
+/* PROGRESS BAR */
+#prog-wrap{position:fixed;top:calc(64px+46px+48px);left:0;right:0;height:3px;background:var(--border);z-index:208;}
+#prog{height:100%;background:linear-gradient(90deg,#6366f1,#0891b2);width:0%;transition:width .2s;}
+
+/* MAIN WRAP */
+#rd-wrap{
+  padding-top:calc(64px+46px+48px+18px);
+  max-width:740px;margin:0 auto;
+  padding-left:24px;padding-right:24px;padding-bottom:140px;
+}
+
+/* BOOK HEADER */
+#bk-hdr{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin-bottom:24px;}
+#bk-hdr img,#bk-ph{width:64px;height:88px;border-radius:8px;flex-shrink:0;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,.18);}
+#bk-ph{background:#ede9fe;display:flex;align-items:center;justify-content:center;font-size:28px;}
+.bk-t{font-size:18px;font-weight:800;line-height:1.3;margin-bottom:5px;}
+.bk-a{font-size:13px;color:var(--muted);margin-bottom:8px;}
+.bk-badge{display:inline-flex;align-items:center;gap:5px;background:#ede9fe;color:#6366f1;font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;letter-spacing:1px;}
+.bk-src-link{font-size:11px;color:#6366f1;font-weight:600;text-decoration:none;margin-top:6px;display:inline-block;}
+
+/* LOAD AREA */
+#load-area{background:var(--card);border:2px dashed var(--border);border-radius:16px;padding:28px;text-align:center;margin-bottom:22px;}
+#load-area.hidden{display:none;}
+#load-area h3{font-size:16px;font-weight:700;margin-bottom:7px;}
+#load-area p{font-size:13px;color:var(--muted);margin-bottom:16px;}
+#paste-txt{width:100%;min-height:140px;border:1px solid var(--border);border-radius:10px;padding:12px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);resize:vertical;margin-bottom:10px;display:none;}
+.ld-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 26px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:none;}
+
+/* SECTION BADGE + DIVIDER */
+.sec-badge{text-align:center;margin:4px 0 18px;}
+.sec-badge span{display:inline-block;background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;font-size:10px;font-weight:800;padding:5px 16px;border-radius:99px;letter-spacing:1px;}
+.sec-div{border:none;border-top:2px dashed var(--border);margin:32px 0;position:relative;}
+.sec-div::after{content:attr(data-lbl);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg);padding:0 12px;font-size:10px;font-weight:800;color:var(--muted);letter-spacing:1px;white-space:nowrap;}
+
+/* PARAGRAPHS */
+.para-block{margin-bottom:var(--rp);position:relative;}
+.para-block.done::before{content:'✅';position:absolute;left:-28px;top:0;font-size:14px;}
+.para-text{font-family:var(--rf);font-size:var(--rs);line-height:var(--rl);color:var(--text);letter-spacing:var(--ls);word-spacing:var(--ws);}
+.sent{border-radius:3px;cursor:pointer;transition:background .1s;}
+.sent:hover{background:rgba(99,102,241,.09);}
+.sent.now{background:var(--hl);}
+.kw{border-bottom:2px solid #6366f1;cursor:pointer;font-weight:700;}
+.kw:hover{background:#ede9fe;}
+
+/* AI expand */
+.ai-btn{display:inline-flex;align-items:center;gap:4px;background:none;border:1px solid var(--border);border-radius:99px;font-size:10px;font-weight:700;color:var(--muted);padding:2px 9px;cursor:pointer;margin-top:6px;transition:all .15s;font-family:inherit;}
+.ai-btn:hover{border-color:var(--accent);color:var(--accent);}
+.ai-box{display:none;margin-top:10px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;font-size:13px;line-height:1.65;}
+.ai-box.open{display:block;}
+.ai-lbl{font-size:9px;font-weight:800;letter-spacing:1.5px;color:var(--accent);margin-bottom:5px;}
+.ai-kw{display:inline-block;background:#ede9fe;color:#6366f1;padding:2px 8px;border-radius:6px;margin:2px;font-size:11px;font-weight:600;}
+
+/* SIGN POPUP */
+.sign-pop{display:none;position:fixed;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;z-index:800;box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:13px;max-width:220px;}
+.sign-pop.on{display:block;}
+
+/* BLIND LARGE BUTTONS */
+#blind-ui{display:none;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:22px;text-align:center;}
+body.mode-blind #blind-ui{display:block;}
+.bl-btn{background:var(--accent);color:#fff;border:none;border-radius:14px;padding:18px 28px;font-size:18px;font-weight:800;cursor:pointer;margin:6px;font-family:inherit;min-width:130px;min-height:60px;}
+.bl-btn.secondary{background:var(--card);color:var(--accent);border:2px solid var(--accent);}
+#braille-panel{display:none;background:#1a1a2e;color:#00ff88;font-family:'Courier New',monospace;border-radius:12px;padding:18px;margin-top:14px;font-size:16px;line-height:2;word-break:break-all;}
+#braille-panel.on{display:block;}
+#aria-live{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+/* LOW VISION */
+body.mode-lowvision .para-text{text-shadow:0 0 1px rgba(0,0,0,.2);}
+#rd-content.zoom-150{transform:scale(1.5);transform-origin:top left;width:66.7%;}
+#rd-content.zoom-200{transform:scale(2);transform-origin:top left;width:50%;}
+#rd-content.zoom-300{transform:scale(3);transform-origin:top left;width:33.3%;}
+#reading-guide{display:none;position:fixed;left:0;right:0;height:42px;background:rgba(255,255,0,.28);pointer-events:none;z-index:400;border-top:2px solid rgba(200,160,0,.4);border-bottom:2px solid rgba(200,160,0,.4);}
+#reading-guide.on{display:block;}
+
+/* DYSLEXIA */
+body.mode-dyslexia .para-text{font-family:var(--rf);}
+#colour-overlay{display:none;position:fixed;inset:0;pointer-events:none;z-index:300;opacity:.15;}
+#colour-overlay.on{display:block;}
+#ruler{display:none;position:fixed;left:0;right:0;height:38px;background:rgba(255,220,0,.35);pointer-events:none;z-index:301;border:1px solid rgba(180,140,0,.3);}
+#ruler.on{display:block;}
+
+/* ADHD FOCUS OVERLAY */
+#focus-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.87);z-index:500;align-items:center;justify-content:center;padding:32px 20px;}
+#focus-ov.on{display:flex;}
+#focus-card{background:var(--card);border-radius:20px;padding:38px;max-width:660px;width:100%;max-height:82vh;overflow-y:auto;}
+#focus-meta{font-size:9px;font-weight:800;letter-spacing:2px;color:var(--accent);margin-bottom:12px;display:flex;justify-content:space-between;}
+#focus-para{font-family:var(--rf);font-size:var(--rs);line-height:var(--rl);color:var(--text);margin-bottom:26px;}
+#focus-nav{display:flex;gap:12px;justify-content:center;}
+.fn{background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+.fn:disabled{opacity:.35;cursor:default;}
+
+/* SMART BREAK */
+#break-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;align-items:center;justify-content:center;}
+#break-modal.on{display:flex;}
+#break-card{background:var(--card);border-radius:20px;padding:38px 30px;max-width:360px;width:92%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+#break-cd{font-size:40px;font-weight:900;color:var(--accent);margin:14px 0 20px;}
+.br-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:11px 26px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+
+/* CHECKPOINT */
+#cp-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;align-items:center;justify-content:center;}
+#cp-modal.on{display:flex;}
+#cp-card{background:var(--card);border-radius:20px;padding:32px;max-width:500px;width:94%;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+#cp-q{font-size:16px;line-height:1.65;margin:10px 0 18px;color:var(--text);}
+#cp-in{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);margin-bottom:10px;}
+#cp-fb{font-size:13px;padding:10px 14px;border-radius:8px;display:none;margin-bottom:10px;}
+#cp-fb.ok{background:#dcfce7;color:#166534;}#cp-fb.no{background:#fee2e2;color:#991b1b;}
+.cp-row{display:flex;gap:8px;flex-wrap:wrap;}
+.cp-btn{border-radius:9px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;border:none;}
+
+/* AI SIDEBAR */
+#ai-sidebar{
+  position:fixed;right:0;top:calc(64px+46px+48px);bottom:0;width:300px;
+  background:var(--card);border-left:1.5px solid var(--border);
+  overflow-y:auto;z-index:400;transform:translateX(100%);transition:transform .25s;
+  padding:18px;
+}
+#ai-sidebar.on{transform:translateX(0);}
+.ai-s-lbl{font-size:9px;font-weight:800;letter-spacing:1.5px;color:var(--accent);margin-bottom:5px;margin-top:14px;}
+.ai-s-body{font-size:13px;line-height:1.65;color:var(--text);margin-bottom:6px;}
+.ai-s-btn{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--text);text-align:left;margin-bottom:5px;transition:all .15s;}
+.ai-s-btn:hover{border-color:var(--accent);color:var(--accent);}
+#notes-area{width:100%;min-height:90px;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:13px;font-family:inherit;background:var(--bg);color:var(--text);resize:vertical;}
+#sidebar-close{position:absolute;top:12px;right:12px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);}
+
+/* READ ALOUD BAR */
+#aloud-bar{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,#1e1b4b,#1d4ed8);color:#fff;
+  border-radius:99px;padding:10px 18px;display:none;align-items:center;gap:12px;
+  z-index:399;box-shadow:0 8px 32px rgba(30,27,75,.42);white-space:nowrap;
+}
+#aloud-bar.on{display:flex;}
+.a-btn{background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:34px;height:34px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.a-spd{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:7px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
+.a-spd.on{background:rgba(255,255,255,.35);}
+
+/* MICRO TIMER */
+#micro-timer{position:fixed;top:calc(64px+46px+48px+10px);right:20px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:6px 12px;font-size:12px;font-weight:700;color:var(--text);z-index:207;display:none;align-items:center;gap:6px;}
+#micro-timer.show{display:flex;}
+
+@media(max-width:620px){
+  #rd-wrap{padding-left:14px;padding-right:14px;}
+  #ai-sidebar{width:100%;}
+  .bl-btn{padding:14px 18px;font-size:15px;}
+}
+</style>
+</head>
+<body>
+<a href="#rd-wrap" class="skip">Skip to content</a>
+<div id="aria-live" aria-live="assertive" aria-atomic="true" role="status"></div>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <div class="container nav-container">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-icon">CS</div>
+      <div><span class="brand-name">CelikSense AI</span><span class="brand-tagline">Adaptive Accessibility Reader</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <div class="nav-dropdown">
+        <button aria-haspopup="true" aria-expanded="false">Agents ▾</button>
+        <div class="dropdown-menu">
+          <a href="adhd-agent.html">🧠 ADHD Agent</a>
+          <a href="dyslexia-agent.html">📖 Dyslexia Agent</a>
+          <a href="blind-audio.html">🔊 Blind Audio</a>
+          <a href="sign-language.html">🤟 Sign Language</a>
+          <a href="celikverse-library.html">🌍 CelikVerse Library</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">BM</button>
+      <a href="celikverse-library.html" class="btn btn-ghost btn-sm">🌍 Library</a>
+      <a href="dashboard.html" class="btn btn-ghost btn-sm">← Dashboard</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Menu" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<!-- ── MODE SWITCHER ── -->
+<div id="mode-bar" role="tablist" aria-label="Accessibility reading modes">
+  <button class="mode-pill" id="pill-blind"     onclick="setMode('blind')"     role="tab">🔊 Blind</button>
+  <button class="mode-pill" id="pill-lowvision" onclick="setMode('lowvision')" role="tab">🔍 Low Vision</button>
+  <button class="mode-pill" id="pill-dyslexia"  onclick="setMode('dyslexia')"  role="tab">📖 Dyslexia</button>
+  <button class="mode-pill" id="pill-adhd"      onclick="setMode('adhd')"      role="tab">🧠 ADHD</button>
+  <button class="mode-pill" id="pill-deaf"      onclick="setMode('deaf')"      role="tab">🤟 Deaf</button>
+  <span id="mode-label">ACCESSIBILITY MODE</span>
+</div>
+
+<!-- ── TOOLBARS ── -->
+<div id="toolbars">
+  <!-- Blind -->
+  <div class="tb" id="tb-blind">
+    <div class="tbg"><span class="tbl">READ</span>
+      <button class="tbb" id="tb-autoread" onclick="toggleRead()">▶ Read Aloud</button>
+    </div>
+    <div class="tbg"><span class="tbl">SPEED</span>
+      <button class="a-spd on" data-r="1" onclick="setSpd(1)" style="border:1px solid var(--border);color:var(--text);background:var(--bg);">1.0×</button>
+      <button class="a-spd" data-r="0.75" onclick="setSpd(0.75)" style="border:1px solid var(--border);color:var(--text);background:var(--bg);">0.75×</button>
+      <button class="a-spd" data-r="1.25" onclick="setSpd(1.25)" style="border:1px solid var(--border);color:var(--text);background:var(--bg);">1.25×</button>
+      <button class="a-spd" data-r="1.5" onclick="setSpd(1.5)" style="border:1px solid var(--border);color:var(--text);background:var(--bg);">1.5×</button>
+    </div>
+    <div class="tbg"><button class="tbb" onclick="toggleBraille()">⠃ Braille</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🤖 AI</button></div>
+  </div>
+  <!-- Low Vision -->
+  <div class="tb" id="tb-lowvision">
+    <div class="tbg"><span class="tbl">ZOOM</span>
+      <button class="tbb on" id="z100" onclick="setZoom(100)">100%</button>
+      <button class="tbb" id="z150" onclick="setZoom(150)">150%</button>
+      <button class="tbb" id="z200" onclick="setZoom(200)">200%</button>
+      <button class="tbb" id="z300" onclick="setZoom(300)">300%</button>
+    </div>
+    <div class="tbg"><span class="tbl">CONTRAST</span>
+      <button class="tbb on" id="hc-norm" onclick="setHC('normal')">Normal</button>
+      <button class="tbb" id="hc-dark" onclick="setHC('dark')">Dark</button>
+      <button class="tbb" id="hc-yellow" onclick="setHC('yellow')">Yellow</button>
+    </div>
+    <div class="tbg"><button class="tbb" id="guide-btn" onclick="toggleGuide()">📏 Guide</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleRead()">🔊 Read</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🤖 AI</button></div>
+  </div>
+  <!-- Dyslexia -->
+  <div class="tb" id="tb-dyslexia">
+    <div class="tbg"><span class="tbl">FONT</span>
+      <button class="tbb on" id="f-lexend" onclick="setDFont('lexend')">Lexend</button>
+      <button class="tbb" id="f-opendys" onclick="setDFont('opendys')">OpenDyslexic</button>
+      <button class="tbb" id="f-system" onclick="setDFont('system')">System</button>
+    </div>
+    <div class="tbg"><span class="tbl">LETTER</span>
+      <button class="tbb" onclick="adjLS(-0.05)">↓</button>
+      <span class="tbb-v" id="lbl-ls">0</span>
+      <button class="tbb" onclick="adjLS(0.05)">↑</button>
+    </div>
+    <div class="tbg"><span class="tbl">WORD</span>
+      <button class="tbb" onclick="adjWS(-0.05)">↓</button>
+      <span class="tbb-v" id="lbl-ws">0</span>
+      <button class="tbb" onclick="adjWS(0.05)">↑</button>
+    </div>
+    <div class="tbg"><span class="tbl">OVERLAY</span>
+      <button class="tbb on" onclick="setOverlay('none')">None</button>
+      <button class="tbb" onclick="setOverlay('#ffff00')">Yellow</button>
+      <button class="tbb" onclick="setOverlay('#aad4f5')">Blue</button>
+      <button class="tbb" onclick="setOverlay('#90ee90')">Green</button>
+      <button class="tbb" onclick="setOverlay('#ffb6c1')">Pink</button>
+    </div>
+    <div class="tbg"><button class="tbb" id="ruler-btn" onclick="toggleRuler()">📏 Ruler</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🤖 AI</button></div>
+  </div>
+  <!-- ADHD -->
+  <div class="tb" id="tb-adhd">
+    <div class="tbg"><button class="tbb" id="focus-btn" onclick="toggleFocus()">🎯 Focus</button></div>
+    <div class="tbg"><span class="tbl">SESSION</span>
+      <button class="tbb" id="m2" onclick="setMicro(2)">2 min</button>
+      <button class="tbb on" id="m5" onclick="setMicro(5)">5 min</button>
+      <button class="tbb" id="m10" onclick="setMicro(10)">10 min</button>
+    </div>
+    <div class="tbg"><button class="tbb" id="read-btn" onclick="toggleRead()">🔊 Read</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🤖 AI</button></div>
+  </div>
+  <!-- Deaf -->
+  <div class="tb" id="tb-deaf">
+    <div class="tbg"><button class="tbb" id="simp-btn" onclick="toggleSimplify()">🔤 Simplify</button></div>
+    <div class="tbg"><button class="tbb" id="kw-btn" onclick="toggleKeywords()">🔑 Keywords</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🧠 Mind Map</button></div>
+    <div class="tbg"><a href="signsense-dictionary.html" class="tbb" style="text-decoration:none;">🤟 Sign Dict</a></div>
+  </div>
+</div>
+
+<!-- Progress bar -->
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<!-- Micro timer (ADHD) -->
+<div id="micro-timer">⏱ <span id="t-cur">0:00</span> / <span id="t-goal">5:00</span></div>
+
+<!-- Reading guide (Low Vision) -->
+<div id="reading-guide" aria-hidden="true"></div>
+
+<!-- Colour overlay (Dyslexia) -->
+<div id="colour-overlay" aria-hidden="true"></div>
+
+<!-- Ruler (Dyslexia) -->
+<div id="ruler" aria-hidden="true"></div>
+
+<!-- AI Sidebar -->
+<div id="ai-sidebar" role="complementary" aria-label="AI Reading Assistant">
+  <button id="sidebar-close" onclick="toggleSidebar()" aria-label="Close AI panel">✕</button>
+  <div style="font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--accent);margin-bottom:14px;">🤖 AI ASSISTANT</div>
+  <button class="ai-s-btn" onclick="doAI('simplify')">📝 Simplify Current Section</button>
+  <button class="ai-s-btn" onclick="doAI('keywords')">🔑 Extract Keywords</button>
+  <button class="ai-s-btn" onclick="doAI('teacher')">👩‍🏫 AI Teacher — Explain This</button>
+  <button class="ai-s-btn" onclick="doAI('quiz')">🧩 Generate Quiz</button>
+  <button class="ai-s-btn" onclick="doAI('mindmap')">🗺️ Mind Map</button>
+  <button class="ai-s-btn" onclick="doAI('summary')">📄 Summary</button>
+  <div id="ai-s-out" style="margin-top:10px;font-size:13px;line-height:1.65;color:var(--text);"></div>
+  <div class="ai-s-lbl" style="margin-top:16px;">📝 MY NOTES</div>
+  <textarea id="notes-area" placeholder="Write your notes here…" oninput="saveNotes()"></textarea>
+  <button class="ai-s-btn" style="margin-top:6px;" onclick="saveBookmark()">🔖 Bookmark Position</button>
+  <div id="bm-msg" style="font-size:11px;color:var(--accent);margin-top:4px;display:none;">✓ Bookmarked!</div>
+</div>
+
+<!-- ── MAIN ── -->
+<div id="rd-wrap" tabindex="-1">
+  <!-- Book header -->
+  <div id="bk-hdr"></div>
+  <!-- Blind large-button UI -->
+  <div id="blind-ui" aria-label="Blind reader controls">
+    <div style="font-size:13px;font-weight:800;letter-spacing:1.5px;color:var(--accent);margin-bottom:14px;">🔊 BLIND READER</div>
+    <button class="bl-btn" onclick="toggleRead()">▶ Read Aloud</button>
+    <button class="bl-btn" onclick="prevSent()">⏮ Previous</button>
+    <button class="bl-btn" onclick="nextSent()">⏭ Next</button>
+    <button class="bl-btn secondary" onclick="toggleBraille()">⠃ Braille Output</button>
+    <button class="bl-btn secondary" onclick="toggleSidebar()">🤖 AI Help</button>
+    <div id="braille-panel" aria-label="Braille output"></div>
+  </div>
+  <!-- Load area -->
+  <div id="load-area">
+    <h3>⏳ Loading book…</h3>
+    <p>Fetching content, please wait.</p>
+    <textarea id="paste-txt" placeholder="Or paste the book text here…"></textarea>
+    <button class="ld-btn" onclick="loadPaste()">▶ Start Reading</button>
+  </div>
+  <!-- Content -->
+  <div id="rd-content"></div>
+</div>
+
+<!-- Focus Overlay (ADHD) -->
+<div id="focus-ov" role="dialog" aria-modal="true" aria-label="Focus reading mode">
+  <button style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,.15);border:none;color:#fff;width:38px;height:38px;border-radius:50%;font-size:18px;cursor:pointer;" onclick="toggleFocus()" aria-label="Exit focus mode">✕</button>
+  <div id="focus-card">
+    <div id="focus-meta"><span>🎯 FOCUS MODE</span><span id="foc-ctr">1 / 1</span></div>
+    <div id="focus-para" tabindex="0"></div>
+    <div id="focus-nav">
+      <button class="fn" id="fp-prev" onclick="fNav(-1)">← Prev</button>
+      <button class="fn" onclick="readFocusPara()">🔊 Read</button>
+      <button class="fn" id="fp-next" onclick="fNav(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Smart Break (ADHD) -->
+<div id="break-modal" role="dialog" aria-modal="true">
+  <div id="break-card">
+    <div style="font-size:44px;margin-bottom:10px;">☕</div>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:7px;">Time for a Short Break</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:5px;">Rest your eyes and breathe.</p>
+    <div id="break-cd">0:30</div>
+    <button class="br-btn" onclick="skipBreak()">Skip Break →</button>
+  </div>
+</div>
+
+<!-- AI Checkpoint (ADHD) -->
+<div id="cp-modal" role="dialog" aria-modal="true">
+  <div id="cp-card">
+    <div style="font-size:13px;font-weight:800;color:var(--accent);margin-bottom:10px;">🧠 Quick Checkpoint!</div>
+    <div id="cp-q">Loading…</div>
+    <input type="text" id="cp-in" placeholder="Your answer…" onkeydown="if(event.key==='Enter')checkAns()">
+    <div id="cp-fb"></div>
+    <div class="cp-row">
+      <button class="cp-btn" style="background:var(--accent);color:#fff;" onclick="checkAns()">Submit</button>
+      <button class="cp-btn" style="background:#ede9fe;color:#6366f1;" onclick="explainAgain()">Explain Again</button>
+      <button class="cp-btn" style="background:var(--border);color:var(--muted);" onclick="skipCP()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sign Popup (Deaf) -->
+<div id="sign-pop" class="sign-pop" role="tooltip"></div>
+
+<!-- Read Aloud Bar -->
+<div id="aloud-bar" role="status" aria-live="polite">
+  <button class="a-btn" onclick="toggleRead()" title="Stop">⏹</button>
+  <button class="a-btn" onclick="prevSent()" title="Previous">⏮</button>
+  <button class="a-btn" onclick="nextSent()" title="Next">⏭</button>
+  <span id="a-prog" style="font-size:11px;color:rgba(255,255,255,.7);min-width:55px;text-align:center;">0/0</span>
+  <button class="a-spd on" data-r="1" onclick="setSpd(1)">1.0×</button>
+  <button class="a-spd" data-r="0.75" onclick="setSpd(0.75)">0.75×</button>
+  <button class="a-spd" data-r="1.25" onclick="setSpd(1.25)">1.25×</button>
+  <button class="a-spd" data-r="1.5" onclick="setSpd(1.5)">1.5×</button>
+</div>
+
+<script src="shared.js"></script>
+<script>
+/* ═══════ BOOK DATA ═══════ */
+var BK = {};
+(function(){
+  var p = new URLSearchParams(location.search);
+  BK.title  = p.get('cv_title')  || '';
+  BK.author = p.get('cv_author') || '';
+  BK.url    = p.get('cv_url')    || '';
+  BK.cover  = p.get('cv_cover')  || '';
+  BK.source = p.get('cv_source') || '';
+  BK.mode   = p.get('mode')      || 'adhd';
+  if (!BK.title) {
+    try { var b=JSON.parse(localStorage.getItem('cv_active_book')||'null'); if(b){BK.title=b.title;BK.author=b.author;BK.url=b.url;BK.cover=b.cover;BK.source=b.source;} } catch(e){}
+  }
+})();
+
+/* ═══════ PREFS ═══════ */
+var PR = (function(){ try{return JSON.parse(localStorage.getItem('cs_reader_prefs')||'{}');}catch(e){return{};} })();
+function saveP(){ try{localStorage.setItem('cs_reader_prefs',JSON.stringify(PR));}catch(e){} }
+
+/* ═══════ STATE ═══════ */
+var paras=[], sents=[], sIdx=0, fIdx=0, isRead=false, isFocus=false, spd=1.0, microMin=5;
+var sessSec=0, sessInt=null, breakInt=null, _cpAns='', showKW=false, simplifyOn=false;
+
+/* ═══════ INIT ═══════ */
+document.addEventListener('DOMContentLoaded', function(){
+  renderBkHeader();
+  applyPrefs();
+  setMode(PR.mode || BK.mode || 'adhd');
+  tryFetch();
+  window.addEventListener('scroll', onScroll);
+  initSession();
+  initVoice();
+  loadNotes();
+  document.addEventListener('mousemove', onMouse);
+  document.addEventListener('click', function(e){ if(!e.target.closest('#sign-pop')&&!e.target.classList.contains('kw')) document.getElementById('sign-pop').classList.remove('on'); });
+});
+
+function esc(s){ var d=document.createElement('div');d.appendChild(document.createTextNode(s||''));return d.innerHTML; }
+
+/* ═══════ BOOK HEADER ═══════ */
+function renderBkHeader(){
+  var h=document.getElementById('bk-hdr');
+  if(!BK.title){h.style.display='none';return;}
+  document.title = BK.title+' · CelikSense Reader';
+  var cov = BK.cover
+    ? '<img src="'+BK.cover+'" alt="Book cover" onerror="this.outerHTML=\'<div id=bk-ph>📖</div>\'">'
+    : '<div id="bk-ph">📖</div>';
+  h.innerHTML = cov+'<div style="min-width:0;">'
+    +'<div class="bk-t">'+esc(BK.title)+'</div>'
+    +'<div class="bk-a">'+(BK.author?'by '+esc(BK.author):'')+'</div>'
+    +(BK.source?'<span class="bk-badge">📚 '+esc(BK.source)+'</span>':'')
+    +(BK.url?'<br><a class="bk-src-link" href="'+BK.url+'" target="_blank" rel="noopener">↗ View Original Source</a>':'')
+    +'</div>';
+}
+
+/* ═══════ CONTENT FETCH ═══════ */
+async function tryFetch(){
+  if(!BK.url){showPaste();return;}
+  var gId = (BK.url.match(/gutenberg\.org\/(?:ebooks|files|cache\/epub)\/(\d+)/)||[])[1];
+  if(gId){
+    setLdMsg('Fetching from Project Gutenberg…');
+    for(var u of ['https://www.gutenberg.org/cache/epub/'+gId+'/pg'+gId+'.txt','https://www.gutenberg.org/files/'+gId+'/'+gId+'-0.txt','https://www.gutenberg.org/files/'+gId+'/'+gId+'.txt']){
+      try{ var r=await fetch(u); if(r.ok){var t=await r.text();if(t.length>300){parseRender(t);return;}} }catch(e){}
+    }
+  }
+  if(/\.(txt|text)(\?|$)/i.test(BK.url)){
+    try{ var r2=await fetch(BK.url); if(r2.ok){var t2=await r2.text();if(t2.length>200){parseRender(t2);return;}} }catch(e){}
+  }
+  showPaste();
+}
+
+function setLdMsg(m){ document.querySelector('#load-area h3').textContent=m; }
+
+function showPaste(){
+  var la=document.getElementById('load-area');
+  la.querySelector('h3').textContent='📋 Paste Book Text';
+  la.querySelector('p').innerHTML='Auto-fetch failed (CORS). '+(BK.url?'<a href="'+BK.url+'" target="_blank" rel="noopener" style="color:#6366f1;font-weight:600;">Open source ↗</a> then paste text below.':'Paste your text below.');
+  document.getElementById('paste-txt').style.display='';
+  document.querySelector('.ld-btn').style.display='';
+}
+
+function loadPaste(){
+  var t=document.getElementById('paste-txt').value.trim();
+  if(!t){alert('Please paste some text first.');return;}
+  parseRender(t);
+}
+
+/* ═══════ PARSE & RENDER ═══════ */
+function parseRender(raw){
+  document.getElementById('load-area').classList.add('hidden');
+  var t=raw; var s=t.match(/\*{3}\s*START OF (?:THE |THIS )?PROJECT GUTENBERG[^\n]*\n/i);
+  if(s)t=t.slice(t.indexOf(s[0])+s[0].length);
+  var e=t.search(/\*{3}\s*END OF (?:THE |THIS )?PROJECT GUTENBERG/i);
+  if(e>-1)t=t.slice(0,e);
+  paras = t.split(/\n{2,}/).map(function(p){return p.replace(/\n/g,' ').replace(/\s{2,}/g,' ').trim();}).filter(function(p){return p.length>40;});
+  if(!paras.length){showPaste();return;}
+  renderParas();
+  if(BK.mode==='blind' || PR.mode==='blind') setTimeout(startRead, 800);
+}
+
+var CONCEPT_ICONS={'love':'❤️','death':'💀','war':'⚔️','nature':'🌿','sea':'🌊','family':'👨‍👩‍👧','home':'🏠','god':'✨','king':'👑','money':'💰','child':'👶','night':'🌙','day':'☀️','book':'📚','school':'🏫','friend':'🤝','enemy':'👿','time':'⏰','dream':'💭','truth':'💡'};
+
+function renderParas(){
+  var area=document.getElementById('rd-content'); area.innerHTML=''; sents=[];
+  var wpm=200, secWords=microMin*wpm, wCount=0, secNum=1;
+  area.appendChild(mkBadge(secNum));
+  paras.forEach(function(para,i){
+    var pw=para.split(/\s+/).length;
+    if(wCount>0&&wCount+pw>secWords){
+      secNum++; wCount=0;
+      var hr=document.createElement('hr'); hr.className='sec-div';
+      hr.setAttribute('data-lbl','✦ Section '+secNum+' · ~'+microMin+' min');
+      hr.dataset.sec=secNum; hr.dataset.cpTrigger='1'; hr.dataset.cpIdx=i;
+      area.appendChild(hr); area.appendChild(mkBadge(secNum));
+    }
+    wCount+=pw;
+    var blk=document.createElement('div'); blk.className='para-block'; blk.id='p'+i;
+    var pt=document.createElement('div'); pt.className='para-text';
+    // Keyword detection (Deaf mode)
+    var kwSet=extractKW(para);
+    var ss=para.match(/[^.!?…]+[.!?…]+["']?/g)||[para];
+    ss.forEach(function(s){
+      var sp=document.createElement('span'); sp.className='sent'; sp.dataset.si=sents.length;
+      if(showKW&&kwSet.length){
+        var html=s+' ';
+        kwSet.forEach(function(kw){ html=html.replace(new RegExp('\\b('+kw+')\\b','gi'),'<span class="kw" onclick="showSign(\'$1\')">$1</span>'); });
+        sp.innerHTML=html;
+      } else { sp.textContent=s+' '; }
+      sp.onclick=function(e){ if(e.target.classList.contains('kw'))return; jumpSent(parseInt(sp.dataset.si)); };
+      sents.push({paraIdx:i,text:s,el:sp}); pt.appendChild(sp);
+    });
+    var aib=document.createElement('button'); aib.className='ai-btn'; aib.innerHTML='✨ AI Help';
+    var aip=document.createElement('div'); aip.className='ai-box';
+    (function(p2,panel){ aib.onclick=function(){ toggleAIBox(p2,panel); }; })(para,aip);
+    blk.appendChild(pt); blk.appendChild(aib); blk.appendChild(aip);
+    area.appendChild(blk);
+  });
+  // Mark done paras from localStorage
+  var done=(function(){try{return JSON.parse(localStorage.getItem('cs_done_'+BK.title)||'[]');}catch(e){return[];}})();
+  done.forEach(function(i){ var el=document.getElementById('p'+i); if(el)el.classList.add('done'); });
+}
+
+function mkBadge(n){ var d=document.createElement('div'); d.className='sec-badge'; d.innerHTML='<span>📖 Section '+n+' · ~'+microMin+' min</span>'; return d; }
+
+function extractKW(text){
+  var freq={}; text.split(/\s+/).forEach(function(w){ w=w.replace(/[^a-zA-Z]/g,''); if(w.length>5){freq[w]=(freq[w]||0)+1;} });
+  return Object.keys(freq).filter(function(w){return freq[w]>=1&&w===w[0].toUpperCase()+w.slice(1)||freq[w]>=2;}).slice(0,6);
+}
+
+/* ═══════ MODE SWITCHER ═══════ */
+var MODES=['blind','lowvision','dyslexia','adhd','deaf'];
+var MNAMES={blind:'🔊 Blind Reader',lowvision:'🔍 Low Vision Reader',dyslexia:'📖 Dyslexia Reader',adhd:'🧠 ADHD Reader',deaf:'🤟 Deaf Reader'};
+
+function setMode(m){
+  MODES.forEach(function(x){
+    document.body.classList.remove('mode-'+x);
+    document.getElementById('pill-'+x).classList.remove('on');
+    var tb=document.getElementById('tb-'+x); if(tb){tb.classList.remove('on');}
+  });
+  document.body.classList.add('mode-'+m);
+  document.getElementById('pill-'+m).classList.add('on');
+  var tb=document.getElementById('tb-'+m); if(tb)tb.classList.add('on');
+  document.getElementById('mode-label').textContent=MNAMES[m]||m.toUpperCase();
+  PR.mode=m; saveP();
+  // Mode-specific init
+  if(m==='adhd') document.getElementById('micro-timer').classList.add('show');
+  else document.getElementById('micro-timer').classList.remove('show');
+}
+
+/* ═══════ PROGRESS ═══════ */
+function onScroll(){
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.width=(h>0?Math.round(window.scrollY/h*100):0)+'%';
+  // Checkpoint triggers
+  document.querySelectorAll('.sec-div[data-cp-trigger]').forEach(function(el){
+    if(el.getBoundingClientRect().top<0&&!el.dataset.cpDone){
+      el.dataset.cpDone='1';
+      var idx=parseInt(el.dataset.cpIdx);
+      var secTxt=paras.slice(Math.max(0,idx-12),idx).join(' ');
+      setTimeout(function(){showCP(secTxt);},700);
+    }
+  });
+}
+
+/* ═══════ MOUSE — guide & ruler ═══════ */
+function onMouse(e){
+  var g=document.getElementById('reading-guide'); if(g.classList.contains('on')) g.style.top=(e.clientY-21)+'px';
+  var r=document.getElementById('ruler'); if(r.classList.contains('on')) r.style.top=(e.clientY-19)+'px';
+}
+
+/* ═══════ SESSION TIMER + SMART BREAK ═══════ */
+function initSession(){
+  sessInt=setInterval(function(){
+    sessSec++;
+    var m=Math.floor(sessSec/60),s=sessSec%60;
+    document.getElementById('t-cur').textContent=m+':'+(s<10?'0':'')+s;
+    if(sessSec>0&&sessSec%(7*60)===0) showBreak();
+  },1000);
+}
+function showBreak(){ var modal=document.getElementById('break-modal'); modal.classList.add('on'); if(isRead)speechSynthesis.cancel(); var sec=30; document.getElementById('break-cd').textContent='0:30'; breakInt=setInterval(function(){ sec--; document.getElementById('break-cd').textContent='0:'+(sec<10?'0':'')+sec; if(sec<=0){clearInterval(breakInt);document.getElementById('break-modal').classList.remove('on');} },1000); }
+function skipBreak(){ document.getElementById('break-modal').classList.remove('on'); clearInterval(breakInt); }
+
+/* ═══════ TOOLBAR CONTROLS ═══════ */
+// Low Vision
+function setZoom(z){ ['100','150','200','300'].forEach(function(x){document.getElementById('z'+x).classList.toggle('on',x==z);}); var c=document.getElementById('rd-content'); c.classList.remove('zoom-150','zoom-200','zoom-300'); if(z!==100)c.classList.add('zoom-'+z); PR.zoom=z; saveP(); }
+function setHC(m){ document.body.classList.remove('hc-dark','hc-yellow'); ['norm','dark','yellow'].forEach(function(x){document.getElementById('hc-'+x).classList.toggle('on',x===m);}); if(m==='dark')document.body.classList.add('hc-dark'); if(m==='yellow')document.body.classList.add('hc-yellow'); PR.hc=m; saveP(); }
+function toggleGuide(){ var g=document.getElementById('reading-guide'); g.classList.toggle('on'); document.getElementById('guide-btn').classList.toggle('on',g.classList.contains('on')); }
+
+// Dyslexia
+function setDFont(f){
+  var map={'lexend':"'Lexend',sans-serif",'opendys':"'OpenDyslexic',sans-serif,Arial",'system':"system-ui,sans-serif"};
+  document.documentElement.style.setProperty('--rf',map[f]||map.lexend);
+  ['lexend','opendys','system'].forEach(function(x){document.getElementById('f-'+x).classList.toggle('on',x===f);});
+  PR.dfont=f; saveP();
+}
+function adjLS(d){ var cur=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ls'))||0; var nv=Math.max(-0.05,Math.min(0.3,+(cur+d).toFixed(2))); document.documentElement.style.setProperty('--ls',nv+'em'); document.getElementById('lbl-ls').textContent=nv.toFixed(2); PR.ls=nv; saveP(); }
+function adjWS(d){ var cur=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ws'))||0; var nv=Math.max(-0.05,Math.min(0.5,+(cur+d).toFixed(2))); document.documentElement.style.setProperty('--ws',nv+'em'); document.getElementById('lbl-ws').textContent=nv.toFixed(2); PR.ws=nv; saveP(); }
+function setOverlay(col){ var o=document.getElementById('colour-overlay'); if(col==='none'){o.classList.remove('on');o.style.background='';}else{o.classList.add('on');o.style.background=col;} PR.overlay=col; saveP(); }
+function toggleRuler(){ var r=document.getElementById('ruler'); r.classList.toggle('on'); document.getElementById('ruler-btn').classList.toggle('on',r.classList.contains('on')); }
+
+// ADHD micro
+function setMicro(m){ microMin=m; [2,5,10].forEach(function(x){document.getElementById('m'+x).classList.toggle('on',x===m);}); document.getElementById('t-goal').textContent=m+':00'; PR.micro=m; saveP(); if(paras.length)renderParas(); }
+
+// Deaf
+function toggleSimplify(){ simplifyOn=!simplifyOn; document.getElementById('simp-btn').classList.toggle('on',simplifyOn); if(paras.length)renderParas(); }
+function toggleKeywords(){ showKW=!showKW; document.getElementById('kw-btn').classList.toggle('on',showKW); if(paras.length)renderParas(); }
+
+/* ═══════ FOCUS MODE (ADHD) ═══════ */
+function toggleFocus(){ isFocus=!isFocus; document.getElementById('focus-ov').classList.toggle('on',isFocus); document.getElementById('focus-btn').classList.toggle('on',isFocus); if(isFocus)renderFP(); }
+function renderFP(){ if(!paras.length)return; document.getElementById('focus-para').textContent=paras[fIdx]; document.getElementById('foc-ctr').textContent=(fIdx+1)+' / '+paras.length; document.getElementById('fp-prev').disabled=fIdx<=0; document.getElementById('fp-next').disabled=fIdx>=paras.length-1; }
+function fNav(d){ fIdx=Math.max(0,Math.min(paras.length-1,fIdx+d)); renderFP(); var el=document.getElementById('p'+fIdx); if(el)el.scrollIntoView({behavior:'smooth',block:'center'}); }
+function readFocusPara(){ if(!paras.length)return; if('speechSynthesis' in window){speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(paras[fIdx]);u.rate=spd;speechSynthesis.speak(u);} }
+
+/* ═══════ READ ALOUD ═══════ */
+function toggleRead(){ if(isRead)stopRead();else startRead(); }
+function startRead(){ if(!sents.length)return; isRead=true; document.getElementById('aloud-bar').classList.add('on'); ['read-btn','tb-autoread'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('on');}); readAt(sIdx); }
+function stopRead(){ isRead=false; if('speechSynthesis' in window)speechSynthesis.cancel(); clearHL(); document.getElementById('aloud-bar').classList.remove('on'); ['read-btn','tb-autoread'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('on');}); }
+function readAt(i){
+  if(!isRead||i>=sents.length){stopRead();return;}
+  sIdx=i; clearHL();
+  var s=sents[i]; s.el.classList.add('now'); s.el.scrollIntoView({behavior:'smooth',block:'center'});
+  document.getElementById('a-prog').textContent=(i+1)+'/'+sents.length;
+  document.getElementById('aria-live').textContent=s.text;
+  if('speechSynthesis' in window){
+    speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(s.text); u.rate=spd; u.lang='en-US';
+    u.onend=function(){if(isRead)readAt(i+1);}; u.onerror=function(){if(isRead)setTimeout(function(){readAt(i+1);},300);};
+    speechSynthesis.speak(u);
+  } else { setTimeout(function(){if(isRead)readAt(i+1);},s.text.split(/\s+/).length*(750/spd)); }
+  // Mark para done
+  var pIdx=s.paraIdx; var el=document.getElementById('p'+pIdx); if(el&&!el.classList.contains('done')){el.classList.add('done'); try{var d=JSON.parse(localStorage.getItem('cs_done_'+BK.title)||'[]');d.push(pIdx);localStorage.setItem('cs_done_'+BK.title,JSON.stringify(d));}catch(e){}}
+}
+function clearHL(){ document.querySelectorAll('.sent.now').forEach(function(e){e.classList.remove('now');}); }
+function nextSent(){ if(isRead){speechSynthesis.cancel();readAt(sIdx+1);}else{sIdx=Math.min(sents.length-1,sIdx+1);var el=sents[sIdx]&&sents[sIdx].el;if(el)el.scrollIntoView({behavior:'smooth',block:'center'});} }
+function prevSent(){ if(isRead){speechSynthesis.cancel();readAt(Math.max(0,sIdx-1));}else{sIdx=Math.max(0,sIdx-1);var el=sents[sIdx]&&sents[sIdx].el;if(el)el.scrollIntoView({behavior:'smooth',block:'center'});} }
+function jumpSent(i){ sIdx=i; if(!isRead)startRead();else readAt(i); }
+function setSpd(r){ spd=r; document.querySelectorAll('.a-spd').forEach(function(b){b.classList.toggle('on',parseFloat(b.dataset.r)===r);}); if(isRead){speechSynthesis.cancel();readAt(sIdx);} PR.speed=r; saveP(); }
+
+/* ═══════ BRAILLE OUTPUT ═══════ */
+var BRL_MAP={'a':'⠁','b':'⠃','c':'⠉','d':'⠙','e':'⠑','f':'⠋','g':'⠛','h':'⠓','i':'⠊','j':'⠚','k':'⠅','l':'⠇','m':'⠍','n':'⠝','o':'⠕','p':'⠏','q':'⠟','r':'⠗','s':'⠎','t':'⠞','u':'⠥','v':'⠧','w':'⠺','x':'⠭','y':'⠽','z':'⠵',' ':' '};
+function toBraille(t){ return t.toLowerCase().split('').map(function(c){return BRL_MAP[c]||c;}).join(''); }
+function toggleBraille(){ var bp=document.getElementById('braille-panel'); bp.classList.toggle('on'); if(bp.classList.contains('on')&&paras.length){ var para=paras[Math.max(0,sents[sIdx]?sents[sIdx].paraIdx:0)]; bp.textContent=toBraille(para.slice(0,200)); } }
+
+/* ═══════ AI PARAGRAPH HELP ═══════ */
+function toggleAIBox(text,panel){ if(panel.classList.contains('open')){panel.classList.remove('open');return;} panel.classList.add('open'); if(panel._done)return; panel._done=true; panel.innerHTML='<div class="ai-lbl">⏳ LOADING…</div>'; genParaAI(text,panel); }
+async function genParaAI(text,panel){
+  var key=getKey();
+  if(!key){
+    var words=text.replace(/[^a-zA-Z\s]/g,'').split(/\s+/).filter(function(w){return w.length>5;});
+    var kw=[...new Set(words)].slice(0,6);
+    panel.innerHTML='<div class="ai-lbl">📝 KEY WORDS</div><div style="margin-bottom:8px;">'+kw.map(function(w){return '<span class="ai-kw">'+esc(w)+'</span>';}).join('')+'</div><div style="font-size:11px;color:#9ca3af;">Add Gemini API key in <a href="settings.html" style="color:#6366f1;">Settings</a> for AI analysis.</div>';
+    return;
+  }
+  try{
+    var mode=PR.mode||'adhd';
+    var prmts={'blind':'Describe this paragraph in a vivid, audio-friendly way for a blind reader.','lowvision':'Explain this paragraph clearly in 2 sentences with key visual descriptions.','dyslexia':'Rewrite this paragraph in simple short sentences for a dyslexic reader. Then list 5 key words.','adhd':'Give 3 bullet-point key ideas from this paragraph for an ADHD reader.','deaf':'Simplify this paragraph into 3 short visual sentences. List important concepts as icons.'};
+    var prompt=(prmts[mode]||'Simplify this paragraph and list 5 key words.')+'\n\nParagraph: "'+text.slice(0,600)+'"';
+    var result=await gemCall(prompt,key);
+    panel.innerHTML='<div class="ai-lbl">🤖 AI ('+mode.toUpperCase()+')</div><div style="white-space:pre-wrap;font-size:12px;line-height:1.6;">'+esc(result)+'</div>';
+  }catch(e){ panel.innerHTML='<div class="ai-lbl">❌ Error</div><div>Check API key in Settings.</div>'; }
+}
+
+/* ═══════ CHECKPOINT (ADHD) ═══════ */
+function showCP(secText){ document.getElementById('cp-modal').classList.add('on'); document.getElementById('cp-q').textContent='Loading…'; document.getElementById('cp-in').value=''; document.getElementById('cp-fb').style.display='none'; _cpAns=''; genCPQ(secText); }
+async function genCPQ(text){ var key=getKey(); if(!key){document.getElementById('cp-q').textContent='What was the main idea of this section?';return;} try{ var r=await gemCall('Create ONE comprehension question and its answer. Format:\nQUESTION: ...\nANSWER: ...\n\nText: "'+text.slice(0,800)+'"',key); var qm=r.match(/QUESTION:\s*(.+)/i),am=r.match(/ANSWER:\s*(.+)/i); document.getElementById('cp-q').textContent=qm?qm[1].trim():'What was the main idea?'; _cpAns=am?am[1].trim().toLowerCase():''; }catch(e){document.getElementById('cp-q').textContent='What was the main idea of this section?';} }
+function checkAns(){ var ans=document.getElementById('cp-in').value.trim().toLowerCase(); var fb=document.getElementById('cp-fb'); fb.style.display='block'; if(!ans){fb.textContent='Please write an answer.';return;} var ok=!_cpAns||(ans.length>3&&(_cpAns.slice(0,15).split(/\s+/).some(function(w){return w.length>2&&ans.includes(w);})||ans.length>20)); fb.className=ok?'ok':'no'; fb.textContent=ok?'✅ Great! Keep reading.':'❌ Not quite. '+(_cpAns?'Hint: '+_cpAns:'Try again.'); if(ok)setTimeout(skipCP,1600); }
+function explainAgain(){ skipCP(); if(sIdx>8){sIdx=Math.max(0,sIdx-8);if(!isRead)startRead();else readAt(sIdx);} }
+function skipCP(){ document.getElementById('cp-modal').classList.remove('on'); }
+
+/* ═══════ SIGN POPUP (DEAF) ═══════ */
+function showSign(word){
+  var pop=document.getElementById('sign-pop');
+  var icon=CONCEPT_ICONS[word.toLowerCase()]||'🤟';
+  pop.innerHTML=icon+' <strong>'+esc(word)+'</strong><br><a href="signsense-dictionary.html?word='+encodeURIComponent(word)+'" style="color:#6366f1;font-size:12px;font-weight:600;">View in Sign Dictionary →</a><br><button onclick="document.getElementById(\'sign-pop\').classList.remove(\'on\')" style="font-size:11px;background:none;border:none;color:#9ca3af;cursor:pointer;margin-top:4px;">Close</button>';
+  pop.style.left=Math.min(window.innerWidth-230,200)+'px';
+  pop.style.top=(window.scrollY+200)+'px';
+  pop.classList.add('on');
+}
+
+/* ═══════ AI SIDEBAR ═══════ */
+function toggleSidebar(){ var s=document.getElementById('ai-sidebar'); s.classList.toggle('on'); document.getElementById('tb-ai')&&document.getElementById('tb-ai').classList.toggle('on',s.classList.contains('on')); }
+var AI_PROMPTS={
+  simplify:'Simplify this text in plain language (Grade 6 level). Keep it concise.',
+  keywords:'List the 8 most important vocabulary words from this text with brief definitions.',
+  teacher:'Explain this text as a friendly teacher speaking to a 12-year-old. Use simple analogies.',
+  quiz:'Create 3 multiple-choice questions from this text. Format: Q: ... A) B) C) D) Answer: ...',
+  mindmap:'Create a text-based mind map of this text. Use indented bullets to show relationships.',
+  summary:'Write a concise 3-paragraph summary of this text.'
+};
+async function doAI(type){ var out=document.getElementById('ai-s-out'); out.innerHTML='⏳ Generating…'; var key=getKey(); var sampleText=paras.slice(0,20).join(' ').slice(0,1200); if(!key){out.innerHTML='💡 Add Gemini API key in <a href="settings.html" style="color:#6366f1;font-weight:600;">Settings</a> for AI features.';return;} try{ var r=await gemCall(AI_PROMPTS[type]+'\n\nBook: "'+BK.title+'"'+(BK.author?' by '+BK.author:'')+'\nText: "'+sampleText+'"',key); out.innerHTML='<div class="ai-s-lbl">'+type.toUpperCase()+'</div><div class="ai-s-body" style="white-space:pre-wrap;">'+esc(r)+'</div>'; }catch(e){out.innerHTML='Error. Check API key in Settings.';} }
+
+/* ═══════ NOTES & BOOKMARKS ═══════ */
+function saveNotes(){ try{localStorage.setItem('cs_notes_'+BK.title,document.getElementById('notes-area').value);}catch(e){} }
+function loadNotes(){ try{document.getElementById('notes-area').value=localStorage.getItem('cs_notes_'+BK.title)||'';}catch(e){} }
+function saveBookmark(){ try{ var pos={sIdx:sIdx,scrollY:window.scrollY,ts:Date.now()}; localStorage.setItem('cs_bm_'+BK.title,JSON.stringify(pos)); var m=document.getElementById('bm-msg');m.style.display='block';setTimeout(function(){m.style.display='none';},2000); }catch(e){} }
+
+/* ═══════ GEMINI ═══════ */
+function getKey(){ try{return (JSON.parse(localStorage.getItem('cs_user_prefs')||'{}')).gemini_key||'';}catch(e){return '';} }
+async function gemCall(prompt,key){ var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})}); var d=await r.json(); if(d.error)throw new Error(d.error.message); return (d.candidates||[])[0]?.content?.parts?.[0]?.text||'No response.'; }
+
+/* ═══════ VOICE NAVIGATION ═══════ */
+function initVoice(){ var SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR)return; var rec=new SR(); rec.continuous=true; rec.interimResults=false; rec.lang='en-US'; rec.onresult=function(e){ var cmd=e.results[e.results.length-1][0].transcript.trim().toLowerCase(); if(cmd.includes('next'))isFocus?fNav(1):nextSent(); else if(cmd.includes('previous')||cmd.includes('back'))isFocus?fNav(-1):prevSent(); else if(cmd.includes('read')||cmd.includes('start')){ if(!isRead)startRead(); } else if(cmd.includes('pause')||cmd.includes('stop')){ if(isRead)stopRead(); } else if(cmd.includes('focus'))toggleFocus(); else if(cmd.includes('summarise')||cmd.includes('summary'))doAI('summary'); }; rec.onerror=function(){}; try{rec.start();}catch(e){} }
+
+/* ═══════ KEYBOARD ═══════ */
+document.addEventListener('keydown',function(e){ if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return; if(e.key===' '){e.preventDefault();toggleRead();} if(e.key==='f')toggleFocus(); if(e.key==='r')toggleRuler(); if(e.key==='g')toggleGuide(); if(e.key==='ArrowRight'||e.key==='n')isFocus?fNav(1):nextSent(); if(e.key==='ArrowLeft'||e.key==='b')isFocus?fNav(-1):prevSent(); if(e.key==='Escape'){if(isFocus)toggleFocus();if(isRead)stopRead();} });
+
+/* ═══════ APPLY SAVED PREFS ═══════ */
+function applyPrefs(){
+  if(PR.fontSize){document.documentElement.style.setProperty('--rs',PR.fontSize+'px');}
+  if(PR.ls){document.documentElement.style.setProperty('--ls',PR.ls+'em');document.getElementById('lbl-ls').textContent=PR.ls.toFixed(2);}
+  if(PR.ws){document.documentElement.style.setProperty('--ws',PR.ws+'em');document.getElementById('lbl-ws').textContent=PR.ws.toFixed(2);}
+  if(PR.overlay&&PR.overlay!=='none')setOverlay(PR.overlay);
+  if(PR.dfont)setDFont(PR.dfont);
+  if(PR.zoom)setZoom(PR.zoom);
+  if(PR.hc)setHC(PR.hc);
+  if(PR.speed){spd=PR.speed;setSpd(PR.speed);}
+  if(PR.micro){microMin=PR.micro;setMicro(PR.micro);}
+  // Restore bookmark
+  try{ var bm=JSON.parse(localStorage.getItem('cs_bm_'+BK.title)||'null'); if(bm&&bm.sIdx){sIdx=bm.sIdx;} }catch(e){}
+}
+</script>
+</body>
+</html>
