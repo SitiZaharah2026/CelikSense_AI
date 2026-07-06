@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CelikVerse Library – CelikSense AI</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+:root {
+  --cv-d1:#1e1b4b; --cv-d2:#312e81; --cv-p:#4f46e5; --cv-p2:#6366f1;
+  --cv-cyan:#0891b2; --cv-teal:#0d9488;
+  --cv-green:#059669; --cv-amber:#d97706; --cv-violet:#7c3aed; --cv-rose:#e11d48;
+  --cv-bg:#f0f4ff; --cv-surface:#fff; --cv-border:#e0e7ff;
+  --cv-text:#0f172a; --cv-muted:#475569; --cv-dim:#94a3b8;
+  --radius:14px; --shadow:0 1px 4px rgba(79,70,229,.08),0 8px 24px rgba(79,70,229,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--cv-bg);color:var(--cv-text);min-height:100vh;}
+.skip-link{position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:var(--cv-p);color:#fff;border-radius:4px;font-size:14px;text-decoration:none;}
+.skip-link:focus{left:8px;}
+
+/* ── HERO ────────────────────────────────────────────────────────────────── */
+.cv-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#1e1b4b 0%,#312e81 35%,#1d4ed8 65%,#0891b2 100%);padding:72px 24px 56px;text-align:center;}
+.cv-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 10%,rgba(99,102,241,.3),transparent 55%),radial-gradient(ellipse at 80% 80%,rgba(8,145,178,.25),transparent 50%);pointer-events:none;}
+.cv-hero-orbs{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.cv-orb{position:absolute;border-radius:50%;opacity:.12;animation:orbFloat 8s ease-in-out infinite;}
+.cv-orb:nth-child(1){width:280px;height:280px;background:radial-gradient(circle,#818cf8,transparent);top:-80px;left:-60px;animation-delay:0s;}
+.cv-orb:nth-child(2){width:200px;height:200px;background:radial-gradient(circle,#0ea5e9,transparent);bottom:-60px;right:-40px;animation-delay:3s;}
+.cv-orb:nth-child(3){width:160px;height:160px;background:radial-gradient(circle,#34d399,transparent);top:30%;right:15%;animation-delay:5s;}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-18px) scale(1.05);}}
+.cv-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#c7d2fe;font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:999px;margin-bottom:20px;}
+.cv-hero h1{font-size:clamp(28px,5.5vw,52px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.5px;}
+.cv-hero h1 span{background:linear-gradient(90deg,#a5b4fc,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cv-tagline{font-size:clamp(14px,2.2vw,19px);color:rgba(255,255,255,.75);margin-bottom:34px;font-style:italic;}
+.cv-stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.cv-stat{text-align:center;}
+.cv-stat-num{font-size:26px;font-weight:900;color:#fff;}
+.cv-stat-label{font-size:11px;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:.4px;}
+
+/* ── SEARCH BAR ──────────────────────────────────────────────────────────── */
+.cv-search-wrap{position:relative;max-width:720px;margin:0 auto 20px;}
+.cv-search-input{width:100%;padding:18px 160px 18px 24px;border:2px solid rgba(255,255,255,.25);border-radius:14px;background:rgba(255,255,255,.12);color:#fff;font-size:16px;font-family:inherit;outline:none;backdrop-filter:blur(12px);transition:all .2s;}
+.cv-search-input::placeholder{color:rgba(255,255,255,.5);}
+.cv-search-input:focus{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.18);}
+.cv-search-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:linear-gradient(135deg,#4f46e5,#0891b2);color:#fff;font-size:14px;font-weight:800;padding:11px 22px;border-radius:10px;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.cv-search-btn:hover{filter:brightness(1.1);transform:translateY(-51%) scale(1.02);}
+.cv-source-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.cv-src-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.cv-src-pill.live{border-color:rgba(52,211,153,.6);color:#6ee7b7;}
+.cv-src-pill.live::before{content:'●';color:#34d399;font-size:8px;}
+.cv-lang-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:13px;font-weight:800;padding:9px 22px;border-radius:9px;cursor:pointer;transition:background .2s;margin-top:18px;}
+.cv-lang-btn:hover{background:rgba(255,255,255,.25);}
+
+/* ── MAIN CONTAINER ──────────────────────────────────────────────────────── */
+.cv-container{max-width:1260px;margin:0 auto;padding:36px 20px 80px;display:grid;grid-template-columns:260px 1fr;gap:24px;}
+@media(max-width:860px){.cv-container{grid-template-columns:1fr;}}
+
+/* ── SIDEBAR ─────────────────────────────────────────────────────────────── */
+.cv-sidebar{display:flex;flex-direction:column;gap:16px;}
+.cv-panel{background:var(--cv-surface);border:1px solid var(--cv-border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.cv-panel-hdr{display:flex;align-items:center;gap:10px;padding:13px 16px;background:linear-gradient(90deg,#f0f4ff,#eff6ff);border-bottom:1px solid var(--cv-border);font-size:13px;font-weight:800;color:var(--cv-text);}
+.cv-panel-hdr-icon{font-size:16px;}
+.cv-panel-body{padding:12px;}
+
+/* Source connectors */
+.cv-src-group{margin-bottom:12px;}
+.cv-src-group-label{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--cv-dim);padding:4px 0 6px;}
+.cv-src-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px;cursor:pointer;transition:background .15s;user-select:none;}
+.cv-src-item:hover{background:#f0f4ff;}
+.cv-src-item input[type=checkbox]{accent-color:var(--cv-p);width:14px;height:14px;cursor:pointer;}
+.cv-src-item-name{font-size:12px;font-weight:600;color:var(--cv-text);flex:1;}
+.cv-src-badge{font-size:9px;font-weight:800;letter-spacing:.5px;padding:2px 7px;border-radius:10px;}
+.cv-src-badge.live{background:#dcfce7;color:#166534;}
+.cv-src-badge.soon{background:#f1f5f9;color:#64748b;}
+.cv-src-badge.api{background:#ede9fe;color:#5b21b6;}
+
+/* Filters */
+.cv-filter-grid{display:flex;flex-direction:column;gap:4px;}
+.cv-filter-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--cv-muted);transition:all .15s;}
+.cv-filter-item:hover,.cv-filter-item.active{background:#eff6ff;color:var(--cv-p);}
+.cv-filter-item input{accent-color:var(--cv-p);width:14px;height:14px;cursor:pointer;}
+
+/* My Library */
+.cv-mylib-item{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;border:1px solid var(--cv-border);margin-bottom:6px;background:#f8faff;transition:all .15s;}
+.cv-mylib-item:hover{border-color:var(--cv-p);background:#eff6ff;}
+.cv-mylib-cover{width:32px;height:44px;border-radius:4px;object-fit:cover;background:linear-gradient(135deg,var(--cv-p),var(--cv-cyan));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;}
+.cv-mylib-info{flex:1;min-width:0;}
+.cv-mylib-title{font-size:11px;font-weight:700;color:var(--cv-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cv-mylib-src{font-size:10px;color:var(--cv-dim);}
+.cv-mylib-empty{font-size:12px;color:var(--cv-dim);text-align:center;padding:16px 0;line-height:1.6;}
+
+/* ── MAIN CONTENT ────────────────────────────────────────────────────────── */
+.cv-main{display:flex;flex-direction:column;gap:20px;}
+
+/* Filter chips */
+.cv-filter-row{display:flex;flex-wrap:wrap;gap:8px;}
+.cv-chip{background:var(--cv-surface);border:1px solid var(--cv-border);color:var(--cv-muted);font-size:12px;font-weight:700;padding:7px 15px;border-radius:20px;cursor:pointer;transition:all .15s;font-family:inherit;}
+.cv-chip:hover,.cv-chip.active{background:var(--cv-p);color:#fff;border-color:var(--cv-p);}
+
+/* Source status bar */
+.cv-source-bar{background:var(--cv-surface);border:1px solid var(--cv-border);border-radius:var(--radius);padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+.cv-src-status{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--cv-muted);}
+.cv-src-status .dot{width:7px;height:7px;border-radius:50%;}
+.cv-src-status .dot.searching{background:#f59e0b;animation:pulse 1s infinite;}
+.cv-src-status .dot.done{background:#10b981;}
+.cv-src-status .dot.idle{background:#cbd5e1;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+/* Results */
+.cv-results-hdr{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.cv-results-title{font-size:15px;font-weight:800;color:var(--cv-text);}
+.cv-results-count{font-size:12px;color:var(--cv-dim);}
+.cv-sort-select{background:var(--cv-surface);border:1px solid var(--cv-border);color:var(--cv-muted);font-size:12px;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer;font-family:inherit;}
+
+.cv-results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+
+/* Book card */
+.cv-book-card{background:var(--cv-surface);border:1px solid var(--cv-border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:all .2s;cursor:pointer;}
+.cv-book-card:hover{border-color:var(--cv-p);transform:translateY(-3px);box-shadow:0 4px 20px rgba(79,70,229,.15);}
+.cv-book-cover{width:100%;height:160px;object-fit:cover;background:linear-gradient(135deg,var(--cv-p),var(--cv-cyan));display:flex;align-items:center;justify-content:center;font-size:40px;color:rgba(255,255,255,.6);position:relative;flex-shrink:0;}
+.cv-book-cover img{width:100%;height:100%;object-fit:cover;}
+.cv-book-cover-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;}
+.cv-badge-row{position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
+.cv-access-badge{font-size:9px;font-weight:800;letter-spacing:.5px;padding:3px 8px;border-radius:6px;}
+.cv-access-badge.open{background:#059669;color:#fff;}
+.cv-access-badge.public{background:#1d4ed8;color:#fff;}
+.cv-access-badge.preview{background:#7c3aed;color:#fff;}
+.cv-access-badge.borrow{background:#d97706;color:#fff;}
+.cv-access-badge.iab{background:#0891b2;color:#fff;}
+.cv-book-body{padding:12px;flex:1;display:flex;flex-direction:column;gap:6px;}
+.cv-book-title{font-size:13px;font-weight:800;color:var(--cv-text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.cv-book-author{font-size:11px;color:var(--cv-muted);}
+.cv-book-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:2px;}
+.cv-source-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:#f0f4ff;color:#4f46e5;}
+.cv-lang-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:#f0fdf4;color:#059669;}
+.cv-book-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:10px;border-top:1px solid #f1f5f9;}
+.cv-btn-read{background:linear-gradient(135deg,var(--cv-p),var(--cv-cyan));color:#fff;font-size:11px;font-weight:800;padding:7px 12px;border-radius:8px;border:none;cursor:pointer;flex:1;font-family:inherit;transition:filter .15s;}
+.cv-btn-read:hover{filter:brightness(1.1);}
+.cv-btn-icon{background:#f0f4ff;color:var(--cv-p);font-size:13px;padding:7px 9px;border-radius:8px;border:none;cursor:pointer;transition:background .15s;}
+.cv-btn-icon:hover{background:#e0e7ff;}
+.cv-btn-icon.bookmarked{background:#fef9c3;color:#d97706;}
+
+/* IAB Section */
+.cv-iab-section{background:var(--cv-surface);border:1px solid var(--cv-border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.cv-iab-hdr{background:linear-gradient(135deg,#0c4a6e,#0891b2);padding:18px 22px;display:flex;align-items:center;gap:14px;}
+.cv-iab-hdr-icon{width:44px;height:44px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.cv-iab-hdr-text h2{font-size:16px;font-weight:900;color:#fff;}
+.cv-iab-hdr-text p{font-size:12px;color:rgba(255,255,255,.75);}
+.cv-iab-body{padding:18px 22px;}
+.cv-iab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+.cv-iab-card{background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:14px;transition:all .15s;}
+.cv-iab-card:hover{border-color:#0891b2;background:#e0f2fe;transform:translateY(-1px);}
+.cv-iab-card-title{font-size:12px;font-weight:700;color:#0c4a6e;line-height:1.4;margin-bottom:8px;}
+.cv-iab-card-meta{font-size:10px;color:#0369a1;margin-bottom:10px;}
+.cv-iab-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.cv-iab-btn{font-size:10px;font-weight:700;padding:4px 10px;border-radius:6px;border:none;cursor:pointer;font-family:inherit;transition:all .15s;}
+.cv-iab-btn.primary{background:#0891b2;color:#fff;}
+.cv-iab-btn.primary:hover{background:#0369a1;}
+.cv-iab-btn.ghost{background:#e0f2fe;color:#0c4a6e;}
+.cv-iab-btn.ghost:hover{background:#bae6fd;}
+.cv-iab-note{background:#f0f9ff;border:1px dashed #7dd3fc;border-radius:10px;padding:14px;font-size:12px;color:#0369a1;line-height:1.6;margin-top:14px;}
+
+/* Read panel */
+.cv-read-panel{background:var(--cv-surface);border:1px solid var(--cv-border);border-radius:var(--radius);box-shadow:var(--shadow);display:none;}
+.cv-read-panel.open{display:block;}
+.cv-read-hdr{background:linear-gradient(135deg,var(--cv-p),var(--cv-cyan));padding:18px 22px;display:flex;align-items:flex-start;gap:14px;}
+.cv-read-cover{width:54px;height:72px;border-radius:6px;background:rgba(255,255,255,.2);object-fit:cover;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.cv-read-meta h3{font-size:15px;font-weight:900;color:#fff;margin-bottom:4px;}
+.cv-read-meta p{font-size:12px;color:rgba(255,255,255,.75);}
+.cv-read-close{margin-left:auto;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:16px;width:32px;height:32px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cv-read-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;padding:18px 22px;}
+.cv-read-tool{background:#f8faff;border:1px solid var(--cv-border);border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .15s;text-decoration:none;}
+.cv-read-tool:hover{border-color:var(--cv-p);background:#eff6ff;transform:translateY(-1px);}
+.cv-read-tool-icon{font-size:22px;}
+.cv-read-tool-name{font-size:11px;font-weight:700;color:var(--cv-text);text-align:center;}
+.cv-read-tool-desc{font-size:10px;color:var(--cv-dim);text-align:center;}
+
+/* Loading skeleton */
+.cv-skeleton{background:linear-gradient(90deg,#e8edf8 25%,#f0f4ff 50%,#e8edf8 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px;}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+
+/* Empty state */
+.cv-empty{text-align:center;padding:48px 24px;display:none;}
+.cv-empty.show{display:block;}
+.cv-empty-icon{font-size:48px;margin-bottom:14px;}
+.cv-empty-title{font-size:16px;font-weight:800;color:var(--cv-text);margin-bottom:8px;}
+.cv-empty-desc{font-size:13px;color:var(--cv-muted);line-height:1.6;}
+
+/* Toast */
+.cv-toast{position:fixed;bottom:24px;right:24px;background:#1e1b4b;color:#fff;font-size:13px;font-weight:700;padding:12px 20px;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.25);z-index:999;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none;}
+.cv-toast.show{transform:translateY(0);opacity:1;}
+
+/* AI Recommendation */
+.cv-rec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;padding:0 0 4px;}
+.cv-rec-card{background:linear-gradient(135deg,#eff6ff,#f0fdf4);border:1px solid #bfdbfe;border-radius:10px;padding:14px;transition:all .15s;cursor:pointer;}
+.cv-rec-card:hover{border-color:var(--cv-p);transform:translateY(-1px);}
+.cv-rec-why{font-size:10px;font-weight:700;color:var(--cv-p);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+.cv-rec-title{font-size:12px;font-weight:800;color:var(--cv-text);line-height:1.4;margin-bottom:6px;}
+.cv-rec-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.cv-rec-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px;background:#dbeafe;color:#1e40af;}
+
+/* Upload zone */
+.cv-upload-zone{border:2px dashed var(--cv-border);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:10px;}
+.cv-upload-zone:hover{border-color:var(--cv-p);background:#eff6ff;}
+.cv-upload-icon{font-size:28px;margin-bottom:8px;}
+.cv-upload-text{font-size:12px;color:var(--cv-muted);line-height:1.5;}
+.cv-upload-btn{background:var(--cv-p);color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;margin-top:8px;font-family:inherit;}
+
+/* Responsive */
+@media(max-width:600px){
+  .cv-results-grid{grid-template-columns:repeat(2,1fr);}
+  .cv-read-tools{grid-template-columns:repeat(3,1fr);}
+}
+@media(prefers-color-scheme:dark){
+  :root{--cv-bg:#0f0f1a;--cv-surface:#1a1a2e;--cv-border:#2d2d4e;--cv-text:#e2e8f0;--cv-muted:#94a3b8;}
+}
+</style>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link" tabindex="0">Skip to main content</a>
+<div class="cv-toast" id="cvToast" role="alert" aria-live="assertive"></div>
+
+<main id="main" style="padding-top:var(--nav-h,60px);">
+
+<!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+<div class="cv-hero" role="banner">
+  <div class="cv-hero-orbs" aria-hidden="true">
+    <div class="cv-orb"></div><div class="cv-orb"></div><div class="cv-orb"></div>
+  </div>
+  <div style="position:relative;z-index:1;">
+    <div class="cv-badge">🌍 CelikSense AI · Knowledge Gateway</div>
+    <h1>CelikVerse <span>Library</span></h1>
+    <p class="cv-tagline" id="cvTagline">"One Search. Millions of Books. Unlimited Accessibility."</p>
+    <div class="cv-stats">
+      <div class="cv-stat"><div class="cv-stat-num" id="heroSrcCount">15+</div><div class="cv-stat-label" id="heroSrcLabel">Sources</div></div>
+      <div class="cv-stat"><div class="cv-stat-num">∞</div><div class="cv-stat-label" id="heroAccLabel">Accessibility Modes</div></div>
+      <div class="cv-stat"><div class="cv-stat-num">2</div><div class="cv-stat-label" id="heroLangLabel">Languages</div></div>
+    </div>
+    <div class="cv-search-wrap" role="search">
+      <input id="cvSearch" class="cv-search-input" type="search" autocomplete="off"
+        placeholder="Search books, journals, audiobooks..."
+        aria-label="Search books across all sources"
+        onkeydown="if(event.key==='Enter')doSearch()" />
+      <button class="cv-search-btn" onclick="doSearch()" aria-label="Search all sources" id="searchBtn">
+        🔍 <span id="searchBtnLabel">Search All</span>
+      </button>
+    </div>
+    <div class="cv-source-pills" aria-label="Live sources">
+      <span class="cv-src-pill live">Open Library</span>
+      <span class="cv-src-pill live">Project Gutenberg</span>
+      <span class="cv-src-pill live">Google Books</span>
+      <span class="cv-src-pill">DOAB</span>
+      <span class="cv-src-pill">u-Pustaka</span>
+      <span class="cv-src-pill live">IAB Digital</span>
+    </div>
+    <br>
+    <button class="cv-lang-btn" onclick="toggleLang()" id="langBtn">🌐 BM / EN</button>
+  </div>
+</div>
+
+<!-- ── MAIN GRID ──────────────────────────────────────────────────────────── -->
+<div class="cv-container">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────────────────────── -->
+  <aside class="cv-sidebar" aria-label="Sources and filters">
+
+    <!-- Sources panel -->
+    <div class="cv-panel">
+      <div class="cv-panel-hdr"><span class="cv-panel-hdr-icon">🔌</span><span id="srcPanelTitle">Book Sources</span></div>
+      <div class="cv-panel-body" id="sourcePanel"></div>
+    </div>
+
+    <!-- Filters panel -->
+    <div class="cv-panel">
+      <div class="cv-panel-hdr"><span class="cv-panel-hdr-icon">🗂️</span><span id="filterPanelTitle">Categories</span></div>
+      <div class="cv-panel-body">
+        <div class="cv-filter-grid" id="filterGrid"></div>
+      </div>
+    </div>
+
+    <!-- Upload panel -->
+    <div class="cv-panel">
+      <div class="cv-panel-hdr"><span class="cv-panel-hdr-icon">📤</span><span id="uploadPanelTitle">Personal Library</span></div>
+      <div class="cv-panel-body">
+        <div class="cv-upload-zone" onclick="document.getElementById('fileInput').click()" role="button" tabindex="0" aria-label="Upload document">
+          <div class="cv-upload-icon">📁</div>
+          <div class="cv-upload-text" id="uploadText">Drop PDF, Word, or Image here<br>or click to browse</div>
+        </div>
+        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display:none" onchange="handleUpload(event)">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="cv-iab-btn primary" onclick="document.getElementById('fileInput').click()" style="flex:1;font-size:11px;padding:7px;">📄 PDF / Word</button>
+          <button class="cv-iab-btn ghost" onclick="openCamera()" style="flex:1;font-size:11px;padding:7px;">📷 OCR Camera</button>
+        </div>
+        <div style="margin-top:8px;display:flex;gap:6px;">
+          <button class="cv-iab-btn ghost" onclick="openDrive()" style="flex:1;font-size:11px;padding:7px;">🔗 Google Drive</button>
+          <button class="cv-iab-btn ghost" onclick="openOneDrive()" style="flex:1;font-size:11px;padding:7px;">☁️ OneDrive</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Library -->
+    <div class="cv-panel">
+      <div class="cv-panel-hdr"><span class="cv-panel-hdr-icon">🔖</span><span id="myLibTitle">My Library</span></div>
+      <div class="cv-panel-body" id="myLibBody">
+        <div class="cv-mylib-empty" id="myLibEmpty">No saved books yet.<br>Bookmark books to save here.</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN CONTENT ───────────────────────────────────────────────────── -->
+  <div class="cv-main" id="mainContent">
+
+    <!-- Filter chips -->
+    <div class="cv-filter-row" role="group" aria-label="Quick filters" id="chipRow"></div>
+
+    <!-- Source status bar -->
+    <div class="cv-source-bar" id="sourceBar" aria-live="polite" style="display:none;">
+      <span style="font-size:12px;font-weight:800;color:var(--cv-muted);margin-right:4px;" id="searchingLabel">Searching:</span>
+    </div>
+
+    <!-- Results header -->
+    <div class="cv-results-hdr" id="resultsHdr" style="display:none;">
+      <div>
+        <div class="cv-results-title" id="resultsTitle">Search Results</div>
+        <div class="cv-results-count" id="resultsCount"></div>
+      </div>
+      <select class="cv-sort-select" onchange="sortResults(this.value)" aria-label="Sort results">
+        <option value="relevance" id="sortRel">Relevance</option>
+        <option value="title" id="sortTitle">Title A–Z</option>
+        <option value="year" id="sortYear">Newest First</option>
+      </select>
+    </div>
+
+    <!-- Read with CelikSense panel -->
+    <div class="cv-read-panel" id="readPanel" role="region" aria-label="Read with CelikSense">
+      <div class="cv-read-hdr">
+        <div class="cv-read-cover" id="rpCover">📖</div>
+        <div class="cv-read-meta">
+          <h3 id="rpTitle">Book Title</h3>
+          <p id="rpAuthor">Author</p>
+          <p id="rpSource" style="margin-top:4px;"></p>
+        </div>
+        <button class="cv-read-close" onclick="closeReadPanel()" aria-label="Close">✕</button>
+      </div>
+      <div class="cv-read-tools" id="readTools"></div>
+    </div>
+
+    <!-- Results grid -->
+    <div class="cv-results-grid" id="resultsGrid" aria-live="polite"></div>
+
+    <!-- Empty state -->
+    <div class="cv-empty" id="emptyState">
+      <div class="cv-empty-icon">🔍</div>
+      <div class="cv-empty-title" id="emptyTitle">Search for any book, journal or resource</div>
+      <div class="cv-empty-desc" id="emptyDesc">CelikVerse searches Open Library, Project Gutenberg, Google Books, IAB Digital Library and more — all at once.</div>
+    </div>
+
+    <!-- IAB Digital Library Section -->
+    <div class="cv-iab-section" id="iabSection">
+      <div class="cv-iab-hdr">
+        <div class="cv-iab-hdr-icon">🏛️</div>
+        <div class="cv-iab-hdr-text">
+          <h2 id="iabSecTitle">IAB Digital Library</h2>
+          <p id="iabSecSub">Institut Aminuddin Baki — Official Publications &amp; Catalogue</p>
+        </div>
+      </div>
+      <div class="cv-iab-body">
+        <div class="cv-iab-grid" id="iabGrid"></div>
+        <div class="cv-iab-note" id="iabApiNote">
+          🔗 <strong id="iabNoteStrong">Future Integration:</strong> <span id="iabNoteText">Direct catalogue integration can be enabled when official API or authorised access is available. Currently displaying publicly available metadata and authorised links only.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Recommendations -->
+    <div class="cv-panel" id="recSection">
+      <div class="cv-panel-hdr"><span class="cv-panel-hdr-icon">✨</span><span id="recTitle">AI Recommendations</span></div>
+      <div class="cv-panel-body">
+        <div class="cv-rec-grid" id="recGrid"></div>
+      </div>
+    </div>
+
+  </div><!-- /cv-main -->
+</div><!-- /cv-container -->
+</main>
+
+<script>
+'use strict';
+
+// ── i18n ───────────────────────────────────────────────────────────────────
+var L = {
+  en:{
+    cvTagline:'"One Search. Millions of Books. Unlimited Accessibility."',
+    heroSrcLabel:'Sources', heroAccLabel:'Accessibility Modes', heroLangLabel:'Languages',
+    searchBtnLabel:'Search All', langBtn:'🌐 BM / EN',
+    srcPanelTitle:'Book Sources', filterPanelTitle:'Categories',
+    uploadPanelTitle:'Personal Library', myLibTitle:'My Library',
+    uploadText:'Drop PDF, Word, or Image here\nor click to browse',
+    searchingLabel:'Searching:',
+    resultsTitle:'Search Results', sortRel:'Relevance', sortTitle:'Title A–Z', sortYear:'Newest First',
+    emptyTitle:'Search for any book, journal or resource',
+    emptyDesc:'CelikVerse searches Open Library, Project Gutenberg, Google Books, IAB Digital Library and more — all at once.',
+    iabSecTitle:'IAB Digital Library', iabSecSub:'Institut Aminuddin Baki — Official Publications & Catalogue',
+    iabNoteStrong:'Future Integration:', iabNoteText:'Direct catalogue integration can be enabled when official API or authorised access is available. Currently displaying publicly available metadata and authorised links only.',
+    recTitle:'AI Recommendations',
+    myLibEmpty:'No saved books yet.\nBookmark books to save here.',
+    readWith:'Read with CelikSense', btnSummary:'Summary', btnQuiz:'Quiz', btnMindMap:'Mind Map',
+    btnAudio:'Audio', btnBraille:'Braille', btnADHD:'ADHD Mode', btnDyslexia:'Dyslexia Mode',
+    btnCompanion:'Reading Companion', btnTeacher:'AI Teacher', btnVisual:'Visual Comm',
+    btnOffline:'Download',
+    openPage:'Open Page', readCS:'Read with CelikSense', bookmark:'Bookmark',
+    badgeOpen:'OPEN ACCESS', badgePublic:'PUBLIC DOMAIN', badgePreview:'PREVIEW',
+    badgeBorrow:'BORROW', badgeIAB:'IAB',
+    noResult:'No results found. Try a different keyword or enable more sources.',
+    searching:'Searching {src}...', done:'Found {n} results from {src}',
+    bookmarked:'Bookmarked!', unbookmarked:'Removed from library',
+    uploading:'Opening file...', cameraNote:'Camera OCR — use OCR Agent for best results',
+    driveNote:'Google Drive integration — use settings to connect',
+    filterAll:'All', filterBooks:'Books', filterAudio:'Audiobooks', filterResearch:'Research',
+    filterEdu:'Education', filterLead:'Leadership', filterTVET:'TVET', filterPolicy:'Policy',
+    filterMgmt:'Management', filterSci:'Science', filterChild:"Children's", filterPD:'Public Domain',
+    filterOA:'Open Access', filterLib:'Library Access',
+    srcGroupPersonal:'Personal Library', srcGroupPublic:'Public Domain',
+    srcGroupAcademic:'Academic', srcGroupMY:'Malaysia', srcGroupIAB:'IAB Digital',
+    authorLabel:'Author', yearLabel:'Year', langLabel:'Language', sourceLabel:'Source',
+  },
+  ms:{
+    cvTagline:'"Satu Carian. Jutaan Buku. Kebolehaksesan Tanpa Had."',
+    heroSrcLabel:'Sumber', heroAccLabel:'Mod Kebolehaksesan', heroLangLabel:'Bahasa',
+    searchBtnLabel:'Cari Semua', langBtn:'🌐 EN / BM',
+    srcPanelTitle:'Sumber Buku', filterPanelTitle:'Kategori',
+    uploadPanelTitle:'Perpustakaan Peribadi', myLibTitle:'Perpustakaan Saya',
+    uploadText:'Lepaskan PDF, Word, atau Gambar di sini\natau klik untuk melayari',
+    searchingLabel:'Mencari:',
+    resultsTitle:'Keputusan Carian', sortRel:'Relevan', sortTitle:'Tajuk A–Z', sortYear:'Terbaru Dahulu',
+    emptyTitle:'Cari mana-mana buku, jurnal atau sumber',
+    emptyDesc:'CelikVerse mencari Open Library, Project Gutenberg, Google Books, Perpustakaan Digital IAB dan lain-lain — serentak.',
+    iabSecTitle:'Perpustakaan Digital IAB', iabSecSub:'Institut Aminuddin Baki — Penerbitan Rasmi & Katalog',
+    iabNoteStrong:'Integrasi Masa Depan:', iabNoteText:'Integrasi katalog terus boleh diaktifkan apabila API rasmi atau akses berlesen tersedia. Kini memaparkan metadata dan pautan berlesen yang tersedia secara awam sahaja.',
+    recTitle:'Cadangan AI',
+    myLibEmpty:'Tiada buku tersimpan.\nBookmark buku untuk simpan di sini.',
+    readWith:'Baca dengan CelikSense', btnSummary:'Ringkasan', btnQuiz:'Kuiz', btnMindMap:'Peta Minda',
+    btnAudio:'Audio', btnBraille:'Braille', btnADHD:'Mod ADHD', btnDyslexia:'Mod Disleksia',
+    btnCompanion:'Rakan Bacaan', btnTeacher:'Guru AI', btnVisual:'Komunikasi Visual',
+    btnOffline:'Muat Turun',
+    openPage:'Buka Halaman', readCS:'Baca dengan CelikSense', bookmark:'Tandabuku',
+    badgeOpen:'AKSES TERBUKA', badgePublic:'DOMAIN AWAM', badgePreview:'PRATONTON',
+    badgeBorrow:'PINJAM', badgeIAB:'IAB',
+    noResult:'Tiada hasil ditemui. Cuba kata kunci lain atau aktifkan lebih banyak sumber.',
+    searching:'Mencari {src}...', done:'Ditemui {n} keputusan dari {src}',
+    bookmarked:'Ditandabukukan!', unbookmarked:'Dikeluarkan dari perpustakaan',
+    uploading:'Membuka fail...', cameraNote:'OCR Kamera — gunakan Agen OCR untuk hasil terbaik',
+    driveNote:'Integrasi Google Drive — gunakan tetapan untuk sambung',
+    filterAll:'Semua', filterBooks:'Buku', filterAudio:'Buku Audio', filterResearch:'Penyelidikan',
+    filterEdu:'Pendidikan', filterLead:'Kepimpinan', filterTVET:'TVET', filterPolicy:'Dasar',
+    filterMgmt:'Pengurusan', filterSci:'Sains', filterChild:'Kanak-kanak', filterPD:'Domain Awam',
+    filterOA:'Akses Terbuka', filterLib:'Akses Perpustakaan',
+    srcGroupPersonal:'Perpustakaan Peribadi', srcGroupPublic:'Domain Awam',
+    srcGroupAcademic:'Akademik', srcGroupMY:'Malaysia', srcGroupIAB:'Digital IAB',
+    authorLabel:'Pengarang', yearLabel:'Tahun', langLabel:'Bahasa', sourceLabel:'Sumber',
+  }
+};
+var lang = localStorage.getItem('cs_lang') || 'ms';
+function t(k){ return (L[lang]&&L[lang][k])||L.en[k]||k; }
+function toggleLang(){ lang=lang==='ms'?'en':'ms'; localStorage.setItem('cs_lang',lang); applyLang(); renderAll(); }
+function applyLang(){
+  var ids=['cvTagline','heroSrcLabel','heroAccLabel','heroLangLabel','searchBtnLabel','langBtn',
+    'srcPanelTitle','filterPanelTitle','uploadPanelTitle','myLibTitle','searchingLabel',
+    'resultsTitle','sortRel','sortTitle','sortYear','emptyTitle','emptyDesc',
+    'iabSecTitle','iabSecSub','iabNoteStrong','iabNoteText','recTitle',
+    'uploadText'];
+  ids.forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent=t(id); });
+  var cvSearch=document.getElementById('cvSearch');
+  if(cvSearch) cvSearch.placeholder=lang==='ms'?'Cari buku, jurnal, sumber audio...':'Search books, journals, audiobooks...';
+  document.documentElement.lang=lang==='ms'?'ms':'en';
+  renderSources(); renderFilters(); renderChips(); renderIAB(); renderRecommendations(); renderMyLibrary();
+}
+
+// ── Sources ────────────────────────────────────────────────────────────────
+var SOURCES = [
+  {id:'openlibrary', name:'Open Library', group:'public', status:'live', icon:'📖'},
+  {id:'gutenberg',   name:'Project Gutenberg', group:'public', status:'live', icon:'📜'},
+  {id:'googlebooks', name:'Google Books', group:'public', status:'live', icon:'🔵'},
+  {id:'standardebooks',name:'Standard Ebooks', group:'public', status:'live', icon:'✨'},
+  {id:'librivox',    name:'LibriVox', group:'public', status:'live', icon:'🎙️'},
+  {id:'archive',     name:'Internet Archive', group:'public', status:'api', icon:'🏛️'},
+  {id:'doab',        name:'DOAB', group:'academic', status:'api', icon:'🎓'},
+  {id:'oapen',       name:'OAPEN Library', group:'academic', status:'api', icon:'📚'},
+  {id:'upustaka',    name:'u-Pustaka', group:'malaysia', status:'soon', icon:'🇲🇾'},
+  {id:'schoolopac',  name:'School Library OPAC', group:'malaysia', status:'soon', icon:'🏫'},
+  {id:'uniopac',     name:'University Library OPAC', group:'malaysia', status:'soon', icon:'🎓'},
+  {id:'pdf',         name:'Upload PDF / Word', group:'personal', status:'live', icon:'📄'},
+  {id:'camera',      name:'OCR Camera', group:'personal', status:'live', icon:'📷'},
+  {id:'gdrive',      name:'Google Drive', group:'personal', status:'api', icon:'🔗'},
+  {id:'onedrive',    name:'OneDrive', group:'personal', status:'api', icon:'☁️'},
+];
+var enabledSources = {};
+SOURCES.forEach(function(s){ enabledSources[s.id] = (s.status==='live'); });
+
+var GROUP_ORDER = ['personal','public','academic','malaysia'];
+var GROUP_LABELS = {
+  personal:['srcGroupPersonal','Perpustakaan Peribadi'],
+  public:['srcGroupPublic','Domain Awam'],
+  academic:['srcGroupAcademic','Akademik'],
+  malaysia:['srcGroupMY','Malaysia']
+};
+
+function renderSources(){
+  var panel = document.getElementById('sourcePanel');
+  if(!panel) return;
+  var html = '';
+  GROUP_ORDER.forEach(function(g){
+    var items = SOURCES.filter(function(s){ return s.group===g; });
+    var lbl = t(GROUP_LABELS[g][0]) || GROUP_LABELS[g][1];
+    html += '<div class="cv-src-group"><div class="cv-src-group-label">'+esc(lbl)+'</div>';
+    items.forEach(function(s){
+      var badge = s.status==='live'?'<span class="cv-src-badge live">LIVE</span>':
+                  s.status==='api'?'<span class="cv-src-badge api">API</span>':
+                  '<span class="cv-src-badge soon">SOON</span>';
+      html += '<label class="cv-src-item"><input type="checkbox" '+(enabledSources[s.id]?'checked':'')+
+        ' onchange="toggleSource(\''+s.id+'\',this.checked)" aria-label="Enable '+esc(s.name)+'">'+
+        '<span class="cv-src-item-name">'+s.icon+' '+esc(s.name)+'</span>'+badge+'</label>';
+    });
+    html += '</div>';
+  });
+  panel.innerHTML = html;
+}
+
+function toggleSource(id, checked){ enabledSources[id] = checked; }
+
+// ── Filters / Chips ────────────────────────────────────────────────────────
+var FILTERS = [
+  {k:'filterAll',val:'all'},{k:'filterBooks',val:'books'},{k:'filterAudio',val:'audio'},
+  {k:'filterResearch',val:'research'},{k:'filterEdu',val:'education'},
+  {k:'filterLead',val:'leadership'},{k:'filterTVET',val:'tvet'},
+  {k:'filterPolicy',val:'policy'},{k:'filterMgmt',val:'management'},
+  {k:'filterSci',val:'science'},{k:'filterChild',val:'children'},
+  {k:'filterPD',val:'public_domain'},{k:'filterOA',val:'open_access'},
+  {k:'filterLib',val:'library'}
+];
+var activeFilter = 'all';
+
+function renderFilters(){
+  var grid = document.getElementById('filterGrid');
+  if(!grid) return;
+  grid.innerHTML = FILTERS.map(function(f){
+    return '<label class="cv-filter-item'+(activeFilter===f.val?' active':'')+'" onclick="setFilter(\''+f.val+'\')">'+
+      '<input type="checkbox" '+(activeFilter===f.val?'checked':'')+' style="display:none">'+
+      esc(t(f.k))+'</label>';
+  }).join('');
+}
+
+function renderChips(){
+  var row = document.getElementById('chipRow');
+  if(!row) return;
+  var chips = ['filterAll','filterBooks','filterAudio','filterResearch','filterEdu','filterLead','filterPD','filterOA'];
+  row.innerHTML = chips.map(function(k){
+    var val = FILTERS.find(function(f){return f.k===k;}).val;
+    return '<button class="cv-chip'+(activeFilter===val?' active':'')+
+      '" onclick="setFilter(\''+val+'\')" aria-pressed="'+(activeFilter===val)+'">'+esc(t(k))+'</button>';
+  }).join('');
+}
+
+function setFilter(v){
+  activeFilter=v;
+  renderFilters(); renderChips();
+  if(lastResults.length) displayResults(lastResults);
+}
+
+// ── Search ─────────────────────────────────────────────────────────────────
+var lastResults = [];
+var searchAbort = null;
+
+function doSearch(){
+  var q = (document.getElementById('cvSearch').value||'').trim();
+  if(!q){ showToast(lang==='ms'?'Sila masukkan kata kunci':'Please enter a search term'); return; }
+
+  lastResults = [];
+  document.getElementById('resultsGrid').innerHTML = '';
+  document.getElementById('resultsHdr').style.display='flex';
+  document.getElementById('sourceBar').style.display='flex';
+  document.getElementById('emptyState').classList.remove('show');
+  document.getElementById('iabSection').style.display='none';
+  document.getElementById('recSection').style.display='none';
+  document.getElementById('readPanel').classList.remove('open');
+  document.getElementById('resultsCount').textContent='';
+
+  var bar = document.getElementById('sourceBar');
+  bar.innerHTML = '<span style="font-size:12px;font-weight:800;color:var(--cv-muted);margin-right:4px;">'+t('searchingLabel')+'</span>';
+
+  var searches = [];
+  if(enabledSources['openlibrary']) searches.push(searchOpenLibrary(q));
+  if(enabledSources['gutenberg'])   searches.push(searchGutenberg(q));
+  if(enabledSources['googlebooks']) searches.push(searchGoogleBooks(q));
+
+  if(searches.length===0){
+    showEmpty(lang==='ms'?'Tiada sumber diaktifkan. Aktifkan sekurang-kurangnya satu sumber.':'No sources enabled. Please enable at least one source.');
+    return;
+  }
+
+  addSkeletons(6);
+  Promise.allSettled(searches).then(function(results){
+    document.getElementById('resultsGrid').innerHTML='';
+    results.forEach(function(r){ if(r.status==='fulfilled'&&r.value) lastResults=lastResults.concat(r.value); });
+    if(lastResults.length===0){
+      showEmpty(t('noResult'));
+    } else {
+      displayResults(lastResults);
+      document.getElementById('resultsCount').textContent = lastResults.length+' '+(lang==='ms'?'keputusan':'results');
+    }
+    document.getElementById('sourceBar').style.display='none';
+  });
+}
+
+function addSkeletons(n){
+  var grid = document.getElementById('resultsGrid');
+  grid.innerHTML = Array(n).fill(0).map(function(){
+    return '<div class="cv-book-card"><div class="cv-book-cover cv-skeleton" style="height:160px;"></div>'+
+      '<div class="cv-book-body"><div class="cv-skeleton" style="height:16px;margin-bottom:8px;"></div>'+
+      '<div class="cv-skeleton" style="height:12px;width:60%;"></div></div></div>';
+  }).join('');
+}
+
+function addSourceStatus(name, count){
+  var bar = document.getElementById('sourceBar');
+  var id = 'ss_'+name.replace(/\s/g,'');
+  var el = document.createElement('div');
+  el.className='cv-src-status';
+  el.id=id;
+  el.innerHTML='<div class="dot done"></div><span>'+esc(name)+' ('+count+')</span>';
+  bar.appendChild(el);
+}
+
+// ── API: Open Library ──────────────────────────────────────────────────────
+function searchOpenLibrary(q){
+  var url = 'https://openlibrary.org/search.json?q='+encodeURIComponent(q)+'&limit=12&fields=key,title,author_name,first_publish_year,language,cover_i,subject,ia,public_scan_b';
+  return fetch(url).then(function(r){ return r.json(); }).then(function(data){
+    var books = (data.docs||[]).map(function(b){
+      var cover = b.cover_i ? 'https://covers.openlibrary.org/b/id/'+b.cover_i+'-M.jpg' : null;
+      var ia = b.ia && b.ia[0];
+      var readUrl = ia ? 'https://archive.org/details/'+ia : 'https://openlibrary.org'+b.key;
+      var canRead = b.public_scan_b || ia;
+      return {
+        id:'ol_'+b.key, title:b.title||'Unknown',
+        author:(b.author_name||[]).join(', ')||'Unknown',
+        year:b.first_publish_year||'', lang:(b.language||['en'])[0].toUpperCase(),
+        cover:cover, source:'Open Library',
+        access: canRead?'public':'preview',
+        url: readUrl, previewUrl:'https://openlibrary.org'+b.key,
+        subjects:(b.subject||[]).slice(0,3),
+        category: guessCategory(b.title, b.subject)
+      };
+    });
+    addSourceStatus('Open Library', books.length);
+    return books;
+  }).catch(function(){ addSourceStatus('Open Library', 0); return []; });
+}
+
+// ── API: Project Gutenberg (Gutendex) ──────────────────────────────────────
+function searchGutenberg(q){
+  var url = 'https://gutendex.com/books/?search='+encodeURIComponent(q);
+  return fetch(url).then(function(r){ return r.json(); }).then(function(data){
+    var books = (data.results||[]).slice(0,8).map(function(b){
+      var cover = b.formats && (b.formats['image/jpeg']||null);
+      var readUrl = b.formats && (b.formats['text/html']||b.formats['application/epub+zip']||'https://www.gutenberg.org/ebooks/'+b.id);
+      return {
+        id:'gut_'+b.id, title:b.title||'Unknown',
+        author:(b.authors||[]).map(function(a){return a.name;}).join(', ')||'Unknown',
+        year:b.copyright?'':b.id<10000?'<1900':'<1930',
+        lang:((b.languages||['en'])[0]).toUpperCase(),
+        cover:cover, source:'Project Gutenberg',
+        access:'public', url:readUrl, previewUrl:'https://www.gutenberg.org/ebooks/'+b.id,
+        subjects:(b.subjects||[]).slice(0,3),
+        category: guessCategory(b.title, b.subjects)
+      };
+    });
+    addSourceStatus('Project Gutenberg', books.length);
+    return books;
+  }).catch(function(){ addSourceStatus('Gutenberg', 0); return []; });
+}
+
+// ── API: Google Books ──────────────────────────────────────────────────────
+function searchGoogleBooks(q){
+  var url = 'https://www.googleapis.com/books/v1/volumes?q='+encodeURIComponent(q)+'&maxResults=10&printType=books';
+  return fetch(url).then(function(r){ return r.json(); }).then(function(data){
+    var books = (data.items||[]).map(function(item){
+      var vi = item.volumeInfo||{};
+      var ai = item.accessInfo||{};
+      var cover = (vi.imageLinks||{}).thumbnail || null;
+      if(cover) cover = cover.replace('http:','https:');
+      var access = ai.publicDomain?'public': ai.viewability==='ALL_PAGES'?'open': ai.viewability==='PARTIAL'?'preview':'preview';
+      return {
+        id:'gb_'+item.id, title:vi.title||'Unknown',
+        author:(vi.authors||[]).join(', ')||'Unknown',
+        year:(vi.publishedDate||'').slice(0,4),
+        lang:(vi.language||'en').toUpperCase(),
+        cover:cover, source:'Google Books',
+        access:access,
+        url:(vi.infoLinks&&vi.infoLinks[0])||'https://books.google.com',
+        previewUrl:'https://books.google.com/books?id='+item.id,
+        subjects:(vi.categories||[]).slice(0,3),
+        category: guessCategory(vi.title, vi.categories)
+      };
+    });
+    addSourceStatus('Google Books', books.length);
+    return books;
+  }).catch(function(){ addSourceStatus('Google Books', 0); return []; });
+}
+
+function guessCategory(title, subjects){
+  var t2 = ((title||'')+(subjects||[]).join(' ')).toLowerCase();
+  if(/lead|kepimpin|manag|pemimpin|principal|headmaster/.test(t2)) return 'leadership';
+  if(/educat|pendidik|teach|school|learn|sekolah/.test(t2)) return 'education';
+  if(/digital|technolog|ai |artificial|cyber|komputer/.test(t2)) return 'digital';
+  if(/child|kanak|picture book|fairy|bedtime/.test(t2)) return 'children';
+  if(/science|biolog|physic|chemistry|sains/.test(t2)) return 'science';
+  if(/policy|dasar|law|undang|legislat/.test(t2)) return 'policy';
+  if(/tvet|vocational|teknik/.test(t2)) return 'tvet';
+  return 'books';
+}
+
+// ── Display ────────────────────────────────────────────────────────────────
+var bookmarks = JSON.parse(localStorage.getItem('cv_bookmarks')||'{}');
+
+function displayResults(results){
+  var filtered = results;
+  if(activeFilter!=='all'){
+    filtered = results.filter(function(b){
+      if(activeFilter==='public_domain') return b.access==='public';
+      if(activeFilter==='open_access')   return b.access==='open';
+      if(activeFilter==='audio')         return b.source==='LibriVox';
+      if(activeFilter==='library')       return b.access==='borrow';
+      return b.category===activeFilter;
+    });
+  }
+  var grid = document.getElementById('resultsGrid');
+  if(filtered.length===0){ grid.innerHTML=''; showEmpty(t('noResult')); return; }
+  document.getElementById('emptyState').classList.remove('show');
+  grid.innerHTML = filtered.map(function(b){ return buildCard(b); }).join('');
+}
+
+function buildCard(b){
+  var bm = bookmarks[b.id];
+  var accessLabel = b.access==='public'?t('badgePublic'): b.access==='open'?t('badgeOpen'): b.access==='borrow'?t('badgeBorrow'):t('badgePreview');
+  var accessClass = b.access==='public'?'public': b.access==='open'?'open': b.access==='borrow'?'borrow':'preview';
+  var coverHtml = b.cover
+    ? '<img src="'+esc(b.cover)+'" alt="'+esc(b.title)+'" loading="lazy" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">'+'<div class="cv-book-cover-fallback" style="display:none">📖</div>'
+    : '<div class="cv-book-cover-fallback">📖</div>';
+  return '<div class="cv-book-card" id="card_'+esc(b.id)+'" tabindex="0" role="article" aria-label="'+esc(b.title)+'">' +
+    '<div class="cv-book-cover" style="background:'+gradFor(b.source)+'">' +
+      coverHtml +
+      '<div class="cv-badge-row"><span class="cv-access-badge '+accessClass+'">'+esc(accessLabel)+'</span></div>' +
+    '</div>' +
+    '<div class="cv-book-body">' +
+      '<div class="cv-book-title">'+esc(b.title)+'</div>' +
+      '<div class="cv-book-author">'+esc(b.author)+'</div>' +
+      '<div class="cv-book-meta">' +
+        '<span class="cv-source-tag">'+esc(b.source)+'</span>' +
+        (b.lang?'<span class="cv-lang-tag">'+esc(b.lang)+'</span>':'') +
+        (b.year?'<span style="font-size:10px;color:var(--cv-dim);">'+esc(String(b.year))+'</span>':'') +
+      '</div>' +
+      '<div class="cv-book-actions">' +
+        '<button class="cv-btn-read" onclick="openReadPanel('+JSON.stringify(b).replace(/"/g,'&quot;')+')">'+t('readWith')+'</button>' +
+        '<a href="'+esc(b.previewUrl||b.url)+'" target="_blank" rel="noopener" class="cv-btn-icon" title="'+t('openPage')+'" aria-label="'+t('openPage')+'">↗</a>' +
+        '<button class="cv-btn-icon'+(bm?' bookmarked':'')+'" onclick="toggleBookmark('+JSON.stringify(b).replace(/"/g,'&quot;')+')" title="'+t('bookmark')+'" aria-label="'+t('bookmark')+'">'+( bm?'🔖':'🏷️')+'</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function gradFor(src){
+  var g = {
+    'Open Library':'linear-gradient(135deg,#4f46e5,#0891b2)',
+    'Project Gutenberg':'linear-gradient(135deg,#7c3aed,#4f46e5)',
+    'Google Books':'linear-gradient(135deg,#1d4ed8,#0891b2)',
+    'LibriVox':'linear-gradient(135deg,#059669,#0891b2)',
+    'IAB':'linear-gradient(135deg,#0c4a6e,#0891b2)',
+  };
+  return g[src]||'linear-gradient(135deg,#4f46e5,#7c3aed)';
+}
+
+function showEmpty(msg){
+  var es = document.getElementById('emptyState');
+  es.classList.add('show');
+  document.getElementById('emptyTitle').textContent = msg||t('emptyTitle');
+}
+
+// ── Sort ───────────────────────────────────────────────────────────────────
+function sortResults(mode){
+  if(!lastResults.length) return;
+  var sorted = lastResults.slice();
+  if(mode==='title') sorted.sort(function(a,b){ return a.title.localeCompare(b.title); });
+  else if(mode==='year') sorted.sort(function(a,b){ return (b.year||0)-(a.year||0); });
+  displayResults(sorted);
+}
+
+// ── Read Panel ─────────────────────────────────────────────────────────────
+var TOOLS = [
+  {icon:'📚',key:'btnCompanion',desc:'reading-companion.html',url:'reading-companion.html'},
+  {icon:'🤖',key:'btnTeacher',desc:'ai-teacher-agent.html',url:'ai-teacher-agent.html'},
+  {icon:'📝',key:'btnSummary',desc:'',url:''},
+  {icon:'🧩',key:'btnQuiz',desc:'',url:''},
+  {icon:'🗺️',key:'btnMindMap',desc:'',url:''},
+  {icon:'🔊',key:'btnAudio',desc:'blind-audio.html',url:'blind-audio.html'},
+  {icon:'⠃',key:'btnBraille',desc:'blind-audio.html',url:'blind-audio.html'},
+  {icon:'🧠',key:'btnADHD',desc:'adhd-agent.html',url:'adhd-agent.html'},
+  {icon:'🔡',key:'btnDyslexia',desc:'dyslexia-agent.html',url:'dyslexia-agent.html'},
+  {icon:'🤟',key:'btnVisual',desc:'sign-language.html',url:'sign-language.html'},
+  {icon:'⬇️',key:'btnOffline',desc:'offline-library.html',url:'offline-library.html'},
+];
+
+function openReadPanel(b){
+  var panel = document.getElementById('readPanel');
+  panel.classList.add('open');
+  document.getElementById('rpTitle').textContent = b.title;
+  document.getElementById('rpAuthor').textContent = b.author;
+  document.getElementById('rpSource').textContent = b.source + (b.year?' · '+b.year:'');
+  var cov = document.getElementById('rpCover');
+  if(b.cover){ cov.innerHTML='<img src="'+esc(b.cover)+'" style="width:100%;height:100%;object-fit:cover;border-radius:4px;" onerror="this.parentNode.textContent=\'📖\'">';}
+  else { cov.textContent='📖'; }
+  var tools = document.getElementById('readTools');
+  tools.innerHTML = TOOLS.map(function(tool){
+    var href = tool.url||b.url||'#';
+    return '<a href="'+esc(href)+'" class="cv-read-tool" target="'+(tool.url&&tool.url.startsWith('http')?'_blank':'_self')+'" rel="noopener" aria-label="'+esc(t(tool.key))+'">' +
+      '<span class="cv-read-tool-icon">'+tool.icon+'</span>' +
+      '<span class="cv-read-tool-name">'+esc(t(tool.key))+'</span>' +
+      '</a>';
+  }).join('');
+  panel.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function closeReadPanel(){ document.getElementById('readPanel').classList.remove('open'); }
+
+// ── Bookmark ───────────────────────────────────────────────────────────────
+function toggleBookmark(b){
+  if(bookmarks[b.id]){ delete bookmarks[b.id]; showToast(t('unbookmarked')); }
+  else { bookmarks[b.id]=b; showToast(t('bookmarked')); }
+  localStorage.setItem('cv_bookmarks', JSON.stringify(bookmarks));
+  var card=document.getElementById('card_'+b.id);
+  if(card){
+    var btn=card.querySelector('.cv-btn-icon.bookmarked, .cv-btn-icon[title]');
+    if(btn){ btn.className=bookmarks[b.id]?'cv-btn-icon bookmarked':'cv-btn-icon'; btn.textContent=bookmarks[b.id]?'🔖':'🏷️'; }
+  }
+  renderMyLibrary();
+}
+
+function renderMyLibrary(){
+  var body=document.getElementById('myLibBody');
+  var empty=document.getElementById('myLibEmpty');
+  if(!body) return;
+  var keys=Object.keys(bookmarks);
+  if(keys.length===0){ if(empty) empty.style.display='block'; return; }
+  if(empty) empty.style.display='none';
+  var html='';
+  keys.forEach(function(k){
+    var b=bookmarks[k];
+    html+='<div class="cv-mylib-item" onclick="openReadPanel('+JSON.stringify(b).replace(/"/g,'&quot;')+')" tabindex="0" role="button">' +
+      '<div class="cv-mylib-cover">'+(b.cover?'<img src="'+esc(b.cover)+'" style="width:100%;height:100%;object-fit:cover;border-radius:4px;" onerror="this.parentNode.textContent=\'📖\'">':'📖')+'</div>' +
+      '<div class="cv-mylib-info"><div class="cv-mylib-title">'+esc(b.title)+'</div><div class="cv-mylib-src">'+esc(b.source)+'</div></div>' +
+      '<button onclick="event.stopPropagation();toggleBookmark('+JSON.stringify(b).replace(/"/g,'&quot;')+')" style="background:none;border:none;cursor:pointer;font-size:14px;" aria-label="Remove bookmark">✕</button>' +
+    '</div>';
+  });
+  body.innerHTML=html+(empty?empty.outerHTML:'');
+}
+
+// ── IAB Section ────────────────────────────────────────────────────────────
+var IAB_FEATURED = [
+  {title:'Jurnal Pengurusan Kepimpinan Pendidikan Bil 2 2024',cat:'Jurnal',year:'2024'},
+  {title:'KOMPAS 2.0: Standard Kompetensi Pemimpin Sekolah',cat:'Kepimpinan',year:'2022'},
+  {title:'Metamorfosis Kepimpinan NPQEL 2020',cat:'NPQEL',year:'2020'},
+  {title:'Kepimpinan Futuristik Di Sekolah',cat:'Kepimpinan',year:'2021'},
+  {title:'Pembangunan Pemimpin Muda 2023',cat:'Latihan',year:'2023'},
+  {title:'IAB Buku Program Latihan 2025',cat:'Latihan',year:'2025'},
+  {title:'Wacana Pengurusan dan Kepimpinan Pendidikan 2021',cat:'Pengurusan',year:'2021'},
+  {title:'Kompilasi Amalan Terbaik Kepimpinan Pendidikan',cat:'Kepimpinan',year:'2022'},
+];
+
+function renderIAB(){
+  var grid=document.getElementById('iabGrid');
+  if(!grid) return;
+  grid.innerHTML = IAB_FEATURED.map(function(b){
+    return '<div class="cv-iab-card">' +
+      '<div class="cv-iab-card-title">'+esc(b.title)+'</div>' +
+      '<div class="cv-iab-card-meta">📂 '+esc(b.cat)+' · '+esc(b.year)+'</div>' +
+      '<div class="cv-iab-actions">' +
+        '<a href="iab-library.html" class="cv-iab-btn primary" target="_blank" rel="noopener">'+t('openPage')+'</a>' +
+        '<button class="cv-iab-btn ghost" onclick="loadIABBook(\''+esc(b.title)+'\')">'+t('readWith')+'</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function loadIABBook(title){
+  openReadPanel({id:'iab_'+title, title:title, author:'Institut Aminuddin Baki', source:'IAB Digital', year:'', cover:null, url:'iab-library.html', previewUrl:'iab-library.html', access:'iab'});
+}
+
+// ── AI Recommendations ─────────────────────────────────────────────────────
+var RECS = [
+  {title:'Dare to Lead', author:'Brené Brown', why:'filterLead', tags:['leadership','personal dev'], icon:'🚀', source:'Open Library'},
+  {title:'Kepimpinan Futuristik Di Sekolah', author:'IAB', why:'filterEdu', tags:['kepimpinan','sekolah'], icon:'🏫', source:'IAB Digital'},
+  {title:'The Art of Learning', author:'Josh Waitzkin', why:'filterEdu', tags:['education','learning'], icon:'🎓', source:'Google Books'},
+  {title:'Thinking, Fast and Slow', author:'Daniel Kahneman', why:'filterResearch', tags:['cognitive','research'], icon:'🧠', source:'Open Library'},
+  {title:'Pendidikan Karakter: Modul Resolusi Konflik', author:'IAB', why:'filterEdu', tags:['pendidikan','BM'], icon:'📖', source:'IAB Digital'},
+  {title:'Digital Fluency', author:'John Spencer', why:'filterEdu', tags:['digital','tech'], icon:'💻', source:'E-Buku PSP'},
+];
+
+function renderRecommendations(){
+  var grid=document.getElementById('recGrid');
+  if(!grid) return;
+  grid.innerHTML = RECS.map(function(r){
+    return '<div class="cv-rec-card" onclick="searchFor(\''+esc(r.title)+'\')" tabindex="0" role="button" aria-label="Search for '+esc(r.title)+'">' +
+      '<div class="cv-rec-why">'+t(r.why)+'</div>' +
+      '<div style="font-size:22px;margin-bottom:6px;">'+r.icon+'</div>' +
+      '<div class="cv-rec-title">'+esc(r.title)+'</div>' +
+      '<div style="font-size:10px;color:var(--cv-muted);margin-bottom:6px;">'+esc(r.author)+'</div>' +
+      '<div class="cv-rec-tags">'+r.tags.map(function(tag){ return '<span class="cv-rec-tag">'+esc(tag)+'</span>'; }).join('')+'</div>' +
+    '</div>';
+  }).join('');
+}
+
+function searchFor(q){ document.getElementById('cvSearch').value=q; doSearch(); }
+
+// ── Personal Library helpers ───────────────────────────────────────────────
+function handleUpload(e){
+  var f=e.target.files[0]; if(!f) return;
+  showToast((lang==='ms'?'Membuka fail: ':'Opening file: ')+f.name);
+  setTimeout(function(){ window.location.href='reading-companion.html'; },600);
+}
+function openCamera(){ showToast(t('cameraNote')); setTimeout(function(){ window.location.href='ocr-agent.html'; },600); }
+function openDrive(){ showToast(t('driveNote')); }
+function openOneDrive(){ showToast(t('driveNote')); }
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+var toastTimer;
+function showToast(msg){
+  var el=document.getElementById('cvToast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ el.classList.remove('show'); },2800);
+}
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── Init ───────────────────────────────────────────────────────────────────
+function renderAll(){ renderSources(); renderFilters(); renderChips(); renderIAB(); renderRecommendations(); renderMyLibrary(); }
+
+document.addEventListener('DOMContentLoaded', function(){
+  lang = localStorage.getItem('cs_lang')||'ms';
+  applyLang();
+  document.getElementById('emptyState').classList.add('show');
+  // Check URL param for auto-search
+  var params = new URLSearchParams(window.location.search);
+  var q = params.get('q');
+  if(q){ document.getElementById('cvSearch').value=q; doSearch(); }
+});
+</script>
+</body>
+</html>
