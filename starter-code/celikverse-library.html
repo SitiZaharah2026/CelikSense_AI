@@ -603,30 +603,42 @@ function doSearch(){
     return;
   }
 
-  addSkeletons(6);
-
-  // Scroll to results immediately so user sees loading state
+  // Scroll to results immediately
   setTimeout(function(){
     var mc = document.getElementById('mainContent');
     if(mc) mc.scrollIntoView({behavior:'smooth', block:'start'});
   }, 80);
 
-  // Use Promise.all with individual catch for compatibility
   var btn = document.getElementById('searchBtn');
   if(btn){ btn.textContent = '⏳ '+(lang==='ms'?'Mencari...':'Searching...'); btn.disabled=true; }
 
-  var safeSearches = searches.map(function(p){ return p.catch(function(){ return []; }); });
-  Promise.all(safeSearches).then(function(results){
-    document.getElementById('resultsGrid').innerHTML='';
-    results.forEach(function(r){ if(r) lastResults=lastResults.concat(r); });
-    if(lastResults.length===0){
-      showEmpty(t('noResult'));
-    } else {
+  var pending = searches.length;
+
+  function onSourceDone(books){
+    if(books && books.length){
+      lastResults = lastResults.concat(books);
+      // Show results immediately as each source arrives
       displayResults(lastResults);
+      document.getElementById('resultsHdr').style.display='flex';
+      document.getElementById('emptyState').classList.remove('show');
       document.getElementById('resultsCount').textContent = lastResults.length+' '+(lang==='ms'?'keputusan':'results');
     }
-    document.getElementById('sourceBar').style.display='none';
-    if(btn){ btn.innerHTML='🔍 <span id="searchBtnLabel">'+t('searchBtnLabel')+'</span>'; btn.disabled=false; }
+    pending--;
+    if(pending <= 0){
+      document.getElementById('sourceBar').style.display='none';
+      if(btn){ btn.innerHTML='🔍 <span id="searchBtnLabel">'+t('searchBtnLabel')+'</span>'; btn.disabled=false; }
+      if(lastResults.length===0) showEmpty(t('noResult'));
+    }
+  }
+
+  // Wrap each search with a 7-second timeout
+  function withTimeout(p, ms){
+    var timeout = new Promise(function(resolve){ setTimeout(function(){ resolve([]); }, ms); });
+    return Promise.race([p, timeout]).catch(function(){ return []; });
+  }
+
+  searches.forEach(function(p){
+    withTimeout(p, 7000).then(onSourceDone);
   });
 }
 
