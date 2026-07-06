@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADHD Immersive Reader · CelikSense AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    :root {
+      --bg:#f8f7ff; --text:#1a1a2e; --card:#ffffff; --accent:#6366f1;
+      --muted:#6b7280; --border:#e5e7eb; --highlight:#fef08a;
+      --reader-font:'Lexend',sans-serif; --reader-size:18px;
+      --reader-line:1.85; --reader-para:28px;
+    }
+    body.mode-cream { --bg:#fdf8f0; --text:#2d2416; --card:#fefaf2; --border:#e8d8b0; }
+    body.mode-dark  { --bg:#0f0f1a; --text:#e8e8f0; --card:#1a1a2e; --border:#2d2d4e; --muted:#9ca3af; --highlight:#854d0e; }
+    body.mode-blue  { --bg:#e8f4fd; --text:#0c2d4e; --card:#f0f8ff; --border:#bee3f8; }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--reader-font);transition:background .3s,color .3s;min-height:100vh;}
+
+    /* ── TOOLBAR ── */
+    #rd-toolbar{
+      position:fixed;top:64px;left:0;right:0;height:52px;
+      background:var(--card);border-bottom:2px solid var(--border);
+      display:flex;align-items:center;gap:3px;padding:0 14px;
+      z-index:200;overflow-x:auto;overflow-y:hidden;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    }
+    #rd-toolbar::-webkit-scrollbar{display:none;}
+    .tbg{display:flex;align-items:center;gap:3px;padding:0 10px 0 0;border-right:1px solid var(--border);flex-shrink:0;}
+    .tbg:last-child{border-right:none;}
+    .tbl{font-size:9px;font-weight:800;letter-spacing:1.5px;color:var(--muted);white-space:nowrap;}
+    .tbb{
+      background:none;border:1px solid var(--border);border-radius:7px;
+      padding:4px 9px;font-size:12px;font-weight:600;cursor:pointer;
+      color:var(--text);white-space:nowrap;transition:all .15s;font-family:inherit;
+    }
+    .tbb:hover{border-color:var(--accent);color:var(--accent);}
+    .tbb.on{background:var(--accent);color:#fff;border-color:var(--accent);}
+    .tbb.on-red{background:#ef4444;color:#fff;border-color:#ef4444;}
+    .tbb-val{font-size:12px;font-weight:700;min-width:28px;text-align:center;color:var(--text);}
+
+    /* ── PROGRESS BAR ── */
+    #rd-prog-wrap{position:fixed;top:calc(64px + 52px);left:0;right:0;height:3px;background:var(--border);z-index:199;}
+    #rd-prog{height:100%;background:linear-gradient(90deg,#6366f1,#0891b2);width:0%;transition:width .25s;}
+
+    /* ── MICRO TIMER ── */
+    #micro-timer{
+      position:fixed;top:calc(64px+52px+12px);right:18px;
+      background:var(--card);border:1px solid var(--border);border-radius:10px;
+      padding:6px 12px;font-size:12px;font-weight:700;color:var(--text);z-index:198;
+      display:none;align-items:center;gap:6px;
+    }
+    #micro-timer.show{display:flex;}
+
+    /* ── MAIN WRAP ── */
+    #rd-wrap{
+      padding-top:calc(64px + 52px + 24px);
+      max-width:720px;margin:0 auto;
+      padding-left:28px;padding-right:28px;padding-bottom:140px;
+    }
+
+    /* Book header */
+    #bk-header{
+      display:flex;gap:18px;align-items:flex-start;
+      background:var(--card);border:1px solid var(--border);
+      border-radius:16px;padding:22px 24px;margin-bottom:28px;
+    }
+    #bk-header img,#bk-cover-ph{width:64px;height:88px;border-radius:8px;flex-shrink:0;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,.18);}
+    #bk-cover-ph{background:#ede9fe;display:flex;align-items:center;justify-content:center;font-size:28px;}
+    .bk-title{font-size:19px;font-weight:800;line-height:1.3;margin-bottom:5px;}
+    .bk-author{font-size:13px;color:var(--muted);margin-bottom:8px;}
+    .bk-badge{display:inline-flex;align-items:center;gap:5px;background:#ede9fe;color:#6366f1;font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;letter-spacing:1px;}
+
+    /* Load / paste area */
+    #load-area{background:var(--card);border:2px dashed var(--border);border-radius:16px;padding:30px;text-align:center;margin-bottom:24px;}
+    #load-area.hidden{display:none;}
+    #load-area h3{font-size:17px;font-weight:700;margin-bottom:7px;}
+    #load-area p{font-size:13px;color:var(--muted);margin-bottom:18px;}
+    #paste-txt{
+      width:100%;min-height:160px;border:1px solid var(--border);border-radius:10px;
+      padding:12px;font-size:14px;font-family:inherit;background:var(--bg);
+      color:var(--text);resize:vertical;margin-bottom:10px;
+    }
+    .load-btn{
+      background:var(--accent);color:#fff;border:none;border-radius:10px;
+      padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;
+    }
+    #load-spinner{font-size:13px;color:var(--muted);margin-top:10px;display:none;}
+
+    /* Section badge */
+    .sec-badge{text-align:center;margin:4px 0 20px;}
+    .sec-badge span{
+      display:inline-block;background:linear-gradient(135deg,#6366f1,#0891b2);
+      color:#fff;font-size:10px;font-weight:800;padding:5px 16px;
+      border-radius:99px;letter-spacing:1px;
+    }
+
+    /* Section divider */
+    .sec-div{border:none;border-top:2px dashed var(--border);margin:36px 0;position:relative;}
+    .sec-div::after{
+      content:attr(data-lbl);position:absolute;top:50%;left:50%;
+      transform:translate(-50%,-50%);background:var(--bg);
+      padding:0 14px;font-size:10px;font-weight:800;color:var(--muted);
+      letter-spacing:1px;white-space:nowrap;
+    }
+
+    /* Paragraphs */
+    .para-block{margin-bottom:var(--reader-para);}
+    .para-text{
+      font-family:var(--reader-font);font-size:var(--reader-size);
+      line-height:var(--reader-line);color:var(--text);
+    }
+    .sent{border-radius:3px;cursor:pointer;transition:background .15s;}
+    .sent:hover{background:rgba(99,102,241,.08);}
+    .sent.now{background:var(--highlight);}
+
+    /* AI expand */
+    .para-ai-btn{
+      display:inline-flex;align-items:center;gap:4px;
+      background:none;border:1px solid var(--border);border-radius:99px;
+      font-size:10px;font-weight:700;color:var(--muted);padding:2px 9px;
+      cursor:pointer;margin-top:7px;transition:all .15s;font-family:inherit;
+    }
+    .para-ai-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .para-ai-box{
+      display:none;margin-top:10px;background:var(--card);border:1px solid var(--border);
+      border-radius:12px;padding:14px 16px;font-size:13px;line-height:1.65;
+    }
+    .para-ai-box.open{display:block;}
+    .ai-label{font-size:9px;font-weight:800;letter-spacing:1.5px;color:var(--accent);margin-bottom:5px;}
+    .ai-body{color:var(--text);margin-bottom:12px;}
+    .ai-kw{display:inline-block;background:#ede9fe;color:#6366f1;padding:2px 8px;border-radius:6px;margin:2px;font-size:11px;font-weight:600;}
+
+    /* ── FOCUS OVERLAY ── */
+    #focus-ov{
+      display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);
+      z-index:500;align-items:center;justify-content:center;padding:32px 20px;
+    }
+    #focus-ov.on{display:flex;}
+    #focus-ov button#focus-close{
+      position:absolute;top:18px;right:18px;background:rgba(255,255,255,.15);
+      border:none;color:#fff;width:38px;height:38px;border-radius:50%;font-size:18px;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+    }
+    #focus-card{
+      background:var(--card);border-radius:20px;padding:40px;
+      max-width:660px;width:100%;max-height:82vh;overflow-y:auto;
+    }
+    #focus-meta{font-size:9px;font-weight:800;letter-spacing:2px;color:var(--accent);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
+    #focus-para{font-family:var(--reader-font);font-size:var(--reader-size);line-height:var(--reader-line);color:var(--text);margin-bottom:28px;}
+    #focus-nav{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;}
+    .fnav{background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px 30px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+    .fnav:disabled{opacity:.35;cursor:default;}
+    #focus-ctr{font-size:13px;color:var(--muted);min-width:80px;text-align:center;}
+    #focus-read-btn{background:rgba(99,102,241,.1);color:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+
+    /* ── SMART BREAK ── */
+    #break-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;align-items:center;justify-content:center;}
+    #break-modal.on{display:flex;}
+    #break-card{background:var(--card);border-radius:20px;padding:40px 32px;max-width:380px;width:92%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+    #break-card h2{font-size:22px;font-weight:800;margin-bottom:8px;}
+    #break-card p{color:var(--muted);font-size:14px;margin-bottom:20px;}
+    #break-cd{font-size:42px;font-weight:900;color:var(--accent);margin-bottom:22px;}
+    .break-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+
+    /* ── CHECKPOINT ── */
+    #cp-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;align-items:center;justify-content:center;}
+    #cp-modal.on{display:flex;}
+    #cp-card{background:var(--card);border-radius:20px;padding:32px;max-width:500px;width:94%;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+    #cp-card h3{font-size:15px;font-weight:800;color:var(--accent);margin-bottom:14px;}
+    #cp-q{font-size:16px;line-height:1.65;margin-bottom:20px;color:var(--text);}
+    #cp-input{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);margin-bottom:12px;}
+    #cp-fb{font-size:13px;padding:10px 14px;border-radius:8px;display:none;margin-bottom:12px;}
+    #cp-fb.ok{background:#dcfce7;color:#166534;}
+    #cp-fb.no{background:#fee2e2;color:#991b1b;}
+    .cp-row{display:flex;gap:8px;flex-wrap:wrap;}
+    .cp-btn{border-radius:9px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;border:none;}
+    #cp-submit{background:var(--accent);color:#fff;}
+    #cp-explain{background:#ede9fe;color:#6366f1;}
+    #cp-skip{background:var(--border);color:var(--muted);}
+
+    /* ── READ ALOUD BAR ── */
+    #aloud-bar{
+      position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+      background:linear-gradient(135deg,#1e1b4b,#1d4ed8);color:#fff;
+      border-radius:99px;padding:10px 18px;display:none;
+      align-items:center;gap:12px;z-index:400;
+      box-shadow:0 8px 32px rgba(30,27,75,.42);white-space:nowrap;
+    }
+    #aloud-bar.on{display:flex;}
+    .a-btn{background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:34px;height:34px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+    .a-btn:hover{background:rgba(255,255,255,.32);}
+    .a-spd{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:7px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
+    .a-spd.on{background:rgba(255,255,255,.35);}
+    #a-prog{font-size:11px;color:rgba(255,255,255,.7);min-width:60px;text-align:center;}
+
+    /* ── VISUAL SUPPORT PANEL ── */
+    #vs-panel{
+      position:fixed;right:20px;top:calc(64px+52px+70px);width:270px;
+      background:var(--card);border:1px solid var(--border);border-radius:16px;
+      padding:18px;z-index:300;box-shadow:0 8px 32px rgba(0,0,0,.14);
+      display:none;
+    }
+    #vs-panel.on{display:block;}
+    .vs-btn{
+      width:100%;background:var(--bg);border:1px solid var(--border);
+      padding:9px;border-radius:8px;margin-bottom:7px;font-weight:600;
+      cursor:pointer;font-size:12px;font-family:inherit;color:var(--text);
+      text-align:left;transition:all .15s;
+    }
+    .vs-btn:hover{border-color:var(--accent);color:var(--accent);}
+    #vs-out{margin-top:10px;font-size:12px;line-height:1.65;color:var(--text);max-height:260px;overflow-y:auto;}
+
+    @media(max-width:600px){
+      #rd-wrap{padding-left:14px;padding-right:14px;}
+      .tbb{padding:3px 7px;font-size:11px;}
+      #focus-card{padding:24px 18px;}
+      #bk-header{flex-wrap:wrap;}
+    }
+  </style>
+</head>
+<body>
+<a href="#rd-wrap" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#6366f1;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;font-family:sans-serif;">Skip to content</a>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="container nav-container">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-icon">CS</div>
+      <div><span class="brand-name">CelikSense AI</span><span class="brand-tagline">Agentic Multi-Sensory Learning</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <div class="nav-dropdown">
+        <button aria-haspopup="true" aria-expanded="false">Agents ▾</button>
+        <div class="dropdown-menu">
+          <a href="ai-librarian.html">📚 AI Librarian</a>
+          <a href="reading-companion.html">📖 Reading Companion</a>
+          <a href="adhd-agent.html">🧠 ADHD Agent</a>
+          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
+          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
+          <a href="sign-language.html">🤟 Sign Language Agent</a>
+          <a href="early-warning.html">⚠️ Early Warning Agent</a>
+          <a href="intervention.html">💡 Intervention Agent</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">BM</button>
+      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="dashboard.html" class="btn btn-ghost btn-sm">← Dashboard</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<!-- Progress bar -->
+<div id="rd-prog-wrap"><div id="rd-prog"></div></div>
+
+<!-- Toolbar -->
+<div id="rd-toolbar" role="toolbar" aria-label="Reading controls">
+  <!-- Font -->
+  <div class="tbg">
+    <span class="tbl">FONT</span>
+    <button class="tbb on" id="tb-lexend" onclick="setFont('lexend')">Lexend</button>
+    <button class="tbb" id="tb-system" onclick="setFont('system')">System</button>
+  </div>
+  <!-- Size -->
+  <div class="tbg">
+    <span class="tbl">SIZE</span>
+    <button class="tbb" onclick="adjSize(-2)" aria-label="Decrease font size">A−</button>
+    <span class="tbb-val" id="lbl-size">18</span>
+    <button class="tbb" onclick="adjSize(2)" aria-label="Increase font size">A+</button>
+  </div>
+  <!-- Line spacing -->
+  <div class="tbg">
+    <span class="tbl">LINE</span>
+    <button class="tbb" onclick="adjLine(-0.2)" aria-label="Decrease line spacing">↓</button>
+    <span class="tbb-val" id="lbl-line">1.9</span>
+    <button class="tbb" onclick="adjLine(0.2)" aria-label="Increase line spacing">↑</button>
+  </div>
+  <!-- Para spacing -->
+  <div class="tbg">
+    <span class="tbl">PARA</span>
+    <button class="tbb" onclick="adjPara(-4)">↓</button>
+    <button class="tbb" onclick="adjPara(4)">↑</button>
+  </div>
+  <!-- Colour mode -->
+  <div class="tbg">
+    <span class="tbl">MODE</span>
+    <button class="tbb on" id="tb-light" onclick="setMode('light')">☀️</button>
+    <button class="tbb" id="tb-cream" onclick="setMode('cream')">🍞</button>
+    <button class="tbb" id="tb-dark" onclick="setMode('dark')">🌙</button>
+    <button class="tbb" id="tb-blue" onclick="setMode('blue')">💙</button>
+  </div>
+  <!-- Focus mode -->
+  <div class="tbg">
+    <button class="tbb" id="tb-focus" onclick="toggleFocus()">🎯 Focus</button>
+  </div>
+  <!-- Micro session -->
+  <div class="tbg">
+    <span class="tbl">SESSION</span>
+    <button class="tbb" id="tb-m2" onclick="setMicro(2)">2 min</button>
+    <button class="tbb on" id="tb-m5" onclick="setMicro(5)">5 min</button>
+    <button class="tbb" id="tb-m10" onclick="setMicro(10)">10 min</button>
+  </div>
+  <!-- Read aloud -->
+  <div class="tbg">
+    <button class="tbb" id="tb-read" onclick="toggleRead()">🔊 Read</button>
+  </div>
+  <!-- Visual AI -->
+  <div class="tbg">
+    <button class="tbb" id="tb-ai" onclick="toggleVS()">🧠 Visual AI</button>
+  </div>
+</div>
+
+<!-- Micro session timer -->
+<div id="micro-timer">⏱ <span id="timer-txt">0:00</span> / <span id="timer-goal">5:00</span></div>
+
+<!-- Main reading area -->
+<div id="rd-wrap">
+  <!-- Book header -->
+  <div id="bk-header"></div>
+  <!-- Load / paste -->
+  <div id="load-area">
+    <h3>⏳ Loading book content…</h3>
+    <p>Please wait while we retrieve the text.</p>
+    <textarea id="paste-txt" placeholder="Or paste the book text here…" style="display:none;"></textarea>
+    <button class="load-btn" onclick="loadFromPaste()" style="display:none;">▶ Start Reading</button>
+    <div id="load-spinner"></div>
+  </div>
+  <!-- Content rendered here -->
+  <div id="rd-content"></div>
+</div>
+
+<!-- Visual Support Panel -->
+<div id="vs-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+    <span style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--accent);">🧠 VISUAL AI</span>
+    <button onclick="toggleVS()" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--muted);">✕</button>
+  </div>
+  <button class="vs-btn" onclick="doVS('mindmap')">🗺️ Mind Map</button>
+  <button class="vs-btn" onclick="doVS('timeline')">📅 Timeline</button>
+  <button class="vs-btn" onclick="doVS('characters')">👥 Key Characters</button>
+  <button class="vs-btn" onclick="doVS('places')">📍 Key Places</button>
+  <button class="vs-btn" onclick="doVS('concepts')">💡 Concept Diagram</button>
+  <div id="vs-out"></div>
+</div>
+
+<!-- Focus Overlay -->
+<div id="focus-ov" role="dialog" aria-modal="true" aria-label="Focus reading mode">
+  <button id="focus-close" onclick="toggleFocus()" aria-label="Exit focus mode">✕</button>
+  <div id="focus-card">
+    <div id="focus-meta">
+      <span>🎯 FOCUS MODE</span>
+      <span id="focus-ctr">1 / 1</span>
+    </div>
+    <div id="focus-para" tabindex="0"></div>
+    <div id="focus-nav">
+      <button class="fnav" id="fp-prev" onclick="fNav(-1)" aria-label="Previous paragraph">← Prev</button>
+      <span id="focus-ctr2" style="font-size:13px;color:var(--muted);min-width:70px;text-align:center;"></span>
+      <button class="fnav" id="fp-next" onclick="fNav(1)" aria-label="Next paragraph">Next →</button>
+    </div>
+    <div style="text-align:center;margin-top:16px;">
+      <button id="focus-read-btn" onclick="readFocusPara()">🔊 Read This</button>
+    </div>
+  </div>
+</div>
+
+<!-- Smart Break Modal -->
+<div id="break-modal" role="dialog" aria-modal="true">
+  <div id="break-card">
+    <div style="font-size:44px;margin-bottom:12px;">☕</div>
+    <h2>Time for a Short Break</h2>
+    <p>You've been reading for a while — rest your eyes and breathe.</p>
+    <div id="break-cd">0:30</div>
+    <button class="break-btn" onclick="skipBreak()">Skip Break →</button>
+  </div>
+</div>
+
+<!-- Checkpoint Modal -->
+<div id="cp-modal" role="dialog" aria-modal="true">
+  <div id="cp-card">
+    <h3>🧠 AI Checkpoint — Quick Check!</h3>
+    <div id="cp-q">Loading question…</div>
+    <input type="text" id="cp-input" placeholder="Type your answer here…" onkeydown="if(event.key==='Enter')checkAnswer()">
+    <div id="cp-fb"></div>
+    <div class="cp-row">
+      <button class="cp-btn" id="cp-submit" onclick="checkAnswer()">Submit</button>
+      <button class="cp-btn" id="cp-explain" onclick="explainAgain()">Explain Again</button>
+      <button class="cp-btn" id="cp-skip" onclick="skipCP()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Read Aloud Bar -->
+<div id="aloud-bar" role="status" aria-live="polite">
+  <button class="a-btn" onclick="toggleRead()" title="Stop reading">⏹</button>
+  <button class="a-btn" onclick="prevSent()" title="Previous sentence">⏮</button>
+  <button class="a-btn" onclick="nextSent()" title="Next sentence">⏭</button>
+  <span id="a-prog">0 / 0</span>
+  <button class="a-spd on" data-r="1" onclick="setSpd(1)">1.0×</button>
+  <button class="a-spd" data-r="0.75" onclick="setSpd(0.75)">0.75×</button>
+  <button class="a-spd" data-r="1.25" onclick="setSpd(1.25)">1.25×</button>
+  <button class="a-spd" data-r="1.5" onclick="setSpd(1.5)">1.5×</button>
+</div>
+
+<script src="shared.js"></script>
+<script>
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
+var paras = [];        // paragraphs array
+var sents = [];        // [{paraIdx, text, el}]
+var sIdx = 0;          // current sentence TTS
+var fIdx = 0;          // focus paragraph index
+var isRead = false;
+var isFocus = false;
+var spd = 1.0;
+var microMin = 5;
+var sessSec = 0;
+var sessInt = null;
+var breakInt = null;
+var _cpAns = '';
+
+// Load preferences
+var prefs = (function(){ try{ return JSON.parse(localStorage.getItem('cs_adhd_rdr')||'{}'); }catch(e){return{};} })();
+function saveP(){ try{ localStorage.setItem('cs_adhd_rdr', JSON.stringify(prefs)); }catch(e){} }
+
+// Load book from URL params or localStorage
+var BK = {};
+(function(){
+  var p = new URLSearchParams(location.search);
+  BK.title  = p.get('cv_title')  || '';
+  BK.author = p.get('cv_author') || '';
+  BK.url    = p.get('cv_url')    || '';
+  BK.cover  = p.get('cv_cover')  || '';
+  BK.source = p.get('cv_source') || '';
+  if (!BK.title) {
+    try {
+      var b = JSON.parse(localStorage.getItem('cv_active_book')||'null');
+      if (b) { BK.title=b.title; BK.author=b.author; BK.url=b.url; BK.cover=b.cover; BK.source=b.source; }
+    } catch(e){}
+  }
+})();
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function() {
+  renderBookHeader();
+  applyPrefs();
+  tryFetch();
+  window.addEventListener('scroll', updateProg);
+  initSession();
+  initVoice();
+});
+
+function esc(s){ var d=document.createElement('div');d.appendChild(document.createTextNode(s||''));return d.innerHTML; }
+
+function renderBookHeader() {
+  var h = document.getElementById('bk-header');
+  if (!BK.title) { h.style.display='none'; return; }
+  document.title = BK.title + ' · ADHD Reader · CelikSense AI';
+  var covEl = BK.cover
+    ? '<img src="'+BK.cover+'" alt="Book cover" onerror="this.outerHTML=\'<div id=bk-cover-ph>📖</div>\'">'
+    : '<div id="bk-cover-ph">📖</div>';
+  h.innerHTML = covEl +
+    '<div style="min-width:0;">' +
+      '<div class="bk-title">'+esc(BK.title)+'</div>' +
+      '<div class="bk-author">'+(BK.author?'by '+esc(BK.author):'')+'</div>' +
+      (BK.source ? '<span class="bk-badge">📚 '+esc(BK.source)+'</span>' : '') +
+      (BK.url ? '<br><a href="'+BK.url+'" target="_blank" rel="noopener" style="font-size:11px;color:#6366f1;font-weight:600;text-decoration:none;margin-top:6px;display:inline-block;">↗ View Original Source</a>' : '') +
+    '</div>';
+}
+
+/* ═══════════════════════════════════════════
+   CONTENT FETCHING
+═══════════════════════════════════════════ */
+async function tryFetch() {
+  if (!BK.url) { showPaste(); return; }
+  var gId = getGId(BK.url);
+  if (gId) {
+    setLoadMsg('Fetching from Project Gutenberg…');
+    var txt = await fetchGutenberg(gId);
+    if (txt) { parseRender(txt); return; }
+  }
+  if (/\.(txt|text)(\?|$)/i.test(BK.url) || BK.url.includes('/files/')) {
+    setLoadMsg('Fetching text file…');
+    try {
+      var r = await fetch(BK.url);
+      if (r.ok) { var t = await r.text(); if(t.length>200){ parseRender(t); return; } }
+    } catch(e){}
+  }
+  showPaste();
+}
+
+function getGId(url) {
+  var m = url.match(/gutenberg\.org\/(?:ebooks|files|cache\/epub)\/(\d+)/);
+  return m ? m[1] : null;
+}
+
+async function fetchGutenberg(id) {
+  var urls = [
+    'https://www.gutenberg.org/cache/epub/'+id+'/pg'+id+'.txt',
+    'https://www.gutenberg.org/files/'+id+'/'+id+'-0.txt',
+    'https://www.gutenberg.org/files/'+id+'/'+id+'.txt'
+  ];
+  for (var i=0;i<urls.length;i++){
+    try {
+      var r = await fetch(urls[i]);
+      if (r.ok) { var t = await r.text(); if(t.length>300) return t; }
+    } catch(e){}
+  }
+  return null;
+}
+
+function setLoadMsg(msg) {
+  document.querySelector('#load-area h3').textContent = msg;
+  document.querySelector('#load-area p').textContent = 'Please wait…';
+}
+
+function showPaste() {
+  var la = document.getElementById('load-area');
+  la.querySelector('h3').textContent = '📋 Paste Book Text';
+  la.querySelector('p').innerHTML =
+    'We couldn\'t auto-fetch the text (CORS restriction).<br>' +
+    (BK.url ? '<a href="'+BK.url+'" target="_blank" rel="noopener" style="color:#6366f1;font-weight:600;">Open source ↗</a>, copy the text, and paste it below.' : 'Paste your text below.');
+  la.querySelector('#paste-txt').style.display = '';
+  la.querySelector('.load-btn').style.display = '';
+}
+
+function loadFromPaste() {
+  var t = document.getElementById('paste-txt').value.trim();
+  if (!t) { alert('Please paste some text first.'); return; }
+  parseRender(t);
+}
+
+/* ═══════════════════════════════════════════
+   PARSE & RENDER
+═══════════════════════════════════════════ */
+function parseRender(raw) {
+  document.getElementById('load-area').classList.add('hidden');
+  raw = cleanGutenberg(raw);
+  paras = raw.split(/\n{2,}/)
+    .map(function(p){ return p.replace(/\n/g,' ').replace(/\s{2,}/g,' ').trim(); })
+    .filter(function(p){ return p.length > 40; });
+  if (!paras.length) { showPaste(); return; }
+  renderParas();
+  updateProg();
+}
+
+function cleanGutenberg(t) {
+  var s = t.match(/\*{3}\s*START OF (?:THE |THIS )?PROJECT GUTENBERG[^\n]*\n/i);
+  if (s) t = t.slice(t.indexOf(s[0]) + s[0].length);
+  var e = t.search(/\*{3}\s*END OF (?:THE |THIS )?PROJECT GUTENBERG/i);
+  if (e > -1) t = t.slice(0, e);
+  return t.trim();
+}
+
+function renderParas() {
+  var area = document.getElementById('rd-content');
+  area.innerHTML = '';
+  sents = [];
+  var wpm = 200;
+  var secWords = microMin * wpm;
+  var wCount = 0, secNum = 1;
+
+  area.appendChild(mkSecBadge(secNum));
+
+  paras.forEach(function(para, i) {
+    var pw = para.split(/\s+/).length;
+    if (wCount > 0 && wCount + pw > secWords) {
+      secNum++;
+      wCount = 0;
+      var hr = document.createElement('hr');
+      hr.className = 'sec-div';
+      hr.setAttribute('data-lbl', '✦ Section '+secNum+' · ~'+microMin+' min read');
+      hr.dataset.sec = secNum;
+      area.appendChild(hr);
+      area.appendChild(mkSecBadge(secNum));
+      // Checkpoint after section (except first)
+      hr.dataset.cpTrigger = '1';
+      hr.dataset.cpIdx = i;
+    }
+    wCount += pw;
+
+    var blk = document.createElement('div');
+    blk.className = 'para-block';
+    blk.id = 'p'+i;
+
+    var pt = document.createElement('div');
+    pt.className = 'para-text';
+    var ss = splitSents(para);
+    ss.forEach(function(s) {
+      var sp = document.createElement('span');
+      sp.className = 'sent';
+      sp.textContent = s + ' ';
+      sp.dataset.si = sents.length;
+      sp.onclick = function(){ jumpSent(parseInt(sp.dataset.si)); };
+      sents.push({ paraIdx:i, text:s, el:sp });
+      pt.appendChild(sp);
+    });
+
+    var aib = document.createElement('button');
+    aib.className = 'para-ai-btn';
+    aib.innerHTML = '✨ AI Help';
+    var aipanel = document.createElement('div');
+    aipanel.className = 'para-ai-box';
+    (function(p, panel){ aib.onclick = function(){ toggleAIBox(p, panel); }; })(para, aipanel);
+
+    blk.appendChild(pt);
+    blk.appendChild(aib);
+    blk.appendChild(aipanel);
+    area.appendChild(blk);
+  });
+}
+
+function mkSecBadge(n) {
+  var d = document.createElement('div');
+  d.className = 'sec-badge';
+  d.innerHTML = '<span>📖 Section '+n+' · ~'+microMin+' min read</span>';
+  return d;
+}
+
+function splitSents(t) {
+  return t.match(/[^.!?…]+[.!?…]+["']?/g) || [t];
+}
+
+/* ═══════════════════════════════════════════
+   PROGRESS
+═══════════════════════════════════════════ */
+function updateProg() {
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = h > 0 ? Math.round(window.scrollY / h * 100) : 0;
+  document.getElementById('rd-prog').style.width = pct + '%';
+  // Trigger checkpoints at section dividers
+  document.querySelectorAll('.sec-div[data-cp-trigger]').forEach(function(el){
+    var rect = el.getBoundingClientRect();
+    if (rect.top < 0 && !el.dataset.cpDone) {
+      el.dataset.cpDone = '1';
+      var idx = parseInt(el.dataset.cpIdx);
+      var secText = paras.slice(Math.max(0, idx - 15), idx).join(' ');
+      setTimeout(function(){ showCP(secText); }, 600);
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════
+   SESSION TIMER + SMART BREAK
+═══════════════════════════════════════════ */
+function initSession() {
+  var breakAfterSec = (prefs.breakMins || 7) * 60;
+  sessInt = setInterval(function() {
+    sessSec++;
+    var m = Math.floor(sessSec/60), s = sessSec%60;
+    document.getElementById('timer-txt').textContent = m+':'+(s<10?'0':'')+s;
+    if (sessSec > 0 && sessSec % breakAfterSec === 0) showBreak();
+  }, 1000);
+  document.getElementById('micro-timer').classList.add('show');
+  document.getElementById('timer-goal').textContent = microMin+':00';
+}
+
+function showBreak() {
+  var modal = document.getElementById('break-modal');
+  modal.classList.add('on');
+  if (isRead) { speechSynthesis.cancel(); }
+  var sec = 30;
+  document.getElementById('break-cd').textContent = '0:'+sec;
+  breakInt = setInterval(function() {
+    sec--;
+    document.getElementById('break-cd').textContent = '0:'+(sec<10?'0':'')+sec;
+    if (sec <= 0) { clearInterval(breakInt); hideBreak(); }
+  }, 1000);
+}
+function hideBreak() { document.getElementById('break-modal').classList.remove('on'); clearInterval(breakInt); }
+function skipBreak() { hideBreak(); }
+
+/* ═══════════════════════════════════════════
+   TOOLBAR CONTROLS
+═══════════════════════════════════════════ */
+function setFont(f) {
+  prefs.font = f;
+  document.documentElement.style.setProperty('--reader-font', f==='lexend' ? "'Lexend',sans-serif" : "'Segoe UI',system-ui,sans-serif");
+  document.getElementById('tb-lexend').classList.toggle('on', f==='lexend');
+  document.getElementById('tb-system').classList.toggle('on', f==='system');
+  saveP();
+}
+
+function adjSize(d) {
+  var cur = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--reader-size')) || 18;
+  var nv = Math.max(14, Math.min(30, cur+d));
+  document.documentElement.style.setProperty('--reader-size', nv+'px');
+  document.getElementById('lbl-size').textContent = nv;
+  prefs.fontSize = nv; saveP();
+}
+
+function adjLine(d) {
+  var cur = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--reader-line')) || 1.85;
+  var nv = Math.max(1.3, Math.min(3.0, +(cur+d).toFixed(1)));
+  document.documentElement.style.setProperty('--reader-line', nv);
+  document.getElementById('lbl-line').textContent = nv.toFixed(1);
+  prefs.lineSpacing = nv; saveP();
+}
+
+function adjPara(d) {
+  var cur = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--reader-para')) || 28;
+  var nv = Math.max(12, Math.min(60, cur+d));
+  document.documentElement.style.setProperty('--reader-para', nv+'px');
+  prefs.paraSpacing = nv; saveP();
+}
+
+function setMode(m) {
+  ['light','cream','dark','blue'].forEach(function(x){
+    document.getElementById('tb-'+x).classList.toggle('on', x===m);
+    document.body.classList.remove('mode-'+x);
+  });
+  if (m !== 'light') document.body.classList.add('mode-'+m);
+  prefs.mode = m; saveP();
+}
+
+function setMicro(min) {
+  microMin = min;
+  [2,5,10].forEach(function(x){ document.getElementById('tb-m'+x).classList.toggle('on', x===min); });
+  document.getElementById('timer-goal').textContent = min+':00';
+  prefs.microMin = min; saveP();
+  if (paras.length) renderParas();
+}
+
+/* ═══════════════════════════════════════════
+   FOCUS MODE
+═══════════════════════════════════════════ */
+function toggleFocus() {
+  isFocus = !isFocus;
+  document.getElementById('focus-ov').classList.toggle('on', isFocus);
+  document.getElementById('tb-focus').classList.toggle('on', isFocus);
+  if (isFocus) renderFocusPara();
+}
+
+function renderFocusPara() {
+  if (!paras.length) return;
+  document.getElementById('focus-para').textContent = paras[fIdx];
+  var total = paras.length;
+  document.getElementById('focus-ctr').textContent = (fIdx+1)+' / '+total;
+  document.getElementById('focus-ctr2').textContent = (fIdx+1)+' / '+total;
+  document.getElementById('fp-prev').disabled = fIdx <= 0;
+  document.getElementById('fp-next').disabled = fIdx >= total-1;
+}
+
+function fNav(dir) {
+  fIdx = Math.max(0, Math.min(paras.length-1, fIdx+dir));
+  renderFocusPara();
+  // Sync main scroll
+  var el = document.getElementById('p'+fIdx);
+  if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+function readFocusPara() {
+  if (!paras.length) return;
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(paras[fIdx]);
+    u.rate = spd;
+    speechSynthesis.speak(u);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   READ ALOUD
+═══════════════════════════════════════════ */
+function toggleRead() {
+  if (isRead) stopRead(); else startRead();
+}
+
+function startRead() {
+  if (!sents.length) return;
+  isRead = true;
+  document.getElementById('aloud-bar').classList.add('on');
+  document.getElementById('tb-read').classList.add('on');
+  readAt(sIdx);
+}
+
+function stopRead() {
+  isRead = false;
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  clearHL();
+  document.getElementById('aloud-bar').classList.remove('on');
+  document.getElementById('tb-read').classList.remove('on');
+}
+
+function readAt(i) {
+  if (!isRead || i >= sents.length) { stopRead(); return; }
+  sIdx = i;
+  clearHL();
+  var s = sents[i];
+  s.el.classList.add('now');
+  s.el.scrollIntoView({ behavior:'smooth', block:'center' });
+  document.getElementById('a-prog').textContent = (i+1)+' / '+sents.length;
+
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(s.text);
+    u.rate = spd; u.lang = 'en-US';
+    u.onend = function(){ if (isRead) readAt(i+1); };
+    u.onerror = function(){ if (isRead) setTimeout(function(){ readAt(i+1); }, 400); };
+    speechSynthesis.speak(u);
+  } else {
+    setTimeout(function(){ if(isRead) readAt(i+1); }, s.text.split(/\s+/).length * (800/spd));
+  }
+}
+
+function clearHL() { document.querySelectorAll('.sent.now').forEach(function(e){ e.classList.remove('now'); }); }
+function nextSent() { if (isRead) { speechSynthesis.cancel(); readAt(sIdx+1); } }
+function prevSent() { if (isRead) { speechSynthesis.cancel(); readAt(Math.max(0,sIdx-1)); } }
+function jumpSent(i) { sIdx=i; if (!isRead) startRead(); else readAt(i); }
+
+function setSpd(r) {
+  spd = r;
+  document.querySelectorAll('.a-spd').forEach(function(b){ b.classList.toggle('on', parseFloat(b.dataset.r)===r); });
+  if (isRead) { speechSynthesis.cancel(); readAt(sIdx); }
+  prefs.speed = r; saveP();
+}
+
+/* ═══════════════════════════════════════════
+   AI PARAGRAPH HELP
+═══════════════════════════════════════════ */
+function toggleAIBox(paraText, panel) {
+  if (panel.classList.contains('open')) { panel.classList.remove('open'); return; }
+  panel.classList.add('open');
+  if (panel._done) return;
+  panel._done = true;
+  panel.innerHTML = '<div class="ai-label">⏳ GENERATING…</div>';
+  genParaAI(paraText, panel);
+}
+
+async function genParaAI(text, panel) {
+  var key = getApiKey();
+  if (!key) {
+    // Offline fallback
+    var words = text.replace(/[^a-zA-Z\s]/g,'').split(/\s+/).filter(function(w){ return w.length>6; });
+    var kw = [...new Set(words)].slice(0,6);
+    panel.innerHTML =
+      '<div class="ai-label">📝 SIMPLIFIED</div>' +
+      '<div class="ai-body">'+(text.length>250?text.slice(0,250)+'…':text)+'</div>' +
+      '<div class="ai-label">🔑 KEY WORDS</div>' +
+      '<div class="ai-body">'+kw.map(function(w){ return '<span class="ai-kw">'+esc(w)+'</span>'; }).join('')+'</div>' +
+      '<div style="font-size:11px;color:#9ca3af;margin-top:8px;">💡 Add Gemini API key in <a href="settings.html" style="color:#6366f1;">Settings</a> for full AI analysis.</div>';
+    return;
+  }
+  try {
+    var prompt = 'For this paragraph, provide:\n1. SIMPLIFIED: A 1-sentence plain-language summary\n2. KEY POINTS: 2-3 bullet points\n3. IMPORTANT WORDS: 4-5 key vocabulary words with brief definitions\n4. VISUAL SUMMARY: One simple analogy or image description\n\nParagraph: "'+text.slice(0,700)+'"';
+    var data = await geminiCall(prompt, key);
+    panel.innerHTML = '<div class="ai-label">🤖 AI ANALYSIS</div><div class="ai-body" style="white-space:pre-wrap;font-size:12px;">'+esc(data)+'</div>';
+  } catch(e) {
+    panel.innerHTML = '<div class="ai-label">❌ Error</div><div class="ai-body">Could not reach AI. Check API key in Settings.</div>';
+  }
+}
+
+/* ═══════════════════════════════════════════
+   CHECKPOINT
+═══════════════════════════════════════════ */
+function showCP(secText) {
+  var modal = document.getElementById('cp-modal');
+  modal.classList.add('on');
+  document.getElementById('cp-q').textContent = 'Loading question…';
+  document.getElementById('cp-input').value = '';
+  document.getElementById('cp-fb').style.display = 'none';
+  _cpAns = '';
+  genCPQ(secText);
+}
+
+async function genCPQ(text) {
+  var key = getApiKey();
+  if (!key) {
+    document.getElementById('cp-q').textContent = 'What was the main idea of this section? (Add Gemini API key for AI-generated questions)';
+    return;
+  }
+  try {
+    var prompt = 'Create ONE simple comprehension question for a student reading this section. Format exactly as:\nQUESTION: [your question]\nANSWER: [short expected answer]\n\nText: "'+text.slice(0,1000)+'"';
+    var result = await geminiCall(prompt, key);
+    var qm = result.match(/QUESTION:\s*(.+)/i);
+    var am = result.match(/ANSWER:\s*(.+)/i);
+    document.getElementById('cp-q').textContent = qm ? qm[1].trim() : 'What was the main idea of this section?';
+    _cpAns = am ? am[1].trim().toLowerCase() : '';
+  } catch(e) {
+    document.getElementById('cp-q').textContent = 'What was the main idea of this section?';
+  }
+}
+
+function checkAnswer() {
+  var ans = document.getElementById('cp-input').value.trim().toLowerCase();
+  var fb = document.getElementById('cp-fb');
+  fb.style.display = 'block';
+  if (!ans) { fb.className=''; fb.textContent='Please write your answer first.'; return; }
+  var correct = !_cpAns || (ans.length > 3 && (_cpAns.slice(0,12).split(/\s+/).some(function(w){ return ans.includes(w); }) || ans.length > 20));
+  fb.className = correct ? 'ok' : 'no';
+  fb.textContent = correct
+    ? '✅ Well done! Keep reading.'
+    : '❌ Not quite. ' + (_cpAns ? 'Hint: '+_cpAns : 'Try reading the section again.');
+  if (correct) setTimeout(skipCP, 1600);
+}
+
+function explainAgain() {
+  skipCP();
+  if (sIdx > 10) { sIdx = Math.max(0, sIdx-10); if (!isRead) startRead(); else readAt(sIdx); }
+}
+function skipCP() { document.getElementById('cp-modal').classList.remove('on'); }
+
+/* ═══════════════════════════════════════════
+   VISUAL AI PANEL
+═══════════════════════════════════════════ */
+function toggleVS() {
+  var p = document.getElementById('vs-panel');
+  p.classList.toggle('on');
+  document.getElementById('tb-ai').classList.toggle('on', p.classList.contains('on'));
+}
+
+var vsPrompts = {
+  mindmap: 'Create a simple text-based mind map of the key concepts in this book excerpt. Use indented bullet points to show relationships.',
+  timeline: 'List the key events from this text in chronological order. Format: [Sequence] → [Event description]',
+  characters: 'List all important characters mentioned. Format: [Name] — [Brief description and role]',
+  places: 'List all important places/settings mentioned. Format: [Place] — [Brief description]',
+  concepts: 'Create a simple concept diagram showing the main ideas and how they connect. Use text with arrows (→) to show relationships.'
+};
+
+async function doVS(type) {
+  var out = document.getElementById('vs-out');
+  out.innerHTML = '⏳ Generating…';
+  var key = getApiKey();
+  if (!key) {
+    out.innerHTML = '💡 Add your Gemini API key in <a href="settings.html" style="color:#6366f1;font-weight:600;">Settings</a> for AI visual support.';
+    return;
+  }
+  var context = paras.slice(0,25).join(' ').slice(0,1200);
+  try {
+    var result = await geminiCall(vsPrompts[type]+'\n\nBook: "'+BK.title+'"'+(BK.author?' by '+BK.author:'')+'\nText sample: "'+context+'"', key);
+    out.innerHTML = '<pre style="white-space:pre-wrap;font-family:inherit;font-size:11px;line-height:1.6;">'+esc(result)+'</pre>';
+  } catch(e) { out.innerHTML = 'Error. Check API key in Settings.'; }
+}
+
+/* ═══════════════════════════════════════════
+   GEMINI HELPER
+═══════════════════════════════════════════ */
+function getApiKey() {
+  try { return (JSON.parse(localStorage.getItem('cs_user_prefs')||'{}')).gemini_key || ''; } catch(e){ return ''; }
+}
+
+async function geminiCall(prompt, key) {
+  var r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ contents:[{ parts:[{ text: prompt }] }] })
+  });
+  var d = await r.json();
+  if (d.error) throw new Error(d.error.message);
+  return (d.candidates||[])[0]?.content?.parts?.[0]?.text || 'No response.';
+}
+
+/* ═══════════════════════════════════════════
+   VOICE NAVIGATION
+═══════════════════════════════════════════ */
+function initVoice() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) return;
+  var rec = new SR();
+  rec.continuous = true;
+  rec.interimResults = false;
+  rec.lang = 'en-US';
+  rec.onresult = function(e) {
+    var cmd = e.results[e.results.length-1][0].transcript.trim().toLowerCase();
+    if (cmd.includes('next')) { if(isFocus) fNav(1); else nextSent(); }
+    else if (cmd.includes('previous') || cmd.includes('back')) { if(isFocus) fNav(-1); else prevSent(); }
+    else if (cmd.includes('read') || cmd.includes('start')) { if(!isRead) startRead(); }
+    else if (cmd.includes('pause') || cmd.includes('stop')) { if(isRead) stopRead(); }
+    else if (cmd.includes('continue')) { if(!isRead) startRead(); }
+    else if (cmd.includes('focus')) { toggleFocus(); }
+    else if (cmd.includes('summarise') || cmd.includes('summarize')) {
+      var btn = document.querySelectorAll('.para-ai-btn')[Math.floor(paras.length/2)];
+      if (btn) btn.click();
+    }
+  };
+  rec.onerror = function(){};
+  try { rec.start(); } catch(e){}
+}
+
+/* ═══════════════════════════════════════════
+   KEYBOARD NAVIGATION
+═══════════════════════════════════════════ */
+document.addEventListener('keydown', function(e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowRight' || e.key === 'n') { if(isFocus) fNav(1); else nextSent(); }
+  if (e.key === 'ArrowLeft'  || e.key === 'b') { if(isFocus) fNav(-1); else prevSent(); }
+  if (e.key === ' ') { e.preventDefault(); toggleRead(); }
+  if (e.key === 'f') toggleFocus();
+  if (e.key === 'Escape') {
+    if (isFocus) toggleFocus();
+    if (isRead)  stopRead();
+  }
+});
+
+/* ═══════════════════════════════════════════
+   APPLY SAVED PREFERENCES
+═══════════════════════════════════════════ */
+function applyPrefs() {
+  if (prefs.fontSize)    { document.documentElement.style.setProperty('--reader-size', prefs.fontSize+'px'); document.getElementById('lbl-size').textContent=prefs.fontSize; }
+  if (prefs.lineSpacing) { document.documentElement.style.setProperty('--reader-line', prefs.lineSpacing); document.getElementById('lbl-line').textContent=parseFloat(prefs.lineSpacing).toFixed(1); }
+  if (prefs.paraSpacing) { document.documentElement.style.setProperty('--reader-para', prefs.paraSpacing+'px'); }
+  if (prefs.mode)        { setMode(prefs.mode); }
+  if (prefs.font)        { setFont(prefs.font); }
+  if (prefs.microMin)    { microMin=prefs.microMin; setMicro(microMin); }
+  if (prefs.speed)       { spd=prefs.speed; setSpd(prefs.speed); }
+}
+</script>
+</body>
+</html>
