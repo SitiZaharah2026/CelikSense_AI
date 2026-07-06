@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAB Pusat Sumber – CelikSense AI</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+:root {
+  --il-primary: #1d4ed8;
+  --il-secondary: #0891b2;
+  --il-green:   #059669;
+  --il-amber:   #d97706;
+  --il-violet:  #7c3aed;
+  --il-red:     #dc2626;
+  --il-bg:      #f0f4ff;
+  --il-surface: #ffffff;
+  --il-border:  #dbeafe;
+  --il-text:    #0f172a;
+  --il-muted:   #475569;
+  --il-dim:     #94a3b8;
+  --radius:     14px;
+  --shadow:     0 1px 4px rgba(29,78,216,.07), 0 6px 20px rgba(29,78,216,.07);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--il-bg);color:var(--il-text);min-height:100vh;}
+.skip-link{position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:var(--il-primary);color:#fff;border-radius:4px;font-size:14px;text-decoration:none;}
+.skip-link:focus{left:8px;}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+.il-hero{background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 50%,#0891b2 100%);padding:56px 24px 44px;text-align:center;position:relative;overflow:hidden;}
+.il-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 20%,rgba(255,255,255,.1) 0%,transparent 55%);pointer-events:none;}
+.il-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);color:#bfdbfe;font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:6px 18px;border-radius:999px;margin-bottom:18px;}
+.il-hero h1{font-size:clamp(26px,5vw,42px);font-weight:900;color:#fff;letter-spacing:-.5px;margin-bottom:8px;}
+.il-hero-sub{font-size:clamp(14px,2.5vw,18px);color:rgba(255,255,255,.75);margin-bottom:22px;}
+.il-hero-stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;}
+.il-stat{text-align:center;}
+.il-stat-num{font-size:28px;font-weight:900;color:#fff;}
+.il-stat-label{font-size:11px;color:rgba(255,255,255,.65);font-weight:600;letter-spacing:.5px;}
+.il-lang-btn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:13px;font-weight:800;padding:9px 22px;border-radius:9px;cursor:pointer;transition:background .2s;}
+.il-lang-btn:hover{background:rgba(255,255,255,.28);}
+
+/* ── Disclaimer ───────────────────────────────────────────────────────── */
+.il-disclaimer{background:#eff6ff;border-bottom:2px solid #bfdbfe;padding:11px 24px;text-align:center;font-size:13px;color:#1e40af;}
+.il-disclaimer strong{color:#1e3a8a;}
+
+/* ── Container ────────────────────────────────────────────────────────── */
+.il-container{max-width:1200px;margin:0 auto;padding:36px 20px 72px;display:flex;flex-direction:column;gap:28px;}
+
+/* ── Search & Filter ──────────────────────────────────────────────────── */
+.il-search-card{background:var(--il-surface);border:1px solid var(--il-border);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px;}
+.il-search-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.il-search-input{flex:1;min-width:200px;padding:13px 18px;border:2px solid var(--il-border);border-radius:10px;font-size:16px;color:var(--il-text);background:#f8faff;outline:none;font-family:inherit;transition:border-color .2s;}
+.il-search-input:focus{border-color:var(--il-primary);background:#fff;}
+.il-search-input::placeholder{color:var(--il-dim);}
+.il-search-btn{background:var(--il-primary);color:#fff;font-size:14px;font-weight:800;padding:13px 24px;border-radius:10px;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.il-search-btn:hover{background:#1e40af;transform:translateY(-1px);}
+.il-filter-row{display:flex;flex-wrap:wrap;gap:8px;}
+.il-filter-btn{background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .15s;font-family:inherit;}
+.il-filter-btn:hover,.il-filter-btn.active{background:var(--il-primary);color:#fff;border-color:var(--il-primary);}
+.il-result-count{font-size:13px;color:var(--il-muted);margin-top:10px;}
+
+/* ── Collection section ───────────────────────────────────────────────── */
+.il-section{background:var(--il-surface);border:1px solid var(--il-border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.il-section-header{display:flex;align-items:center;gap:12px;padding:16px 22px;background:linear-gradient(90deg,#eff6ff,#f0fdfa);border-bottom:1px solid var(--il-border);cursor:pointer;user-select:none;}
+.il-section-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.il-section-title{font-size:15px;font-weight:800;color:var(--il-text);flex:1;}
+.il-section-count{font-size:12px;font-weight:700;color:var(--il-primary);background:#dbeafe;padding:3px 10px;border-radius:20px;}
+.il-section-toggle{font-size:18px;color:var(--il-dim);transition:transform .2s;}
+.il-section-header.open .il-section-toggle{transform:rotate(180deg);}
+.il-section-body{padding:16px 22px;display:none;}
+.il-section-body.open{display:block;}
+
+/* ── Book grid ────────────────────────────────────────────────────────── */
+.il-book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.il-book-card{background:#f8faff;border:1px solid #dbeafe;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;transition:all .15s;}
+.il-book-card:hover{border-color:var(--il-primary);background:#eff6ff;transform:translateY(-1px);box-shadow:0 3px 12px rgba(29,78,216,.1);}
+.il-book-card.hidden{display:none;}
+.il-book-title{font-size:13px;font-weight:700;color:var(--il-text);line-height:1.45;}
+.il-book-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.il-book-tag{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:2px 8px;border-radius:4px;}
+.il-book-tag.education{background:#dcfce7;color:#166534;}
+.il-book-tag.leadership{background:#dbeafe;color:#1e40af;}
+.il-book-tag.digital{background:#fae8ff;color:#7c3aed;}
+.il-book-tag.personal{background:#fef9c3;color:#854d0e;}
+.il-book-tag.legal{background:#fee2e2;color:#991b1b;}
+.il-book-tag.malay{background:#fef3c7;color:#92400e;}
+.il-book-tag.general{background:#f1f5f9;color:#475569;}
+.il-book-link{display:inline-flex;align-items:center;gap:5px;background:var(--il-primary);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;text-decoration:none;margin-top:2px;width:fit-content;transition:background .15s;}
+.il-book-link:hover{background:#1e40af;}
+.il-book-link.drive{background:#059669;}
+.il-book-link.drive:hover{background:#047857;}
+.il-book-link.search{background:#7c3aed;}
+.il-book-link.search:hover{background:#6d28d9;}
+
+/* ── Bulletin list ────────────────────────────────────────────────────── */
+.il-bulletin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+.il-bulletin-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px;text-align:center;transition:all .15s;}
+.il-bulletin-card:hover{border-color:#059669;transform:translateY(-1px);}
+.il-bulletin-icon{font-size:26px;margin-bottom:6px;}
+.il-bulletin-title{font-size:12px;font-weight:800;color:#065f46;margin-bottom:8px;}
+.il-bulletin-link{display:inline-flex;align-items:center;gap:4px;background:#059669;color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;text-decoration:none;transition:background .15s;}
+.il-bulletin-link:hover{background:#047857;}
+
+/* ── External link card ───────────────────────────────────────────────── */
+.il-ext-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.il-ext-card{background:linear-gradient(135deg,#eff6ff,#f0fdfa);border:1px solid #bfdbfe;border-radius:12px;padding:18px;transition:all .15s;}
+.il-ext-card:hover{border-color:var(--il-primary);transform:translateY(-2px);box-shadow:0 4px 16px rgba(29,78,216,.12);}
+.il-ext-icon{font-size:28px;margin-bottom:10px;}
+.il-ext-name{font-size:14px;font-weight:800;color:var(--il-text);margin-bottom:6px;}
+.il-ext-desc{font-size:12px;color:var(--il-muted);line-height:1.5;margin-bottom:12px;}
+.il-ext-btn{display:inline-flex;align-items:center;gap:6px;background:var(--il-primary);color:#fff;font-size:12px;font-weight:700;padding:7px 16px;border-radius:7px;text-decoration:none;transition:background .15s;}
+.il-ext-btn:hover{background:#1e40af;}
+
+/* ── Related ──────────────────────────────────────────────────────────── */
+.il-related{display:flex;flex-wrap:wrap;gap:10px;}
+.il-rel-link{display:inline-flex;align-items:center;gap:7px;background:#f1f5f9;border:1px solid #e2e8f0;color:#475569;font-size:13px;font-weight:700;padding:9px 16px;border-radius:9px;text-decoration:none;transition:all .15s;}
+.il-rel-link:hover{background:#eff6ff;border-color:#bfdbfe;color:var(--il-primary);}
+
+/* ── Util ─────────────────────────────────────────────────────────────── */
+.il-card{background:var(--il-surface);border:1px solid var(--il-border);border-radius:var(--radius);box-shadow:var(--shadow);}
+.il-card-header{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--il-border);}
+.il-card-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.il-card-title{font-size:15px;font-weight:800;color:var(--il-text);}
+.il-card-body{padding:20px 22px;}
+
+@media(max-width:600px){
+  .il-book-grid{grid-template-columns:1fr;}
+  .il-bulletin-grid{grid-template-columns:repeat(3,1fr);}
+  .il-search-btn{width:100%;justify-content:center;}
+}
+</style>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link" tabindex="0">Skip to main content</a>
+
+<main id="main" style="padding-top:var(--nav-h,60px);">
+
+<!-- ── Hero ───────────────────────────────────────────────────────────── -->
+<div class="il-hero" role="banner">
+  <div class="il-hero-badge">📚 IAB Pusat Sumber</div>
+  <h1 id="heroTitle">IAB Library Collection</h1>
+  <p class="il-hero-sub" id="heroSub">Institut Aminuddin Baki — Koleksi Pusat Sumber Digital</p>
+  <div class="il-hero-stats">
+    <div class="il-stat"><div class="il-stat-num">200+</div><div class="il-stat-label" id="statBooks">Books</div></div>
+    <div class="il-stat"><div class="il-stat-num">6</div><div class="il-stat-label" id="statCollections">Collections</div></div>
+    <div class="il-stat"><div class="il-stat-num">25</div><div class="il-stat-label" id="statBulletins">Bulletins</div></div>
+  </div>
+  <button class="il-lang-btn" onclick="toggleLang()" id="langBtn">🌐 BM / EN</button>
+</div>
+
+<!-- ── Disclaimer ─────────────────────────────────────────────────────── -->
+<div class="il-disclaimer" role="note">
+  <strong id="discLabel">Nota:</strong>
+  <span id="discText"> Koleksi ini adalah hak milik Institut Aminuddin Baki (IAB). Buku fizikal boleh dipinjam melalui OPAC. E-buku adalah untuk rujukan dan pembacaan sahaja.</span>
+</div>
+
+<div class="il-container" id="main-content">
+
+  <!-- ── Search & Filter ────────────────────────────────────────────── -->
+  <div class="il-search-card" role="search" aria-label="Search library books">
+    <div class="il-search-row">
+      <input id="ilSearch" class="il-search-input" type="search"
+        placeholder="Search books / Cari buku..."
+        aria-label="Search books" autocomplete="off"
+        oninput="filterBooks()" />
+      <button class="il-search-btn" onclick="filterBooks()" aria-label="Search">🔍 <span id="searchBtnLabel">Search</span></button>
+    </div>
+    <div class="il-filter-row" role="group" aria-label="Filter by category">
+      <button class="il-filter-btn active" onclick="setFilter('all',this)" data-filter="all" id="fAll">All / Semua</button>
+      <button class="il-filter-btn" onclick="setFilter('leadership',this)" data-filter="leadership">Leadership</button>
+      <button class="il-filter-btn" onclick="setFilter('education',this)" data-filter="education">Education</button>
+      <button class="il-filter-btn" onclick="setFilter('digital',this)" data-filter="digital">Digital & Tech</button>
+      <button class="il-filter-btn" onclick="setFilter('personal',this)" data-filter="personal">Personal Dev</button>
+      <button class="il-filter-btn" onclick="setFilter('malay',this)" data-filter="malay">BM Books</button>
+      <button class="il-filter-btn" onclick="setFilter('legal',this)" data-filter="legal">Legal & Policy</button>
+    </div>
+    <div class="il-result-count" id="resultCount" aria-live="polite"></div>
+  </div>
+
+  <!-- ── BUKU BAHARU 2025 ────────────────────────────────────────────── -->
+  <div class="il-section" id="sec2025">
+    <div class="il-section-header open" onclick="toggleSection('sec2025')" role="button" aria-expanded="true" tabindex="0">
+      <div class="il-section-icon" style="background:#dbeafe;">📘</div>
+      <div class="il-section-title" id="s2025Title">Buku Baharu 2025</div>
+      <span class="il-section-count">34 books</span>
+      <span class="il-section-toggle">▾</span>
+    </div>
+    <div class="il-section-body open" id="sec2025Body">
+      <div class="il-book-grid" id="grid2025"></div>
+    </div>
+  </div>
+
+  <!-- ── BUKU BAHARU 2024 ────────────────────────────────────────────── -->
+  <div class="il-section" id="sec2024">
+    <div class="il-section-header open" onclick="toggleSection('sec2024')" role="button" aria-expanded="true" tabindex="0">
+      <div class="il-section-icon" style="background:#e0e7ff;">📗</div>
+      <div class="il-section-title" id="s2024Title">Buku Baharu 2024</div>
+      <span class="il-section-count">71 books</span>
+      <span class="il-section-toggle">▾</span>
+    </div>
+    <div class="il-section-body open" id="sec2024Body">
+      <div class="il-book-grid" id="grid2024"></div>
+    </div>
+  </div>
+
+  <!-- ── E-BUKU PSP ──────────────────────────────────────────────────── -->
+  <div class="il-section" id="secEbuku">
+    <div class="il-section-header" onclick="toggleSection('secEbuku')" role="button" aria-expanded="false" tabindex="0">
+      <div class="il-section-icon" style="background:#fae8ff;">💻</div>
+      <div class="il-section-title" id="sEbukuTitle">E-Buku PSP</div>
+      <span class="il-section-count">100+ e-books</span>
+      <span class="il-section-toggle">▾</span>
+    </div>
+    <div class="il-section-body" id="secEbukuBody">
+      <p style="font-size:13px;color:var(--il-muted);margin-bottom:14px;" id="ebukuNote">Buku-buku ini hanya digunakan bagi tujuan rujukan dan pembacaan sahaja.</p>
+      <div class="il-book-grid" id="gridEbuku"></div>
+    </div>
+  </div>
+
+  <!-- ── BULETIN IAB ─────────────────────────────────────────────────── -->
+  <div class="il-section" id="secBuletin">
+    <div class="il-section-header" onclick="toggleSection('secBuletin')" role="button" aria-expanded="false" tabindex="0">
+      <div class="il-section-icon" style="background:#dcfce7;">📰</div>
+      <div class="il-section-title" id="sBuletinTitle">Buletin IAB</div>
+      <span class="il-section-count">25 issues</span>
+      <span class="il-section-toggle">▾</span>
+    </div>
+    <div class="il-section-body" id="secBuletinBody">
+      <div class="il-bulletin-grid" id="gridBuletin"></div>
+    </div>
+  </div>
+
+  <!-- ── External access ────────────────────────────────────────────── -->
+  <div class="il-card">
+    <div class="il-card-header">
+      <div class="il-card-icon" style="background:#eff6ff;">🌐</div>
+      <div class="il-card-title" id="extTitle">Akses Lanjut / Extended Access</div>
+    </div>
+    <div class="il-card-body">
+      <div class="il-ext-grid">
+        <div class="il-ext-card">
+          <div class="il-ext-icon">🔍</div>
+          <div class="il-ext-name">OPAC IAB</div>
+          <div class="il-ext-desc" id="extOpacDesc">Katalog perpustakaan dalam talian — cari semua koleksi fizikal IAB.</div>
+          <a href="https://lib.iab.edu.my/cgi-bin/koha/opac-main.pl" target="_blank" rel="noopener" class="il-ext-btn">Open OPAC ↗</a>
+        </div>
+        <div class="il-ext-card">
+          <div class="il-ext-icon">📂</div>
+          <div class="il-ext-name">Repositori IAB</div>
+          <div class="il-ext-desc" id="extRepoDesc">eprints.iab.edu.my — swakarya, laporan tahunan, dan penerbitan IAB.</div>
+          <a href="https://eprints.iab.edu.my" target="_blank" rel="noopener" class="il-ext-btn">Open Repository ↗</a>
+        </div>
+        <div class="il-ext-card">
+          <div class="il-ext-icon">📚</div>
+          <div class="il-ext-name">E-Buku ProQuest</div>
+          <div class="il-ext-desc" id="extProqDesc">Pangkalan data e-buku antarabangsa — akses melalui akaun IAB.</div>
+          <a href="https://sites.google.com/iab.edu.my/pusatsumberiabinduk/koleksi/e-buku-proquest" target="_blank" rel="noopener" class="il-ext-btn">Access ProQuest ↗</a>
+        </div>
+        <div class="il-ext-card">
+          <div class="il-ext-icon">📋</div>
+          <div class="il-ext-name">Pusat Sumber IAB</div>
+          <div class="il-ext-desc" id="extPsDesc">Laman utama Pusat Sumber IAB — semua koleksi, pameran dan sumber digital.</div>
+          <a href="https://sites.google.com/iab.edu.my/pusatsumberiabinduk/laman-utama" target="_blank" rel="noopener" class="il-ext-btn">Visit Site ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Related tools ──────────────────────────────────────────────── -->
+  <div class="il-card">
+    <div class="il-card-header">
+      <div class="il-card-icon" style="background:#f0fdf4;">🔗</div>
+      <div class="il-card-title" id="relTitle">Related Tools</div>
+    </div>
+    <div class="il-card-body">
+      <div class="il-related">
+        <a href="book-discovery.html" class="il-rel-link">📖 Book Discovery</a>
+        <a href="reading-companion.html" class="il-rel-link">📚 Reading Companion</a>
+        <a href="signsense-dictionary.html" class="il-rel-link">📖 SignSense Dictionary</a>
+        <a href="ai-librarian.html" class="il-rel-link">🤖 AI Librarian</a>
+        <a href="dashboard.html" class="il-rel-link">🏠 Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /il-container -->
+</main>
+
+<script>
+'use strict';
+
+// ── i18n ───────────────────────────────────────────────────────────────────
+var LABELS = {
+  en: {
+    heroTitle:'IAB Library Collection', heroSub:'Institut Aminuddin Baki — Digital Resource Centre',
+    statBooks:'Books', statCollections:'Collections', statBulletins:'Bulletins',
+    langBtn:'🌐 BM / EN',
+    discLabel:'Note:', discText:' This collection belongs to Institut Aminuddin Baki (IAB). Physical books can be borrowed via OPAC. E-books are for reference and reading only.',
+    searchBtnLabel:'Search',
+    s2025Title:'New Books 2025', s2024Title:'New Books 2024',
+    sEbukuTitle:'E-Books PSP', sBuletinTitle:'IAB Bulletin',
+    ebukuNote:'These e-books are for reference and reading purposes only.',
+    extTitle:'Extended Access',
+    extOpacDesc:'Online library catalogue — search all IAB physical collections.',
+    extRepoDesc:'eprints.iab.edu.my — self-authored works, annual reports, and IAB publications.',
+    extProqDesc:'International e-book database — access via IAB account.',
+    extPsDesc:'IAB Resource Centre homepage — all collections, exhibitions and digital resources.',
+    relTitle:'Related Tools',
+    fAll:'All', countMsg:'Showing {n} items'
+  },
+  ms: {
+    heroTitle:'Koleksi Perpustakaan IAB', heroSub:'Institut Aminuddin Baki — Koleksi Pusat Sumber Digital',
+    statBooks:'Buku', statCollections:'Koleksi', statBulletins:'Buletin',
+    langBtn:'🌐 EN / BM',
+    discLabel:'Nota:', discText:' Koleksi ini adalah hak milik Institut Aminuddin Baki (IAB). Buku fizikal boleh dipinjam melalui OPAC. E-buku adalah untuk rujukan dan pembacaan sahaja.',
+    searchBtnLabel:'Cari',
+    s2025Title:'Buku Baharu 2025', s2024Title:'Buku Baharu 2024',
+    sEbukuTitle:'E-Buku PSP', sBuletinTitle:'Buletin IAB',
+    ebukuNote:'Buku-buku ini hanya digunakan bagi tujuan rujukan dan pembacaan sahaja.',
+    extTitle:'Akses Lanjut',
+    extOpacDesc:'Katalog perpustakaan dalam talian — cari semua koleksi fizikal IAB.',
+    extRepoDesc:'eprints.iab.edu.my — swakarya, laporan tahunan, dan penerbitan IAB.',
+    extProqDesc:'Pangkalan data e-buku antarabangsa — akses melalui akaun IAB.',
+    extPsDesc:'Laman utama Pusat Sumber IAB — semua koleksi, pameran dan sumber digital.',
+    relTitle:'Alat Berkaitan',
+    fAll:'Semua', countMsg:'Menunjukkan {n} item'
+  }
+};
+var lang = localStorage.getItem('cs_lang') || 'ms';
+function t(k){ return (LABELS[lang]&&LABELS[lang][k])||LABELS.en[k]||k; }
+function toggleLang(){ lang = lang==='ms'?'en':'ms'; localStorage.setItem('cs_lang',lang); applyLang(); }
+function applyLang(){
+  ['heroTitle','heroSub','statBooks','statCollections','statBulletins','langBtn',
+   'discLabel','discText','searchBtnLabel','s2025Title','s2024Title',
+   'sEbukuTitle','sBuletinTitle','ebukuNote','extTitle','extOpacDesc',
+   'extRepoDesc','extProqDesc','extPsDesc','relTitle'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=t(id);
+  });
+  var fa=document.getElementById('fAll'); if(fa) fa.textContent=t('fAll');
+  document.documentElement.lang=lang==='ms'?'ms':'en';
+  updateCount();
+}
+
+// ── Book data ──────────────────────────────────────────────────────────────
+var BOOKS_2025 = [
+  {t:'Interdisciplinary Approaches in Management Education',cat:'education',opac:'86208'},
+  {t:'Making Technology Work in Schools',cat:'education',opac:'86207'},
+  {t:'Outdoor Learning in Higher Education',cat:'education',opac:'86203'},
+  {t:'Positive Language Education',cat:'education',opac:'86202'},
+  {t:'Positive Special Education',cat:'education',opac:'86201'},
+  {t:'Research Mobilities in Primary Literacy Education',cat:'education',opac:'86198'},
+  {t:'School Counselling in East and South-East Asia',cat:'education',opac:'86196'},
+  {t:'Shaping School Success',cat:'education',opac:'86205'},
+  {t:'Teaching and Learning with Innovative Technologies in Higher Education',cat:'digital',opac:'86204'},
+  {t:'Teaching for Retention',cat:'education',opac:'86200'},
+  {t:'Teaching Middle School Physical Education',cat:'education',opac:'86199'},
+  {t:'The Behaviour Whisperer',cat:'education',opac:'86197'},
+  {t:'The Principal\'s Special Education Calendar',cat:'education',opac:'86195'},
+  {t:'Trauma-Informed Teaching in Your Elementary Classroom',cat:'education',opac:'86194'},
+  {t:'Understanding Anxiety at School',cat:'education',opac:'86206'},
+  {t:'Working with Uncertainty for Educational Change',cat:'education',opac:'86210'},
+  {t:'Beyond Exchange: Revisiting Leadership As A Relationship',cat:'leadership',opac:'86191'},
+  {t:'Crossing the Border From Preservice to Inservice Science Teacher',cat:'education',opac:'86189'},
+  {t:'Dark and Destructive Leadership',cat:'leadership',opac:'86188'},
+  {t:'Foundations of Leadership',cat:'leadership',opac:'86187'},
+  {t:'Lessons Learned From Research on Mathematics Curriculum',cat:'education',opac:'86185'},
+  {t:'Teacher Induction Policy in Global Contexts',cat:'education',opac:'86183'},
+  {t:'Unfinished Business: A Regional Education Laboratory Retrospective',cat:'education',opac:'86184'},
+  {t:'Governance of Higher Education',cat:'education',opac:'86186'},
+  {t:'Pendidikan Karakter: Modul Resolusi Konflik',cat:'malay',opac:'86190'},
+  {t:'Kamus Dewan Perdana',cat:'malay',opac:'86192'},
+  {t:'Inovasi Pengajaran Dan Pembelajaran',cat:'malay',opac:'86193'},
+  {t:'KBAT Dalam Pendidikan Di Malaysia',cat:'malay',opac:'86254'},
+  {t:'Calling Bullshit: The Art of Skepticism in a Data-Driven World',cat:'personal',opac:'86255'},
+  {t:'Co-Opetition',cat:'leadership',opac:'86250'},
+  {t:'Split the Pie: A Radical New Way to Negotiate',cat:'personal',opac:'86252'},
+  {t:'Noise: A Flaw in Human Judgment',cat:'personal',opac:'86251'},
+  {t:'Justice: What\'s the Right Thing to Do?',cat:'personal',opac:'86253'},
+  {t:'AI Guru: Siri 1 Mahir AI Generatif Menggunakan Prompt Engineering Framework',cat:'digital',opac:'86209'},
+];
+
+var BOOKS_2024 = [
+  {t:'A Guide to Curriculum Mapping',cat:'education'},
+  {t:'A Teacher\'s Guide to Conversational AI',cat:'digital'},
+  {t:'Academic Advising Administration',cat:'education'},
+  {t:'Addressing Tensions and Dilemmas in Inclusive Education',cat:'education'},
+  {t:'Administrative Leaders and School Counselors',cat:'leadership'},
+  {t:'Advancements in Artificial Intelligence, Blockchain Technology, and IoT in Higher Education',cat:'digital'},
+  {t:'Aminuddin Baki di Rumah Persekutuan',cat:'malay'},
+  {t:'An Evidence-Based Systems Approach to School Counseling',cat:'education'},
+  {t:'Analysing Education Policy: Theory and Method',cat:'education'},
+  {t:'Becoming a More Assertive Teacher',cat:'education'},
+  {t:'Becoming an Everyday Changemaker',cat:'personal'},
+  {t:'Bubble Schools and the Long Road from Lockdown',cat:'education'},
+  {t:'Building Competence in School Consultation',cat:'education'},
+  {t:'Building Dynamic Teamwork in Schools',cat:'leadership'},
+  {t:'Critical Teaching Behaviors',cat:'education'},
+  {t:'Decentring Leadership: Rethinking Leading in Education Contexts',cat:'leadership'},
+  {t:'Developing an Outstanding Curriculum',cat:'education'},
+  {t:'Developing Culturally and Developmentally Appropriate Early STEM Learning',cat:'education'},
+  {t:'Developing Inclusive Schools: Pathways to Success',cat:'education'},
+  {t:'Digitalization and Digital Competence in Educational Contexts',cat:'digital'},
+  {t:'Empowering Teachers for Equitable and Sustainable Education',cat:'education'},
+  {t:'Empowering Young Leaders',cat:'leadership'},
+  {t:'Finding Your Path as a Woman in School Leadership',cat:'leadership'},
+  {t:'General Education Essentials: A Guide for College Faculty',cat:'education'},
+  {t:'Global Sport Management Education',cat:'education'},
+  {t:'Good Education in a Fragile World',cat:'education'},
+  {t:'Guide to Digital Accessibility',cat:'digital'},
+  {t:'Implementing a 21st Century Competency-Based Curriculum',cat:'education'},
+  {t:'Improving Teacher Morale and Motivation',cat:'leadership'},
+  {t:'Improving Thinking in the Classroom',cat:'education'},
+  {t:'In Search of Education, Participation and Inclusion',cat:'education'},
+  {t:'Innovating Assessment and Feedback Design in Teacher Education',cat:'education'},
+  {t:'Inspiring Purpose in High-Performance Schooling',cat:'leadership'},
+  {t:'Leading in Multicultural Schools',cat:'leadership'},
+  {t:'Mentoring Teachers: Supporting Learning, Wellbeing and Retention',cat:'education'},
+  {t:'New Perspectives on Educational Resources',cat:'education'},
+  {t:'Outstanding Leadership in Special Educational Needs',cat:'leadership'},
+  {t:'Resistance in Educational Leadership, Management, and Administration',cat:'leadership'},
+  {t:'Responsive Teaching for Sustainable Learning',cat:'education'},
+  {t:'Rethinking Knowledgeable Practice in Education',cat:'education'},
+  {t:'School Staff Culture: Knowledge-Building, Reflection and Action',cat:'education'},
+  {t:'Schooling, Human Capital and Civilization',cat:'education'},
+  {t:'Self-Organised Schools: Educational Leadership and Innovative Learning',cat:'leadership'},
+  {t:'So... What Does an Outstanding Teacher Do?',cat:'education'},
+  {t:'Strategic Human Resources Management in Schools',cat:'leadership'},
+  {t:'Strength Basing, Empowering and Regenerating Indigenous Knowledge Education',cat:'education'},
+  {t:'Supporting Higher Education 4.0 With Blockchain',cat:'digital'},
+  {t:'Teach From Your Best Self',cat:'education'},
+  {t:'Teacher Professional Learning Through Lesson Study',cat:'education'},
+  {t:'Teaching Cybersecurity',cat:'digital'},
+  {t:'The Edu-Book Club: Making CPD Resources Work',cat:'education'},
+  {t:'The Ethics of Becoming a Good Teacher',cat:'education'},
+  {t:'The Innovative Management Education Ecosystem',cat:'leadership'},
+  {t:'The Participatory Creativity Guide for Educators',cat:'education'},
+  {t:'Towards Powerful Educational Knowledge',cat:'education'},
+  {t:'Understanding a Pedagogy of Teacher Education',cat:'education'},
+  {t:'Understanding the Causes and Consequences of School Exclusions',cat:'education'},
+  {t:'Understanding the Quality Use of Research Evidence in Education',cat:'education'},
+  {t:'Understanding Virtual Reality: Challenging Perspectives for Media Literacy',cat:'digital'},
+  {t:'Unlocking the Power of Teacher Feedback',cat:'education'},
+  {t:'Untethering Educational Leadership: Cases from Chinese Cinema',cat:'leadership'},
+  {t:'Vertical Differentiation for Gifted, Advanced, and High-Potential Students',cat:'education'},
+  {t:'Visualize Your Teaching',cat:'education'},
+  {t:'What Do Great Teachers Say?',cat:'education'},
+  {t:'Writing Well and Being Well for Your PhD',cat:'personal'},
+  {t:'You and Your Living-Educational Theory',cat:'education'},
+  {t:'Getting Schools to Work Better',cat:'education'},
+  {t:'Making Changes in STEM Education',cat:'education'},
+  {t:'Value-Creating Education',cat:'education'},
+  {t:'Assessment to Support Learning and Teaching',cat:'education'},
+  {t:'The Routledge International Handbook of Dyslexia in Education',cat:'education'},
+];
+
+var BOOKS_EBUKU = [
+  // Leadership
+  {t:'Brave Leadership: Unleash Your Most Confident, Powerful, and Authentic Self',cat:'leadership'},
+  {t:'Courageous Leadership: The Missing Link to Creating a Lean Culture of Excellence',cat:'leadership'},
+  {t:'Cracking the Leadership Code',cat:'leadership'},
+  {t:'Down the Rabbit Hole of Leadership',cat:'leadership'},
+  {t:'Educational Leadership Relationally',cat:'leadership'},
+  {t:'Effective and Creative Leadership in Diverse Workforces',cat:'leadership'},
+  {t:'Evolving Digital Leadership',cat:'digital'},
+  {t:'Good People: The Only Leadership Decision That Really Matters',cat:'leadership'},
+  {t:'Intelligent Disobedience: The Difference Between Good and Great Leaders',cat:'leadership'},
+  {t:'Leadership Resilience in a Digital Age',cat:'leadership'},
+  {t:'Leadership Rising: Raise your Awareness, Raise your Leadership',cat:'leadership'},
+  {t:'Leading in a VUCA World',cat:'leadership'},
+  {t:'Lessons in Leadership: 12 Key Concepts',cat:'leadership'},
+  {t:'Scaling Leadership: Building Organizational Capability and Capacity',cat:'leadership'},
+  {t:'The 5 Levels of Leadership',cat:'leadership'},
+  {t:'The 9 Types of Leadership',cat:'leadership'},
+  {t:'The CEO Next Door: The 4 Behaviors that Transform Ordinary People',cat:'leadership'},
+  {t:'The Kind Leader: A Practical Guide to Eliminating Fear',cat:'leadership'},
+  {t:'The Leadership Journey',cat:'leadership'},
+  {t:'Think Again: The Power of Knowing What You Don\'t Know',cat:'personal'},
+  // Digital
+  {t:'Cybersecurity',cat:'digital'},
+  {t:'Digital Forensics',cat:'digital'},
+  {t:'Developing Digital Governance',cat:'digital'},
+  {t:'Digital Fluency: Understanding AI, Blockchain, Quantum Computing',cat:'digital'},
+  {t:'Hunting Cyber Criminals',cat:'digital'},
+  {t:'Industry 4.0: Managing the Digital Transformation',cat:'digital'},
+  {t:'Learn Linux Quickly',cat:'digital'},
+  {t:'Life 3.0: Being Human in the Age of Artificial Intelligence',cat:'digital'},
+  {t:'Preparing for the Next Cyber Revolution',cat:'digital'},
+  // Personal Dev
+  {t:'Anger Management for Everyone',cat:'personal'},
+  {t:'Choose to Win: Transform Your Life',cat:'personal'},
+  {t:'Company of One: Why Staying Small Is the Next Big Thing',cat:'personal'},
+  {t:'Emotional Intelligence for Leadership',cat:'leadership'},
+  {t:'Extraordinary Influence: How Great Leaders Bring Out the Best',cat:'leadership'},
+  {t:'Great at Work: How Top Performers Do Less',cat:'personal'},
+  {t:'Habits for Success: Inspired Ideas to Help You Soar',cat:'personal'},
+  {t:'Jim Kwik - Limitless: Upgrade Your Brain, Learn Anything Faster',cat:'personal'},
+  {t:'In Great Company: How to Spark Peak Performance',cat:'leadership'},
+  {t:'Investing in You: The Power of Positive Thinking',cat:'personal'},
+  {t:'Mindful Leadership for Dummies',cat:'leadership'},
+  {t:'New Power: How Power Works in Our Hyperconnected World',cat:'leadership'},
+  {t:'Out of Our Minds: Learning to be Creative',cat:'personal'},
+  {t:'Personality Hacker: Harness The Power Of Your Personality Type',cat:'personal'},
+  {t:'Platform: The Art and Science of Personal Branding',cat:'personal'},
+  {t:'Positive Thinking: 50 Positive Habits to Transform Your Life',cat:'personal'},
+  {t:'Radical Outcomes: How to Create Extraordinary Teams',cat:'leadership'},
+  {t:'Smart Thinking at Work: A Guide to Problem-Solving Strategies',cat:'personal'},
+  {t:'Strive: How Doing The Things Most Uncomfortable Leads to Success',cat:'personal'},
+  {t:'The 5 Second Rule: Transform your Life',cat:'personal'},
+  {t:'The Art Of Thinking In Systems',cat:'personal'},
+  {t:'The Design Thinking Playbook',cat:'leadership'},
+  {t:'The Digital Transformation Playbook',cat:'digital'},
+  {t:'The Intelligence Trap: Why Smart People Do Stupid Things',cat:'personal'},
+  {t:'The Joy of Not Knowing: A Philosophy of Education',cat:'education'},
+  {t:'The Power of a Positive Team',cat:'leadership'},
+  {t:'The Power of Giving Away Power',cat:'leadership'},
+  {t:'The Power of Purpose',cat:'personal'},
+  {t:'The Secret of Coaching and Leading by Values',cat:'leadership'},
+  {t:'The Storyteller\'s Secret',cat:'personal'},
+  {t:'The Strategic Leader\'s Roadmap',cat:'leadership'},
+  {t:'The Busy Leader\'s Handbook',cat:'leadership'},
+  {t:'Understanding and Managing Public Organizations',cat:'leadership'},
+  {t:'Work Together Anywhere',cat:'personal'},
+  {t:'Working from Home',cat:'personal'},
+  {t:'21 Days of Effective Communication',cat:'personal'},
+  // Innovation & Strategy
+  {t:'Constructing Leadership 4.0: Swarm Leadership',cat:'leadership'},
+  {t:'Culture Renovation: 18 Leadership Actions',cat:'leadership'},
+  {t:'Destructive Leadership and Management Hypocrisy',cat:'leadership'},
+  {t:'Find Your Why',cat:'personal'},
+  {t:'Future Skills: The 20 Skills and Competencies',cat:'personal'},
+  {t:'Globalization and the Challenges of Public Administration',cat:'leadership'},
+  {t:'How Leadership Works',cat:'leadership'},
+  {t:'Innovation Management and New Product Development',cat:'leadership'},
+  {t:'Innovative School Leadership',cat:'leadership'},
+  {t:'Product Leadership',cat:'leadership'},
+  {t:'Self Leadership and the One Minute Manager',cat:'leadership'},
+  {t:'Strategic Doing: Ten Skills for Agile Leadership',cat:'leadership'},
+  {t:'Strategic Risk Leadership',cat:'leadership'},
+  {t:'Systems Thinker\'s Toolbox',cat:'leadership'},
+  {t:'Transforming the Next Generation Leaders',cat:'leadership'},
+  {t:'Agile Leadership: Secret Practices and Tips',cat:'leadership'},
+  {t:'Agile Strategy Management in the Digital Age',cat:'digital'},
+  {t:'Amplifiers: How Great Leaders Magnify the Power of Teams',cat:'leadership'},
+  {t:'Artificial Intelligence, Human Agency and the Educational Leader',cat:'digital'},
+  {t:'Achieving High Performance',cat:'leadership'},
+  {t:'People Follow People',cat:'leadership'},
+  {t:'Everyday People, Extraordinary Leadership',cat:'leadership'},
+  {t:'Establishing a Leadership Mindset',cat:'leadership'},
+  {t:'Leading Mindfully for Healthy and Successful Schools',cat:'leadership'},
+  {t:'Love + Work: How to Find What You Love',cat:'personal'},
+  {t:'Surviving a Startup',cat:'personal'},
+];
+
+var BULLETINS = [
+  {issue:'BIL 2/1994',drive:'1E1f6O1Mzwgyr0P2hXdyR_eACLoUCEXEj'},
+  {issue:'BIL 8/1997',drive:'1nLY6c93GhxrGdQvl9ic69j48uMImYuJg'},
+  {issue:'BIL 1/1998',drive:'1rd1rPW4znHKGT-FibGIBcSCPn5geciTi'},
+  {issue:'BIL 2/1998',drive:'1I0P5pIM8Zzx1_7zyg8On16auerMtS4Hl'},
+  {issue:'BIL 3/1998',drive:'1EzM3ZAsivkZIsivkZAsivkZIsivkZAsivkZGT'},
+  {issue:'BIL 2/2002',drive:'1osFgd74JnW-SvQCSTaSqjDgoMwq2AC0x'},
+  {issue:'BIL 1/2003',drive:'1tTqPBzNTV2C7IxtbQz5J9GmIJYc3HLbP'},
+  {issue:'BIL 2/2003',drive:'1BMWxpdZuknrnx74LnB6na7JKXJAH-XBp'},
+  {issue:'BIL 1/2004',drive:'1Gtj-_Vgnkw2D9AwWXuEX8ZRG7ti146h3'},
+  {issue:'BIL 2/2004',drive:'1woBj1IJhO7q3PirKx-PHnfAk2HGIBvjX'},
+  {issue:'BIL 1/2005',drive:'1i1mRRXc__jytirzsf9uVIB2RJqMXwYIF'},
+  {issue:'BIL 2/2005',drive:'17mNcq08bqheiF62jULBSqKojO7V7xfM1'},
+  {issue:'BIL 1/2006',drive:'1AQGkCdAtrcF0GSWDq4fIqf_xyOQQaMOZ'},
+  {issue:'BIL 2/2006',drive:'1lRyMclmApz3SCk3YzCzLJ7t_ii4D3tB_'},
+  {issue:'BIL 1/2007',drive:'1JhjT6RFKlrjgBuSQwa5WyMkWsmm13e'},
+  {issue:'BIL 2/2007',drive:'1aBtNtx92LaTK8L8eBJMd7deUCgNBHy3u'},
+  {issue:'BIL 1/2008',drive:'1wtAD_8JDJEcZ_sH2kiQyxL57F1rFlyUk'},
+  {issue:'BIL 2/2008',drive:'1nxGm4s7WBpoAGOR2VDW_TLzrthiVQBJ7'},
+  {issue:'BIL 1/2009',drive:'1H0VMM1yzM4y6qEagNxUF___blA0tiZaB'},
+  {issue:'BIL 2/2009',drive:'1mPXqAAtAreZXq99eSMAmT_XM1N_tVB7n'},
+  {issue:'BIL 1/2011',drive:'1Nz-DtGrYHoBFYJElLufdT_OJ_wI0x3RF'},
+  {issue:'BIL 2/2011',drive:'1j5mcN3JQLrazjXkgkqMUGVCkkxhq5'},
+  {issue:'BIL 1/2012',drive:'1TLVNPfxrNJ0IFxyBUcISJyOrnoihI0qv'},
+  {issue:'BIL 1/2013',drive:'1QPEr4sluNSgdMgMhLCuQvvN1dRbxOSfG'},
+  {issue:'BIL 2/2013',drive:'10Ras3V1zHai7itzVGz_6HzqM01iqQ87a'},
+];
+
+// ── Render ─────────────────────────────────────────────────────────────────
+var activeFilter = 'all';
+
+function catTag(cat) {
+  var labels = {
+    education:'Education', leadership:'Leadership', digital:'Digital',
+    personal:'Personal Dev', malay:'BM Book', legal:'Legal', general:'General'
+  };
+  return '<span class="il-book-tag '+cat+'">'+(labels[cat]||cat)+'</span>';
+}
+
+function opacLink(id) {
+  return '<a href="https://lib.iab.edu.my/cgi-bin/koha/opac-detail.pl?biblionumber='+id+'" '+
+    'target="_blank" rel="noopener" class="il-book-link" aria-label="View in OPAC">📖 OPAC</a>';
+}
+
+function searchLink(title) {
+  var q = encodeURIComponent(title.slice(0,40));
+  return '<a href="https://lib.iab.edu.my/cgi-bin/koha/opac-search.pl?q='+q+'" '+
+    'target="_blank" rel="noopener" class="il-book-link search" aria-label="Search in OPAC">🔍 Search</a>';
+}
+
+function renderBooks(books, gridId, withOpac) {
+  var grid = document.getElementById(gridId);
+  if (!grid) return;
+  grid.innerHTML = books.map(function(b) {
+    return '<div class="il-book-card" data-cat="'+b.cat+'" data-title="'+esc(b.t.toLowerCase())+'">' +
+      '<div class="il-book-title">'+esc(b.t)+'</div>' +
+      '<div class="il-book-meta">'+catTag(b.cat)+'</div>' +
+      (withOpac && b.opac ? opacLink(b.opac) : searchLink(b.t)) +
+      '</div>';
+  }).join('');
+}
+
+function renderBulletins() {
+  var grid = document.getElementById('gridBuletin');
+  if (!grid) return;
+  grid.innerHTML = BULLETINS.map(function(b) {
+    return '<div class="il-bulletin-card">' +
+      '<div class="il-bulletin-icon">📰</div>' +
+      '<div class="il-bulletin-title">Buletin IAB<br>'+esc(b.issue)+'</div>' +
+      '<a href="https://drive.google.com/file/d/'+b.drive+'/view?usp=drive_link" '+
+      'target="_blank" rel="noopener" class="il-bulletin-link" aria-label="Open '+esc(b.issue)+'">📄 Baca</a>' +
+      '</div>';
+  }).join('');
+}
+
+// ── Filter & Search ────────────────────────────────────────────────────────
+function setFilter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.il-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  filterBooks();
+}
+
+function filterBooks() {
+  var q = (document.getElementById('ilSearch').value || '').toLowerCase().trim();
+  var cards = document.querySelectorAll('.il-book-card');
+  var shown = 0;
+  cards.forEach(function(card) {
+    var matchCat = activeFilter === 'all' || card.dataset.cat === activeFilter;
+    var matchQ   = !q || card.dataset.title.includes(q);
+    if (matchCat && matchQ) { card.classList.remove('hidden'); shown++; }
+    else { card.classList.add('hidden'); }
+  });
+  updateCount(shown, cards.length);
+  // Auto-open sections that have visible results
+  ['sec2025','sec2024','secEbuku'].forEach(function(id) {
+    var body = document.getElementById(id+'Body');
+    var hdr  = document.querySelector('#'+id+' .il-section-header');
+    if (!body || !hdr) return;
+    var hasVisible = body.querySelectorAll('.il-book-card:not(.hidden)').length > 0;
+    if (q || activeFilter !== 'all') {
+      if (hasVisible) { body.classList.add('open'); hdr.classList.add('open'); }
+      else { body.classList.remove('open'); hdr.classList.remove('open'); }
+    }
+  });
+}
+
+function updateCount(shown, total) {
+  var el = document.getElementById('resultCount');
+  if (!el) return;
+  var s = shown !== undefined ? shown : document.querySelectorAll('.il-book-card:not(.hidden)').length;
+  var tot = total !== undefined ? total : document.querySelectorAll('.il-book-card').length;
+  el.textContent = s + ' / ' + tot + (lang==='ms' ? ' buku dipaparkan' : ' books shown');
+}
+
+function toggleSection(id) {
+  var body = document.getElementById(id+'Body');
+  var hdr  = document.querySelector('#'+id+' .il-section-header');
+  if (!body || !hdr) return;
+  var isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  hdr.classList.toggle('open', !isOpen);
+  hdr.setAttribute('aria-expanded', String(!isOpen));
+}
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  lang = localStorage.getItem('cs_lang') || 'ms';
+  renderBooks(BOOKS_2025, 'grid2025', true);
+  renderBooks(BOOKS_2024, 'grid2024', false);
+  renderBooks(BOOKS_EBUKU, 'gridEbuku', false);
+  renderBulletins();
+  applyLang();
+  updateCount();
+});
+</script>
+</body>
+</html>
