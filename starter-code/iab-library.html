@@ -143,8 +143,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
   <h1 id="heroTitle">IAB Library Collection</h1>
   <p class="il-hero-sub" id="heroSub">Institut Aminuddin Baki — Koleksi Pusat Sumber Digital</p>
   <div class="il-hero-stats">
-    <div class="il-stat"><div class="il-stat-num">200+</div><div class="il-stat-label" id="statBooks">Books</div></div>
-    <div class="il-stat"><div class="il-stat-num">6</div><div class="il-stat-label" id="statCollections">Collections</div></div>
+    <div class="il-stat"><div class="il-stat-num">300+</div><div class="il-stat-label" id="statBooks">Books</div></div>
+    <div class="il-stat"><div class="il-stat-num">7</div><div class="il-stat-label" id="statCollections">Collections</div></div>
     <div class="il-stat"><div class="il-stat-num">25</div><div class="il-stat-label" id="statBulletins">Bulletins</div></div>
   </div>
   <button class="il-lang-btn" onclick="toggleLang()" id="langBtn">🌐 BM / EN</button>
@@ -216,6 +216,20 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
     <div class="il-section-body" id="secEbukuBody">
       <p style="font-size:13px;color:var(--il-muted);margin-bottom:14px;" id="ebukuNote">Buku-buku ini hanya digunakan bagi tujuan rujukan dan pembacaan sahaja.</p>
       <div class="il-book-grid" id="gridEbuku"></div>
+    </div>
+  </div>
+
+  <!-- ── RAK BUKU MAYA ──────────────────────────────────────────────────── -->
+  <div class="il-section" id="secMaya">
+    <div class="il-section-header" onclick="toggleSection('secMaya')" role="button" aria-expanded="false" tabindex="0">
+      <div class="il-section-icon" style="background:#fef3c7;">🏛️</div>
+      <div class="il-section-title" id="sMayaTitle">Rak Buku Maya IAB</div>
+      <span class="il-section-count">79 penerbitan</span>
+      <span class="il-section-toggle">▾</span>
+    </div>
+    <div class="il-section-body" id="secMayaBody">
+      <p style="font-size:13px;color:var(--il-muted);margin-bottom:14px;" id="mayaNote">Penerbitan digital IAB — jurnal, prosiding, modul, dan swakarya. Klik untuk membaca di Rak Buku Maya IAB.</p>
+      <div class="il-book-grid" id="gridMaya"></div>
     </div>
   </div>
 
@@ -300,8 +314,9 @@ var LABELS = {
     discLabel:'Note:', discText:' This collection belongs to Institut Aminuddin Baki (IAB). Physical books can be borrowed via OPAC. E-books are for reference and reading only.',
     searchBtnLabel:'Search',
     s2025Title:'New Books 2025', s2024Title:'New Books 2024',
-    sEbukuTitle:'E-Books PSP', sBuletinTitle:'IAB Bulletin',
+    sEbukuTitle:'E-Books PSP', sMayaTitle:'IAB Virtual Bookshelf', sBuletinTitle:'IAB Bulletin',
     ebukuNote:'These e-books are for reference and reading purposes only.',
+    mayaNote:'IAB digital publications — journals, proceedings, modules and authored works. Click to read at the IAB Virtual Bookshelf.',
     extTitle:'Extended Access',
     extOpacDesc:'Online library catalogue — search all IAB physical collections.',
     extRepoDesc:'eprints.iab.edu.my — self-authored works, annual reports, and IAB publications.',
@@ -317,8 +332,9 @@ var LABELS = {
     discLabel:'Nota:', discText:' Koleksi ini adalah hak milik Institut Aminuddin Baki (IAB). Buku fizikal boleh dipinjam melalui OPAC. E-buku adalah untuk rujukan dan pembacaan sahaja.',
     searchBtnLabel:'Cari',
     s2025Title:'Buku Baharu 2025', s2024Title:'Buku Baharu 2024',
-    sEbukuTitle:'E-Buku PSP', sBuletinTitle:'Buletin IAB',
+    sEbukuTitle:'E-Buku PSP', sMayaTitle:'Rak Buku Maya IAB', sBuletinTitle:'Buletin IAB',
     ebukuNote:'Buku-buku ini hanya digunakan bagi tujuan rujukan dan pembacaan sahaja.',
+    mayaNote:'Penerbitan digital IAB — jurnal, prosiding, modul, dan swakarya. Klik untuk membaca di Rak Buku Maya IAB.',
     extTitle:'Akses Lanjut',
     extOpacDesc:'Katalog perpustakaan dalam talian — cari semua koleksi fizikal IAB.',
     extRepoDesc:'eprints.iab.edu.my — swakarya, laporan tahunan, dan penerbitan IAB.',
@@ -334,8 +350,8 @@ function toggleLang(){ lang = lang==='ms'?'en':'ms'; localStorage.setItem('cs_la
 function applyLang(){
   ['heroTitle','heroSub','statBooks','statCollections','statBulletins','langBtn',
    'discLabel','discText','searchBtnLabel','s2025Title','s2024Title',
-   'sEbukuTitle','sBuletinTitle','ebukuNote','extTitle','extOpacDesc',
-   'extRepoDesc','extProqDesc','extPsDesc','relTitle'].forEach(function(id){
+   'sEbukuTitle','sMayaTitle','sBuletinTitle','ebukuNote','mayaNote',
+   'extTitle','extOpacDesc','extRepoDesc','extProqDesc','extPsDesc','relTitle'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.textContent=t(id);
   });
   var fa=document.getElementById('fAll'); if(fa) fa.textContent=t('fAll');
@@ -553,6 +569,87 @@ var BOOKS_EBUKU = [
   {t:'Surviving a Startup',cat:'personal'},
 ];
 
+var BOOKS_MAYA = [
+  {t:'IAB Buku Program Latihan 2025',cat:'general'},
+  {t:'Jurnal Pengurusan Kepimpinan Pendidikan Bil 2 2024',cat:'leadership'},
+  {t:'Jurnal Pengurusan dan Kepimpinan Pendidikan Bil 1 2024',cat:'leadership'},
+  {t:'Kajian Kes Pengurusan Pendidikan',cat:'education'},
+  {t:'Metamorfosis Kepimpinan (IAB)',cat:'leadership'},
+  {t:'Lensa Kenyalang Jilid 1',cat:'leadership'},
+  {t:'Sinergi Akinabalu',cat:'leadership'},
+  {t:'Jurnal IAB Ogos 2022',cat:'leadership'},
+  {t:'Jurnal IAB Disember 2022',cat:'leadership'},
+  {t:'IAB Modul EMLECS H',cat:'general'},
+  {t:'Lensa Kenyalang Jilid 2',cat:'leadership'},
+  {t:'Metamorfosis 2021 (e-ISBN)',cat:'leadership'},
+  {t:'IAB Buku Kajian Pentaksiran 2018–2024',cat:'education'},
+  {t:'Buku Program Latihan 2023',cat:'general'},
+  {t:'IAB Buku Program Latihan 2024',cat:'general'},
+  {t:'Pembangunan Pemimpin Muda 2023',cat:'leadership'},
+  {t:'Pelan Strategik IAB',cat:'leadership'},
+  {t:'Metamorfosis NPQEL Ambilan 2 (2020)',cat:'leadership'},
+  {t:'Metamorfosis NPQEL Ambilan 1 (2020)',cat:'leadership'},
+  {t:'e-Prosiding Penyelidikan Kajian Tindakan 2022',cat:'education'},
+  {t:'Jurnal Penyelidikan IABCSBH Bilangan 2 (e-Book)',cat:'leadership'},
+  {t:'Prosiding SN29',cat:'education'},
+  {t:'Ensiklopedia Karakter Kepimpinan Efektif (EKKE)',cat:'leadership'},
+  {t:'Gagasan Judah',cat:'leadership'},
+  {t:'Kompetensi Pemimpin',cat:'leadership'},
+  {t:'KOMPAS 2.0: Standard Kompetensi Pemimpin Sekolah',cat:'leadership'},
+  {t:'Buku Pemimpin Kecil Yang Menginspirasikan',cat:'leadership'},
+  {t:'Kompilasi Bicara Kepimpinan IABCSBH',cat:'leadership'},
+  {t:'Kompilasi Ucapan Pengarah IAB',cat:'leadership'},
+  {t:'Buku Iltizam 2022',cat:'leadership'},
+  {t:'IAB Panduan Pembangunan Profesionalisme Pensyarah',cat:'education'},
+  {t:'Tuntun Biar Sampai',cat:'leadership'},
+  {t:'Simbiosis (IAB)',cat:'leadership'},
+  {t:'Prosiding Penyelidikan IABCSBH',cat:'education'},
+  {t:'Penulisan Kolokium KPSTEM 2022 (eBook)',cat:'education'},
+  {t:'IAB Pelaksanaan EKSA',cat:'general'},
+  {t:'Pemimpin Novis',cat:'leadership'},
+  {t:'Majlis Persada',cat:'general'},
+  {t:'Naratif Baharu Latihan',cat:'general'},
+  {t:'Kompilasi Amalan Terbaik Kepimpinan Pendidikan',cat:'leadership'},
+  {t:'Pelan Induk Kecemerlangan',cat:'leadership'},
+  {t:'Peranan Kepimpinan Sekolah: Tanggungjawab Khalifah',cat:'leadership'},
+  {t:'Pembangunan Pemimpin Pertengahan',cat:'leadership'},
+  {t:'PMS 13: VUCA',cat:'leadership'},
+  {t:'PMS 3: Budaya Naratif',cat:'leadership'},
+  {t:'Pelan Pengurusan Risiko IAB 2020–2021',cat:'general'},
+  {t:'PMS 10: Serumpun Wangian Ilmu',cat:'leadership'},
+  {t:'Jurnal IAB Bil. 1 2021',cat:'leadership'},
+  {t:'Jurnal IAB Bil. 2 2021',cat:'leadership'},
+  {t:'Buku Penulisan Surat Rasmi dan Memo (IAB)',cat:'general'},
+  {t:'Prosiding Kolokium IAB 2018',cat:'education'},
+  {t:'Buku Metamorfosis Karya Terpilih',cat:'leadership'},
+  {t:'Lean Management (IAB)',cat:'leadership'},
+  {t:'Quick Facts IAB',cat:'general'},
+  {t:'Standards of Personality and Practices in High-Performing Schools',cat:'leadership'},
+  {t:'Kompilasi Kajian Pentaksiran 2020',cat:'education'},
+  {t:'Prosiding Kolokium PCIP InPeKS 2020',cat:'education'},
+  {t:'Propkes 2020',cat:'general'},
+  {t:'Pengurusan Kewangan dan Pentadbiran Pejabat 2021',cat:'general'},
+  {t:'Metamorfosis NPQEL Ambilan 2 (IAB)',cat:'leadership'},
+  {t:'Metamorfosis NPQEL Ambilan 1 (IAB)',cat:'leadership'},
+  {t:'Manuskrip Instruksional Coaching',cat:'leadership'},
+  {t:'Laporan Wadah Perkongsian Pintar 2019',cat:'general'},
+  {t:'ICELAM Prosiding',cat:'education'},
+  {t:'KOMPAS 2.0 Full Set',cat:'leadership'},
+  {t:'Wacana Pengurusan dan Kepimpinan Pendidikan 2021',cat:'leadership'},
+  {t:'Asas Komunikasi',cat:'general'},
+  {t:'Coretan Tamu IAB',cat:'general'},
+  {t:'Panduan Strategi Latihan 2021',cat:'general'},
+  {t:'Metamorfosis Kepimpinan NPQEL Ambilan 2 (2019)',cat:'leadership'},
+  {t:'MCO C-19: HICON',cat:'general'},
+  {t:'Komunikator Unggul',cat:'general'},
+  {t:'Kepimpinan Futuristik Di Sekolah',cat:'leadership'},
+  {t:'Kompilasi Ulasan Buku 2020',cat:'general'},
+  {t:'IAB Pelan Strategik ICT',cat:'digital'},
+  {t:'Protokol dan Etiket Sosial (IAB)',cat:'general'},
+  {t:'Kompilasi Ulasan Buku Cawangan IAB',cat:'general'},
+  {t:'Antologi Puisi Semarak Rindu IAB',cat:'general'},
+];
+
 var BULLETINS = [
   {issue:'BIL 2/1994',drive:'1E1f6O1Mzwgyr0P2hXdyR_eACLoUCEXEj'},
   {issue:'BIL 8/1997',drive:'1nLY6c93GhxrGdQvl9ic69j48uMImYuJg'},
@@ -611,6 +708,19 @@ function renderBooks(books, gridId, withOpac) {
       '<div class="il-book-title">'+esc(b.t)+'</div>' +
       '<div class="il-book-meta">'+catTag(b.cat)+'</div>' +
       (withOpac && b.opac ? opacLink(b.opac) : searchLink(b.t)) +
+      '</div>';
+  }).join('');
+}
+
+function renderMaya() {
+  var grid = document.getElementById('gridMaya');
+  if (!grid) return;
+  var mayaUrl = 'https://sites.google.com/iab.edu.my/pusatsumberiabinduk/koleksi/rak-buku-maya';
+  grid.innerHTML = BOOKS_MAYA.map(function(b) {
+    return '<div class="il-book-card" data-cat="'+b.cat+'" data-title="'+esc(b.t.toLowerCase())+'">' +
+      '<div class="il-book-title">'+esc(b.t)+'</div>' +
+      '<div class="il-book-meta">'+catTag(b.cat)+'<span class="il-book-tag general" style="background:#fef9c3;color:#92400e;">IAB</span></div>' +
+      '<a href="'+mayaUrl+'" target="_blank" rel="noopener" class="il-book-link search" aria-label="Baca di Rak Buku Maya">📖 Baca</a>' +
       '</div>';
   }).join('');
 }
@@ -686,6 +796,7 @@ document.addEventListener('DOMContentLoaded', function() {
   renderBooks(BOOKS_2025, 'grid2025', true);
   renderBooks(BOOKS_2024, 'grid2024', false);
   renderBooks(BOOKS_EBUKU, 'gridEbuku', false);
+  renderMaya();
   renderBulletins();
   applyLang();
   updateCount();
