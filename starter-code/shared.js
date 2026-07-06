@@ -2123,6 +2123,147 @@ const _nav = {
 })();
 
 /* ============================================================
+   MY BOOKS NAV — injected into every page's .nav-links
+   Reads cv_bookmarks + cv_active_book from localStorage.
+   Lets user switch active book from any agent page.
+============================================================ */
+(function injectMyBooksNav() {
+  function getBookmarks() {
+    try { return JSON.parse(localStorage.getItem('cv_bookmarks') || '[]'); } catch(e) { return []; }
+  }
+  function getActive() {
+    try { return JSON.parse(localStorage.getItem('cv_active_book') || 'null'); } catch(e) { return null; }
+  }
+  function setActive(b) {
+    try { localStorage.setItem('cv_active_book', JSON.stringify(b)); } catch(e) {}
+    // Refresh floating widget if present
+    var old = document.getElementById('cv-book-widget');
+    if (old) old.remove();
+    if (typeof injectCelikVerseBook === 'function') {
+      injectCelikVerseBook();
+    } else {
+      // Pass as URL params on current page
+      var p = '?cv_title='+encodeURIComponent(b.title||'')
+        +'&cv_author='+encodeURIComponent(b.author||'')
+        +'&cv_url='+encodeURIComponent(b.url||'')
+        +'&cv_cover='+encodeURIComponent(b.cover||'')
+        +'&cv_source='+encodeURIComponent(b.source||'');
+      location.href = location.pathname + p;
+    }
+    closeDropdown();
+  }
+  function closeDropdown() {
+    var dd = document.getElementById('cs-mybooks-dd');
+    if (dd) dd.style.display = 'none';
+  }
+  function buildItem(b, isActive) {
+    var li = document.createElement('li');
+    li.style.cssText = 'display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;border-radius:8px;transition:background .15s;'+(isActive?'background:rgba(99,102,241,.12);':'');
+    li.onmouseenter = function(){ li.style.background='rgba(99,102,241,.1)'; };
+    li.onmouseleave = function(){ li.style.background=isActive?'rgba(99,102,241,.12)':''; };
+    var coverEl = b.cover
+      ? '<img src="'+b.cover+'" style="width:30px;height:42px;object-fit:cover;border-radius:4px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:30px;height:42px;background:#e0e7ff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;\\\">📖</div>\'">'
+      : '<div style="width:30px;height:42px;background:#e0e7ff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📖</div>';
+    li.innerHTML = coverEl +
+      '<div style="flex:1;min-width:0;">' +
+        '<div style="font-size:12px;font-weight:700;color:#1e1b4b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;">'+b.title+'</div>' +
+        '<div style="font-size:10px;color:#6b7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;">'+(b.author||'')+'</div>' +
+      '</div>' +
+      (isActive ? '<span style="font-size:10px;background:#6366f1;color:#fff;padding:2px 6px;border-radius:10px;flex-shrink:0;">Aktif</span>' : '');
+    li.onclick = function(){ setActive(b); };
+    return li;
+  }
+  function buildDropdown() {
+    var books = getBookmarks();
+    var active = getActive();
+    var dd = document.getElementById('cs-mybooks-dd');
+    if (!dd) return;
+    dd.innerHTML = '';
+    dd.style.cssText = 'display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(30,27,75,.18);border:1px solid #e0e7ff;min-width:260px;max-width:300px;z-index:9999;overflow:hidden;padding:8px 6px;';
+
+    // Header
+    var hdr = document.createElement('div');
+    hdr.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:8px 10px 6px;border-bottom:1px solid #f0f0f8;margin-bottom:6px;';
+    hdr.innerHTML = '<span style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:#6366f1;">📚 BUKU SAYA</span>' +
+      '<a href="celikverse-library.html" style="font-size:10px;color:#6366f1;text-decoration:none;font-weight:600;">+ Tambah Buku</a>';
+    dd.appendChild(hdr);
+
+    if (!books.length && !active) {
+      var empty = document.createElement('div');
+      empty.style.cssText = 'text-align:center;padding:18px 12px;color:#9ca3af;font-size:12px;';
+      empty.innerHTML = '📖<br>Tiada buku disimpan.<br><a href="celikverse-library.html" style="color:#6366f1;font-weight:600;">Cari buku di CelikVerse →</a>';
+      dd.appendChild(empty);
+      return;
+    }
+    var ul = document.createElement('ul');
+    ul.style.cssText = 'list-style:none;padding:0;margin:0;max-height:280px;overflow-y:auto;';
+
+    // Show active book at top if not already in bookmarks
+    if (active) {
+      var inList = books.some(function(b){ return b.title === active.title; });
+      if (!inList) ul.appendChild(buildItem(active, true));
+    }
+    books.forEach(function(b) {
+      var isAct = active && b.title === active.title;
+      ul.appendChild(buildItem(b, isAct));
+    });
+    dd.appendChild(ul);
+  }
+
+  function inject() {
+    var navLinks = document.querySelector('.nav-links');
+    if (!navLinks || document.getElementById('cs-mybooks-nav')) return;
+
+    var books = getBookmarks();
+    var active = getActive();
+    var count = books.length + (active && !books.some(function(b){ return b.title===active.title; }) ? 1 : 0);
+
+    var wrap = document.createElement('div');
+    wrap.id = 'cs-mybooks-nav';
+    wrap.style.cssText = 'position:relative;display:inline-block;';
+
+    var btn = document.createElement('button');
+    btn.style.cssText = 'background:none;border:none;cursor:pointer;font-size:14px;font-weight:600;color:inherit;padding:6px 4px;display:flex;align-items:center;gap:5px;white-space:nowrap;font-family:inherit;';
+    btn.innerHTML = '📚 Buku Saya' + (count > 0 ? ' <span style="background:#6366f1;color:#fff;border-radius:99px;font-size:10px;font-weight:800;padding:1px 6px;min-width:18px;text-align:center;">'+count+'</span>' : '');
+    btn.setAttribute('aria-haspopup', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+
+    var dd = document.createElement('div');
+    dd.id = 'cs-mybooks-dd';
+    dd.style.display = 'none';
+    buildDropdown();
+
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      var isOpen = dd.style.display !== 'none';
+      dd.style.display = isOpen ? 'none' : 'block';
+      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      if (!isOpen) buildDropdown();
+      // Re-append dd after rebuild
+      if (dd.parentNode !== wrap) wrap.appendChild(dd);
+    };
+
+    document.addEventListener('click', function(){ closeDropdown(); });
+    wrap.appendChild(btn);
+    wrap.appendChild(dd);
+
+    // Insert after Agents dropdown
+    var agentsDropdown = navLinks.querySelector('.nav-dropdown');
+    if (agentsDropdown && agentsDropdown.nextSibling) {
+      navLinks.insertBefore(wrap, agentsDropdown.nextSibling);
+    } else {
+      navLinks.appendChild(wrap);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inject);
+  } else {
+    inject();
+  }
+})();
+
+/* ============================================================
    PUBLIC API — window.CS
    Every HTML page accesses everything through window.CS.
 
