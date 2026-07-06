@@ -376,7 +376,39 @@ showIntervention();
 </script>
 <script src="personalisation-system.js"></script>
 <script>
+function injectCelikVerseBook() {
+  var params = new URLSearchParams(window.location.search);
+  var title  = params.get('cv_title');
+  var author = params.get('cv_author');
+  var url    = params.get('cv_url');
+  var cover  = params.get('cv_cover');
+  var source = params.get('cv_source');
+  if (!title) {
+    try { var b = JSON.parse(localStorage.getItem('cv_active_book')||'null');
+      if(b){ title=b.title; author=b.author; url=b.url; cover=b.cover; source=b.source; }
+    } catch(e){}
+  }
+  if (!title) return;
+  var banner = document.createElement('div');
+  banner.id = 'cv-book-banner';
+  banner.style.cssText = 'background:linear-gradient(135deg,#1e1b4b,#1d4ed8);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:14px;border-radius:12px;margin-bottom:18px;position:relative;flex-wrap:wrap;';
+  var coverHtml = cover ? '<img src="'+cover+'" style="width:44px;height:60px;object-fit:cover;border-radius:6px;flex-shrink:0;" onerror="this.style.display=\'none\'">' : '<div style="width:44px;height:60px;background:rgba(255,255,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">📖</div>';
+  banner.innerHTML = coverHtml +
+    '<div style="flex:1;min-width:0;">' +
+      '<div style="font-size:10px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:3px;">🌍 CELIKVERSE LIBRARY</div>' +
+      '<div style="font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+title+'</div>' +
+      '<div style="font-size:12px;color:rgba(255,255,255,.7);">'+(author||'')+(source?' · '+source:'')+'</div>' +
+    '</div>' +
+    (url ? '<a href="'+url+'" target="_blank" rel="noopener" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11px;font-weight:700;padding:7px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;">↗ Open Source</a>' : '') +
+    '<button onclick="document.getElementById(\'cv-book-banner\').remove()" style="background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;padding:0 0 0 8px;flex-shrink:0;">✕</button>';
+  var target = document.getElementById('main-content');
+  var container = target ? target.querySelector('.container') : target;
+  if (container) container.insertBefore(banner, container.firstChild);
+  else if (target) target.insertBefore(banner, target.firstChild);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  injectCelikVerseBook();
   if (!window.CS_PERSONALISE) return;
   CS_PERSONALISE.init();
   CS_PERSONALISE.trackAgentUse('dyslexia-agent');

@@ -848,10 +848,16 @@ function openReadPanel(b){
   var cov = document.getElementById('rpCover');
   if(b.cover){ cov.innerHTML='<img src="'+esc(b.cover)+'" style="width:100%;height:100%;object-fit:cover;border-radius:4px;" onerror="this.parentNode.textContent=\'📖\'">';}
   else { cov.textContent='📖'; }
+
+  // Save active book so agent pages can pick it up
+  try{ localStorage.setItem('cv_active_book', JSON.stringify(b)); }catch(e){}
+
   var tools = document.getElementById('readTools');
   tools.innerHTML = TOOLS.map(function(tool){
-    var href = tool.url||b.url||'#';
-    return '<a href="'+esc(href)+'" class="cv-read-tool" target="'+(tool.url&&tool.url.startsWith('http')?'_blank':'_self')+'" rel="noopener" aria-label="'+esc(t(tool.key))+'">' +
+    if(!tool.url){ return ''; }
+    var params = '?cv_title='+encodeURIComponent(b.title||'')+'&cv_author='+encodeURIComponent(b.author||'')+'&cv_url='+encodeURIComponent(b.url||'')+'&cv_cover='+encodeURIComponent(b.cover||'')+'&cv_source='+encodeURIComponent(b.source||'');
+    var href = tool.url + params;
+    return '<a href="'+esc(href)+'" class="cv-read-tool" rel="noopener" aria-label="'+esc(t(tool.key))+'">' +
       '<span class="cv-read-tool-icon">'+tool.icon+'</span>' +
       '<span class="cv-read-tool-name">'+esc(t(tool.key))+'</span>' +
       '</a>';
