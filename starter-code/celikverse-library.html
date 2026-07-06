@@ -206,6 +206,9 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .cv-upload-text{font-size:12px;color:var(--cv-muted);line-height:1.5;}
 .cv-upload-btn{background:var(--cv-p);color:#fff;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;margin-top:8px;font-family:inherit;}
 
+/* Scroll target */
+#mainContent{scroll-margin-top:70px;}
+
 /* Responsive */
 @media(max-width:600px){
   .cv-results-grid{grid-template-columns:repeat(2,1fr);}
@@ -601,9 +604,21 @@ function doSearch(){
   }
 
   addSkeletons(6);
-  Promise.allSettled(searches).then(function(results){
+
+  // Scroll to results immediately so user sees loading state
+  setTimeout(function(){
+    var mc = document.getElementById('mainContent');
+    if(mc) mc.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 80);
+
+  // Use Promise.all with individual catch for compatibility
+  var btn = document.getElementById('searchBtn');
+  if(btn){ btn.textContent = '⏳ '+(lang==='ms'?'Mencari...':'Searching...'); btn.disabled=true; }
+
+  var safeSearches = searches.map(function(p){ return p.catch(function(){ return []; }); });
+  Promise.all(safeSearches).then(function(results){
     document.getElementById('resultsGrid').innerHTML='';
-    results.forEach(function(r){ if(r.status==='fulfilled'&&r.value) lastResults=lastResults.concat(r.value); });
+    results.forEach(function(r){ if(r) lastResults=lastResults.concat(r); });
     if(lastResults.length===0){
       showEmpty(t('noResult'));
     } else {
@@ -611,6 +626,7 @@ function doSearch(){
       document.getElementById('resultsCount').textContent = lastResults.length+' '+(lang==='ms'?'keputusan':'results');
     }
     document.getElementById('sourceBar').style.display='none';
+    if(btn){ btn.innerHTML='🔍 <span id="searchBtnLabel">'+t('searchBtnLabel')+'</span>'; btn.disabled=false; }
   });
 }
 
