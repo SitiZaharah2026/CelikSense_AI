@@ -179,25 +179,57 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </div>
   </div>
 
-  <!-- My Reading Shelf Banner -->
-  <div id="shelf-banner" style="
-    background:linear-gradient(135deg,#1e1b4b 0%,#312e81 55%,#1d4ed8 100%);
-    border-radius:18px;padding:20px 24px;margin-bottom:22px;
-    display:flex;align-items:center;gap:20px;flex-wrap:wrap;
-    box-shadow:0 6px 30px rgba(30,27,75,.22);position:relative;overflow:hidden;
+  <!-- My Knowledge Hub Banner -->
+  <div id="hub-banner" style="
+    background:linear-gradient(135deg,#1e1b4b 0%,#312e81 45%,#1d4ed8 75%,#0891b2 100%);
+    border-radius:20px;padding:0;margin-bottom:22px;overflow:hidden;
+    box-shadow:0 8px 40px rgba(30,27,75,.28);position:relative;
   ">
-    <div style="position:absolute;top:-20px;right:-20px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;"></div>
-    <div style="font-size:44px;flex-shrink:0;">📚</div>
-    <div style="flex:1;min-width:180px;">
-      <div style="font-size:11px;font-weight:800;letter-spacing:2px;color:rgba(255,255,255,.6);margin-bottom:4px;">MY READING SHELF</div>
-      <div style="font-size:18px;font-weight:900;color:#fff;margin-bottom:4px;">Teruskan Perjalanan Membaca Anda</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.65);" id="shelf-summary">Simpan buku, pilih mod, baca tanpa copy-paste.</div>
+    <!-- decorative orbs -->
+    <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(129,140,248,.2),transparent);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-30px;left:30%;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(8,145,178,.15),transparent);pointer-events:none;"></div>
+    <!-- top strip -->
+    <div style="padding:22px 26px 0;">
+      <div style="font-size:10px;font-weight:900;letter-spacing:2.5px;color:rgba(255,255,255,.55);margin-bottom:6px;">📚 MY KNOWLEDGE HUB</div>
+      <div style="font-size:21px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:5px;">Perpustakaan Pembelajaran AI Peribadi Anda</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.65);margin-bottom:16px;" id="hub-continue-txt">Satu platform · Pelbagai pengalaman aksesibiliti · Tiada copy-paste.</div>
     </div>
-    <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap;">
-      <a href="reading-shelf.html" style="background:#fff;color:#1e1b4b;text-decoration:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;transition:.15s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">📚 Buka Rak →</a>
-      <a href="celikverse-library.html" style="background:rgba(255,255,255,.15);color:#fff;text-decoration:none;border-radius:10px;padding:10px 18px;font-size:13px;font-weight:700;border:1px solid rgba(255,255,255,.25);">🌍 Cari Buku</a>
+    <!-- stats row -->
+    <div style="display:flex;gap:0;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);margin:0 0 0;">
+      <div class="hub-stat-cell" id="hst-books">📚 <span id="hst-n-books">0</span> Sumber</div>
+      <div class="hub-stat-cell" id="hst-time">⏱ <span id="hst-n-time">0</span> min</div>
+      <div class="hub-stat-cell" id="hst-streak">🔥 <span id="hst-n-streak">0</span> hari</div>
+      <div class="hub-stat-cell" id="hst-done">✅ <span id="hst-n-done">0</span> selesai</div>
+    </div>
+    <!-- action row -->
+    <div style="padding:16px 26px;display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="my-knowledge-hub.html" style="background:#fff;color:#1e1b4b;text-decoration:none;border-radius:11px;padding:10px 22px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:7px;transition:.15s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">📚 Buka Knowledge Hub</a>
+      <a href="my-knowledge-hub.html#continue" style="background:rgba(255,255,255,.15);color:#fff;text-decoration:none;border-radius:11px;padding:10px 18px;font-size:13px;font-weight:700;border:1px solid rgba(255,255,255,.25);">▶ Teruskan Membaca</a>
+      <a href="celikverse-library.html" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);text-decoration:none;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.15);">🌍 Cari Sumber</a>
     </div>
   </div>
+  <style>
+  .hub-stat-cell{flex:1;text-align:center;padding:10px 8px;font-size:12px;font-weight:700;color:rgba(255,255,255,.75);border-right:1px solid rgba(255,255,255,.1);}
+  .hub-stat-cell:last-child{border-right:none;}
+  .hub-stat-cell span{font-size:18px;font-weight:900;color:#fff;display:block;line-height:1.2;}
+  </style>
+  <script>
+  (function(){
+    try{
+      var s=JSON.parse(localStorage.getItem('cs_hub_stats')||'{}');
+      var all=JSON.parse(localStorage.getItem('cs_shelf')||'[]');
+      document.getElementById('hst-n-books').textContent=all.length;
+      document.getElementById('hst-n-time').textContent=Math.round((s.totalTime||0)/60);
+      document.getElementById('hst-n-streak').textContent=s.streak||0;
+      document.getElementById('hst-n-done').textContent=all.filter(function(b){return b.progress>=95;}).length;
+      // Continue reading
+      var last=all.filter(function(b){return b.lastOpened;}).sort(function(a,b){return b.lastOpened-a.lastOpened;})[0];
+      if(last){
+        document.getElementById('hub-continue-txt').innerHTML='▶ Teruskan: <strong style="color:#a5b4fc;">'+last.title.slice(0,40)+'</strong> — '+Math.round(last.progress||0)+'% selesai';
+      }
+    }catch(e){}
+  })();
+  </script>
 
   <!-- Widgets -->
   <div class="widget-grid">

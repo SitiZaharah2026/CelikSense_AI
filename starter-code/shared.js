@@ -2319,6 +2319,26 @@ const _nav = {
     },
     isOnShelf: function(title, url){
       return load().some(function(b){ return b.title===title||(url&&b.url===url); });
+    },
+    getByType: function(type){
+      if(type==='all') return load();
+      return load().filter(function(b){ return (b.type||'book')===type; });
+    },
+    getStats: function(){
+      var all=load();
+      try{ return JSON.parse(localStorage.getItem('cs_hub_stats')||'{}'); }catch(e){ return {}; }
+    },
+    recordSession: function(secs){
+      try{
+        var s=JSON.parse(localStorage.getItem('cs_hub_stats')||'{}');
+        s.totalTime=(s.totalTime||0)+Math.round(secs||0);
+        s.totalBooks=load().length;
+        s.finished=load().filter(function(b){return b.progress>=95;}).length;
+        // Streak logic
+        var today=new Date().toDateString();
+        if(s.lastDay!==today){ s.lastDay=today; s.streak=(s.streak||0)+1; }
+        localStorage.setItem('cs_hub_stats',JSON.stringify(s));
+      }catch(e){}
     }
   };
 })();

@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="ms" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Knowledge Hub — CelikSense AI</title>
+<meta name="description" content="Hub Ilmu peribadi anda — buku, artikel, PDF dan koleksi IAB dalam satu platform aksesibiliti.">
+
+<style>
+/* ── HIDE SHARED.JS INJECTED NAVBAR ─── */
+nav.navbar { display:none!important; }
+
+/* ── CSS CUSTOM PROPERTIES ─────────── */
+:root {
+  --bg:      #f4f3ff;
+  --bg2:     #eef2ff;
+  --bg3:     #e0e7ff;
+  --text:    #0f172a;
+  --muted:   #475569;
+  --dim:     #94a3b8;
+  --card:    #ffffff;
+  --border:  #e0e7ff;
+  --accent:  #6366f1;
+  --accent2: #0891b2;
+  --amber:   #f59e0b;
+  --shadow:  0 2px 16px rgba(99,102,241,.10);
+  --shadow-lg: 0 8px 40px rgba(99,102,241,.18);
+  --nav-h:   56px;
+  --stats-h: 52px;
+  --sidebar-w: 220px;
+  --radius:  14px;
+  --radius-sm: 8px;
+  --t: .18s ease;
+}
+body.dark {
+  --bg:      #0f172a;
+  --bg2:     #1e293b;
+  --bg3:     #1e293b;
+  --text:    #f0f6ff;
+  --muted:   #94a3b8;
+  --dim:     #64748b;
+  --card:    #1e293b;
+  --border:  #334155;
+  --shadow:  0 2px 16px rgba(0,0,0,.35);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.5);
+}
+
+/* ── RESET ──────────────────────────── */
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-top: calc(var(--nav-h) + var(--stats-h));
+  line-height: 1.6;
+  transition: background var(--t), color var(--t);
+}
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ── CUSTOM NAVBAR ──────────────────── */
+.hub-nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h); z-index: 300;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 55%, #1d4ed8 100%);
+  display: flex; align-items: center; gap: 0;
+  padding: 0 20px;
+  box-shadow: 0 2px 20px rgba(0,0,0,.4);
+}
+.hub-nav-logo {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 17px; font-weight: 800; color: #fff;
+  letter-spacing: -.02em; white-space: nowrap;
+  text-decoration: none;
+}
+.hub-nav-logo .logo-badge {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg,#818cf8,#6366f1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.hub-nav-title {
+  margin-left: 16px;
+  font-size: 15px; font-weight: 600; color: rgba(255,255,255,.88);
+  letter-spacing: .01em;
+}
+.hub-nav-title span { color: rgba(255,255,255,.5); font-weight: 400; margin: 0 6px; }
+.hub-nav-spacer { flex: 1; }
+.hub-nav-actions {
+  display: flex; align-items: center; gap: 6px;
+}
+.hub-nav-btn {
+  height: 34px; padding: 0 12px; border-radius: 8px;
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,.82);
+  display: flex; align-items: center; gap: 6px;
+  transition: background var(--t), color var(--t);
+  letter-spacing: .03em; text-transform: uppercase;
+}
+.hub-nav-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
+.hub-nav-btn.accent-btn {
+  background: rgba(99,102,241,.35); color: #c7d2fe;
+}
+.hub-nav-btn.accent-btn:hover { background: rgba(99,102,241,.55); color: #fff; }
+#darkToggleBtn { font-size: 16px; width: 36px; padding: 0; justify-content: center; }
+
+/* ── STATS BAR ──────────────────────── */
+.stats-bar {
+  position: fixed; top: var(--nav-h); left: 0; right: 0;
+  height: var(--stats-h); z-index: 200;
+  background: var(--card); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(99,102,241,.06);
+  transition: background var(--t), border-color var(--t);
+}
+.stat-pill {
+  display: flex; align-items: center; gap: 5px;
+  padding: 0 14px; height: 100%;
+  font-size: 12.5px; font-weight: 600;
+  color: var(--muted); white-space: nowrap;
+  border-right: 1px solid var(--border);
+  transition: color var(--t);
+}
+.stat-pill:first-child { padding-left: 0; }
+.stat-pill .sv {
+  font-size: 16px; font-weight: 800;
+  color: var(--text); font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+}
+.stat-pill .si { font-size: 15px; }
+.stat-pill.streak .sv { color: #f97316; }
+.stat-pill.finished .sv { color: #10b981; }
+.stats-spacer { flex: 1; }
+.stats-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg2); border: 1.5px solid var(--border);
+  border-radius: 22px; padding: 0 14px; height: 34px;
+  transition: border-color var(--t), background var(--t);
+}
+.stats-search:focus-within { border-color: var(--accent); }
+.stats-search input {
+  border: none; background: none; outline: none;
+  font-size: 13px; color: var(--text); width: 180px;
+  font-family: inherit;
+}
+.stats-search input::placeholder { color: var(--dim); }
+.stats-search .s-icon { color: var(--dim); font-size: 14px; }
+.mic-btn {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--bg2); border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; color: var(--muted); margin-left: 8px;
+  transition: background var(--t), border-color var(--t), color var(--t);
+}
+.mic-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.mic-btn.listening { background: #ef4444; border-color: #ef4444; color: #fff; animation: pulse-mic 1s infinite; }
+@keyframes pulse-mic {
+  0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,.4); }
+  50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
+}
+
+/* ── MAIN LAYOUT ────────────────────── */
+.hub-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - var(--nav-h) - var(--stats-h));
+}
+
+/* ── SIDEBAR ────────────────────────── */
+.hub-sidebar {
+  padding: 24px 0 40px;
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: calc(var(--nav-h) + var(--stats-h));
+  height: calc(100vh - var(--nav-h) - var(--stats-h));
+  overflow-y: auto;
+  background: var(--bg);
+  transition: background var(--t), border-color var(--t);
+}
+.hub-sidebar::-webkit-scrollbar { width: 4px; }
+.hub-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.sidebar-section-title {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--dim); padding: 0 18px;
+  margin-bottom: 8px; margin-top: 20px;
+}
+.sidebar-section-title:first-child { margin-top: 0; }
+.filter-btn {
+  width: 100%; display: flex; align-items: center; gap: 9px;
+  padding: 9px 18px; font-size: 13.5px; font-weight: 500;
+  color: var(--muted); border-radius: 0;
+  transition: background var(--t), color var(--t);
+  text-align: left;
+}
+.filter-btn:hover { background: var(--bg2); color: var(--text); }
+.filter-btn.active {
+  background: linear-gradient(90deg, rgba(99,102,241,.12), transparent);
+  color: var(--accent); font-weight: 700;
+  border-left: 3px solid var(--accent);
+  padding-left: 15px;
+}
+.filter-btn .fb-icon { font-size: 15px; width: 20px; text-align: center; }
+.filter-btn .fb-label { flex: 1; }
+.filter-btn .fb-count {
+  font-size: 10.5px; font-weight: 700;
+  background: var(--bg3); color: var(--dim);
+  border-radius: 10px; padding: 1px 7px;
+  font-variant-numeric: tabular-nums;
+}
+.filter-btn.active .fb-count {
+  background: rgba(99,102,241,.15); color: var(--accent);
+}
+.iab-link-btn {
+  margin: 16px 14px 0;
+  display: flex; align-items: center; gap: 9px;
+  padding: 11px 14px; border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, rgba(8,145,178,.15), rgba(6,182,212,.08));
+  border: 1.5px solid rgba(8,145,178,.3);
+  color: var(--accent2); font-size: 13px; font-weight: 700;
+  transition: all var(--t);
+}
+.iab-link-btn:hover {
+  background: linear-gradient(135deg, rgba(8,145,178,.25), rgba(6,182,212,.15));
+  border-color: var(--accent2); transform: translateY(-1px);
+}
+
+/* ── MAIN CONTENT ───────────────────── */
+.hub-main {
+  padding: 24px 28px 60px;
+  min-width: 0;
+}
+.hub-main-top {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px; flex-wrap: wrap;
+}
+.hub-section-title {
+  font-size: 18px; font-weight: 800; color: var(--text);
+  letter-spacing: -.02em; flex: 1;
+}
+.hub-section-title .count-label {
+  font-size: 12px; font-weight: 500; color: var(--dim);
+  margin-left: 8px; font-variant-numeric: tabular-nums;
+}
+.sort-select {
+  appearance: none; background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 7px 28px 7px 12px;
+  font-size: 12.5px; font-weight: 600; color: var(--muted);
+  font-family: inherit; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394a3b8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 9px center;
+  transition: border-color var(--t), background var(--t), color var(--t);
+}
+.sort-select:focus { border-color: var(--accent); outline: none; }
+
+/* ── RESOURCE GRID ──────────────────── */
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(198px, 1fr));
+  gap: 18px;
+}
+
+/* ── RESOURCE CARD ──────────────────── */
+.hub-card {
+  background: var(--card); border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden; position: relative;
+  transition: box-shadow var(--t), transform var(--t), border-color var(--t), background var(--t);
+  display: flex; flex-direction: column;
+}
+.hub-card:hover {
+  box-shadow: var(--shadow-lg); transform: translateY(-3px);
+  border-color: rgba(99,102,241,.35);
+}
+.hc-cover {
+  height: 160px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hc-cover-img {
+  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0;
+}
+.hc-cover-emoji {
+  font-size: 52px; position: relative; z-index: 1;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.3));
+  user-select: none;
+}
+.hc-badges {
+  position: absolute; top: 8px; left: 8px; z-index: 5;
+  display: flex; gap: 4px; flex-wrap: wrap;
+}
+.hc-type-badge {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; padding: 3px 7px; border-radius: 5px;
+  background: rgba(0,0,0,.55); color: #fff; backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.hc-fav {
+  position: absolute; top: 7px; right: 8px; z-index: 5;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(0,0,0,.45); backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: rgba(255,255,255,.6);
+  transition: color var(--t), background var(--t), transform var(--t);
+  cursor: pointer;
+}
+.hc-fav:hover { transform: scale(1.2); }
+.hc-fav.active { color: #fbbf24; }
+.hc-prog-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 4px; background: rgba(0,0,0,.25);
+}
+.hc-prog-bar div {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+  transition: width .3s ease;
+}
+.hc-body {
+  padding: 13px 14px 12px;
+  display: flex; flex-direction: column; gap: 4px;
+  flex: 1;
+}
+.hc-title {
+  font-size: 13.5px; font-weight: 700; color: var(--text);
+  line-height: 1.35; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.hc-author {
+  font-size: 11.5px; color: var(--dim); font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.hc-meta {
+  display: flex; align-items: center; gap: 5px; margin-top: 2px;
+  flex-wrap: wrap;
+}
+.hc-source {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--dim);
+  background: var(--bg2); padding: 2px 6px; border-radius: 4px;
+}
+.hc-mode-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+  letter-spacing: .04em;
+}
+.mode-blind     { background:#312e81; color:#a5b4fc; }
+.mode-lowvision { background:#581c87; color:#d8b4fe; }
+.mode-dyslexia  { background:#92400e; color:#fde68a; }
+.mode-adhd      { background:#3730a3; color:#c7d2fe; }
+.mode-deaf      { background:#164e63; color:#a5f3fc; }
+.mode-standard  { background:#1e3a5f; color:#93c5fd; }
+.mode-audio     { background:#1c1917; color:#d6d3d1; }
+.hc-time {
+  font-size: 10.5px; color: var(--dim); margin-top: 1px;
+}
+.hc-actions {
+  display: flex; gap: 6px; margin-top: 8px; align-items: center;
+}
+.hc-btn-primary {
+  flex: 1; height: 34px; border-radius: var(--radius-sm);
+  background: var(--accent); color: #fff;
+  font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+  transition: background var(--t), transform var(--t);
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.hc-btn-primary:hover { background: #4f46e5; transform: translateY(-1px); }
+.hc-btn-icon {
+  width: 34px; height: 34px; border-radius: var(--radius-sm);
+  background: var(--bg2); border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; color: var(--muted);
+  transition: background var(--t), border-color var(--t), color var(--t);
+}
+.hc-btn-icon:hover { background: var(--bg3); color: var(--text); border-color: var(--dim); }
+
+/* ── MORE DROPDOWN ──────────────────── */
+.hc-more-dd {
+  display: none; position: absolute; right: 10px;
+  bottom: calc(100% - 130px); z-index: 50;
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-lg);
+  overflow: hidden; min-width: 178px;
+}
+.hc-more-dd.open { display: block; }
+.hc-more-dd button {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 9px 14px;
+  font-size: 12.5px; color: var(--text); font-weight: 500;
+  transition: background var(--t);
+  text-align: left;
+}
+.hc-more-dd button:hover { background: var(--bg2); }
+.hc-more-dd button.danger { color: #ef4444; }
+.hc-more-dd button.danger:hover { background: rgba(239,68,68,.08); }
+
+/* ── EMPTY STATE ────────────────────── */
+.hub-empty {
+  grid-column: 1 / -1;
+  text-align: center; padding: 80px 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.hub-empty h2 { font-size: 22px; font-weight: 800; color: var(--text); }
+.hub-empty p { font-size: 14.5px; color: var(--muted); max-width: 380px; line-height: 1.6; }
+.btn-hero {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 12px 24px; border-radius: 22px;
+  background: var(--accent); color: #fff;
+  font-size: 14px; font-weight: 700;
+  transition: background var(--t), transform var(--t), box-shadow var(--t);
+  box-shadow: 0 4px 20px rgba(99,102,241,.35);
+}
+.btn-hero:hover { background: #4f46e5; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,.4); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 22px; border-radius: 22px;
+  border: 2px solid var(--border); color: var(--muted);
+  font-size: 14px; font-weight: 600;
+  transition: border-color var(--t), color var(--t);
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── IAB SECTION ────────────────────── */
+.iab-section {
+  margin-top: 48px;
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 8px 40px rgba(8,145,178,.18);
+}
+.iab-header {
+  background: linear-gradient(135deg, #0c4a6e 0%, #0891b2 60%, #06b6d4 100%);
+  padding: 28px 32px 24px;
+}
+.iab-header-top {
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.iab-badge {
+  background: rgba(255,255,255,.15); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 10px; padding: 10px 14px;
+  font-size: 28px; line-height: 1;
+}
+.iab-header h2 {
+  font-size: 22px; font-weight: 900; color: #fff;
+  letter-spacing: -.025em; margin-bottom: 4px;
+}
+.iab-header p { font-size: 13px; color: rgba(255,255,255,.72); max-width: 520px; }
+.iab-meta-chips {
+  display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;
+}
+.iab-chip {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .07em; padding: 4px 10px; border-radius: 6px;
+  background: rgba(255,255,255,.15); color: rgba(255,255,255,.9);
+  border: 1px solid rgba(255,255,255,.2);
+}
+.iab-body { background: var(--bg2); padding: 24px 28px 28px; transition: background var(--t); }
+.iab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.iab-card {
+  background: var(--card); border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow var(--t), transform var(--t), background var(--t), border-color var(--t);
+  box-shadow: var(--shadow);
+}
+.iab-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: rgba(8,145,178,.35); }
+.iab-cover {
+  height: 80px; display: flex; align-items: center; justify-content: center;
+  font-size: 28px; position: relative;
+}
+.iab-cover-label {
+  position: absolute; bottom: 6px; right: 8px;
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .08em; color: rgba(255,255,255,.8);
+  background: rgba(0,0,0,.3); padding: 2px 6px; border-radius: 4px;
+}
+.iab-body-inner { padding: 12px 14px 14px; }
+.iab-category {
+  font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--accent2); margin-bottom: 4px;
+}
+.iab-title {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  line-height: 1.35; margin-bottom: 4px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.iab-author { font-size: 11px; color: var(--dim); margin-bottom: 10px; }
+.iab-btns {
+  display: flex; gap: 5px; flex-wrap: wrap;
+}
+.iab-btn {
+  flex: 1; height: 30px; border-radius: 7px;
+  font-size: 10.5px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  transition: background var(--t), color var(--t), transform var(--t);
+  white-space: nowrap;
+}
+.iab-btn-primary {
+  background: var(--accent2); color: #fff;
+}
+.iab-btn-primary:hover { background: #0e7490; transform: translateY(-1px); }
+.iab-btn-ghost {
+  background: var(--bg2); border: 1.5px solid var(--border); color: var(--muted);
+}
+.iab-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.iab-btn-add {
+  background: rgba(99,102,241,.1); color: var(--accent);
+  border: 1.5px solid rgba(99,102,241,.25);
+}
+.iab-btn-add:hover { background: var(--accent); color: #fff; }
+
+/* ── EXPERIENCE MODAL ───────────────── */
+.exp-overlay {
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(0,0,0,.78); backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none;
+  transition: opacity .2s ease;
+}
+.exp-overlay.open { opacity: 1; pointer-events: all; }
+.exp-card {
+  background: var(--card); border-radius: 22px; overflow: hidden;
+  max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 24px 80px rgba(0,0,0,.5);
+  transform: translateY(16px) scale(.97);
+  transition: transform .22s cubic-bezier(.34,1.56,.64,1);
+}
+.exp-overlay.open .exp-card { transform: translateY(0) scale(1); }
+.exp-card::-webkit-scrollbar { width: 4px; }
+.exp-card::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.exp-header {
+  background: linear-gradient(135deg, #1e1b4b 0%, #1d4ed8 100%);
+  padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+}
+.exp-book-cover {
+  width: 52px; height: 68px; border-radius: 6px; overflow: hidden;
+  flex-shrink: 0; background: rgba(255,255,255,.15);
+  display: flex; align-items: center; justify-content: center; font-size: 26px;
+}
+.exp-book-cover img { width: 100%; height: 100%; object-fit: cover; }
+.exp-book-info { flex: 1; min-width: 0; }
+.exp-book-info h3 {
+  font-size: 15px; font-weight: 800; color: #fff;
+  line-height: 1.3; margin-bottom: 3px;
+}
+.exp-book-info p { font-size: 12px; color: rgba(255,255,255,.6); }
+.exp-close {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,.12); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  flex-shrink: 0; transition: background var(--t);
+}
+.exp-close:hover { background: rgba(255,255,255,.25); }
+.exp-body { padding: 22px 24px 26px; }
+.exp-section-label {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--dim); margin-bottom: 12px;
+}
+.exp-section-label span { color: var(--accent); margin-right: 4px; }
+.exp-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 9px;
+  margin-bottom: 20px;
+}
+.exp-btn {
+  background: var(--bg2); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 14px 12px; cursor: pointer;
+  display: flex; align-items: center; gap: 10px;
+  transition: border-color var(--t), background var(--t), transform var(--t), box-shadow var(--t);
+  text-align: left;
+}
+.exp-btn:hover {
+  border-color: var(--accent); background: rgba(99,102,241,.06);
+  transform: translateY(-1px); box-shadow: 0 4px 16px rgba(99,102,241,.12);
+}
+.exp-btn.ai-btn:hover {
+  border-color: var(--accent2); background: rgba(8,145,178,.06);
+  box-shadow: 0 4px 16px rgba(8,145,178,.12);
+}
+.exp-btn .ei { font-size: 22px; }
+.exp-btn-text { display: flex; flex-direction: column; }
+.exp-btn .el { font-size: 13px; font-weight: 700; color: var(--text); }
+.exp-btn .es { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+.exp-divider {
+  height: 1px; background: var(--border); margin: 16px 0;
+}
+
+/* ── AI PANEL ───────────────────────── */
+.ai-panel {
+  position: fixed; right: 0; top: var(--nav-h); bottom: 0;
+  width: 340px; z-index: 400;
+  background: var(--card); border-left: 1.5px solid var(--border);
+  box-shadow: -4px 0 30px rgba(0,0,0,.12);
+  transform: translateX(100%);
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), background var(--t), border-color var(--t);
+  display: flex; flex-direction: column;
+}
+.ai-panel.open { transform: translateX(0); }
+.ai-panel-head {
+  background: linear-gradient(135deg, #1e1b4b, #1d4ed8);
+  padding: 14px 16px; display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.ai-panel-head h3 { flex: 1; font-size: 14px; font-weight: 800; color: #fff; }
+.ai-panel-close {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,.12); color: #fff; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--t);
+}
+.ai-panel-close:hover { background: rgba(255,255,255,.25); }
+.ai-panel-content {
+  flex: 1; overflow-y: auto; padding: 18px;
+  font-size: 13.5px; line-height: 1.7; color: var(--text);
+}
+.ai-panel-content::-webkit-scrollbar { width: 4px; }
+.ai-panel-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.ai-loading {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 14px; padding: 40px 20px; color: var(--dim);
+}
+.ai-spinner {
+  width: 36px; height: 36px; border: 3px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.ai-no-key {
+  padding: 24px 18px; text-align: center;
+  font-size: 13px; color: var(--muted); line-height: 1.6;
+}
+.ai-no-key .key-icon { font-size: 32px; margin-bottom: 10px; }
+
+/* ── ADD MANUAL MODAL ───────────────── */
+.add-manual-overlay {
+  position: fixed; inset: 0; z-index: 650;
+  background: rgba(0,0,0,.7);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none;
+  transition: opacity .2s;
+}
+.add-manual-overlay.open { opacity: 1; pointer-events: all; }
+.add-manual-card {
+  background: var(--card); border-radius: 18px; padding: 26px 28px;
+  max-width: 460px; width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+.add-manual-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 18px; color: var(--text); }
+.form-row { margin-bottom: 14px; }
+.form-label { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--dim); display: block; margin-bottom: 5px; }
+.form-input {
+  width: 100%; height: 38px; border-radius: 8px;
+  border: 1.5px solid var(--border); background: var(--bg2);
+  padding: 0 12px; font-size: 13.5px; color: var(--text);
+  font-family: inherit; transition: border-color var(--t), background var(--t);
+}
+.form-input:focus { outline: none; border-color: var(--accent); }
+.form-select { height: 38px; width: 100%; }
+.form-btns { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+.form-btn-cancel {
+  padding: 9px 18px; border-radius: 8px; border: 1.5px solid var(--border);
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  transition: border-color var(--t), color var(--t);
+}
+.form-btn-cancel:hover { border-color: var(--dim); color: var(--text); }
+.form-btn-save {
+  padding: 9px 20px; border-radius: 8px;
+  background: var(--accent); color: #fff; font-size: 13px; font-weight: 700;
+  transition: background var(--t);
+}
+.form-btn-save:hover { background: #4f46e5; }
+
+/* ── TOAST ──────────────────────────── */
+.hub-toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: #1e293b; color: #f0f6ff;
+  padding: 11px 22px; border-radius: 22px;
+  font-size: 13.5px; font-weight: 600; z-index: 999;
+  box-shadow: 0 8px 30px rgba(0,0,0,.3);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  max-width: 340px; text-align: center;
+  pointer-events: none;
+}
+.hub-toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── RESPONSIVE ─────────────────────── */
+@media (max-width: 820px) {
+  .hub-layout { grid-template-columns: 1fr; }
+  .hub-sidebar {
+    position: static; height: auto; overflow: visible;
+    display: flex; flex-wrap: wrap; gap: 0;
+    padding: 12px 8px; border-right: none; border-bottom: 1px solid var(--border);
+  }
+  .sidebar-section-title { width: 100%; margin-top: 8px; }
+  .filter-btn { width: auto; border-radius: var(--radius-sm); }
+  .filter-btn.active { border-left: none; padding-left: 18px; border-bottom: 2px solid var(--accent); }
+  .iab-link-btn { width: auto; }
+  .hub-main { padding: 16px 16px 40px; }
+  .stats-bar { gap: 0; overflow-x: auto; }
+  .stats-search { display: none; }
+  .hub-grid { grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap: 12px; }
+  .exp-grid { grid-template-columns: 1fr; }
+  .ai-panel { width: 100%; }
+  .hub-nav-title { display: none; }
+}
+@media (max-width: 480px) {
+  .stat-pill { padding: 0 8px; }
+  .hub-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .iab-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── CUSTOM NAVBAR ──────────────────────────────────────── -->
+<nav class="hub-nav" role="navigation" aria-label="Hub Ilmu navigasi utama">
+  <a href="dashboard.html" class="hub-nav-logo" aria-label="CelikSense AI - ke Dashboard">
+    <div class="logo-badge" aria-hidden="true">🧠</div>
+    <span>CelikSense AI</span>
+  </a>
+  <span class="hub-nav-title">
+    <span aria-hidden="true">/</span>
+    My Knowledge Hub
+  </span>
+  <div class="hub-nav-spacer"></div>
+  <div class="hub-nav-actions">
+    <a href="dashboard.html" class="hub-nav-btn" aria-label="Kembali ke Dashboard">← Dashboard</a>
+    <a href="settings.html" class="hub-nav-btn" aria-label="Buka Tetapan">⚙️ Tetapan</a>
+    <button id="darkToggleBtn" class="hub-nav-btn" onclick="toggleDark()" aria-label="Toggle mod gelap/cerah">🌙</button>
+  </div>
+</nav>
+
+<!-- ── STATS BAR ──────────────────────────────────────────── -->
+<div class="stats-bar" role="status" aria-label="Statistik pembelajaran anda">
+  <div class="stat-pill">
+    <span class="si" aria-hidden="true">📚</span>
+    <span class="sv" id="stat-books">0</span>
+    <span>Sumber</span>
+  </div>
+  <div class="stat-pill">
+    <span class="si" aria-hidden="true">⏱</span>
+    <span class="sv" id="stat-time">0j</span>
+    <span>Dibaca</span>
+  </div>
+  <div class="stat-pill streak">
+    <span class="si" aria-hidden="true">🔥</span>
+    <span class="sv" id="stat-streak">0</span>
+    <span>Hari berturut</span>
+  </div>
+  <div class="stat-pill finished">
+    <span class="si" aria-hidden="true">✅</span>
+    <span class="sv" id="stat-finished">0</span>
+    <span>Selesai</span>
+  </div>
+  <div class="stats-spacer"></div>
+  <div class="stats-search">
+    <span class="s-icon" aria-hidden="true">🔍</span>
+    <input type="search" id="searchInput" placeholder="Cari sumber..." aria-label="Cari sumber pembelajaran" oninput="searchHub(this.value)">
+  </div>
+  <button class="mic-btn" id="micBtn" onclick="startVoice()" aria-label="Aktifkan arahan suara" title="Arahan Suara">🎤</button>
+</div>
+
+<!-- ── MAIN LAYOUT ────────────────────────────────────────── -->
+<div class="hub-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="hub-sidebar" role="complementary" aria-label="Penapisan koleksi">
+    <div class="sidebar-section-title">📂 Koleksi Saya</div>
+
+    <button class="filter-btn active" onclick="filterBy('all')" id="fb-all" aria-pressed="true" aria-label="Tunjuk semua sumber">
+      <span class="fb-icon" aria-hidden="true">📚</span>
+      <span class="fb-label">Semua Sumber</span>
+      <span class="fb-count" id="fc-all">0</span>
+    </button>
+    <button class="filter-btn" onclick="filterBy('book')" id="fb-book" aria-pressed="false" aria-label="Tapis: Buku">
+      <span class="fb-icon" aria-hidden="true">📖</span>
+      <span class="fb-label">Buku</span>
+      <span class="fb-count" id="fc-book">0</span>
+    </button>
+    <button class="filter-btn" onclick="filterBy('pdf')" id="fb-pdf" aria-pressed="false" aria-label="Tapis: PDF dan Artikel">
+      <span class="fb-icon" aria-hidden="true">📄</span>
+      <span class="fb-label">PDF / Artikel</span>
+      <span class="fb-count" id="fc-pdf">0</span>
+    </button>
+    <button class="filter-btn" onclick="filterBy('thesis')" id="fb-thesis" aria-pressed="false" aria-label="Tapis: Tesis dan Jurnal">
+      <span class="fb-icon" aria-hidden="true">🎓</span>
+      <span class="fb-label">Tesis / Jurnal</span>
+      <span class="fb-count" id="fc-thesis">0</span>
+    </button>
+    <button class="filter-btn" onclick="filterBy('iab')" id="fb-iab" aria-pressed="false" aria-label="Tapis: Penerbitan IAB">
+      <span class="fb-icon" aria-hidden="true">📰</span>
+      <span class="fb-label">Penerbitan IAB</span>
+      <span class="fb-count" id="fc-iab">0</span>
+    </button>
+    <button class="filter-btn" onclick="filterBy('audio')" id="fb-audio" aria-pressed="false" aria-label="Tapis: Buku audio">
+      <span class="fb-icon" aria-hidden="true">🎧</span>
+      <span class="fb-label">Buku Audio</span>
+      <span class="fb-count" id="fc-audio">0</span>
+    </button>
+    <button class="filter-btn" onclick="filterBy('notes')" id="fb-notes" aria-pressed="false" aria-label="Tapis: Nota peribadi">
+      <span class="fb-icon" aria-hidden="true">📝</span>
+      <span class="fb-label">Nota Peribadi</span>
+      <span class="fb-count" id="fc-notes">0</span>
+    </button>
+    <button class="filter-btn" onclick="filterBy('ocr')" id="fb-ocr" aria-pressed="false" aria-label="Tapis: Dokumen OCR">
+      <span class="fb-icon" aria-hidden="true">📷</span>
+      <span class="fb-label">Dokumen OCR</span>
+      <span class="fb-count" id="fc-ocr">0</span>
+    </button>
+    <button class="filter-btn" onclick="filterBy('favourite')" id="fb-favourite" aria-pressed="false" aria-label="Tapis: Kegemaran">
+      <span class="fb-icon" aria-hidden="true">⭐</span>
+      <span class="fb-label">Kegemaran</span>
+      <span class="fb-count" id="fc-favourite">0</span>
+    </button>
+
+    <a href="#iab-collection" class="iab-link-btn" aria-label="Pergi ke Koleksi IAB">
+      <span aria-hidden="true">🏛</span>
+      <span>Koleksi IAB</span>
+    </a>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="hub-main" role="main" id="mainContent">
+    <div class="hub-main-top">
+      <h1 class="hub-section-title">
+        Hub Ilmu Saya
+        <span class="count-label" id="gridCountLabel" aria-live="polite"></span>
+      </h1>
+      <label for="sortSelect" class="sr-only">Isih mengikut</label>
+      <select class="sort-select" id="sortSelect" onchange="sortBy(this.value)" aria-label="Isih sumber mengikut">
+        <option value="recent">↓ Terbaru</option>
+        <option value="title">A–Z Tajuk</option>
+        <option value="author">A–Z Pengarang</option>
+        <option value="progress">% Kemajuan</option>
+        <option value="type">Jenis</option>
+      </select>
+    </div>
+
+    <div class="hub-grid" id="hubGrid" aria-label="Grid sumber pembelajaran" role="list"></div>
+
+    <!-- IAB SECTION -->
+    <section class="iab-section" id="iab-collection" aria-labelledby="iab-heading">
+      <div class="iab-header">
+        <div class="iab-header-top">
+          <div class="iab-badge" aria-hidden="true">🏛</div>
+          <div>
+            <h2 id="iab-heading">Koleksi Digital Ilmu IAB</h2>
+            <p>IAB Digital Knowledge Collection — Institut Aminuddin Baki, Kementerian Pendidikan Malaysia. Sumber kepimpinan, pengurusan dan pedagogi untuk pendidik profesional.</p>
+            <div class="iab-meta-chips">
+              <span class="iab-chip">6 Penerbitan</span>
+              <span class="iab-chip">IAB Malaysia</span>
+              <span class="iab-chip">Open Access</span>
+              <span class="iab-chip">Boleh Dimuat Turun</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="iab-body">
+        <div class="iab-grid" id="iabGrid" aria-label="Koleksi buku IAB" role="list"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ── EXPERIENCE MODAL ───────────────────────────────────── -->
+<div class="exp-overlay" id="expOverlay" role="dialog" aria-modal="true" aria-labelledby="expTitle" onclick="closeExpOnBackdrop(event)">
+  <div class="exp-card">
+    <div class="exp-header">
+      <div class="exp-book-cover" id="expCover" aria-hidden="true">📚</div>
+      <div class="exp-book-info">
+        <h3 id="expTitle">Pilih Pengalaman Pembelajaran</h3>
+        <p id="expAuthor"></p>
+      </div>
+      <button class="exp-close" onclick="closeExp()" aria-label="Tutup modal">✕</button>
+    </div>
+    <div class="exp-body">
+      <div class="exp-section-label"><span>🎯</span>Mod Aksesibiliti (Accessibility Modes)</div>
+      <div class="exp-grid" id="expModeGrid"></div>
+      <div class="exp-divider"></div>
+      <div class="exp-section-label"><span>🤖</span>Pengalaman AI (AI Experiences)</div>
+      <div class="exp-grid" id="expAiGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── AI PANEL ───────────────────────────────────────────── -->
+<aside class="ai-panel" id="aiPanel" role="complementary" aria-label="Panel AI" aria-hidden="true">
+  <div class="ai-panel-head">
+    <h3 id="aiPanelTitle">🤖 AI Panel</h3>
+    <button class="ai-panel-close" onclick="togglePanel()" aria-label="Tutup panel AI">✕</button>
+  </div>
+  <div class="ai-panel-content" id="aiPanelContent" aria-live="polite">
+    <div class="ai-no-key">
+      <div class="key-icon">🔑</div>
+      <p>Tambah kunci API Gemini di <strong>⚙️ Tetapan</strong> untuk guna ciri AI.</p>
+    </div>
+  </div>
+</aside>
+
+<!-- ── ADD MANUAL MODAL ───────────────────────────────────── -->
+<div class="add-manual-overlay" id="addManualOverlay" role="dialog" aria-modal="true" aria-labelledby="addManualTitle">
+  <div class="add-manual-card">
+    <h3 id="addManualTitle">+ Tambah Sumber Manual</h3>
+    <div class="form-row">
+      <label class="form-label" for="amTitle">Tajuk</label>
+      <input class="form-input" type="text" id="amTitle" placeholder="Masukkan tajuk buku / artikel..." aria-required="true">
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="amAuthor">Pengarang</label>
+      <input class="form-input" type="text" id="amAuthor" placeholder="Nama pengarang">
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="amUrl">URL / Pautan (pilihan)</label>
+      <input class="form-input" type="url" id="amUrl" placeholder="https://...">
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="amType">Jenis</label>
+      <select class="form-input form-select" id="amType" aria-label="Pilih jenis sumber">
+        <option value="book">📖 Buku</option>
+        <option value="pdf">📄 PDF / Artikel</option>
+        <option value="thesis">🎓 Tesis / Jurnal</option>
+        <option value="audio">🎧 Buku Audio</option>
+        <option value="notes">📝 Nota Peribadi</option>
+        <option value="ocr">📷 Dokumen OCR</option>
+      </select>
+    </div>
+    <div class="form-btns">
+      <button class="form-btn-cancel" onclick="closeAddManual()" aria-label="Batal">Batal</button>
+      <button class="form-btn-save" onclick="saveManual()" aria-label="Simpan sumber">💾 Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ──────────────────────────────────────────────── -->
+<div class="hub-toast" id="hubToast" role="alert" aria-live="assertive"></div>
+
+<!-- ── SHARED.JS ──────────────────────────────────────────── -->
+<script src="shared.js"></script>
+
+<script>
+/* ============================================================
+   MY KNOWLEDGE HUB — main.js (inline)
+   CelikSense AI — Malaysian Special Needs Education Platform
+============================================================ */
+
+/* ── STATE ──────────────────────────────────────────────── */
+var _currentFilter = 'all';
+var _currentSort   = 'recent';
+var _searchQuery   = '';
+var _currentBookId = null;   // for experience modal
+var _voiceActive   = false;
+
+/* ── COVER GRADIENTS (deterministic from id hash) ─────── */
+var COVER_GRADIENTS = [
+  'linear-gradient(135deg,#6366f1,#818cf8)',
+  'linear-gradient(135deg,#0891b2,#22d3ee)',
+  'linear-gradient(135deg,#7c3aed,#a78bfa)',
+  'linear-gradient(135deg,#be185d,#f472b6)',
+  'linear-gradient(135deg,#0f766e,#34d399)',
+  'linear-gradient(135deg,#b45309,#fcd34d)',
+  'linear-gradient(135deg,#1d4ed8,#60a5fa)',
+  'linear-gradient(135deg,#991b1b,#f87171)',
+  'linear-gradient(135deg,#065f46,#6ee7b7)',
+  'linear-gradient(135deg,#312e81,#c7d2fe)',
+];
+function coverGrad(id) {
+  var hash = 0;
+  for (var i = 0; i < (id||'').length; i++) hash = (hash * 31 + (id||'').charCodeAt(i)) & 0xffff;
+  return COVER_GRADIENTS[hash % COVER_GRADIENTS.length];
+}
+
+/* ── TYPE CONFIG ────────────────────────────────────────── */
+var TYPE_CFG = {
+  book:    { icon:'📖', label:'Buku' },
+  pdf:     { icon:'📄', label:'PDF' },
+  thesis:  { icon:'🎓', label:'Tesis' },
+  iab:     { icon:'📰', label:'IAB' },
+  audio:   { icon:'🎧', label:'Audio' },
+  notes:   { icon:'📝', label:'Nota' },
+  ocr:     { icon:'📷', label:'OCR' },
+};
+function typeIcon(t) { return (TYPE_CFG[t]||TYPE_CFG.book).icon; }
+function typeLabel(t){ return (TYPE_CFG[t]||TYPE_CFG.book).label; }
+
+/* ── MODE CONFIG ────────────────────────────────────────── */
+var MODE_CFG = {
+  blind:     { icon:'🔊', label:'Blind' },
+  lowvision: { icon:'🔍', label:'Low Vision' },
+  dyslexia:  { icon:'📖', label:'Dyslexia' },
+  adhd:      { icon:'🧠', label:'ADHD' },
+  deaf:      { icon:'🤟', label:'Deaf' },
+  standard:  { icon:'📱', label:'Standard' },
+  audio:     { icon:'🎧', label:'Audio' },
+};
+function modeIcon(m) { return (MODE_CFG[m]||MODE_CFG.adhd).icon; }
+function modeName(m) { return (MODE_CFG[m]||MODE_CFG.adhd).label; }
+
+/* ── RELATIVE TIME ──────────────────────────────────────── */
+function relTime(ts) {
+  if (!ts) return 'Belum dibaca';
+  var diff = Date.now() - ts;
+  var mins  = Math.floor(diff / 60000);
+  var hours = Math.floor(diff / 3600000);
+  var days  = Math.floor(diff / 86400000);
+  if (mins < 1)   return 'Baru sahaja';
+  if (mins < 60)  return mins + ' minit lalu';
+  if (hours < 24) return hours + ' jam lalu';
+  if (days < 7)   return days + ' hari lalu';
+  if (days < 30)  return Math.floor(days/7) + ' minggu lalu';
+  return Math.floor(days/30) + ' bulan lalu';
+}
+
+/* ── UPDATE STATS BAR ───────────────────────────────────── */
+function updateStats() {
+  try {
+    var all = window.CS_SHELF ? CS_SHELF.getAll() : [];
+    var stats = {};
+    try { stats = JSON.parse(localStorage.getItem('cs_hub_stats')||'{}'); } catch(e) {}
+    document.getElementById('stat-books').textContent    = all.length;
+    var hrs = Math.round((stats.totalTime||0) / 3600);
+    document.getElementById('stat-time').textContent     = hrs + 'j';
+    document.getElementById('stat-streak').textContent   = stats.streak || 0;
+    document.getElementById('stat-finished').textContent = all.filter(function(b){ return b.progress >= 95; }).length;
+  } catch(e) {}
+}
+
+/* ── COUNT BADGES ───────────────────────────────────────── */
+function updateCounts() {
+  try {
+    var all = window.CS_SHELF ? CS_SHELF.getAll() : [];
+    var types = ['book','pdf','thesis','iab','audio','notes','ocr'];
+    document.getElementById('fc-all').textContent       = all.length;
+    types.forEach(function(t){
+      var el = document.getElementById('fc-'+t);
+      if (el) el.textContent = all.filter(function(b){ return (b.type||'book')===t; }).length;
+    });
+    var favEl = document.getElementById('fc-favourite');
+    if (favEl) favEl.textContent = all.filter(function(b){ return b.isFavourite; }).length;
+  } catch(e) {}
+}
+
+/* ── GET FILTERED & SORTED RESOURCES ───────────────────── */
+function getResources() {
+  if (!window.CS_SHELF) return [];
+  var all = CS_SHELF.getAll();
+  // Filter
+  if (_currentFilter === 'favourite') {
+    all = all.filter(function(b){ return b.isFavourite; });
+  } else if (_currentFilter !== 'all') {
+    all = all.filter(function(b){ return (b.type||'book') === _currentFilter; });
+  }
+  // Search
+  if (_searchQuery) {
+    var q = _searchQuery.toLowerCase();
+    all = all.filter(function(b){
+      return (b.title||'').toLowerCase().includes(q) ||
+             (b.author||'').toLowerCase().includes(q) ||
+             (b.source||'').toLowerCase().includes(q);
+    });
+  }
+  // Sort
+  if (_currentSort === 'title')    all.sort(function(a,b){ return (a.title||'').localeCompare(b.title||''); });
+  else if (_currentSort === 'author') all.sort(function(a,b){ return (a.author||'').localeCompare(b.author||''); });
+  else if (_currentSort === 'progress') all.sort(function(a,b){ return (b.progress||0)-(a.progress||0); });
+  else if (_currentSort === 'type') all.sort(function(a,b){ return (a.type||'').localeCompare(b.type||''); });
+  else all.sort(function(a,b){ return (b.addedAt||0)-(a.addedAt||0); });
+  return all;
+}
+
+/* ── RENDER HUB GRID ────────────────────────────────────── */
+function renderHub() {
+  var grid = document.getElementById('hubGrid');
+  if (!grid) return;
+  var resources = getResources();
+  var countLabel = document.getElementById('gridCountLabel');
+  if (countLabel) countLabel.textContent = resources.length ? '(' + resources.length + ')' : '';
+
+  if (!resources.length) {
+    grid.innerHTML =
+      '<div class="hub-empty" role="listitem">' +
+      '<div style="font-size:72px" aria-hidden="true">📚</div>' +
+      '<h2>Hub Ilmu Anda Kosong</h2>' +
+      '<p>Tambah buku, artikel, atau PDF untuk memulakan perjalanan pembelajaran anda.</p>' +
+      '<a href="celikverse-library.html" class="btn-hero" aria-label="Layari CelikVerse Library">🌍 Layari CelikVerse Library →</a>' +
+      '<button onclick="showAddManual()" class="btn-outline" aria-label="Tambah sumber manual">+ Tambah Manual</button>' +
+      '</div>';
+    return;
+  }
+
+  grid.innerHTML = resources.map(function(b){ return buildCard(b); }).join('');
+  updateCounts();
+}
+
+/* ── BUILD CARD HTML ────────────────────────────────────── */
+function buildCard(b) {
+  var grad = b.cover ? '' : coverGrad(b.id);
+  var coverStyle = grad ? 'background:' + grad : '';
+  var prog = Math.min(100, Math.max(0, b.progress||0));
+  var mode = b.lastMode || 'adhd';
+  var favClass = b.isFavourite ? ' active' : '';
+  var tIcon = typeIcon(b.type||'book');
+  var tLabel = typeLabel(b.type||'book');
+  var source = b.source || 'Peribadi';
+
+  return '<div class="hub-card" role="listitem" aria-label="' + esc(b.title) + '">' +
+    '<div class="hc-cover" style="' + coverStyle + '">' +
+      (b.cover
+        ? '<img class="hc-cover-img" src="' + esc(b.cover) + '" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+        : '') +
+      '<div class="hc-cover-emoji" aria-hidden="true" style="' + (b.cover ? 'display:none' : '') + '">' + tIcon + '</div>' +
+      '<div class="hc-badges"><span class="hc-type-badge">' + tIcon + ' ' + tLabel + '</span></div>' +
+      '<button class="hc-fav' + favClass + '" onclick="toggleFav(\'' + b.id + '\')" aria-label="' + (b.isFavourite ? 'Buang daripada' : 'Tambah ke') + ' kegemaran" aria-pressed="' + !!b.isFavourite + '">★</button>' +
+      '<div class="hc-prog-bar" role="progressbar" aria-valuenow="' + prog + '" aria-valuemin="0" aria-valuemax="100" aria-label="Kemajuan membaca ' + prog + '%"><div style="width:' + prog + '%"></div></div>' +
+    '</div>' +
+    '<div class="hc-body">' +
+      '<div class="hc-title">' + esc(b.title||'Tanpa Tajuk') + '</div>' +
+      '<div class="hc-author">' + esc(b.author||'Pengarang tidak diketahui') + '</div>' +
+      '<div class="hc-meta">' +
+        '<span class="hc-source">' + esc(source) + '</span>' +
+        '<span class="hc-mode-badge mode-' + mode + '">' + modeIcon(mode) + ' ' + modeName(mode) + '</span>' +
+      '</div>' +
+      '<div class="hc-time">' + relTime(b.lastOpened) + (prog > 0 ? ' · ' + prog + '%' : '') + '</div>' +
+      '<div class="hc-actions">' +
+        '<button class="hc-btn-primary" onclick="openExperience(\'' + b.id + '\')" aria-label="Buka ' + esc(b.title) + '">▶ Buka</button>' +
+        '<button class="hc-btn-icon" onclick="showMore(\'' + b.id + '\')" aria-label="Lebih pilihan untuk ' + esc(b.title) + '" aria-expanded="false" aria-haspopup="true">⋮</button>' +
+      '</div>' +
+      '<div class="hc-more-dd" id="more_' + b.id + '" role="menu">' +
+        '<button role="menuitem" onclick="openExperience(\'' + b.id + '\')">▶ Pilih Pengalaman</button>' +
+        '<button role="menuitem" onclick="doAI(\'' + b.id + '\',\'summary\')">📝 AI Ringkasan</button>' +
+        '<button role="menuitem" onclick="doAI(\'' + b.id + '\',\'quiz\')">❓ Kuiz AI</button>' +
+        '<button role="menuitem" onclick="doAI(\'' + b.id + '\',\'mindmap\')">🧠 Peta Minda</button>' +
+        '<button role="menuitem" class="danger" onclick="removeResource(\'' + b.id + '\')">🗑 Buang</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+/* ── ESCAPE HTML ────────────────────────────────────────── */
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── FILTER ─────────────────────────────────────────────── */
+function filterBy(type) {
+  _currentFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(function(btn){
+    var isActive = btn.id === 'fb-' + type;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+  renderHub();
+}
+
+/* ── SORT ───────────────────────────────────────────────── */
+function sortBy(key) {
+  _currentSort = key;
+  renderHub();
+}
+
+/* ── SEARCH ─────────────────────────────────────────────── */
+function searchHub(q) {
+  _searchQuery = q.trim();
+  renderHub();
+}
+
+/* ── TOGGLE FAVOURITE ───────────────────────────────────── */
+function toggleFav(id) {
+  if (!window.CS_SHELF) return;
+  var b = CS_SHELF.getById(id);
+  if (!b) return;
+  CS_SHELF.setFavourite(id, !b.isFavourite);
+  renderHub();
+  updateStats();
+  showToast(b.isFavourite ? '⭐ Dibuang dari kegemaran' : '⭐ Ditambah ke kegemaran');
+}
+
+/* ── SHOW MORE DROPDOWN ─────────────────────────────────── */
+function showMore(id) {
+  var dd = document.getElementById('more_' + id);
+  if (!dd) return;
+  var wasOpen = dd.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.hc-more-dd.open').forEach(function(d){ d.classList.remove('open'); });
+  if (!wasOpen) dd.classList.add('open');
+}
+
+/* ── REMOVE RESOURCE ────────────────────────────────────── */
+function removeResource(id) {
+  if (!window.CS_SHELF) return;
+  var b = CS_SHELF.getById(id);
+  if (!b) return;
+  if (confirm('Buang "' + (b.title||'sumber ini') + '" dari Hub Ilmu anda?')) {
+    CS_SHELF.remove(id);
+    renderHub();
+    updateStats();
+    updateCounts();
+    showToast('🗑 Sumber dibuang');
+  }
+}
+
+/* ── OPEN EXPERIENCE MODAL ──────────────────────────────── */
+var _expBook = null;
+function openExperience(id) {
+  if (!window.CS_SHELF) return;
+  var b = CS_SHELF.getById(id);
+  if (!b) return;
+  _expBook = b;
+  _currentBookId = id;
+
+  // Close any open more-dropdowns
+  document.querySelectorAll('.hc-more-dd.open').forEach(function(d){ d.classList.remove('open'); });
+
+  // Populate header
+  var coverEl = document.getElementById('expCover');
+  document.getElementById('expTitle').textContent  = b.title  || 'Sumber';
+  document.getElementById('expAuthor').textContent = b.author || '';
+  if (b.cover) {
+    coverEl.innerHTML = '<img src="' + esc(b.cover) + '" alt="" onerror="this.parentNode.innerHTML=\'' + typeIcon(b.type||'book') + '\'">';
+  } else {
+    coverEl.textContent = typeIcon(b.type||'book');
+  }
+
+  // Mode grid
+  var modes = [
+    { icon:'🔊', label:'Blind Reader',    sub:'Pembaca suara penuh',   url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'🔍', label:'Low Vision',      sub:'Besarkan & warna teks', url:'celiksense-reader.html', mode:'lowvision' },
+    { icon:'📖', label:'Dyslexia Reader', sub:'Fon & jarak khas',      url:'celiksense-reader.html', mode:'dyslexia'  },
+    { icon:'🧠', label:'ADHD Reader',     sub:'Fokus satu ayat',       url:'celiksense-reader.html', mode:'adhd'      },
+    { icon:'🤟', label:'Deaf Reader',     sub:'Visual & isyarat',      url:'celiksense-reader.html', mode:'deaf'      },
+    { icon:'🎧', label:'Audio Reader',    sub:'Dengar buku',           url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'⠿',  label:'Braille Reader', sub:'Output braille',        url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'📱', label:'Standard Reader', sub:'Mod biasa',             url:'celiksense-reader.html', mode:'adhd'      },
+  ];
+  var modeHtml = modes.map(function(m){
+    return '<button class="exp-btn" onclick="selectExperience(\'' + m.url + '\',\'' + m.mode + '\')" aria-label="' + m.label + '">' +
+      '<span class="ei" aria-hidden="true">' + m.icon + '</span>' +
+      '<div class="exp-btn-text"><span class="el">' + m.label + '</span><span class="es">' + m.sub + '</span></div>' +
+      '</button>';
+  }).join('');
+  document.getElementById('expModeGrid').innerHTML = modeHtml;
+
+  // AI grid
+  var ais = [
+    { icon:'🤖', label:'AI Teacher',       sub:'Ajar interaktif',     action:'page', url:'ai-teacher-agent.html' },
+    { icon:'📚', label:'Reading Companion', sub:'Baca bersama AI',     action:'page', url:'reading-companion.html' },
+    { icon:'📝', label:'AI Ringkasan',      sub:'Ringkaskan kandungan', action:'ai',   type:'summary' },
+    { icon:'❓', label:'Jana Kuiz',         sub:'Soalan ujian AI',      action:'ai',   type:'quiz' },
+    { icon:'🧠', label:'Peta Minda',        sub:'Peta visual konsep',   action:'ai',   type:'mindmap' },
+    { icon:'💡', label:'AI Terangkan',      sub:'Jelaskan topik',       action:'ai',   type:'explain' },
+  ];
+  var aiHtml = ais.map(function(a){
+    var onclick = a.action === 'ai'
+      ? 'doAI(\'' + (_currentBookId||'') + '\',\'' + a.type + '\');closeExp();'
+      : 'window.location.href=\'' + a.url + '\'';
+    return '<button class="exp-btn ai-btn" onclick="' + onclick + '" aria-label="' + a.label + '">' +
+      '<span class="ei" aria-hidden="true">' + a.icon + '</span>' +
+      '<div class="exp-btn-text"><span class="el">' + a.label + '</span><span class="es">' + a.sub + '</span></div>' +
+      '</button>';
+  }).join('');
+  document.getElementById('expAiGrid').innerHTML = aiHtml;
+
+  // Open overlay
+  var ov = document.getElementById('expOverlay');
+  ov.classList.add('open');
+  ov.removeAttribute('aria-hidden');
+}
+
+/* ── SELECT EXPERIENCE ──────────────────────────────────── */
+function selectExperience(readerUrl, mode) {
+  if (!_expBook) return;
+  var b = _expBook;
+  var params = new URLSearchParams({
+    mode:      mode,
+    cv_title:  b.title  || '',
+    cv_author: b.author || '',
+    cv_url:    b.url    || '',
+    cv_cover:  b.cover  || '',
+    cv_source: b.source || '',
+    shelf_id:  b.id     || '',
+  });
+  // Record last mode
+  if (window.CS_SHELF && b.id) {
+    CS_SHELF.update(b.id, { lastMode: mode, lastOpened: Date.now() });
+  }
+  closeExp();
+  window.location.href = readerUrl + '?' + params.toString();
+}
+
+/* ── CLOSE EXPERIENCE MODAL ─────────────────────────────── */
+function closeExp() {
+  var ov = document.getElementById('expOverlay');
+  ov.classList.remove('open');
+  ov.setAttribute('aria-hidden', 'true');
+}
+function closeExpOnBackdrop(e) {
+  if (e.target === document.getElementById('expOverlay')) closeExp();
+}
+
+/* ── AI PANEL ───────────────────────────────────────────── */
+function togglePanel() {
+  var panel = document.getElementById('aiPanel');
+  var isOpen = panel.classList.toggle('open');
+  panel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+}
+
+function getGeminiKey() {
+  try { return (JSON.parse(localStorage.getItem('cs_user_prefs')||'{}')).gemini_key || ''; } catch(e) { return ''; }
+}
+
+function doAI(id, type) {
+  var key = getGeminiKey();
+  var panel = document.getElementById('aiPanel');
+  var content = document.getElementById('aiPanelContent');
+  var titleEl = document.getElementById('aiPanelTitle');
+
+  var labels = { summary:'📝 AI Ringkasan', quiz:'❓ Kuiz AI', mindmap:'🧠 Peta Minda', explain:'💡 AI Terangkan' };
+  titleEl.textContent = labels[type] || '🤖 AI';
+
+  if (!key) {
+    content.innerHTML = '<div class="ai-no-key"><div class="key-icon">🔑</div><p>Tambah kunci API Gemini di <strong>⚙️ Tetapan</strong> untuk guna ciri AI.</p></div>';
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden','false');
+    return;
+  }
+
+  var b = window.CS_SHELF ? CS_SHELF.getById(id) : null;
+  var cachedText = (window.CS_SHELF && id) ? CS_SHELF.getCachedText(id) : '';
+  var bookInfo = b ? '"' + (b.title||'') + '" oleh ' + (b.author||'pengarang tidak diketahui') : 'buku ini';
+
+  var prompts = {
+    summary: 'Berikan ringkasan komprehensif untuk buku ' + bookInfo + ' dalam Bahasa Malaysia. Sertakan: Tema utama, Poin penting, Cadangan untuk pembaca. Format dengan seksyen yang jelas.',
+    quiz:    'Jana 5 soalan kuiz pelbagai pilihan (A/B/C/D) dalam Bahasa Malaysia untuk buku ' + bookInfo + '. Sertakan jawapan yang betul dan penjelasan ringkas.',
+    mindmap: 'Cipta peta minda teks untuk buku ' + bookInfo + ' dalam Bahasa Malaysia. Format sebagai senarai hierarki dengan simbol ◉ untuk topik utama dan • untuk subtopik.',
+    explain: 'Terangkan konsep utama dalam buku ' + bookInfo + ' dengan cara yang mudah difahami dalam Bahasa Malaysia, sesuai untuk pelajar keperluan khas.',
+  };
+
+  var prompt = cachedText
+    ? prompts[type] + '\n\nTeks buku (petikan):\n' + cachedText.slice(0,3000)
+    : prompts[type];
+
+  content.innerHTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>AI sedang memproses...</p></div>';
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden','false');
+
+  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + key, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    var text = '';
+    try { text = data.candidates[0].content.parts[0].text; } catch(e) { text = 'Tiada respons dari AI.'; }
+    content.innerHTML = '<div style="white-space:pre-wrap;line-height:1.75;font-size:13.5px">' + esc(text) + '</div>';
+  })
+  .catch(function(err){
+    content.innerHTML = '<div style="color:#ef4444;padding:16px">Ralat: ' + esc(err.message||'Gagal menghubungi AI.') + '</div>';
+  });
+}
+
+/* ── DARK MODE ──────────────────────────────────────────── */
+function toggleDark() {
+  var isDark = document.body.classList.toggle('dark');
+  document.getElementById('darkToggleBtn').textContent = isDark ? '☀️' : '🌙';
+  try { localStorage.setItem('cs_dark_mode', isDark ? '1' : '0'); } catch(e) {}
+}
+function initDark() {
+  try {
+    var saved = localStorage.getItem('cs_dark_mode');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === '1' || (saved === null && prefersDark)) {
+      document.body.classList.add('dark');
+      document.getElementById('darkToggleBtn').textContent = '☀️';
+    }
+  } catch(e) {}
+}
+
+/* ── VOICE COMMANDS ─────────────────────────────────────── */
+function startVoice() {
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { showToast('🎤 Pelayar anda tidak menyokong arahan suara.'); return; }
+  var micBtn = document.getElementById('micBtn');
+
+  if (_voiceActive) {
+    _voiceActive = false;
+    micBtn.classList.remove('listening');
+    micBtn.setAttribute('aria-label','Aktifkan arahan suara');
+    return;
+  }
+
+  _voiceActive = true;
+  micBtn.classList.add('listening');
+  micBtn.setAttribute('aria-label','Dengar arahan suara...');
+  showToast('🎤 Dengar...');
+
+  var recog = new SR();
+  recog.lang = 'ms-MY';
+  recog.continuous = false;
+  recog.interimResults = false;
+
+  recog.onresult = function(e) {
+    var transcript = e.results[0][0].transcript.toLowerCase().trim();
+    _voiceActive = false;
+    micBtn.classList.remove('listening');
+    micBtn.setAttribute('aria-label','Aktifkan arahan suara');
+
+    if (transcript.includes('buka buku terakhir') || transcript.includes('teruskan membaca')) {
+      var all = window.CS_SHELF ? CS_SHELF.getAll().sort(function(a,b){ return (b.lastOpened||0)-(a.lastOpened||0); }) : [];
+      if (all.length) openExperience(all[0].id);
+      else showToast('Tiada buku dibuka sebelum ini.');
+    } else if (transcript.startsWith('cari ')) {
+      var q = transcript.replace(/^cari\s+/,'');
+      document.getElementById('searchInput').value = q;
+      searchHub(q);
+      showToast('🔍 Mencari: ' + q);
+    } else {
+      showToast('Arahan tidak dikenali: "' + transcript + '"');
+    }
+  };
+  recog.onerror = function() {
+    _voiceActive = false;
+    micBtn.classList.remove('listening');
+    micBtn.setAttribute('aria-label','Aktifkan arahan suara');
+  };
+  recog.onend = function() {
+    if (_voiceActive) {
+      _voiceActive = false;
+      micBtn.classList.remove('listening');
+    }
+  };
+  recog.start();
+}
+
+/* ── ADD MANUAL ─────────────────────────────────────────── */
+function showAddManual() {
+  var ov = document.getElementById('addManualOverlay');
+  ov.classList.add('open');
+  ov.removeAttribute('aria-hidden');
+  document.getElementById('amTitle').focus();
+}
+function closeAddManual() {
+  var ov = document.getElementById('addManualOverlay');
+  ov.classList.remove('open');
+  ov.setAttribute('aria-hidden','true');
+}
+function saveManual() {
+  var title = document.getElementById('amTitle').value.trim();
+  if (!title) { showToast('⚠️ Sila masukkan tajuk.'); return; }
+  if (!window.CS_SHELF) { showToast('Ralat: CS_SHELF tidak tersedia.'); return; }
+  CS_SHELF.add({
+    title:  title,
+    author: document.getElementById('amAuthor').value.trim() || 'Tidak diketahui',
+    url:    document.getElementById('amUrl').value.trim(),
+    type:   document.getElementById('amType').value,
+    source: 'Manual',
+  });
+  closeAddManual();
+  document.getElementById('amTitle').value = '';
+  document.getElementById('amAuthor').value = '';
+  document.getElementById('amUrl').value = '';
+  renderHub(); updateStats(); updateCounts();
+  showToast('✅ Sumber ditambah!');
+}
+
+/* ── TOAST ──────────────────────────────────────────────── */
+var _toastTimer = null;
+function showToast(msg) {
+  var t = document.getElementById('hubToast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3000);
+}
+
+/* ── IAB BOOKS ──────────────────────────────────────────── */
+var IAB_BOOKS = [
+  { id:'iab1', title:'Kepimpinan Instruksional dalam Pendidikan',    author:'IAB Malaysia', category:'Kepimpinan',         year:2023, emoji:'🎓', cover:'', source:'IAB', type:'iab' },
+  { id:'iab2', title:'Transformasi Sekolah Berprestasi Tinggi',      author:'IAB Malaysia', category:'Pengurusan Sekolah', year:2022, emoji:'🏫', cover:'', source:'IAB', type:'iab' },
+  { id:'iab3', title:'Pembelajaran Abad Ke-21 dalam Bilik Darjah',   author:'IAB Malaysia', category:'Pedagogi',           year:2023, emoji:'📡', cover:'', source:'IAB', type:'iab' },
+  { id:'iab4', title:'Pengurusan Kewangan Sekolah',                  author:'IAB Malaysia', category:'Kewangan',           year:2021, emoji:'💼', cover:'', source:'IAB', type:'iab' },
+  { id:'iab5', title:'Pentaksiran Bilik Darjah dan PBS',             author:'IAB Malaysia', category:'Pentaksiran',        year:2022, emoji:'📊', cover:'', source:'IAB', type:'iab' },
+  { id:'iab6', title:'Pelan Pembangunan Pendidikan Malaysia 2013–2025', author:'KPM / IAB', category:'Dasar Pendidikan',   year:2020, emoji:'🇲🇾', cover:'', source:'IAB', type:'iab' },
+];
+var IAB_GRADS = [
+  'linear-gradient(135deg,#0c4a6e,#0891b2)',
+  'linear-gradient(135deg,#1e3a5f,#1d4ed8)',
+  'linear-gradient(135deg,#134e4a,#0d9488)',
+  'linear-gradient(135deg,#1e1b4b,#4338ca)',
+  'linear-gradient(135deg,#3b0764,#7c3aed)',
+  'linear-gradient(135deg,#0c4a6e,#06b6d4)',
+];
+
+function renderIAB() {
+  var grid = document.getElementById('iabGrid');
+  if (!grid) return;
+  grid.innerHTML = IAB_BOOKS.map(function(b, i){
+    var isOnShelf = window.CS_SHELF && CS_SHELF.isOnShelf(b.title, b.url);
+    return '<div class="iab-card" role="listitem" aria-label="' + esc(b.title) + '">' +
+      '<div class="iab-cover" style="background:' + IAB_GRADS[i % IAB_GRADS.length] + '">' +
+        '<span style="font-size:26px;position:relative;z-index:1" aria-hidden="true">' + b.emoji + '</span>' +
+        '<span class="iab-cover-label">' + b.year + '</span>' +
+      '</div>' +
+      '<div class="iab-body-inner">' +
+        '<div class="iab-category">' + esc(b.category) + '</div>' +
+        '<div class="iab-title">' + esc(b.title) + '</div>' +
+        '<div class="iab-author">' + esc(b.author) + '</div>' +
+        '<div class="iab-btns">' +
+          '<button class="iab-btn iab-btn-primary" onclick="openIAB(\'' + b.id + '\')" aria-label="Baca ' + esc(b.title) + '">📖 Baca</button>' +
+          '<button class="iab-btn iab-btn-ghost" onclick="iabAI(\'' + b.id + '\')" aria-label="AI Teacher untuk ' + esc(b.title) + '">🤖 AI</button>' +
+          '<button class="iab-btn iab-btn-add" id="iab-add-' + b.id + '" onclick="addIABToHub(\'' + b.id + '\')" aria-label="' + (isOnShelf ? 'Sudah dalam Hub' : 'Tambah ke Hub') + '">' + (isOnShelf ? '✅ Ada' : '+ Hub') + '</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function getIABBook(id) {
+  return IAB_BOOKS.find(function(b){ return b.id === id; }) || null;
+}
+
+function addIABToHub(id) {
+  if (!window.CS_SHELF) { showToast('Ralat sistem.'); return; }
+  var b = getIABBook(id);
+  if (!b) return;
+  if (CS_SHELF.isOnShelf(b.title, '')) {
+    showToast('📚 Sumber ini sudah dalam Hub anda!'); return;
+  }
+  CS_SHELF.add({ title:b.title, author:b.author, type:'iab', source:'IAB', year:b.year });
+  renderHub(); updateStats(); updateCounts(); renderIAB();
+  showToast('✅ Ditambah ke Hub Ilmu!');
+}
+
+function openIAB(id) {
+  var b = getIABBook(id);
+  if (!b) return;
+  // Add to shelf if not present, then open experience modal
+  if (window.CS_SHELF) {
+    var shelfId = CS_SHELF.add({ title:b.title, author:b.author, type:'iab', source:'IAB' });
+    openExperience(shelfId);
+  }
+  renderHub(); updateCounts();
+}
+
+function iabAI(id) {
+  var b = getIABBook(id);
+  if (!b) return;
+  if (window.CS_SHELF) {
+    var shelfId = CS_SHELF.add({ title:b.title, author:b.author, type:'iab', source:'IAB' });
+    doAI(shelfId, 'summary');
+  }
+}
+
+/* ── CLOSE DROPDOWNS ON OUTSIDE CLICK ──────────────────── */
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.hc-btn-icon') && !e.target.closest('.hc-more-dd')) {
+    document.querySelectorAll('.hc-more-dd.open').forEach(function(d){ d.classList.remove('open'); });
+  }
+  if (!e.target.closest('.add-manual-overlay .add-manual-card') && e.target.closest('#addManualOverlay')) {
+    closeAddManual();
+  }
+});
+
+/* ── KEYBOARD TRAP FOR MODALS ───────────────────────────── */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeExp();
+    closeAddManual();
+    document.querySelectorAll('.hc-more-dd.open').forEach(function(d){ d.classList.remove('open'); });
+  }
+});
+
+/* ── INIT ───────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+  initDark();
+  // Wait a tick for shared.js to finish initialising CS_SHELF
+  setTimeout(function() {
+    renderHub();
+    renderIAB();
+    updateStats();
+    updateCounts();
+  }, 80);
+});
+</script>
+</body>
+</html>
