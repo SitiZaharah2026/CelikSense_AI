@@ -217,7 +217,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   (function(){
     try{
       var s=JSON.parse(localStorage.getItem('cs_hub_stats')||'{}');
-      var all=JSON.parse(localStorage.getItem('cs_shelf')||'[]');
+      var all=window.CS_SHELF?CS_SHELF.getAll():JSON.parse(localStorage.getItem('cs_shelf')||'[]');
       document.getElementById('hst-n-books').textContent=all.length;
       document.getElementById('hst-n-time').textContent=Math.round((s.totalTime||0)/60);
       document.getElementById('hst-n-streak').textContent=s.streak||0;

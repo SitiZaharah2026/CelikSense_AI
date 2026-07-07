@@ -289,6 +289,7 @@ var currentTab='all', currentSort='addedAt', currentSearch='', openWithBookId=nu
    RENDER SHELF
    ============================================================ */
 function renderShelf(){
+  if(!window.CS_SHELF)return;
   var books=CS_SHELF.getAll();
   updateStats(books);
   var filtered=filterShelf(books, currentTab, currentSort, currentSearch);
@@ -669,11 +670,20 @@ document.addEventListener('click',function(){
   document.querySelectorAll('.dropdown-menu.open').forEach(function(d){d.classList.remove('open');});
 });
 
-// Keyboard: Escape closes modal/panel
+// Keyboard: Escape closes modal/panel; Tab trapped inside modal when open
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){
     closeModal();
     document.getElementById('ai-panel').classList.remove('open');
+  }
+  if(e.key==='Tab'){
+    var modal=document.getElementById('openwith-modal');
+    if(!modal.classList.contains('open'))return;
+    var focusable=Array.from(modal.querySelectorAll('button,a,[tabindex]:not([tabindex="-1"])'));
+    if(!focusable.length)return;
+    var first=focusable[0],last=focusable[focusable.length-1];
+    if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus();}}
+    else{if(document.activeElement===last){e.preventDefault();first.focus();}}
   }
 });
 

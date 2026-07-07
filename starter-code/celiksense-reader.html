@@ -540,7 +540,7 @@ body.mode-blind #blind-ui{display:block;}
 </div>
 
 <!-- ── SMART BREAK ── -->
-<div id="break-modal" role="dialog" aria-modal="true">
+<div id="break-modal" role="dialog" aria-modal="true" aria-label="Break time">
   <div id="break-card">
     <div style="font-size:52px;margin-bottom:8px;">☕</div>
     <h2 style="font-size:22px;font-weight:900;margin-bottom:8px;">Time for a Break!</h2>
@@ -551,7 +551,7 @@ body.mode-blind #blind-ui{display:block;}
 </div>
 
 <!-- ── AI CHECKPOINT (ADHD) ── -->
-<div id="cp-modal" role="dialog" aria-modal="true">
+<div id="cp-modal" role="dialog" aria-modal="true" aria-label="Comprehension checkpoint">
   <div id="cp-card">
     <div id="cp-header"><span>🧠</span><div>Quick Checkpoint — How well did you follow?</div></div>
     <div id="cp-q">Loading…</div>
@@ -566,13 +566,13 @@ body.mode-blind #blind-ui{display:block;}
 </div>
 
 <!-- Sign Popup -->
-<div id="sign-pop" class="sign-pop" role="tooltip"></div>
+<div id="sign-pop" class="sign-pop" role="dialog" aria-modal="false" aria-label="Sign dictionary popup"></div>
 
 <!-- Read Aloud Bar -->
 <div id="aloud-bar" role="status" aria-live="polite">
-  <button class="a-btn" onclick="toggleRead()" title="Stop">⏹</button>
-  <button class="a-btn" onclick="prevSent()" title="Previous">⏮</button>
-  <button class="a-btn" onclick="nextSent()" title="Next">⏭</button>
+  <button class="a-btn" onclick="toggleRead()" title="Stop" aria-label="Stop reading">⏹</button>
+  <button class="a-btn" onclick="prevSent()" title="Previous" aria-label="Previous sentence">⏮</button>
+  <button class="a-btn" onclick="nextSent()" title="Next" aria-label="Next sentence">⏭</button>
   <span id="a-prog">0/0</span>
   <button class="a-spd on" data-r="1"    onclick="setSpd(1)">1×</button>
   <button class="a-spd"    data-r="0.75" onclick="setSpd(0.75)">0.75×</button>
@@ -584,6 +584,7 @@ body.mode-blind #blind-ui{display:block;}
 <script>
 /* ═══════ BOOK DATA ═══════ */
 var BK = {}, SHELF_ID = null;
+function _bkKey(){return SHELF_ID||BK.title.toLowerCase().trim().replace(/[^a-z0-9]/g,'_').slice(0,60);}
 (function(){
   var p = new URLSearchParams(location.search);
   BK.title  = p.get('cv_title')  || '';
@@ -639,14 +640,14 @@ function renderBkHero(){
   h.classList.remove('empty');
   document.title=BK.title+' · CelikSense Adaptive Reader';
   var mode=PR.mode||BK.mode||'adhd';
-  var cov=BK.cover?'<img src="'+BK.cover+'" alt="Book cover" onerror="this.outerHTML=\'<div id=bk-ph>📖</div>\'">':'<div id="bk-ph">📖</div>';
+  var cov=BK.cover?'<img src="'+esc(BK.cover)+'" alt="Book cover" onerror="this.outerHTML=\'<div id=bk-ph>📖</div>\'">':'<div id="bk-ph">📖</div>';
   h.innerHTML='<div id="bk-cover-wrap">'+cov+'</div>'
     +'<div id="bk-info">'
     +'<div id="bk-mode-tag">'+MNAMES[mode]+'</div>'
     +'<div class="bk-title">'+esc(BK.title)+'</div>'
     +(BK.author?'<div class="bk-author">by '+esc(BK.author)+'</div>':'')
     +(BK.source?'<span class="bk-source-badge">📚 '+esc(BK.source)+'</span>':'')
-    +(BK.url?'<a class="bk-src-link" href="'+BK.url+'" target="_blank" rel="noopener">↗ View Original Source</a>':'')
+    +(BK.url?'<a class="bk-src-link" href="'+esc(BK.url)+'" target="_blank" rel="noopener">↗ View Original Source</a>':'')
     +'</div>';
 }
 
@@ -781,7 +782,7 @@ function renderParas(){
     blk.appendChild(pt);blk.appendChild(aib);blk.appendChild(aip);
     area.appendChild(blk);
   });
-  var done=(function(){try{return JSON.parse(localStorage.getItem('cs_done_'+BK.title)||'[]');}catch(e){return[];}})();
+  var done=(function(){try{return JSON.parse(localStorage.getItem('cs_done_'+_bkKey())||'[]');}catch(e){return[];}})();
   done.forEach(function(i){var el=document.getElementById('p'+i);if(el)el.classList.add('done');});
 }
 
@@ -887,7 +888,7 @@ function readAt(i){
     u.onend=function(){if(isRead)readAt(i+1);};u.onerror=function(){if(isRead)setTimeout(function(){readAt(i+1);},300);};
     speechSynthesis.speak(u);
   }else{setTimeout(function(){if(isRead)readAt(i+1);},s.text.split(/\s+/).length*(750/spd));}
-  var pIdx=s.paraIdx;var el=document.getElementById('p'+pIdx);if(el&&!el.classList.contains('done')){el.classList.add('done');try{var d=JSON.parse(localStorage.getItem('cs_done_'+BK.title)||'[]');d.push(pIdx);localStorage.setItem('cs_done_'+BK.title,JSON.stringify(d));}catch(e){}}
+  var pIdx=s.paraIdx;var el=document.getElementById('p'+pIdx);if(el&&!el.classList.contains('done')){el.classList.add('done');try{var d=JSON.parse(localStorage.getItem('cs_done_'+_bkKey())||'[]');d.push(pIdx);localStorage.setItem('cs_done_'+_bkKey(),JSON.stringify(d));}catch(e){}}
 }
 function clearHL(){document.querySelectorAll('.sent.now').forEach(function(e){e.classList.remove('now');});}
 function nextSent(){if(isRead){speechSynthesis.cancel();readAt(sIdx+1);}else{sIdx=Math.min(sents.length-1,sIdx+1);var el=sents[sIdx]&&sents[sIdx].el;if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}}
@@ -935,9 +936,9 @@ var AI_PROMPTS={simplify:'Simplify this text in plain language (Grade 6 level). 
 async function doAI(type){var out=document.getElementById('ai-s-out');out.innerHTML='<div style="background:var(--bg);border-radius:10px;padding:14px;font-size:12px;color:var(--muted);">⏳ Generating…</div>';var key=getKey();var sampleText=paras.slice(0,20).join(' ').slice(0,1200);if(!key){out.innerHTML='<div style="background:#ede9fe;border-radius:10px;padding:14px;font-size:13px;">💡 Add Gemini API key in <a href="settings.html" style="color:#6366f1;font-weight:700;">Settings</a> for AI features.</div>';return;}try{var r=await gemCall(AI_PROMPTS[type]+'\n\nBook: "'+BK.title+'"'+(BK.author?' by '+BK.author:'')+'\nText: "'+sampleText+'"',key);out.innerHTML='<div style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(8,145,178,.05));border:1.5px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;white-space:pre-wrap;">'+esc(r)+'</div>';}catch(e){out.innerHTML='<div style="background:#fee2e2;border-radius:10px;padding:12px;font-size:12px;color:#991b1b;">Error. Check API key in Settings.</div>';}}
 
 /* ═══════ NOTES & BOOKMARKS ═══════ */
-function saveNotes(){try{localStorage.setItem('cs_notes_'+BK.title,document.getElementById('notes-area').value);}catch(e){}}
-function loadNotes(){try{document.getElementById('notes-area').value=localStorage.getItem('cs_notes_'+BK.title)||'';}catch(e){}}
-function saveBookmark(){try{var pos={sIdx:sIdx,scrollY:window.scrollY,ts:Date.now()};localStorage.setItem('cs_bm_'+BK.title,JSON.stringify(pos));var m=document.getElementById('bm-msg');m.style.display='block';setTimeout(function(){m.style.display='none';},2000);}catch(e){}}
+function saveNotes(){try{localStorage.setItem('cs_notes_'+_bkKey(),document.getElementById('notes-area').value);}catch(e){}}
+function loadNotes(){try{document.getElementById('notes-area').value=localStorage.getItem('cs_notes_'+_bkKey())||'';}catch(e){}}
+function saveBookmark(){try{var pos={sIdx:sIdx,scrollY:window.scrollY,ts:Date.now()};localStorage.setItem('cs_bm_'+_bkKey(),JSON.stringify(pos));var m=document.getElementById('bm-msg');m.style.display='block';setTimeout(function(){m.style.display='none';},2000);}catch(e){}}
 
 /* ═══════ GEMINI ═══════ */
 function getKey(){try{return(JSON.parse(localStorage.getItem('cs_user_prefs')||'{}')).gemini_key||'';}catch(e){return '';}}
@@ -959,7 +960,7 @@ function applyPrefs(){
   if(PR.hc)setHC(PR.hc);
   if(PR.speed){spd=PR.speed;}
   if(PR.micro){microMin=PR.micro;setMicro(PR.micro);}
-  try{var bm=JSON.parse(localStorage.getItem('cs_bm_'+BK.title)||'null');if(bm&&bm.sIdx)sIdx=bm.sIdx;}catch(e){}
+  try{var bm=JSON.parse(localStorage.getItem('cs_bm_'+_bkKey())||'null');if(bm&&bm.sIdx)sIdx=bm.sIdx;}catch(e){}
 }
 </script>
 </body>
