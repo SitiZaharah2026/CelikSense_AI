@@ -6,7 +6,7 @@
 // when deployed as a project page, so BASE_PATH strips that prefix from every
 // request URL before comparing against SHELL_FILES (which are bare filenames).
 
-const SW_VERSION    = 'cs-v17';
+const SW_VERSION    = 'cs-v18';
 const CACHE_SHELL   = SW_VERSION + '-shell';    // long-lived HTML/CSS/JS
 const CACHE_RUNTIME = SW_VERSION + '-runtime';  // dynamic pages + images
 const OFFLINE_URL   = 'offline.html';
@@ -168,7 +168,12 @@ self.addEventListener('activate', event => {
           .map(k => { console.log('[SW] Removing old cache:', k); return caches.delete(k); })
       )
     ).then(() => self.clients.claim())
-     .then(() => console.log('[SW] Activate complete.'))
+     .then(() => {
+       console.log('[SW] Activate complete.');
+       self.clients.matchAll({type:'window'}).then(clients => {
+         clients.forEach(c => c.postMessage({type:'SW_UPDATED', version: SW_VERSION}));
+       });
+     })
   );
 });
 

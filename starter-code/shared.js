@@ -3138,6 +3138,9 @@ window.CS.offline = (function() {
           if (e.data && e.data.type === 'SYNC_STARTED') {
             _showSyncBanner();
           }
+          if (e.data && e.data.type === 'SW_UPDATED') {
+            window.location.reload();
+          }
         });
       }
 
