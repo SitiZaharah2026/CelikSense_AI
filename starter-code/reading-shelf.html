@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>My Reading Shelf – CelikSense AI</title>
+<style>
+:root{--bg:#f4f3ff;--text:#1a1a2e;--card:#fff;--accent:#6366f1;--border:#e5e7eb;--muted:#6b7280;--shadow:0 4px 24px rgba(99,102,241,.1);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;padding-top:56px;}
+nav.navbar{display:none!important;}
+
+/* TOP NAV */
+#top-nav{position:fixed;top:0;left:0;right:0;height:56px;z-index:300;background:linear-gradient(135deg,#1e1b4b,#312e81,#1e40af);display:flex;align-items:center;padding:0 20px;gap:16px;box-shadow:0 2px 20px rgba(30,27,75,.4);}
+.nav-logo{font-size:22px;font-weight:800;color:#fff;letter-spacing:-1px;white-space:nowrap;}
+.nav-logo span{color:#a5b4fc;}
+.nav-title{font-size:15px;font-weight:600;color:#c7d2fe;white-space:nowrap;}
+.nav-search{flex:1;max-width:320px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:6px 14px;color:#fff;font-size:14px;outline:none;}
+.nav-search::placeholder{color:rgba(255,255,255,.5);}
+.nav-link{color:#c7d2fe;text-decoration:none;font-size:13px;white-space:nowrap;padding:6px 10px;border-radius:8px;transition:background .2s;}
+.nav-link:hover{background:rgba(255,255,255,.1);}
+.nav-spacer{flex:1;}
+
+/* FILTER BAR */
+#filter-bar{position:sticky;top:56px;z-index:200;background:#fff;border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.tab-list{display:flex;gap:0;}
+.tab-btn{padding:14px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s;}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.filter-right{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap;padding:8px 0;}
+.sort-select{border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:13px;color:var(--text);background:var(--bg);outline:none;cursor:pointer;}
+
+/* STATS BAR */
+#stats-bar{background:linear-gradient(135deg,#ede9fe,#dbeafe);padding:12px 24px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;}
+.stat-item{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#4338ca;}
+.stat-item span{font-size:16px;}
+
+/* MAIN */
+#main{padding:24px;max-width:1200px;margin:0 auto;}
+
+/* EMPTY STATE */
+#empty-state{display:none;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;text-align:center;}
+.empty-icon{font-size:72px;margin-bottom:16px;}
+.empty-heading{font-size:24px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.empty-sub{font-size:15px;color:var(--muted);max-width:360px;margin-bottom:28px;line-height:1.6;}
+.btn-primary{background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;border:none;border-radius:12px;padding:14px 28px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.3);}
+
+/* BOOK GRID */
+#book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;}
+
+/* BOOK CARD */
+.bk-card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;transition:transform .2s,box-shadow .2s;position:relative;cursor:pointer;}
+.bk-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(99,102,241,.18);}
+.bk-cover-wrap{position:relative;width:100%;height:220px;overflow:hidden;background:#ede9fe;}
+.bk-cover{width:100%;height:100%;object-fit:cover;}
+.bk-cover-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:56px;background:linear-gradient(135deg,#ede9fe,#dbeafe);}
+.bk-badge{position:absolute;top:10px;left:10px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.badge-blind{background:#334155;color:#e2e8f0;}
+.badge-lowvision{background:#6d28d9;color:#ede9fe;}
+.badge-dyslexia{background:#d97706;color:#fef3c7;}
+.badge-adhd{background:#4338ca;color:#e0e7ff;}
+.badge-deaf{background:#1d4ed8;color:#dbeafe;}
+.badge-none{background:rgba(0,0,0,.35);color:#fff;}
+.bk-fav-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.85);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:transform .2s;box-shadow:0 2px 8px rgba(0,0,0,.15);}
+.bk-fav-btn:hover{transform:scale(1.15);}
+.bk-body{padding:12px 14px;}
+.bk-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bk-author{font-size:11px;color:var(--muted);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bk-progress-wrap{margin-bottom:6px;}
+.bk-progress-bar{height:5px;background:#e5e7eb;border-radius:99px;overflow:hidden;}
+.bk-progress-fill{height:100%;background:linear-gradient(90deg,#6366f1,#0891b2);border-radius:99px;transition:width .4s;}
+.bk-progress-label{font-size:10px;color:var(--muted);margin-top:3px;}
+.bk-last{font-size:10px;color:var(--muted);margin-bottom:10px;}
+.bk-actions{display:flex;gap:6px;}
+.btn-continue{flex:1;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:600;cursor:pointer;transition:background .2s;}
+.btn-continue:hover{background:#4f46e5;}
+.btn-more{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;cursor:pointer;position:relative;transition:background .2s;}
+.btn-more:hover{background:#e0e7ff;}
+.dropdown-menu{display:none;position:absolute;bottom:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.12);min-width:180px;z-index:100;overflow:hidden;}
+.dropdown-menu.open{display:block;}
+.dropdown-item{display:block;width:100%;text-align:left;padding:10px 14px;font-size:13px;background:none;border:none;cursor:pointer;color:var(--text);transition:background .2s;}
+.dropdown-item:hover{background:#f5f3ff;}
+.dropdown-item.danger{color:#dc2626;}
+.dropdown-item.danger:hover{background:#fef2f2;}
+
+/* OPEN WITH MODAL */
+#openwith-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.5);align-items:center;justify-content:center;}
+#openwith-modal.open{display:flex;}
+.modal-box{background:#fff;border-radius:20px;padding:28px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.modal-title{font-size:18px;font-weight:700;margin-bottom:4px;}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:20px;}
+.modal-book-name{font-size:14px;font-weight:600;color:var(--accent);margin-bottom:16px;}
+.agent-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.agent-btn{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;background:#fff;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);transition:all .2s;}
+.agent-btn:hover{border-color:var(--accent);background:#f5f3ff;color:var(--accent);}
+.agent-icon{font-size:22px;}
+.modal-close{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;background:none;cursor:pointer;font-size:14px;color:var(--muted);transition:background .2s;}
+.modal-close:hover{background:var(--bg);}
+
+/* AI PANEL */
+#ai-panel{position:fixed;top:56px;right:-420px;bottom:0;width:400px;background:#fff;box-shadow:-4px 0 32px rgba(0,0,0,.12);z-index:400;transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;border-left:1px solid var(--border);}
+#ai-panel.open{right:0;}
+.panel-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1;}
+.panel-header h3{font-size:16px;font-weight:700;}
+.panel-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);}
+.panel-body{padding:20px;}
+.panel-loader{text-align:center;padding:40px;color:var(--muted);}
+.panel-loader .spin{font-size:32px;animation:spin 1s linear infinite;display:block;margin-bottom:12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.ai-result{white-space:pre-wrap;font-size:14px;line-height:1.7;color:var(--text);}
+.quiz-question{background:var(--bg);border-radius:10px;padding:14px;margin-bottom:12px;}
+.quiz-q{font-size:13px;font-weight:700;margin-bottom:8px;}
+.quiz-opts label{display:block;margin:4px 0;font-size:12px;cursor:pointer;}
+
+/* SMART FEATURES */
+#smart-section{max-width:1200px;margin:32px auto;padding:0 24px 40px;}
+.smart-heading{font-size:18px;font-weight:700;margin-bottom:16px;color:var(--text);}
+.continue-card{background:var(--card);border-radius:16px;padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:20px;margin-bottom:32px;}
+.continue-cover{width:70px;height:95px;border-radius:8px;object-fit:cover;background:#ede9fe;}
+.continue-cover-ph{width:70px;height:95px;border-radius:8px;background:linear-gradient(135deg,#ede9fe,#dbeafe);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.continue-info{flex:1;}
+.continue-title{font-size:16px;font-weight:700;margin-bottom:4px;}
+.continue-author{font-size:13px;color:var(--muted);margin-bottom:10px;}
+.streak-card{background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:16px;padding:20px;text-align:center;box-shadow:var(--shadow);}
+.streak-num{font-size:48px;font-weight:900;color:#d97706;}
+.streak-label{font-size:13px;font-weight:600;color:#92400e;}
+
+@media(max-width:640px){
+  #book-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}
+  #top-nav .nav-title{display:none;}
+  .agent-grid{grid-template-columns:1fr;}
+  #ai-panel{width:100%;right:-100%;}
+  .continue-card{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav id="top-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-logo">Celik<span>Sense</span></div>
+  <span class="nav-title" id="nav-shelf-label">📚 My Reading Shelf</span>
+  <div class="nav-spacer"></div>
+  <input class="nav-search" id="nav-search-input" type="search" placeholder="Cari buku…" aria-label="Search books" autocomplete="off"/>
+  <a class="nav-link" href="celikverse-library.html">← Library</a>
+  <a class="nav-link" href="settings.html">⚙️ Settings</a>
+</nav>
+
+<!-- FILTER BAR -->
+<div id="filter-bar" role="toolbar" aria-label="Filter and sort">
+  <div class="tab-list" role="tablist">
+    <button class="tab-btn active" role="tab" data-tab="all" id="tab-all">Semua</button>
+    <button class="tab-btn" role="tab" data-tab="recent" id="tab-recent">Baru Dibaca</button>
+    <button class="tab-btn" role="tab" data-tab="fav" id="tab-fav">⭐ Kegemaran</button>
+    <button class="tab-btn" role="tab" data-tab="downloaded" id="tab-downloaded">Dimuat Turun</button>
+  </div>
+  <div class="filter-right">
+    <select class="sort-select" id="sort-select" aria-label="Sort by">
+      <option value="addedAt">Baru Ditambah</option>
+      <option value="lastOpened">Baru Dibaca</option>
+      <option value="title">Tajuk</option>
+      <option value="author">Pengarang</option>
+      <option value="progress">Kemajuan</option>
+    </select>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div id="stats-bar" role="complementary" aria-label="Reading statistics">
+  <div class="stat-item"><span>📚</span><span id="stat-books">0</span> buku</div>
+  <div class="stat-item"><span>🔥</span><span id="stat-streak">0</span> hari berturut</div>
+  <div class="stat-item"><span>⏱</span><span id="stat-mins">0</span> min dibaca</div>
+  <div class="stat-item"><span>✅</span><span id="stat-finished">0</span> selesai</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+  <!-- EMPTY STATE -->
+  <div id="empty-state" role="status" aria-live="polite">
+    <div class="empty-icon">📖</div>
+    <h2 class="empty-heading" id="empty-heading">Rak Buku Anda Kosong</h2>
+    <p class="empty-sub" id="empty-sub">Tiada buku dalam rak anda lagi. Layari CelikVerse Library dan tambah buku untuk mula membaca!</p>
+    <a class="btn-primary" href="celikverse-library.html" id="empty-cta">Jelajah Perpustakaan</a>
+  </div>
+
+  <!-- BOOK GRID -->
+  <div id="book-grid" role="list" aria-label="Your book shelf"></div>
+</main>
+
+<!-- SMART FEATURES -->
+<section id="smart-section" aria-label="Smart reading features">
+  <div id="continue-section" style="display:none;">
+    <h2 class="smart-heading">📖 Teruskan Membaca</h2>
+    <div class="continue-card" id="continue-card"></div>
+  </div>
+  <div id="streak-section" style="display:none;max-width:240px;">
+    <div class="streak-card">
+      <div class="streak-num" id="streak-num">0</div>
+      <div class="streak-label" id="streak-lbl">🔥 Hari Membaca Berturut-turut</div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN WITH MODAL -->
+<div id="openwith-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box">
+    <h2 class="modal-title" id="modal-title">Pilih Cara Membaca</h2>
+    <p class="modal-sub" id="modal-sub">Buka buku dengan ejen pembelajaran pilihan anda</p>
+    <div class="modal-book-name" id="modal-book-name"></div>
+    <div class="agent-grid" id="agent-grid"></div>
+    <button class="modal-close" id="modal-close-btn" aria-label="Close modal">Batal</button>
+  </div>
+</div>
+
+<!-- AI PANEL -->
+<aside id="ai-panel" role="complementary" aria-label="AI assistant panel">
+  <div class="panel-header">
+    <h3 id="panel-title">AI Summary</h3>
+    <button class="panel-close" id="panel-close-btn" aria-label="Close panel">✕</button>
+  </div>
+  <div class="panel-body" id="panel-body">
+    <div class="panel-loader"><span class="spin">⚙️</span>Memuatkan…</div>
+  </div>
+</aside>
+
+<script src="shared.js"></script>
+<script>
+/* ============================================================
+   CS_SHELF — localStorage utility
+   ============================================================ */
+window.CS_SHELF = (function(){
+  var KEY = 'cs_shelf';
+  function _load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return [];}}
+  function _save(arr){try{localStorage.setItem(KEY,JSON.stringify(arr));}catch(e){}}
+  function _uid(){return 'cs_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);}
+  return {
+    getAll(){ return _load(); },
+    getById(id){ return _load().find(b=>b.id===id)||null; },
+    add(book){
+      var arr=_load();
+      book.id=book.id||_uid();
+      book.addedAt=book.addedAt||Date.now();
+      book.progress=book.progress||0;
+      book.isFavourite=book.isFavourite||false;
+      book.bookmarks=book.bookmarks||[];
+      book.notes=book.notes||'';
+      book.readingTime=book.readingTime||0;
+      book.quizResults=book.quizResults||[];
+      arr.push(book);
+      _save(arr);
+      return book.id;
+    },
+    update(id,changes){
+      var arr=_load();
+      var idx=arr.findIndex(b=>b.id===id);
+      if(idx<0)return;
+      arr[idx]=Object.assign(arr[idx],changes);
+      _save(arr);
+    },
+    remove(id){
+      var arr=_load().filter(b=>b.id!==id);
+      _save(arr);
+      try{localStorage.removeItem('cs_text_'+id);}catch(e){}
+    },
+    setFavourite(id,bool){this.update(id,{isFavourite:bool});},
+    updateProgress(id,sentIdx,progressPct,readingTimeSec){
+      this.update(id,{lastSentIdx:sentIdx,progress:progressPct,readingTime:(this.getById(id)||{}).readingTime+readingTimeSec,lastOpened:Date.now()});
+    },
+    saveBookmark(id,bookmark){
+      var b=this.getById(id);if(!b)return;
+      var bms=b.bookmarks||[];bms.push(bookmark);
+      this.update(id,{bookmarks:bms});
+    },
+    saveNotes(id,notes){this.update(id,{notes:notes});},
+    getCachedText(id){try{return localStorage.getItem('cs_text_'+id)||'';}catch(e){return '';}},
+    setCachedText(id,text){try{localStorage.setItem('cs_text_'+id,text);}catch(e){}}
+  };
+})();
+
+/* ============================================================
+   i18n
+   ============================================================ */
+var LANG = (function(){try{return (JSON.parse(localStorage.getItem('cs_user_prefs')||'{}')).lang||'ms';}catch(e){return 'ms';}})();
+var T={
+  shelf_title:{ms:'Rak Buku Saya',en:'My Reading Shelf'},
+  all:{ms:'Semua',en:'All'},
+  recent:{ms:'Baru Dibaca',en:'Recently Read'},
+  fav:{ms:'Kegemaran',en:'Favourites'},
+  downloaded:{ms:'Dimuat Turun',en:'Downloaded'},
+  sort_added:{ms:'Baru Ditambah',en:'Recently Added'},
+  sort_last:{ms:'Baru Dibaca',en:'Recently Read'},
+  sort_title:{ms:'Tajuk',en:'Title'},
+  sort_author:{ms:'Pengarang',en:'Author'},
+  sort_progress:{ms:'Kemajuan',en:'Progress'},
+  empty_heading:{ms:'Rak Buku Anda Kosong',en:'Your Shelf is Empty'},
+  empty_sub:{ms:'Tiada buku dalam rak anda lagi. Layari CelikVerse Library dan tambah buku untuk mula membaca!',en:'No books yet. Browse CelikVerse Library and add books to start reading!'},
+  empty_cta:{ms:'Jelajah Perpustakaan',en:'Browse Library'},
+  never_read:{ms:'Belum dibaca',en:'Not yet read'},
+  last_opened:{ms:'Dibuka',en:'Opened'},
+  days_ago:{ms:'hari lalu',en:'days ago'},
+  today:{ms:'hari ini',en:'today'},
+  continue:{ms:'Teruskan',en:'Continue'},
+  more:{ms:'Lagi',en:'More'},
+  open:{ms:'Buka',en:'Open'},
+  remove:{ms:'Buang',en:'Remove'},
+  ai_summary:{ms:'Ringkasan AI',en:'AI Summary'},
+  gen_quiz:{ms:'Jana Kuiz',en:'Generate Quiz'},
+  mind_map:{ms:'Peta Minda',en:'Mind Map'},
+  open_with:{ms:'Buka Dengan…',en:'Open With…'},
+  modal_title:{ms:'Pilih Cara Membaca',en:'Choose Reading Mode'},
+  modal_sub:{ms:'Buka buku dengan ejen pembelajaran pilihan anda',en:'Open this book with your preferred learning agent'},
+  cancel:{ms:'Batal',en:'Cancel'},
+  continue_reading:{ms:'Teruskan Membaca',en:'Continue Reading'},
+  streak_label:{ms:'Hari Membaca Berturut-turut',en:'Day Reading Streak'},
+  stat_books:{ms:'buku',en:'books'},
+  stat_streak:{ms:'hari berturut',en:'day streak'},
+  stat_mins:{ms:'min dibaca',en:'mins read'},
+  stat_finished:{ms:'selesai',en:'finished'},
+  finished:{ms:'Selesai',en:'Finished'},
+  pct_done:{ms:'% selesai',en:'% done'},
+  confirm_remove:{ms:'Buang buku ini daripada rak anda?',en:'Remove this book from your shelf?'},
+  no_key:{ms:'Kunci Gemini API tidak dijumpai. Sila tetapkan dalam Tetapan.',en:'Gemini API key not found. Please set it in Settings.'},
+  loading_ai:{ms:'Memuatkan AI…',en:'Loading AI…'},
+  blind:{ms:'Pembaca Buta',en:'Blind Reader'},
+  lowvision:{ms:'Penglihatan Rendah',en:'Low Vision Reader'},
+  dyslexia:{ms:'Pembaca Disleksia',en:'Dyslexia Reader'},
+  adhd:{ms:'Pembaca ADHD',en:'ADHD Reader'},
+  deaf:{ms:'Pembaca Pekak',en:'Deaf Reader'},
+  companion:{ms:'Teman Membaca',en:'Reading Companion'},
+  aiteacher:{ms:'Guru AI',en:'AI Teacher'},
+  audio:{ms:'Pembaca Audio',en:'Audio Reader'}
+};
+function t(k){return (T[k]&&T[k][LANG])||k;}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+var currentTab='all', currentSort='addedAt', currentSearch='', openWithBookId=null, aiPanelBookId=null;
+
+/* ============================================================
+   RENDER SHELF
+   ============================================================ */
+function renderShelf(){
+  var books=CS_SHELF.getAll();
+  updateStats(books);
+  var filtered=filterShelf(books, currentTab, currentSort, currentSearch);
+  var grid=document.getElementById('book-grid');
+  var empty=document.getElementById('empty-state');
+  grid.innerHTML='';
+  if(filtered.length===0){
+    empty.style.display='flex';
+    grid.style.display='none';
+  } else {
+    empty.style.display='none';
+    grid.style.display='grid';
+    filtered.forEach(function(b){grid.appendChild(renderCard(b));});
+  }
+  renderSmartSection(books);
+}
+
+function filterShelf(books, tab, sort, search){
+  var arr=books.slice();
+  if(tab==='recent') arr=arr.filter(function(b){return b.lastOpened;}).sort(function(a,b){return b.lastOpened-a.lastOpened;});
+  else if(tab==='fav') arr=arr.filter(function(b){return b.isFavourite;});
+  else if(tab==='downloaded') arr=arr.filter(function(b){return CS_SHELF.getCachedText(b.id).length>0;});
+  if(search){
+    var q=search.toLowerCase();
+    arr=arr.filter(function(b){return (b.title||'').toLowerCase().includes(q)||(b.author||'').toLowerCase().includes(q);});
+  }
+  arr.sort(function(a,x){
+    if(sort==='title') return (a.title||'').localeCompare(x.title||'');
+    if(sort==='author') return (a.author||'').localeCompare(x.author||'');
+    if(sort==='progress') return (x.progress||0)-(a.progress||0);
+    if(sort==='lastOpened') return (x.lastOpened||0)-(a.lastOpened||0);
+    return (x.addedAt||0)-(a.addedAt||0);
+  });
+  return arr;
+}
+
+function renderCard(book){
+  var card=document.createElement('div');
+  card.className='bk-card';
+  card.setAttribute('role','listitem');
+  card.setAttribute('aria-label', book.title);
+
+  // Cover
+  var coverWrap=document.createElement('div');
+  coverWrap.className='bk-cover-wrap';
+  if(book.cover){
+    var img=document.createElement('img');
+    img.className='bk-cover';
+    img.src=book.cover;
+    img.alt=book.title+' cover';
+    img.loading='lazy';
+    img.onerror=function(){coverWrap.innerHTML='<div class="bk-cover-placeholder">📖</div>';};
+    coverWrap.appendChild(img);
+  } else {
+    var ph=document.createElement('div');
+    ph.className='bk-cover-placeholder';
+    ph.textContent='📖';
+    coverWrap.appendChild(ph);
+  }
+  // Mode badge
+  if(book.lastMode){
+    var badge=document.createElement('span');
+    badge.className='bk-badge badge-'+(book.lastMode||'none');
+    var modeNames={blind:'Blind',lowvision:'LowVis',dyslexia:'Dyslexia',adhd:'ADHD',deaf:'Deaf'};
+    badge.textContent=modeNames[book.lastMode]||book.lastMode;
+    badge.setAttribute('aria-label','Last mode: '+book.lastMode);
+    coverWrap.appendChild(badge);
+  }
+  // Fav button
+  var favBtn=document.createElement('button');
+  favBtn.className='bk-fav-btn';
+  favBtn.setAttribute('aria-label', book.isFavourite?'Remove from favourites':'Add to favourites');
+  favBtn.textContent=book.isFavourite?'⭐':'☆';
+  favBtn.onclick=function(e){e.stopPropagation();toggleFavourite(book.id);};
+  coverWrap.appendChild(favBtn);
+  card.appendChild(coverWrap);
+
+  // Body
+  var body=document.createElement('div');
+  body.className='bk-body';
+  var titleEl=document.createElement('div');
+  titleEl.className='bk-title';
+  titleEl.title=book.title||'';
+  titleEl.textContent=book.title||'Untitled';
+  var authorEl=document.createElement('div');
+  authorEl.className='bk-author';
+  authorEl.textContent=book.author||'Unknown Author';
+
+  // Progress
+  var progWrap=document.createElement('div');
+  progWrap.className='bk-progress-wrap';
+  var progBar=document.createElement('div');
+  progBar.className='bk-progress-bar';
+  var progFill=document.createElement('div');
+  progFill.className='bk-progress-fill';
+  var pct=Math.min(100,Math.max(0,book.progress||0));
+  progFill.style.width=pct+'%';
+  progFill.setAttribute('role','progressbar');
+  progFill.setAttribute('aria-valuenow',pct);
+  progFill.setAttribute('aria-valuemin','0');
+  progFill.setAttribute('aria-valuemax','100');
+  progBar.appendChild(progFill);
+  var progLabel=document.createElement('div');
+  progLabel.className='bk-progress-label';
+  progLabel.textContent=pct>=100?t('finished'):(pct+'% '+t('pct_done'));
+  progWrap.appendChild(progBar);
+  progWrap.appendChild(progLabel);
+
+  // Last opened
+  var lastEl=document.createElement('div');
+  lastEl.className='bk-last';
+  if(book.lastOpened){
+    var daysAgo=Math.floor((Date.now()-book.lastOpened)/86400000);
+    lastEl.textContent=t('last_opened')+': '+(daysAgo===0?t('today'):(daysAgo+' '+t('days_ago')));
+  } else {
+    lastEl.textContent=t('never_read');
+  }
+
+  // Actions
+  var actions=document.createElement('div');
+  actions.className='bk-actions';
+  var contBtn=document.createElement('button');
+  contBtn.className='btn-continue';
+  contBtn.textContent=t('continue');
+  contBtn.onclick=function(e){e.stopPropagation();openBook(book.id, book.lastMode||'adhd');};
+
+  var moreWrap=document.createElement('div');
+  moreWrap.style.position='relative';
+  var moreBtn=document.createElement('button');
+  moreBtn.className='btn-more';
+  moreBtn.setAttribute('aria-label','More options');
+  moreBtn.textContent='⋮';
+  var dropdown=document.createElement('div');
+  dropdown.className='dropdown-menu';
+
+  var menuItems=[
+    {label:'🔖 '+t('open'), action:function(){openBook(book.id, book.lastMode||'adhd');}},
+    {label:'📂 '+t('open_with'), action:function(){openWith(book.id);}},
+    {label:'🤖 '+t('ai_summary'), action:function(){doAI(book.id,'summary');}},
+    {label:'📝 '+t('gen_quiz'), action:function(){doAI(book.id,'quiz');}},
+    {label:'🗺️ '+t('mind_map'), action:function(){doAI(book.id,'mindmap');}},
+    {label:'🗑️ '+t('remove'), action:function(){removeBook(book.id);}, danger:true}
+  ];
+  menuItems.forEach(function(item){
+    var di=document.createElement('button');
+    di.className='dropdown-item'+(item.danger?' danger':'');
+    di.textContent=item.label;
+    di.onclick=function(e){e.stopPropagation();dropdown.classList.remove('open');item.action();};
+    dropdown.appendChild(di);
+  });
+  moreBtn.onclick=function(e){
+    e.stopPropagation();
+    document.querySelectorAll('.dropdown-menu.open').forEach(function(d){if(d!==dropdown)d.classList.remove('open');});
+    dropdown.classList.toggle('open');
+  };
+  moreWrap.appendChild(moreBtn);
+  moreWrap.appendChild(dropdown);
+  actions.appendChild(contBtn);
+  actions.appendChild(moreWrap);
+
+  body.appendChild(titleEl);
+  body.appendChild(authorEl);
+  body.appendChild(progWrap);
+  body.appendChild(lastEl);
+  body.appendChild(actions);
+  card.appendChild(body);
+
+  card.onclick=function(){openWith(book.id);};
+  return card;
+}
+
+/* ============================================================
+   STATS
+   ============================================================ */
+function updateStats(books){
+  document.getElementById('stat-books').textContent=books.length;
+  var totalSec=books.reduce(function(s,b){return s+(b.readingTime||0);},0);
+  document.getElementById('stat-mins').textContent=Math.round(totalSec/60);
+  document.getElementById('stat-finished').textContent=books.filter(function(b){return (b.progress||0)>=100;}).length;
+  // Streak: count consecutive days with lastOpened
+  var days=new Set();
+  books.forEach(function(b){if(b.lastOpened){var d=new Date(b.lastOpened);days.add(d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate());}});
+  var streak=0, cur=new Date();
+  for(var i=0;i<365;i++){
+    var k=cur.getFullYear()+'-'+(cur.getMonth()+1)+'-'+cur.getDate();
+    if(days.has(k)){streak++;cur.setDate(cur.getDate()-1);}else break;
+  }
+  document.getElementById('stat-streak').textContent=streak;
+  document.getElementById('streak-num').textContent=streak;
+}
+
+/* ============================================================
+   SMART SECTION
+   ============================================================ */
+function renderSmartSection(books){
+  var last=books.filter(function(b){return b.lastOpened;}).sort(function(a,b){return b.lastOpened-a.lastOpened;})[0];
+  var contSec=document.getElementById('continue-section');
+  var strkSec=document.getElementById('streak-section');
+  if(last){
+    contSec.style.display='block';
+    var card=document.getElementById('continue-card');
+    var ph=last.cover?'<img src="'+last.cover+'" class="continue-cover" alt="cover" onerror="this.style.display=\'none\'">'
+      :'<div class="continue-cover-ph">📖</div>';
+    var pct=Math.min(100,Math.max(0,last.progress||0));
+    card.innerHTML=ph+'<div class="continue-info"><div class="continue-title">'+escHtml(last.title||'')+'</div><div class="continue-author">'+escHtml(last.author||'')+'</div><div class="bk-progress-bar" style="max-width:240px;"><div class="bk-progress-fill" style="width:'+pct+'%"></div></div><div class="bk-progress-label" style="margin-top:4px;font-size:12px;color:var(--muted);">'+pct+'% '+t('pct_done')+'</div></div><button class="btn-primary" onclick="openBook(\''+last.id+'\',\''+( last.lastMode||'adhd')+'\')" style="margin-left:auto;font-size:14px;padding:10px 20px;">'+t('continue')+' →</button>';
+  } else {
+    contSec.style.display='none';
+  }
+  var streak=parseInt(document.getElementById('streak-num').textContent,10)||0;
+  strkSec.style.display=streak>0?'block':'none';
+}
+
+/* ============================================================
+   OPEN WITH MODAL
+   ============================================================ */
+var AGENTS=[
+  {icon:'🔊',label:t('blind'), mode:'blind', page:'celiksense-reader.html'},
+  {icon:'🔍',label:t('lowvision'), mode:'lowvision', page:'celiksense-reader.html'},
+  {icon:'📖',label:t('dyslexia'), mode:'dyslexia', page:'celiksense-reader.html'},
+  {icon:'🧠',label:t('adhd'), mode:'adhd', page:'celiksense-reader.html'},
+  {icon:'🤟',label:t('deaf'), mode:'deaf', page:'celiksense-reader.html'},
+  {icon:'📚',label:t('companion'), mode:'companion', page:'reading-companion.html'},
+  {icon:'🤖',label:t('aiteacher'), mode:'aiteacher', page:'ai-teacher-agent.html'},
+  {icon:'🎧',label:t('audio'), mode:'audio', page:'celiksense-reader.html'}
+];
+
+function openWith(bookId){
+  openWithBookId=bookId;
+  var book=CS_SHELF.getById(bookId);
+  if(!book)return;
+  var modal=document.getElementById('openwith-modal');
+  document.getElementById('modal-book-name').textContent=book.title||'';
+  var grid=document.getElementById('agent-grid');
+  grid.innerHTML='';
+  AGENTS.forEach(function(a){
+    var btn=document.createElement('button');
+    btn.className='agent-btn';
+    btn.setAttribute('aria-label','Open with '+a.label);
+    btn.innerHTML='<span class="agent-icon">'+a.icon+'</span><span>'+a.label+'</span>';
+    btn.onclick=function(){
+      closeModal();
+      if(a.mode==='companion'){window.location.href=a.page+'?shelf_id='+encodeURIComponent(bookId);}
+      else if(a.mode==='aiteacher'){window.location.href=a.page+'?shelf_id='+encodeURIComponent(bookId);}
+      else{openBook(bookId,a.mode);}
+    };
+    grid.appendChild(btn);
+  });
+  modal.classList.add('open');
+  document.getElementById('modal-close-btn').focus();
+}
+
+function closeModal(){
+  document.getElementById('openwith-modal').classList.remove('open');
+  openWithBookId=null;
+}
+
+function openBook(bookId, mode){
+  var book=CS_SHELF.getById(bookId);
+  if(!book)return;
+  CS_SHELF.update(bookId,{lastOpened:Date.now(),lastMode:mode});
+  var params=new URLSearchParams({
+    mode:mode,
+    cv_title:book.title||'',
+    cv_author:book.author||'',
+    cv_url:book.url||'',
+    cv_cover:book.cover||'',
+    cv_source:book.source||'',
+    shelf_id:bookId
+  });
+  window.location.href='celiksense-reader.html?'+params.toString();
+}
+
+/* ============================================================
+   REMOVE / FAVOURITE
+   ============================================================ */
+function removeBook(bookId){
+  var book=CS_SHELF.getById(bookId);
+  if(!book)return;
+  if(!confirm(t('confirm_remove')+'\n\n"'+(book.title||'')+ '"'))return;
+  CS_SHELF.remove(bookId);
+  renderShelf();
+}
+
+function toggleFavourite(bookId){
+  var book=CS_SHELF.getById(bookId);
+  if(!book)return;
+  CS_SHELF.setFavourite(bookId,!book.isFavourite);
+  renderShelf();
+}
+
+/* ============================================================
+   AI PANEL
+   ============================================================ */
+function doAI(bookId, type){
+  var prefs={};
+  try{prefs=JSON.parse(localStorage.getItem('cs_user_prefs')||'{}');}catch(e){}
+  var key=prefs.gemini_key||'';
+  if(!key){alert(t('no_key'));return;}
+  var book=CS_SHELF.getById(bookId);
+  if(!book)return;
+  aiPanelBookId=bookId;
+  var panel=document.getElementById('ai-panel');
+  var panelTitle=document.getElementById('panel-title');
+  var panelBody=document.getElementById('panel-body');
+  panelTitle.textContent=type==='summary'?t('ai_summary'):type==='quiz'?t('gen_quiz'):t('mind_map');
+  panelBody.innerHTML='<div class="panel-loader"><span class="spin">⚙️</span>'+t('loading_ai')+'</div>';
+  panel.classList.add('open');
+  var text=CS_SHELF.getCachedText(bookId);
+  var excerpt=text?text.slice(0,2000):'(Teks tidak tersedia. Gunakan metadata sahaja.)';
+  var prompts={
+    summary:'Berikan ringkasan 5-8 ayat bagi buku ini dalam Bahasa Melayu:\nTajuk: '+(book.title||'')+'\nPengarang: '+(book.author||'')+'\nEkserp:\n'+excerpt,
+    quiz:'Jana 5 soalan kuiz aneka pilihan mudah dalam Bahasa Melayu berdasarkan buku ini:\nTajuk: '+(book.title||'')+'\nEkserp:\n'+excerpt+'\nFormat: Q1. [soalan]\nA) ...\nB) ...\nC) ...\nD) ...\nJawapan: [huruf]',
+    mindmap:'Buat peta minda teks (ASCII) dalam Bahasa Melayu untuk buku ini:\nTajuk: '+(book.title||'')+'\nPengarang: '+(book.author||'')+'\nEkserp:\n'+excerpt
+  };
+  var prompt=prompts[type]||prompts.summary;
+  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+encodeURIComponent(key),{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+  }).then(function(r){return r.json();}).then(function(data){
+    var result=(((data.candidates||[])[0]||{}).content||{}).parts;
+    var txt=result?result.map(function(p){return p.text||'';}).join(''):'(Tiada respons)';
+    if(type==='quiz'){
+      panelBody.innerHTML='<div class="ai-result">'+escHtml(txt)+'</div>';
+    } else {
+      panelBody.innerHTML='<div class="ai-result">'+escHtml(txt)+'</div>';
+    }
+  }).catch(function(err){
+    panelBody.innerHTML='<div class="ai-result" style="color:#dc2626;">Ralat: '+escHtml(String(err))+'</div>';
+  });
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function escHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ============================================================
+   EVENTS
+   ============================================================ */
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    currentTab=btn.dataset.tab;
+    renderShelf();
+  });
+});
+
+// Sort
+document.getElementById('sort-select').addEventListener('change',function(){
+  currentSort=this.value;
+  renderShelf();
+});
+
+// Nav search
+var searchTimeout;
+document.getElementById('nav-search-input').addEventListener('input',function(){
+  clearTimeout(searchTimeout);
+  var val=this.value;
+  searchTimeout=setTimeout(function(){currentSearch=val;renderShelf();},250);
+});
+
+// Modal close
+document.getElementById('modal-close-btn').addEventListener('click',closeModal);
+document.getElementById('openwith-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// Panel close
+document.getElementById('panel-close-btn').addEventListener('click',function(){
+  document.getElementById('ai-panel').classList.remove('open');
+});
+
+// Dropdown close on outside click
+document.addEventListener('click',function(){
+  document.querySelectorAll('.dropdown-menu.open').forEach(function(d){d.classList.remove('open');});
+});
+
+// Keyboard: Escape closes modal/panel
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    closeModal();
+    document.getElementById('ai-panel').classList.remove('open');
+  }
+});
+
+// Apply i18n labels
+(function(){
+  document.title=(LANG==='en'?'My Reading Shelf':'Rak Buku Saya')+' – CelikSense AI';
+  document.getElementById('nav-shelf-label').textContent='📚 '+(LANG==='en'?'My Reading Shelf':'Rak Buku Saya');
+  document.getElementById('tab-all').textContent=t('all');
+  document.getElementById('tab-recent').textContent=t('recent');
+  document.getElementById('tab-fav').textContent='⭐ '+t('fav');
+  document.getElementById('tab-downloaded').textContent=t('downloaded');
+  document.getElementById('empty-heading').textContent=t('empty_heading');
+  document.getElementById('empty-sub').textContent=t('empty_sub');
+  document.getElementById('empty-cta').textContent=t('empty_cta');
+  document.getElementById('modal-title').textContent=t('modal_title');
+  document.getElementById('modal-sub').textContent=t('modal_sub');
+  document.getElementById('modal-close-btn').textContent=t('cancel');
+  document.getElementById('streak-lbl').textContent='🔥 '+t('streak_label');
+  var nav=document.getElementById('nav-search-input');
+  nav.placeholder=LANG==='en'?'Search books…':'Cari buku…';
+  document.querySelectorAll('#sort-select option').forEach(function(o){
+    var map={addedAt:'sort_added',lastOpened:'sort_last',title:'sort_title',author:'sort_author',progress:'sort_progress'};
+    if(map[o.value])o.textContent=t(map[o.value]);
+  });
+})();
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderShelf();
+</script>
+</body>
+</html>

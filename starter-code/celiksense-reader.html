@@ -583,7 +583,7 @@ body.mode-blind #blind-ui{display:block;}
 <script src="shared.js"></script>
 <script>
 /* ═══════ BOOK DATA ═══════ */
-var BK = {};
+var BK = {}, SHELF_ID = null;
 (function(){
   var p = new URLSearchParams(location.search);
   BK.title  = p.get('cv_title')  || '';
@@ -592,6 +592,12 @@ var BK = {};
   BK.cover  = p.get('cv_cover')  || '';
   BK.source = p.get('cv_source') || '';
   BK.mode   = p.get('mode')      || 'adhd';
+  SHELF_ID  = p.get('shelf_id')  || null;
+  // Load from shelf record if shelf_id given
+  if(SHELF_ID && window.CS_SHELF) {
+    var sb = CS_SHELF.getById(SHELF_ID);
+    if(sb){ BK.title=sb.title;BK.author=sb.author;BK.url=sb.url;BK.cover=sb.cover;BK.source=sb.source; }
+  }
   if (!BK.title) {
     try { var b=JSON.parse(localStorage.getItem('cv_active_book')||'null'); if(b){BK.title=b.title||'';BK.author=b.author||'';BK.url=b.url||'';BK.cover=b.cover||'';BK.source=b.source||'';} } catch(e){}
   }
@@ -648,18 +654,53 @@ function renderBkHero(){
 async function tryFetch(){
   document.getElementById('no-book').classList.remove('show');
   var la=document.getElementById('load-area');
-  la.innerHTML='<div class="ld-fetching"><span class="spin">⏳</span><h3>Fetching book…</h3><p>Loading content, please wait.</p></div>';
+  la.innerHTML='<div class="ld-fetching"><span class="spin">⏳</span><h3>Membuka buku…</h3><p>Sila tunggu sebentar.</p></div>';
   la.classList.remove('hidden');
+
+  // 1. Check shelf cache first — instant load, no network needed
+  if(SHELF_ID && window.CS_SHELF){
+    var cached=CS_SHELF.getCachedText(SHELF_ID);
+    if(cached && cached.length>200){ parseRender(cached); return; }
+  }
+
+  // 2. Try Gutenberg direct URLs
   var gId=(BK.url&&BK.url.match(/gutenberg\.org\/(?:ebooks|files|cache\/epub)\/(\d+)/)||[])[1];
   if(gId){
-    for(var u of['https://www.gutenberg.org/cache/epub/'+gId+'/pg'+gId+'.txt','https://www.gutenberg.org/files/'+gId+'/'+gId+'-0.txt','https://www.gutenberg.org/files/'+gId+'/'+gId+'.txt']){
-      try{var r=await fetch(u);if(r.ok){var t=await r.text();if(t.length>300){parseRender(t);return;}}}catch(e){}
+    var gutUrls=[
+      'https://www.gutenberg.org/cache/epub/'+gId+'/pg'+gId+'.txt',
+      'https://www.gutenberg.org/files/'+gId+'/'+gId+'-0.txt',
+      'https://www.gutenberg.org/files/'+gId+'/'+gId+'.txt'
+    ];
+    for(var u of gutUrls){
+      try{var r=await fetch(u);if(r.ok){var t=await r.text();if(t.length>300){cacheAndRender(t);return;}}}catch(e){}
+    }
+    // 3. CORS proxy fallbacks for Gutenberg
+    var proxyUrls=[
+      'https://corsproxy.io/?url=https://www.gutenberg.org/cache/epub/'+gId+'/pg'+gId+'.txt',
+      'https://api.allorigins.win/get?url='+encodeURIComponent('https://www.gutenberg.org/cache/epub/'+gId+'/pg'+gId+'.txt')
+    ];
+    for(var pu of proxyUrls){
+      try{
+        var pr=await fetch(pu);if(!pr.ok)continue;
+        var pd=await pr.json().catch(async function(){return {contents: await pr.text()};});
+        var pt=pd.contents||pd;
+        if(typeof pt==='string'&&pt.length>300){cacheAndRender(pt);return;}
+      }catch(e){}
     }
   }
+
+  // 4. Direct .txt URL
   if(BK.url&&/\.(txt|text)(\?|$)/i.test(BK.url)){
-    try{var r2=await fetch(BK.url);if(r2.ok){var t2=await r2.text();if(t2.length>200){parseRender(t2);return;}}}catch(e){}
+    try{var r2=await fetch(BK.url);if(r2.ok){var t2=await r2.text();if(t2.length>200){cacheAndRender(t2);return;}}}catch(e){}
   }
+
+  // 5. All failed — show paste area (one-time only; text saved to cache for future)
   showPaste();
+}
+
+function cacheAndRender(text){
+  if(SHELF_ID && window.CS_SHELF) CS_SHELF.setCachedText(SHELF_ID, text);
+  parseRender(text);
 }
 
 function showPaste(){
@@ -682,7 +723,12 @@ function showPaste(){
 
 function loadPaste(){
   var t=document.getElementById('paste-txt').value.trim();
-  if(!t){alert('Please paste some text first.');return;}
+  if(!t){alert('Sila tampal teks buku dahulu.');return;}
+  // Auto-add to shelf if not already there, then cache text
+  if(BK.title && window.CS_SHELF){
+    if(!SHELF_ID) SHELF_ID=CS_SHELF.add({title:BK.title,author:BK.author,cover:BK.cover,url:BK.url,source:BK.source});
+    CS_SHELF.setCachedText(SHELF_ID, t);
+  }
   parseRender(t);
 }
 
@@ -785,7 +831,17 @@ function initSession(){
     var m=Math.floor(sessSec/60),s=sessSec%60;
     document.getElementById('t-cur').textContent=m+':'+(s<10?'0':'')+s;
     if(sessSec>0&&sessSec%(7*60)===0)showBreak();
+    // Auto-save progress to shelf every 30s
+    if(sessSec%30===0) saveShelfProgress();
   },1000);
+  // Save on page unload
+  window.addEventListener('beforeunload', saveShelfProgress);
+}
+function saveShelfProgress(){
+  if(!SHELF_ID||!window.CS_SHELF||!sents.length)return;
+  var pct=sents.length?Math.round((sIdx/sents.length)*100):0;
+  CS_SHELF.updateProgress(SHELF_ID, sIdx, pct, 30);
+  CS_SHELF.update(SHELF_ID, {lastMode: PR.mode||BK.mode||'adhd'});
 }
 function showBreak(){
   var modal=document.getElementById('break-modal');modal.classList.add('on');

@@ -136,9 +136,15 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .cv-book-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:10px;border-top:1px solid #f1f5f9;}
 .cv-btn-read{background:linear-gradient(135deg,var(--cv-p),var(--cv-cyan));color:#fff;font-size:11px;font-weight:800;padding:7px 12px;border-radius:8px;border:none;cursor:pointer;flex:1;font-family:inherit;transition:filter .15s;}
 .cv-btn-read:hover{filter:brightness(1.1);}
+.cv-btn-shelf{background:#f0fdf4;color:#059669;font-size:11px;font-weight:800;padding:7px 11px;border-radius:8px;border:1.5px solid #bbf7d0;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;}
+.cv-btn-shelf:hover{background:#dcfce7;}
+.cv-btn-shelf.on-shelf{background:#dcfce7;color:#15803d;border-color:#86efac;}
 .cv-btn-icon{background:#f0f4ff;color:var(--cv-p);font-size:13px;padding:7px 9px;border-radius:8px;border:none;cursor:pointer;transition:background .15s;}
 .cv-btn-icon:hover{background:#e0e7ff;}
 .cv-btn-icon.bookmarked{background:#fef9c3;color:#d97706;}
+/* Toast notification */
+.cs-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e1b4b;color:#fff;padding:12px 22px;border-radius:12px;font-size:13px;font-weight:700;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;}
+.cs-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 /* IAB Section */
 .cv-iab-section{background:var(--cv-surface);border:1px solid var(--cv-border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
@@ -771,6 +777,7 @@ function displayResults(results){
 
 function buildCard(b){
   var bm = bookmarks[b.id];
+  var onShelf = window.CS_SHELF ? CS_SHELF.isOnShelf(b.title, b.url) : false;
   var accessLabel = b.access==='public'?t('badgePublic'): b.access==='open'?t('badgeOpen'): b.access==='borrow'?t('badgeBorrow'):t('badgePreview');
   var accessClass = b.access==='public'?'public': b.access==='open'?'open': b.access==='borrow'?'borrow':'preview';
   var coverHtml = b.cover
@@ -791,6 +798,7 @@ function buildCard(b){
       '</div>' +
       '<div class="cv-book-actions">' +
         '<button class="cv-btn-read" onclick="openReadPanel('+JSON.stringify(b).replace(/"/g,'&quot;')+')">'+t('readWith')+'</button>' +
+        '<button class="cv-btn-shelf'+(onShelf?' on-shelf':'')+'" id="shelfbtn_'+esc(b.id)+'" onclick="addToShelf('+JSON.stringify(b).replace(/"/g,'&quot;')+',this)">'+(onShelf?'✅ Tersimpan':'+ Rak')+'</button>' +
         '<a href="'+esc(b.previewUrl||b.url)+'" target="_blank" rel="noopener" class="cv-btn-icon" title="'+t('openPage')+'" aria-label="'+t('openPage')+'">↗</a>' +
         '<button class="cv-btn-icon'+(bm?' bookmarked':'')+'" onclick="toggleBookmark('+JSON.stringify(b).replace(/"/g,'&quot;')+')" title="'+t('bookmark')+'" aria-label="'+t('bookmark')+'">'+( bm?'🔖':'🏷️')+'</button>' +
       '</div>' +
@@ -864,6 +872,25 @@ function openReadPanel(b){
 }
 
 function closeReadPanel(){ document.getElementById('readPanel').classList.remove('open'); }
+
+// ── Add to Reading Shelf ───────────────────────────────────────────────────
+function addToShelf(b, btn){
+  if(!window.CS_SHELF){ showToast('Sila muat semula halaman.'); return; }
+  var alreadyOn = CS_SHELF.isOnShelf(b.title, b.url);
+  if(alreadyOn){
+    showToast('📚 Buku sudah ada dalam rak anda!');
+    if(btn){ btn.textContent='✅ Tersimpan'; btn.classList.add('on-shelf'); }
+    return;
+  }
+  var id = CS_SHELF.add({
+    title: b.title||'', author: b.author||'', cover: b.cover||'',
+    url: b.url||'', source: b.source||''
+  });
+  if(btn){ btn.textContent='✅ Tersimpan'; btn.classList.add('on-shelf'); }
+  showToast('✅ Ditambah ke Rak Buku! <a href="reading-shelf.html" style="color:#a5b4fc;font-weight:700;margin-left:6px;">Lihat Rak →</a>');
+  // Also save as active book
+  try{ localStorage.setItem('cv_active_book', JSON.stringify(b)); }catch(e){}
+}
 
 // ── Bookmark ───────────────────────────────────────────────────────────────
 function toggleBookmark(b){
@@ -968,9 +995,9 @@ function openOneDrive(){ showToast(t('driveNote')); }
 var toastTimer;
 function showToast(msg){
   var el=document.getElementById('cvToast');
-  el.textContent=msg; el.classList.add('show');
+  el.innerHTML=msg; el.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(function(){ el.classList.remove('show'); },2800);
+  toastTimer=setTimeout(function(){ el.classList.remove('show'); },3200);
 }
 
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }

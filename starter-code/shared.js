@@ -2264,6 +2264,66 @@ const _nav = {
 })();
 
 /* ============================================================
+   CS_SHELF — My Reading Shelf utility library
+   Manages the user's personal book shelf in localStorage.
+   Shelf data: localStorage key "cs_shelf" (array of book objects).
+   Book text:  localStorage key "cs_text_{id}" (full text string).
+============================================================ */
+(function(){
+  var KEY = 'cs_shelf';
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
+  function save(arr){ try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(e){} }
+  function uid(){ return 'bk_'+Math.random().toString(36).slice(2,10)+'_'+Date.now(); }
+
+  window.CS_SHELF = {
+    getAll: function(){ return load(); },
+    getById: function(id){ return load().find(function(b){ return b.id===id; })||null; },
+    add: function(book){
+      var arr = load();
+      var existing = arr.find(function(b){ return b.url===book.url && b.title===book.title; });
+      if(existing) return existing.id;
+      var b = Object.assign({
+        id: uid(), addedAt: Date.now(), lastOpened: null, lastMode: 'adhd',
+        progress: 0, lastSentIdx: 0, bookmarks: [], notes: '', isFavourite: false,
+        readingTime: 0, quizResults: [], cachedText: ''
+      }, book);
+      arr.unshift(b);
+      save(arr);
+      return b.id;
+    },
+    update: function(id, changes){
+      var arr = load();
+      var idx = arr.findIndex(function(b){ return b.id===id; });
+      if(idx>-1){ arr[idx] = Object.assign(arr[idx], changes); save(arr); }
+    },
+    remove: function(id){
+      save(load().filter(function(b){ return b.id!==id; }));
+      try{ localStorage.removeItem('cs_text_'+id); }catch(e){}
+    },
+    setFavourite: function(id, val){
+      this.update(id, {isFavourite: !!val});
+    },
+    updateProgress: function(id, sentIdx, pct, secs){
+      this.update(id, {lastSentIdx: sentIdx||0, progress: Math.round(pct||0), readingTime: ((this.getById(id)||{}).readingTime||0)+Math.round(secs||0), lastOpened: Date.now()});
+    },
+    saveBookmark: function(id, bm){
+      var b = this.getById(id); if(!b) return;
+      var bms = b.bookmarks||[]; bms.push(bm); this.update(id, {bookmarks: bms});
+    },
+    saveNotes: function(id, text){ this.update(id, {notes: text}); },
+    getCachedText: function(id){
+      try{ return localStorage.getItem('cs_text_'+id)||''; }catch(e){ return ''; }
+    },
+    setCachedText: function(id, text){
+      try{ localStorage.setItem('cs_text_'+id, text.slice(0, 4000000)); }catch(e){}
+    },
+    isOnShelf: function(title, url){
+      return load().some(function(b){ return b.title===title||(url&&b.url===url); });
+    }
+  };
+})();
+
+/* ============================================================
    PUBLIC API — window.CS
    Every HTML page accesses everything through window.CS.
 
