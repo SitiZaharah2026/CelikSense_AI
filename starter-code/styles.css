@@ -334,3 +334,5 @@ input[type=range]:focus-visible { outline: 2px solid var(--primary); outline-off
   .page-header{padding:calc(var(--nav-h) + 24px) 0 20px;}
   .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
 }
+
+@media(max-width:640px){.footer-grid-resp{grid-template-columns:1fr!important;gap:24px!important;}}

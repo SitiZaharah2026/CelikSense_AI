@@ -709,8 +709,8 @@
         <div class="orb-name" data-i18n="a4_name">Dyslexia Agent</div>
         <div class="orb-tag" data-i18n="orb_read_easier">Read Easier</div>
       </a>
+      <button id="marqueePauseBtn" onclick="toggleMarquee()" aria-label="Pause scrolling animation" style="display:block;margin:0 auto 4px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;z-index:10;">Pause</button>
       <div class="hero-orb-marquee-row" aria-hidden="true" style="position:relative;">
-        <button id="marqueePauseBtn" onclick="toggleMarquee()" aria-label="Pause scrolling animation" style="position:absolute;right:16px;top:8px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;z-index:10;">Pause</button>
         <div class="hero-orb-marquee-inner">
           <span class="marquee-line1" data-i18n="hero_tagline">Ilmu Tanpa Sempadan, Kecerdasan Tanpa Had</span>
           <span class="marquee-line2">Knowledge Without Barrier, Intelligence Without Limits</span>
@@ -979,7 +979,7 @@
 <footer class="site-footer" role="contentinfo">
   <div class="container">
     <div class="footer-top">
-      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;">
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;flex-wrap:wrap;" class="footer-grid-resp">
         <div class="footer-brand-col">
           <div class="footer-logo-wrap">
             <div class="brand-icon" aria-hidden="true">CS</div>

@@ -122,6 +122,36 @@
 .api-status.none   { background: rgba(156,163,175,0.12);color: #9ca3af; }
 .api-status.testing{ background: rgba(99,102,241,0.12); color: var(--primary-light); }
 
+/* ── Avatar Engine panel ── */
+.ae-status-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ae-status-name  { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+.ae-status-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+  letter-spacing: .5px;
+}
+.ae-status-badge.ae-ready {
+  background: rgba(34,197,94,0.12);
+  color: #22c55e;
+}
+.ae-status-badge.ae-testing {
+  background: rgba(99,102,241,0.14);
+  color: #a5b4fc;
+}
+
 /* Toggle switch */
 .toggle-switch {
   position: relative;
@@ -283,6 +313,10 @@
       <button class="settings-nav-item" onclick="showPanel('language')" id="tab-language">
         <span class="nav-icon">🌐</span>
         <span data-i18n="set_tab_lang">Language</span>
+      </button>
+      <button class="settings-nav-item" onclick="showPanel('avatar')" id="tab-avatar">
+        <span class="nav-icon">🎬</span>
+        <span>Avatar Engine</span>
       </button>
       <button class="settings-nav-item" onclick="showPanel('data')" id="tab-data">
         <span class="nav-icon">📊</span>
@@ -646,6 +680,173 @@
 
       </div><!-- /panel-data -->
 
+      <!-- ── Avatar Engine ── -->
+      <div class="settings-panel" id="panel-avatar">
+
+        <div class="settings-section">
+          <div class="settings-section-title">🎬 Avatar Engine</div>
+          <div class="settings-section-desc">
+            Configure the professional AI avatar system for BIM Sign Language presentation.
+            The engine automatically switches to a backup provider if one fails.
+          </div>
+
+          <!-- Active provider selector -->
+          <div class="settings-row" style="margin-top:20px;">
+            <div class="settings-row-label">Active Provider</div>
+            <div class="settings-row-control">
+              <select id="aeProviderSelect" class="api-key-input" style="max-width:260px;padding:10px 14px;cursor:pointer;"
+                      onchange="aeSetProvider(this.value)">
+                <option value="placeholder">Canvas Presenter (Offline — always available)</option>
+                <option value="heygen">HeyGen Avatar API ⭐ Highest Quality</option>
+                <option value="did">D-ID API</option>
+                <option value="nvidia">NVIDIA ACE (Enterprise)</option>
+                <option value="rpm">Ready Player Me (3D)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Provider status indicators -->
+          <div id="aeProviderStatuses" style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div class="ae-status-card" id="ae-card-heygen">
+              <div class="ae-status-name">HeyGen</div>
+              <div class="ae-status-badge" id="ae-badge-heygen">No API Key</div>
+            </div>
+            <div class="ae-status-card" id="ae-card-did">
+              <div class="ae-status-name">D-ID</div>
+              <div class="ae-status-badge" id="ae-badge-did">No API Key</div>
+            </div>
+            <div class="ae-status-card" id="ae-card-nvidia">
+              <div class="ae-status-name">NVIDIA ACE</div>
+              <div class="ae-status-badge" id="ae-badge-nvidia">Not Configured</div>
+            </div>
+            <div class="ae-status-card" id="ae-card-rpm">
+              <div class="ae-status-name">Ready Player Me</div>
+              <div class="ae-status-badge ae-ready" id="ae-badge-rpm">Available</div>
+            </div>
+            <div class="ae-status-card" id="ae-card-placeholder">
+              <div class="ae-status-name">Canvas (Offline)</div>
+              <div class="ae-status-badge ae-ready" id="ae-badge-placeholder">Always Available</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HeyGen -->
+        <div class="settings-section">
+          <div class="settings-section-title" style="font-size:14px;">HeyGen API</div>
+          <div class="settings-section-desc">
+            HeyGen provides WebRTC streaming for near-real-time talking avatars.
+            Get your API key from <strong>app.heygen.com → API</strong>.
+          </div>
+          <div class="api-key-row" style="margin-top:12px;">
+            <input type="password" id="heygenKeyInput" class="api-key-input"
+              placeholder="Paste HeyGen API key" autocomplete="off" spellcheck="false"
+              oninput="aeSaveField('heygenApiKey', this.value)">
+            <button class="api-key-btn" onclick="aeToggleVisibility('heygenKeyInput')">👁</button>
+            <button class="api-key-btn" onclick="aeTestProvider('heygen')">Test</button>
+          </div>
+          <div class="settings-row" style="margin-top:10px;flex-wrap:wrap;gap:8px;">
+            <div class="settings-row-label" style="min-width:100px;">Avatar ID</div>
+            <input type="text" id="heygenAvatarId" class="api-key-input" style="max-width:280px;"
+              placeholder="e.g. Angela-inblackskirt-20220820"
+              oninput="aeSaveField('heygenAvatarId', this.value)">
+          </div>
+          <div class="settings-row" style="margin-top:8px;flex-wrap:wrap;gap:8px;">
+            <div class="settings-row-label" style="min-width:100px;">Voice ID</div>
+            <input type="text" id="heygenVoiceId" class="api-key-input" style="max-width:280px;"
+              placeholder="e.g. en-US-JennyNeural"
+              oninput="aeSaveField('heygenVoiceId', this.value)">
+          </div>
+          <div id="aeTestResult-heygen" style="margin-top:8px;font-size:12px;display:none;"></div>
+        </div>
+
+        <!-- D-ID -->
+        <div class="settings-section">
+          <div class="settings-section-title" style="font-size:14px;">D-ID API</div>
+          <div class="settings-section-desc">
+            D-ID generates talking-head videos from a photo and text.
+            Get your API key from <strong>studio.d-id.com → API</strong>.
+          </div>
+          <div class="api-key-row" style="margin-top:12px;">
+            <input type="password" id="didKeyInput" class="api-key-input"
+              placeholder="Paste D-ID API key" autocomplete="off" spellcheck="false"
+              oninput="aeSaveField('didApiKey', this.value)">
+            <button class="api-key-btn" onclick="aeToggleVisibility('didKeyInput')">👁</button>
+            <button class="api-key-btn" onclick="aeTestProvider('did')">Test</button>
+          </div>
+          <div class="settings-row" style="margin-top:10px;flex-wrap:wrap;gap:8px;">
+            <div class="settings-row-label" style="min-width:120px;">Presenter Image URL</div>
+            <input type="url" id="didPresenterUrl" class="api-key-input" style="max-width:340px;"
+              placeholder="https://... (photo of your presenter)"
+              oninput="aeSaveField('didPresenterUrl', this.value)">
+          </div>
+          <div id="aeTestResult-did" style="margin-top:8px;font-size:12px;display:none;"></div>
+        </div>
+
+        <!-- NVIDIA ACE -->
+        <div class="settings-section">
+          <div class="settings-section-title" style="font-size:14px;">NVIDIA ACE (Enterprise)</div>
+          <div class="settings-section-desc">
+            NVIDIA ACE requires an enterprise deployment (cloud or on-premise).
+            Contact NVIDIA or your IT department for endpoint and token.
+          </div>
+          <div class="settings-row" style="margin-top:12px;flex-wrap:wrap;gap:8px;">
+            <div class="settings-row-label" style="min-width:100px;">Endpoint URL</div>
+            <input type="url" id="nvidiaEndpoint" class="api-key-input" style="max-width:340px;"
+              placeholder="https://your-ace-deployment/v1"
+              oninput="aeSaveField('nvidiaEndpoint', this.value)">
+          </div>
+          <div class="api-key-row" style="margin-top:8px;">
+            <input type="password" id="nvidiaToken" class="api-key-input"
+              placeholder="NVIDIA NGC API token" autocomplete="off" spellcheck="false"
+              oninput="aeSaveField('nvidiaToken', this.value)">
+            <button class="api-key-btn" onclick="aeToggleVisibility('nvidiaToken')">👁</button>
+            <button class="api-key-btn" onclick="aeTestProvider('nvidia')">Test</button>
+          </div>
+          <div id="aeTestResult-nvidia" style="margin-top:8px;font-size:12px;display:none;"></div>
+        </div>
+
+        <!-- Ready Player Me -->
+        <div class="settings-section">
+          <div class="settings-section-title" style="font-size:14px;">Ready Player Me</div>
+          <div class="settings-section-desc">
+            No API key needed. Uses your RPM subdomain to embed a 3D avatar creator.
+          </div>
+          <div class="settings-row" style="margin-top:12px;flex-wrap:wrap;gap:8px;">
+            <div class="settings-row-label" style="min-width:100px;">Subdomain</div>
+            <input type="text" id="rpmSubdomain" class="api-key-input" style="max-width:200px;"
+              placeholder="celiksense"
+              oninput="aeSaveField('rpmSubdomain', this.value)">
+          </div>
+          <div id="rpmAvatarPreview" style="margin-top:10px;display:none;">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Saved Avatar URL:</div>
+            <div id="rpmAvatarUrl" style="font-size:11px;color:var(--primary-light);word-break:break-all;"></div>
+          </div>
+        </div>
+
+        <!-- Presentation Quality -->
+        <div class="settings-section">
+          <div class="settings-section-title" style="font-size:14px;">Presentation Settings</div>
+          <div class="settings-row" style="margin-top:12px;">
+            <div class="settings-row-label">Animation Quality</div>
+            <select id="aeQuality" class="api-key-input" style="max-width:160px;padding:8px 12px;cursor:pointer;"
+                    onchange="aeSaveField('quality', this.value)">
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low (faster)</option>
+            </select>
+          </div>
+          <div class="settings-row" style="margin-top:8px;">
+            <div class="settings-row-label">Language</div>
+            <select id="aeLanguage" class="api-key-input" style="max-width:200px;padding:8px 12px;cursor:pointer;"
+                    onchange="aeSaveField('language', this.value)">
+              <option value="ms">Bahasa Malaysia (BIM)</option>
+              <option value="en">English (BSL/ASL future)</option>
+            </select>
+          </div>
+        </div>
+
+      </div><!-- /panel-avatar -->
+
     </div><!-- /main panels -->
   </div><!-- /settings-layout -->
 
@@ -780,13 +981,13 @@ function applyFontSize(val) {
   document.documentElement.style.fontSize = val + '%';
   var a11y = CS.user.getA11y();
   a11y.fontSize = val;
-  CS.user.setA11y(a11y);
+  CS.user.updateA11y(a11y);
 }
 
 function applyFontStyle(val) {
   var a11y = CS.user.getA11y();
   a11y.fontStyle = val;
-  CS.user.setA11y(a11y);
+  CS.user.updateA11y(a11y);
   CS.a11y.apply();
 }
 
@@ -795,7 +996,7 @@ function applyLetterSpacing(val) {
   document.documentElement.style.setProperty('--cs-letter-spacing', val + 'px');
   var a11y = CS.user.getA11y();
   a11y.letterSpacing = val;
-  CS.user.setA11y(a11y);
+  CS.user.updateA11y(a11y);
 }
 
 function applyContrast(val) {
@@ -804,7 +1005,7 @@ function applyContrast(val) {
   if (val === 'inverted') document.body.classList.add('contrast-inverted');
   var a11y = CS.user.getA11y();
   a11y.contrast = val;
-  CS.user.setA11y(a11y);
+  CS.user.updateA11y(a11y);
   CS.toast('Contrast updated', 'success');
 }
 
@@ -825,7 +1026,7 @@ function applyOverlay(color) {
 
   var a11y = CS.user.getA11y();
   a11y.overlay = color;
-  CS.user.setA11y(a11y);
+  CS.user.updateA11y(a11y);
   CS.toast('Overlay: ' + color, 'success');
 }
 
@@ -834,26 +1035,26 @@ function applyTtsSpeed(val) {
   document.getElementById('ttsSpeedLabel').textContent = v + '×';
   var a11y = CS.user.getA11y();
   a11y.ttsSpeed = parseFloat(v);
-  CS.user.setA11y(a11y);
+  CS.user.updateA11y(a11y);
 }
 
 function applyRuler(on) {
   var a11y = CS.user.getA11y();
   a11y.ruler = on;
-  CS.user.setA11y(a11y);
+  CS.user.updateA11y(a11y);
   CS.a11y.apply();
 }
 
 function applyReadingWindow(on) {
   var a11y = CS.user.getA11y();
   a11y.readingWindow = on;
-  CS.user.setA11y(a11y);
+  CS.user.updateA11y(a11y);
   CS.a11y.apply();
 }
 
 function resetAccessibility() {
   if (!confirm('Reset all accessibility settings to defaults?')) return;
-  CS.user.setA11y({});
+  CS.user.updateA11y({});
   CS.a11y.apply();
   loadAccessibilityPanel();
   CS.toast('Accessibility settings reset', 'success');
@@ -945,7 +1146,7 @@ function loadAnalyticsStats() {
 /* ── Clear / reset ────────────────────────────────── */
 function clearAnalytics() {
   if (!confirm('Clear all learning data? This cannot be undone.')) return;
-  try { localStorage.removeItem('cs_analytics'); } catch(e) {}
+  try { localStorage.removeItem('cs_analytics'); localStorage.removeItem('cs_analytics_v1'); } catch(e) {}
   loadAnalyticsStats();
   CS.toast('Learning data cleared', 'success');
 }
@@ -959,7 +1160,7 @@ function clearProfile() {
 
 function clearEverything() {
   if (!confirm('Reset ALL data? This will clear your API key, profile, accessibility settings, and learning data.')) return;
-  var keys = ['gemini_api_key','cs_user','cs_analytics','cs_a11y','cs_lang','cs_prefs',
+  var keys = ['gemini_api_key','cs_user','cs_user_v1','cs_analytics','cs_analytics_v1','cs_a11y','cs_lang','cs_prefs',
               'teacher_input_text','teacher_last_explanation','cs_last_risk',
               'ocrExtractedText','signLangText','cs_agent_history',
               'cs_sessions','cs_agent_counts','cs_feedback','cs_class_roster','cs_demo_mode'];
@@ -973,6 +1174,132 @@ function enableDemo(){ if(window.CS_DEMO) CS_DEMO.enable(); else { localStorage.
 function disableDemo(){ if(window.CS_DEMO) CS_DEMO.disable(); else { localStorage.removeItem('cs_demo_mode'); CS.toast('Demo mode disabled','info'); }}
 function exportData(){ if(window.CS&&CS.db){ var j=CS.db.exportToJSON(); var b=new Blob([JSON.stringify(j,null,2)],{type:'application/json'}); var u=URL.createObjectURL(b); var a=document.createElement('a'); a.href=u; a.download='celiksense-export.json'; a.click(); URL.revokeObjectURL(u); } else CS.toast('Export ready','info'); }
 
+/* ══════════════════════════════════════════════════
+   AVATAR ENGINE SETTINGS
+   ══════════════════════════════════════════════════ */
+function aeLoad() {
+  var cfg = {};
+  try { cfg = JSON.parse(localStorage.getItem('cs_avatar_engine') || '{}'); } catch(e) {}
+
+  // Provider selector
+  var sel = document.getElementById('aeProviderSelect');
+  if (sel && cfg.provider) sel.value = cfg.provider;
+
+  // HeyGen
+  var hk = document.getElementById('heygenKeyInput');
+  var ha = document.getElementById('heygenAvatarId');
+  var hv = document.getElementById('heygenVoiceId');
+  if (hk && cfg.heygenApiKey)   hk.value = '••••••••' + cfg.heygenApiKey.slice(-4);
+  if (ha && cfg.heygenAvatarId) ha.value = cfg.heygenAvatarId;
+  if (hv && cfg.heygenVoiceId)  hv.value = cfg.heygenVoiceId;
+
+  // D-ID
+  var dk  = document.getElementById('didKeyInput');
+  var dpu = document.getElementById('didPresenterUrl');
+  if (dk  && cfg.didApiKey)        dk.value  = '••••••••' + cfg.didApiKey.slice(-4);
+  if (dpu && cfg.didPresenterUrl)  dpu.value = cfg.didPresenterUrl;
+
+  // NVIDIA
+  var ne = document.getElementById('nvidiaEndpoint');
+  var nt = document.getElementById('nvidiaToken');
+  if (ne && cfg.nvidiaEndpoint) ne.value = cfg.nvidiaEndpoint;
+  if (nt && cfg.nvidiaToken)    nt.value = '••••••••' + cfg.nvidiaToken.slice(-4);
+
+  // RPM
+  var rs  = document.getElementById('rpmSubdomain');
+  var rau = document.getElementById('rpmAvatarUrl');
+  var rap = document.getElementById('rpmAvatarPreview');
+  if (rs  && cfg.rpmSubdomain)  rs.value = cfg.rpmSubdomain;
+  if (cfg.rpmAvatarUrl && rau && rap) {
+    rau.textContent = cfg.rpmAvatarUrl;
+    rap.style.display = 'block';
+  }
+
+  // Quality / language
+  var aq = document.getElementById('aeQuality');
+  var al = document.getElementById('aeLanguage');
+  if (aq && cfg.quality)  aq.value = cfg.quality;
+  if (al && cfg.language) al.value = cfg.language;
+
+  // Update status badges
+  aeUpdateBadges(cfg);
+}
+
+function aeUpdateBadges(cfg) {
+  if (!cfg) { try { cfg = JSON.parse(localStorage.getItem('cs_avatar_engine') || '{}'); } catch(e) { cfg = {}; } }
+  function badge(id, text, ready) {
+    var el = document.getElementById('ae-badge-' + id);
+    if (!el) return;
+    el.textContent = text;
+    el.className = 'ae-status-badge' + (ready ? ' ae-ready' : '');
+  }
+  badge('heygen', cfg.heygenApiKey ? 'Configured' : 'No API Key', !!cfg.heygenApiKey);
+  badge('did',    cfg.didApiKey    ? 'Configured' : 'No API Key', !!cfg.didApiKey);
+  badge('nvidia', (cfg.nvidiaEndpoint && cfg.nvidiaToken) ? 'Configured' : 'Not Configured',
+        !!(cfg.nvidiaEndpoint && cfg.nvidiaToken));
+  badge('rpm',         'Available', true);
+  badge('placeholder', 'Always Available', true);
+}
+
+function aeSaveField(field, value) {
+  if (!value || value.startsWith('••')) return;
+  var cfg = {};
+  try { cfg = JSON.parse(localStorage.getItem('cs_avatar_engine') || '{}'); } catch(e) {}
+  cfg[field] = value.trim();
+  try { localStorage.setItem('cs_avatar_engine', JSON.stringify(cfg)); } catch(e) {}
+  aeUpdateBadges(cfg);
+}
+
+function aeSetProvider(name) {
+  aeSaveField('provider', name);
+  CS.toast && CS.toast('Avatar provider set to: ' + name, 'success');
+}
+
+function aeToggleVisibility(inputId) {
+  var el = document.getElementById(inputId);
+  if (!el) return;
+  el.type = el.type === 'password' ? 'text' : 'password';
+}
+
+async function aeTestProvider(name) {
+  var resultEl = document.getElementById('aeTestResult-' + name);
+  var badge    = document.getElementById('ae-badge-' + name);
+  if (resultEl) { resultEl.style.display = 'block'; resultEl.style.color = '#a5b4fc'; resultEl.textContent = 'Testing…'; }
+  if (badge) { badge.textContent = 'Testing…'; badge.className = 'ae-status-badge ae-testing'; }
+
+  // Save the current key values first (in case user just typed without blur)
+  var fieldMap = {
+    heygen: [['heygenKeyInput','heygenApiKey'],['heygenAvatarId','heygenAvatarId'],['heygenVoiceId','heygenVoiceId']],
+    did:    [['didKeyInput','didApiKey'],['didPresenterUrl','didPresenterUrl']],
+    nvidia: [['nvidiaEndpoint','nvidiaEndpoint'],['nvidiaToken','nvidiaToken']]
+  };
+  if (fieldMap[name]) {
+    fieldMap[name].forEach(function(pair) {
+      var el = document.getElementById(pair[0]);
+      if (el && el.value && !el.value.startsWith('••')) aeSaveField(pair[1], el.value);
+    });
+  }
+
+  // Attempt to test via AvatarEngine if available
+  if (window.AvatarEngine) {
+    var res = await AvatarEngine.testProvider(name);
+    var ok = res && res.ok;
+    if (resultEl) {
+      resultEl.style.color = ok ? '#22c55e' : '#f87171';
+      resultEl.textContent = ok ? 'Connection successful!' : ('Error: ' + (res.error || 'Unknown'));
+    }
+    aeUpdateBadges();
+    return;
+  }
+
+  // AvatarEngine not loaded here — just confirm key is saved
+  if (resultEl) {
+    resultEl.style.color = '#f59e0b';
+    resultEl.textContent = 'Key saved. Full test available on the Sign Language page.';
+  }
+  aeUpdateBadges();
+}
+
 /* ── Init ─────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function() {
   loadApiStatus();
@@ -980,6 +1307,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadAccessibilityPanel();
   loadProfilePanel();
   loadAnalyticsStats();
+  aeLoad();
 
   /* Sync language buttons */
   var lang = CS.lang.get();

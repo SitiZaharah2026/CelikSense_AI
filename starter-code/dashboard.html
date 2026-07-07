@@ -225,7 +225,13 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       // Continue reading
       var last=all.filter(function(b){return b.lastOpened;}).sort(function(a,b){return b.lastOpened-a.lastOpened;})[0];
       if(last){
-        document.getElementById('hub-continue-txt').innerHTML='▶ Teruskan: <strong style="color:#a5b4fc;">'+last.title.slice(0,40)+'</strong> — '+Math.round(last.progress||0)+'% selesai';
+        var el=document.getElementById('hub-continue-txt');
+        var strong=document.createElement('strong');
+        strong.style.color='#a5b4fc';
+        strong.textContent=last.title.slice(0,40);
+        el.textContent='▶ Teruskan: ';
+        el.appendChild(strong);
+        el.appendChild(document.createTextNode(' — '+Math.round(last.progress||0)+'% selesai'));
       }
     }catch(e){}
   })();
@@ -454,23 +460,23 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <span class="agent-badge" style="background:linear-gradient(135deg,#f59e0b,#ef4444);" data-i18n="teacher_agent_badge">Virtual Teacher</span>
     </a>
 
-    <div class="agent-card" onclick="location.href='teacher-dashboard.html'">
+    <a href="teacher-dashboard.html" class="agent-card" aria-label="Open Teacher Dashboard">
       <div class="agent-icon">Teacher</div>
       <div class="agent-title" data-i18n="nav_teacher">Teacher Dashboard</div>
       <div class="agent-desc">Class insights, student progress, early warnings</div>
-    </div>
+    </a>
 
-    <div class="agent-card" onclick="location.href='competition-dashboard.html'">
+    <a href="competition-dashboard.html" class="agent-card" aria-label="Open Competition Dashboard">
       <div class="agent-icon">Judge</div>
       <div class="agent-title">Competition Dashboard</div>
       <div class="agent-desc">Innovation scores, pilot evidence, demo mode</div>
-    </div>
+    </a>
 
-    <div class="agent-card" onclick="location.href='pilot-evidence.html'">
+    <a href="pilot-evidence.html" class="agent-card" aria-label="Open Pilot Evidence">
       <div class="agent-icon">Study</div>
       <div class="agent-title">Pilot Evidence</div>
       <div class="agent-desc">User validation results from real learners</div>
-    </div>
+    </a>
 
   </div>
 
@@ -671,7 +677,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var dur     = e.durationSec ? Math.round(e.durationSec / 60) + ' min' : '';
         var diffH   = Math.round((Date.now() - new Date(e.ts).getTime()) / 3600000);
         var timeStr = diffH < 1 ? CS.lang.t('dash_just_now') : diffH < 24 ? diffH + CS.lang.t('dash_h_ago') : Math.floor(diffH / 24) + CS.lang.t('dash_d_ago');
-        var label   = agent.replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); }) + ' Agent';
+        var label   = (agent.replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); }) + ' Agent').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
         html += '<div class="activity-item"><div class="activity-icon" style="background:' + color + '">' + icon + '</div>' +
           '<div><div class="activity-title">' + label + '</div><div class="activity-time">' + timeStr + (dur ? ' · ' + dur : '') + '</div></div>' +
           '<span class="badge badge-success" style="margin-left:auto;">' + CS.lang.t('dash_done_badge') + '</span></div>';

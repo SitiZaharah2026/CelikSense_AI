@@ -941,7 +941,7 @@ function loadNotes(){try{document.getElementById('notes-area').value=localStorag
 function saveBookmark(){try{var pos={sIdx:sIdx,scrollY:window.scrollY,ts:Date.now()};localStorage.setItem('cs_bm_'+_bkKey(),JSON.stringify(pos));var m=document.getElementById('bm-msg');m.style.display='block';setTimeout(function(){m.style.display='none';},2000);}catch(e){}}
 
 /* ═══════ GEMINI ═══════ */
-function getKey(){try{return(JSON.parse(localStorage.getItem('cs_user_prefs')||'{}')).gemini_key||'';}catch(e){return '';}}
+function getKey(){return localStorage.getItem('gemini_api_key')||'';}
 async function gemCall(prompt,key){var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});var d=await r.json();if(d.error)throw new Error(d.error.message);return(d.candidates||[])[0]?.content?.parts?.[0]?.text||'No response.';}
 
 /* ═══════ VOICE NAV ═══════ */
