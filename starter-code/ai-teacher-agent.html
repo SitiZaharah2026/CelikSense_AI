@@ -818,6 +818,7 @@ function updateLangDisplay() {
 }
 
 function injectCelikVerseBook() {
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
   var params = new URLSearchParams(window.location.search);
   var title = params.get('cv_title'), author = params.get('cv_author');
   var url = params.get('cv_url'), cover = params.get('cv_cover'), source = params.get('cv_source');
@@ -827,20 +828,20 @@ function injectCelikVerseBook() {
   w.id = 'cv-book-widget';
   w.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9990;width:260px;background:linear-gradient(135deg,#1e1b4b 0%,#1d4ed8 60%,#0891b2 100%);border-radius:16px;box-shadow:0 8px 32px rgba(30,27,75,.45);color:#fff;font-family:inherit;overflow:hidden;';
   var coverImg=cover
-    ?'<img src="'+cover+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\">📖</div>\'">'
+    ?'<img src="'+esc(cover)+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\">📖</div>\'">'
     :'<div style="width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📖</div>';
   w.innerHTML=
     '<div style="padding:12px 14px 10px;display:flex;align-items:flex-start;gap:12px;">'+
       coverImg+
       '<div style="flex:1;min-width:0;">'+
         '<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:4px;">🌍 BUKU AKTIF</div>'+
-        '<div style="font-size:13px;font-weight:800;line-height:1.3;word-break:break-word;">'+title+'</div>'+
-        '<div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:3px;">'+(author||'')+'</div>'+
+        '<div style="font-size:13px;font-weight:800;line-height:1.3;word-break:break-word;">'+esc(title)+'</div>'+
+        '<div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:3px;">'+esc(author||'')+'</div>'+
       '</div>'+
       '<button onclick="document.getElementById(\'cv-book-widget\').remove();localStorage.removeItem(\'cv_active_book\');" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;">✕</button>'+
     '</div>'+
     '<div style="padding:0 14px 14px;display:flex;gap:8px;flex-wrap:wrap;">'+
-      (url?'<a href="'+url+'" target="_blank" rel="noopener" style="flex:1;text-align:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">↗ Buka Sumber</a>':'')+
+      (url?'<a href="'+esc(url)+'" target="_blank" rel="noopener" style="flex:1;text-align:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">↗ Buka Sumber</a>':'')+
       '<a href="celikverse-library.html" style="flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">🌍 Tukar Buku</a>'+
     '</div>';
   document.body.appendChild(w);

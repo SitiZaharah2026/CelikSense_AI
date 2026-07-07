@@ -226,58 +226,6 @@ nav.navbar{display:none!important;}
 <script src="shared.js"></script>
 <script>
 /* ============================================================
-   CS_SHELF — localStorage utility
-   ============================================================ */
-window.CS_SHELF = (function(){
-  var KEY = 'cs_shelf';
-  function _load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return [];}}
-  function _save(arr){try{localStorage.setItem(KEY,JSON.stringify(arr));}catch(e){}}
-  function _uid(){return 'cs_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);}
-  return {
-    getAll(){ return _load(); },
-    getById(id){ return _load().find(b=>b.id===id)||null; },
-    add(book){
-      var arr=_load();
-      book.id=book.id||_uid();
-      book.addedAt=book.addedAt||Date.now();
-      book.progress=book.progress||0;
-      book.isFavourite=book.isFavourite||false;
-      book.bookmarks=book.bookmarks||[];
-      book.notes=book.notes||'';
-      book.readingTime=book.readingTime||0;
-      book.quizResults=book.quizResults||[];
-      arr.push(book);
-      _save(arr);
-      return book.id;
-    },
-    update(id,changes){
-      var arr=_load();
-      var idx=arr.findIndex(b=>b.id===id);
-      if(idx<0)return;
-      arr[idx]=Object.assign(arr[idx],changes);
-      _save(arr);
-    },
-    remove(id){
-      var arr=_load().filter(b=>b.id!==id);
-      _save(arr);
-      try{localStorage.removeItem('cs_text_'+id);}catch(e){}
-    },
-    setFavourite(id,bool){this.update(id,{isFavourite:bool});},
-    updateProgress(id,sentIdx,progressPct,readingTimeSec){
-      this.update(id,{lastSentIdx:sentIdx,progress:progressPct,readingTime:(this.getById(id)||{}).readingTime+readingTimeSec,lastOpened:Date.now()});
-    },
-    saveBookmark(id,bookmark){
-      var b=this.getById(id);if(!b)return;
-      var bms=b.bookmarks||[];bms.push(bookmark);
-      this.update(id,{bookmarks:bms});
-    },
-    saveNotes(id,notes){this.update(id,{notes:notes});},
-    getCachedText(id){try{return localStorage.getItem('cs_text_'+id)||'';}catch(e){return '';}},
-    setCachedText(id,text){try{localStorage.setItem('cs_text_'+id,text);}catch(e){}}
-  };
-})();
-
-/* ============================================================
    i18n
    ============================================================ */
 var LANG = (function(){try{return (JSON.parse(localStorage.getItem('cs_user_prefs')||'{}')).lang||'ms';}catch(e){return 'ms';}})();
