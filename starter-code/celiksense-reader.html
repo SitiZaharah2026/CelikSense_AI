@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>CelikSense Adaptive Reader</title>
+<script>
+// Force SW update on every visit so stale cache never blocks fixes
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.getRegistration().then(function(reg){
+    if(!reg) return;
+    reg.update();
+    if(reg.waiting){ reg.waiting.postMessage({type:'SKIP_WAITING'}); location.reload(); }
+    reg.addEventListener('updatefound', function(){
+      var nw = reg.installing;
+      if(!nw) return;
+      nw.addEventListener('statechange', function(){
+        if(nw.state==='installed' && reg.waiting){ reg.waiting.postMessage({type:'SKIP_WAITING'}); location.reload(); }
+      });
+    });
+  });
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
