@@ -765,13 +765,14 @@ function renderParas(){
     var kwSet=extractKW(para);
     var ss=para.match(/[^.!?…]+[.!?…]+["']?/g)||[para];
     ss.forEach(function(s){
-      var sp=document.createElement('span');sp.className='sent';sp.dataset.si=sents.length;
+      var sp=document.createElement('span');sp.className='sent';sp.dataset.si=sents.length;sp.setAttribute('tabindex','0');sp.setAttribute('role','button');
       if(showKW&&kwSet.length){
         var html=s+' ';
         kwSet.forEach(function(kw){html=html.replace(new RegExp('\\b('+kw+')\\b','gi'),'<span class="kw" onclick="showSign(\'$1\')">$1</span>');});
         sp.innerHTML=html;
       }else{sp.textContent=s+' ';}
       sp.onclick=function(e){if(e.target.classList.contains('kw'))return;jumpSent(parseInt(sp.dataset.si));};
+      sp.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();jumpSent(parseInt(sp.dataset.si));}};
       sents.push({paraIdx:i,text:s,el:sp});pt.appendChild(sp);
     });
     var aib=document.createElement('button');aib.className='ai-btn';aib.innerHTML='✨ AI Help';
@@ -946,7 +947,7 @@ async function gemCall(prompt,key){var r=await fetch('https://generativelanguage
 function initVoice(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;var rec=new SR();rec.continuous=true;rec.interimResults=false;rec.lang='en-US';rec.onresult=function(e){var cmd=e.results[e.results.length-1][0].transcript.trim().toLowerCase();if(cmd.includes('next'))isFocus?fNav(1):nextSent();else if(cmd.includes('previous')||cmd.includes('back'))isFocus?fNav(-1):prevSent();else if(cmd.includes('read')||cmd.includes('start')){if(!isRead)startRead();}else if(cmd.includes('pause')||cmd.includes('stop')){if(isRead)stopRead();}else if(cmd.includes('focus'))toggleFocus();};rec.onerror=function(){};try{rec.start();}catch(e){}}
 
 /* ═══════ KEYBOARD ═══════ */
-document.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;if(e.key===' '){e.preventDefault();toggleRead();}if(e.key==='f')toggleFocus();if(e.key==='r')toggleRuler();if(e.key==='g')toggleGuide();if(e.key==='ArrowRight'||e.key==='n')isFocus?fNav(1):nextSent();if(e.key==='ArrowLeft'||e.key==='b')isFocus?fNav(-1):prevSent();if(e.key==='Escape'){if(isFocus)toggleFocus();if(isRead)stopRead();}});
+document.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;if(e.key===' '){e.preventDefault();toggleRead();}if(e.key==='f')toggleFocus();if(e.key==='r')toggleRuler();if(e.key==='g')toggleGuide();if(e.key==='ArrowRight'||e.key==='n')isFocus?fNav(1):nextSent();if(e.key==='ArrowLeft'||e.key==='b')isFocus?fNav(-1):prevSent();if(e.key==='Escape'){if(isFocus)toggleFocus();if(isRead)stopRead();skipBreak();skipCP();}});
 
 /* ═══════ APPLY SAVED PREFS ═══════ */
 function applyPrefs(){
