@@ -1378,10 +1378,10 @@ function buildBrowse() {
       ? e.ms + ' / ' + e.en
       : e.en + ' / ' + e.ms;
     b.setAttribute('aria-label', 'Browse ' + e.en);
-    b.onclick = function() {
-      document.getElementById('ssInput').value = e.en;
+    b.onclick = (function(entry) { return function() {
+      document.getElementById('ssInput').value = lang === 'ms' ? entry.ms : entry.en;
       doSearch();
-    };
+    }; })(e);
     row.appendChild(b);
   });
 }
@@ -1392,9 +1392,11 @@ function doSearch() {
   if (!q) { showToast(t('toastEmpty')); return; }
   lastQuery = q;
 
+  var matchLang = lang; // default to current lang
   var entry = DICT.find(function(e) {
-    return e.en.toLowerCase() === q || e.ms.toLowerCase() === q ||
-           e.en.toLowerCase().startsWith(q) || e.ms.toLowerCase().startsWith(q);
+    if (e.ms.toLowerCase() === q || e.ms.toLowerCase().startsWith(q)) { matchLang = 'ms'; return true; }
+    if (e.en.toLowerCase() === q || e.en.toLowerCase().startsWith(q)) { matchLang = 'en'; return true; }
+    return false;
   });
 
   var res = document.getElementById('ssResult');
@@ -1403,7 +1405,7 @@ function doSearch() {
   nf.classList.remove('visible');
 
   if (entry) {
-    renderResult(entry);
+    renderResult(entry, matchLang);
     res.classList.add('visible');
     setTimeout(function() { res.scrollIntoView({ behavior:'smooth', block:'start' }); }, 60);
   } else {
@@ -1414,8 +1416,8 @@ function doSearch() {
 }
 
 // ── Render result ──────────────────────────────────────────────────────────
-function renderResult(e) {
-  var iMs = lang === 'ms';
+function renderResult(e, displayLang) {
+  var iMs = (displayLang || lang) === 'ms';
   var word    = iMs ? e.ms : e.en;
   var wordAlt = iMs ? e.en : e.ms;
   var cat     = iMs ? e.catMs : e.cat;
