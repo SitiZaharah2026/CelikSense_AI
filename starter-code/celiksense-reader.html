@@ -949,12 +949,62 @@ function showSign(word){var pop=document.getElementById('sign-pop');var icon=CIC
 
 /* ═══════ AI SIDEBAR ═══════ */
 function toggleSidebar(){document.getElementById('ai-sidebar').classList.toggle('on');}
-var AI_PROMPTS={simplify:'Simplify this text in plain language (Grade 6 level). Be concise.',keywords:'List the 8 most important vocabulary words from this text with brief definitions.',teacher:'Explain this text as a friendly teacher to a 12-year-old. Use simple analogies.',quiz:'Create 3 multiple-choice questions from this text. Format: Q: ... A) B) C) D) Answer: ...',mindmap:'Create a text-based mind map of this text. Use indented bullets to show relationships.',summary:'Write a concise 3-paragraph summary of this text.'};
+var AI_PROMPTS={simplify:'Simplify this text in plain language (Grade 6 level). Be concise.',keywords:'List the 8 most important vocabulary words from this text with brief definitions.',teacher:'Explain this text as a friendly teacher to a 12-year-old. Use simple analogies.',quiz:'Create 5 multiple-choice questions based on this text. Return ONLY a valid JSON array, no markdown, no explanation. Format: [{"q":"question","options":["A","B","C","D"],"answer":0}] where answer is the 0-based index of the correct option.',mindmap:'Create a text-based mind map of this text. Use indented bullets to show relationships.',summary:'Write a concise 3-paragraph summary of this text.'};
+function _renderQuiz(questions,isCached,dateStr){
+  var out=document.getElementById('ai-s-out');
+  var score=0,answered=0,total=questions.length;
+  var html='<div id="quiz-wrap" style="display:flex;flex-direction:column;gap:12px;">';
+  questions.forEach(function(q,qi){
+    html+='<div id="qcard-'+qi+'" style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(8,145,178,.05));border:1.5px solid var(--border);border-radius:10px;padding:12px;">';
+    html+='<div style="font-size:12px;font-weight:600;margin-bottom:8px;line-height:1.5;">'+esc((qi+1)+'. '+q.q)+'</div>';
+    html+='<div style="display:flex;flex-direction:column;gap:6px;">';
+    q.options.forEach(function(opt,oi){
+      html+='<button onclick="_quizAns('+qi+','+oi+','+q.answer+')" id="qopt-'+qi+'-'+oi+'" style="text-align:left;padding:7px 10px;border-radius:7px;border:1.5px solid var(--border);background:var(--bg);font-size:11.5px;cursor:pointer;transition:all .15s;">'+esc(opt)+'</button>';
+    });
+    html+='</div><div id="qfb-'+qi+'" style="font-size:11px;margin-top:6px;min-height:16px;"></div></div>';
+  });
+  html+='</div>';
+  html+='<div id="quiz-score" style="display:none;margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;font-size:13px;font-weight:700;text-align:center;"></div>';
+  html+=(isCached?'<div style="font-size:11px;color:var(--muted);margin-top:6px;">💾 Cached '+dateStr+' · <button onclick="doAI(\'quiz\',true)" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;text-decoration:underline;">Regenerate</button></div>':'');
+  out.innerHTML=html;
+  window._quizState={score:0,answered:0,total:total};
+}
+window._quizAns=function(qi,oi,correct){
+  var btns=document.querySelectorAll('[id^="qopt-'+qi+'-"]');
+  btns.forEach(function(b){b.disabled=true;b.style.cursor='default';});
+  var chosen=document.getElementById('qopt-'+qi+'-'+oi);
+  var correctBtn=document.getElementById('qopt-'+qi+'-'+correct);
+  var fb=document.getElementById('qfb-'+qi);
+  if(oi===correct){
+    chosen.style.background='#d1fae5';chosen.style.borderColor='#10b981';
+    fb.innerHTML='<span style="color:#059669;">✅ Betul!</span>';
+    window._quizState.score++;
+  }else{
+    chosen.style.background='#fee2e2';chosen.style.borderColor='#ef4444';
+    correctBtn.style.background='#d1fae5';correctBtn.style.borderColor='#10b981';
+    fb.innerHTML='<span style="color:#dc2626;">❌ Salah.</span> <span style="color:#059669;">Jawapan: '+esc(correctBtn.textContent)+'</span>';
+  }
+  window._quizState.answered++;
+  if(window._quizState.answered===window._quizState.total){
+    var sc=window._quizState.score,tot=window._quizState.total;
+    var emoji=sc===tot?'🏆':sc>=tot/2?'👍':'💪';
+    var scoreEl=document.getElementById('quiz-score');
+    scoreEl.style.display='block';
+    scoreEl.textContent=emoji+' Skor kamu: '+sc+'/'+tot+' — '+(sc===tot?'Sempurna!':sc>=tot/2?'Bagus, teruskan!':'Cuba lagi!');
+  }
+};
 function _renderAI(type,text){
   var out=document.getElementById('ai-s-out');
   var cached=_aiCacheGet(type);
   var isCached=cached&&cached.text===text;
   var dateStr=isCached?new Date(cached.ts).toLocaleDateString():'';
+  if(type==='quiz'){
+    try{
+      var raw=text.replace(/```json|```/g,'').trim();
+      var questions=JSON.parse(raw);
+      if(Array.isArray(questions)&&questions.length)return _renderQuiz(questions,isCached,dateStr);
+    }catch(e){}
+  }
   out.innerHTML='<div style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(8,145,178,.05));border:1.5px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;white-space:pre-wrap;">'+esc(text)+'</div>'
     +(isCached?'<div style="font-size:11px;color:var(--muted);margin-top:6px;">💾 Cached '+dateStr+' · <button onclick="doAI(\''+type+'\',true)" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;text-decoration:underline;">Regenerate</button></div>':'');
 }
