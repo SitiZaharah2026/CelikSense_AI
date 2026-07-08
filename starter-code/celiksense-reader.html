@@ -950,7 +950,28 @@ function showSign(word){var pop=document.getElementById('sign-pop');var icon=CIC
 /* ═══════ AI SIDEBAR ═══════ */
 function toggleSidebar(){document.getElementById('ai-sidebar').classList.toggle('on');}
 var AI_PROMPTS={simplify:'Simplify this text in plain language (Grade 6 level). Be concise.',keywords:'List the 8 most important vocabulary words from this text with brief definitions.',teacher:'Explain this text as a friendly teacher to a 12-year-old. Use simple analogies.',quiz:'Create 3 multiple-choice questions from this text. Format: Q: ... A) B) C) D) Answer: ...',mindmap:'Create a text-based mind map of this text. Use indented bullets to show relationships.',summary:'Write a concise 3-paragraph summary of this text.'};
-async function doAI(type){var out=document.getElementById('ai-s-out');out.innerHTML='<div style="background:var(--bg);border-radius:10px;padding:14px;font-size:12px;color:var(--muted);">⏳ Generating…</div>';var key=getKey();var sampleText=paras.slice(0,20).join(' ').slice(0,1200);if(!key){out.innerHTML='<div style="background:#ede9fe;border-radius:10px;padding:14px;font-size:13px;">💡 Add Gemini API key in <a href="settings.html" style="color:#6366f1;font-weight:700;">Settings</a> for AI features.</div>';return;}try{var r=await gemCall(AI_PROMPTS[type]+'\n\nBook: "'+BK.title+'"'+(BK.author?' by '+BK.author:'')+'\nText: "'+sampleText+'"',key);out.innerHTML='<div style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(8,145,178,.05));border:1.5px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;white-space:pre-wrap;">'+esc(r)+'</div>';}catch(e){out.innerHTML='<div style="background:#fee2e2;border-radius:10px;padding:12px;font-size:12px;color:#991b1b;">Error. Check API key in Settings.</div>';}}
+function _renderAI(type,text){
+  var out=document.getElementById('ai-s-out');
+  var cached=_aiCacheGet(type);
+  var isCached=cached&&cached.text===text;
+  var dateStr=isCached?new Date(cached.ts).toLocaleDateString():'';
+  out.innerHTML='<div style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(8,145,178,.05));border:1.5px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;white-space:pre-wrap;">'+esc(text)+'</div>'
+    +(isCached?'<div style="font-size:11px;color:var(--muted);margin-top:6px;">💾 Cached '+dateStr+' · <button onclick="doAI(\''+type+'\',true)" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;text-decoration:underline;">Regenerate</button></div>':'');
+}
+async function doAI(type,force){
+  var out=document.getElementById('ai-s-out');
+  var key=getKey();
+  if(!key){out.innerHTML='<div style="background:#ede9fe;border-radius:10px;padding:14px;font-size:13px;">💡 Add Gemini API key in <a href="settings.html" style="color:#6366f1;font-weight:700;">Settings</a> for AI features.</div>';return;}
+  // Serve from cache unless force-regenerate
+  if(!force){var cached=_aiCacheGet(type);if(cached&&cached.text){_renderAI(type,cached.text);return;}}
+  out.innerHTML='<div style="background:var(--bg);border-radius:10px;padding:14px;font-size:12px;color:var(--muted);">⏳ Generating…</div>';
+  var sampleText=paras.slice(0,20).join(' ').slice(0,1200);
+  try{
+    var r=await gemCall(AI_PROMPTS[type]+'\n\nBook: "'+BK.title+'"'+(BK.author?' by '+BK.author:'')+'\nText: "'+sampleText+'"',key);
+    _aiCacheSet(type,r);
+    _renderAI(type,r);
+  }catch(e){out.innerHTML='<div style="background:#fee2e2;border-radius:10px;padding:12px;font-size:12px;color:#991b1b;">Error. Check API key in Settings.</div>';}
+}
 
 /* ═══════ NOTES & BOOKMARKS ═══════ */
 function saveNotes(){try{localStorage.setItem('cs_notes_'+_bkKey(),document.getElementById('notes-area').value);}catch(e){}}
@@ -960,6 +981,11 @@ function saveBookmark(){try{var pos={sIdx:sIdx,scrollY:window.scrollY,ts:Date.no
 /* ═══════ GEMINI ═══════ */
 function getKey(){return localStorage.getItem('gemini_api_key')||'';}
 async function gemCall(prompt,key){var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});var d=await r.json();if(d.error)throw new Error(d.error.message);return(d.candidates||[])[0]?.content?.parts?.[0]?.text||'No response.';}
+
+/* ═══════ AI RESPONSE CACHE ═══════ */
+function _aiCacheKey(type){return 'cs_ai_'+_bkKey()+'_'+type;}
+function _aiCacheGet(type){try{var v=localStorage.getItem(_aiCacheKey(type));if(!v)return null;var obj=JSON.parse(v);return obj&&obj.text?obj:null;}catch(e){return null;}}
+function _aiCacheSet(type,text){try{localStorage.setItem(_aiCacheKey(type),JSON.stringify({text:text,ts:Date.now()}));}catch(e){}}
 
 /* ═══════ VOICE NAV ═══════ */
 function initVoice(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;var rec=new SR();rec.continuous=true;rec.interimResults=false;rec.lang='en-US';rec.onresult=function(e){var cmd=e.results[e.results.length-1][0].transcript.trim().toLowerCase();if(cmd.includes('next'))isFocus?fNav(1):nextSent();else if(cmd.includes('previous')||cmd.includes('back'))isFocus?fNav(-1):prevSent();else if(cmd.includes('read')||cmd.includes('start')){if(!isRead)startRead();}else if(cmd.includes('pause')||cmd.includes('stop')){if(isRead)stopRead();}else if(cmd.includes('focus'))toggleFocus();};rec.onerror=function(){};try{rec.start();}catch(e){}}
