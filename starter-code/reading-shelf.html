@@ -585,9 +585,8 @@ function toggleFavourite(bookId){
    AI PANEL
    ============================================================ */
 function doAI(bookId, type){
-  var prefs={};
-  try{prefs=JSON.parse(localStorage.getItem('cs_user_prefs')||'{}');}catch(e){}
-  var key=prefs.gemini_key||'';
+  var key='';
+  try{key=localStorage.getItem('gemini_api_key')||'';}catch(e){}
   if(!key){alert(t('no_key'));return;}
   var book=CS_SHELF.getById(bookId);
   if(!book)return;

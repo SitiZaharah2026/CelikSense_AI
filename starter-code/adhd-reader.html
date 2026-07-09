@@ -947,7 +947,7 @@ async function doVS(type) {
    GEMINI HELPER
 ═══════════════════════════════════════════ */
 function getApiKey() {
-  try { return (JSON.parse(localStorage.getItem('cs_user_prefs')||'{}')).gemini_key || ''; } catch(e){ return ''; }
+  try { return localStorage.getItem('gemini_api_key') || ''; } catch(e){ return ''; }
 }
 
 async function geminiCall(prompt, key) {
@@ -1017,3 +1017,4 @@ function applyPrefs() {
 </script>
 </body>
 </html>
+

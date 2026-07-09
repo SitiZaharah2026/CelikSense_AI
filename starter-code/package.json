@@ -4,6 +4,10 @@
   "private": true,
   "description": "CelikSense AI — Inclusive Learning Platform with LangChain Agents",
   "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
   "dependencies": {
     "@langchain/core": "^0.3.0",
     "@langchain/google-genai": "^0.1.0",

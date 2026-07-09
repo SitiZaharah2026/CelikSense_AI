@@ -578,7 +578,37 @@ body {
 <body>
 <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#4f46e5;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;">Skip to main content</a>
 
-<!-- NAV (injected by shared.js) -->
+<nav class="navbar">
+  <div class="container nav-container">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-icon">CS</div>
+      <div><span class="brand-name">CelikSense AI</span><span class="brand-tagline">Agentic Multi-Sensory Learning</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <div class="nav-dropdown">
+        <button aria-haspopup="true" aria-expanded="false">Agents ▾</button>
+        <div class="dropdown-menu">
+          <a href="ai-librarian.html">📚 AI Librarian</a>
+          <a href="reading-companion.html">📖 Reading Companion</a>
+          <a href="adhd-agent.html">🧠 ADHD Agent</a>
+          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
+          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
+          <a href="sign-language.html">🤟 Sign Language Agent</a>
+          <a href="early-warning.html">⚠️ Early Warning Agent</a>
+          <a href="intervention.html">💡 Intervention Agent</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="dashboard.html" class="btn btn-outline btn-sm">← Dashboard</a>
+      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings">⚙️</a>
+      <button class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">☰</button>
+    </div>
+  </div>
+</nav>
 
 <main id="main-content" style="padding-top:var(--nav-h,60px);">
 
@@ -967,7 +997,7 @@ async function callGemini(prompt) {
   try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
   if (!key) throw new Error('no_key');
   var res = await fetch(
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + key,
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-thinking-exp-01-21:generateContent?key=' + key,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
