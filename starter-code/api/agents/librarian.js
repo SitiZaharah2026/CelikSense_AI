@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CelikSense AI — AI Librarian Agent (LangChain.js)
  *
  * Tools:
@@ -109,7 +109,7 @@ export default async function handler(req, res) {
 
   try {
     const llm = new ChatGoogleGenerativeAI({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.0-flash-thinking-exp-01-21",
       apiKey,
       temperature: 0.5,
     });

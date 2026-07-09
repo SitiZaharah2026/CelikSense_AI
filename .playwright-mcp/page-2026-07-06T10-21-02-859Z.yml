@@ -1,0 +1,281 @@
+- generic [active] [ref=f5e1]:
+  - link "Skip to main content" [ref=f5e2] [cursor=pointer]:
+    - /url: "#main"
+  - alert
+  - main [ref=f5e3]:
+    - banner [ref=f5e4]:
+      - generic [ref=f5e5]:
+        - generic [ref=f5e6]: 🌍 CelikSense AI · Knowledge Gateway
+        - heading "CelikVerse Library" [level=1] [ref=f5e7]
+        - paragraph [ref=f5e8]: "\"Satu Carian. Jutaan Buku. Kebolehaksesan Tanpa Had.\""
+        - generic [ref=f5e9]:
+          - generic [ref=f5e10]:
+            - generic [ref=f5e11]: 15+
+            - generic [ref=f5e12]: Sumber
+          - generic [ref=f5e13]:
+            - generic [ref=f5e14]: ∞
+            - generic [ref=f5e15]: Mod Kebolehaksesan
+          - generic [ref=f5e16]:
+            - generic [ref=f5e17]: "2"
+            - generic [ref=f5e18]: Bahasa
+        - search [ref=f5e19]:
+          - searchbox "Search books across all sources" [ref=f5e20]
+          - button "Search all sources" [ref=f5e21] [cursor=pointer]: 🔍 Cari Semua
+        - generic "Live sources" [ref=f5e22]:
+          - generic [ref=f5e23]: ● Open Library
+          - generic [ref=f5e24]: ● Project Gutenberg
+          - generic [ref=f5e25]: ● Google Books
+          - generic [ref=f5e26]: DOAB
+          - generic [ref=f5e27]: u-Pustaka
+          - generic [ref=f5e28]: ● IAB Digital
+        - button "🌐 EN / BM" [ref=f5e29] [cursor=pointer]
+    - generic [ref=f5e30]:
+      - complementary "Sources and filters" [ref=f5e31]:
+        - generic [ref=f5e32]:
+          - generic [ref=f5e33]:
+            - generic [ref=f5e34]: 🔌
+            - generic [ref=f5e35]: Sumber Buku
+          - generic [ref=f5e36]:
+            - generic [ref=f5e37]:
+              - generic [ref=f5e38]: Perpustakaan Peribadi
+              - generic [ref=f5e39] [cursor=pointer]:
+                - checkbox "Enable Upload PDF / Word" [checked] [ref=f5e40]
+                - generic [ref=f5e41]: 📄 Upload PDF / Word
+                - generic [ref=f5e42]: LIVE
+              - generic [ref=f5e43] [cursor=pointer]:
+                - checkbox "Enable OCR Camera" [checked] [ref=f5e44]
+                - generic [ref=f5e45]: 📷 OCR Camera
+                - generic [ref=f5e46]: LIVE
+              - generic [ref=f5e47] [cursor=pointer]:
+                - checkbox "Enable Google Drive" [ref=f5e48]
+                - generic [ref=f5e49]: 🔗 Google Drive
+                - generic [ref=f5e50]: API
+              - generic [ref=f5e51] [cursor=pointer]:
+                - checkbox "Enable OneDrive" [ref=f5e52]
+                - generic [ref=f5e53]: ☁️ OneDrive
+                - generic [ref=f5e54]: API
+            - generic [ref=f5e55]:
+              - generic [ref=f5e56]: Domain Awam
+              - generic [ref=f5e57] [cursor=pointer]:
+                - checkbox "Enable Open Library" [checked] [ref=f5e58]
+                - generic [ref=f5e59]: 📖 Open Library
+                - generic [ref=f5e60]: LIVE
+              - generic [ref=f5e61] [cursor=pointer]:
+                - checkbox "Enable Project Gutenberg" [checked] [ref=f5e62]
+                - generic [ref=f5e63]: 📜 Project Gutenberg
+                - generic [ref=f5e64]: LIVE
+              - generic [ref=f5e65] [cursor=pointer]:
+                - checkbox "Enable Google Books" [checked] [ref=f5e66]
+                - generic [ref=f5e67]: 🔵 Google Books
+                - generic [ref=f5e68]: LIVE
+              - generic [ref=f5e69] [cursor=pointer]:
+                - checkbox "Enable Standard Ebooks" [checked] [ref=f5e70]
+                - generic [ref=f5e71]: ✨ Standard Ebooks
+                - generic [ref=f5e72]: LIVE
+              - generic [ref=f5e73] [cursor=pointer]:
+                - checkbox "Enable LibriVox" [checked] [ref=f5e74]
+                - generic [ref=f5e75]: 🎙️ LibriVox
+                - generic [ref=f5e76]: LIVE
+              - generic [ref=f5e77] [cursor=pointer]:
+                - checkbox "Enable Internet Archive" [ref=f5e78]
+                - generic [ref=f5e79]: 🏛️ Internet Archive
+                - generic [ref=f5e80]: API
+            - generic [ref=f5e81]:
+              - generic [ref=f5e82]: Akademik
+              - generic [ref=f5e83] [cursor=pointer]:
+                - checkbox "Enable DOAB" [ref=f5e84]
+                - generic [ref=f5e85]: 🎓 DOAB
+                - generic [ref=f5e86]: API
+              - generic [ref=f5e87] [cursor=pointer]:
+                - checkbox "Enable OAPEN Library" [ref=f5e88]
+                - generic [ref=f5e89]: 📚 OAPEN Library
+                - generic [ref=f5e90]: API
+            - generic [ref=f5e91]:
+              - generic [ref=f5e92]: Malaysia
+              - generic [ref=f5e93] [cursor=pointer]:
+                - checkbox "Enable u-Pustaka" [ref=f5e94]
+                - generic [ref=f5e95]: 🇲🇾 u-Pustaka
+                - generic [ref=f5e96]: SOON
+              - generic [ref=f5e97] [cursor=pointer]:
+                - checkbox "Enable School Library OPAC" [ref=f5e98]
+                - generic [ref=f5e99]: 🏫 School Library OPAC
+                - generic [ref=f5e100]: SOON
+              - generic [ref=f5e101] [cursor=pointer]:
+                - checkbox "Enable University Library OPAC" [ref=f5e102]
+                - generic [ref=f5e103]: 🎓 University Library OPAC
+                - generic [ref=f5e104]: SOON
+        - generic [ref=f5e105]:
+          - generic [ref=f5e106]:
+            - generic [ref=f5e107]: 🗂️
+            - generic [ref=f5e108]: Kategori
+          - generic [ref=f5e110]:
+            - generic [ref=f5e111] [cursor=pointer]: Semua
+            - generic [ref=f5e112] [cursor=pointer]: Buku
+            - generic [ref=f5e113] [cursor=pointer]: Buku Audio
+            - generic [ref=f5e114] [cursor=pointer]: Penyelidikan
+            - generic [ref=f5e115] [cursor=pointer]: Pendidikan
+            - generic [ref=f5e116] [cursor=pointer]: Kepimpinan
+            - generic [ref=f5e117] [cursor=pointer]: TVET
+            - generic [ref=f5e118] [cursor=pointer]: Dasar
+            - generic [ref=f5e119] [cursor=pointer]: Pengurusan
+            - generic [ref=f5e120] [cursor=pointer]: Sains
+            - generic [ref=f5e121] [cursor=pointer]: Kanak-kanak
+            - generic [ref=f5e122] [cursor=pointer]: Domain Awam
+            - generic [ref=f5e123] [cursor=pointer]: Akses Terbuka
+            - generic [ref=f5e124] [cursor=pointer]: Akses Perpustakaan
+        - generic [ref=f5e125]:
+          - generic [ref=f5e126]:
+            - generic [ref=f5e127]: 📤
+            - generic [ref=f5e128]: Perpustakaan Peribadi
+          - generic [ref=f5e129]:
+            - button "Upload document" [ref=f5e130] [cursor=pointer]:
+              - generic [ref=f5e131]: 📁
+              - generic [ref=f5e132]: Lepaskan PDF, Word, atau Gambar di sini atau klik untuk melayari
+            - generic [ref=f5e133]:
+              - button "📄 PDF / Word" [ref=f5e134] [cursor=pointer]
+              - button "📷 OCR Camera" [ref=f5e135] [cursor=pointer]
+            - generic [ref=f5e136]:
+              - button "🔗 Google Drive" [ref=f5e137] [cursor=pointer]
+              - button "☁️ OneDrive" [ref=f5e138] [cursor=pointer]
+        - generic [ref=f5e139]:
+          - generic [ref=f5e140]:
+            - generic [ref=f5e141]: 🔖
+            - generic [ref=f5e142]: Perpustakaan Saya
+          - generic [ref=f5e144]:
+            - text: No saved books yet.
+            - text: Bookmark books to save here.
+      - generic [ref=f5e145]:
+        - group "Quick filters" [ref=f5e146]:
+          - button "Semua" [pressed] [ref=f5e147] [cursor=pointer]
+          - button "Buku" [ref=f5e148] [cursor=pointer]
+          - button "Buku Audio" [ref=f5e149] [cursor=pointer]
+          - button "Penyelidikan" [ref=f5e150] [cursor=pointer]
+          - button "Pendidikan" [ref=f5e151] [cursor=pointer]
+          - button "Kepimpinan" [ref=f5e152] [cursor=pointer]
+          - button "Domain Awam" [ref=f5e153] [cursor=pointer]
+          - button "Akses Terbuka" [ref=f5e154] [cursor=pointer]
+        - generic [ref=f5e155]:
+          - generic [ref=f5e156]: 🔍
+          - generic [ref=f5e157]: Cari mana-mana buku, jurnal atau sumber
+          - generic [ref=f5e158]: CelikVerse mencari Open Library, Project Gutenberg, Google Books, Perpustakaan Digital IAB dan lain-lain — serentak.
+        - generic [ref=f5e159]:
+          - generic [ref=f5e160]:
+            - generic [ref=f5e161]: 🏛️
+            - generic [ref=f5e162]:
+              - heading "Perpustakaan Digital IAB" [level=2] [ref=f5e163]
+              - paragraph [ref=f5e164]: Institut Aminuddin Baki — Penerbitan Rasmi & Katalog
+          - generic [ref=f5e165]:
+            - generic [ref=f5e166]:
+              - generic [ref=f5e167]:
+                - generic [ref=f5e168]: Jurnal Pengurusan Kepimpinan Pendidikan Bil 2 2024
+                - generic [ref=f5e169]: 📂 Jurnal · 2024
+                - generic [ref=f5e170]:
+                  - link "Buka Halaman" [ref=f5e171] [cursor=pointer]:
+                    - /url: iab-library.html
+                  - button "Baca dengan CelikSense" [ref=f5e172] [cursor=pointer]
+              - generic [ref=f5e173]:
+                - generic [ref=f5e174]: "KOMPAS 2.0: Standard Kompetensi Pemimpin Sekolah"
+                - generic [ref=f5e175]: 📂 Kepimpinan · 2022
+                - generic [ref=f5e176]:
+                  - link "Buka Halaman" [ref=f5e177] [cursor=pointer]:
+                    - /url: iab-library.html
+                  - button "Baca dengan CelikSense" [ref=f5e178] [cursor=pointer]
+              - generic [ref=f5e179]:
+                - generic [ref=f5e180]: Metamorfosis Kepimpinan NPQEL 2020
+                - generic [ref=f5e181]: 📂 NPQEL · 2020
+                - generic [ref=f5e182]:
+                  - link "Buka Halaman" [ref=f5e183] [cursor=pointer]:
+                    - /url: iab-library.html
+                  - button "Baca dengan CelikSense" [ref=f5e184] [cursor=pointer]
+              - generic [ref=f5e185]:
+                - generic [ref=f5e186]: Kepimpinan Futuristik Di Sekolah
+                - generic [ref=f5e187]: 📂 Kepimpinan · 2021
+                - generic [ref=f5e188]:
+                  - link "Buka Halaman" [ref=f5e189] [cursor=pointer]:
+                    - /url: iab-library.html
+                  - button "Baca dengan CelikSense" [ref=f5e190] [cursor=pointer]
+              - generic [ref=f5e191]:
+                - generic [ref=f5e192]: Pembangunan Pemimpin Muda 2023
+                - generic [ref=f5e193]: 📂 Latihan · 2023
+                - generic [ref=f5e194]:
+                  - link "Buka Halaman" [ref=f5e195] [cursor=pointer]:
+                    - /url: iab-library.html
+                  - button "Baca dengan CelikSense" [ref=f5e196] [cursor=pointer]
+              - generic [ref=f5e197]:
+                - generic [ref=f5e198]: IAB Buku Program Latihan 2025
+                - generic [ref=f5e199]: 📂 Latihan · 2025
+                - generic [ref=f5e200]:
+                  - link "Buka Halaman" [ref=f5e201] [cursor=pointer]:
+                    - /url: iab-library.html
+                  - button "Baca dengan CelikSense" [ref=f5e202] [cursor=pointer]
+              - generic [ref=f5e203]:
+                - generic [ref=f5e204]: Wacana Pengurusan dan Kepimpinan Pendidikan 2021
+                - generic [ref=f5e205]: 📂 Pengurusan · 2021
+                - generic [ref=f5e206]:
+                  - link "Buka Halaman" [ref=f5e207] [cursor=pointer]:
+                    - /url: iab-library.html
+                  - button "Baca dengan CelikSense" [ref=f5e208] [cursor=pointer]
+              - generic [ref=f5e209]:
+                - generic [ref=f5e210]: Kompilasi Amalan Terbaik Kepimpinan Pendidikan
+                - generic [ref=f5e211]: 📂 Kepimpinan · 2022
+                - generic [ref=f5e212]:
+                  - link "Buka Halaman" [ref=f5e213] [cursor=pointer]:
+                    - /url: iab-library.html
+                  - button "Baca dengan CelikSense" [ref=f5e214] [cursor=pointer]
+            - generic [ref=f5e215]:
+              - text: 🔗
+              - strong [ref=f5e216]: "Integrasi Masa Depan:"
+              - text: Integrasi katalog terus boleh diaktifkan apabila API rasmi atau akses berlesen tersedia. Kini memaparkan metadata dan pautan berlesen yang tersedia secara awam sahaja.
+        - generic [ref=f5e217]:
+          - generic [ref=f5e218]:
+            - generic [ref=f5e219]: ✨
+            - generic [ref=f5e220]: Cadangan AI
+          - generic [ref=f5e222]:
+            - button "Search for Dare to Lead" [ref=f5e223] [cursor=pointer]:
+              - generic [ref=f5e224]: Kepimpinan
+              - generic [ref=f5e225]: 🚀
+              - generic [ref=f5e226]: Dare to Lead
+              - generic [ref=f5e227]: Brené Brown
+              - generic [ref=f5e228]:
+                - generic [ref=f5e229]: leadership
+                - generic [ref=f5e230]: personal dev
+            - button "Search for Kepimpinan Futuristik Di Sekolah" [ref=f5e231] [cursor=pointer]:
+              - generic [ref=f5e232]: Pendidikan
+              - generic [ref=f5e233]: 🏫
+              - generic [ref=f5e234]: Kepimpinan Futuristik Di Sekolah
+              - generic [ref=f5e235]: IAB
+              - generic [ref=f5e236]:
+                - generic [ref=f5e237]: kepimpinan
+                - generic [ref=f5e238]: sekolah
+            - button "Search for The Art of Learning" [ref=f5e239] [cursor=pointer]:
+              - generic [ref=f5e240]: Pendidikan
+              - generic [ref=f5e241]: 🎓
+              - generic [ref=f5e242]: The Art of Learning
+              - generic [ref=f5e243]: Josh Waitzkin
+              - generic [ref=f5e244]:
+                - generic [ref=f5e245]: education
+                - generic [ref=f5e246]: learning
+            - button "Search for Thinking, Fast and Slow" [ref=f5e247] [cursor=pointer]:
+              - generic [ref=f5e248]: Penyelidikan
+              - generic [ref=f5e249]: 🧠
+              - generic [ref=f5e250]: Thinking, Fast and Slow
+              - generic [ref=f5e251]: Daniel Kahneman
+              - generic [ref=f5e252]:
+                - generic [ref=f5e253]: cognitive
+                - generic [ref=f5e254]: research
+            - 'button "Search for Pendidikan Karakter: Modul Resolusi Konflik" [ref=f5e255] [cursor=pointer]':
+              - generic [ref=f5e256]: Pendidikan
+              - generic [ref=f5e257]: 📖
+              - generic [ref=f5e258]: "Pendidikan Karakter: Modul Resolusi Konflik"
+              - generic [ref=f5e259]: IAB
+              - generic [ref=f5e260]:
+                - generic [ref=f5e261]: pendidikan
+                - generic [ref=f5e262]: BM
+            - button "Search for Digital Fluency" [ref=f5e263] [cursor=pointer]:
+              - generic [ref=f5e264]: Pendidikan
+              - generic [ref=f5e265]: 💻
+              - generic [ref=f5e266]: Digital Fluency
+              - generic [ref=f5e267]: John Spencer
+              - generic [ref=f5e268]:
+                - generic [ref=f5e269]: digital
+                - generic [ref=f5e270]: tech

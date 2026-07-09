@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CelikSense AI — Learning Coach Agent (LangChain.js)
  *
  * A multi-tool agent that adapts content and creates personalised
@@ -141,7 +141,7 @@ export default async function handler(req, res) {
 
   try {
     const llm = new ChatGoogleGenerativeAI({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.0-flash-thinking-exp-01-21",
       apiKey,
       temperature: 0.4,
     });

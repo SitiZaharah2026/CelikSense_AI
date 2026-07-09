@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ms" dir="ltr">
 <script>(function(){try{var p=JSON.parse(localStorage.getItem('cs_user_prefs')||'{}');document.documentElement.lang=p.lang||localStorage.getItem('cs_lang')||'ms';}catch(e){}})();</script>
 <head>
@@ -1355,7 +1355,7 @@ function doAI(id, type) {
   panel.classList.add('open');
   panel.setAttribute('aria-hidden','false');
 
-  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + key, {
+  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key=' + key, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })

@@ -1,0 +1,296 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic:
+      - banner
+    - generic [ref=e5]:
+      - generic:
+        - generic:
+          - generic:
+            - button "Skip to main content":
+              - generic: Skip to main content
+          - generic:
+            - button "Skip to navigation":
+              - generic: Skip to navigation
+      - generic [ref=e8]:
+        - banner:
+          - generic [ref=e10]:
+            - link "Site home PERPUSTAKAAN IAB" [ref=e12] [cursor=pointer]:
+              - /url: /iab.edu.my/pusatsumberiabinduk/laman-utama
+              - img "Site home" [ref=e13]
+              - generic [ref=e14]: PERPUSTAKAAN IAB
+            - navigation [ref=e15]:
+              - list [ref=e16]:
+                - listitem [ref=e17]:
+                  - link "LAMAN UTAMA" [ref=e20] [cursor=pointer]:
+                    - /url: /iab.edu.my/pusatsumberiabinduk/laman-utama
+                - listitem [ref=e22]:
+                  - generic [ref=e24]:
+                    - link "PROFIL" [ref=e25] [cursor=pointer]:
+                      - /url: /iab.edu.my/pusatsumberiabinduk/profil
+                    - img [ref=e26] [cursor=pointer]
+                - listitem [ref=e32]:
+                  - generic [ref=e34]:
+                    - link "KOLEKSI" [ref=e35] [cursor=pointer]:
+                      - /url: /iab.edu.my/pusatsumberiabinduk/koleksi
+                    - img [ref=e36] [cursor=pointer]
+                - listitem [ref=e42]:
+                  - generic [ref=e44]:
+                    - link "PAMERAN" [ref=e45] [cursor=pointer]:
+                      - /url: /iab.edu.my/pusatsumberiabinduk/pameran
+                    - img [ref=e46] [cursor=pointer]
+                - listitem [ref=e52]:
+                  - generic [ref=e54]:
+                    - link "More" [expanded] [ref=e55] [cursor=pointer]
+                    - img [ref=e56] [cursor=pointer]
+                  - group [ref=e108]:
+                    - list [ref=e109]:
+                      - listitem [ref=e110]:
+                        - generic [ref=e112]:
+                          - img [ref=e113] [cursor=pointer]
+                          - link "FASILITI DAN PERKHIDMATAN" [ref=e117] [cursor=pointer]:
+                            - /url: /iab.edu.my/pusatsumberiabinduk/fasiliti-dan-perkhidmatan
+                      - listitem [ref=e118]:
+                        - generic [ref=e120]:
+                          - img [ref=e121] [cursor=pointer]
+                          - link "OPAC" [ref=e125] [cursor=pointer]:
+                            - /url: /iab.edu.my/pusatsumberiabinduk/opac
+                      - listitem [ref=e126]:
+                        - link "REPOSITORI INSTITUSI" [ref=e129] [cursor=pointer]:
+                          - /url: http://www.google.com/url?q=http%3A%2F%2Feprints.iab.edu.my%2Fv2%2F&sa=D&sntz=1&usg=AOvVaw2dOuQfvGhlNWqZs6Y6i6T4
+                      - listitem [ref=e130]:
+                        - link "PUSAT SUMBER IAB CAWANGAN" [ref=e133] [cursor=pointer]:
+                          - /url: /iab.edu.my/pusatsumberiabinduk/pusat-sumber-iab-cawangan
+                      - listitem [ref=e134]:
+                        - generic [ref=e136]:
+                          - img [ref=e137] [cursor=pointer]
+                          - link "AKTIVITI" [ref=e141] [cursor=pointer]:
+                            - /url: /iab.edu.my/pusatsumberiabinduk/aktiviti
+            - button "Open search bar" [ref=e62] [cursor=pointer]:
+              - img [ref=e65]
+        - generic [ref=e69]:
+          - main [ref=e80]:
+            - heading "RAK BUKU MAYA" [level=1] [ref=e81]
+          - generic [ref=e95]:
+            - generic "Whole page embed":
+              - iframe [active] [ref=e96]:
+                - iframe [active] [ref=f1e2]:
+                  - generic [active] [ref=f4e1]:
+                    - img [ref=f4e2]
+                    - generic [ref=f4e4]:
+                      - generic [ref=f4e5]:
+                        - textbox [ref=f4e12]: Search
+                        - generic [ref=f4e14]: RAK BUKU MAYA PUSAT SUMBER IAB
+                      - generic [ref=f4e103]:
+                        - generic [ref=f4e105]:
+                          - generic "IAB Buku Program Latihan 2025" [ref=f4e107] [cursor=pointer]:
+                            - img [ref=f4e108]
+                          - generic "JURNAL PENGURUSAN KEPIMPINAN PENDIDIKAN BIL 2 2024" [ref=f4e115] [cursor=pointer]:
+                            - img [ref=f4e116]
+                          - generic "Jurnal Pengurusan dan Kepimpinan Pendidikan Bil 1 2024" [ref=f4e123] [cursor=pointer]:
+                            - img [ref=f4e124]
+                          - generic "KAJIAN KES PENGURUSAN PENDIDIKAN (1)" [ref=f4e131] [cursor=pointer]:
+                            - img [ref=f4e132]
+                        - generic [ref=f4e139]:
+                          - generic "IAB_METAMORFOSIS KEPIMPINAN" [ref=f4e141] [cursor=pointer]:
+                            - img [ref=f4e142]
+                          - generic "Inlay_(Lensa Kenyalang JILID 1)" [ref=f4e149] [cursor=pointer]:
+                            - img [ref=f4e150]
+                          - generic "Sinergi Akinabalu" [ref=f4e157] [cursor=pointer]:
+                            - img [ref=f4e158]
+                          - generic "Jurnal Ogos 2022" [ref=f4e165] [cursor=pointer]:
+                            - img [ref=f4e166]
+                        - generic [ref=f4e173]:
+                          - generic "Jurnal Disember 2022" [ref=f4e175] [cursor=pointer]:
+                            - img [ref=f4e176]
+                          - generic "IAB MODUL EMLECS H" [ref=f4e183] [cursor=pointer]:
+                            - img [ref=f4e184]
+                          - generic "IAB_LENSAKENYALANGJILID2" [ref=f4e191] [cursor=pointer]:
+                            - img [ref=f4e192]
+                          - generic "METAMORFOSIS 2021_eisbn" [ref=f4e199] [cursor=pointer]:
+                            - img [ref=f4e200]
+                        - generic [ref=f4e207]:
+                          - generic "IAB Buku Kajian Pentaksiran 2018-202 - Inlay 20240129" [ref=f4e209] [cursor=pointer]:
+                            - img [ref=f4e210]
+                          - generic "Buku Program Latihan_2023" [ref=f4e217] [cursor=pointer]:
+                            - img [ref=f4e218]
+                          - generic "IAB Buku Program Latihan 2024" [ref=f4e225] [cursor=pointer]:
+                            - img [ref=f4e226]
+                          - generic "Pembangunan Pemimpin Muda_2023" [ref=f4e233] [cursor=pointer]:
+                            - img [ref=f4e234]
+                        - generic [ref=f4e241]:
+                          - generic "Pelan Strategik" [ref=f4e243] [cursor=pointer]:
+                            - img [ref=f4e244]
+                          - generic "Metamorfosis NPQEL Ambilan 2_2020" [ref=f4e251] [cursor=pointer]:
+                            - img [ref=f4e252]
+                          - generic "Metamorfosis NPQEL Ambilan 1_2020" [ref=f4e259] [cursor=pointer]:
+                            - img [ref=f4e260]
+                          - generic "e-prociding penyelidikan kajian tindakan 2022 compress" [ref=f4e267] [cursor=pointer]:
+                            - img [ref=f4e268]
+                        - generic [ref=f4e275]:
+                          - generic "Jurnal Penyelidikan IABCSBH Bilangan 2 - Terbitan e-Book" [ref=f4e277] [cursor=pointer]:
+                            - img [ref=f4e279]
+                          - generic "PROSIDING SN29-FINAL" [ref=f4e281] [cursor=pointer]:
+                            - img [ref=f4e283]
+                          - generic "CD ENSIKLOPEDIA KARAKTER KEPIMPINAN EFEKTIF (EKKE) (2)" [ref=f4e285] [cursor=pointer]:
+                            - img [ref=f4e287]
+                          - generic "CD GAGASAN JUDAH S (2)" [ref=f4e289] [cursor=pointer]:
+                            - img [ref=f4e291]
+                        - generic [ref=f4e293]:
+                          - generic "Kompetensi Pemimpin" [ref=f4e295] [cursor=pointer]:
+                            - img [ref=f4e297]
+                          - generic "KOMPAS 2.0_ Standard kompentensi pemimpin sekolah 2.0" [ref=f4e299] [cursor=pointer]:
+                            - img [ref=f4e301]
+                          - generic "Buku Pemimpin Kecil Yang Menginspirasikan kami" [ref=f4e303] [cursor=pointer]:
+                            - img [ref=f4e305]
+                          - generic "KOMPILASI BICARA KEPIMPINAN IABCSBH" [ref=f4e307] [cursor=pointer]:
+                            - img [ref=f4e309]
+                        - generic [ref=f4e311]:
+                          - generic "KOMPILASI BICARA KEPIMPINAN IABCSBH" [ref=f4e313] [cursor=pointer]:
+                            - img [ref=f4e315]
+                          - generic "KOMPILASI UCAPAN PENGARAH new" [ref=f4e317] [cursor=pointer]:
+                            - img [ref=f4e319]
+                          - generic "Buku Iltizam 2022 25.02.22" [ref=f4e321] [cursor=pointer]:
+                            - img [ref=f4e323]
+                          - generic "IAB PANDUAN PEMBANGUNAN PROFESIONALISME PENSYARAH" [ref=f4e325] [cursor=pointer]:
+                            - img [ref=f4e327]
+                        - generic [ref=f4e329]:
+                          - generic "Tuntun Biar Sampai" [ref=f4e331] [cursor=pointer]:
+                            - img [ref=f4e333]
+                          - generic "simbiosis 25112022-combined" [ref=f4e335] [cursor=pointer]:
+                            - img [ref=f4e337]
+                          - generic "ISI BUKU PROSIDING penyelidkan LATEST" [ref=f4e339] [cursor=pointer]:
+                            - img [ref=f4e341]
+                          - generic "Final_IAB PENULISAN KOLOKIUM KPSTEM 2022_03 eBook" [ref=f4e343] [cursor=pointer]:
+                            - img [ref=f4e345]
+                        - generic [ref=f4e347]:
+                          - generic "IAB PELAKSANAAN EKSA" [ref=f4e349] [cursor=pointer]:
+                            - img [ref=f4e351]
+                          - generic "PEMIMPIN_NOVIS" [ref=f4e353] [cursor=pointer]:
+                            - img [ref=f4e355]
+                          - generic "Majlis Persada" [ref=f4e357] [cursor=pointer]:
+                            - img [ref=f4e359]
+                          - generic "NaratifBaharuLatihan" [ref=f4e361] [cursor=pointer]:
+                            - img [ref=f4e363]
+                        - generic [ref=f4e365]:
+                          - generic "Kompilasi Amalan Terbaik Kepimpinan Pendidikan" [ref=f4e367] [cursor=pointer]:
+                            - img [ref=f4e369]
+                          - generic "Pelan Induk Kecemerlangan" [ref=f4e371] [cursor=pointer]:
+                            - img [ref=f4e373]
+                          - generic "Peranan Kepimpinan Sekolah Tanggungjawab Khalifah" [ref=f4e375] [cursor=pointer]:
+                            - img [ref=f4e377]
+                          - generic "Pembangunan Pemimpin Pertengahan" [ref=f4e379] [cursor=pointer]:
+                            - img [ref=f4e381]
+                        - generic [ref=f4e383]:
+                          - generic "PMS 13 VUCA_13102022" [ref=f4e385] [cursor=pointer]:
+                            - img [ref=f4e387]
+                          - generic "PMS 3 Budaya Naratif (teks) 1.4.22" [ref=f4e389] [cursor=pointer]:
+                            - img [ref=f4e391]
+                          - generic "Pelan Pengurusan Risiko IAB 2020 - 2021" [ref=f4e393] [cursor=pointer]:
+                            - img [ref=f4e395]
+                          - generic "PMS 10_1 Ogos_Serumpun Wangian Ilmu" [ref=f4e397] [cursor=pointer]:
+                            - img [ref=f4e399]
+                        - generic [ref=f4e401]:
+                          - generic "Jurnal IAB Bil. 1 2021" [ref=f4e403] [cursor=pointer]:
+                            - img [ref=f4e405]
+                          - generic "Jurnal IAB Bil. 2 2021" [ref=f4e407] [cursor=pointer]:
+                            - img [ref=f4e409]
+                          - generic "IAB-BUKU PENULISAN SURAT RASMI DAN MEMO-FULL" [ref=f4e411] [cursor=pointer]:
+                            - img [ref=f4e413]
+                          - generic "Buku ProsidingKolokium2018_2" [ref=f4e415] [cursor=pointer]:
+                            - img [ref=f4e417]
+                        - generic [ref=f4e419]:
+                          - generic "BUKU METAMORFOSIS KARYA TERPILIH" [ref=f4e421] [cursor=pointer]:
+                            - img [ref=f4e423]
+                          - generic "buku lean managament secure_new" [ref=f4e425] [cursor=pointer]:
+                            - img [ref=f4e427]
+                          - generic "A5 Quick Facts Final For Print" [ref=f4e429] [cursor=pointer]:
+                            - img [ref=f4e431]
+                          - generic "Standards of Personality and Practices in High-Performing-full" [ref=f4e433] [cursor=pointer]:
+                            - img [ref=f4e435]
+                        - generic [ref=f4e437]:
+                          - generic "Buku Kompilasi Kajian Pentaksiran Final 14feb2020" [ref=f4e439] [cursor=pointer]:
+                            - img [ref=f4e441]
+                          - generic "Prosiding Kolokium PCIP InPeKS Tahun 2020" [ref=f4e443] [cursor=pointer]:
+                            - img [ref=f4e445]
+                          - generic "Propkes-ed. 2020" [ref=f4e447] [cursor=pointer]:
+                            - img [ref=f4e449]
+                          - generic "PENGURUSAN KEWANGAN DAN PENTADBIRAN PEJABAT 2021" [ref=f4e451] [cursor=pointer]:
+                            - img [ref=f4e453]
+                        - generic [ref=f4e455]:
+                          - generic "METAMORFOSIS AMBILAN 2" [ref=f4e457] [cursor=pointer]:
+                            - img [ref=f4e459]
+                          - generic "METAMORFOSIS AMBILAN 1" [ref=f4e461] [cursor=pointer]:
+                            - img [ref=f4e463]
+                          - generic "Manuskrip buku Instruksional Coaching" [ref=f4e465] [cursor=pointer]:
+                            - img [ref=f4e467]
+                          - generic "LAPORAN WADAH PERKONGSIAN PINTAR 2019_edited26032021 (1)" [ref=f4e469] [cursor=pointer]:
+                            - img [ref=f4e471]
+                        - generic [ref=f4e473]:
+                          - generic "ICELAM Prosiding" [ref=f4e475] [cursor=pointer]:
+                            - img [ref=f4e477]
+                          - generic "FULL SET KOMPAS 2.0" [ref=f4e479] [cursor=pointer]:
+                            - img [ref=f4e481]
+                          - generic "Final-Buku Wacana Pengurusan dan Kepimpinan Pendidikan 15Jan2021" [ref=f4e483] [cursor=pointer]:
+                            - img [ref=f4e485]
+                          - generic "Asas Komunikasi" [ref=f4e487] [cursor=pointer]:
+                            - img [ref=f4e489]
+                        - generic [ref=f4e491]:
+                          - generic "CORETAN TAMU_IAB_new" [ref=f4e493] [cursor=pointer]:
+                            - img [ref=f4e495]
+                          - generic "PANDUAN STRATEGI LATIHAN 2021" [ref=f4e497] [cursor=pointer]:
+                            - img [ref=f4e499]
+                          - generic "METAMORFOSIS KEPIMPINAN NPQEL AMBILAN 2_2019 LR" [ref=f4e501] [cursor=pointer]:
+                            - img [ref=f4e503]
+                          - generic "MCO C-19 HICON" [ref=f4e505] [cursor=pointer]:
+                            - img [ref=f4e507]
+                        - generic [ref=f4e509]:
+                          - generic "KOMUNIKATOR UNGGUL TEKS FA" [ref=f4e511] [cursor=pointer]:
+                            - img [ref=f4e513]
+                          - generic "Kepimpinan Futuristik Di Sekolah" [ref=f4e515] [cursor=pointer]:
+                            - img [ref=f4e517]
+                          - generic "KOMPILASI ULASAN BUKU 2020" [ref=f4e519] [cursor=pointer]:
+                            - img [ref=f4e521]
+                          - generic "IAB PELAN STRATEGIK ICT 20210806_01" [ref=f4e523] [cursor=pointer]:
+                            - img [ref=f4e525]
+                        - generic [ref=f4e527]:
+                          - generic "IAB Book Protokol dan Etiket Sosial Teks FA" [ref=f4e529] [cursor=pointer]:
+                            - img [ref=f4e531]
+                          - generic "Combine-Ulasan Buku CAWANGAN IAB" [ref=f4e533] [cursor=pointer]:
+                            - img [ref=f4e535]
+                          - generic "Antologi Puisi Semarak RIndu IAB" [ref=f4e537] [cursor=pointer]:
+                            - img [ref=f4e539]
+                      - generic [ref=f4e540]:
+                        - link [ref=f4e541] [cursor=pointer]:
+                          - /url: https://fliphtml5.com/
+                          - img [ref=f4e542]
+                        - generic [ref=f4e543] [cursor=pointer]:
+                          - list:
+                            - listitem [ref=f4e544]
+                            - listitem [ref=f4e545]
+                            - listitem [ref=f4e546]
+                            - listitem [ref=f4e547]
+                            - listitem [ref=f4e548]
+                        - textbox [ref=f4e549]: 1 - 8 / 79
+                    - generic [ref=f4e554]:
+                      - generic [ref=f4e555]:
+                        - text: Book Detail
+                        - generic "Close" [ref=f4e556] [cursor=pointer]: x
+                      - generic [ref=f4e557]:
+                        - generic [ref=f4e558]:
+                          - generic [ref=f4e559]:
+                            - img [ref=f4e560] [cursor=pointer]
+                            - generic "IAB Buku Program Latihan 2025" [ref=f4e561] [cursor=pointer]:
+                              - img [ref=f4e562]
+                          - generic [ref=f4e568]: IAB Buku Program Latihan 2025
+                          - generic [ref=f4e569]: "Pages: 164"
+                          - generic [ref=f4e570] [cursor=pointer]: View
+                        - paragraph [ref=f4e571]: Published on Mon Jan 26 2026
+        - generic [ref=e97]:
+          - button [ref=e98] [cursor=pointer]:
+            - img [ref=e101]
+          - generic:
+            - generic [ref=e104]:
+              - text: Page updated
+              - contentinfo
+            - button "Report abuse" [ref=e106] [cursor=pointer]
+  - region [ref=e107]

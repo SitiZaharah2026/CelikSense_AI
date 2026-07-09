@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -309,7 +309,7 @@ async function _ewAiInterpret(riskScore, riskLevel, avg, warnings, priority, nee
   const adhdData = JSON.parse(localStorage.getItem('cs_adhd_focus')||'null');
   const adhdLine = adhdData ? ` ADHD focus score from last session: ${adhdData.score}/100.` : '';
   try {
-    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+_ewGemKey(),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:
+    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key='+_ewGemKey(),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:
       `You are an educational psychologist AI for CelikSense, a Malaysian special-needs learning platform.\n\nA learner has been assessed with the following profile:\n- Risk Score: ${riskScore}/100 (${riskLevel})\n- Average Academic Score: ${avg}/100\n- Warning Signs: ${warnings}\n- Priority: ${priority}\n- Primary Learning Need: ${need}${adhdLine}\n\nProvide:\n1. A 2-sentence plain-language interpretation of what this risk profile means\n2. Three specific, actionable next steps for the teacher (numbered list, each max 15 words)\n3. One encouraging message for the learner (1 sentence)\n\nBe professional, empathetic, and specific to Malaysian educational context.`
     }]}]})});
     const d=await r.json();

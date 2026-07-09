@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -270,7 +270,7 @@ function _rcAutoPromptQuiz() {
 function _rcAutoSummarise() {
   if(!loadedText || !_rcGemKey()) return;
   var key=_rcGemKey();
-  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:'Summarise this text in 2 simple sentences suitable for a school student. Text: '+loadedText.slice(0,1500)}]}]})})
+  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:'Summarise this text in 2 simple sentences suitable for a school student. Text: '+loadedText.slice(0,1500)}]}]})})
   .then(function(r){return r.json();}).then(function(d){
     var summary=(d.candidates||[])[0]?.content?.parts?.[0]?.text||'';
     if(!summary) return;
