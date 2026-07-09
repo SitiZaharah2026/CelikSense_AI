@@ -1910,17 +1910,15 @@ function renderResult(e, displayLang) {
         '<div class="ss-example-bm" lang="' + (iMs?'en':'ms') + '">' + x(exAlt) + '</div>' +
       '</div>' +
 
-      /* Future BIM placeholder */
+      /* BIM SignBank link */
       '<div class="ss-section bim">' +
         '<div class="ss-section-label">' + t('lBim') + '</div>' +
-        '<div class="ss-bim-video-ph">' +
-          '<div class="ss-bim-video-icon" aria-hidden="true">&#127908;</div>' +
-          '<div class="ss-bim-video-text">' + x(t('bimDesc')) + '</div>' +
-          '<div class="ss-bim-tags">' +
-            '<span class="ss-bim-tag">BIM Dataset</span>' +
-            '<span class="ss-bim-tag">Jabatan Pendidikan Khas</span>' +
-            '<span class="ss-bim-tag">Official Partnership</span>' +
-            '<span class="ss-bim-tag">' + x(t('bimTip')) + '</span>' +
+        '<div style="text-align:center;padding:14px 0 6px;">' +
+          '<a href="https://bimsignbank.org/home" target="_blank" rel="noopener noreferrer" ' +
+          'style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;padding:11px 22px;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 2px 10px rgba(99,102,241,.35);">' +
+          '🤟 ' + (iMs ? 'Lihat di BIM SignBank' : 'View on BIM SignBank') + ' →</a>' +
+          '<div style="margin-top:9px;font-size:12px;color:var(--cs-muted,#94a3b8);">' +
+          (iMs ? 'Laman web rasmi Bahasa Isyarat Malaysia' : 'Official Malaysian Sign Language reference') +
           '</div>' +
         '</div>' +
       '</div>' +
