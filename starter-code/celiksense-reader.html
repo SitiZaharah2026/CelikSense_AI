@@ -1008,6 +1008,30 @@ function _renderAI(type,text){
   out.innerHTML='<div style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(8,145,178,.05));border:1.5px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;white-space:pre-wrap;">'+esc(text)+'</div>'
     +(isCached?'<div style="font-size:11px;color:var(--muted);margin-top:6px;">💾 Cached '+dateStr+' · <button onclick="doAI(\''+type+'\',true)" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;text-decoration:underline;">Regenerate</button></div>':'');
 }
+/* ═══════ LANGCHAIN READER AGENT ═══════ */
+// Calls /api/agents/reader (LangChain ReAct agent) when on Vercel.
+// Falls back to direct Gemini call when running on GitHub Pages / locally.
+var AGENT_BASE = (function(){
+  var h = location.hostname;
+  if(h === 'localhost' || h === '127.0.0.1') return ''; // no agent locally
+  if(h.endsWith('.vercel.app') || h.endsWith('.vercel.sh')) return '';  // same origin
+  return ''; // GitHub Pages — use fallback
+})();
+
+async function callReaderAgent(type, text, lang){
+  var taskMap = {summarise:'summarise', quiz:'quiz', vocab:'vocab', questions:'questions'};
+  var task = taskMap[type] || 'summarise';
+  var r = await fetch('/api/agents/reader', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({text: text, task: task, lang: lang})
+  });
+  if(!r.ok) throw new Error('Agent error '+r.status);
+  var d = await r.json();
+  if(!d.ok) throw new Error(d.error || 'Agent failed');
+  return d.output;
+}
+
 async function doAI(type,force){
   var out=document.getElementById('ai-s-out');
   var key=getKey();
@@ -1016,8 +1040,16 @@ async function doAI(type,force){
   if(!force){var cached=_aiCacheGet(type);if(cached&&cached.text){_renderAI(type,cached.text);return;}}
   out.innerHTML='<div style="background:var(--bg);border-radius:10px;padding:14px;font-size:12px;color:var(--muted);">⏳ Generating…</div>';
   var sampleText=paras.slice(0,20).join(' ').slice(0,1200);
+  var lang=localStorage.getItem('cs_lang')||'en';
   try{
-    var r=await gemCall(AI_PROMPTS[type]+'\n\nBook: "'+BK.title+'"'+(BK.author?' by '+BK.author:'')+'\nText: "'+sampleText+'"',key);
+    var r;
+    try{
+      // Try LangChain agent first (works on Vercel deployment)
+      r = await callReaderAgent(type, 'Book: "'+BK.title+'"'+(BK.author?' by '+BK.author:'')+'. Text: '+sampleText, lang);
+    }catch(_agentErr){
+      // Fallback: direct Gemini call (GitHub Pages / local)
+      r = await gemCall(AI_PROMPTS[type]+'\n\nBook: "'+BK.title+'"'+(BK.author?' by '+BK.author:'')+'\nText: "'+sampleText+'"',key);
+    }
     _aiCacheSet(type,r);
     _renderAI(type,r);
   }catch(e){out.innerHTML='<div style="background:#fee2e2;border-radius:10px;padding:12px;font-size:12px;color:#991b1b;">Error. Check API key in Settings.</div>';}
