@@ -298,40 +298,70 @@ const AVAILABILITY_MAP = {
   all:     ['gutenberg','openlibrary','preview','upload'],
 };
 
-function updateRecommendations() {
+/* ── Gemini AI helper ──────────────────────────────────────────────────── */
+function _libGemKey(){return localStorage.getItem('gemini_api_key')||'';}
+async function _libGemCall(prompt){
+  const key=_libGemKey();
+  if(!key) throw new Error('no_key');
+  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+  const d=await r.json();
+  if(d.error) throw new Error(d.error.message);
+  return (d.candidates||[])[0]?.content?.parts?.[0]?.text||'No response.';
+}
+
+/* ── AI Book Recommendations (real Gemini) ─────────────────────────────── */
+async function updateRecommendations() {
   const type = document.getElementById('learnerType').value;
-  const recs = books.filter(b => type==='all' || b.tags.includes(type)).slice(0,3);
+  const topic = (document.getElementById('searchInput')||{value:''}).value.trim();
   const el = document.getElementById('recommendList');
-  if (!recs.length) { el.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No recommendations for this profile.</p>'; return; }
+
+  // Static fallback cards
+  const recs = books.filter(b => type==='all' || b.tags.includes(type)).slice(0,3);
   const avail = AVAILABILITY_MAP[type] || AVAILABILITY_MAP.all;
-  const availLabels = {
-    gutenberg: CS.lang.t('bd_avail_gutenberg'),
-    openlibrary: CS.lang.t('bd_avail_preview'),
-    preview: CS.lang.t('bd_avail_preview'),
-    upload: CS.lang.t('bd_avail_upload'),
-    library: CS.lang.t('bd_avail_library'),
-  };
-  const availHTML = avail.map(a =>
-    `<div style="font-size:10px;color:#4f46e5;font-weight:600;margin-top:2px;">📌 ${availLabels[a]||a}</div>`
-  ).join('');
-  el.innerHTML = recs.map(b=>`
+  const availLabels = {gutenberg:CS.lang.t('bd_avail_gutenberg'),openlibrary:CS.lang.t('bd_avail_preview'),preview:CS.lang.t('bd_avail_preview'),upload:CS.lang.t('bd_avail_upload'),library:CS.lang.t('bd_avail_library')};
+  const availHTML = avail.map(a=>`<div style="font-size:10px;color:#4f46e5;font-weight:600;margin-top:2px;">📌 ${availLabels[a]||a}</div>`).join('');
+  const staticHTML = recs.map(b=>`
     <div class="recommend-card">
       <div class="recommend-reason">⭐ Recommended for ${type==='all'?'All Learners':type.toUpperCase()}</div>
-      <div style="display:flex;gap:10px;align-items:center;">
-        <span style="font-size:28px;">${b.emoji}</span>
-        <div>
-          <div style="font-size:14px;font-weight:700;">${b.title}</div>
-          <div style="font-size:12px;color:var(--text-muted);">${b.author}</div>
-        </div>
-      </div>
+      <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">${b.emoji}</span><div><div style="font-size:14px;font-weight:700;">${b.title}</div><div style="font-size:12px;color:var(--text-muted);">${b.author}</div></div></div>
       <div style="margin:8px 0 4px;">${availHTML}</div>
       <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
         <a href="reading-companion.html" class="btn btn-primary btn-sm">▶ Read</a>
         <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add ${b.title} to reading list">+ Add</button>
-        <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-outline btn-sm" style="font-size:11px;" aria-label="Find ${b.title} in Book Discovery">🔍 Find</a>
+        <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-outline btn-sm" style="font-size:11px;">🔍 Find</a>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
+
+  if(!_libGemKey()){
+    el.innerHTML = staticHTML || '<p style="font-size:13px;color:var(--text-muted);">No recommendations found.</p>';
+    return;
+  }
+
+  el.innerHTML = '<div style="padding:14px;font-size:13px;color:var(--muted);">🤖 AI Librarian sedang mencari buku terbaik untuk anda…</div>';
+
+  const needLabel = {dyslexia:'dyslexia (needs large print, simple language, short chapters)',adhd:'ADHD (needs short chapters, engaging content, visual elements)',visual:'visual impairment (needs audio-friendly, descriptive writing)',all:'general learners'};
+  const topicLine = topic ? ` interested in "${topic}"` : '';
+  try {
+    const result = await _libGemCall(
+      `You are an AI librarian for CelikSense, a Malaysian inclusive education platform. Recommend 3 books for a learner with ${needLabel[type]||'general needs'}${topicLine}.\n\nFor each book provide:\n- Title (real or suitable fictional title)\n- Author\n- Why it suits this learner (1 sentence, max 15 words)\n- Reading level: Beginner / Intermediate / Advanced\n\nFormat as JSON array:\n[{"title":"","author":"","reason":"","level":"","emoji":"📚"}]\n\nReturn ONLY the JSON array, no markdown.`
+    );
+    const clean = result.replace(/```json?/g,'').replace(/```/g,'').trim();
+    const aiBooks = JSON.parse(clean);
+    el.innerHTML = aiBooks.map(b=>`
+      <div class="recommend-card" style="border-left:3px solid #6366f1;">
+        <div class="recommend-reason" style="background:rgba(99,102,241,0.12);color:#6366f1;">🤖 AI Recommendation · ${b.level||'All levels'}</div>
+        <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">${b.emoji||'📚'}</span><div><div style="font-size:14px;font-weight:700;">${b.title}</div><div style="font-size:12px;color:var(--text-muted);">${b.author}</div></div></div>
+        <div style="margin:8px 0;font-size:13px;font-style:italic;color:var(--muted);">"${b.reason}"</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-primary btn-sm">🔍 Find this book</a>
+          <a href="reading-companion.html" class="btn btn-ghost btn-sm">▶ Read</a>
+        </div>
+      </div>`).join('') + `<div style="margin-top:8px;font-size:11px;color:var(--muted);text-align:center;">📚 Also showing ${recs.length} curated picks below</div>` + staticHTML;
+    // Chain: save recommendations for other agents
+    localStorage.setItem('cs_lib_recs', JSON.stringify({type,topic,books:aiBooks,ts:Date.now()}));
+  } catch(e) {
+    el.innerHTML = staticHTML;
+  }
 }
 
 filterBooks();

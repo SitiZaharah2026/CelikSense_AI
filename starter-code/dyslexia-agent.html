@@ -312,65 +312,120 @@ function setSpeed(val) {
   document.getElementById('speedVal').textContent = parseFloat(val).toFixed(1)+'x';
 }
 
-function runSkimGuide() {
-  if (!dysText) { alert('Load a text first.'); return; }
-  const sentences = dysText.split(/[.!?]+/).filter(s=>s.trim().length>10);
-  const keyWords = ['coral','reef','ecosystem','bleaching','photosynthesis','symbiotic','algae','polyps'];
-  let output = `<strong>📌 Key Opening Sentence:</strong><br><span class="skim-highlight">${sentences[0].trim()}.</span><br><br>`;
-  output += `<strong>🔑 Key Words to Know:</strong><br>`;
-  const found = keyWords.filter(w=>dysText.toLowerCase().includes(w));
-  output += found.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('');
-  output += `<br><br><strong>📌 Key Closing Sentence:</strong><br><span class="skim-highlight">${sentences[sentences.length-1].trim()}.</span>`;
-  document.getElementById('skimOutput').innerHTML = output;
-  document.getElementById('skimPanel').classList.remove('hidden');
+/* ── Gemini AI helper ──────────────────────────────────────────────────── */
+function _dysGemKey(){return localStorage.getItem('gemini_api_key')||'';}
+async function _dysGemCall(prompt){
+  const key=_dysGemKey();
+  if(!key) throw new Error('no_key');
+  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+  const d=await r.json();
+  if(d.error) throw new Error(d.error.message);
+  return (d.candidates||[])[0]?.content?.parts?.[0]?.text||'No response.';
 }
 
-function generateMindMap() {
+/* ── AI Skim Guide (real Gemini) ──────────────────────────────────────── */
+async function runSkimGuide() {
+  if (!dysText) { alert('Load a text first.'); return; }
+  const panel = document.getElementById('skimPanel');
+  const out = document.getElementById('skimOutput');
+  panel.classList.remove('hidden');
+
+  // Instant rule-based preview while AI loads
+  const sentences = dysText.split(/[.!?]+/).filter(s=>s.trim().length>10);
+  out.innerHTML = `<strong>📌 Opening:</strong><br><span class="skim-highlight">${(sentences[0]||'').trim()}.</span><br><br><div style="font-size:12px;color:var(--muted);">🤖 AI analysing key concepts…</div>`;
+
+  if(!_dysGemKey()){
+    const words=dysText.match(/\b[A-Za-z]{5,}\b/g)||[];
+    const freq={};words.forEach(w=>{const k=w.toLowerCase();freq[k]=(freq[k]||0)+1;});
+    const top=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,6).map(e=>e[0]);
+    out.innerHTML+=`<br><strong>🔑 Frequent Key Words:</strong><br>${top.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br><small>Add Gemini API key for AI-powered skim analysis.</small>`;
+    return;
+  }
+
+  try {
+    const result = await _dysGemCall(
+      `You are helping a student with dyslexia skim-read a text. Analyse this text and provide:\n1. The single most important sentence (quote it exactly)\n2. 5-6 key vocabulary words (the hardest or most important ones)\n3. The main idea in ONE simple sentence (max 15 words)\n\nText: ${dysText.slice(0,1500)}\n\nFormat:\nKEY_SENTENCE: [exact quote]\nKEY_WORDS: word1, word2, word3, word4, word5\nMAIN_IDEA: [simple sentence]`
+    );
+    const keySentMatch = result.match(/KEY_SENTENCE:\s*(.+)/);
+    const keyWordsMatch = result.match(/KEY_WORDS:\s*(.+)/);
+    const mainIdeaMatch = result.match(/MAIN_IDEA:\s*(.+)/);
+    const keySent = keySentMatch?.[1]?.trim() || sentences[0];
+    const keyWords = (keyWordsMatch?.[1]||'').split(',').map(w=>w.trim()).filter(Boolean);
+    const mainIdea = mainIdeaMatch?.[1]?.trim() || '';
+    out.innerHTML =
+      `<strong>📌 Most Important Sentence (AI):</strong><br><span class="skim-highlight">${keySent}</span><br><br>` +
+      (mainIdea?`<strong>💡 Main Idea:</strong><br><div style="font-size:14px;font-style:italic;margin-bottom:12px;">"${mainIdea}"</div>`:'') +
+      `<strong>🔑 Key Words to Know:</strong><br>${keyWords.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br>` +
+      `<strong>📌 Closing Sentence:</strong><br><span class="skim-highlight">${(sentences[sentences.length-1]||'').trim()}.</span>`;
+    localStorage.setItem('cs_dys_skim', JSON.stringify({keySent,keyWords,mainIdea,ts:Date.now()}));
+  } catch(e) {
+    out.innerHTML += `<br><span style="color:var(--danger);font-size:12px;">AI error: ${e.message}</span>`;
+  }
+}
+
+/* ── AI Mind Map Generator (real Gemini) ──────────────────────────────── */
+async function generateMindMap() {
   if (!dysText && document.getElementById('dysReadArea').innerText.includes('Load Text')) {
     alert('Load a text first.'); return;
   }
   const text = dysText || document.getElementById('dysReadArea').innerText;
-  const words = text.match(/\b[A-Z][a-z]{4,}\b/g) || [];
-  const unique = [...new Set(words)].slice(0,6);
-  const topic = unique[0] || 'Topic';
-  const branches = unique.slice(1,6);
-  const positions = [
-    {top:'20%',left:'60%'},{top:'50%',left:'72%'},{top:'78%',left:'58%'},
-    {top:'78%',left:'22%'},{top:'50%',left:'8%'},{top:'20%',left:'22%'}
-  ];
-  const colors = ['#6366f1','#22c55e','#f59e0b','#ec4899','#06b6d4','#8b5cf6'];
-  let branchesHTML = branches.map((b,i)=>`
-    <div class="mm-branch" style="top:${positions[i].top};left:${positions[i].left};border-color:${colors[i]};color:${colors[i]}">
-      ${b}
-    </div>
-  `).join('');
+  const canvas = document.getElementById('mindmapCanvas');
+  canvas.innerHTML = '<div style="text-align:center;padding:20px;font-size:13px;color:var(--muted);">🤖 AI generating mind map…</div>';
 
-  // SVG lines — offset branch endpoints to approximate their center
-  // viewBox 600×260, branches ~100px wide × 32px tall at 100% scale
-  // offset: +30 SVG units x (≈50px), +8 SVG units y (≈16px)
-  document.getElementById('mindmapCanvas').innerHTML = `
+  const colors = ['#6366f1','#22c55e','#f59e0b','#ec4899','#06b6d4','#8b5cf6'];
+  const positions = [{top:'20%',left:'60%'},{top:'50%',left:'72%'},{top:'78%',left:'58%'},{top:'78%',left:'22%'},{top:'50%',left:'8%'},{top:'20%',left:'22%'}];
+
+  let topic='Topic', branches=[];
+
+  if(_dysGemKey()){
+    try {
+      const result = await _dysGemCall(
+        `Extract the mind map structure from this text for a dyslexia student.\nReturn ONLY this JSON format (no markdown, no explanation):\n{"topic":"main topic word","branches":["concept1","concept2","concept3","concept4","concept5"]}\n\nText: ${text.slice(0,1200)}`
+      );
+      const clean = result.replace(/```json?/g,'').replace(/```/g,'').trim();
+      const parsed = JSON.parse(clean);
+      topic = parsed.topic || 'Topic';
+      branches = (parsed.branches||[]).slice(0,5);
+    } catch(e){ /* fallback below */ }
+  }
+
+  if(!branches.length){
+    const words = text.match(/\b[A-Z][a-z]{4,}\b/g)||[];
+    const unique = [...new Set(words)].slice(0,6);
+    topic = unique[0]||'Topic';
+    branches = unique.slice(1,6);
+  }
+
+  const branchesHTML = branches.map((b,i)=>`<div class="mm-branch" style="top:${positions[i].top};left:${positions[i].left};border-color:${colors[i]};color:${colors[i]}">${b}</div>`).join('');
+  canvas.innerHTML = `
     <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 600 260" preserveAspectRatio="none">
-      ${branches.map((_,i)=>{
-        const pos = positions[i];
-        const cx=300, cy=130;
-        const bx = parseFloat(pos.left)*6 + 30;
-        const by = parseFloat(pos.top)*2.6 + 8;
-        return `<line x1="${cx}" y1="${cy}" x2="${bx}" y2="${by}" stroke="${colors[i]}" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>`;
-      }).join('')}
+      ${branches.map((_,i)=>{const p=positions[i];return `<line x1="300" y1="130" x2="${parseFloat(p.left)*6+30}" y2="${parseFloat(p.top)*2.6+8}" stroke="${colors[i]}" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>`;}).join('')}
     </svg>
-    <div class="mm-center">${topic}</div>
-    ${branchesHTML}
-  `;
+    <div class="mm-center">${topic}</div>${branchesHTML}`;
+  localStorage.setItem('cs_dys_mindmap', JSON.stringify({topic,branches,ts:Date.now()}));
 }
 
-function showIntervention() {
+/* ── AI Intervention Advisor ──────────────────────────────────────────── */
+async function showIntervention() {
   const level = document.getElementById('diffLevel').value;
-  const recs = {
-    low: '✅ <strong>Light Support:</strong> Use standard font with yellow overlay. Short sessions of 15–20 minutes. TTS optional.',
-    medium: '🟡 <strong>Moderate Support:</strong> Switch to OpenDyslexic font. Apply green overlay. Use reading ruler. TTS recommended. Sessions of 10–15 minutes.',
-    high: '🔴 <strong>Intensive Support:</strong> Full OpenDyslexic mode with blue overlay. Mandatory TTS. 5-minute micro-sessions with 3-minute breaks. Reading ruler always on. Consider <a href="intervention.html" style="color:var(--primary-light)">full intervention plan</a>.'
+  const el = document.getElementById('interventionBox');
+  const baseRecs = {
+    low: '✅ <strong>Light Support:</strong> Standard font with yellow overlay. 15–20 min sessions. TTS optional.',
+    medium: '🟡 <strong>Moderate Support:</strong> OpenDyslexic font. Green overlay. Reading ruler. TTS recommended. 10–15 min sessions.',
+    high: '🔴 <strong>Intensive Support:</strong> Full OpenDyslexic + blue overlay. Mandatory TTS. 5-min micro-sessions. See <a href="intervention.html">full intervention plan</a>.'
   };
-  document.getElementById('interventionBox').innerHTML = `<div class="alert alert-info" style="margin:0;">${recs[level]}</div>`;
+  el.innerHTML = `<div class="alert alert-info" style="margin:0;">${baseRecs[level]}</div>`;
+
+  if(_dysGemKey() && dysText){
+    el.innerHTML += '<div style="font-size:12px;color:var(--muted);margin-top:8px;">🤖 AI personalising advice…</div>';
+    try {
+      const result = await _dysGemCall(
+        `A student with dyslexia is reading a text at ${level} difficulty level. Text excerpt: "${dysText.slice(0,400)}"\n\nGive 2 specific, practical reading tips tailored to THIS exact text content and difficulty level. Keep each tip under 20 words. Format: Tip 1: ... / Tip 2: ...`
+      );
+      el.innerHTML += `<div style="margin-top:10px;font-size:13px;padding:10px;background:rgba(99,102,241,0.08);border-radius:8px;">🤖 <strong>AI Tips for this text:</strong><br>${result.replace(/\n/g,'<br>').replace(/Tip \d:/g,'<br>•')}</div>`;
+      localStorage.setItem('cs_dys_level', JSON.stringify({level,ts:Date.now()}));
+    } catch(e){}
+  }
 }
 
 showIntervention();

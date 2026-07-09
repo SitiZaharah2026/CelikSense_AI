@@ -290,6 +290,37 @@ function analyseRisk() {
   } catch(e) {}
 
   CS.toast('Risk assessment saved to dashboard', 'success');
+
+  /* ── AI Interpretation (Gemini) — runs after static analysis ─────────── */
+  _ewAiInterpret(riskScore, riskLevel, avg, warnings, priority, need);
+}
+
+function _ewGemKey(){return localStorage.getItem('gemini_api_key')||'';}
+async function _ewAiInterpret(riskScore, riskLevel, avg, warnings, priority, need){
+  if(!_ewGemKey()) return;
+  // Inject AI panel below the risk desc
+  const desc = document.getElementById('riskDesc');
+  if(!desc) return;
+  const aiPanel = document.createElement('div');
+  aiPanel.style.cssText='margin-top:14px;padding:12px 14px;background:rgba(99,102,241,0.07);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;';
+  aiPanel.innerHTML='🤖 <strong>AI Interpreting risk profile…</strong>';
+  desc.insertAdjacentElement('afterend', aiPanel);
+  // Read cross-agent data
+  const adhdData = JSON.parse(localStorage.getItem('cs_adhd_focus')||'null');
+  const adhdLine = adhdData ? ` ADHD focus score from last session: ${adhdData.score}/100.` : '';
+  try {
+    const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+_ewGemKey(),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:
+      `You are an educational psychologist AI for CelikSense, a Malaysian special-needs learning platform.\n\nA learner has been assessed with the following profile:\n- Risk Score: ${riskScore}/100 (${riskLevel})\n- Average Academic Score: ${avg}/100\n- Warning Signs: ${warnings}\n- Priority: ${priority}\n- Primary Learning Need: ${need}${adhdLine}\n\nProvide:\n1. A 2-sentence plain-language interpretation of what this risk profile means\n2. Three specific, actionable next steps for the teacher (numbered list, each max 15 words)\n3. One encouraging message for the learner (1 sentence)\n\nBe professional, empathetic, and specific to Malaysian educational context.`
+    }]}]})});
+    const d=await r.json();
+    if(d.error) throw new Error(d.error.message);
+    const text=(d.candidates||[])[0]?.content?.parts?.[0]?.text||'';
+    aiPanel.innerHTML=`🤖 <strong>AI Risk Interpretation:</strong><br><br>${text.replace(/\n/g,'<br>')}`;
+    // Chain: update stored risk with AI interpretation
+    try{const prev=JSON.parse(localStorage.getItem('cs_last_risk')||'{}');prev.aiInterpretation=text;prev.ts=new Date().toISOString();localStorage.setItem('cs_last_risk',JSON.stringify(prev));}catch(e){}
+  } catch(e){
+    aiPanel.remove();
+  }
 }
 
 function getDesc(score, avg, warnings) {
