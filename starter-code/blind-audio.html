@@ -764,7 +764,40 @@
       window.speechSynthesis && window.speechSynthesis.speak(utt);
     }
 
-    /* Voice command dispatcher */
+    /* ── AI NLU via Gemini — understands natural language commands ────── */
+    var _nluKey = function(){ return localStorage.getItem('gemini_api_key')||''; };
+    var PAGE_MAP = {
+      "dashboard.html":       ["dashboard","home","main"],
+      "ocr-agent.html":       ["ocr","camera","scan","photo","extract text"],
+      "reading-companion.html":["reading","read","companion","text"],
+      "ai-librarian.html":    ["library","librarian","books","book"],
+      "adhd-agent.html":      ["adhd","focus","attention"],
+      "dyslexia-agent.html":  ["dyslexia","reading difficulty"],
+      "sign-language.html":   ["sign language","signing","bim"],
+      "signsense-dictionary.html":["dictionary","sign dictionary"],
+      "celiksense-reader.html":["celikverse","reader","story"],
+      "settings.html":        ["settings","preferences","api key"],
+      "teacher-dashboard.html":["teacher","dashboard teacher"],
+    };
+
+    async function _nluRoute(raw) {
+      var key = _nluKey();
+      if (!key) return null;
+      try {
+        var pageList = Object.entries(PAGE_MAP).map(function(e){ return e[0]+' ('+e[1].join(', ')+')'; }).join('\n');
+        var r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key, {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({contents:[{parts:[{text:
+            'You are a voice assistant for CelikSense AI, a Malaysian special-needs education platform. A visually impaired user said: "'+raw+'"\n\nAvailable pages:\n'+pageList+'\n\nRespond ONLY with a JSON object:\n{"page":"filename.html","reply":"What you will say to the user (max 10 words)"}\n\nIf the command is not a navigation request (e.g. it\'s a question or greeting), set page to null and give a short helpful reply.\nReturn ONLY valid JSON, no markdown.'
+          }]}]}),
+        });
+        var d = await r.json();
+        var text = (d.candidates||[])[0]?.content?.parts?.[0]?.text||'';
+        return JSON.parse(text.replace(/```json?/g,'').replace(/```/g,'').trim());
+      } catch(e) { return null; }
+    }
+
+    /* Voice command dispatcher — rules first, Gemini NLU as fallback */
     function handleCommand(raw) {
       var cmd = (raw || "").toLowerCase().trim();
       showLastCommand(raw);
@@ -801,7 +834,22 @@
         setStatus("Ready", "ready");
         announce("Stopped.");
       } else {
-        speak("Sorry, I did not understand \"" + raw + "\". Say Help for a list of commands.");
+        /* ── Gemini NLU fallback for natural language commands ── */
+        if (_nluKey()) {
+          speak("Let me understand that…");
+          setStatus("AI thinking…", "listening");
+          _nluRoute(raw).then(function(res) {
+            setStatus("Ready", "ready");
+            if (!res) { speak("Sorry, I could not understand. Say Help for commands."); return; }
+            if (res.page) {
+              speak(res.reply || "Opening page.", function() { window.location.href = res.page; });
+            } else {
+              speak(res.reply || "I did not understand. Say Help for a list of commands.");
+            }
+          }).catch(function(){ speak("Sorry, I did not understand. Say Help for commands."); });
+        } else {
+          speak("Sorry, I did not understand \"" + raw + "\". Say Help for a list of commands.");
+        }
       }
     }
 

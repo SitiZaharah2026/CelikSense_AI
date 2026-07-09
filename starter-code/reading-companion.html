@@ -230,6 +230,58 @@ function setStatus(msg) {
   document.getElementById('statusLog').textContent = msg;
 }
 
+/* ── AI auto-trigger helpers ─────────────────────────────────────────── */
+var _rcScrollTimer = null;
+var _rcQuizTriggered = false;
+
+function _rcGemKey(){ return localStorage.getItem('gemini_api_key')||''; }
+
+function _rcStartScrollWatch() {
+  _rcQuizTriggered = false;
+  var display = document.getElementById('readingDisplay');
+  if(!display) return;
+  display.addEventListener('scroll', function _onScroll(){
+    if(_rcQuizTriggered) return;
+    var pct = (display.scrollTop + display.clientHeight) / display.scrollHeight;
+    if(pct >= 0.85) {
+      _rcQuizTriggered = true;
+      display.removeEventListener('scroll', _onScroll);
+      _rcAutoPromptQuiz();
+    }
+  });
+  // Also trigger after 3 minutes of reading (time-based)
+  clearTimeout(_rcScrollTimer);
+  _rcScrollTimer = setTimeout(function(){
+    if(!_rcQuizTriggered){ _rcQuizTriggered=true; _rcAutoPromptQuiz(); }
+  }, 180000);
+}
+
+function _rcAutoPromptQuiz() {
+  if(!loadedText || !_rcGemKey()) return;
+  var banner = document.getElementById('rcAutoBanner');
+  if(banner) return; // already shown
+  var b = document.createElement('div');
+  b.id = 'rcAutoBanner';
+  b.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;padding:14px 22px;border-radius:14px;font-size:14px;font-weight:700;box-shadow:0 4px 20px rgba(99,102,241,0.4);z-index:9999;display:flex;align-items:center;gap:12px;';
+  b.innerHTML='📖 You\'ve read most of the text! <button onclick="generateQuestions();document.getElementById(\'rcAutoBanner\').remove();" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:#fff;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">✅ Test Understanding</button><button onclick="this.parentElement.remove();" style="background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:18px;padding:0 4px;">✕</button>';
+  document.body.appendChild(b);
+}
+
+function _rcAutoSummarise() {
+  if(!loadedText || !_rcGemKey()) return;
+  var key=_rcGemKey();
+  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:'Summarise this text in 2 simple sentences suitable for a school student. Text: '+loadedText.slice(0,1500)}]}]})})
+  .then(function(r){return r.json();}).then(function(d){
+    var summary=(d.candidates||[])[0]?.content?.parts?.[0]?.text||'';
+    if(!summary) return;
+    var el=document.getElementById('rcAiSummary');
+    if(!el){el=document.createElement('div');el.id='rcAiSummary';el.style.cssText='margin-top:10px;padding:12px;background:rgba(99,102,241,0.08);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;';document.getElementById('readingDisplay').insertAdjacentElement('beforebegin',el);}
+    el.innerHTML='🤖 <strong>AI Quick Summary:</strong> '+summary;
+    // Cross-agent: save for teacher agent
+    localStorage.setItem('teacher_input_text', loadedText.slice(0,3000));
+  }).catch(function(){});
+}
+
 function loadText() {
   loadedText = document.getElementById('readingInput').value.trim();
   if (!loadedText) { setStatus('Please enter some text first.'); return; }
@@ -243,6 +295,9 @@ function loadText() {
   setStatus('Text loaded. Ready to read.');
   extractVocab();
   updateStats();
+  // Agentic: auto-summarise on load + watch scroll for quiz trigger
+  _rcAutoSummarise();
+  _rcStartScrollWatch();
 }
 
 function clearText() {
