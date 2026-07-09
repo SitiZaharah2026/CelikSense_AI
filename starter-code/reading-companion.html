@@ -236,6 +236,25 @@ var _rcQuizTriggered = false;
 
 function _rcGemKey(){ return localStorage.getItem('gemini_api_key')||''; }
 
+async function _callAgent(task, payload) {
+  var apiKey = '';
+  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  var body = Object.assign({ task: task, lang: currentLang || 'ms', apiKey: apiKey }, payload);
+  try {
+    var res = await fetch('/api/agents/reader', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    var data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Agent error');
+    return data.output;
+  } catch(err) {
+    console.error('[agent-call]', err);
+    return null;
+  }
+}
+
 function _rcStartScrollWatch() {
   _rcQuizTriggered = false;
   var display = document.getElementById('readingDisplay');
@@ -267,19 +286,22 @@ function _rcAutoPromptQuiz() {
   document.body.appendChild(b);
 }
 
-function _rcAutoSummarise() {
-  if(!loadedText || !_rcGemKey()) return;
-  var key=_rcGemKey();
-  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:'Summarise this text in 2 simple sentences suitable for a school student. Text: '+loadedText.slice(0,1500)}]}]})})
-  .then(function(r){return r.json();}).then(function(d){
-    var summary=(d.candidates||[])[0]?.content?.parts?.[0]?.text||'';
-    if(!summary) return;
-    var el=document.getElementById('rcAiSummary');
-    if(!el){el=document.createElement('div');el.id='rcAiSummary';el.style.cssText='margin-top:10px;padding:12px;background:rgba(99,102,241,0.08);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;';document.getElementById('readingDisplay').insertAdjacentElement('beforebegin',el);}
-    el.innerHTML='🤖 <strong>AI Quick Summary:</strong> '+summary;
-    // Cross-agent: save for teacher agent
-    localStorage.setItem('teacher_input_text', loadedText.slice(0,3000));
-  }).catch(function(){});
+async function _rcAutoSummarise() {
+  if (!loadedText) return;
+  var apiKey = _rcGemKey();
+  if (!apiKey) {
+    var el = document.getElementById('rcAiSummary');
+    if (!el) { el = document.createElement('div'); el.id = 'rcAiSummary'; el.style.cssText = 'margin-top:10px;padding:12px;background:rgba(99,102,241,0.08);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;'; document.getElementById('readingDisplay').insertAdjacentElement('beforebegin', el); }
+    el.innerHTML = '⚠️ No API key. <a href="settings.html" style="color:#6366f1;font-weight:700;">Go to Settings</a> to save your Gemini key.';
+    return;
+  }
+  var summary = await _callAgent('summarise', { text: loadedText.slice(0, 1500) });
+  if (!summary) return;
+  var el = document.getElementById('rcAiSummary');
+  if (!el) { el = document.createElement('div'); el.id = 'rcAiSummary'; el.style.cssText = 'margin-top:10px;padding:12px;background:rgba(99,102,241,0.08);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;'; document.getElementById('readingDisplay').insertAdjacentElement('beforebegin', el); }
+  el.innerHTML = '🤖 <strong>AI Quick Summary:</strong> ' + summary;
+  // Cross-agent: save for teacher agent
+  localStorage.setItem('teacher_input_text', loadedText.slice(0, 3000));
 }
 
 function loadText() {
@@ -397,42 +419,52 @@ function updateStats() {
 
 var _currentQuestions = [];
 
-function generateQuestions() {
+async function generateQuestions() {
   if (!loadedText) { setStatus('Load a text first to generate questions.'); return; }
 
   var box = document.getElementById('questionsList');
-  box.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">🤖 Generating questions with Gemini AI…</p>';
+  box.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">🤖 Generating questions…</p>';
 
-  if (!CS.gemini.isReady()) {
-    box.innerHTML = '<p style="color:#ef4444;font-size:13px;">⚠️ No Gemini API key. Go to ⚙️ Settings → AI tab and save your key first.</p>';
+  var apiKey = _rcGemKey();
+  if (!apiKey) {
+    box.innerHTML = '<p style="color:#ef4444;font-size:13px;">⚠️ No API key. <a href="settings.html" style="color:#6366f1;font-weight:700;">Go to ⚙️ Settings</a> to save your Gemini key first.</p>';
     return;
   }
 
-  var langName = currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
-  CS.gemini.generateQuiz(loadedText, langName, 4).then(function(result) {
-    if (result._fallback || !result.questions || !result.questions.length) {
-      box.innerHTML = '<p style="color:#ef4444;font-size:13px;">Could not generate questions. Check your Gemini key in Settings.</p>';
-      return;
-    }
+  var output = await _callAgent('questions', { text: loadedText });
+  if (!output) {
+    box.innerHTML = '<p style="color:#ef4444;font-size:13px;">Could not generate questions. Check your Gemini key in Settings.</p>';
+    return;
+  }
 
-    _currentQuestions = result.questions;
-    box.innerHTML = _currentQuestions.map(function(q, i) {
-      return '<div class="question-card" id="qcard' + i + '">' +
-        '<div class="question-text">Q' + (i+1) + ': ' + q.question + '</div>' +
-        q.options.map(function(opt, j) {
-          return '<label class="quiz-option" id="qopt' + i + '_' + j + '">' +
-            '<input type="radio" name="q' + i + '" value="' + j + '"> ' + opt +
-            '</label>';
-        }).join('') +
-        '<div class="quiz-explanation" id="qexp' + i + '" style="display:none;"></div>' +
-      '</div>';
-    }).join('') +
-    '<button class="btn btn-primary w-full" style="margin-top:16px;" onclick="submitQuiz()">✅ ' + (currentLang==='ms'?'Hantar Jawapan':'Submit Answers') + '</button>';
+  var result;
+  try {
+    result = typeof output === 'string' ? JSON.parse(output) : output;
+  } catch(e) {
+    box.innerHTML = '<p style="color:#ef4444;font-size:13px;">Could not parse questions. Please try again.</p>';
+    return;
+  }
 
-    setStatus(currentLang==='ms'?'Soalan dijana oleh Gemini AI. Pilih jawapan anda dan tekan Hantar.':'Questions generated by Gemini AI. Choose your answers and press Submit.');
-  }).catch(function(e) {
-    box.innerHTML = '<p style="color:#ef4444;font-size:13px;">Ralat: ' + e.message + '</p>';
-  });
+  if (!result || !result.questions || !result.questions.length) {
+    box.innerHTML = '<p style="color:#ef4444;font-size:13px;">Could not generate questions. Check your Gemini key in Settings.</p>';
+    return;
+  }
+
+  _currentQuestions = result.questions;
+  box.innerHTML = _currentQuestions.map(function(q, i) {
+    return '<div class="question-card" id="qcard' + i + '">' +
+      '<div class="question-text">Q' + (i+1) + ': ' + q.question + '</div>' +
+      q.options.map(function(opt, j) {
+        return '<label class="quiz-option" id="qopt' + i + '_' + j + '">' +
+          '<input type="radio" name="q' + i + '" value="' + j + '"> ' + opt +
+          '</label>';
+      }).join('') +
+      '<div class="quiz-explanation" id="qexp' + i + '" style="display:none;"></div>' +
+    '</div>';
+  }).join('') +
+  '<button class="btn btn-primary w-full" style="margin-top:16px;" onclick="submitQuiz()">✅ ' + (currentLang==='ms'?'Hantar Jawapan':'Submit Answers') + '</button>';
+
+  setStatus(currentLang==='ms'?'Soalan dijana. Pilih jawapan anda dan tekan Hantar.':'Questions generated. Choose your answers and press Submit.');
 }
 
 function submitQuiz() {

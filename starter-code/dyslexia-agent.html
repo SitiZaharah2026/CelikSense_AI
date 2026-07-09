@@ -312,18 +312,31 @@ function setSpeed(val) {
   document.getElementById('speedVal').textContent = parseFloat(val).toFixed(1)+'x';
 }
 
-/* ── Gemini AI helper ──────────────────────────────────────────────────── */
-function _dysGemKey(){return localStorage.getItem('gemini_api_key')||'';}
-async function _dysGemCall(prompt){
-  const key=_dysGemKey();
-  if(!key) throw new Error('no_key');
-  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
-  const d=await r.json();
-  if(d.error) throw new Error(d.error.message);
-  return (d.candidates||[])[0]?.content?.parts?.[0]?.text||'No response.';
+/* ── Agent API helper ──────────────────────────────────────────────────── */
+async function _callAgent(task, payload) {
+  var apiKey = '';
+  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  var body = Object.assign({ task: task, lang: LANG || 'ms', apiKey: apiKey }, payload);
+  try {
+    var res = await fetch('/api/agents/dyslexia', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    var data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Agent error');
+    return data.output;
+  } catch(err) {
+    console.error('[agent-call]', err);
+    return null;
+  }
 }
 
-/* ── AI Skim Guide (real Gemini) ──────────────────────────────────────── */
+function _dysHasKey() {
+  try { return !!(localStorage.getItem('gemini_api_key') || ''); } catch(e) { return false; }
+}
+
+/* ── AI Skim Guide ────────────────────────────────────────────────────── */
 async function runSkimGuide() {
   if (!dysText) { alert('Load a text first.'); return; }
   const panel = document.getElementById('skimPanel');
@@ -334,36 +347,34 @@ async function runSkimGuide() {
   const sentences = dysText.split(/[.!?]+/).filter(s=>s.trim().length>10);
   out.innerHTML = `<strong>📌 Opening:</strong><br><span class="skim-highlight">${(sentences[0]||'').trim()}.</span><br><br><div style="font-size:12px;color:var(--muted);">🤖 AI analysing key concepts…</div>`;
 
-  if(!_dysGemKey()){
+  if(!_dysHasKey()){
     const words=dysText.match(/\b[A-Za-z]{5,}\b/g)||[];
     const freq={};words.forEach(w=>{const k=w.toLowerCase();freq[k]=(freq[k]||0)+1;});
     const top=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,6).map(e=>e[0]);
-    out.innerHTML+=`<br><strong>🔑 Frequent Key Words:</strong><br>${top.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br><small>Add Gemini API key for AI-powered skim analysis.</small>`;
+    out.innerHTML+=`<br><strong>🔑 Frequent Key Words:</strong><br>${top.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br><small>Add Gemini API key in <a href="settings.html">Settings</a> for AI-powered skim analysis.</small>`;
     return;
   }
 
-  try {
-    const result = await _dysGemCall(
-      `You are helping a student with dyslexia skim-read a text. Analyse this text and provide:\n1. The single most important sentence (quote it exactly)\n2. 5-6 key vocabulary words (the hardest or most important ones)\n3. The main idea in ONE simple sentence (max 15 words)\n\nText: ${dysText.slice(0,1500)}\n\nFormat:\nKEY_SENTENCE: [exact quote]\nKEY_WORDS: word1, word2, word3, word4, word5\nMAIN_IDEA: [simple sentence]`
-    );
-    const keySentMatch = result.match(/KEY_SENTENCE:\s*(.+)/);
-    const keyWordsMatch = result.match(/KEY_WORDS:\s*(.+)/);
-    const mainIdeaMatch = result.match(/MAIN_IDEA:\s*(.+)/);
-    const keySent = keySentMatch?.[1]?.trim() || sentences[0];
-    const keyWords = (keyWordsMatch?.[1]||'').split(',').map(w=>w.trim()).filter(Boolean);
-    const mainIdea = mainIdeaMatch?.[1]?.trim() || '';
-    out.innerHTML =
-      `<strong>📌 Most Important Sentence (AI):</strong><br><span class="skim-highlight">${keySent}</span><br><br>` +
-      (mainIdea?`<strong>💡 Main Idea:</strong><br><div style="font-size:14px;font-style:italic;margin-bottom:12px;">"${mainIdea}"</div>`:'') +
-      `<strong>🔑 Key Words to Know:</strong><br>${keyWords.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br>` +
-      `<strong>📌 Closing Sentence:</strong><br><span class="skim-highlight">${(sentences[sentences.length-1]||'').trim()}.</span>`;
-    localStorage.setItem('cs_dys_skim', JSON.stringify({keySent,keyWords,mainIdea,ts:Date.now()}));
-  } catch(e) {
-    out.innerHTML += `<br><span style="color:var(--danger);font-size:12px;">AI error: ${e.message}</span>`;
+  const result = await _callAgent('skim', { text: dysText.slice(0, 1500) });
+  if (!result) {
+    out.innerHTML += `<br><span style="color:var(--danger);font-size:12px;">AI error. Please check your API key in <a href="settings.html">Settings</a>.</span>`;
+    return;
   }
+  const keySentMatch = result.match(/KEY_SENTENCE:\s*(.+)/);
+  const keyWordsMatch = result.match(/KEY_WORDS:\s*(.+)/);
+  const mainIdeaMatch = result.match(/MAIN_IDEA:\s*(.+)/);
+  const keySent = keySentMatch?.[1]?.trim() || sentences[0];
+  const keyWords = (keyWordsMatch?.[1]||'').split(',').map(w=>w.trim()).filter(Boolean);
+  const mainIdea = mainIdeaMatch?.[1]?.trim() || '';
+  out.innerHTML =
+    `<strong>📌 Most Important Sentence (AI):</strong><br><span class="skim-highlight">${keySent}</span><br><br>` +
+    (mainIdea?`<strong>💡 Main Idea:</strong><br><div style="font-size:14px;font-style:italic;margin-bottom:12px;">"${mainIdea}"</div>`:'') +
+    `<strong>🔑 Key Words to Know:</strong><br>${keyWords.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br>` +
+    `<strong>📌 Closing Sentence:</strong><br><span class="skim-highlight">${(sentences[sentences.length-1]||'').trim()}.</span>`;
+  localStorage.setItem('cs_dys_skim', JSON.stringify({keySent,keyWords,mainIdea,ts:Date.now()}));
 }
 
-/* ── AI Mind Map Generator (real Gemini) ──────────────────────────────── */
+/* ── AI Mind Map Generator ────────────────────────────────────────────── */
 async function generateMindMap() {
   if (!dysText && document.getElementById('dysReadArea').innerText.includes('Load Text')) {
     alert('Load a text first.'); return;
@@ -377,16 +388,16 @@ async function generateMindMap() {
 
   let topic='Topic', branches=[];
 
-  if(_dysGemKey()){
-    try {
-      const result = await _dysGemCall(
-        `Extract the mind map structure from this text for a dyslexia student.\nReturn ONLY this JSON format (no markdown, no explanation):\n{"topic":"main topic word","branches":["concept1","concept2","concept3","concept4","concept5"]}\n\nText: ${text.slice(0,1200)}`
-      );
-      const clean = result.replace(/```json?/g,'').replace(/```/g,'').trim();
-      const parsed = JSON.parse(clean);
-      topic = parsed.topic || 'Topic';
-      branches = (parsed.branches||[]).slice(0,5);
-    } catch(e){ /* fallback below */ }
+  if(_dysHasKey()){
+    const result = await _callAgent('mindmap', { text: text.slice(0, 1200) });
+    if (result) {
+      try {
+        const clean = result.replace(/```json?/g,'').replace(/```/g,'').trim();
+        const parsed = JSON.parse(clean);
+        topic = parsed.topic || 'Topic';
+        branches = (parsed.branches||[]).slice(0,5);
+      } catch(e){ /* fallback below */ }
+    }
   }
 
   if(!branches.length){
@@ -394,6 +405,10 @@ async function generateMindMap() {
     const unique = [...new Set(words)].slice(0,6);
     topic = unique[0]||'Topic';
     branches = unique.slice(1,6);
+    if(!_dysHasKey() && !branches.length){
+      canvas.innerHTML = `<div style="text-align:center;padding:20px;font-size:13px;">Add Gemini API key in <a href="settings.html">Settings</a> for AI mind maps, or load a text first.</div>`;
+      return;
+    }
   }
 
   const branchesHTML = branches.map((b,i)=>`<div class="mm-branch" style="top:${positions[i].top};left:${positions[i].left};border-color:${colors[i]};color:${colors[i]}">${b}</div>`).join('');
@@ -416,15 +431,20 @@ async function showIntervention() {
   };
   el.innerHTML = `<div class="alert alert-info" style="margin:0;">${baseRecs[level]}</div>`;
 
-  if(_dysGemKey() && dysText){
+  if(!_dysHasKey()){
+    el.innerHTML += `<div style="font-size:12px;color:var(--muted);margin-top:8px;">Add your Gemini API key in <a href="settings.html">Settings</a> for personalised AI tips.</div>`;
+    return;
+  }
+
+  if(dysText){
     el.innerHTML += '<div style="font-size:12px;color:var(--muted);margin-top:8px;">🤖 AI personalising advice…</div>';
-    try {
-      const result = await _dysGemCall(
-        `A student with dyslexia is reading a text at ${level} difficulty level. Text excerpt: "${dysText.slice(0,400)}"\n\nGive 2 specific, practical reading tips tailored to THIS exact text content and difficulty level. Keep each tip under 20 words. Format: Tip 1: ... / Tip 2: ...`
-      );
+    const result = await _callAgent('intervention', { difficulty_level: level, text: dysText.slice(0, 400) });
+    if (result) {
       el.innerHTML += `<div style="margin-top:10px;font-size:13px;padding:10px;background:rgba(99,102,241,0.08);border-radius:8px;">🤖 <strong>AI Tips for this text:</strong><br>${result.replace(/\n/g,'<br>').replace(/Tip \d:/g,'<br>•')}</div>`;
       localStorage.setItem('cs_dys_level', JSON.stringify({level,ts:Date.now()}));
-    } catch(e){}
+    } else {
+      el.innerHTML += `<div style="font-size:12px;color:var(--danger);margin-top:8px;">Could not load AI tips. Please check your API key in <a href="settings.html">Settings</a>.</div>`;
+    }
   }
 }
 

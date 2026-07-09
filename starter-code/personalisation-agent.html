@@ -517,13 +517,24 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     }
   }
 
-  /* ── Gemini helper ───────────────────────────────────────────────────── */
-  function _psGemKey(){ return localStorage.getItem('gemini_api_key')||''; }
-  async function _psGemCall(prompt){
-    var key=_psGemKey(); if(!key) throw new Error('no_key');
-    var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
-    var d=await r.json(); if(d.error) throw new Error(d.error.message);
-    return (d.candidates||[])[0]?.content?.parts?.[0]?.text||'';
+  /* ── Agent helper ───────────────────────────────────────────────────── */
+  async function _callAgent(task, payload) {
+    var apiKey = '';
+    try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+    var body = Object.assign({ task: task, lang: LANG || getLang(), apiKey: apiKey }, payload);
+    try {
+      var res = await fetch('/api/agents/personalisation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      var data = await res.json();
+      if (!data.ok) throw new Error(data.error || 'Agent error');
+      return data.output;
+    } catch(err) {
+      console.error('[agent-call]', err);
+      return null;
+    }
   }
 
   function populateInsights(lang) {
@@ -540,8 +551,15 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       container.innerHTML = html;
     }
 
-    /* ── AI Insights (Gemini) — appended after rule-based ── */
-    if(_psGemKey() && window.CS_PERSONALISE) {
+    /* ── AI Insights (via serverless agent) — appended after rule-based ── */
+    var apiKey = '';
+    try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+    if (!apiKey) {
+      var noKeyDiv = document.createElement('div');
+      noKeyDiv.style.cssText='margin-top:10px;padding:12px;background:rgba(99,102,241,0.07);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;';
+      noKeyDiv.innerHTML='🔑 <span style="color:#6366f1;">To unlock AI insights, <a href="settings.html" style="color:#6366f1;font-weight:700;">add your API key in Settings</a>.</span>';
+      container.appendChild(noKeyDiv);
+    } else if (window.CS_PERSONALISE) {
       var aiDiv = document.createElement('div');
       aiDiv.style.cssText='margin-top:10px;padding:12px;background:rgba(99,102,241,0.07);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;';
       aiDiv.innerHTML='🤖 <em style="color:var(--muted);">AI generating deeper insights…</em>';
@@ -550,18 +568,14 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       var profile = CS_PERSONALISE.getProfile ? CS_PERSONALISE.getProfile() : {};
       var riskData = null;
       try{ riskData=JSON.parse(localStorage.getItem('cs_last_risk')||'null'); }catch(e){}
-      var adhdData = null;
-      try{ adhdData=JSON.parse(localStorage.getItem('cs_adhd_sessions')||'null'); }catch(e){}
 
-      var profileSummary = 'Sessions: '+(profile.totalSessions||0)+', Audio uses: '+(profile.audioUsageCount||0)+', OCR uses: '+(profile.ocrUsageCount||0)+', Accessibility mode: '+(profile.accessibilityMode||'general')+', Learning need: '+(profile.learningNeed||'general')+'.';
-      var riskLine = riskData ? ' Early Warning risk score: '+riskData.riskScore+'/100 ('+riskData.riskLevel+').' : '';
-      var adhdLine = adhdData && adhdData.length ? ' Last ADHD focus score: '+adhdData[adhdData.length-1].score+'/100.' : '';
-
-      _psGemCall(
-        'You are an AI learning analyst for CelikSense, a Malaysian inclusive education platform.\n\nLearner profile data:\n'+profileSummary+riskLine+adhdLine+'\n\nGenerate 3 specific, actionable insights about this learner\'s progress and learning patterns. Each insight should:\n- Be based on the data above\n- Be 1-2 sentences\n- Include one concrete recommendation\n\nLanguage: '+(lang==='ms'?'Bahasa Melayu':'English')+'\nFormat: numbered list 1. 2. 3.'
-      ).then(function(result){
-        aiDiv.innerHTML='🤖 <strong>AI Insights:</strong><br>'+result.replace(/\n/g,'<br>').replace(/\*\*/g,'');
-      }).catch(function(){ aiDiv.remove(); });
+      _callAgent('insights', { profile: profile, risk_data: riskData }).then(function(result){
+        if (result) {
+          aiDiv.innerHTML='🤖 <strong>AI Insights:</strong><br>'+String(result).replace(/\n/g,'<br>').replace(/\*\*/g,'');
+        } else {
+          aiDiv.remove();
+        }
+      });
     }
   }
 
@@ -586,20 +600,28 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       container.innerHTML = html;
     }
 
-    /* ── AI Recommendations (Gemini) ── */
-    if(_psGemKey() && window.CS_PERSONALISE) {
+    /* ── AI Recommendations (via serverless agent) ── */
+    var apiKey2 = '';
+    try { apiKey2 = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+    if (!apiKey2) {
+      var noKeyDiv2 = document.createElement('div');
+      noKeyDiv2.style.cssText='margin-top:10px;padding:12px;background:rgba(99,102,241,0.07);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;';
+      noKeyDiv2.innerHTML='🔑 <span style="color:#6366f1;">To unlock AI recommendations, <a href="settings.html" style="color:#6366f1;font-weight:700;">add your API key in Settings</a>.</span>';
+      container.appendChild(noKeyDiv2);
+    } else if (window.CS_PERSONALISE) {
       var aiRecDiv = document.createElement('div');
       aiRecDiv.style.cssText='margin-top:10px;padding:12px;background:rgba(99,102,241,0.07);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;';
       aiRecDiv.innerHTML='🤖 <em style="color:var(--muted);">AI generating next steps…</em>';
       container.appendChild(aiRecDiv);
 
       var profile2 = CS_PERSONALISE.getProfile ? CS_PERSONALISE.getProfile() : {};
-      var need2 = profile2.learningNeed||'general';
-      _psGemCall(
-        'You are a learning coach AI for CelikSense Malaysia.\n\nA learner with '+need2+' need has completed '+( profile2.totalSessions||0)+' sessions. They use audio TTS '+(profile2.audioUsageCount||0)+' times and OCR '+(profile2.ocrUsageCount||0)+' times.\n\nSuggest 2 specific next learning activities for this week. Each activity: tool name + what to do + expected benefit. Max 15 words per activity.\n\nLanguage: '+(lang==='ms'?'Bahasa Melayu':'English')+'\nFormat: Activity 1: ... / Activity 2: ...'
-      ).then(function(result){
-        aiRecDiv.innerHTML='🤖 <strong>AI Next Steps:</strong><br>'+result.replace(/\n/g,'<br>').replace(/Activity/g,'<br><strong>Activity');
-      }).catch(function(){ aiRecDiv.remove(); });
+      _callAgent('recommendations', { profile: profile2 }).then(function(result){
+        if (result) {
+          aiRecDiv.innerHTML='🤖 <strong>AI Next Steps:</strong><br>'+String(result).replace(/\n/g,'<br>').replace(/Activity/g,'<br><strong>Activity');
+        } else {
+          aiRecDiv.remove();
+        }
+      });
     }
   }
 

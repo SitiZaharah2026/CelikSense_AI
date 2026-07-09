@@ -391,25 +391,36 @@ function readAreaAloud() {
   speak(text);
 }
 
-/* ── Gemini AI helper ──────────────────────────────────────────────────── */
-function _adhdGemKey(){return localStorage.getItem('gemini_api_key')||'';}
-async function _adhdGemCall(prompt){
-  const key=_adhdGemKey();
-  if(!key) throw new Error('no_key');
-  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
-  const d=await r.json();
-  if(d.error) throw new Error(d.error.message);
-  return (d.candidates||[])[0]?.content?.parts?.[0]?.text||'No response.';
+/* ── Serverless agent helper ───────────────────────────────────────────── */
+async function _callAgent(task, payload) {
+  var apiKey = '';
+  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  var body = Object.assign({ task: task, lang: (typeof LANG !== 'undefined' ? LANG : null) || localStorage.getItem('cs_lang') || 'ms', apiKey: apiKey }, payload);
+  try {
+    var res = await fetch('/api/agents/adhd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    var data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Agent error');
+    return data.output;
+  } catch(err) {
+    console.error('[agent-call]', err);
+    return null;
+  }
 }
 
-/* ── AI Strategy Generator (real Gemini) ──────────────────────────────── */
+/* ── AI Strategy Generator ─────────────────────────────────────────────── */
 async function generateStrategy() {
   const interest = document.getElementById('interestInput').value || 'general topics';
   const mode = document.getElementById('readingMode').value;
   const el = document.getElementById('strategyOutput');
   el.classList.remove('hidden');
 
-  if(!_adhdGemKey()){
+  var apiKey = '';
+  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  if (!apiKey) {
     const fallbacks={focus:`Focus Window Strategy for <strong>${interest}</strong>:<br>• Isolate one line at a time.<br>• 10-min timer, 3-min breaks.<br>• Highlight key concepts in yellow.`,chunk:`Chunk Reading for <strong>${interest}</strong>:<br>• 3–4 sentence chunks.<br>• Summarise each chunk in 1 sentence.<br>• Use TTS when overwhelmed.`,free:`Free Reading for <strong>${interest}</strong>:<br>• No pressure — your own pace.<br>• Mark interesting words.<br>• Stop when focus drops.`};
     el.innerHTML=`<strong>📋 Strategy:</strong><br><br>${fallbacks[mode]||fallbacks.free}<br><br><small style="color:var(--muted);">💡 Add Gemini API key in <a href="settings.html">Settings</a> for personalised AI strategies.</small>`;
     return;
@@ -417,15 +428,13 @@ async function generateStrategy() {
 
   el.innerHTML='<div style="padding:10px;font-size:13px;color:var(--muted);">🤖 Generating personalised ADHD strategy…</div>';
   const modeLabel={focus:'Focus Window (one paragraph at a time)',chunk:'Chunk Reading (short segments)',free:'Free Reading (self-paced)'}[mode]||mode;
-  try {
-    const result = await _adhdGemCall(
-      `You are an educational specialist for students with ADHD. Create a personalised reading strategy for a student interested in "${interest}" using the "${modeLabel}" reading mode.\n\nProvide:\n1. A strategy name\n2. 4-5 specific, actionable steps (short bullet points)\n3. One ADHD-specific motivation tip\n4. A quick self-check question\n\nKeep it encouraging, practical, and under 150 words. Format with line breaks between sections.`
-    );
+  const result = await _callAgent('strategy', { interest, mode: modeLabel, profile_summary: interest, session_count: completedSessions });
+  if (result) {
     el.innerHTML=`<strong>🤖 AI-Personalised Strategy:</strong><br><br>${result.replace(/\n/g,'<br>')}`;
     // Share with Learning Coach agent
     localStorage.setItem('cs_adhd_strategy', JSON.stringify({interest,mode,strategy:result,ts:Date.now()}));
-  } catch(e) {
-    el.innerHTML=`<span style="color:var(--danger);">⚠️ ${e.message==='no_key'?'Add Gemini API key in <a href="settings.html">Settings</a>.':'AI error. Please try again.'}</span>`;
+  } else {
+    el.innerHTML=`<span style="color:var(--danger);">⚠️ AI error. Please try again or add Gemini API key in <a href="settings.html">Settings</a>.</span>`;
   }
 }
 
@@ -453,22 +462,22 @@ async function showIntervention() {
   const score = currentFocusScore||70;
   const interest = document.getElementById('interestInput').value||'general topics';
 
-  if(!_adhdGemKey()){
-    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today.</div></div><strong>Next Steps:</strong><br>• Take a 5-minute movement break<br>• Drink water and look away from screen<br>• Review your notes before next session`;
+  var apiKey = '';
+  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  if (!apiKey) {
+    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today.</div></div><strong>Next Steps:</strong><br>• Take a 5-minute movement break<br>• Drink water and look away from screen<br>• Review your notes before next session<br><br><small>💡 Add Gemini API key in <a href="settings.html">Settings</a> for AI-personalised interventions.</small>`;
     return;
   }
 
   el.innerHTML='<div style="padding:10px;font-size:13px;color:var(--muted);">🤖 Analysing your session…</div>';
-  try {
-    const result = await _adhdGemCall(
-      `A student with ADHD just completed a ${sessionMins}-minute reading session about "${interest}". Their focus score was ${score}/100 and they completed ${completedSessions} session(s) today.\n\nProvide a brief, encouraging post-session message with:\n1. One specific praise for their effort\n2. Two practical next steps (based on their focus score)\n3. One motivational sentence\n\nKeep it under 80 words. Be warm and supportive.`
-    );
+  const result = await _callAgent('intervention', { profile_summary: interest, session_count: completedSessions, focus_score: score, session_mins: sessionMins });
+  if (result) {
     el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today.</div></div><div style="font-size:14px;line-height:1.7;">${result.replace(/\n/g,'<br>')}</div>`;
     // Chain to Early Warning — save session result
     const prev = JSON.parse(localStorage.getItem('cs_adhd_sessions')||'[]');
     prev.push({score,sessions:completedSessions,interest,ts:Date.now()});
     localStorage.setItem('cs_adhd_sessions', JSON.stringify(prev.slice(-10)));
-  } catch(e) {
+  } else {
     el.innerHTML=`<div class="alert alert-success"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today. Great effort!</div></div>`;
   }
 }

@@ -934,35 +934,84 @@ async function runOCR() {
   }
 }
 
-/* ── AI Post-Processing (Gemini) — auto-runs after OCR ─────────────────── */
-function _ocrGemKey(){ return localStorage.getItem('gemini_api_key')||''; }
+/* ── Agent helper — calls /api/agents/ocr serverless endpoint ─────────── */
+async function _callAgent(task, payload) {
+  var apiKey = '';
+  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  var body = Object.assign({ task: task, lang: currentLang || 'ms', apiKey: apiKey }, payload);
+  try {
+    var res = await fetch('/api/agents/ocr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    var data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Agent error');
+    return data.output;
+  } catch(err) {
+    console.error('[agent-call]', err);
+    return null;
+  }
+}
+
+/* ── AI Post-Processing — auto-runs after OCR ─────────────────────────── */
 async function _ocrAiPostProcess(text) {
-  if(!text || text.trim().length < 30 || !_ocrGemKey()) return;
+  if (!text || text.trim().length < 30) return;
+  var apiKey = '';
+  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+
   // Inject AI panel below the OCR result
   var resultArea = document.getElementById('resultBody') || document.querySelector('.ocr-output');
-  if(!resultArea) return;
-  var aiPanel = document.createElement('div');
+  if (!resultArea) return;
+  var aiPanel = document.getElementById('ocrAiPanel') || document.createElement('div');
   aiPanel.id = 'ocrAiPanel';
-  aiPanel.style.cssText='margin-top:14px;padding:14px;background:rgba(99,102,241,0.07);border-radius:12px;border-left:4px solid #6366f1;font-size:13px;';
-  aiPanel.innerHTML='🤖 <strong>AI Analysis</strong> — <em style="color:var(--muted);">Analysing extracted text…</em>';
+  aiPanel.style.cssText = 'margin-top:14px;padding:14px;background:rgba(99,102,241,0.07);border-radius:12px;border-left:4px solid #6366f1;font-size:13px;';
+
+  if (!apiKey) {
+    aiPanel.innerHTML = '🤖 <strong>AI Analysis</strong> — <em style="color:var(--text-muted);">Add your API key in <a href="settings.html" style="color:#6366f1;">Settings</a> to enable AI analysis.</em>';
+    resultArea.insertAdjacentElement('afterend', aiPanel);
+    return;
+  }
+
+  aiPanel.innerHTML = '🤖 <strong>AI Analysis</strong> — <em style="color:var(--text-muted);">Analysing extracted text…</em>';
   resultArea.insertAdjacentElement('afterend', aiPanel);
+
   try {
-    var key=_ocrGemKey();
-    var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:
-      'You are an AI assistant for CelikSense, a Malaysian inclusive education platform. A student has just used OCR to extract text from an image.\n\nExtracted text:\n"'+text.slice(0,1500)+'"\n\nProvide a brief AI analysis with:\n1. Text quality: Was the OCR likely accurate? (1 sentence)\n2. Content summary: What is this text about? (1 sentence, simple language)\n3. Suggested next step: Which CelikSense tool would help most? Choose one: AI Teacher (explain), ADHD Reader (focus reading), Reading Companion (comprehension), Dyslexia Agent (simplified reading)\n\nKeep total response under 80 words. Be helpful and encouraging.'
-    }]}]})});
-    var d=await r.json();
-    if(d.error) throw new Error(d.error.message);
-    var output=(d.candidates||[])[0]?.content?.parts?.[0]?.text||'';
-    // Map suggested tool to link
-    var toolLinks={'AI Teacher':'<a href="ai-teacher-agent.html" class="btn btn-primary btn-sm" style="margin-left:8px;">Open AI Teacher →</a>','ADHD Reader':'<a href="adhd-reader.html" class="btn btn-primary btn-sm" style="margin-left:8px;">Open ADHD Reader →</a>','Reading Companion':'<a href="reading-companion.html" class="btn btn-primary btn-sm" style="margin-left:8px;">Open Reading Companion →</a>','Dyslexia Agent':'<a href="dyslexia-agent.html" class="btn btn-primary btn-sm" style="margin-left:8px;">Open Dyslexia Agent →</a>'};
-    var linkBtn='';
-    Object.keys(toolLinks).forEach(function(tool){ if(output.indexOf(tool)!==-1) linkBtn=toolLinks[tool]; });
-    aiPanel.innerHTML='🤖 <strong>AI Analysis:</strong><br><br>'+output.replace(/\n/g,'<br>').replace(/\*\*/g,'')+(linkBtn?'<div style="margin-top:10px;">'+linkBtn+'<a href="ai-teacher-agent.html" class="btn btn-ghost btn-sm" style="margin-left:6px;" onclick="localStorage.setItem(\'ocrExtractedText\',\''+encodeURIComponent(text.slice(0,500))+'\')">Send to Teacher →</a></div>':'');
+    // Step 1: summarise
+    var summary = await _callAgent('summarise', { text: text.slice(0, 1500) });
+    if (!summary) throw new Error('No summary returned');
+
+    // Step 2: suggest tool
+    var suggestion = await _callAgent('suggest', { text: text.slice(0, 1500) });
+
+    // Map suggested tool name to a link
+    var toolLinks = {
+      'AI Teacher':         '<a href="ai-teacher-agent.html" class="btn btn-primary btn-sm" style="margin-left:8px;">Open AI Teacher →</a>',
+      'ADHD Reader':        '<a href="adhd-agent.html" class="btn btn-primary btn-sm" style="margin-left:8px;">Open ADHD Reader →</a>',
+      'Reading Companion':  '<a href="reading-companion.html" class="btn btn-primary btn-sm" style="margin-left:8px;">Open Reading Companion →</a>',
+      'Dyslexia Agent':     '<a href="dyslexia-agent.html" class="btn btn-primary btn-sm" style="margin-left:8px;">Open Dyslexia Agent →</a>'
+    };
+    var linkBtn = '';
+    if (suggestion) {
+      Object.keys(toolLinks).forEach(function(tool) {
+        if (suggestion.indexOf(tool) !== -1) linkBtn = toolLinks[tool];
+      });
+    }
+
+    aiPanel.innerHTML = '🤖 <strong>AI Analysis:</strong><br><br>' +
+      summary.replace(/\n/g, '<br>').replace(/\*\*/g, '') +
+      (linkBtn
+        ? '<div style="margin-top:10px;">' + linkBtn +
+          '<a href="ai-teacher-agent.html" class="btn btn-ghost btn-sm" style="margin-left:6px;" ' +
+          'onclick="localStorage.setItem(\'ocrExtractedText\',\'' + encodeURIComponent(text.slice(0, 500)) + '\')">Send to Teacher →</a></div>'
+        : '');
+
     // Cross-agent: save to localStorage for teacher agent
     localStorage.setItem('ocrExtractedText', text.trim());
     localStorage.setItem('ocr_extracted_text', text.trim());
-  } catch(e){ aiPanel.remove(); }
+  } catch(e) {
+    aiPanel.remove();
+  }
 }
 
 function logOCR(m) {
