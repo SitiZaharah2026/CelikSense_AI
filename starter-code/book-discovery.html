@@ -748,9 +748,7 @@ var ALL_PANELS = ['upload','scan','gutenberg','openlibrary','googlebooks',
 function hideAllPanels() {
   ALL_PANELS.forEach(function(id) {
     var el = document.getElementById('panel-' + id);
-    if (el) el.style.display = 'none';
-    var rp = document.getElementById('panel-' + id);
-    if (rp) rp.classList && rp.classList.remove('visible');
+    if (el) { el.style.display = ''; el.classList.remove('visible'); }
   });
   document.querySelectorAll('.source-card').forEach(function(c){ c.classList.remove('active'); });
 }
