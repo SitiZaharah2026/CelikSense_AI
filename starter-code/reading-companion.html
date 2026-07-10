@@ -620,27 +620,64 @@ function sendToSignAgent() {
 </script>
 <script src="personalisation-system.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Auto-load book sent from Book Discovery
+function _rcLoadBookFromStorage() {
   try {
     var bookContent = localStorage.getItem('cs_book_content');
     var bookTitle   = localStorage.getItem('cs_book_content_title');
-    if (bookContent && bookContent.trim()) {
-      var ta = document.getElementById('readingInput');
-      if (ta) {
-        ta.value = bookContent;
-        setTimeout(function() { if (typeof loadText === 'function') loadText(); }, 150);
-      }
-      if (bookTitle) {
-        var notice = document.createElement('div');
-        notice.style.cssText = 'background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:8px;padding:8px 14px;font-size:13px;color:#4338ca;margin-bottom:12px;';
-        notice.innerHTML = '📖 <strong>' + bookTitle + '</strong> dimuatkan dari Book Discovery';
-        if (ta && ta.parentNode) ta.parentNode.insertBefore(notice, ta);
-      }
-      localStorage.removeItem('cs_book_content');
-      localStorage.removeItem('cs_book_content_title');
+    if (!bookContent || !bookContent.trim()) return;
+    var ta = document.getElementById('readingInput');
+    if (ta) {
+      ta.value = bookContent;
+      setTimeout(function() { if (typeof loadText === 'function') loadText(); }, 150);
+    }
+    localStorage.removeItem('cs_book_content');
+    localStorage.removeItem('cs_book_content_title');
+    // show success banner
+    var old = document.getElementById('_rcBookBanner');
+    if (old) old.remove();
+    var banner = document.createElement('div');
+    banner.id = '_rcBookBanner';
+    banner.style.cssText = 'background:rgba(99,102,241,0.12);border:1.5px solid rgba(99,102,241,0.35);border-radius:10px;padding:10px 16px;font-size:13px;color:#4338ca;margin-bottom:14px;display:flex;align-items:center;gap:10px;';
+    banner.innerHTML = '📖 <strong>' + (bookTitle || 'Buku') + '</strong> berjaya dimuatkan ke Reading Area <button onclick="this.parentNode.remove()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;color:#6366f1;">✕</button>';
+    if (ta && ta.parentNode) ta.parentNode.insertBefore(banner, ta);
+  } catch(e) {}
+}
+
+function _rcCheckPendingBook() {
+  try {
+    var bookContent = localStorage.getItem('cs_book_content');
+    var bookTitle   = localStorage.getItem('cs_book_content_title');
+    if (!bookContent || !bookContent.trim()) return;
+    // show floating load button
+    var existing = document.getElementById('_rcFloatBtn');
+    if (existing) return;
+    var btn = document.createElement('div');
+    btn.id = '_rcFloatBtn';
+    btn.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;background:#6366f1;color:#fff;border-radius:14px;padding:14px 20px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(99,102,241,0.45);display:flex;align-items:center;gap:10px;animation:rcPulse 1.5s infinite;';
+    btn.innerHTML = '📖 ' + (bookTitle ? '<strong>' + bookTitle + '</strong>' : 'Buku') + ' — Muatkan ke Reading Area';
+    btn.onclick = function() { btn.remove(); _rcLoadBookFromStorage(); };
+    document.body.appendChild(btn);
+    if (!document.getElementById('_rcPulseStyle')) {
+      var s = document.createElement('style');
+      s.id = '_rcPulseStyle';
+      s.textContent = '@keyframes rcPulse{0%,100%{box-shadow:0 6px 24px rgba(99,102,241,0.45)}50%{box-shadow:0 6px 32px rgba(99,102,241,0.75)}}';
+      document.head.appendChild(s);
     }
   } catch(e) {}
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Auto-load or show button for book sent from Book Discovery
+  if (localStorage.getItem('cs_book_content')) {
+    _rcLoadBookFromStorage();
+  }
+  // When user returns to this tab after visiting Book Discovery
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') _rcCheckPendingBook();
+  });
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'cs_book_content' && e.newValue) _rcCheckPendingBook();
+  });
   if (!window.CS_PERSONALISE) return;
   CS_PERSONALISE.init();
   CS_PERSONALISE.trackAgentUse('reading-companion');
