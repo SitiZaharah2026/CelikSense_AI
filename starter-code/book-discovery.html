@@ -582,6 +582,12 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   <!-- Project Gutenberg results -->
   <section class="results-panel" id="panel-gutenberg" aria-labelledby="gutenbergHeading" aria-live="polite">
     <div class="results-panel-title" id="gutenbergHeading">🌍 <span data-i18n="bd_src_gutenberg">Project Gutenberg</span> — <span style="color:#1e40af;font-size:11px;" data-i18n="bd_badge_public">Public Domain</span></div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;">
+      <input type="text" id="gutenbergSearchInput" placeholder="Cari tajuk / pengarang… contoh: rose, shakespeare, malay"
+        style="flex:1;padding:10px 14px;border:1.5px solid rgba(99,102,241,0.3);border-radius:10px;font-size:14px;outline:none;"
+        onkeydown="if(event.key==='Enter') searchGutenberg()">
+      <button onclick="searchGutenberg()" style="padding:10px 20px;background:#6366f1;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px;">🔍 Cari</button>
+    </div>
     <div class="book-result-list" id="gutenbergResults"></div>
   </section>
 
@@ -850,6 +856,12 @@ function renderGutenbergBooks(books) {
       '</div>' +
     '</div>';
   }).join('');
+}
+
+function searchGutenberg() {
+  var inp = document.getElementById('gutenbergSearchInput');
+  var q = inp ? inp.value.trim() : '';
+  showGutenberg(q);
 }
 
 function showGutenberg(q) {
