@@ -763,16 +763,18 @@ function activateSource(id) {
     if (onclick.includes("'" + id + "'")) c.classList.add('active');
   });
 
+  var currentQ = (document.getElementById('bdSearchInput') ? document.getElementById('bdSearchInput').value.trim() : '');
+
   if (id === 'upload') {
     document.getElementById('panel-upload').style.display = 'block';
   } else if (id === 'scan') {
     document.getElementById('panel-scan').style.display = 'block';
   } else if (id === 'gutenberg') {
-    showGutenberg('');
+    showGutenberg(currentQ);
   } else if (id === 'openlibrary') {
-    showOpenLibrary('');
+    showOpenLibrary(currentQ);
   } else if (id === 'googlebooks') {
-    showGoogleBooks('');
+    showGoogleBooks(currentQ);
   } else if (id === 'school') {
     document.getElementById('panel-school').style.display = 'block';
   } else if (id === 'university') {
