@@ -990,16 +990,45 @@ function searchOPACUni() {
 function selectBook(book) {
   if (typeof book === 'string') { try { book = JSON.parse(book); } catch(e){} }
   _selectedBook = book;
-  var text = book.extract || book.title + ' by ' + (book.author || '') + '. ' +
-    (book.availability ? 'Availability: ' + book.availability + '.' : '') +
-    ' [Preview only — do not reproduce full copyrighted content.]';
-  localStorage.setItem('cs_book_content', text);
+
+  // Show panel immediately
   localStorage.setItem('cs_book_content_title', book.title || '');
   var panel = document.getElementById('sendPanel');
   panel.classList.add('visible');
-  document.getElementById('sendBookName').textContent = '📖 ' + (book.title || 'Selected book');
+  var nameEl = document.getElementById('sendBookName');
+  nameEl.textContent = '📖 ' + (book.title || 'Selected book');
   panel.scrollIntoView({ behavior:'smooth', block:'start' });
-  CS.toast(CS.lang.t('bd_sent_ok').replace('Opening agent…',''), 'success');
+
+  // If real Gutenberg book with txt_url, fetch actual text
+  if (book.txt_url) {
+    nameEl.textContent = '📖 ' + (book.title || '') + ' — ⏳ Memuatkan teks…';
+    localStorage.setItem('cs_book_content', book.title + ' by ' + (book.author || '') + '\n\n[Memuatkan teks buku...]');
+    // Use cors proxy to fetch txt file
+    var proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(book.txt_url);
+    fetch(proxyUrl)
+      .then(function(r){ return r.text(); })
+      .then(function(txt){
+        // Take first 3000 chars, skip Project Gutenberg header boilerplate
+        var start = txt.indexOf('*** START OF');
+        var clean = start > -1 ? txt.slice(txt.indexOf('\n', start) + 1) : txt;
+        var excerpt = clean.replace(/\r\n/g,'\n').trim().slice(0, 3000);
+        localStorage.setItem('cs_book_content', excerpt);
+        nameEl.textContent = '📖 ' + (book.title || '') + ' — ✅ Teks dimuatkan';
+        CS.toast('Teks buku dimuatkan — pilih ejen', 'success');
+      })
+      .catch(function(){
+        // Fallback to extract
+        var fallback = book.extract || book.title + ' by ' + (book.author || '');
+        localStorage.setItem('cs_book_content', fallback);
+        nameEl.textContent = '📖 ' + (book.title || '');
+        CS.toast('Buku dipilih', 'success');
+      });
+  } else {
+    var text = book.extract || book.title + ' by ' + (book.author || '') + '. ' +
+      (book.availability ? 'Availability: ' + book.availability + '.' : '');
+    localStorage.setItem('cs_book_content', text);
+    CS.toast(CS.lang.t('bd_sent_ok') || 'Buku dipilih', 'success');
+  }
 }
 
 function sendTo(page) {
