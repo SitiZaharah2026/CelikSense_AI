@@ -1,4 +1,4 @@
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { getLLM } from "./_llm.js";
 import { tool } from "@langchain/core/tools";
 import { createReactAgent } from "langchain/agents";
 import { z } from "zod";
@@ -79,9 +79,8 @@ export default async function handler(req, res) {
   } = req.body || {};
 
   const apiKey = bodyKey || process.env.GEMINI_API_KEY;
-  if (!apiKey) { res.writeHead(500, CORS).end(JSON.stringify({ error: "GEMINI_API_KEY not configured" })); return; }
-
-  const resolvedRiskSummary = risk_summary || (risk_data ? JSON.stringify(risk_data) : null);
+  const groqKey = req.body?.groqKey || process.env.GROQ_API_KEY;
+const resolvedRiskSummary = risk_summary || (risk_data ? JSON.stringify(risk_data) : null);
 
   if (task === "plan" && !resolvedRiskSummary) {
     res.writeHead(400, CORS).end(JSON.stringify({ error: "risk_summary or risk_data is required for task: plan" })); return;
@@ -94,7 +93,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const llm = new ChatGoogleGenerativeAI({ model: "gemini-2.0-flash-thinking-exp-01-21", apiKey, temperature: 0.4 });
+    const llm = getLLM({ geminiKey: apiKey, groqKey });
     const tools = [generate_plan, personalise_activities, progress_check];
     const agent = await createReactAgent({ llm, tools });
 

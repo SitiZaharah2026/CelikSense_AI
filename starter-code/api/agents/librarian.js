@@ -10,7 +10,7 @@
  * Body: { query: string, need: "dyslexia"|"adhd"|"visual"|"general", lang: "en"|"ms" }
  */
 
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { getLLM } from "./_llm.js";
 import { tool } from "@langchain/core/tools";
 import { createReactAgent } from "langchain/agents";
 import { z } from "zod";
@@ -101,18 +101,11 @@ export default async function handler(req, res) {
     return;
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    res.writeHead(500, CORS).end(JSON.stringify({ error: "GEMINI_API_KEY not configured" }));
-    return;
-  }
+  const apiKey = req.body?.apiKey || process.env.GEMINI_API_KEY;
+  const groqKey = req.body?.groqKey || process.env.GROQ_API_KEY;));
 
   try {
-    const llm = new ChatGoogleGenerativeAI({
-      model: "gemini-2.0-flash-thinking-exp-01-21",
-      apiKey,
-      temperature: 0.5,
-    });
+    const llm = getLLM({ geminiKey: apiKey, groqKey });
 
     const tools = [recommendBooksTool, explainTopicTool, findResourcesTool];
     const agent = await createReactAgent({ llm, tools });

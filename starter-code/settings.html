@@ -373,6 +373,41 @@
           </div>
         </div>
 
+        <!-- ── Groq Fallback Key ── -->
+        <div class="settings-section">
+          <div class="settings-section-title">🔄 Groq AI <span style="font-size:11px;font-weight:400;color:var(--text-muted);margin-left:6px;">Alternatif percuma apabila kuota Gemini habis</span></div>
+          <div class="settings-section-desc">
+            Groq menyediakan model LLaMA 3.3 secara percuma (14,400 request/hari). Apabila kuota Gemini anda habis, sistem akan guna Groq secara automatik.
+            <br>Dapatkan key percuma di <a href="https://console.groq.com/keys" target="_blank" rel="noopener" style="color:var(--primary-light);">console.groq.com ↗</a>
+          </div>
+
+          <div id="groqStatusBadge" class="api-status none" aria-live="polite" style="margin-top:10px;">
+            <span id="groqStatusDot">⚪</span>
+            <span id="groqStatusText">No Groq key set</span>
+          </div>
+
+          <div class="api-key-row" style="margin-top:12px;">
+            <input
+              type="password"
+              id="groqKeyInput"
+              class="api-key-input"
+              placeholder="Paste your Groq API key here (gsk_...)"
+              aria-label="Groq API key"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button class="btn btn-ghost btn-sm" onclick="toggleGroqKeyVis()" aria-label="Show/hide key">👁</button>
+            <button class="btn btn-primary btn-sm" onclick="saveGroqKey()">Simpan</button>
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-ghost btn-sm" onclick="clearGroqKey()">Padam Key</button>
+          </div>
+
+          <div style="margin-top:14px;padding:10px 13px;background:rgba(52,211,153,0.08);border-radius:var(--radius);border:1px solid rgba(52,211,153,0.2);font-size:12.5px;color:var(--text-muted);">
+            ⚡ <strong style="color:#34d399;">Auto-fallback:</strong> Sistem akan guna Gemini dahulu. Jika gagal atau tiada key, Groq digunakan secara automatik. Tiada tindakan manual diperlukan.
+          </div>
+        </div>
+
         <div class="settings-section">
           <div class="settings-section-title">⚡ <span data-i18n="set_ai_prefs">AI Preferences</span></div>
           <div class="settings-section-desc" data-i18n="set_ai_prefs_desc">Control how AI features behave.</div>
@@ -925,6 +960,46 @@ function toggleKeyVis() {
   input.type = input.type === 'password' ? 'text' : 'password';
 }
 
+function saveGroqKey() {
+  var input = document.getElementById('groqKeyInput');
+  var val = input.value.trim();
+  if (!val) { CS.toast('Masukkan Groq API key dahulu', 'warn'); return; }
+  try { localStorage.setItem('groq_api_key', val); } catch(e) {}
+  loadGroqStatus();
+  CS.toast('Groq API key disimpan!', 'success');
+}
+
+function clearGroqKey() {
+  try { localStorage.removeItem('groq_api_key'); } catch(e) {}
+  document.getElementById('groqKeyInput').value = '';
+  loadGroqStatus();
+  CS.toast('Groq API key dipadamkan', 'info');
+}
+
+function toggleGroqKeyVis() {
+  var input = document.getElementById('groqKeyInput');
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+function loadGroqStatus() {
+  var badge = document.getElementById('groqStatusBadge');
+  var dot   = document.getElementById('groqStatusDot');
+  var text  = document.getElementById('groqStatusText');
+  if (!badge) return;
+  var key = '';
+  try { key = localStorage.getItem('groq_api_key') || ''; } catch(e) {}
+  if (key) {
+    badge.className = 'api-status ok';
+    dot.textContent = '🟢';
+    text.textContent = 'Groq key tersimpan — auto-fallback aktif';
+    document.getElementById('groqKeyInput').value = '••••••••••••••••';
+  } else {
+    badge.className = 'api-status none';
+    dot.textContent = '⚪';
+    text.textContent = 'Tiada Groq key — hanya Gemini digunakan';
+  }
+}
+
 function testConnection() {
   var badge = document.getElementById('apiStatusBadge');
   var dot   = document.getElementById('apiStatusDot');
@@ -1310,6 +1385,7 @@ async function aeTestProvider(name) {
 /* ── Init ─────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function() {
   loadApiStatus();
+  loadGroqStatus();
   loadPrefs();
   loadAccessibilityPanel();
   loadProfilePanel();
