@@ -455,91 +455,78 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </div>
   </div>
 
-  <!-- Source cards -->
-  <section aria-labelledby="sourcesHeading" style="margin-bottom:32px;">
-    <div class="bd-section-title">
-      <h2 id="sourcesHeading" data-i18n="bd_sources_title">Choose a Book Source</h2>
+  <!-- Agentic source status bar -->
+  <div id="agentStatusBar" style="display:none;background:rgba(99,102,241,0.07);border:1.5px solid rgba(99,102,241,0.2);border-radius:14px;padding:14px 20px;margin-bottom:24px;">
+    <div style="font-size:13px;font-weight:700;color:#4338ca;margin-bottom:10px;">🤖 Ejen AI mencari serentak dari semua sumber…</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;" id="agentSourcePills">
+      <span id="pill-gutenberg" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#e0f2fe;color:#0369a1;">⏳ Project Gutenberg</span>
+      <span id="pill-openlibrary" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#e0f2fe;color:#0369a1;">⏳ Open Library</span>
+      <span id="pill-googlebooks" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#e0f2fe;color:#0369a1;">⏳ Google Books</span>
     </div>
-    <div class="source-grid" role="list">
+  </div>
+
+  <!-- Manual / Upload sources (collapsed by default) -->
+  <details style="margin-bottom:24px;">
+    <summary style="cursor:pointer;font-weight:700;font-size:14px;color:#6366f1;padding:10px 0;list-style:none;display:flex;align-items:center;gap:8px;">
+      <span>📁</span> Sumber Manual &amp; Muat Naik
+      <span style="font-size:11px;font-weight:400;color:#94a3b8;margin-left:4px;">(Upload PDF, Scan, Cloud, Perpustakaan, IAB)</span>
+    </summary>
+    <div class="source-grid" role="list" style="margin-top:14px;">
 
       <div class="source-card" role="listitem" tabindex="0"
            onclick="activateSource('upload')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('upload')}"
            aria-label="Upload PDF or document — User Owned">
         <span class="source-icon" aria-hidden="true">📄</span>
-        <div class="source-name" data-i18n="bd_src_upload_pdf">Upload PDF</div>
-        <span class="source-badge sb-owned" data-i18n="bd_badge_owned">User Owned</span>
+        <div class="source-name">Upload PDF</div>
+        <span class="source-badge sb-owned">User Owned</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
            onclick="activateSource('scan')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('scan')}"
            aria-label="Scan physical book — OCR Required">
         <span class="source-icon" aria-hidden="true">📷</span>
-        <div class="source-name" data-i18n="bd_src_scan">Scan Physical Book</div>
-        <span class="source-badge sb-ocr" data-i18n="bd_badge_ocr">OCR Required</span>
-      </div>
-
-      <div class="source-card" role="listitem" tabindex="0"
-           onclick="activateSource('gutenberg')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('gutenberg')}"
-           aria-label="Project Gutenberg — Public Domain">
-        <span class="source-icon" aria-hidden="true">🌍</span>
-        <div class="source-name" data-i18n="bd_src_gutenberg">Project Gutenberg</div>
-        <span class="source-badge sb-public" data-i18n="bd_badge_public">Public Domain</span>
-      </div>
-
-      <div class="source-card" role="listitem" tabindex="0"
-           onclick="activateSource('openlibrary')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('openlibrary')}"
-           aria-label="Open Library — Preview and Borrow">
-        <span class="source-icon" aria-hidden="true">📚</span>
-        <div class="source-name" data-i18n="bd_src_openlibrary">Open Library</div>
-        <span class="source-badge sb-preview" data-i18n="bd_badge_preview">Preview Only</span>
-      </div>
-
-      <div class="source-card" role="listitem" tabindex="0"
-           onclick="activateSource('googlebooks')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('googlebooks')}"
-           aria-label="Google Books Preview — Preview Only">
-        <span class="source-icon" aria-hidden="true">📘</span>
-        <div class="source-name" data-i18n="bd_src_gbooks">Google Books Preview</div>
-        <span class="source-badge sb-preview" data-i18n="bd_badge_preview">Preview Only</span>
+        <div class="source-name">Scan Physical Book</div>
+        <span class="source-badge sb-ocr">OCR Required</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
            onclick="activateSource('school')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('school')}"
            aria-label="School Library OPAC — Library Access">
         <span class="source-icon" aria-hidden="true">🏫</span>
-        <div class="source-name" data-i18n="bd_src_school">School Library</div>
-        <span class="source-badge sb-library" data-i18n="bd_badge_library">Library Access</span>
+        <div class="source-name">School Library</div>
+        <span class="source-badge sb-library">Library Access</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
            onclick="activateSource('university')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('university')}"
            aria-label="University Library OPAC — Library Access">
         <span class="source-icon" aria-hidden="true">🎓</span>
-        <div class="source-name" data-i18n="bd_src_uni">University Library</div>
-        <span class="source-badge sb-library" data-i18n="bd_badge_library">Library Access</span>
+        <div class="source-name">University Library</div>
+        <span class="source-badge sb-library">Library Access</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
            onclick="activateSource('gdrive')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('gdrive')}"
            aria-label="Google Drive — User Owned">
         <span class="source-icon" aria-hidden="true">☁️</span>
-        <div class="source-name" data-i18n="bd_src_gdrive">Google Drive</div>
-        <span class="source-badge sb-owned" data-i18n="bd_badge_owned">User Owned</span>
+        <div class="source-name">Google Drive</div>
+        <span class="source-badge sb-owned">User Owned</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
            onclick="activateSource('onedrive')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('onedrive')}"
            aria-label="OneDrive — User Owned">
         <span class="source-icon" aria-hidden="true">☁️</span>
-        <div class="source-name" data-i18n="bd_src_onedrive">OneDrive</div>
-        <span class="source-badge sb-owned" data-i18n="bd_badge_owned">User Owned</span>
+        <div class="source-name">OneDrive</div>
+        <span class="source-badge sb-owned">User Owned</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
            onclick="activateSource('community')" onkeydown="if(event.key==='Enter'||event.key===' '){activateSource('community')}"
-           aria-label="Community Learning Materials — Learning Material Only">
+           aria-label="Community Learning Materials">
         <span class="source-icon" aria-hidden="true">🧠</span>
-        <div class="source-name" data-i18n="bd_src_community">Community Materials</div>
-        <span class="source-badge sb-learning" data-i18n="bd_badge_learning">Learning Material</span>
+        <div class="source-name">Community Materials</div>
+        <span class="source-badge sb-learning">Learning Material</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
@@ -551,7 +538,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       </div>
 
     </div>
-  </section>
+  </details>
 
   <!-- Dynamic source panels -->
 
@@ -866,13 +853,36 @@ function activateSource(id) {
 }
 
 /* ── Search ──────────────────────────────────────────────── */
+function setPill(id, state, count) {
+  var el = document.getElementById('pill-' + id);
+  if (!el) return;
+  var icons = { loading:'⏳', done:'✅', error:'⚠️' };
+  var colors = {
+    loading: 'background:#e0f2fe;color:#0369a1;',
+    done:    'background:#dcfce7;color:#15803d;',
+    error:   'background:#fef9c3;color:#854d0e;'
+  };
+  var labels = { gutenberg:'Project Gutenberg', openlibrary:'Open Library', googlebooks:'Google Books' };
+  var suffix = (state === 'done' && count !== undefined) ? ' (' + count + ')' : '';
+  el.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;' + colors[state];
+  el.textContent = icons[state] + ' ' + labels[id] + suffix;
+}
+
 function runSearch() {
   var q = (document.getElementById('bdSearchInput').value || '').trim();
   if (!q) { showAllSources(); return; }
   hideAllPanels();
   document.getElementById('allResultsSection').style.display = 'block';
-  var results = CS.books.recommend(q);
-  document.getElementById('resultCount').textContent = results.length + ' results';
+  document.getElementById('resultCount').textContent = 'Mencari…';
+
+  // Show agentic status bar
+  var bar = document.getElementById('agentStatusBar');
+  if (bar) bar.style.display = 'block';
+  setPill('gutenberg', 'loading');
+  setPill('openlibrary', 'loading');
+  setPill('googlebooks', 'loading');
+
+  // Fire all 3 API calls simultaneously (agentic parallel search)
   showGutenberg(q);
   showOpenLibrary(q);
   showGoogleBooks(q);
@@ -886,6 +896,8 @@ function quickSearch(term) {
 function showAllSources() {
   hideAllPanels();
   document.getElementById('allResultsSection').style.display = 'none';
+  var bar = document.getElementById('agentStatusBar');
+  if (bar) bar.style.display = 'none';
 }
 
 /* ── Gutenberg ──────────────────────────────────────────── */
@@ -932,9 +944,7 @@ function showGutenberg(q) {
   var panel = document.getElementById('panel-gutenberg');
   var list  = document.getElementById('gutenbergResults');
   panel.classList.add('visible');
-
-  // Always fetch from real Gutenberg API (gutendex.com — free, no key needed)
-  list.innerHTML = '<p style="color:#64748b;font-size:13px;padding:12px 0;">🔍 Memuatkan buku dari Project Gutenberg…</p>';
+  list.innerHTML = '<p style="color:#64748b;font-size:13px;padding:12px 0;">⏳ Memuatkan dari Project Gutenberg…</p>';
   var apiUrl = q
     ? 'https://gutendex.com/books/?search=' + encodeURIComponent(q) + '&mime_type=text'
     : 'https://gutendex.com/books/?mime_type=text&sort=popular';
@@ -946,81 +956,109 @@ function showGutenberg(q) {
         var lang   = (item.languages || ['en']).join(', ').toUpperCase();
         var year   = item.authors && item.authors[0] && item.authors[0].birth_year ? item.authors[0].birth_year : '';
         var txtUrl = item.formats && (item.formats['text/plain; charset=utf-8'] || item.formats['text/plain']);
-        return {
-          id: 'g_' + item.id,
-          title: item.title,
-          author: author,
-          lang: lang,
-          year: year || '',
-          subjects: item.subjects || [],
-          extract: item.summaries && item.summaries[0] ? item.summaries[0] : '',
-          gutenberg_url: 'https://www.gutenberg.org/ebooks/' + item.id,
-          txt_url: txtUrl || ''
-        };
+        return { id:'g_'+item.id, title:item.title, author:author, lang:lang, year:year||'',
+          subjects:item.subjects||[], extract:'',
+          gutenberg_url:'https://www.gutenberg.org/ebooks/'+item.id, txt_url:txtUrl||'' };
       });
       list.innerHTML = books.length ? renderGutenbergBooks(books) :
         '<p style="color:#64748b;font-size:13px;padding:12px 0;">Tiada buku dijumpai untuk "' + escHtml(q) + '".</p>';
+      setPill('gutenberg', 'done', books.length);
     })
     .catch(function(){
-      // Fallback to local mock on network error
-      var fallback = CS.books.GUTENBERG.filter(function(b){
-        return b.title.toLowerCase().includes(q.toLowerCase()) || b.author.toLowerCase().includes(q.toLowerCase());
+      var fallback = (CS.books.GUTENBERG || []).filter(function(b){
+        return !q || b.title.toLowerCase().includes(q.toLowerCase()) || b.author.toLowerCase().includes(q.toLowerCase());
       });
-      list.innerHTML = '<div style="font-size:12px;color:#f59e0b;margin-bottom:8px;">⚠️ Tiada sambungan ke Gutenberg — menunjukkan data tempatan.</div>' +
-        renderGutenbergBooks(fallback.length ? fallback : CS.books.GUTENBERG);
+      list.innerHTML = '<div style="font-size:12px;color:#f59e0b;margin-bottom:8px;">⚠️ Tiada sambungan — data tempatan.</div>' +
+        renderGutenbergBooks(fallback.length ? fallback : (CS.books.GUTENBERG||[]));
+      setPill('gutenberg', 'error');
     });
 }
 
 function showOpenLibrary(q) {
   var panel = document.getElementById('panel-openlibrary');
+  var list  = document.getElementById('openLibResults');
   panel.classList.add('visible');
-  var list = CS.books.OPEN_LIBRARY.filter(function(b) {
-    if (!q) return true;
-    return b.title.toLowerCase().includes(q.toLowerCase()) ||
-           b.author.toLowerCase().includes(q.toLowerCase());
-  });
-  var html = list.length ? list.map(function(b) {
-    return '<div class="book-result">' +
-      '<div class="book-result-meta">' +
-        '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
-        '<div class="book-result-author">' + escHtml(b.author) + '</div>' +
-        legalBadgeHTML('preview') +
-        '<div class="book-result-info" style="margin-top:6px;">📍 ' + escHtml(b.borrow) + '</div>' +
-      '</div>' +
-      '<div class="book-result-actions">' +
-        '<button class="btn-open-cs" onclick="selectBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" ' +
-          'aria-label="Open ' + escHtml(b.title) + ' with CelikSense">Preview with CelikSense</button>' +
-        '<button class="btn-save-lib" onclick="saveBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" aria-label="Save to library">Save</button>' +
-      '</div>' +
-    '</div>';
-  }).join('') : '<p style="color:#64748b;font-size:13px;padding:12px 0;">No results found.</p>';
-  document.getElementById('openLibResults').innerHTML = html;
+  list.innerHTML = '<p style="color:#64748b;font-size:13px;padding:12px 0;">⏳ Memuatkan dari Open Library…</p>';
+  var apiUrl = 'https://openlibrary.org/search.json?limit=12&fields=title,author_name,first_publish_year,cover_i,key,ia'
+    + (q ? '&q=' + encodeURIComponent(q) : '&subject=education');
+  fetch(apiUrl)
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var docs = (data.docs || []).slice(0, 12);
+      if (!docs.length) { list.innerHTML = '<p style="color:#64748b;font-size:13px;padding:12px 0;">Tiada hasil untuk "' + escHtml(q) + '".</p>'; setPill('openlibrary','done',0); return; }
+      list.innerHTML = docs.map(function(d){
+        var b = {
+          id: 'ol_' + (d.key||'').replace('/works/',''),
+          title: d.title || 'Unknown',
+          author: (d.author_name||[]).join(', ') || 'Unknown',
+          year: d.first_publish_year || '',
+          cover: d.cover_i ? 'https://covers.openlibrary.org/b/id/'+d.cover_i+'-M.jpg' : '',
+          ol_url: d.ia ? 'https://archive.org/details/'+d.ia : 'https://openlibrary.org'+(d.key||''),
+          txt_url: d.ia ? 'https://archive.org/download/'+d.ia+'/'+d.ia+'_djvu.txt' : ''
+        };
+        var safeB = JSON.stringify(b).replace(/"/g,'&quot;');
+        return '<div class="book-result">' +
+          (b.cover ? '<img src="'+b.cover+'" style="width:48px;height:66px;object-fit:cover;border-radius:6px;flex-shrink:0;" onerror="this.style.display=\'none\'">' : '') +
+          '<div class="book-result-meta">' +
+            '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
+            '<div class="book-result-author">' + escHtml(b.author) + (b.year?' · '+b.year:'') + '</div>' +
+            legalBadgeHTML('preview') +
+          '</div>' +
+          '<div class="book-result-actions">' +
+            '<button class="btn-open-cs" onclick="selectBook('+safeB+')">Open with CelikSense</button>' +
+            '<button class="btn-save-lib" onclick="saveBook('+safeB+')">Save</button>' +
+          '</div></div>';
+      }).join('');
+      setPill('openlibrary', 'done', docs.length);
+    })
+    .catch(function(){
+      list.innerHTML = '<p style="color:#f59e0b;font-size:13px;padding:12px 0;">⚠️ Tiada sambungan ke Open Library.</p>';
+      setPill('openlibrary', 'error');
+    });
 }
 
 function showGoogleBooks(q) {
   var panel = document.getElementById('panel-googlebooks');
+  var list  = document.getElementById('gBooksResults');
   panel.classList.add('visible');
-  var list = CS.books.GOOGLE_BOOKS.filter(function(b) {
-    if (!q) return true;
-    return b.title.toLowerCase().includes(q.toLowerCase()) ||
-           b.author.toLowerCase().includes(q.toLowerCase());
-  });
-  var html = list.length ? list.map(function(b) {
-    return '<div class="book-result">' +
-      '<div class="book-result-meta">' +
-        '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
-        '<div class="book-result-author">' + escHtml(b.author) + ' · ' + b.pages + ' pages</div>' +
-        legalBadgeHTML('preview') +
-        '<div class="book-result-info" style="margin-top:6px;">🔍 ' + escHtml(b.preview) + ' — do not extract full copyrighted content</div>' +
-      '</div>' +
-      '<div class="book-result-actions">' +
-        '<button class="btn-open-cs" onclick="selectBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" ' +
-          'aria-label="Open ' + escHtml(b.title) + ' preview with CelikSense">Preview</button>' +
-        '<button class="btn-save-lib" onclick="saveBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" aria-label="Save to library">Save</button>' +
-      '</div>' +
-    '</div>';
-  }).join('') : '<p style="color:#64748b;font-size:13px;padding:12px 0;">No results found.</p>';
-  document.getElementById('gBooksResults').innerHTML = html;
+  list.innerHTML = '<p style="color:#64748b;font-size:13px;padding:12px 0;">⏳ Memuatkan dari Google Books…</p>';
+  var apiUrl = 'https://www.googleapis.com/books/v1/volumes?maxResults=12&q=' + encodeURIComponent(q || 'malaysia education');
+  fetch(apiUrl)
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var items = (data.items || []).slice(0, 12);
+      if (!items.length) { list.innerHTML = '<p style="color:#64748b;font-size:13px;padding:12px 0;">Tiada hasil untuk "' + escHtml(q) + '".</p>'; setPill('googlebooks','done',0); return; }
+      list.innerHTML = items.map(function(item){
+        var v = item.volumeInfo || {};
+        var b = {
+          id: 'gb_' + item.id,
+          title: v.title || 'Unknown',
+          author: (v.authors||[]).join(', ') || 'Unknown',
+          year: v.publishedDate ? v.publishedDate.substring(0,4) : '',
+          cover: v.imageLinks ? (v.imageLinks.thumbnail||v.imageLinks.smallThumbnail||'') : '',
+          preview_url: v.previewLink || '',
+          txt_url: ''
+        };
+        var safeB = JSON.stringify(b).replace(/"/g,'&quot;');
+        return '<div class="book-result">' +
+          (b.cover ? '<img src="'+b.cover+'" style="width:48px;height:66px;object-fit:cover;border-radius:6px;flex-shrink:0;" onerror="this.style.display=\'none\'">' : '') +
+          '<div class="book-result-meta">' +
+            '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
+            '<div class="book-result-author">' + escHtml(b.author) + (b.year?' · '+b.year:'') + '</div>' +
+            legalBadgeHTML('preview') +
+            '<div class="book-result-info" style="margin-top:4px;font-size:11px;color:#94a3b8;">Preview sahaja — kandungan penuh mungkin berhak cipta</div>' +
+          '</div>' +
+          '<div class="book-result-actions">' +
+            (b.preview_url ? '<a href="'+b.preview_url+'" target="_blank" class="btn-open-cs" style="text-decoration:none;">Buka Preview</a>' : '') +
+            '<button class="btn-save-lib" onclick="saveBook('+safeB+')">Save</button>' +
+          '</div></div>';
+      }).join('');
+      setPill('googlebooks', 'done', items.length);
+    })
+    .catch(function(){
+      list.innerHTML = '<p style="color:#f59e0b;font-size:13px;padding:12px 0;">⚠️ Tiada sambungan ke Google Books.</p>';
+      setPill('googlebooks', 'error');
+    });
 }
 
 /* ── OPAC mock ───────────────────────────────────────────── */
