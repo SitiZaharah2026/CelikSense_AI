@@ -831,32 +831,69 @@ function legalBadgeHTML(status) {
   return '<span class="legal-badge ' + info[0] + '">' + info[1] + '</span>';
 }
 
-function showGutenberg(q) {
-  var panel = document.getElementById('panel-gutenberg');
-  panel.classList.add('visible');
-  var list = CS.books.GUTENBERG.filter(function(b) {
-    if (!q) return true;
-    return b.title.toLowerCase().includes(q.toLowerCase()) ||
-           b.author.toLowerCase().includes(q.toLowerCase()) ||
-           b.subjects.join(' ').toLowerCase().includes(q.toLowerCase());
-  });
-  var html = list.length ? list.map(function(b) {
+function renderGutenbergBooks(books) {
+  if (!books.length) return '<p style="color:#64748b;font-size:13px;padding:12px 0;">No results found.</p>';
+  return books.map(function(b) {
+    var safeB = JSON.stringify(b).replace(/"/g,'&quot;');
     return '<div class="book-result">' +
       '<div class="book-result-meta">' +
         '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
         '<div class="book-result-author">' + escHtml(b.author) + ' · ' + escHtml(b.lang) + ' · ' + b.year + '</div>' +
         legalBadgeHTML('public') +
-        '<div class="book-result-info" style="margin-top:6px;font-style:italic;">"' + escHtml((b.extract||'').substring(0,120)) + '…"</div>' +
+        (b.extract ? '<div class="book-result-info" style="margin-top:6px;font-style:italic;">"' + escHtml(b.extract.substring(0,120)) + '…"</div>' : '') +
       '</div>' +
       '<div class="book-result-actions">' +
-        '<button class="btn-open-cs" onclick="selectBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" ' +
-          'data-i18n="bd_read_btn" aria-label="Open ' + escHtml(b.title) + ' with CelikSense">Open with CelikSense</button>' +
-        '<button class="btn-save-lib" onclick="saveBook(' + JSON.stringify(b).replace(/"/g,'&quot;') + ')" ' +
-          'data-i18n="bd_save_lib" aria-label="Save ' + escHtml(b.title) + ' to My Library">Save</button>' +
+        '<button class="btn-open-cs" onclick="selectBook(' + safeB + ')" aria-label="Open ' + escHtml(b.title) + ' with CelikSense">Open with CelikSense</button>' +
+        '<button class="btn-save-lib" onclick="saveBook(' + safeB + ')" aria-label="Save to library">Save</button>' +
       '</div>' +
     '</div>';
-  }).join('') : '<p style="color:#64748b;font-size:13px;padding:12px 0;" data-i18n="bd_no_results">No results found.</p>';
-  document.getElementById('gutenbergResults').innerHTML = html;
+  }).join('');
+}
+
+function showGutenberg(q) {
+  var panel = document.getElementById('panel-gutenberg');
+  var list  = document.getElementById('gutenbergResults');
+  panel.classList.add('visible');
+
+  // If no query, show local mock books
+  if (!q) {
+    list.innerHTML = renderGutenbergBooks(CS.books.GUTENBERG);
+    return;
+  }
+
+  // Fetch from real Gutenberg API (gutendex.com — free, no key needed)
+  list.innerHTML = '<p style="color:#64748b;font-size:13px;padding:12px 0;">🔍 Mencari buku di Project Gutenberg…</p>';
+  fetch('https://gutendex.com/books/?search=' + encodeURIComponent(q) + '&languages=en,ms&mime_type=text')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var books = (data.results || []).slice(0, 12).map(function(item) {
+        var author = item.authors && item.authors[0] ? item.authors[0].name : 'Unknown';
+        var lang   = (item.languages || ['en']).join(', ').toUpperCase();
+        var year   = item.authors && item.authors[0] && item.authors[0].birth_year ? item.authors[0].birth_year : '';
+        var txtUrl = item.formats && (item.formats['text/plain; charset=utf-8'] || item.formats['text/plain']);
+        return {
+          id: 'g_' + item.id,
+          title: item.title,
+          author: author,
+          lang: lang,
+          year: year || '',
+          subjects: item.subjects || [],
+          extract: item.summaries && item.summaries[0] ? item.summaries[0] : '',
+          gutenberg_url: 'https://www.gutenberg.org/ebooks/' + item.id,
+          txt_url: txtUrl || ''
+        };
+      });
+      list.innerHTML = books.length ? renderGutenbergBooks(books) :
+        '<p style="color:#64748b;font-size:13px;padding:12px 0;">Tiada buku dijumpai untuk "' + escHtml(q) + '".</p>';
+    })
+    .catch(function(){
+      // Fallback to local mock on network error
+      var fallback = CS.books.GUTENBERG.filter(function(b){
+        return b.title.toLowerCase().includes(q.toLowerCase()) || b.author.toLowerCase().includes(q.toLowerCase());
+      });
+      list.innerHTML = '<div style="font-size:12px;color:#f59e0b;margin-bottom:8px;">⚠️ Tiada sambungan ke Gutenberg — menunjukkan data tempatan.</div>' +
+        renderGutenbergBooks(fallback.length ? fallback : CS.books.GUTENBERG);
+    });
 }
 
 function showOpenLibrary(q) {
