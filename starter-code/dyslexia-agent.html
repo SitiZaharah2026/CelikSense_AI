@@ -491,6 +491,24 @@ function injectCelikVerseBook() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Auto-load book sent from Book Discovery
+  try {
+    var bookContent = localStorage.getItem('cs_book_content');
+    var bookTitle   = localStorage.getItem('cs_book_content_title');
+    if (bookContent && bookContent.trim()) {
+      var ta = document.getElementById('dysInput');
+      if (ta) { ta.value = bookContent; }
+      if (bookTitle) {
+        var notice = document.createElement('div');
+        notice.style.cssText = 'background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:8px;padding:8px 14px;font-size:13px;color:#4338ca;margin-bottom:12px;';
+        notice.innerHTML = '📖 <strong>' + bookTitle + '</strong> dimuatkan dari Book Discovery';
+        var ta2 = document.getElementById('dysInput');
+        if (ta2 && ta2.parentNode) ta2.parentNode.insertBefore(notice, ta2);
+      }
+      localStorage.removeItem('cs_book_content');
+      localStorage.removeItem('cs_book_content_title');
+    }
+  } catch(e) {}
   injectCelikVerseBook();
   if (!window.CS_PERSONALISE) return;
   CS_PERSONALISE.init();

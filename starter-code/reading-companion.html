@@ -621,6 +621,23 @@ function sendToSignAgent() {
 <script src="personalisation-system.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // Auto-load book sent from Book Discovery
+  try {
+    var bookContent = localStorage.getItem('cs_book_content');
+    var bookTitle   = localStorage.getItem('cs_book_content_title');
+    if (bookContent && bookContent.trim()) {
+      var ta = document.getElementById('readingInput');
+      if (ta) ta.value = bookContent;
+      if (bookTitle) {
+        var notice = document.createElement('div');
+        notice.style.cssText = 'background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:8px;padding:8px 14px;font-size:13px;color:#4338ca;margin-bottom:12px;';
+        notice.innerHTML = '📖 <strong>' + bookTitle + '</strong> dimuatkan dari Book Discovery';
+        if (ta && ta.parentNode) ta.parentNode.insertBefore(notice, ta);
+      }
+      localStorage.removeItem('cs_book_content');
+      localStorage.removeItem('cs_book_content_title');
+    }
+  } catch(e) {}
   if (!window.CS_PERSONALISE) return;
   CS_PERSONALISE.init();
   CS_PERSONALISE.trackAgentUse('reading-companion');
