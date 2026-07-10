@@ -855,15 +855,12 @@ function showGutenberg(q) {
   var list  = document.getElementById('gutenbergResults');
   panel.classList.add('visible');
 
-  // If no query, show local mock books
-  if (!q) {
-    list.innerHTML = renderGutenbergBooks(CS.books.GUTENBERG);
-    return;
-  }
-
-  // Fetch from real Gutenberg API (gutendex.com — free, no key needed)
-  list.innerHTML = '<p style="color:#64748b;font-size:13px;padding:12px 0;">🔍 Mencari buku di Project Gutenberg…</p>';
-  fetch('https://gutendex.com/books/?search=' + encodeURIComponent(q) + '&languages=en,ms&mime_type=text')
+  // Always fetch from real Gutenberg API (gutendex.com — free, no key needed)
+  list.innerHTML = '<p style="color:#64748b;font-size:13px;padding:12px 0;">🔍 Memuatkan buku dari Project Gutenberg…</p>';
+  var apiUrl = q
+    ? 'https://gutendex.com/books/?search=' + encodeURIComponent(q) + '&mime_type=text'
+    : 'https://gutendex.com/books/?mime_type=text&sort=popular';
+  fetch(apiUrl)
     .then(function(r){ return r.json(); })
     .then(function(data){
       var books = (data.results || []).slice(0, 12).map(function(item) {
