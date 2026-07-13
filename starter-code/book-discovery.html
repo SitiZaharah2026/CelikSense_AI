@@ -171,10 +171,17 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   border:1px solid rgba(99,102,241,0.12);
   border-radius:12px;
   padding:14px 16px;
-  display:grid;
-  grid-template-columns:1fr auto;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.book-result-body {
+  flex:1;
+  min-width:0;
+  display:flex;
   gap:8px;
-  align-items:start;
+  align-items:flex-start;
+  justify-content:space-between;
 }
 .book-result-meta { display:flex;flex-direction:column;gap:3px; }
 .book-result-title { font-size:14px;font-weight:700;color:#1e1b4b; }
@@ -868,6 +875,12 @@ function setPill(id, state, count) {
   el.textContent = icons[state] + ' ' + labels[id] + suffix;
 }
 
+function _updateResultCount() {
+  var total = document.querySelectorAll('#gutenbergResults .book-result, #openLibResults .book-result, #gBooksResults .book-result').length;
+  var el = document.getElementById('resultCount');
+  if (el) el.textContent = total + ' buku dijumpai';
+}
+
 function runSearch() {
   var q = (document.getElementById('bdSearchInput').value || '').trim();
   if (!q) { showAllSources(); return; }
@@ -920,15 +933,17 @@ function renderGutenbergBooks(books) {
   return books.map(function(b) {
     var safeB = JSON.stringify(b).replace(/"/g,'&quot;');
     return '<div class="book-result">' +
-      '<div class="book-result-meta">' +
-        '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
-        '<div class="book-result-author">' + escHtml(b.author) + ' · ' + escHtml(b.lang) + ' · ' + b.year + '</div>' +
-        legalBadgeHTML('public') +
-        (b.extract ? '<div class="book-result-info" style="margin-top:6px;font-style:italic;">"' + escHtml(b.extract.substring(0,120)) + '…"</div>' : '') +
-      '</div>' +
-      '<div class="book-result-actions">' +
-        '<button class="btn-open-cs" onclick="selectBook(' + safeB + ')" aria-label="Open ' + escHtml(b.title) + ' with CelikSense">Open with CelikSense</button>' +
-        '<button class="btn-save-lib" onclick="saveBook(' + safeB + ')" aria-label="Save to library">Save</button>' +
+      '<div class="book-result-body">' +
+        '<div class="book-result-meta">' +
+          '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
+          '<div class="book-result-author">' + escHtml(b.author) + (b.lang?' · '+escHtml(b.lang):'') + (b.year?' · '+b.year:'') + '</div>' +
+          legalBadgeHTML('public') +
+          (b.extract ? '<div class="book-result-info" style="margin-top:6px;font-style:italic;">"' + escHtml(b.extract.substring(0,120)) + '…"</div>' : '') +
+        '</div>' +
+        '<div class="book-result-actions">' +
+          '<button class="btn-open-cs" onclick="selectBook(' + safeB + ')">Open with CelikSense</button>' +
+          '<button class="btn-save-lib" onclick="saveBook(' + safeB + ')">Save</button>' +
+        '</div>' +
       '</div>' +
     '</div>';
   }).join('');
@@ -963,6 +978,7 @@ function showGutenberg(q) {
       list.innerHTML = books.length ? renderGutenbergBooks(books) :
         '<p style="color:#64748b;font-size:13px;padding:12px 0;">Tiada buku dijumpai untuk "' + escHtml(q) + '".</p>';
       setPill('gutenberg', 'done', books.length);
+      _updateResultCount();
     })
     .catch(function(){
       var fallback = (CS.books.GUTENBERG || []).filter(function(b){
@@ -993,23 +1009,27 @@ function showOpenLibrary(q) {
           author: (d.author_name||[]).join(', ') || 'Unknown',
           year: d.first_publish_year || '',
           cover: d.cover_i ? 'https://covers.openlibrary.org/b/id/'+d.cover_i+'-M.jpg' : '',
-          ol_url: d.ia ? 'https://archive.org/details/'+d.ia : 'https://openlibrary.org'+(d.key||''),
-          txt_url: d.ia ? 'https://archive.org/download/'+d.ia+'/'+d.ia+'_djvu.txt' : ''
+          ol_url: 'https://openlibrary.org'+(d.key||''),
+          txt_url: ''
         };
         var safeB = JSON.stringify(b).replace(/"/g,'&quot;');
         return '<div class="book-result">' +
-          (b.cover ? '<img src="'+b.cover+'" style="width:48px;height:66px;object-fit:cover;border-radius:6px;flex-shrink:0;" onerror="this.style.display=\'none\'">' : '') +
-          '<div class="book-result-meta">' +
-            '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
-            '<div class="book-result-author">' + escHtml(b.author) + (b.year?' · '+b.year:'') + '</div>' +
-            legalBadgeHTML('preview') +
-          '</div>' +
-          '<div class="book-result-actions">' +
-            '<button class="btn-open-cs" onclick="selectBook('+safeB+')">Open with CelikSense</button>' +
-            '<button class="btn-save-lib" onclick="saveBook('+safeB+')">Save</button>' +
+          (b.cover ? '<img src="'+b.cover+'" style="width:44px;height:60px;object-fit:cover;border-radius:6px;flex-shrink:0;" onerror="this.style.display=\'none\'">' : '') +
+          '<div class="book-result-body">' +
+            '<div class="book-result-meta">' +
+              '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
+              '<div class="book-result-author">' + escHtml(b.author) + (b.year?' · '+b.year:'') + '</div>' +
+              legalBadgeHTML('preview') +
+              '<div class="book-result-info" style="margin-top:4px;font-size:11px;color:#94a3b8;">Preview — salin teks untuk guna dengan CelikSense</div>' +
+            '</div>' +
+            '<div class="book-result-actions">' +
+              '<a href="'+escHtml(b.ol_url)+'" target="_blank" class="btn-open-cs" style="text-decoration:none;">Buka di Open Library</a>' +
+              '<button class="btn-save-lib" onclick="saveBook('+safeB+')">Save</button>' +
+            '</div>' +
           '</div></div>';
       }).join('');
       setPill('openlibrary', 'done', docs.length);
+      _updateResultCount();
     })
     .catch(function(){
       list.innerHTML = '<p style="color:#f59e0b;font-size:13px;padding:12px 0;">⚠️ Tiada sambungan ke Open Library.</p>';
@@ -1041,19 +1061,21 @@ function showGoogleBooks(q) {
         };
         var safeB = JSON.stringify(b).replace(/"/g,'&quot;');
         return '<div class="book-result">' +
-          (b.cover ? '<img src="'+b.cover+'" style="width:48px;height:66px;object-fit:cover;border-radius:6px;flex-shrink:0;" onerror="this.style.display=\'none\'">' : '') +
+          (b.cover ? '<img src="'+b.cover.replace('http:','https:')+'" style="width:44px;height:60px;object-fit:cover;border-radius:6px;flex-shrink:0;" onerror="this.style.display=\'none\'">' : '') +
+          '<div class="book-result-body">' +
           '<div class="book-result-meta">' +
             '<div class="book-result-title">' + escHtml(b.title) + '</div>' +
             '<div class="book-result-author">' + escHtml(b.author) + (b.year?' · '+b.year:'') + '</div>' +
             legalBadgeHTML('preview') +
-            '<div class="book-result-info" style="margin-top:4px;font-size:11px;color:#94a3b8;">Preview sahaja — kandungan penuh mungkin berhak cipta</div>' +
+            '<div class="book-result-info" style="margin-top:4px;font-size:11px;color:#94a3b8;">Preview sahaja — berhak cipta</div>' +
           '</div>' +
           '<div class="book-result-actions">' +
             (b.preview_url ? '<a href="'+b.preview_url+'" target="_blank" class="btn-open-cs" style="text-decoration:none;">Buka Preview</a>' : '') +
             '<button class="btn-save-lib" onclick="saveBook('+safeB+')">Save</button>' +
-          '</div></div>';
+          '</div></div></div>';
       }).join('');
       setPill('googlebooks', 'done', items.length);
+      _updateResultCount();
     })
     .catch(function(){
       list.innerHTML = '<p style="color:#f59e0b;font-size:13px;padding:12px 0;">⚠️ Tiada sambungan ke Google Books.</p>';
