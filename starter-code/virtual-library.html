@@ -102,11 +102,11 @@ body{background:linear-gradient(160deg,#fef3c7 0%,#fff7ed 50%,#fde68a 100%);min-
     </div>
 
     <div class="src-tabs" role="tablist" aria-label="Pilih koleksi sekolah">
-      <button class="src-tab active" data-src="SEMUA" onclick="setSrc('SEMUA',this)">📚 Semua Sekolah</button>
-      <button class="src-tab" data-src="SK Lukut" onclick="setSrc('SK Lukut',this)">🏫 SK Lukut (311)</button>
-      <button class="src-tab" data-src="SK Setapak" onclick="setSrc('SK Setapak',this)">🏫 SK Setapak, KL (101)</button>
-      <button class="src-tab" data-src="SKPRj Batu Pahat" onclick="setSrc('SKPRj Batu Pahat',this)">🏫 SKPRj Batu Pahat (129)</button>
-      <button class="src-tab" data-src="PSS SMKTSW, KL" onclick="setSrc('PSS SMKTSW, KL',this)">🏫 PSS SMKTSW, KL (142)</button>
+      <button class="src-tab active" data-src="SEMUA" onclick="setSrc('SEMUA',this)">📚 Semua</button>
+      <button class="src-tab" data-src="SK Lukut" onclick="setSrc('SK Lukut',this)">🏫 Koleksi 1 (311)</button>
+      <button class="src-tab" data-src="SK Setapak" onclick="setSrc('SK Setapak',this)">🏫 Koleksi 2 (101)</button>
+      <button class="src-tab" data-src="SKPRj Batu Pahat" onclick="setSrc('SKPRj Batu Pahat',this)">🏫 Koleksi 3 (129)</button>
+      <button class="src-tab" data-src="PSS SMKTSW, KL" onclick="setSrc('PSS SMKTSW, KL',this)">🏫 Koleksi 4 (142)</button>
     </div>
 
     <div class="cat-tabs" id="catTabs" role="tablist" aria-label="Tapis mengikut kategori"></div>
@@ -142,6 +142,13 @@ function getBadgeClass(src){
   if(src==='SKPRj Batu Pahat') return 'badge-src-batu-pahat';
   if(src==='PSS SMKTSW, KL') return 'badge-src-smktsw';
   return 'badge-src-lukut';
+}
+function getBadgeLabel(src){
+  if(src==='SK Lukut') return 'Koleksi 1';
+  if(src==='SK Setapak') return 'Koleksi 2';
+  if(src==='SKPRj Batu Pahat') return 'Koleksi 3';
+  if(src==='PSS SMKTSW, KL') return 'Koleksi 4';
+  return src;
 }
 
 function filtered(){
@@ -202,7 +209,7 @@ function renderPage(){
       +'<div class="book-info">'
       +'<div class="book-title">'+b.title+'</div>'
       +'<div class="book-meta">'+(b.pages||'')+' '+(b.pages?'ms':'')+'</div>'
-      +'<span class="badge-src '+getBadgeClass(b.source)+'">'+b.source+'</span>'
+      +'<span class="badge-src '+getBadgeClass(b.source)+'">'+getBadgeLabel(b.source)+'</span>'
       +'</div></a>'
     ).join('');
   }
