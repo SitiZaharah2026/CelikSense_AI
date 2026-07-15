@@ -214,6 +214,7 @@
 <script src="shared.js"></script>
 <script src="braille-system.js"></script>
 <script>
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 let loadedText = '';
 let currentOverlay = 'none';
 let currentSize = 'normal';
@@ -300,7 +301,7 @@ async function _rcAutoSummarise() {
   if (!summary) return;
   var el = document.getElementById('rcAiSummary');
   if (!el) { el = document.createElement('div'); el.id = 'rcAiSummary'; el.style.cssText = 'margin-top:10px;padding:12px;background:rgba(99,102,241,0.08);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;'; document.getElementById('readingDisplay').insertAdjacentElement('beforebegin', el); }
-  el.innerHTML = '🤖 <strong>AI Quick Summary:</strong> ' + summary;
+  el.innerHTML = '🤖 <strong>AI Quick Summary:</strong> ' + escHtml(summary);
   // Cross-agent: save for teacher agent
   localStorage.setItem('teacher_input_text', loadedText.slice(0, 3000));
 }

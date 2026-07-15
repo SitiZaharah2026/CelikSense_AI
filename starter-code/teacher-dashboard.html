@@ -693,7 +693,8 @@ function showToast(msgKey) {
 
 /* ── Load localStorage stats ── */
 function loadStats() {
-  const roster = JSON.parse(localStorage.getItem('cs_class_roster') || 'null');
+  var _rosterRaw = localStorage.getItem('cs_class_roster');
+  var roster = null; try { roster = _rosterRaw ? JSON.parse(_rosterRaw) : null; } catch(e) {}
   if (roster && Array.isArray(roster)) {
     document.getElementById('stat-total').textContent = roster.length;
   }

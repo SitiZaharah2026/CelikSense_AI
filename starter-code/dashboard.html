@@ -734,11 +734,11 @@ document.addEventListener('DOMContentLoaded', function() {
     CS.offline.getStorageInfo().then(function(info) {
       var el = document.getElementById('dashStorageUsed');
       if (el) el.textContent = info.usedMB + ' MB';
-    });
+    }).catch(function(){});
     CS.offline.getSyncQueue().then(function(items) {
       var el = document.getElementById('dashPendingSync');
       if (el) el.textContent = items.length;
-    });
+    }).catch(function(){});
     var lastSync = localStorage.getItem('cs_last_sync');
     var syncEl = document.getElementById('dashLastSync');
     if (syncEl) {

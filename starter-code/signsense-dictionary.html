@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
@@ -1678,7 +1678,7 @@ var HANDS = {
 
 // ── State ──────────────────────────────────────────────────────────────────
 var lang      = localStorage.getItem('cs_lang') || 'ms';
-var requested = JSON.parse(localStorage.getItem('ss_requested') || '[]');
+var requested = (function(){try{return JSON.parse(localStorage.getItem('ss_requested')||'[]');}catch(e){return [];}})();
 var lastQuery = '';
 
 // ── i18n strings ───────────────────────────────────────────────────────────
@@ -1989,7 +1989,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // If a hash was provided (e.g. signsense-dictionary.html#book), auto-search it
   var hash = window.location.hash.replace('#','').trim();
   if (hash) {
-    document.getElementById('ssInput').value = decodeURIComponent(hash);
+    try { document.getElementById('ssInput').value = decodeURIComponent(hash); } catch(e) { document.getElementById('ssInput').value = hash; }
     doSearch();
   }
 });

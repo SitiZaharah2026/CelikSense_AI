@@ -1093,7 +1093,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   /* ── Load from localStorage, seed with pilot if empty ── */
   function loadFeedback(){
     var raw = localStorage.getItem('cs_feedback');
-    var arr = raw ? JSON.parse(raw) : [];
+    var arr = []; try { arr = raw ? JSON.parse(raw) : []; } catch(e) { arr = []; }
     if(arr.length === 0){
       arr = pilotData.slice();
       localStorage.setItem('cs_feedback', JSON.stringify(arr));

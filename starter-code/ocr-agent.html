@@ -696,6 +696,7 @@
 <script src="shared.js"></script>
 <script src="voice-system.js"></script>
 <script>
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 /* ── STATE ── */
 let files       = [];          // uploaded File objects
 let activeIdx   = 0;           // index of currently previewed image
@@ -1000,7 +1001,7 @@ async function _ocrAiPostProcess(text) {
     }
 
     aiPanel.innerHTML = '🤖 <strong>AI Analysis:</strong><br><br>' +
-      summary.replace(/\n/g, '<br>').replace(/\*\*/g, '') +
+      escHtml(summary).replace(/\n/g, '<br>').replace(/\*\*/g, '') +
       (linkBtn
         ? '<div style="margin-top:10px;">' + linkBtn +
           '<a href="ai-teacher-agent.html" class="btn btn-ghost btn-sm" style="margin-left:6px;" ' +

@@ -312,7 +312,7 @@ function filterShelf(books, tab, sort, search){
   var arr=books.slice();
   if(tab==='recent') arr=arr.filter(function(b){return b.lastOpened;}).sort(function(a,b){return b.lastOpened-a.lastOpened;});
   else if(tab==='fav') arr=arr.filter(function(b){return b.isFavourite;});
-  else if(tab==='downloaded') arr=arr.filter(function(b){return CS_SHELF.getCachedText(b.id).length>0;});
+  else if(tab==='downloaded') arr=arr.filter(function(b){return (CS_SHELF.getCachedText(b.id)||'').length>0;});
   if(search){
     var q=search.toLowerCase();
     arr=arr.filter(function(b){return (b.title||'').toLowerCase().includes(q)||(b.author||'').toLowerCase().includes(q);});

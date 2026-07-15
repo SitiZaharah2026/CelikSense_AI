@@ -522,7 +522,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     var apiKey = '';
     try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
     var groqKey = ''; try { groqKey = localStorage.getItem('groq_api_key') || ''; } catch(e) {}
-    var body = Object.assign({ task: task, lang: LANG || getLang(), apiKey: apiKey, groqKey: groqKey }, payload);
+    var body = Object.assign({ task: task, lang: (typeof LANG !== 'undefined' ? LANG : null) || getLang(), apiKey: apiKey, groqKey: groqKey }, payload);
     try {
       var res = await fetch('/api/agents/personalisation', {
         method: 'POST',
@@ -572,7 +572,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 
       _callAgent('insights', { profile: profile, risk_data: riskData }).then(function(result){
         if (result) {
-          aiDiv.innerHTML='🤖 <strong>AI Insights:</strong><br>'+String(result).replace(/\n/g,'<br>').replace(/\*\*/g,'');
+          aiDiv.innerHTML='🤖 <strong>AI Insights:</strong><br>'+escHtml(String(result)).replace(/\n/g,'<br>').replace(/\*\*/g,'');
         } else {
           aiDiv.remove();
         }
@@ -618,7 +618,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       var profile2 = CS_PERSONALISE.getProfile ? CS_PERSONALISE.getProfile() : {};
       _callAgent('recommendations', { profile: profile2 }).then(function(result){
         if (result) {
-          aiRecDiv.innerHTML='🤖 <strong>AI Next Steps:</strong><br>'+String(result).replace(/\n/g,'<br>').replace(/Activity/g,'<br><strong>Activity');
+          aiRecDiv.innerHTML='🤖 <strong>AI Next Steps:</strong><br>'+escHtml(String(result)).replace(/\n/g,'<br>').replace(/Activity/g,'<br><strong>Activity');
         } else {
           aiRecDiv.remove();
         }

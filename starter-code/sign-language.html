@@ -1009,7 +1009,8 @@ async function callGemini(prompt) {
   );
   if (!res.ok) throw new Error('api_error_' + res.status);
   var data = await res.json();
-  return ((data.candidates || [])[0] || {}).content.parts[0].text || '';
+  var cand = ((data.candidates || [])[0] || {});
+  return (cand.content && cand.content.parts && cand.content.parts[0] && cand.content.parts[0].text) || '';
 }
 
 function setProcessing(panelId, show) {
@@ -1056,7 +1057,7 @@ function parseNumberedList(text) {
 }
 
 function splitIntoSentences(text) {
-  return text.match(/[^.!?]+[.!?]*/g)
+  return (text.match(/[^.!?]+[.!?]*/g) || [])
     .map(function(s) { return s.trim(); })
     .filter(function(s) { return s.length > 3; })
     .slice(0, 8);

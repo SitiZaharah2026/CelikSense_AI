@@ -1084,7 +1084,7 @@ function showGoogleBooks(q) {
             '<div class="book-result-info" style="margin-top:4px;font-size:11px;color:#94a3b8;">Preview sahaja — berhak cipta</div>' +
           '</div>' +
           '<div class="book-result-actions">' +
-            (b.preview_url ? '<a href="'+b.preview_url+'" target="_blank" class="btn-open-cs" style="text-decoration:none;">Buka Preview</a>' : '') +
+            (b.preview_url ? '<a href="'+escHtml(b.preview_url)+'" target="_blank" class="btn-open-cs" style="text-decoration:none;">Buka Preview</a>' : '') +
             '<button class="btn-save-lib" onclick="saveBook('+safeB+')">Save</button>' +
           '</div></div></div>';
       }).join('');

@@ -220,6 +220,7 @@
 
 <script src="shared.js"></script>
 <script>
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 let dysText = '';
 let rulerOn = false;
 let currentOverlayClass = '';
@@ -282,7 +283,7 @@ function moveRuler(e) {
 function loadDysText() {
   dysText = document.getElementById('dysInput').value.trim();
   if (!dysText) return;
-  document.getElementById('dysReadArea').innerHTML = dysText.replace(/\n/g,'<br>');
+  document.getElementById('dysReadArea').innerHTML = escHtml(dysText).replace(/\n/g,'<br>');
   applyCurrentSettings();
 }
 
@@ -441,7 +442,7 @@ async function showIntervention() {
     el.innerHTML += '<div style="font-size:12px;color:var(--muted);margin-top:8px;">🤖 AI personalising advice…</div>';
     const result = await _callAgent('intervention', { difficulty_level: level, text: dysText.slice(0, 400) });
     if (result) {
-      el.innerHTML += `<div style="margin-top:10px;font-size:13px;padding:10px;background:rgba(99,102,241,0.08);border-radius:8px;">🤖 <strong>AI Tips for this text:</strong><br>${result.replace(/\n/g,'<br>').replace(/Tip \d:/g,'<br>•')}</div>`;
+      el.innerHTML += `<div style="margin-top:10px;font-size:13px;padding:10px;background:rgba(99,102,241,0.08);border-radius:8px;">🤖 <strong>AI Tips for this text:</strong><br>${escHtml(result).replace(/\n/g,'<br>').replace(/Tip \d:/g,'<br>•')}</div>`;
       localStorage.setItem('cs_dys_level', JSON.stringify({level,ts:Date.now()}));
     } else {
       el.innerHTML += `<div style="font-size:12px;color:var(--danger);margin-top:8px;">Could not load AI tips. Please check your API key in <a href="settings.html">Settings</a>.</div>`;

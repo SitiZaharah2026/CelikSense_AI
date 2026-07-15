@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -563,7 +563,7 @@ var FINGER_HANDS = {
 
 // ── State ──────────────────────────────────────────────────────────────────
 var sdLang       = localStorage.getItem('cs_lang') || 'ms';
-var sdRequested  = JSON.parse(localStorage.getItem('sd_requested') || '[]');
+var sdRequested  = (function(){try{return JSON.parse(localStorage.getItem('sd_requested')||'[]');}catch(e){return [];}})();
 var sdLastSearch = '';
 
 // ── i18n ──────────────────────────────────────────────────────────────────
@@ -836,7 +836,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Auto-search if a word was passed via URL hash
   var hash = window.location.hash.replace('#', '').trim();
   if (hash) {
-    document.getElementById('sdSearchInput').value = decodeURIComponent(hash);
+    try { document.getElementById('sdSearchInput').value = decodeURIComponent(hash); } catch(e) { document.getElementById('sdSearchInput').value = hash; }
     doSearch();
   }
 });

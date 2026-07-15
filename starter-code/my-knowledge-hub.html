@@ -1134,15 +1134,15 @@ function buildCard(b) {
       '</div>' +
       '<div class="hc-time">' + relTime(b.lastOpened) + (prog > 0 ? ' · ' + prog + '%' : '') + '</div>' +
       '<div class="hc-actions">' +
-        '<button class="hc-btn-primary" onclick="openExperience(\'' + b.id + '\')" aria-label="Buka ' + esc(b.title) + '">▶ Buka</button>' +
-        '<button class="hc-btn-icon" onclick="showMore(\'' + b.id + '\')" aria-label="Lebih pilihan untuk ' + esc(b.title) + '" aria-expanded="false" aria-haspopup="true">⋮</button>' +
+        '<button class="hc-btn-primary" onclick="openExperience(\'' + esc(b.id) + '\')" aria-label="Buka ' + esc(b.title) + '">▶ Buka</button>' +
+        '<button class="hc-btn-icon" onclick="showMore(\'' + esc(b.id) + '\')" aria-label="Lebih pilihan untuk ' + esc(b.title) + '" aria-expanded="false" aria-haspopup="true">⋮</button>' +
       '</div>' +
-      '<div class="hc-more-dd" id="more_' + b.id + '" role="menu">' +
-        '<button role="menuitem" onclick="openExperience(\'' + b.id + '\')">▶ Pilih Pengalaman</button>' +
-        '<button role="menuitem" onclick="doAI(\'' + b.id + '\',\'summary\')">📝 AI Ringkasan</button>' +
-        '<button role="menuitem" onclick="doAI(\'' + b.id + '\',\'quiz\')">❓ Kuiz AI</button>' +
-        '<button role="menuitem" onclick="doAI(\'' + b.id + '\',\'mindmap\')">🧠 Peta Minda</button>' +
-        '<button role="menuitem" class="danger" onclick="removeResource(\'' + b.id + '\')">🗑 Buang</button>' +
+      '<div class="hc-more-dd" id="more_' + esc(b.id) + '" role="menu">' +
+        '<button role="menuitem" onclick="openExperience(\'' + esc(b.id) + '\')">▶ Pilih Pengalaman</button>' +
+        '<button role="menuitem" onclick="doAI(\'' + esc(b.id) + '\',\'summary\')">📝 AI Ringkasan</button>' +
+        '<button role="menuitem" onclick="doAI(\'' + esc(b.id) + '\',\'quiz\')">❓ Kuiz AI</button>' +
+        '<button role="menuitem" onclick="doAI(\'' + esc(b.id) + '\',\'mindmap\')">🧠 Peta Minda</button>' +
+        '<button role="menuitem" class="danger" onclick="removeResource(\'' + esc(b.id) + '\')">🗑 Buang</button>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -1263,7 +1263,7 @@ function openExperience(id) {
   ];
   var aiHtml = ais.map(function(a){
     var onclick = a.action === 'ai'
-      ? 'doAI(\'' + (_currentBookId||'') + '\',\'' + a.type + '\');closeExp();'
+      ? 'doAI(\'' + esc(_currentBookId||'') + '\',\'' + esc(a.type) + '\');closeExp();'
       : 'window.location.href=\'' + a.url + '\'';
     return '<button class="exp-btn ai-btn" onclick="' + onclick + '" aria-label="' + a.label + '">' +
       '<span class="ei" aria-hidden="true">' + a.icon + '</span>' +

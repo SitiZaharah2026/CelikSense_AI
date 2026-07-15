@@ -220,6 +220,7 @@
 
 <script src="shared.js"></script>
 <script>
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 let sessionMins = 10;
 let timerInterval = null;
 let timerSecs = 0;
@@ -431,7 +432,7 @@ async function generateStrategy() {
   const modeLabel={focus:'Focus Window (one paragraph at a time)',chunk:'Chunk Reading (short segments)',free:'Free Reading (self-paced)'}[mode]||mode;
   const result = await _callAgent('strategy', { interest, mode: modeLabel, profile_summary: interest, session_count: completedSessions });
   if (result) {
-    el.innerHTML=`<strong>🤖 AI-Personalised Strategy:</strong><br><br>${result.replace(/\n/g,'<br>')}`;
+    el.innerHTML=`<strong>🤖 AI-Personalised Strategy:</strong><br><br>${escHtml(result).replace(/\n/g,'<br>')}`;
     // Share with Learning Coach agent
     localStorage.setItem('cs_adhd_strategy', JSON.stringify({interest,mode,strategy:result,ts:Date.now()}));
   } else {
@@ -473,7 +474,7 @@ async function showIntervention() {
   el.innerHTML='<div style="padding:10px;font-size:13px;color:var(--muted);">🤖 Analysing your session…</div>';
   const result = await _callAgent('intervention', { profile_summary: interest, session_count: completedSessions, focus_score: score, session_mins: sessionMins });
   if (result) {
-    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today.</div></div><div style="font-size:14px;line-height:1.7;">${result.replace(/\n/g,'<br>')}</div>`;
+    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today.</div></div><div style="font-size:14px;line-height:1.7;">${escHtml(result).replace(/\n/g,'<br>')}</div>`;
     // Chain to Early Warning — save session result
     const prev = JSON.parse(localStorage.getItem('cs_adhd_sessions')||'[]');
     prev.push({score,sessions:completedSessions,interest,ts:Date.now()});
@@ -499,7 +500,7 @@ function deleteNote(id) {
 
 function renderNotes() {
   document.getElementById('notesList').innerHTML = notes.length
-    ? notes.map(n=>`<div class="note-card">${n.text}<button class="note-delete" onclick="deleteNote(${n.id})">×</button></div>`).join('')
+    ? notes.map(n=>`<div class="note-card">${escHtml(n.text)}<button class="note-delete" onclick="deleteNote(${n.id})">×</button></div>`).join('')
     : '<p style="font-size:13px;color:var(--text-muted);">No notes yet.</p>';
 }
 

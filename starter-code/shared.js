@@ -2508,7 +2508,7 @@ window.toggleNav = function() {
   if (links) links.classList.toggle('active');
   var hamburger = document.querySelector('.nav-hamburger[aria-expanded]');
   if (hamburger) {
-    var isOpen = document.querySelector('.nav-links') && document.querySelector('.nav-links').classList.contains('open');
+    var isOpen = links && links.classList.contains('active');
     hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   }
 };

@@ -1364,13 +1364,17 @@ async function aeTestProvider(name) {
 
   // Attempt to test via AvatarEngine if available
   if (window.AvatarEngine) {
-    var res = await AvatarEngine.testProvider(name);
-    var ok = res && res.ok;
-    if (resultEl) {
-      resultEl.style.color = ok ? '#22c55e' : '#f87171';
-      resultEl.textContent = ok ? 'Connection successful!' : ('Error: ' + (res.error || 'Unknown'));
+    try {
+      var res = await AvatarEngine.testProvider(name);
+      var ok = res && res.ok;
+      if (resultEl) {
+        resultEl.style.color = ok ? '#22c55e' : '#f87171';
+        resultEl.textContent = ok ? 'Connection successful!' : ('Error: ' + (res.error || 'Unknown'));
+      }
+      aeUpdateBadges();
+    } catch(e) {
+      if (resultEl) { resultEl.style.color = '#f87171'; resultEl.textContent = 'Error: ' + e.message; }
     }
-    aeUpdateBadges();
     return;
   }
 
