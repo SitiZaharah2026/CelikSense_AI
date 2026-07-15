@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rak Buku Maya CelikSense – 615 Buku Digital</title>
+<title>Rak Buku Maya CelikSense – 566 Buku Digital</title>
 <link rel="stylesheet" href="styles.css">
 <style>
 body{background:linear-gradient(160deg,#fef3c7 0%,#fff7ed 50%,#fde68a 100%);min-height:100vh;}
@@ -86,7 +86,7 @@ body{background:linear-gradient(160deg,#fef3c7 0%,#fff7ed 50%,#fde68a 100%);min-
   </div>
   <div class="control-panel">
     <div class="stats-bar">
-      <div class="stat-pill">📚 <span id="statTotal">615</span> jumlah buku</div>
+      <div class="stat-pill">📚 <span id="statTotal">566</span> jumlah buku</div>
       <div class="stat-pill">🏫 4 koleksi sekolah</div>
       <div class="stat-pill" id="statFiltered"></div>
     </div>
@@ -4926,6 +4926,7 @@ function onSearch(){curSearch=document.getElementById('searchInput').value;curPa
 function renderPage(){const all=filtered();const total=all.length;const pages=Math.max(1,Math.ceil(total/PAGE_SIZE));if(curPage>pages)curPage=pages;const slice=all.slice((curPage-1)*PAGE_SIZE,curPage*PAGE_SIZE);document.getElementById('statFiltered').textContent=(curSrc==='SEMUA'&&!curSearch&&curCat==='SEMUA')?'':total+' dijumpai';const grid=document.getElementById('bookGrid');if(!slice.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:#9ca3af;font-size:15px;">📭 Tiada buku ditemui.</div>';}else{grid.innerHTML=slice.map(b=>'<a class="book-card" href="'+b.url+'" target="_blank" rel="noopener" title="'+b.title+'"><img class="book-cover" src="'+b.coverimg+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="book-cover-placeholder" style="display:none">📖</div><div class="book-info"><div class="book-title">'+b.title+'</div><div class="book-meta">'+(b.pages||'')+' '+(b.pages?'ms':'')+'</div><span class="badge-src '+getBadgeClass(b.source)+'">'+getBadgeLabel(b.source)+'</span></div></a>').join('');}const pg=document.getElementById('pagination');if(pages<=1){pg.innerHTML='';return;}let html='<button class="pg-btn" onclick="goPage('+(curPage-1)+')" '+(curPage===1?'disabled':'')+'>‹ Prev</button>';for(let i=1;i<=pages;i++){if(i===1||i===pages||Math.abs(i-curPage)<=2)html+='<button class="pg-btn'+(i===curPage?' active':'')+'" onclick="goPage('+i+')">'+i+'</button>';else if(Math.abs(i-curPage)===3)html+='<span style="padding:0 4px;color:#9ca3af;">…</span>';}html+='<button class="pg-btn" onclick="goPage('+(curPage+1)+')" '+(curPage===pages?'disabled':'')+'>Next ›</button>';pg.innerHTML=html;}
 function goPage(p){curPage=p;renderPage();window.scrollTo({top:0,behavior:'smooth'});}
 buildCatTabs();renderPage();
+document.getElementById('statTotal').textContent=BOOKS.length;
 </script>
 </body>
 </html>
