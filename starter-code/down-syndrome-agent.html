@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<script>(function(){try{var p=JSON.parse(localStorage.getItem('cs_user_prefs')||'{}');document.documentElement.lang=p.lang||localStorage.getItem('cs_lang')||'ms';}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Down Syndrome Adaptive Agent – CelikSense AI</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.ds-layout { display:grid; grid-template-columns:300px 1fr; gap:24px; }
+@media(max-width:768px){ .ds-layout{grid-template-columns:1fr;} }
+.skip-link:focus { left:8px !important; }
+
+/* Story board cards */
+.story-board { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; margin-top:16px; }
+.story-card {
+  background:var(--bg-card); border:2px solid var(--border); border-radius:16px;
+  padding:16px 12px; text-align:center; font-size:13px; line-height:1.5;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+}
+.story-card .sc-num {
+  width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#f97316,#fb923c);
+  color:#fff; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center;
+}
+.story-card .sc-emoji { font-size:32px; line-height:1; }
+.story-card .sc-text { font-size:13px; font-weight:600; color:var(--text); }
+
+/* Drill cards */
+.drill-card {
+  background:var(--bg-card); border:2px solid var(--border); border-radius:16px;
+  padding:32px; text-align:center; min-height:180px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+  cursor:pointer; transition:transform 0.15s;
+}
+.drill-card:hover { transform:scale(1.02); }
+.drill-card .dc-word { font-size:32px; font-weight:800; color:var(--primary); }
+.drill-card .dc-def { font-size:15px; color:var(--text-muted); display:none; }
+
+/* Star celebration */
+.star-row { display:flex; gap:4px; justify-content:center; font-size:24px; margin-top:8px; }
+
+/* Simple text result */
+.simple-sentence { font-size:18px; line-height:1.9; color:var(--text); background:var(--bg); border-radius:12px; padding:20px; border-left:4px solid #f97316; }
+.simple-sentence p { margin:0 0 12px; }
+.simple-sentence p:last-child { margin:0; }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#f97316;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;font-family:sans-serif;">Skip to main content</a>
+
+<nav class="navbar">
+  <div class="container nav-container">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-icon">CS</div>
+      <div><span class="brand-name">CelikSense AI</span><span class="brand-tagline" data-i18n="tagline">Agentic Multi-Sensory Learning</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a>
+      <div class="nav-dropdown">
+        <button data-i18n="nav_agents" aria-haspopup="true" aria-expanded="false">Agents ▾</button>
+        <div class="dropdown-menu">
+          <a href="ai-librarian.html">📚 AI Librarian</a>
+          <a href="reading-companion.html">📖 Reading Companion</a>
+          <a href="adhd-agent.html">🧠 ADHD Agent</a>
+          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
+          <a href="down-syndrome-agent.html">💛 Down Syndrome Agent</a>
+          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
+          <a href="sign-language.html">🤟 Sign Language Agent</a>
+          <a href="early-warning.html">⚠️ Early Warning Agent</a>
+          <a href="intervention.html">💡 Intervention Agent</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch language">BM</button>
+      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="dashboard.html" class="btn btn-outline btn-sm">← Dashboard</a>
+      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings">⚙️</a>
+      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+    </div>
+  </div>
+</nav>
+
+<main class="page-header" id="main-content">
+  <div class="container">
+  <div class="page-header-card" style="border-top:4px solid #f97316;">
+    <div class="page-badge">💛</div>
+    <h1 class="page-title" data-i18n="ds_title">Down Syndrome Adaptive Agent</h1>
+    <p class="page-subtitle" data-i18n="ds_subtitle">Simplified language, visual story boards, vocabulary drills, and positive feedback — built for every learner.</p>
+  </div>
+  </div>
+</main>
+
+<div class="container" style="padding-bottom:60px;">
+  <div class="ds-layout">
+
+    <!-- Left: Controls -->
+    <div>
+
+      <!-- Tool 1: Simplified Language -->
+      <div class="control-panel" style="margin-bottom:16px; border-left:3px solid #f97316;">
+        <div class="panel-title">📝 <span data-i18n="ds_tool1">Simplified Language</span></div>
+        <p style="font-size:13px;color:var(--text-muted);margin:0 0 12px;" data-i18n="ds_tool1_desc">Paste any text. AI will rewrite it in short, simple sentences.</p>
+        <textarea id="dsInput" rows="6" class="form-control" style="font-size:15px;line-height:1.7;"
+          placeholder="Paste text here / Tampal teks di sini..." aria-label="Input text for simplification"></textarea>
+        <button onclick="simplifyText()" class="btn btn-primary btn-sm" style="margin-top:10px;width:100%;background:linear-gradient(135deg,#f97316,#fb923c);" data-i18n="ds_simplify">
+          ✨ Simplify Text
+        </button>
+      </div>
+
+      <!-- Tool 2: Visual Story Board -->
+      <div class="control-panel" style="margin-bottom:16px; border-left:3px solid #f59e0b;">
+        <div class="panel-title">🖼️ <span data-i18n="ds_tool2">Visual Story Board</span></div>
+        <p style="font-size:13px;color:var(--text-muted);margin:0 0 12px;" data-i18n="ds_tool2_desc">Turn text into numbered picture cards — one idea per card.</p>
+        <button onclick="makeStoryBoard()" class="btn btn-outline btn-sm" style="width:100%;border-color:#f59e0b;color:#d97706;" data-i18n="ds_makestory">
+          🎴 Make Story Board
+        </button>
+      </div>
+
+      <!-- Tool 3: Vocabulary Drill -->
+      <div class="control-panel" style="margin-bottom:16px; border-left:3px solid #22c55e;">
+        <div class="panel-title">🔁 <span data-i18n="ds_tool3">Vocabulary Drill</span></div>
+        <p style="font-size:13px;color:var(--text-muted);margin:0 0 12px;" data-i18n="ds_tool3_desc">Key words from the text turned into flashcards. Tap to reveal meaning.</p>
+        <button onclick="makeDrill()" class="btn btn-outline btn-sm" style="width:100%;border-color:#22c55e;color:#16a34a;" data-i18n="ds_makedrill">
+          🃏 Start Drill
+        </button>
+      </div>
+
+      <!-- Settings -->
+      <div class="control-panel" style="border-left:3px solid #6366f1;">
+        <div class="panel-title">⚙️ <span data-i18n="ds_settings">Display Settings</span></div>
+        <label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:8px;" data-i18n="ds_fontsize">Text Size</label>
+        <input type="range" min="16" max="28" value="18" oninput="setFontSize(this.value)" style="width:100%;accent-color:#f97316;" aria-label="Text size slider">
+        <label style="font-size:13px;color:var(--text-muted);display:block;margin:12px 0 8px;" data-i18n="ds_bgcolor">Background</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="setBg('#fffbf0')" style="width:32px;height:32px;border-radius:8px;background:#fffbf0;border:2px solid #d97706;cursor:pointer;" title="Warm"></button>
+          <button onclick="setBg('#f0fdf4')" style="width:32px;height:32px;border-radius:8px;background:#f0fdf4;border:2px solid #16a34a;cursor:pointer;" title="Mint"></button>
+          <button onclick="setBg('#fdf4ff')" style="width:32px;height:32px;border-radius:8px;background:#fdf4ff;border:2px solid #9333ea;cursor:pointer;" title="Lavender"></button>
+          <button onclick="setBg('#ffffff')" style="width:32px;height:32px;border-radius:8px;background:#ffffff;border:2px solid #d1d5db;cursor:pointer;" title="White"></button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Output Area -->
+    <div>
+
+      <!-- Status / celebration bar -->
+      <div id="dsStatus" style="display:none;" class="card" style="margin-bottom:16px;padding:16px;text-align:center;">
+        <div id="dsStatusMsg" style="font-size:16px;font-weight:700;"></div>
+        <div class="star-row" id="dsStars"></div>
+      </div>
+
+      <!-- Simplified text output -->
+      <div class="card" style="margin-bottom:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <h3 style="margin:0;font-size:16px;" data-i18n="ds_result">📝 Simplified Text</h3>
+          <div style="display:flex;gap:8px;">
+            <button onclick="speakText()" class="btn btn-ghost btn-sm" title="Read aloud" aria-label="Read aloud">🔊</button>
+            <button onclick="copyResult()" class="btn btn-ghost btn-sm" title="Copy" aria-label="Copy text">📋</button>
+          </div>
+        </div>
+        <div id="dsResult" class="simple-sentence" style="font-size:18px;" aria-live="polite" aria-label="Simplified text output">
+          <p style="color:var(--text-muted);font-size:14px;" data-i18n="ds_placeholder">Paste text on the left and press Simplify Text to begin.</p>
+        </div>
+      </div>
+
+      <!-- Story board output -->
+      <div class="card" style="margin-bottom:20px;" id="storySection" style="display:none;">
+        <h3 style="margin:0 0 4px;font-size:16px;" data-i18n="ds_storyboard">🖼️ Visual Story Board</h3>
+        <p style="margin:0 0 12px;font-size:13px;color:var(--text-muted);" data-i18n="ds_storyboard_sub">Each card = one idea. Read them in order.</p>
+        <div class="story-board" id="storyBoard" aria-live="polite"></div>
+      </div>
+
+      <!-- Drill output -->
+      <div class="card" id="drillSection" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <h3 style="margin:0;font-size:16px;" data-i18n="ds_drill">🃏 Vocabulary Drill</h3>
+          <span id="drillScore" style="font-size:13px;color:var(--text-muted);"></span>
+        </div>
+        <div id="drillCard" class="drill-card" onclick="revealDrill()" aria-live="polite" role="button" tabindex="0" aria-label="Tap to reveal word meaning">
+          <div class="dc-word" id="dcWord" data-i18n="ds_drill_ready">Ready!</div>
+          <div style="font-size:13px;color:var(--text-muted);" data-i18n="ds_tap">Tap to reveal meaning</div>
+          <div class="dc-def" id="dcDef"></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;justify-content:center;">
+          <button onclick="nextDrill(false)" class="btn btn-outline btn-sm" data-i18n="ds_again">🔁 Again</button>
+          <button onclick="nextDrill(true)" class="btn btn-primary btn-sm" style="background:linear-gradient(135deg,#22c55e,#16a34a);" data-i18n="ds_got_it">✅ Got it!</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+var LANG = (function(){try{return localStorage.getItem('cs_lang')||'ms';}catch(e){return 'ms';}})();
+var _currentSimple = '';
+var _drillWords = [];
+var _drillIdx = 0;
+var _drillGot = 0;
+var _drillTotal = 0;
+var _drillRevealed = false;
+
+/* ── Gemini call ── */
+async function callGemini(prompt){
+  var key = '';
+  try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e){}
+  if(!key){
+    var lang = LANG;
+    return lang==='ms'
+      ? 'API Key Gemini tidak ditemui. Sila masukkan kunci API di Tetapan.'
+      : 'Gemini API Key not found. Please enter your API key in Settings.';
+  }
+  var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='+encodeURIComponent(key),{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+  });
+  var data = await res.json();
+  return (((data.candidates||[])[0]||{}).content||{}).parts?.[0]?.text || 'No response.';
+}
+
+/* ── Tool 1: Simplify ── */
+async function simplifyText(){
+  var input = document.getElementById('dsInput').value.trim();
+  if(!input){alert(LANG==='ms'?'Sila masukkan teks terlebih dahulu.':'Please enter some text first.');return;}
+  var el = document.getElementById('dsResult');
+  el.innerHTML = '<p style="color:var(--text-muted)">⏳ '+(LANG==='ms'?'Sedang memproses...':'Processing...')+'</p>';
+  var prompt = LANG==='ms'
+    ? 'Tulis semula teks berikut untuk pelajar sindrom Down. Gunakan ayat pendek (maksimum 8 patah perkataan setiap ayat), perkataan mudah, dan bahasa yang mesra kanak-kanak. Setiap idea pada baris baharu. Jangan gunakan istilah sukar. Teks:\n\n'+input
+    : 'Rewrite the following text for a student with Down Syndrome. Use short sentences (maximum 8 words each), simple vocabulary, and child-friendly language. Each idea on a new line. Avoid difficult terms. Text:\n\n'+input;
+  try{
+    var result = await callGemini(prompt);
+    _currentSimple = result;
+    var lines = escHtml(result).split('\n').filter(function(l){return l.trim();});
+    el.innerHTML = lines.map(function(l){return '<p>'+l+'</p>';}).join('');
+    celebrate(LANG==='ms'?'Syabas! Teks sudah dipermudahkan! 🌟':'Great! Text simplified! 🌟');
+  }catch(e){
+    el.innerHTML = '<p style="color:#ef4444">'+escHtml(String(e))+'</p>';
+  }
+}
+
+/* ── Tool 2: Story Board ── */
+async function makeStoryBoard(){
+  if(!_currentSimple){alert(LANG==='ms'?'Sila mudahkan teks dahulu.':'Please simplify text first.');return;}
+  var board = document.getElementById('storyBoard');
+  board.innerHTML = '<p style="color:var(--text-muted)">⏳ '+(LANG==='ms'?'Sedang membuat kad cerita...':'Building story cards...')+'</p>';
+  document.getElementById('storySection').style.display='block';
+  var prompt = LANG==='ms'
+    ? 'Pecahkan teks ini kepada maksimum 8 idea utama. Untuk setiap idea, berikan: (1) satu emoji yang sesuai dan (2) satu frasa pendek (maksimum 5 patah perkataan). Format jawapan: EMOJI|FRASA, satu baris setiap idea.\n\nTeks:\n'+_currentSimple
+    : 'Break this text into up to 8 key ideas. For each idea give: (1) one suitable emoji and (2) a short phrase (max 5 words). Format: EMOJI|PHRASE, one per line.\n\nText:\n'+_currentSimple;
+  try{
+    var result = await callGemini(prompt);
+    var lines = result.split('\n').filter(function(l){return l.trim() && l.includes('|');});
+    if(!lines.length){board.innerHTML='<p style="color:var(--text-muted)">Could not generate cards.</p>';return;}
+    board.innerHTML = lines.map(function(l,i){
+      var parts = l.split('|');
+      var emoji = escHtml((parts[0]||'').trim());
+      var text = escHtml((parts[1]||'').trim());
+      return '<div class="story-card"><div class="sc-num">'+(i+1)+'</div><div class="sc-emoji">'+emoji+'</div><div class="sc-text">'+text+'</div></div>';
+    }).join('');
+    celebrate(LANG==='ms'?'Kad cerita siap! Baca satu-satu 🎉':'Story cards ready! Read one at a time 🎉');
+  }catch(e){
+    board.innerHTML='<p style="color:#ef4444">'+escHtml(String(e))+'</p>';
+  }
+}
+
+/* ── Tool 3: Vocabulary Drill ── */
+async function makeDrill(){
+  if(!_currentSimple){alert(LANG==='ms'?'Sila mudahkan teks dahulu.':'Please simplify text first.');return;}
+  document.getElementById('drillSection').style.display='block';
+  document.getElementById('dcWord').textContent = LANG==='ms'?'Memuatkan...':'Loading...';
+  var prompt = LANG==='ms'
+    ? 'Dari teks ini, senaraikan 6 perkataan penting yang perlu pelajar tahu. Format: PERKATAAN|MAKSUD MUDAH (satu baris setiap perkataan, maksud dalam 5 patah perkataan atau kurang).\n\nTeks:\n'+_currentSimple
+    : 'From this text, list 6 important vocabulary words. Format: WORD|SIMPLE MEANING (one per line, meaning in 5 words or less).\n\nText:\n'+_currentSimple;
+  try{
+    var result = await callGemini(prompt);
+    var lines = result.split('\n').filter(function(l){return l.trim() && l.includes('|');});
+    _drillWords = lines.map(function(l){var p=l.split('|');return{word:(p[0]||'').trim(),def:(p[1]||'').trim()};});
+    _drillIdx = 0; _drillGot = 0; _drillTotal = _drillWords.length; _drillRevealed = false;
+    showDrill();
+  }catch(e){
+    document.getElementById('dcWord').textContent='Error';
+  }
+}
+
+function showDrill(){
+  if(!_drillWords.length) return;
+  var w = _drillWords[_drillIdx % _drillWords.length];
+  document.getElementById('dcWord').textContent = w.word;
+  document.getElementById('dcDef').textContent = w.def;
+  document.getElementById('dcDef').style.display='none';
+  document.getElementById('drillScore').textContent = (_drillGot)+' / '+_drillTotal+' '+(LANG==='ms'?'betul':'correct');
+  _drillRevealed = false;
+}
+
+function revealDrill(){
+  if(_drillRevealed) return;
+  _drillRevealed = true;
+  document.getElementById('dcDef').style.display='block';
+}
+
+function nextDrill(gotIt){
+  if(gotIt){ _drillGot++; if(_drillGot===_drillTotal) celebrate(LANG==='ms'?'Hebat! Semua perkataan dikuasai! ⭐⭐⭐':'Amazing! All words mastered! ⭐⭐⭐'); }
+  _drillIdx++;
+  if(_drillIdx >= _drillWords.length){ _drillIdx = 0; }
+  showDrill();
+}
+
+/* ── Helpers ── */
+function celebrate(msg){
+  var s = document.getElementById('dsStatus');
+  var m = document.getElementById('dsStatusMsg');
+  var st = document.getElementById('dsStars');
+  s.style.display='block';
+  m.textContent = msg;
+  st.innerHTML='⭐⭐⭐';
+  setTimeout(function(){s.style.display='none';}, 4000);
+}
+
+function speakText(){
+  var text = _currentSimple || document.getElementById('dsResult').innerText;
+  if(!text || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  var utt = new SpeechSynthesisUtterance(text);
+  utt.lang = LANG==='ms'?'ms-MY':'en-US';
+  utt.rate = 0.85;
+  window.speechSynthesis.speak(utt);
+}
+
+function copyResult(){
+  var text = document.getElementById('dsResult').innerText;
+  if(navigator.clipboard){ navigator.clipboard.writeText(text); }
+  else{ var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t); }
+}
+
+function setFontSize(v){
+  document.getElementById('dsResult').style.fontSize = v+'px';
+}
+
+function setBg(col){
+  document.getElementById('dsResult').style.background = col;
+}
+
+/* i18n */
+var I18N = {
+  ms:{
+    tagline:'Pembelajaran Berbilang Deria Berasaskan AI',
+    nav_home:'Utama', nav_dashboard:'Papan Pemuka', nav_agents:'Agen',
+    ds_title:'Agen Adaptif Sindrom Down',
+    ds_subtitle:'Bahasa dipermudahkan, papan cerita visual, latih tubi kosa kata, dan maklum balas positif — dibina untuk setiap pelajar.',
+    ds_tool1:'Bahasa Dipermudahkan', ds_tool1_desc:'Tampal mana-mana teks. AI akan tulis semula dalam ayat pendek dan mudah.',
+    ds_simplify:'✨ Mudahkan Teks',
+    ds_tool2:'Papan Cerita Visual', ds_tool2_desc:'Tukar teks kepada kad bergambar bernombor — satu idea setiap kad.',
+    ds_makestory:'🎴 Buat Papan Cerita',
+    ds_tool3:'Latih Tubi Kosa Kata', ds_tool3_desc:'Perkataan utama dari teks dijadikan kad imbas. Ketik untuk lihat maksud.',
+    ds_makedrill:'🃏 Mula Latihan',
+    ds_settings:'Tetapan Paparan', ds_fontsize:'Saiz Teks', ds_bgcolor:'Warna Latar',
+    ds_result:'📝 Teks Dipermudahkan',
+    ds_placeholder:'Tampal teks di sebelah kiri dan tekan Mudahkan Teks untuk bermula.',
+    ds_storyboard:'🖼️ Papan Cerita Visual', ds_storyboard_sub:'Setiap kad = satu idea. Baca mengikut urutan.',
+    ds_drill:'🃏 Latih Tubi Kosa Kata',
+    ds_drill_ready:'Sedia!', ds_tap:'Ketik untuk lihat maksud',
+    ds_again:'🔁 Cuba Lagi', ds_got_it:'✅ Faham!',
+    agent_open:'Buka'
+  },
+  en:{
+    tagline:'Agentic Multi-Sensory Learning',
+    nav_home:'Home', nav_dashboard:'Dashboard', nav_agents:'Agents',
+    ds_title:'Down Syndrome Adaptive Agent',
+    ds_subtitle:'Simplified language, visual story boards, vocabulary drills, and positive feedback — built for every learner.',
+    ds_tool1:'Simplified Language', ds_tool1_desc:'Paste any text. AI will rewrite it in short, simple sentences.',
+    ds_simplify:'✨ Simplify Text',
+    ds_tool2:'Visual Story Board', ds_tool2_desc:'Turn text into numbered picture cards — one idea per card.',
+    ds_makestory:'🎴 Make Story Board',
+    ds_tool3:'Vocabulary Drill', ds_tool3_desc:'Key words from the text turned into flashcards. Tap to reveal meaning.',
+    ds_makedrill:'🃏 Start Drill',
+    ds_settings:'Display Settings', ds_fontsize:'Text Size', ds_bgcolor:'Background',
+    ds_result:'📝 Simplified Text',
+    ds_placeholder:'Paste text on the left and press Simplify Text to begin.',
+    ds_storyboard:'🖼️ Visual Story Board', ds_storyboard_sub:'Each card = one idea. Read them in order.',
+    ds_drill:'🃏 Vocabulary Drill',
+    ds_drill_ready:'Ready!', ds_tap:'Tap to reveal meaning',
+    ds_again:'🔁 Again', ds_got_it:'✅ Got it!',
+    agent_open:'Open'
+  }
+};
+
+function applyI18n(){
+  var t = I18N[LANG] || I18N['ms'];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.getAttribute('data-i18n');
+    if(t[key]) el.textContent = t[key];
+  });
+  var lb = document.getElementById('langBtn');
+  if(lb) lb.textContent = LANG==='ms'?'EN':'BM';
+}
+
+function toggleLanguage(){
+  LANG = LANG==='ms'?'en':'ms';
+  try{ localStorage.setItem('cs_lang', LANG); }catch(e){}
+  applyI18n();
+}
+
+applyI18n();
+</script>
+</body>
+</html>
