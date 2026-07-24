@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'OpenDyslexic';src:url('https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/fonts/OpenDyslexic-Regular.otf') format('opentype');font-weight:normal;font-style:normal;}@font-face{font-family:'OpenDyslexic';src:url('https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/fonts/OpenDyslexic-Bold.otf') format('opentype');font-weight:bold;}</style>
 <style>
 .dys-layout { display:grid; grid-template-columns:320px 1fr; gap:24px; }
 .reading-ruler { position:absolute; left:0; right:0; height:32px; background:rgba(99,102,241,0.15); border:1px solid rgba(99,102,241,0.3); border-radius:4px; pointer-events:none; cursor:none; z-index:5; display:none; }
@@ -80,9 +81,10 @@
         <div class="panel-title">🔤 Font Mode</div>
         <div class="toggle-group">
           <button class="toggle-btn active" id="fontNormal" onclick="setFont('normal')">Normal</button>
-          <button class="toggle-btn" id="fontDys" onclick="setFont('dyslexic')">Lexend / Dyslexic Font</button>
+          <button class="toggle-btn" id="fontDys" onclick="setFont('dyslexic')">Lexend</button>
+          <button class="toggle-btn" id="fontOD" onclick="setFont('opendyslexic')">OpenDyslexic</button>
         </div>
-        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">Lexend is a dyslexia-friendly font designed to increase letter recognition and reduce visual stress.</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;" id="fontDesc">Lexend reduces visual stress. OpenDyslexic uses weighted bottoms to anchor letters and reduce reversals.</div>
       </div>
 
       <!-- Font Size -->
@@ -229,18 +231,28 @@ let currentFont = 'normal';
 function setFont(mode) {
   currentFont = mode;
   const el = document.getElementById('dysReadArea');
+  const desc = document.getElementById('fontDesc');
+  document.getElementById('fontNormal').classList.remove('active');
+  document.getElementById('fontDys').classList.remove('active');
+  document.getElementById('fontOD').classList.remove('active');
   if (mode === 'dyslexic') {
-    el.style.fontFamily = "'Lexend','Comic Sans MS','Trebuchet MS',sans-serif";
+    el.style.fontFamily = "'Lexend',sans-serif";
     el.style.letterSpacing = '0.1em';
     el.style.wordSpacing = '0.2em';
     document.getElementById('fontDys').classList.add('active');
-    document.getElementById('fontNormal').classList.remove('active');
+    if(desc) desc.textContent = 'Lexend — direka untuk kurangkan visual stress dan meningkatkan pengenalan huruf.';
+  } else if (mode === 'opendyslexic') {
+    el.style.fontFamily = "'OpenDyslexic',sans-serif";
+    el.style.letterSpacing = '0.05em';
+    el.style.wordSpacing = '0.25em';
+    document.getElementById('fontOD').classList.add('active');
+    if(desc) desc.textContent = 'OpenDyslexic — huruf berat di bawah untuk elak pembalikan huruf (b/d, p/q). Disyorkan untuk disleksia.';
   } else {
     el.style.fontFamily = '';
     el.style.letterSpacing = '';
     el.style.wordSpacing = '';
     document.getElementById('fontNormal').classList.add('active');
-    document.getElementById('fontDys').classList.remove('active');
+    if(desc) desc.textContent = 'Lexend mengurangkan visual stress. OpenDyslexic menggunakan berat bawah huruf untuk elak pembalikan.';
   }
 }
 
