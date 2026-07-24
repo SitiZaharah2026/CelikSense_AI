@@ -22,6 +22,22 @@
 }
 .skim-highlight { background:#fbbf2460; border-radius:3px; padding:0 2px; }
 @media(max-width:768px){ .dys-layout{grid-template-columns:1fr;} }
+
+/* ── ReAct Loop UI ── */
+.react-panel { border:2px solid #6366f1; border-radius:16px; padding:20px; background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04)); margin-bottom:20px; }
+.react-step { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; opacity:0.3; transition:opacity .4s; }
+.react-step.active { opacity:1; }
+.react-step.done { opacity:0.8; }
+.react-badge { min-width:80px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; text-align:center; letter-spacing:.04em; }
+.react-badge.think { background:#e0e7ff; color:#4338ca; }
+.react-badge.act   { background:#dcfce7; color:#15803d; }
+.react-badge.observe { background:#fef3c7; color:#d97706; }
+.react-badge.retry { background:#fee2e2; color:#dc2626; }
+.react-badge.done  { background:#d1fae5; color:#065f46; }
+.react-content { flex:1; font-size:13px; color:var(--text); line-height:1.6; background:var(--bg); border-radius:8px; padding:10px 14px; min-height:36px; }
+.react-score { display:inline-block; font-weight:700; font-size:18px; color:#6366f1; margin-left:8px; }
+.react-spinner { display:inline-block; width:14px; height:14px; border:2px solid #6366f1; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; margin-right:6px; vertical-align:middle; }
+@keyframes spin { to { transform:rotate(360deg); } }
 .skip-link:focus { left: 8px !important; }
 </style>
 </head>
@@ -178,7 +194,33 @@
           <button class="btn btn-primary" onclick="loadDysText()">📖 Load Text</button>
           <button class="btn btn-secondary" onclick="runSkimGuide()">⚡ Skim Guide</button>
           <button class="btn btn-ghost" onclick="clearDysText()">Clear</button>
+          <button class="btn btn-sm" onclick="runReAct()" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="Run full ReAct reasoning loop">🧠 ReAct Analysis</button>
         </div>
+      </div>
+
+      <!-- ReAct Loop Panel -->
+      <div class="react-panel" id="reactPanel" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div style="font-weight:700;font-size:15px;color:#4338ca;">🧠 ReAct Reasoning Loop</div>
+          <span id="reactRound" style="font-size:12px;color:var(--text-muted);"></span>
+        </div>
+        <div class="react-step" id="reactStep1">
+          <span class="react-badge think">THINK</span>
+          <div class="react-content" id="reactThink">Waiting…</div>
+        </div>
+        <div class="react-step" id="reactStep2">
+          <span class="react-badge act">ACT</span>
+          <div class="react-content" id="reactAct">Waiting…</div>
+        </div>
+        <div class="react-step" id="reactStep3">
+          <span class="react-badge observe">OBSERVE</span>
+          <div class="react-content" id="reactObserve">Waiting…</div>
+        </div>
+        <div class="react-step" id="reactStep4" style="display:none;">
+          <span class="react-badge retry">RETRY</span>
+          <div class="react-content" id="reactRetry">Improving output…</div>
+        </div>
+        <div id="reactResult" style="display:none;margin-top:12px;padding:16px;background:var(--bg);border-radius:12px;border-left:4px solid #22c55e;font-size:15px;line-height:1.8;"></div>
       </div>
 
       <!-- Reading Display -->
@@ -463,6 +505,140 @@ async function showIntervention() {
 }
 
 showIntervention();
+
+/* ── ReAct Loop ─────────────────────────────────────────────────────────── */
+async function _gemini(prompt) {
+  var key = '';
+  try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  if (!key) return null;
+  var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + encodeURIComponent(key), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+  });
+  var data = await res.json();
+  return (((data.candidates || [])[0] || {}).content || {}).parts?.[0]?.text || null;
+}
+
+function _reactSet(stepEl, badgeClass, contentEl, html, active) {
+  stepEl.className = 'react-step ' + (active ? 'active' : 'done');
+  contentEl.innerHTML = html;
+}
+
+async function runReAct() {
+  var text = document.getElementById('dysInput').value.trim() || dysText;
+  if (!text) { alert('Sila masukkan atau muatkan teks dahulu.'); return; }
+  if (!_dysHasKey()) {
+    alert('Sila masukkan Gemini API Key dalam Tetapan untuk menggunakan ReAct Analysis.');
+    return;
+  }
+
+  var panel = document.getElementById('reactPanel');
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  var s1 = document.getElementById('reactStep1'), th = document.getElementById('reactThink');
+  var s2 = document.getElementById('reactStep2'), ac = document.getElementById('reactAct');
+  var s3 = document.getElementById('reactStep3'), ob = document.getElementById('reactObserve');
+  var s4 = document.getElementById('reactStep4'), rt = document.getElementById('reactRetry');
+  var resultEl = document.getElementById('reactResult');
+  var roundEl = document.getElementById('reactRound');
+
+  // Reset
+  [s1,s2,s3,s4].forEach(function(s){ s.className='react-step'; });
+  s4.style.display = 'none';
+  resultEl.style.display = 'none';
+  var spinner = '<span class="react-spinner"></span>';
+
+  var MAX_ROUNDS = 3;
+  var lastOutput = '';
+  var lang = (typeof LANG !== 'undefined' ? LANG : null) || 'ms';
+
+  for (var round = 1; round <= MAX_ROUNDS; round++) {
+    roundEl.textContent = 'Pusingan ' + round + ' / ' + MAX_ROUNDS;
+
+    /* ── THINK ── */
+    s1.className = 'react-step active';
+    th.innerHTML = spinner + 'Menganalisis teks dan merancang pendekatan…';
+
+    var thinkPrompt = 'Kamu adalah agen AI pakar disleksia. Seorang pelajar dengan disleksia perlu bantuan membaca teks ini.\n\nTeks:\n"""\n' + text.slice(0, 800) + '\n"""\n\nFikir: Apakah cabaran utama teks ini untuk pelajar disleksia? Alat yang tersedia: [simplify, skim, mindmap, intervention]. Pilih SATU alat yang paling sesuai dan jelaskan mengapa dalam 2-3 ayat. Format jawapan:\nALAT: <nama>\nSEBAB: <penjelasan>';
+    if (lang === 'en') thinkPrompt = 'You are an expert dyslexia AI agent. A student with dyslexia needs help reading this text.\n\nText:\n"""\n' + text.slice(0, 800) + '\n"""\n\nThink: What are the main challenges of this text for a dyslexic learner? Available tools: [simplify, skim, mindmap, intervention]. Choose ONE most suitable tool and explain why in 2-3 sentences. Format:\nTOOL: <name>\nREASON: <explanation>';
+
+    var thought = await _gemini(thinkPrompt);
+    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke Gemini.'; break; }
+
+    var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
+    var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
+    var chosenTool = (toolMatch ? toolMatch[1].toLowerCase() : 'simplify');
+    var reason = reasonMatch ? reasonMatch[1].trim() : thought;
+
+    var toolLabel = { simplify:'Mudahkan Teks', skim:'Skim Guide', mindmap:'Mind Map', intervention:'Pelan Intervensi' }[chosenTool] || chosenTool;
+    _reactSet(s1, 'think', th, '🔧 Alat dipilih: <strong>' + escHtml(toolLabel) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(reason.slice(0, 200)) + '</span>', false);
+
+    /* ── ACT ── */
+    s2.className = 'react-step active';
+    ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(toolLabel) + '</strong>…';
+
+    var actPrompt = '';
+    if (chosenTool === 'simplify' || chosenTool === 'simplification') {
+      actPrompt = lang === 'en'
+        ? 'Rewrite this text for a dyslexic learner. Use short sentences (max 10 words), simple vocabulary, and clear structure with line breaks. Text:\n\n' + text.slice(0, 1000)
+        : 'Tulis semula teks ini untuk pelajar disleksia. Gunakan ayat pendek (maksimum 10 patah perkataan), kosa kata mudah, dan struktur jelas dengan baris baharu. Teks:\n\n' + text.slice(0, 1000);
+    } else if (chosenTool === 'skim') {
+      actPrompt = lang === 'en'
+        ? 'For a dyslexic learner, identify: (1) the most important sentence, (2) 5 key words, (3) the main idea in one sentence. Text:\n\n' + text.slice(0, 1000)
+        : 'Untuk pelajar disleksia, kenal pasti: (1) ayat paling penting, (2) 5 perkataan kunci, (3) idea utama dalam satu ayat. Teks:\n\n' + text.slice(0, 1000);
+    } else if (chosenTool === 'mindmap') {
+      actPrompt = lang === 'en'
+        ? 'Create a simple mind map outline for a dyslexic learner from this text. List: main topic and 4-5 key branches. Text:\n\n' + text.slice(0, 1000)
+        : 'Cipta rangka peta minda mudah untuk pelajar disleksia daripada teks ini. Senaraikan: topik utama dan 4-5 cawangan utama. Teks:\n\n' + text.slice(0, 1000);
+    } else {
+      actPrompt = lang === 'en'
+        ? 'Give 4 specific learning support tips for a dyslexic student reading this text. Be practical and concise. Text:\n\n' + text.slice(0, 800)
+        : 'Berikan 4 tips sokongan pembelajaran khusus untuk pelajar disleksia yang membaca teks ini. Praktik dan ringkas. Teks:\n\n' + text.slice(0, 800);
+    }
+
+    var output = await _gemini(actPrompt);
+    if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
+    lastOutput = output;
+    _reactSet(s2, 'act', ac, '✅ Output dijana: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>', false);
+
+    /* ── OBSERVE ── */
+    s3.className = 'react-step active';
+    ob.innerHTML = spinner + 'Menyemak kualiti output…';
+
+    var observePrompt = lang === 'en'
+      ? 'You are a dyslexia expert evaluating AI output for a dyslexic learner.\n\nOriginal text:\n"""\n' + text.slice(0, 400) + '\n"""\n\nAI output:\n"""\n' + output.slice(0, 600) + '\n"""\n\nRate this output from 1-10 for clarity and suitability for a dyslexic learner. Reply with:\nSCORE: <number>\nFEEDBACK: <one sentence on what to improve if score < 8>'
+      : 'Kamu pakar disleksia yang menilai output AI untuk pelajar disleksia.\n\nTeks asal:\n"""\n' + text.slice(0, 400) + '\n"""\n\nOutput AI:\n"""\n' + output.slice(0, 600) + '\n"""\n\nBeri skor 1-10 untuk kejelasan dan kesesuaian untuk pelajar disleksia. Balas dengan:\nSKOR: <nombor>\nMAALUMBALAS: <satu ayat tentang apa yang perlu diperbaiki jika skor < 8>';
+
+    var observation = await _gemini(observePrompt);
+    var scoreMatch = observation ? observation.match(/(?:SKOR|SCORE):\s*(\d+)/i) : null;
+    var feedbackMatch = observation ? observation.match(/(?:MAKLUMBALAS|FEEDBACK):\s*(.+)/i) : null;
+    var score = scoreMatch ? parseInt(scoreMatch[1]) : 7;
+    var feedback = feedbackMatch ? feedbackMatch[1].trim() : '';
+
+    var scoreColor = score >= 8 ? '#22c55e' : score >= 6 ? '#f59e0b' : '#ef4444';
+    _reactSet(s3, 'observe', ob,
+      'Skor kualiti: <span class="react-score" style="color:' + scoreColor + '">' + score + '/10</span>' +
+      (feedback ? '<br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(feedback.slice(0, 160)) + '</span>' : ''), false);
+
+    if (score >= 8 || round === MAX_ROUNDS) {
+      /* Done — show final result */
+      resultEl.style.display = 'block';
+      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;">✅ OUTPUT AKHIR — ' + escHtml(toolLabel.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g, '<br>');
+      roundEl.textContent = '✅ Selesai dalam ' + round + ' pusingan';
+      break;
+    }
+
+    /* Retry */
+    s4.style.display = 'flex';
+    s4.className = 'react-step active';
+    rt.innerHTML = spinner + 'Skor ' + score + '/10 — memperbaiki: <em>' + escHtml(feedback.slice(0, 100)) + '</em>';
+    actPrompt = actPrompt + '\n\nPerbaiki output sebelumnya berdasarkan maklum balas ini: ' + feedback;
+    await new Promise(function(r){ setTimeout(r, 400); });
+    _reactSet(s4, 'retry', rt, 'Pusingan ' + (round+1) + ' bermula…', false);
+  }
+}
 </script>
 <script src="personalisation-system.js"></script>
 <script>
