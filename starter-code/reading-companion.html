@@ -752,7 +752,7 @@ async function _reactGemini(prompt) {
 }
 
 async function runReAct() {
-  var inputEl = document.getElementById('readingText');
+  var inputEl = document.getElementById('readingInput');
   var text = inputEl ? inputEl.value.trim() : '';
   if (!text) { var ta = document.querySelector('textarea'); text = ta ? ta.value.trim() : ''; }
   if (!text) { alert('Sila masukkan teks atau data terlebih dahulu.'); return; }

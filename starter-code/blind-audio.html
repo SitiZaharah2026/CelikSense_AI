@@ -681,7 +681,10 @@
   </main>
 
   <footer>
-    <p>CelikSense AI &mdash; Empowering every learner &mdash; <a href="dashboard.html">Dashboard</a></p>
+    <p>CelikSense AI &mdash; Empowering every learner &mdash; <a href="dashboard.html">Dashboard</a> &mdash; <a href="settings.html">Settings</a></p>
+    <div style="margin-top:8px;">
+      <button id="langBtn" onclick="toggleBlindLang()" style="background:rgba(99,102,241,0.15);border:1.5px solid #6366f1;color:#6366f1;border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;cursor:pointer;" aria-label="Toggle language between Bahasa Melayu and English">BM / EN</button>
+    </div>
   </footer>
 
   <!-- Scripts -->
@@ -1140,6 +1143,17 @@ async function runReAct() {
     s4.className = 'react-step done';
     rt.innerHTML = 'Pusingan ' + (round+1) + ' bermula dengan prompt yang diperbaiki.';
   }
+}
+
+function toggleBlindLang() {
+  var lang = 'ms';
+  try { lang = localStorage.getItem('cs_lang') || 'ms'; } catch(e) {}
+  lang = lang === 'ms' ? 'en' : 'ms';
+  try { localStorage.setItem('cs_lang', lang); } catch(e) {}
+  var btn = document.getElementById('langBtn');
+  if (btn) btn.textContent = lang === 'ms' ? 'EN' : 'BM';
+  var sp = lang === 'ms' ? 'Bahasa ditukar kepada Bahasa Melayu.' : 'Language switched to English.';
+  if (window.speechSynthesis) { var u = new SpeechSynthesisUtterance(sp); u.lang = lang === 'ms' ? 'ms-MY' : 'en-US'; window.speechSynthesis.speak(u); }
 }
   </script>
 </body>

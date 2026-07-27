@@ -491,9 +491,8 @@ async function _reactGemini(prompt) {
 }
 
 async function runReAct() {
-  var inputEl = document.getElementById('studentProfile');
-  var text = inputEl ? inputEl.value.trim() : '';
-  if (!text) { var ta = document.querySelector('textarea'); text = ta ? ta.value.trim() : ''; }
+  var text = '';
+  var ta = document.querySelector('textarea'); if (ta) text = ta.value.trim();
   if (!text) {
     var name = (document.getElementById('lName')||{}).value||'';
     var need = (document.getElementById('lNeed')||{}).value||'';
