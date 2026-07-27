@@ -1158,10 +1158,13 @@ function toggleMarquee(){
 
 <script>
 function _suT(key) {
-  var lang = localStorage.getItem('cs_lang') || 'ms';
-  var t = (window.CelikSense && window.CelikSense.i18n) ? window.CelikSense.i18n[lang] : null;
-  if (!t && window.I18N) t = window.I18N[lang];
-  return (t && t[key]) ? t[key] : key;
+  if (window.CS && window.CS.lang && typeof window.CS.lang.t === 'function') return window.CS.lang.t(key) || key;
+  if (window.CS_LANG) {
+    var lang = localStorage.getItem('cs_lang') || 'ms';
+    var dict = window.CS_LANG[lang] || window.CS_LANG.en;
+    return (dict && dict[key]) ? dict[key] : (window.CS_LANG.en[key] || key);
+  }
+  return key;
 }
 function _suApplyI18n() {
   var modal = document.getElementById('signupModal');
