@@ -217,7 +217,18 @@ const CS_LANG = {
     /* Homepage / Navigation extras */
     tagline:        'Agentic Multi-Sensory Learning',
     nav_agents:     'Agents ▾',
-    nav_signup:     'Sign Up',
+    nav_signup:       'Sign Up',
+    signup_title:     'Create Your Account',
+    signup_sub:       'Start your inclusive learning journey today.',
+    signup_username:  'Username',
+    signup_uph:       'Enter your username',
+    signup_email:     'Email',
+    signup_eph:       'example@email.com',
+    signup_btn:       'Sign Up',
+    signup_note:      'Data is saved on your device only. No external server.',
+    signup_success:   'Account created! Redirecting to dashboard…',
+    signup_err_user:  'Please enter your username.',
+    signup_err_email: 'Please enter a valid email address.',
 
     /* Hero section */
     hero_badge:     '8 AI Agents · Inclusive Learning',
@@ -824,7 +835,18 @@ const CS_LANG = {
     /* Laman Utama / Navigasi tambahan */
     tagline:        'Pembelajaran Multi-Deria Beragensi',
     nav_agents:     'Ejen ▾',
-    nav_signup:     'Daftar',
+    nav_signup:       'Daftar',
+    signup_title:     'Daftar Akaun',
+    signup_sub:       'Mulakan pembelajaran inklusif anda hari ini.',
+    signup_username:  'Nama Pengguna',
+    signup_uph:       'Masukkan nama pengguna anda',
+    signup_email:     'Emel',
+    signup_eph:       'contoh@emel.com',
+    signup_btn:       'Daftar',
+    signup_note:      'Data disimpan dalam peranti anda sahaja. Tiada pelayan luar.',
+    signup_success:   'Akaun berjaya dibuat! Menghala ke papan pemuka…',
+    signup_err_user:  'Sila masukkan nama pengguna anda.',
+    signup_err_email: 'Sila masukkan alamat emel yang sah.',
 
     /* Bahagian Hero */
     hero_badge:     '8 Ejen AI · Pembelajaran Inklusif',
