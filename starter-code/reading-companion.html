@@ -22,6 +22,20 @@
 .vocab-def { font-size:13px; color:var(--text-muted); line-height:1.5; padding:12px; background:var(--bg); border-radius:8px; margin-top:10px; }
 @media(max-width:768px){ .rc-layout{grid-template-columns:1fr;} }
 .skip-link:focus { left: 8px !important; }
+
+/* ── ReAct Loop UI ── */
+.react-panel { border:2px solid #6366f1; border-radius:16px; padding:20px; background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04)); margin-bottom:20px; }
+.react-step { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; opacity:0.3; transition:opacity .4s; }
+.react-step.active { opacity:1; }
+.react-step.done { opacity:0.8; }
+.react-badge { min-width:80px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; text-align:center; letter-spacing:.04em; }
+.react-badge.think { background:#e0e7ff; color:#4338ca; }
+.react-badge.act   { background:#dcfce7; color:#15803d; }
+.react-badge.observe { background:#fef3c7; color:#d97706; }
+.react-badge.retry { background:#fee2e2; color:#dc2626; }
+.react-score { display:inline-block; font-weight:700; font-size:18px; color:#6366f1; margin-left:8px; }
+.react-spinner { display:inline-block; width:14px; height:14px; border:2px solid #6366f1; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; margin-right:6px; vertical-align:middle; }
+@keyframes spin { to { transform:rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -104,6 +118,19 @@
     <div id="psAdaptiveSuggestions" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
   </div>
 
+  <!-- ReAct Loop Panel -->
+<div class="react-panel" id="reactPanel" style="display:none;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+    <div style="font-weight:700;font-size:15px;color:#4338ca;">🧠 ReAct Reasoning Loop</div>
+    <span id="reactRound" style="font-size:12px;color:var(--text-muted);"></span>
+  </div>
+  <div class="react-step" id="reactStep1"><span class="react-badge think">THINK</span><div class="react-content" id="reactThink">Waiting…</div></div>
+  <div class="react-step" id="reactStep2"><span class="react-badge act">ACT</span><div class="react-content" id="reactAct">Waiting…</div></div>
+  <div class="react-step" id="reactStep3"><span class="react-badge observe">OBSERVE</span><div class="react-content" id="reactObserve">Waiting…</div></div>
+  <div class="react-step" id="reactStep4" style="display:none;"><span class="react-badge retry">RETRY</span><div class="react-content" id="reactRetry">Improving…</div></div>
+  <div id="reactResult" style="display:none;margin-top:12px;padding:16px;background:var(--bg);border-radius:12px;border-left:4px solid #22c55e;font-size:15px;line-height:1.8;"></div>
+</div>
+
   <div class="rc-layout">
     <!-- Left: Text & Reading -->
     <div>
@@ -114,6 +141,7 @@
         <div style="display:flex;gap:10px;margin-top:12px;">
           <button class="btn btn-primary" onclick="loadText()">📖 Load Text</button>
           <button class="btn btn-ghost" onclick="clearText()">Clear</button>
+          <button onclick="runReAct()" class="btn btn-sm" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis">🧠 ReAct</button>
         </div>
       </div>
 
@@ -708,6 +736,101 @@ window.rcEndSession = function() {
     CS_PERSONALISE.endSession();
   }
 };
+
+/* ── ReAct Loop ─────────────────────────────────────────────────────────── */
+async function _reactGemini(prompt) {
+  var key = ''; try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  if (!key) return null;
+  try {
+    var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + encodeURIComponent(key), {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+    });
+    var data = await res.json();
+    return (((data.candidates || [])[0] || {}).content || {}).parts?.[0]?.text || null;
+  } catch(e) { return null; }
+}
+
+async function runReAct() {
+  var inputEl = document.getElementById('readingText');
+  var text = inputEl ? inputEl.value.trim() : '';
+  if (!text) { var ta = document.querySelector('textarea'); text = ta ? ta.value.trim() : ''; }
+  if (!text) { alert('Sila masukkan teks atau data terlebih dahulu.'); return; }
+  var hasKey = false; try { hasKey = !!(localStorage.getItem('gemini_api_key') || ''); } catch(e) {}
+  if (!hasKey) { alert('Sila masukkan Gemini API Key dalam Tetapan untuk ReAct Analysis.'); return; }
+  var lang = 'ms'; try { lang = localStorage.getItem('cs_lang') || 'ms'; } catch(e) {}
+
+  var panel = document.getElementById('reactPanel');
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  var s1=document.getElementById('reactStep1'), th=document.getElementById('reactThink');
+  var s2=document.getElementById('reactStep2'), ac=document.getElementById('reactAct');
+  var s3=document.getElementById('reactStep3'), ob=document.getElementById('reactObserve');
+  var s4=document.getElementById('reactStep4'), rt=document.getElementById('reactRetry');
+  var resultEl=document.getElementById('reactResult'), roundEl=document.getElementById('reactRound');
+  [s1,s2,s3,s4].forEach(function(s){s.className='react-step';});
+  s4.style.display='none'; resultEl.style.display='none';
+  var spinner='<span class="react-spinner"></span>';
+
+  var thinkPrompts = {"ms":"Kamu agen AI rakan membaca. Pelajar sedang membaca teks ini.\n\nTeks:\n\"\"\"\n{TEXT}\n\"\"\"\n\nFikir: Sokongan terbaik untuk pemahaman? Alat tersedia: [summarise, quiz, vocabulary, comprehension_check]. Pilih SATU. Format:\nALAT: <nama>\nSEBAB: <penjelasan>","en":"You are a reading companion AI agent. A student is reading this text.\n\nText:\n\"\"\"\n{TEXT}\n\"\"\"\n\nThink: Best comprehension support? Tools: [summarise, quiz, vocabulary, comprehension_check]. Choose ONE. Format:\nTOOL: <name>\nREASON: <explanation>"};
+  var actPrompts = {"summarise":{"ms":"Ringkaskan teks ini dalam 5 ayat mudah, sesuai untuk pelajar sekolah.\n\nTeks: {TEXT}","en":"Summarise this text in 5 simple sentences suitable for school students.\n\nText: {TEXT}"},"quiz":{"ms":"Jana 5 soalan kuiz pelbagai pilihan (A/B/C) berdasarkan teks ini.\n\nTeks: {TEXT}","en":"Generate 5 multiple-choice quiz questions (A/B/C) based on this text.\n\nText: {TEXT}"},"vocabulary":{"ms":"Senaraikan 6 perkataan penting dari teks dengan definisi mudah.\n\nTeks: {TEXT}","en":"List 6 important vocabulary words with simple definitions.\n\nText: {TEXT}"},"comprehension_check":{"ms":"Bina 4 soalan pemahaman terbuka berdasarkan teks. Soalan pelbagai tahap (ingatan, analisis).\n\nTeks: {TEXT}","en":"Build 4 open comprehension questions. Mixed levels (recall, analysis).\n\nText: {TEXT}"}};
+  var MAX_ROUNDS = 3; var lastOutput = '';
+
+  for (var round = 1; round <= MAX_ROUNDS; round++) {
+    roundEl.textContent = 'Pusingan ' + round + ' / ' + MAX_ROUNDS;
+    s1.className = 'react-step active';
+    th.innerHTML = spinner + 'Menganalisis dan merancang pendekatan terbaik…';
+
+    var tprompt = (lang === 'en' ? thinkPrompts.en : thinkPrompts.ms).replace('{TEXT}', text.slice(0, 800));
+    var thought = await _reactGemini(tprompt);
+    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke Gemini. Semak API Key dalam Tetapan.'; break; }
+
+    var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
+    var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
+    var chosenTool = toolMatch ? toolMatch[1].toLowerCase() : Object.keys(actPrompts)[0];
+    if (!actPrompts[chosenTool]) chosenTool = Object.keys(actPrompts)[0];
+    var reason = reasonMatch ? reasonMatch[1].trim().slice(0, 200) : thought.slice(0, 200);
+    s1.className = 'react-step done';
+    th.innerHTML = '🔧 Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(reason) + '</span>';
+
+    s2.className = 'react-step active';
+    ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(chosenTool) + '</strong>…';
+    var apromptObj = actPrompts[chosenTool];
+    var aprompt = (lang === 'en' ? apromptObj.en : apromptObj.ms).replace('{TEXT}', text.slice(0, 1000));
+    var output = await _reactGemini(aprompt);
+    if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
+    lastOutput = output;
+    s2.className = 'react-step done';
+    ac.innerHTML = '✅ Output: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
+
+    s3.className = 'react-step active';
+    ob.innerHTML = spinner + 'Menyemak kualiti output…';
+    var oprompt = lang === 'en'
+      ? 'Rate this AI output for a reading comprehension from 1-10. Original: """' + text.slice(0,300) + '""" Output: """' + output.slice(0,500) + '""" Reply: SCORE: <n>\nFEEDBACK: <one sentence to improve if <8>'
+      : 'Nilai output AI ini untuk reading comprehension dari 1-10. Asal: """' + text.slice(0,300) + '""" Output: """' + output.slice(0,500) + '""" Balas: SKOR: <n>\nMAALUMBALAS: <satu ayat untuk perbaiki jika <8>';
+    var obs = await _reactGemini(oprompt);
+    var scoreMatch = obs ? obs.match(/(?:SKOR|SCORE):\s*(\d+)/i) : null;
+    var fbMatch = obs ? obs.match(/(?:MAKLUMBALAS|FEEDBACK):\s*(.+)/i) : null;
+    var score = scoreMatch ? parseInt(scoreMatch[1]) : 7;
+    var fb = fbMatch ? fbMatch[1].trim() : '';
+    var sc = score >= 8 ? '#22c55e' : score >= 6 ? '#f59e0b' : '#ef4444';
+    s3.className = 'react-step done';
+    ob.innerHTML = 'Skor: <span style="font-weight:700;font-size:18px;color:' + sc + '">' + score + '/10</span>' + (fb ? '<br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(fb.slice(0,160)) + '</span>' : '');
+
+    if (score >= 8 || round === MAX_ROUNDS) {
+      resultEl.style.display = 'block';
+      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;">✅ OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
+      roundEl.textContent = '✅ Selesai dalam ' + round + ' pusingan';
+      break;
+    }
+    s4.style.display = 'flex'; s4.className = 'react-step active';
+    rt.innerHTML = spinner + 'Skor ' + score + '/10 — memperbaiki berdasarkan maklum balas…';
+    aprompt = aprompt + '\n\nPerbaiki berdasarkan: ' + fb;
+    await new Promise(function(r){ setTimeout(r, 300); });
+    s4.className = 'react-step done';
+    rt.innerHTML = 'Pusingan ' + (round+1) + ' bermula dengan prompt yang diperbaiki.';
+  }
+}
 </script>
 </body>
 </html>

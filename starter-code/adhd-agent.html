@@ -20,6 +20,20 @@
 .hl-btn { padding:5px 12px; border-radius:6px; border:none; font-size:12px; font-weight:700; cursor:pointer; }
 @media(max-width:768px){ .adhd-layout{grid-template-columns:1fr;} }
 .skip-link:focus { left: 8px !important; }
+
+/* ── ReAct Loop UI ── */
+.react-panel { border:2px solid #6366f1; border-radius:16px; padding:20px; background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04)); margin-bottom:20px; }
+.react-step { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; opacity:0.3; transition:opacity .4s; }
+.react-step.active { opacity:1; }
+.react-step.done { opacity:0.8; }
+.react-badge { min-width:80px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; text-align:center; letter-spacing:.04em; }
+.react-badge.think { background:#e0e7ff; color:#4338ca; }
+.react-badge.act   { background:#dcfce7; color:#15803d; }
+.react-badge.observe { background:#fef3c7; color:#d97706; }
+.react-badge.retry { background:#fee2e2; color:#dc2626; }
+.react-score { display:inline-block; font-weight:700; font-size:18px; color:#6366f1; margin-left:8px; }
+.react-spinner { display:inline-block; width:14px; height:14px; border:2px solid #6366f1; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; margin-right:6px; vertical-align:middle; }
+@keyframes spin { to { transform:rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -89,6 +103,19 @@
     <!-- Main Reading Panel -->
     <div>
 
+      <!-- ReAct Loop Panel -->
+      <div class="react-panel" id="reactPanel" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div style="font-weight:700;font-size:15px;color:#4338ca;">🧠 ReAct Reasoning Loop</div>
+          <span id="reactRound" style="font-size:12px;color:var(--text-muted);"></span>
+        </div>
+        <div class="react-step" id="reactStep1"><span class="react-badge think">THINK</span><div class="react-content" id="reactThink">Waiting…</div></div>
+        <div class="react-step" id="reactStep2"><span class="react-badge act">ACT</span><div class="react-content" id="reactAct">Waiting…</div></div>
+        <div class="react-step" id="reactStep3"><span class="react-badge observe">OBSERVE</span><div class="react-content" id="reactObserve">Waiting…</div></div>
+        <div class="react-step" id="reactStep4" style="display:none;"><span class="react-badge retry">RETRY</span><div class="react-content" id="reactRetry">Improving…</div></div>
+        <div id="reactResult" style="display:none;margin-top:12px;padding:16px;background:var(--bg);border-radius:12px;border-left:4px solid #22c55e;font-size:15px;line-height:1.8;"></div>
+      </div>
+
       <!-- Session Controls -->
       <div class="control-panel" style="margin-bottom:20px;">
         <div class="panel-title">⏱ Micro-Reading Session</div>
@@ -130,6 +157,7 @@
           </div>
         </div>
         <button class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="generateStrategy()">🤖 Generate Strategy</button>
+        <button onclick="runReAct()" class="btn btn-sm" style="margin-top:12px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis">🧠 ReAct</button>
         <div id="strategyOutput" class="hidden" style="margin-top:12px;padding:14px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:var(--radius);font-size:13px;line-height:1.6;"></div>
       </div>
 
@@ -580,6 +608,115 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   } catch(e) {}
   injectCelikVerseBook();
+
+  /* ── ReAct Loop ─────────────────────────────────────────────────────────── */
+  window.runReAct = async function runReAct() {
+    var inputEl = document.getElementById('sessionText');
+    var text = inputEl ? inputEl.value.trim() : '';
+    if (!text) { var ta = document.querySelector('textarea'); text = ta ? ta.value.trim() : ''; }
+    if (!text) {
+      var ra = document.getElementById('readingArea');
+      text = ra ? ra.innerText.trim() : '';
+    }
+    if (!text) { alert('Sila masukkan teks atau data terlebih dahulu.'); return; }
+    var hasKey = false; try { hasKey = !!(localStorage.getItem('gemini_api_key') || ''); } catch(e) {}
+    if (!hasKey) { alert('Sila masukkan Gemini API Key dalam Tetapan untuk ReAct Analysis.'); return; }
+    var lang = 'ms'; try { lang = localStorage.getItem('cs_lang') || 'ms'; } catch(e) {}
+
+    var panel = document.getElementById('reactPanel');
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var s1=document.getElementById('reactStep1'), th=document.getElementById('reactThink');
+    var s2=document.getElementById('reactStep2'), ac=document.getElementById('reactAct');
+    var s3=document.getElementById('reactStep3'), ob=document.getElementById('reactObserve');
+    var s4=document.getElementById('reactStep4'), rt=document.getElementById('reactRetry');
+    var resultEl=document.getElementById('reactResult'), roundEl=document.getElementById('reactRound');
+    [s1,s2,s3,s4].forEach(function(s){s.className='react-step';});
+    s4.style.display='none'; resultEl.style.display='none';
+    var spinner='<span class="react-spinner"></span>';
+
+    async function _reactGemini(prompt) {
+      var key = ''; try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+      if (!key) return null;
+      try {
+        var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + encodeURIComponent(key), {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+        var data = await res.json();
+        return (((data.candidates || [])[0] || {}).content || {}).parts?.[0]?.text || null;
+      } catch(e) { return null; }
+    }
+
+    var TOOLS = "[focus_strategy, micro_session, note_builder, intervention]";
+    var thinkPrompts = {
+      "ms":"Kamu adalah agen AI pakar ADHD. Pelajar dengan ADHD memerlukan bantuan membaca teks ini.\n\nTeks:\n\"\"\"\n{TEXT}\n\"\"\"\n\nFikir: Apakah cabaran utama teks ini untuk pelajar ADHD? Alat tersedia: [focus_strategy, micro_session, note_builder, intervention]. Pilih SATU dan jelaskan. Format:\nALAT: <nama>\nSEBAB: <penjelasan>",
+      "en":"You are an expert ADHD AI agent. A student with ADHD needs help with this text.\n\nText:\n\"\"\"\n{TEXT}\n\"\"\"\n\nThink: What are the main challenges of this text for an ADHD learner? Tools: [focus_strategy, micro_session, note_builder, intervention]. Choose ONE. Format:\nTOOL: <name>\nREASON: <explanation>"
+    };
+    var actPrompts = {
+      "focus_strategy":{"ms":"Beri 3 strategi fokus khusus untuk pelajar ADHD membaca teks ini. Pendek dan praktikal.\n\nTeks: {TEXT}","en":"Give 3 specific focus strategies for an ADHD learner reading this text. Short and practical.\n\nText: {TEXT}"},
+      "micro_session":{"ms":"Pecahkan teks ini kepada 3 sesi mikro 10 minit untuk pelajar ADHD. Setiap sesi ada tajuk dan objektif mudah.\n\nTeks: {TEXT}","en":"Break this text into 3 x 10-minute micro-sessions for an ADHD learner. Each session has a title and simple objective.\n\nText: {TEXT}"},
+      "note_builder":{"ms":"Jana 5 nota ringkas dan padat dari teks ini untuk pelajar ADHD. Format poin, ayat pendek.\n\nTeks: {TEXT}","en":"Generate 5 concise bullet notes from this text for an ADHD learner. Bullet format, short sentences.\n\nText: {TEXT}"},
+      "intervention":{"ms":"Cadangkan pelan intervensi ringkas untuk pelajar ADHD dengan teks ini: tahap sokongan dan 3 aktiviti.\n\nTeks: {TEXT}","en":"Suggest a brief intervention plan for an ADHD learner with this text: support level and 3 activities.\n\nText: {TEXT}"}
+    };
+    var MAX_ROUNDS = 3; var lastOutput = '';
+
+    for (var round = 1; round <= MAX_ROUNDS; round++) {
+      roundEl.textContent = 'Pusingan ' + round + ' / ' + MAX_ROUNDS;
+      s1.className = 'react-step active';
+      th.innerHTML = spinner + 'Menganalisis dan merancang pendekatan terbaik…';
+
+      var tprompt = (lang === 'en' ? thinkPrompts.en : thinkPrompts.ms).replace('{TEXT}', text.slice(0, 800));
+      var thought = await _reactGemini(tprompt);
+      if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke Gemini. Semak API Key dalam Tetapan.'; break; }
+
+      var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
+      var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
+      var chosenTool = toolMatch ? toolMatch[1].toLowerCase() : Object.keys(actPrompts)[0];
+      if (!actPrompts[chosenTool]) chosenTool = Object.keys(actPrompts)[0];
+      var reason = reasonMatch ? reasonMatch[1].trim().slice(0, 200) : thought.slice(0, 200);
+      s1.className = 'react-step done';
+      th.innerHTML = '🔧 Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(reason) + '</span>';
+
+      s2.className = 'react-step active';
+      ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(chosenTool) + '</strong>…';
+      var apromptObj = actPrompts[chosenTool];
+      var aprompt = (lang === 'en' ? apromptObj.en : apromptObj.ms).replace('{TEXT}', text.slice(0, 1000));
+      var output = await _reactGemini(aprompt);
+      if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
+      lastOutput = output;
+      s2.className = 'react-step done';
+      ac.innerHTML = '✅ Output: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
+
+      s3.className = 'react-step active';
+      ob.innerHTML = spinner + 'Menyemak kualiti output…';
+      var oprompt = lang === 'en'
+        ? 'Rate this AI output for an ADHD learner from 1-10. Original: """' + text.slice(0,300) + '""" Output: """' + output.slice(0,500) + '""" Reply: SCORE: <n>\nFEEDBACK: <one sentence to improve if score is less than 8>'
+        : 'Nilai output AI ini untuk pelajar ADHD dari 1-10. Asal: """' + text.slice(0,300) + '""" Output: """' + output.slice(0,500) + '""" Balas: SKOR: <n>\nMAALUMBALAS: <satu ayat untuk perbaiki jika skor kurang dari 8>';
+      var obs = await _reactGemini(oprompt);
+      var scoreMatch = obs ? obs.match(/(?:SKOR|SCORE):\s*(\d+)/i) : null;
+      var fbMatch = obs ? obs.match(/(?:MAKLUMBALAS|FEEDBACK):\s*(.+)/i) : null;
+      var score = scoreMatch ? parseInt(scoreMatch[1]) : 7;
+      var fb = fbMatch ? fbMatch[1].trim() : '';
+      var sc = score >= 8 ? '#22c55e' : score >= 6 ? '#f59e0b' : '#ef4444';
+      s3.className = 'react-step done';
+      ob.innerHTML = 'Skor: <span style="font-weight:700;font-size:18px;color:' + sc + '">' + score + '/10</span>' + (fb ? '<br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(fb.slice(0,160)) + '</span>' : '');
+
+      if (score >= 8 || round === MAX_ROUNDS) {
+        resultEl.style.display = 'block';
+        resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;">✅ OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
+        roundEl.textContent = '✅ Selesai dalam ' + round + ' pusingan';
+        break;
+      }
+      s4.style.display = 'flex'; s4.className = 'react-step active';
+      rt.innerHTML = spinner + 'Skor ' + score + '/10 — memperbaiki berdasarkan maklum balas…';
+      aprompt = aprompt + '\n\nPerbaiki berdasarkan: ' + fb;
+      await new Promise(function(r){ setTimeout(r, 300); });
+      s4.className = 'react-step done';
+      rt.innerHTML = 'Pusingan ' + (round+1) + ' bermula dengan prompt yang diperbaiki.';
+    }
+  };
+
   if (!window.CS_PERSONALISE) return;
   CS_PERSONALISE.init();
   CS_PERSONALISE.trackAgentUse('adhd-agent');
