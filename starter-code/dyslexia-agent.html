@@ -370,8 +370,8 @@ function setSpeed(val) {
 /* ── Agent API helper ──────────────────────────────────────────────────── */
 async function _callAgent(task, payload) {
   var apiKey = '';
-  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
-  var groqKey = ''; try { groqKey = localStorage.getItem('groq_api_key') || ''; } catch(e) {}
+  try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
+  var groqKey = ''; try { groqKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   var body = Object.assign({ task: task, lang: LANG || 'ms', apiKey: apiKey, groqKey: groqKey }, payload);
   try {
     var res = await fetch('/api/agents/dyslexia', {
@@ -379,7 +379,7 @@ async function _callAgent(task, payload) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     });
-    var data = await res.json();
+    var j = await res.json();
     if (!data.ok) throw new Error(data.error || 'Agent error');
     return data.output;
   } catch(err) {
@@ -389,7 +389,7 @@ async function _callAgent(task, payload) {
 }
 
 function _dysHasKey() {
-  try { return !!(localStorage.getItem('gemini_api_key') || ''); } catch(e) { return false; }
+  try { return !!(localStorage.getItem('openrouter_api_key') || ''); } catch(e) { return false; }
 }
 
 /* ── AI Skim Guide ────────────────────────────────────────────────────── */
@@ -407,7 +407,7 @@ async function runSkimGuide() {
     const words=dysText.match(/\b[A-Za-z]{5,}\b/g)||[];
     const freq={};words.forEach(w=>{const k=w.toLowerCase();freq[k]=(freq[k]||0)+1;});
     const top=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,6).map(e=>e[0]);
-    out.innerHTML+=`<br><strong>🔑 Frequent Key Words:</strong><br>${top.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br><small>Add Gemini API key in <a href="settings.html">Settings</a> for AI-powered skim analysis.</small>`;
+    out.innerHTML+=`<br><strong>🔑 Frequent Key Words:</strong><br>${top.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br><small>Add OpenRouter API key in <a href="settings.html">Settings</a> for AI-powered skim analysis.</small>`;
     return;
   }
 
@@ -462,7 +462,7 @@ async function generateMindMap() {
     topic = unique[0]||'Topic';
     branches = unique.slice(1,6);
     if(!_dysHasKey() && !branches.length){
-      canvas.innerHTML = `<div style="text-align:center;padding:20px;font-size:13px;">Add Gemini API key in <a href="settings.html">Settings</a> for AI mind maps, or load a text first.</div>`;
+      canvas.innerHTML = `<div style="text-align:center;padding:20px;font-size:13px;">Add OpenRouter API key in <a href="settings.html">Settings</a> for AI mind maps, or load a text first.</div>`;
       return;
     }
   }
@@ -488,7 +488,7 @@ async function showIntervention() {
   el.innerHTML = `<div class="alert alert-info" style="margin:0;">${baseRecs[level]}</div>`;
 
   if(!_dysHasKey()){
-    el.innerHTML += `<div style="font-size:12px;color:var(--muted);margin-top:8px;">Add your Gemini API key in <a href="settings.html">Settings</a> for personalised AI tips.</div>`;
+    el.innerHTML += `<div style="font-size:12px;color:var(--muted);margin-top:8px;">Add your OpenRouter API key in <a href="settings.html">Settings</a> for personalised AI tips.</div>`;
     return;
   }
 
@@ -509,15 +509,16 @@ showIntervention();
 /* ── ReAct Loop ─────────────────────────────────────────────────────────── */
 async function _gemini(prompt) {
   var key = '';
-  try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!key) return null;
-  var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + encodeURIComponent(key), {
+  var model = ''; try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
+  var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+    body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
   });
-  var data = await res.json();
-  return (((data.candidates || [])[0] || {}).content || {}).parts?.[0]?.text || null;
+  var j = await res.json();
+  return j.choices && j.choices[0] ? j.choices[0].message.content : null;
 }
 
 function _reactSet(stepEl, badgeClass, contentEl, html, active) {
@@ -529,7 +530,7 @@ async function runReAct() {
   var text = document.getElementById('dysInput').value.trim() || dysText;
   if (!text) { alert('Sila masukkan atau muatkan teks dahulu.'); return; }
   if (!_dysHasKey()) {
-    alert('Sila masukkan Gemini API Key dalam Tetapan untuk menggunakan ReAct Analysis.');
+    alert('Sila masukkan OpenRouter API Key dalam Tetapan untuk menggunakan ReAct Analysis.');
     return;
   }
 
@@ -565,7 +566,7 @@ async function runReAct() {
     if (lang === 'en') thinkPrompt = 'You are an expert dyslexia AI agent. A student with dyslexia needs help reading this text.\n\nText:\n"""\n' + text.slice(0, 800) + '\n"""\n\nThink: What are the main challenges of this text for a dyslexic learner? Available tools: [simplify, skim, mindmap, intervention]. Choose ONE most suitable tool and explain why in 2-3 sentences. Format:\nTOOL: <name>\nREASON: <explanation>';
 
     var thought = await _gemini(thinkPrompt);
-    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke Gemini.'; break; }
+    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke OpenRouter.'; break; }
 
     var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
     var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================================
  * CelikSense AI — Shared JavaScript Library
  * File: js/shared.js
@@ -15,7 +15,7 @@
  *   2. Accessibility    — font, contrast, overlay, zoom
  *   3. TTS Engine       — Text-to-Speech with correct voice
  *   4. Voice Engine     — Speech Recognition (voice commands)
- *   5. Gemini AI Client — connect to Google Gemini API (gemini-2.0-flash)
+ *   5. OpenRouter AI Client — connect to Google OpenRouter API (openrouter)
  *   6. User Profile     — save / load learner settings
  *   7. Analytics        — track sessions and focus score
  *   8. Toast Messages   — small pop-up notifications
@@ -207,7 +207,7 @@ const CS_LANG = {
     /* Gemini */
     gemini_error:  'AI service unavailable. Using basic mode.',
     gemini_quota:  'Daily AI limit reached. Try again tomorrow.',
-    gemini_no_key: 'No Gemini API key set. Add it in Settings.',
+    gemini_no_key: 'No OpenRouter API key set. Add it in Settings.',
 
     /* Errors */
     err_generic:   'Something went wrong. Please try again.',
@@ -314,11 +314,11 @@ const CS_LANG = {
     set_tab_profile:         'Profile',
     set_tab_lang:            'Language',
     set_tab_data:            'Data & Privacy',
-    set_gemini_title:        'Gemini AI',
-    set_gemini_desc:         'Enter your Gemini API key to enable AI summaries, quizzes, and intervention plans.',
+    set_gemini_title:        'OpenRouter AI',
+    set_gemini_desc:         'Enter your OpenRouter API key to enable AI summaries, quizzes, and intervention plans.',
     set_api_none:            'No key set',
     set_api_saved:           'Key saved — click Test to verify',
-    set_api_ok:              'Connected — Gemini AI is working',
+    set_api_ok:              'Connected — OpenRouter AI is working',
     set_save_key:            'Save Key',
     set_test:                'Test',
     set_clear_key:           'Clear Key',
@@ -480,11 +480,11 @@ const CS_LANG = {
     teacher_agent_badge: 'Virtual Teacher',
     teacher_title: 'AI Teacher Agent',
     teacher_subtitle: 'Your virtual teacher — explains, quizzes, answers questions, creates diagrams and mind maps, and motivates you.',
-    teacher_badge1: '🤖 Gemini AI',
+    teacher_badge1: '🤖 OpenRouter AI',
     teacher_badge2: '📚 Quiz Generator',
     teacher_badge3: '🗺️ Mind Map',
     teacher_badge4: '💪 Motivation',
-    teacher_api_notice: 'Gemini API key required for AI features. Set key in Settings → Prototype mode is active if no key is set.',
+    teacher_api_notice: 'OpenRouter API key required for AI features. Set key in Settings → Prototype mode is active if no key is set.',
     teacher_input_title: '📄 Reading Text Input',
     teacher_ask_title: '💬 Ask the Teacher',
     teacher_motivation_title: '💪 Motivation Corner',
@@ -825,7 +825,7 @@ const CS_LANG = {
     /* Gemini */
     gemini_error:  'Perkhidmatan AI tidak tersedia. Menggunakan mod asas.',
     gemini_quota:  'Had AI harian dicapai. Cuba lagi esok.',
-    gemini_no_key: 'Tiada kunci Gemini API. Tambah dalam Tetapan.',
+    gemini_no_key: 'Tiada kunci OpenRouter API. Tambah dalam Tetapan.',
 
     /* Errors */
     err_generic:   'Sesuatu telah berlaku. Sila cuba lagi.',
@@ -932,11 +932,11 @@ const CS_LANG = {
     set_tab_profile:         'Profil',
     set_tab_lang:            'Bahasa',
     set_tab_data:            'Data & Privasi',
-    set_gemini_title:        'Gemini AI',
-    set_gemini_desc:         'Masukkan kunci Gemini API anda untuk mengaktifkan ringkasan AI, kuiz, dan pelan intervensi.',
+    set_gemini_title:        'OpenRouter AI',
+    set_gemini_desc:         'Masukkan kunci OpenRouter API anda untuk mengaktifkan ringkasan AI, kuiz, dan pelan intervensi.',
     set_api_none:            'Tiada kunci ditetapkan',
     set_api_saved:           'Kunci disimpan — klik Uji untuk mengesahkan',
-    set_api_ok:              'Bersambung — Gemini AI berfungsi',
+    set_api_ok:              'Bersambung — OpenRouter AI berfungsi',
     set_save_key:            'Simpan Kunci',
     set_test:                'Uji',
     set_clear_key:           'Padam Kunci',
@@ -1098,11 +1098,11 @@ const CS_LANG = {
     teacher_agent_badge: 'Guru Maya',
     teacher_title: 'Ejen Guru AI',
     teacher_subtitle: 'Guru maya anda — menerangkan, membuat kuiz, menjawab soalan, mencipta gambar rajah dan peta minda, dan memotivasikan anda.',
-    teacher_badge1: '🤖 Gemini AI',
+    teacher_badge1: '🤖 OpenRouter AI',
     teacher_badge2: '📚 Penjana Kuiz',
     teacher_badge3: '🗺️ Peta Minda',
     teacher_badge4: '💪 Motivasi',
-    teacher_api_notice: 'Kunci API Gemini diperlukan untuk ciri AI. Tetapkan kunci dalam Tetapan → Mod prototaip aktif jika tiada kunci.',
+    teacher_api_notice: 'Kunci API OpenRouter diperlukan untuk ciri AI. Tetapkan kunci dalam Tetapan → Mod prototaip aktif jika tiada kunci.',
     teacher_input_title: '📄 Input Teks Bacaan',
     teacher_ask_title: '💬 Tanya Guru',
     teacher_motivation_title: '💪 Sudut Motivasi',
@@ -1792,20 +1792,18 @@ const _voice = (() => {
 })();
 
 /* ============================================================
-   SECTION 6 — GEMINI AI CLIENT
-   Connects to Google Gemini API (gemini-2.0-flash model).
-   Accepts both legacy AIza... keys and new AQ... key format.
+   SECTION 6 — OPENROUTER AI CLIENT
+   Connects to OpenRouter API (OpenAI-compatible, multi-model).
 
    To use the AI features:
-   1. Go to https://aistudio.google.com/app/apikey and get a free API key
+   1. Go to https://openrouter.ai/keys and get a free API key
    2. Open Settings (gear icon in dashboard) and paste your key
    3. All AI features will then work: summarise, quiz, recommend
 ============================================================ */
 const _groq = (() => {
-  const MODEL = 'gemini-2.0-flash';
-  const BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/' + MODEL + ':generateContent';
+  const BASE_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-  let _key   = localStorage.getItem('gemini_api_key') || '';
+  let _key   = localStorage.getItem('openrouter_api_key') || '';
   let _quota = false;
 
   function _prompt(role, text, lang, level) {
@@ -1858,12 +1856,13 @@ const _groq = (() => {
     if (!_key)             return { error: 'no_key',  fallback: true };
 
     try {
-      const res = await fetch(BASE_URL + '?key=' + _key, {
+      const model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
+      const res = await fetch(BASE_URL, {
         method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.4, maxOutputTokens: 1500 },
+          model: model,
+          messages: [{ role: 'user', content: prompt }],
         }),
         signal: typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? AbortSignal.timeout(30000) : undefined,
       });
@@ -1874,18 +1873,18 @@ const _groq = (() => {
       if (!res.ok)            return { error: 'HTTP ' + res.status, fallback: true };
 
       const data = await res.json();
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      const text = data?.choices?.[0]?.message?.content || '';
       if (!text) return { error: 'empty_response', fallback: true };
       return { data: _extractJSON(text), fallback: false };
     } catch(e) {
-      console.warn('[Gemini AI]', e.message);
+      console.warn('[OpenRouter AI]', e.message);
       return { error: e.message, fallback: true };
     }
   }
 
   return {
-    setKey(k)  { _key = k; localStorage.setItem('gemini_api_key', k); _quota = false; },
-    clearKey() { _key = ''; localStorage.removeItem('gemini_api_key'); },
+    setKey(k)  { _key = k; localStorage.setItem('openrouter_api_key', k); _quota = false; },
+    clearKey() { _key = ''; localStorage.removeItem('openrouter_api_key'); },
     isReady()  { return !!_key; },
     getStatus() {
       if (_quota) return 'quota';
@@ -2811,7 +2810,7 @@ window.CS.db = {
    Stores (IndexedDB: 'celiksense-idb', version 2):
      downloads   — book text content saved for offline reading
      ocr_cache   — OCR-extracted text from scanned images
-     ai_cache    — Gemini AI responses cached for offline replay
+     ai_cache    — OpenRouter AI responses cached for offline replay
      sync_queue  — items queued to sync when connectivity returns
 
    Usage:

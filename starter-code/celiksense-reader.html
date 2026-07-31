@@ -925,7 +925,7 @@ async function genParaAI(text,panel){
   if(!key){
     var words=text.replace(/[^a-zA-Z\s]/g,'').split(/\s+/).filter(function(w){return w.length>5;});
     var kw=[...new Set(words)].slice(0,6);
-    panel.innerHTML='<div class="ai-lbl">🔑 KEY WORDS</div><div style="margin-bottom:8px;">'+kw.map(function(w){return '<span class="ai-kw">'+esc(w)+'</span>';}).join('')+'</div><div style="font-size:11px;color:#9ca3af;">Add Gemini key in <a href="settings.html" style="color:var(--accent);">Settings</a> for full AI analysis.</div>';
+    panel.innerHTML='<div class="ai-lbl">🔑 KEY WORDS</div><div style="margin-bottom:8px;">'+kw.map(function(w){return '<span class="ai-kw">'+esc(w)+'</span>';}).join('')+'</div><div style="font-size:11px;color:#9ca3af;">Add OpenRouter key in <a href="settings.html" style="color:var(--accent);">Settings</a> for full AI analysis.</div>';
     return;
   }
   try{
@@ -1035,7 +1035,7 @@ async function callReaderAgent(type, text, lang){
 async function doAI(type,force){
   var out=document.getElementById('ai-s-out');
   var key=getKey();
-  if(!key){out.innerHTML='<div style="background:#ede9fe;border-radius:10px;padding:14px;font-size:13px;">💡 Add Gemini API key in <a href="settings.html" style="color:#6366f1;font-weight:700;">Settings</a> for AI features.</div>';return;}
+  if(!key){out.innerHTML='<div style="background:#ede9fe;border-radius:10px;padding:14px;font-size:13px;">💡 Add OpenRouter API key in <a href="settings.html" style="color:#6366f1;font-weight:700;">Settings</a> for AI features.</div>';return;}
   // Serve from cache unless force-regenerate
   if(!force){var cached=_aiCacheGet(type);if(cached&&cached.text){_renderAI(type,cached.text);return;}}
   out.innerHTML='<div style="background:var(--bg);border-radius:10px;padding:14px;font-size:12px;color:var(--muted);">⏳ Generating…</div>';
@@ -1061,8 +1061,8 @@ function loadNotes(){try{document.getElementById('notes-area').value=localStorag
 function saveBookmark(){try{var pos={sIdx:sIdx,scrollY:window.scrollY,ts:Date.now()};localStorage.setItem('cs_bm_'+_bkKey(),JSON.stringify(pos));var m=document.getElementById('bm-msg');m.style.display='block';setTimeout(function(){m.style.display='none';},2000);}catch(e){}}
 
 /* ═══════ GEMINI ═══════ */
-function getKey(){return localStorage.getItem('gemini_api_key')||'';}
-async function gemCall(prompt,key){var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key='+key,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});var d=await r.json();if(d.error)throw new Error(d.error.message);return(d.candidates||[])[0]?.content?.parts?.[0]?.text||'No response.';}
+function getKey(){return localStorage.getItem('openrouter_api_key')||'';}
+async function gemCall(prompt,key){var model=localStorage.getItem('openrouter_model')||'google/gemma-3-27b-it:free';var r=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://starter-code-phi.vercel.app','X-Title':'CelikSense AI'},body:JSON.stringify({model:model,messages:[{role:'user',content:prompt}]})});var d=await r.json();if(d.error)throw new Error(d.error.message);return d.choices&&d.choices[0]?d.choices[0].message.content:'No response.';}
 
 /* ═══════ AI RESPONSE CACHE ═══════ */
 function _aiCacheKey(type){return 'cs_ai_'+_bkKey()+'_'+type;}

@@ -491,11 +491,11 @@
         var base64 = dataUrl.split(',')[1];
         var event = new CustomEvent('cs_voice_capture', { detail: { base64: base64, dataUrl: dataUrl } });
         window.dispatchEvent(event);
-        var apiKey = localStorage.getItem('gemini_api_key');
+        var apiKey = localStorage.getItem('openrouter_api_key');
         if (apiKey) {
           CS_VOICE.extractTextFromImage(base64, apiKey);
         } else {
-          speak('Image captured. No Gemini API key found. Set your API key in settings to extract text automatically.');
+          speak('Image captured. No OpenRouter API key found. Set your API key in settings to extract text automatically.');
           startListening();
         }
       });
@@ -503,30 +503,32 @@
 
     extractTextFromImage: function (base64, apiKey) {
       speak('Analysing image. Please wait.', null);
-      var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
+      var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
       var body = {
-        contents: [{
-          parts: [
-            { text: 'Extract and read aloud all text visible in this image. If it is a book or document, read the full content clearly.' },
-            { inline_data: { mime_type: 'image/jpeg', data: base64 } }
+        model: model,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'text', text: 'Extract and read aloud all text visible in this image. If it is a book or document, read the full content clearly.' },
+            { type: 'image_url', image_url: { url: 'data:image/jpeg;base64,' + base64 } }
           ]
         }]
       };
-      fetch(url, {
+      fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
         body: JSON.stringify(body)
       })
         .then(function (response) {
           if (!response.ok) {
             return response.json().catch(function () { return {}; }).then(function (err) {
-              throw new Error('Gemini ' + response.status + ': ' + (err.error && err.error.message || 'Unknown'));
+              throw new Error('OpenRouter ' + response.status + ': ' + (err.error && err.error.message || 'Unknown'));
             });
           }
           return response.json();
         })
         .then(function (data) {
-          var text = data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text;
+          var text = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
           if (!text) throw new Error('No text in response');
           var event = new CustomEvent('cs_voice_ocr_result', { detail: { text: text } });
           window.dispatchEvent(event);
@@ -539,35 +541,30 @@
     },
 
     askGemini: function (prompt) {
-      var apiKey = localStorage.getItem('gemini_api_key');
+      var apiKey = localStorage.getItem('openrouter_api_key');
       if (!apiKey) {
-        speak('No Gemini API key found. Please add your key in the settings or profile page.');
+        speak('No OpenRouter API key found. Please add your key in the settings or profile page.');
         return;
       }
       speak('Thinking. Please wait.', null);
-      var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
+      var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
       var body = {
-        contents: [{
-          parts: [{ text: 'You are a helpful assistant for a blind learner. Be concise and clear. ' + prompt }]
-        }]
+        model: model,
+        messages: [{ role: 'user', content: 'You are a helpful assistant for a blind learner. Be concise and clear. ' + prompt }]
       };
-      fetch(url, {
+      fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
         body: JSON.stringify(body)
       })
         .then(function (res) { return res.json(); })
         .then(function (data) {
           var text = '';
-          try {
-            text = data.candidates[0].content.parts[0].text;
-          } catch (e) {
-            text = 'Sorry, I could not get a response.';
-          }
+          try { text = data.choices[0].message.content; } catch (e) { text = 'Sorry, I could not get a response.'; }
           speak(text);
         })
         .catch(function () {
-          speak('Failed to reach Gemini. Please check your connection.');
+          speak('Failed to reach OpenRouter. Please check your connection.');
           startListening();
         });
     },

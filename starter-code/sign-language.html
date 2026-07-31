@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1022,23 +1022,17 @@ function importFromReading() {
 // ── Gemini helper ──────────────────────────────────────────────────────────
 async function callGemini(prompt) {
   var key = '';
-  try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!key) throw new Error('no_key');
-  var res = await fetch(
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-thinking-exp-01-21:generateContent?key=' + key,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.3, maxOutputTokens: 1200 }
-      })
-    }
-  );
+  var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
+  var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+    body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
+  });
   if (!res.ok) throw new Error('api_error_' + res.status);
-  var data = await res.json();
-  var cand = ((data.candidates || [])[0] || {});
-  return (cand.content && cand.content.parts && cand.content.parts[0] && cand.content.parts[0].text) || '';
+  var j = await res.json();
+  return j.choices && j.choices[0] ? j.choices[0].message.content : '';
 }
 
 function setProcessing(panelId, show) {
@@ -1508,16 +1502,17 @@ function escAttr(s) {
 }
 
 /* ── ReAct Loop ─────────────────────────────────────────────────────────── */
-async function _reactGemini(prompt) {
-  var key = ''; try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+async function _reactAI(prompt) {
+  var key = ''; try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!key) return null;
   try {
-    var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + encodeURIComponent(key), {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+    var model = ''; try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
+    var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+      body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
     });
-    var data = await res.json();
-    return (((data.candidates || [])[0] || {}).content || {}).parts?.[0]?.text || null;
+    var j = await res.json();
+    return j.choices && j.choices[0] ? j.choices[0].message.content : null;
   } catch(e) { return null; }
 }
 
@@ -1526,8 +1521,8 @@ async function runReAct() {
   var text = inputEl ? inputEl.value.trim() : '';
   if (!text) { var ta = document.querySelector('textarea'); text = ta ? ta.value.trim() : ''; }
   if (!text) { alert('Sila masukkan teks atau data terlebih dahulu.'); return; }
-  var hasKey = false; try { hasKey = !!(localStorage.getItem('gemini_api_key') || ''); } catch(e) {}
-  if (!hasKey) { alert('Sila masukkan Gemini API Key dalam Tetapan untuk ReAct Analysis.'); return; }
+  var hasKey = false; try { hasKey = !!(localStorage.getItem('openrouter_api_key') || ''); } catch(e) {}
+  if (!hasKey) { alert('Sila masukkan OpenRouter API Key dalam Tetapan untuk ReAct Analysis.'); return; }
   var lang = 'ms'; try { lang = localStorage.getItem('cs_lang') || 'ms'; } catch(e) {}
 
   var panel = document.getElementById('reactPanel');
@@ -1552,8 +1547,8 @@ async function runReAct() {
     th.innerHTML = spinner + 'Menganalisis dan merancang pendekatan terbaik…';
 
     var tprompt = (lang === 'en' ? thinkPrompts.en : thinkPrompts.ms).replace('{TEXT}', text.slice(0, 800));
-    var thought = await _reactGemini(tprompt);
-    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke Gemini. Semak API Key dalam Tetapan.'; break; }
+    var thought = await _reactAI(tprompt);
+    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
 
     var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
     var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
@@ -1567,7 +1562,7 @@ async function runReAct() {
     ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(chosenTool) + '</strong>…';
     var apromptObj = actPrompts[chosenTool];
     var aprompt = (lang === 'en' ? apromptObj.en : apromptObj.ms).replace('{TEXT}', text.slice(0, 1000));
-    var output = await _reactGemini(aprompt);
+    var output = await _reactAI(aprompt);
     if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
     lastOutput = output;
     s2.className = 'react-step done';
@@ -1578,7 +1573,7 @@ async function runReAct() {
     var oprompt = lang === 'en'
       ? 'Rate this AI output for a deaf/hard-of-hearing learner from 1-10. Original: """' + text.slice(0,300) + '""" Output: """' + output.slice(0,500) + '""" Reply: SCORE: <n>\nFEEDBACK: <one sentence to improve if <8>'
       : 'Nilai output AI ini untuk pelajar OKU pendengaran dari 1-10. Asal: """' + text.slice(0,300) + '""" Output: """' + output.slice(0,500) + '""" Balas: SKOR: <n>\nMAAKLUMBALAS: <satu ayat untuk perbaiki jika <8>';
-    var obs = await _reactGemini(oprompt);
+    var obs = await _reactAI(oprompt);
     var scoreMatch = obs ? obs.match(/(?:SKOR|SCORE):\s*(\d+)/i) : null;
     var fbMatch = obs ? obs.match(/(?:MAKLUMBALAS|FEEDBACK):\s*(.+)/i) : null;
     var score = scoreMatch ? parseInt(scoreMatch[1]) : 7;

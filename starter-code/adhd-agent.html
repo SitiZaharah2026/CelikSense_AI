@@ -423,8 +423,8 @@ function readAreaAloud() {
 /* ── Serverless agent helper ───────────────────────────────────────────── */
 async function _callAgent(task, payload) {
   var apiKey = '';
-  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
-  var groqKey = ''; try { groqKey = localStorage.getItem('groq_api_key') || ''; } catch(e) {}
+  try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
+  var groqKey = ''; try { groqKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   var body = Object.assign({ task: task, lang: (typeof LANG !== 'undefined' ? LANG : null) || localStorage.getItem('cs_lang') || 'ms', apiKey: apiKey, groqKey: groqKey }, payload);
   try {
     var res = await fetch('/api/agents/adhd', {
@@ -432,7 +432,7 @@ async function _callAgent(task, payload) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     });
-    var data = await res.json();
+    var j = await res.json();
     if (!data.ok) throw new Error(data.error || 'Agent error');
     return data.output;
   } catch(err) {
@@ -449,10 +449,10 @@ async function generateStrategy() {
   el.classList.remove('hidden');
 
   var apiKey = '';
-  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!apiKey) {
     const fallbacks={focus:`Focus Window Strategy for <strong>${interest}</strong>:<br>• Isolate one line at a time.<br>• 10-min timer, 3-min breaks.<br>• Highlight key concepts in yellow.`,chunk:`Chunk Reading for <strong>${interest}</strong>:<br>• 3–4 sentence chunks.<br>• Summarise each chunk in 1 sentence.<br>• Use TTS when overwhelmed.`,free:`Free Reading for <strong>${interest}</strong>:<br>• No pressure — your own pace.<br>• Mark interesting words.<br>• Stop when focus drops.`};
-    el.innerHTML=`<strong>📋 Strategy:</strong><br><br>${fallbacks[mode]||fallbacks.free}<br><br><small style="color:var(--muted);">💡 Add Gemini API key in <a href="settings.html">Settings</a> for personalised AI strategies.</small>`;
+    el.innerHTML=`<strong>📋 Strategy:</strong><br><br>${fallbacks[mode]||fallbacks.free}<br><br><small style="color:var(--muted);">💡 Add OpenRouter API key in <a href="settings.html">Settings</a> for personalised AI strategies.</small>`;
     return;
   }
 
@@ -464,7 +464,7 @@ async function generateStrategy() {
     // Share with Learning Coach agent
     localStorage.setItem('cs_adhd_strategy', JSON.stringify({interest,mode,strategy:result,ts:Date.now()}));
   } else {
-    el.innerHTML=`<span style="color:var(--danger);">⚠️ AI error. Please try again or add Gemini API key in <a href="settings.html">Settings</a>.</span>`;
+    el.innerHTML=`<span style="color:var(--danger);">⚠️ AI error. Please try again or Add OpenRouter API key in <a href="settings.html">Settings</a>.</span>`;
   }
 }
 
@@ -493,9 +493,9 @@ async function showIntervention() {
   const interest = document.getElementById('interestInput').value||'general topics';
 
   var apiKey = '';
-  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!apiKey) {
-    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today.</div></div><strong>Next Steps:</strong><br>• Take a 5-minute movement break<br>• Drink water and look away from screen<br>• Review your notes before next session<br><br><small>💡 Add Gemini API key in <a href="settings.html">Settings</a> for AI-personalised interventions.</small>`;
+    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today.</div></div><strong>Next Steps:</strong><br>• Take a 5-minute movement break<br>• Drink water and look away from screen<br>• Review your notes before next session<br><br><small>💡 Add OpenRouter API key in <a href="settings.html">Settings</a> for AI-personalised interventions.</small>`;
     return;
   }
 
@@ -619,8 +619,8 @@ document.addEventListener('DOMContentLoaded', function() {
       text = ra ? ra.innerText.trim() : '';
     }
     if (!text) { alert('Sila masukkan teks atau data terlebih dahulu.'); return; }
-    var hasKey = false; try { hasKey = !!(localStorage.getItem('gemini_api_key') || ''); } catch(e) {}
-    if (!hasKey) { alert('Sila masukkan Gemini API Key dalam Tetapan untuk ReAct Analysis.'); return; }
+    var hasKey = false; try { hasKey = !!(localStorage.getItem('openrouter_api_key') || ''); } catch(e) {}
+    if (!hasKey) { alert('Sila masukkan OpenRouter API Key dalam Tetapan untuk ReAct Analysis.'); return; }
     var lang = 'ms'; try { lang = localStorage.getItem('cs_lang') || 'ms'; } catch(e) {}
 
     var panel = document.getElementById('reactPanel');
@@ -635,16 +635,17 @@ document.addEventListener('DOMContentLoaded', function() {
     s4.style.display='none'; resultEl.style.display='none';
     var spinner='<span class="react-spinner"></span>';
 
-    async function _reactGemini(prompt) {
-      var key = ''; try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+    async function _reactAI(prompt) {
+      var key = ''; try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
       if (!key) return null;
       try {
-        var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + encodeURIComponent(key), {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        var model = ''; try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
+        var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+          body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
         });
-        var data = await res.json();
-        return (((data.candidates || [])[0] || {}).content || {}).parts?.[0]?.text || null;
+        var j = await res.json();
+        return j.choices && j.choices[0] ? j.choices[0].message.content : null;
       } catch(e) { return null; }
     }
 
@@ -667,8 +668,8 @@ document.addEventListener('DOMContentLoaded', function() {
       th.innerHTML = spinner + 'Menganalisis dan merancang pendekatan terbaik…';
 
       var tprompt = (lang === 'en' ? thinkPrompts.en : thinkPrompts.ms).replace('{TEXT}', text.slice(0, 800));
-      var thought = await _reactGemini(tprompt);
-      if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke Gemini. Semak API Key dalam Tetapan.'; break; }
+      var thought = await _reactAI(tprompt);
+      if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
 
       var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
       var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
@@ -682,7 +683,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(chosenTool) + '</strong>…';
       var apromptObj = actPrompts[chosenTool];
       var aprompt = (lang === 'en' ? apromptObj.en : apromptObj.ms).replace('{TEXT}', text.slice(0, 1000));
-      var output = await _reactGemini(aprompt);
+      var output = await _reactAI(aprompt);
       if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
       lastOutput = output;
       s2.className = 'react-step done';
@@ -693,7 +694,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var oprompt = lang === 'en'
         ? 'Rate this AI output for an ADHD learner from 1-10. Original: """' + text.slice(0,300) + '""" Output: """' + output.slice(0,500) + '""" Reply: SCORE: <n>\nFEEDBACK: <one sentence to improve if score is less than 8>'
         : 'Nilai output AI ini untuk pelajar ADHD dari 1-10. Asal: """' + text.slice(0,300) + '""" Output: """' + output.slice(0,500) + '""" Balas: SKOR: <n>\nMAALUMBALAS: <satu ayat untuk perbaiki jika skor kurang dari 8>';
-      var obs = await _reactGemini(oprompt);
+      var obs = await _reactAI(oprompt);
       var scoreMatch = obs ? obs.match(/(?:SKOR|SCORE):\s*(\d+)/i) : null;
       var fbMatch = obs ? obs.match(/(?:MAKLUMBALAS|FEEDBACK):\s*(.+)/i) : null;
       var score = scoreMatch ? parseInt(scoreMatch[1]) : 7;

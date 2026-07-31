@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -331,9 +331,10 @@
       <div class="settings-panel active" id="panel-ai">
 
         <div class="settings-section">
-          <div class="settings-section-title">🤖 <span data-i18n="set_gemini_title">Gemini AI</span></div>
-          <div class="settings-section-desc" data-i18n="set_gemini_desc">
-            Enter your Gemini API key to enable AI summaries, quizzes, and intervention plans.
+          <div class="settings-section-title">🤖 OpenRouter AI</div>
+          <div class="settings-section-desc">
+            Enter your OpenRouter API key to enable AI summaries, quizzes, and intervention plans.
+            Get a free key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="color:var(--primary-light);">openrouter.ai/keys ↗</a>
           </div>
 
           <div id="apiStatusBadge" class="api-status none" aria-live="polite">
@@ -344,10 +345,10 @@
           <div class="api-key-row" style="margin-top:16px;">
             <input
               type="password"
-              id="geminiKeyInput"
+              id="openrouterKeyInput"
               class="api-key-input"
-              placeholder="Paste your Gemini API key here"
-              aria-label="Gemini API key"
+              placeholder="Paste your OpenRouter API key here (sk-or-...)"
+              aria-label="OpenRouter API key"
               autocomplete="off"
               spellcheck="false"
             />
@@ -356,9 +357,19 @@
             <button class="btn btn-ghost btn-sm" onclick="testConnection()" id="testBtn" data-i18n="set_test">Test</button>
           </div>
 
+          <div style="margin-top:12px;">
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">AI Model</label>
+            <select id="openrouterModel" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;">
+              <option value="google/gemma-3-27b-it:free">google/gemma-3-27b-it:free (Free)</option>
+              <option value="meta-llama/llama-3.3-70b-instruct:free">meta-llama/llama-3.3-70b-instruct:free (Free)</option>
+              <option value="deepseek/deepseek-chat-v3-0324:free">deepseek/deepseek-chat-v3-0324:free (Free)</option>
+              <option value="openai/gpt-4o-mini">openai/gpt-4o-mini (Paid)</option>
+              <option value="anthropic/claude-3-haiku">anthropic/claude-3-haiku (Paid)</option>
+            </select>
+          </div>
+
           <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
             <button class="btn btn-ghost btn-sm" onclick="clearKey()" data-i18n="set_clear_key">Clear Key</button>
-            <a class="btn btn-ghost btn-sm" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" data-i18n="set_get_key">Get free key ↗</a>
           </div>
 
           <div style="margin-top:16px;padding:12px 14px;background:rgba(99,102,241,0.07);border-radius:var(--radius);border:1px solid rgba(99,102,241,0.15);font-size:13px;color:var(--text-muted);">
@@ -370,41 +381,6 @@
               <strong style="display:block;margin-bottom:3px;" data-i18n="set_key_warn_title">Keselamatan API Key</strong>
               <span data-i18n="set_key_warn_body">API key disimpan dalam localStorage peranti ini dan boleh dibaca oleh mana-mana skrip di halaman yang sama. Gunakan key yang mempunyai had kuota dan sekatan rujukan. Jangan gunakan project owner key.</span>
             </div>
-          </div>
-        </div>
-
-        <!-- ── Groq Fallback Key ── -->
-        <div class="settings-section">
-          <div class="settings-section-title">🔄 Groq AI <span style="font-size:11px;font-weight:400;color:var(--text-muted);margin-left:6px;">Alternatif percuma apabila kuota Gemini habis</span></div>
-          <div class="settings-section-desc">
-            Groq menyediakan model LLaMA 3.3 secara percuma (14,400 request/hari). Apabila kuota Gemini anda habis, sistem akan guna Groq secara automatik.
-            <br>Dapatkan key percuma di <a href="https://console.groq.com/keys" target="_blank" rel="noopener" style="color:var(--primary-light);">console.groq.com ↗</a>
-          </div>
-
-          <div id="groqStatusBadge" class="api-status none" aria-live="polite" style="margin-top:10px;">
-            <span id="groqStatusDot">⚪</span>
-            <span id="groqStatusText">No Groq key set</span>
-          </div>
-
-          <div class="api-key-row" style="margin-top:12px;">
-            <input
-              type="password"
-              id="groqKeyInput"
-              class="api-key-input"
-              placeholder="Paste your Groq API key here (gsk_...)"
-              aria-label="Groq API key"
-              autocomplete="off"
-              spellcheck="false"
-            />
-            <button class="btn btn-ghost btn-sm" onclick="toggleGroqKeyVis()" aria-label="Show/hide key">👁</button>
-            <button class="btn btn-primary btn-sm" onclick="saveGroqKey()">Simpan</button>
-          </div>
-          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn btn-ghost btn-sm" onclick="clearGroqKey()">Padam Key</button>
-          </div>
-
-          <div style="margin-top:14px;padding:10px 13px;background:rgba(52,211,153,0.08);border-radius:var(--radius);border:1px solid rgba(52,211,153,0.2);font-size:12.5px;color:var(--text-muted);">
-            ⚡ <strong style="color:#34d399;">Auto-fallback:</strong> Sistem akan guna Gemini dahulu. Jika gagal atau tiada key, Groq digunakan secara automatik. Tiada tindakan manual diperlukan.
           </div>
         </div>
 
@@ -914,15 +890,20 @@ function showPanel(name) {
   if (tab)   tab.classList.add('active');
 }
 
-/* ── Gemini API key ────────────────────────────────── */
+/* ── OpenRouter API Key ────────────────────────────────── */
 function loadApiStatus() {
   var badge = document.getElementById('apiStatusBadge');
   var dot   = document.getElementById('apiStatusDot');
   var text  = document.getElementById('apiStatusText');
-  var input = document.getElementById('geminiKeyInput');
+  var input = document.getElementById('openrouterKeyInput');
+  var modelSel = document.getElementById('openrouterModel');
 
   var key = '';
-  try { key = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
+
+  if (modelSel) {
+    modelSel.value = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
+  }
 
   if (!key) {
     badge.className = 'api-status none';
@@ -938,66 +919,28 @@ function loadApiStatus() {
 }
 
 function saveKey() {
-  var input = document.getElementById('geminiKeyInput');
+  var input = document.getElementById('openrouterKeyInput');
   var val = input.value.trim();
   if (!val || val.startsWith('••')) { CS.toast('Enter a new key first', 'warn'); return; }
-  try { localStorage.setItem('gemini_api_key', val); } catch(e) {}
+  try { localStorage.setItem('openrouter_api_key', val); } catch(e) {}
+  var modelSel = document.getElementById('openrouterModel');
+  if (modelSel) { try { localStorage.setItem('openrouter_model', modelSel.value); } catch(e) {} }
   if (CS.gemini) CS.gemini.setKey(val);
   loadApiStatus();
   CS.toast(CS.lang.t('set_key_saved') || 'API key saved!', 'success');
 }
 
 function clearKey() {
-  try { localStorage.removeItem('gemini_api_key'); } catch(e) {}
-  document.getElementById('geminiKeyInput').value = '';
+  try { localStorage.removeItem('openrouter_api_key'); } catch(e) {}
+  document.getElementById('openrouterKeyInput').value = '';
   if (CS.gemini) CS.gemini.clearKey();
   loadApiStatus();
   CS.toast('API key cleared', 'info');
 }
 
 function toggleKeyVis() {
-  var input = document.getElementById('geminiKeyInput');
+  var input = document.getElementById('openrouterKeyInput');
   input.type = input.type === 'password' ? 'text' : 'password';
-}
-
-function saveGroqKey() {
-  var input = document.getElementById('groqKeyInput');
-  var val = input.value.trim();
-  if (!val) { CS.toast('Masukkan Groq API key dahulu', 'warn'); return; }
-  try { localStorage.setItem('groq_api_key', val); } catch(e) {}
-  loadGroqStatus();
-  CS.toast('Groq API key disimpan!', 'success');
-}
-
-function clearGroqKey() {
-  try { localStorage.removeItem('groq_api_key'); } catch(e) {}
-  document.getElementById('groqKeyInput').value = '';
-  loadGroqStatus();
-  CS.toast('Groq API key dipadamkan', 'info');
-}
-
-function toggleGroqKeyVis() {
-  var input = document.getElementById('groqKeyInput');
-  input.type = input.type === 'password' ? 'text' : 'password';
-}
-
-function loadGroqStatus() {
-  var badge = document.getElementById('groqStatusBadge');
-  var dot   = document.getElementById('groqStatusDot');
-  var text  = document.getElementById('groqStatusText');
-  if (!badge) return;
-  var key = '';
-  try { key = localStorage.getItem('groq_api_key') || ''; } catch(e) {}
-  if (key) {
-    badge.className = 'api-status ok';
-    dot.textContent = '🟢';
-    text.textContent = 'Groq key tersimpan — auto-fallback aktif';
-    document.getElementById('groqKeyInput').value = '••••••••••••••••';
-  } else {
-    badge.className = 'api-status none';
-    dot.textContent = '⚪';
-    text.textContent = 'Tiada Groq key — hanya Gemini digunakan';
-  }
 }
 
 function testConnection() {
@@ -1016,8 +959,8 @@ function testConnection() {
       if (result.ok) {
         badge.className = 'api-status ok';
         dot.textContent = '🟢';
-        text.textContent = CS.lang.t('set_api_ok') || 'Connected — Gemini AI is working';
-        CS.toast('Gemini AI connected!', 'success');
+        text.textContent = CS.lang.t('set_api_ok') || 'Connected — OpenRouter AI is working';
+        CS.toast('OpenRouter AI connected!', 'success');
       } else {
         badge.className = 'api-status error';
         dot.textContent = '🔴';
@@ -1242,7 +1185,7 @@ function clearProfile() {
 
 function clearEverything() {
   if (!confirm('Reset ALL data? This will clear your API key, profile, accessibility settings, and learning data.')) return;
-  var keys = ['gemini_api_key','cs_user','cs_user_v1','cs_analytics','cs_analytics_v1','cs_a11y','cs_lang','cs_prefs',
+  var keys = ['openrouter_api_key','openrouter_model','cs_user','cs_user_v1','cs_analytics','cs_analytics_v1','cs_a11y','cs_lang','cs_prefs',
               'teacher_input_text','teacher_last_explanation','cs_last_risk',
               'ocrExtractedText','signLangText','cs_agent_history',
               'cs_sessions','cs_agent_counts','cs_feedback','cs_class_roster','cs_demo_mode'];
@@ -1389,7 +1332,6 @@ async function aeTestProvider(name) {
 /* ── Init ─────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function() {
   loadApiStatus();
-  loadGroqStatus();
   loadPrefs();
   loadAccessibilityPanel();
   loadProfilePanel();

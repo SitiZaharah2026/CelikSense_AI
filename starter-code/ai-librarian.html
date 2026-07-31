@@ -441,8 +441,8 @@ const AVAILABILITY_MAP = {
 /* ── Serverless agent helper ───────────────────────────────────────────── */
 async function _callAgent(task, payload) {
   var apiKey = '';
-  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
-  var groqKey = ''; try { groqKey = localStorage.getItem('groq_api_key') || ''; } catch(e) {}
+  try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
+  var groqKey = ''; try { groqKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   var lang = (typeof currentLang !== 'undefined' ? currentLang : null) || localStorage.getItem('cs_lang') || 'en';
   var body = Object.assign({ task: task, lang: lang, apiKey: apiKey, groqKey: groqKey }, payload);
   try {
@@ -485,7 +485,7 @@ async function updateRecommendations() {
     </div>`).join('');
 
   var apiKey = '';
-  try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+  try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!apiKey) {
     el.innerHTML = '<div style="padding:14px;font-size:13px;color:var(--text-muted);">🔑 API key required for AI recommendations. <a href="settings.html" style="color:var(--primary);">Go to Settings →</a></div>' + staticHTML;
     return;

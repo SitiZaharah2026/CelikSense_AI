@@ -520,8 +520,8 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   /* ── Agent helper ───────────────────────────────────────────────────── */
   async function _callAgent(task, payload) {
     var apiKey = '';
-    try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
-    var groqKey = ''; try { groqKey = localStorage.getItem('groq_api_key') || ''; } catch(e) {}
+    try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
+    var groqKey = ''; try { groqKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
     var body = Object.assign({ task: task, lang: (typeof LANG !== 'undefined' ? LANG : null) || getLang(), apiKey: apiKey, groqKey: groqKey }, payload);
     try {
       var res = await fetch('/api/agents/personalisation', {
@@ -554,7 +554,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 
     /* ── AI Insights (via serverless agent) — appended after rule-based ── */
     var apiKey = '';
-    try { apiKey = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+    try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
     if (!apiKey) {
       var noKeyDiv = document.createElement('div');
       noKeyDiv.style.cssText='margin-top:10px;padding:12px;background:rgba(99,102,241,0.07);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;';
@@ -603,7 +603,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 
     /* ── AI Recommendations (via serverless agent) ── */
     var apiKey2 = '';
-    try { apiKey2 = localStorage.getItem('gemini_api_key') || ''; } catch(e) {}
+    try { apiKey2 = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
     if (!apiKey2) {
       var noKeyDiv2 = document.createElement('div');
       noKeyDiv2.style.cssText='margin-top:10px;padding:12px;background:rgba(99,102,241,0.07);border-radius:10px;border-left:3px solid #6366f1;font-size:13px;';

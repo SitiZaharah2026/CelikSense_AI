@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ms">
 <script>(function(){try{var p=JSON.parse(localStorage.getItem('cs_user_prefs')||'{}');document.documentElement.lang=p.lang||localStorage.getItem('cs_lang')||'ms';}catch(e){}})();</script>
 <head>
@@ -268,7 +268,7 @@ var T={
   finished:{ms:'Selesai',en:'Finished'},
   pct_done:{ms:'% selesai',en:'% done'},
   confirm_remove:{ms:'Buang buku ini daripada rak anda?',en:'Remove this book from your shelf?'},
-  no_key:{ms:'Kunci Gemini API tidak dijumpai. Sila tetapkan dalam Tetapan.',en:'Gemini API key not found. Please set it in Settings.'},
+  no_key:{ms:'Kunci Gemini API tidak dijumpai. Sila tetapkan dalam Tetapan.',en:'OpenRouter API Key not found. Please set it in Settings.'},
   loading_ai:{ms:'Memuatkan AI…',en:'Loading AI…'},
   blind:{ms:'Pembaca Buta',en:'Blind Reader'},
   lowvision:{ms:'Penglihatan Rendah',en:'Low Vision Reader'},
@@ -586,7 +586,7 @@ function toggleFavourite(bookId){
    ============================================================ */
 function doAI(bookId, type){
   var key='';
-  try{key=localStorage.getItem('gemini_api_key')||'';}catch(e){}
+  try{key=localStorage.getItem('openrouter_api_key')||'';}catch(e){}
   if(!key){alert(t('no_key'));return;}
   var book=CS_SHELF.getById(bookId);
   if(!book)return;
@@ -605,13 +605,13 @@ function doAI(bookId, type){
     mindmap:'Buat peta minda teks (ASCII) dalam Bahasa Melayu untuk buku ini:\nTajuk: '+(book.title||'')+'\nPengarang: '+(book.author||'')+'\nEkserp:\n'+excerpt
   };
   var prompt=prompts[type]||prompts.summary;
-  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+encodeURIComponent(key),{
+  var orModel = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
+  fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://starter-code-phi.vercel.app','X-Title':'CelikSense AI'},
+    body:JSON.stringify({model:orModel,messages:[{role:'user',content:prompt}]})
   }).then(function(r){return r.json();}).then(function(data){
-    var result=(((data.candidates||[])[0]||{}).content||{}).parts;
-    var txt=result?result.map(function(p){return p.text||'';}).join(''):'(Tiada respons)';
+    var txt = data.choices && data.choices[0] ? data.choices[0].message.content : '(Tiada respons)';
     if(type==='quiz'){
       panelBody.innerHTML='<div class="ai-result">'+escHtml(txt)+'</div>';
     } else {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -80,7 +80,7 @@
 <!-- API KEY NOTICE -->
 <div id="apiNotice" style="background:#fef9c3;border:1px solid #fde68a;border-radius:12px;padding:12px 18px;margin:16px auto;max-width:900px;font-size:13px;color:#78350f;display:flex;align-items:center;gap:10px;">
   <span>🔑</span>
-  <span data-i18n="teacher_api_notice">Gemini API key required for AI features. <a href="settings.html" style="color:#92400e;font-weight:700;">Set key in Settings →</a> Prototype mode is active if no key is set.</span>
+  <span data-i18n="teacher_api_notice">OpenRouter API Key required for AI features. <a href="settings.html" style="color:#92400e;font-weight:700;">Set key in Settings →</a> Prototype mode is active if no key is set.</span>
 </div>
 
 <!-- MAIN LAYOUT -->
@@ -230,37 +230,27 @@
 <script src="personalisation-system.js"></script>
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-var GEMINI_MODEL = 'gemini-2.0-flash';
+var GEMINI_MODEL = 'google/gemma-3-27b-it:free'; // OpenRouter model
 var autoTTS = false;
 var currentLang = localStorage.getItem('cs_lang') || 'en';
 
 // ─── GEMINI HELPER ────────────────────────────────────────────────────────────
 function getGeminiKey() {
-  return localStorage.getItem('gemini_api_key') || '';
+  return localStorage.getItem('openrouter_api_key') || '';
 }
 
 async function callGemini(prompt) {
   var key = getGeminiKey();
   if (!key) return null;
+  var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
   try {
-    var resp = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/' + GEMINI_MODEL + ':generateContent?key=' + key,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-      }
-    );
+    var resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+      body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
+    });
     var data = await resp.json();
-    if (
-      data.candidates &&
-      data.candidates[0] &&
-      data.candidates[0].content &&
-      data.candidates[0].content.parts
-    ) {
-      return data.candidates[0].content.parts[0].text;
-    }
-    return null;
+    return data.choices && data.choices[0] ? data.choices[0].message.content : null;
   } catch (e) {
     return null;
   }
@@ -448,7 +438,7 @@ function getPrototypeQuiz(type, text) {
   } else if (type === 'reflect') {
     return '1. How does this text connect to something you already know?\n2. What would you like to learn more about after reading this text?';
   }
-  return 'No questions available. Please try again with a Gemini API key.';
+  return 'No questions available. Please try again with a OpenRouter API Key.';
 }
 
 function renderQuiz(type, content) {
@@ -885,7 +875,7 @@ document.addEventListener('DOMContentLoaded', function() {
     notice.style.background = '#f0fdf4';
     notice.style.borderColor = '#86efac';
     notice.style.color = '#166534';
-    notice.innerHTML = '<span>✅</span><span>Gemini API key detected. AI features are active.</span>';
+    notice.innerHTML = '<span>✅</span><span>OpenRouter API Key detected. AI features are active.</span>';
   }
 });
 </script>

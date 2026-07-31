@@ -1317,7 +1317,7 @@ function togglePanel() {
 }
 
 function getGeminiKey() {
-  try { return localStorage.getItem('gemini_api_key') || ''; } catch(e) { return ''; }
+  try { return localStorage.getItem('openrouter_api_key') || ''; } catch(e) { return ''; }
 }
 
 function doAI(id, type) {
@@ -1355,15 +1355,16 @@ function doAI(id, type) {
   panel.classList.add('open');
   panel.setAttribute('aria-hidden','false');
 
-  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2\.0-flash-thinking-exp-01-21:generateContent?key=' + key, {
+  var orModel = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
+  fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+    body: JSON.stringify({ model: orModel, messages: [{ role: 'user', content: prompt }] })
   })
   .then(function(r){ return r.json(); })
   .then(function(data){
     var text = '';
-    try { text = data.candidates[0].content.parts[0].text; } catch(e) { text = 'Tiada respons dari AI.'; }
+    try { text = data.choices[0].message.content; } catch(e) { text = 'Tiada respons dari AI.'; }
     content.innerHTML = '<div style="white-space:pre-wrap;line-height:1.75;font-size:13.5px">' + esc(text) + '</div>';
   })
   .catch(function(err){
