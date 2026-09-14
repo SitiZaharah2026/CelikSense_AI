@@ -6,7 +6,7 @@
   <title>ADHD Immersive Reader · CelikSense AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="styles.css">
   <style>
     :root {
       --bg:#f8f7ff; --text:#1a1a2e; --card:#ffffff; --accent:#6366f1;
@@ -21,7 +21,7 @@
     *{box-sizing:border-box;margin:0;padding:0;}
     body{background:var(--bg);color:var(--text);font-family:var(--reader-font);transition:background .3s,color .3s;min-height:100vh;}
 
-    /* ── TOOLBAR ── */
+    /*  TOOLBAR  */
     #rd-toolbar{
       position:fixed;top:64px;left:0;right:0;height:52px;
       background:var(--card);border-bottom:2px solid var(--border);
@@ -43,11 +43,11 @@
     .tbb.on-red{background:#ef4444;color:#fff;border-color:#ef4444;}
     .tbb-val{font-size:12px;font-weight:700;min-width:28px;text-align:center;color:var(--text);}
 
-    /* ── PROGRESS BAR ── */
+    /*  PROGRESS BAR  */
     #rd-prog-wrap{position:fixed;top:calc(64px + 52px);left:0;right:0;height:3px;background:var(--border);z-index:199;}
     #rd-prog{height:100%;background:linear-gradient(90deg,#6366f1,#0891b2);width:0%;transition:width .25s;}
 
-    /* ── MICRO TIMER ── */
+    /*  MICRO TIMER  */
     #micro-timer{
       position:fixed;top:calc(64px+52px+12px);right:18px;
       background:var(--card);border:1px solid var(--border);border-radius:10px;
@@ -56,7 +56,7 @@
     }
     #micro-timer.show{display:flex;}
 
-    /* ── MAIN WRAP ── */
+    /*  MAIN WRAP  */
     #rd-wrap{
       padding-top:calc(64px + 52px + 24px);
       max-width:720px;margin:0 auto;
@@ -135,7 +135,7 @@
     .ai-body{color:var(--text);margin-bottom:12px;}
     .ai-kw{display:inline-block;background:#ede9fe;color:#6366f1;padding:2px 8px;border-radius:6px;margin:2px;font-size:11px;font-weight:600;}
 
-    /* ── FOCUS OVERLAY ── */
+    /*  FOCUS OVERLAY  */
     #focus-ov{
       display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);
       z-index:500;align-items:center;justify-content:center;padding:32px 20px;
@@ -158,7 +158,7 @@
     #focus-ctr{font-size:13px;color:var(--muted);min-width:80px;text-align:center;}
     #focus-read-btn{background:rgba(99,102,241,.1);color:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 
-    /* ── SMART BREAK ── */
+    /*  SMART BREAK  */
     #break-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;align-items:center;justify-content:center;}
     #break-modal.on{display:flex;}
     #break-card{background:var(--card);border-radius:20px;padding:40px 32px;max-width:380px;width:92%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);}
@@ -167,7 +167,7 @@
     #break-cd{font-size:42px;font-weight:900;color:var(--accent);margin-bottom:22px;}
     .break-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:11px 28px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
 
-    /* ── CHECKPOINT ── */
+    /*  CHECKPOINT  */
     #cp-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;align-items:center;justify-content:center;}
     #cp-modal.on{display:flex;}
     #cp-card{background:var(--card);border-radius:20px;padding:32px;max-width:500px;width:94%;box-shadow:0 20px 60px rgba(0,0,0,.3);}
@@ -183,7 +183,7 @@
     #cp-explain{background:#ede9fe;color:#6366f1;}
     #cp-skip{background:var(--border);color:var(--muted);}
 
-    /* ── READ ALOUD BAR ── */
+    /*  READ ALOUD BAR  */
     #aloud-bar{
       position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
       background:linear-gradient(135deg,#1e1b4b,#1d4ed8);color:#fff;
@@ -198,7 +198,7 @@
     .a-spd.on{background:rgba(255,255,255,.35);}
     #a-prog{font-size:11px;color:rgba(255,255,255,.7);min-width:60px;text-align:center;}
 
-    /* ── VISUAL SUPPORT PANEL ── */
+    /*  VISUAL SUPPORT PANEL  */
     #vs-panel{
       position:fixed;right:20px;top:calc(64px+52px+70px);width:270px;
       background:var(--card);border:1px solid var(--border);border-radius:16px;
@@ -221,6 +221,12 @@
       #focus-card{padding:24px 18px;}
       #bk-header{flex-wrap:wrap;}
     }
+    @media(max-width:480px){
+      #rd-wrap{padding-top:calc(64px + 44px + 16px);}
+      #aloud-bar{left:12px;right:12px;transform:none;border-radius:16px;white-space:normal;flex-wrap:wrap;justify-content:center;}
+      #bk-header{padding:14px 16px;}
+      #focus-card{max-height:90vh;}
+    }
   </style>
 </head>
 <body>
@@ -239,23 +245,23 @@
       <div class="nav-dropdown">
         <button aria-haspopup="true" aria-expanded="false">Agents ▾</button>
         <div class="dropdown-menu">
-          <a href="ai-librarian.html">📚 AI Librarian</a>
-          <a href="reading-companion.html">📖 Reading Companion</a>
-          <a href="adhd-agent.html">🧠 ADHD Agent</a>
-          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
-          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
-          <a href="sign-language.html">🤟 Sign Language Agent</a>
-          <a href="early-warning.html">⚠️ Early Warning Agent</a>
-          <a href="intervention.html">💡 Intervention Agent</a>
+          <a href="ai-librarian.html"> AI Librarian</a>
+          <a href="reading-companion.html"> Reading Companion</a>
+          <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
+          <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
+          <a href="blind-audio.html"> Blind Audio Agent</a>
+          <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
+          <a href="early-warning.html">⚠ Early Warning Agent</a>
+          <a href="intervention.html"> Intervention Agent</a>
         </div>
       </div>
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
       <a href="dashboard.html" class="btn btn-ghost btn-sm">← Dashboard</a>
     </div>
-    <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+    <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('navLinks').classList.toggle('open')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </div>
 </nav>
 
@@ -264,11 +270,10 @@
 
 <!-- Toolbar -->
 <div id="rd-toolbar" role="toolbar" aria-label="Reading controls">
-  <!-- Font -->
+  <!-- Font: fixed Lexend -->
   <div class="tbg">
     <span class="tbl">FONT</span>
-    <button class="tbb on" id="tb-lexend" onclick="setFont('lexend')">Lexend</button>
-    <button class="tbb" id="tb-system" onclick="setFont('system')">System</button>
+    <span class="tbb on" style="cursor:default;">Lexend</span>
   </div>
   <!-- Size -->
   <div class="tbg">
@@ -293,14 +298,14 @@
   <!-- Colour mode -->
   <div class="tbg">
     <span class="tbl">MODE</span>
-    <button class="tbb on" id="tb-light" onclick="setMode('light')">☀️</button>
-    <button class="tbb" id="tb-cream" onclick="setMode('cream')">🍞</button>
-    <button class="tbb" id="tb-dark" onclick="setMode('dark')">🌙</button>
-    <button class="tbb" id="tb-blue" onclick="setMode('blue')">💙</button>
+    <button class="tbb on" id="tb-light" onclick="setMode('light')">☀</button>
+    <button class="tbb" id="tb-cream" onclick="setMode('cream')"></button>
+    <button class="tbb" id="tb-dark" onclick="setMode('dark')"></button>
+    <button class="tbb" id="tb-blue" onclick="setMode('blue')"></button>
   </div>
   <!-- Focus mode -->
   <div class="tbg">
-    <button class="tbb" id="tb-focus" onclick="toggleFocus()">🎯 Focus</button>
+    <button class="tbb" id="tb-focus" onclick="toggleFocus()"> Focus</button>
   </div>
   <!-- Micro session -->
   <div class="tbg">
@@ -311,11 +316,11 @@
   </div>
   <!-- Read aloud -->
   <div class="tbg">
-    <button class="tbb" id="tb-read" onclick="toggleRead()">🔊 Read</button>
+    <button class="tbb" id="tb-read" onclick="toggleRead()"> Read</button>
   </div>
   <!-- Visual AI -->
   <div class="tbg">
-    <button class="tbb" id="tb-ai" onclick="toggleVS()">🧠 Visual AI</button>
+    <button class="tbb" id="tb-ai" onclick="toggleVS()"> Visual AI</button>
   </div>
 </div>
 
@@ -341,23 +346,23 @@
 <!-- Visual Support Panel -->
 <div id="vs-panel">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-    <span style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--accent);">🧠 VISUAL AI</span>
-    <button onclick="toggleVS()" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--muted);">✕</button>
+    <span style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--accent);"> VISUAL AI</span>
+    <button onclick="toggleVS()" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--muted);"></button>
   </div>
-  <button class="vs-btn" onclick="doVS('mindmap')">🗺️ Mind Map</button>
-  <button class="vs-btn" onclick="doVS('timeline')">📅 Timeline</button>
-  <button class="vs-btn" onclick="doVS('characters')">👥 Key Characters</button>
-  <button class="vs-btn" onclick="doVS('places')">📍 Key Places</button>
-  <button class="vs-btn" onclick="doVS('concepts')">💡 Concept Diagram</button>
+  <button class="vs-btn" onclick="doVS('mindmap')"> Mind Map</button>
+  <button class="vs-btn" onclick="doVS('timeline')"> Timeline</button>
+  <button class="vs-btn" onclick="doVS('characters')"> Key Characters</button>
+  <button class="vs-btn" onclick="doVS('places')"> Key Places</button>
+  <button class="vs-btn" onclick="doVS('concepts')"> Concept Diagram</button>
   <div id="vs-out"></div>
 </div>
 
 <!-- Focus Overlay -->
 <div id="focus-ov" role="dialog" aria-modal="true" aria-label="Focus reading mode">
-  <button id="focus-close" onclick="toggleFocus()" aria-label="Exit focus mode">✕</button>
+  <button id="focus-close" onclick="toggleFocus()" aria-label="Exit focus mode"></button>
   <div id="focus-card">
     <div id="focus-meta">
-      <span>🎯 FOCUS MODE</span>
+      <span> FOCUS MODE</span>
       <span id="focus-ctr">1 / 1</span>
     </div>
     <div id="focus-para" tabindex="0"></div>
@@ -367,7 +372,7 @@
       <button class="fnav" id="fp-next" onclick="fNav(1)" aria-label="Next paragraph">Next →</button>
     </div>
     <div style="text-align:center;margin-top:16px;">
-      <button id="focus-read-btn" onclick="readFocusPara()">🔊 Read This</button>
+      <button id="focus-read-btn" onclick="readFocusPara()"> Read This</button>
     </div>
   </div>
 </div>
@@ -386,7 +391,7 @@
 <!-- Checkpoint Modal -->
 <div id="cp-modal" role="dialog" aria-modal="true">
   <div id="cp-card">
-    <h3>🧠 AI Checkpoint — Quick Check!</h3>
+    <h3> AI Checkpoint — Quick Check!</h3>
     <div id="cp-q">Loading question…</div>
     <input type="text" id="cp-input" placeholder="Type your answer here…" onkeydown="if(event.key==='Enter')checkAnswer()">
     <div id="cp-fb"></div>
@@ -410,11 +415,11 @@
   <button class="a-spd" data-r="1.5" onclick="setSpd(1.5)">1.5×</button>
 </div>
 
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script>
-/* ═══════════════════════════════════════════
+/* 
    STATE
-═══════════════════════════════════════════ */
+ */
 var paras = [];        // paragraphs array
 var sents = [];        // [{paraIdx, text, el}]
 var sIdx = 0;          // current sentence TTS
@@ -449,9 +454,9 @@ var BK = {};
   }
 })();
 
-/* ═══════════════════════════════════════════
+/* 
    INIT
-═══════════════════════════════════════════ */
+ */
 document.addEventListener('DOMContentLoaded', function() {
   renderBookHeader();
   applyPrefs();
@@ -468,20 +473,20 @@ function renderBookHeader() {
   if (!BK.title) { h.style.display='none'; return; }
   document.title = BK.title + ' · ADHD Reader · CelikSense AI';
   var covEl = BK.cover
-    ? '<img src="'+BK.cover+'" alt="Book cover" onerror="this.outerHTML=\'<div id=bk-cover-ph>📖</div>\'">'
-    : '<div id="bk-cover-ph">📖</div>';
+    ? '<img src="'+BK.cover+'" alt="Book cover" onerror="this.outerHTML=\'<div id=bk-cover-ph></div>\'">'
+    : '<div id="bk-cover-ph"></div>';
   h.innerHTML = covEl +
     '<div style="min-width:0;">' +
       '<div class="bk-title">'+esc(BK.title)+'</div>' +
       '<div class="bk-author">'+(BK.author?'by '+esc(BK.author):'')+'</div>' +
-      (BK.source ? '<span class="bk-badge">📚 '+esc(BK.source)+'</span>' : '') +
+      (BK.source ? '<span class="bk-badge"> '+esc(BK.source)+'</span>' : '') +
       (BK.url ? '<br><a href="'+BK.url+'" target="_blank" rel="noopener" style="font-size:11px;color:#6366f1;font-weight:600;text-decoration:none;margin-top:6px;display:inline-block;">↗ View Original Source</a>' : '') +
     '</div>';
 }
 
-/* ═══════════════════════════════════════════
+/* 
    CONTENT FETCHING
-═══════════════════════════════════════════ */
+ */
 async function tryFetch() {
   if (!BK.url) { showPaste(); return; }
   var gId = getGId(BK.url);
@@ -527,7 +532,7 @@ function setLoadMsg(msg) {
 
 function showPaste() {
   var la = document.getElementById('load-area');
-  la.querySelector('h3').textContent = '📋 Paste Book Text';
+  la.querySelector('h3').textContent = ' Paste Book Text';
   la.querySelector('p').innerHTML =
     'We couldn\'t auto-fetch the text (CORS restriction).<br>' +
     (BK.url ? '<a href="'+BK.url+'" target="_blank" rel="noopener" style="color:#6366f1;font-weight:600;">Open source ↗</a>, copy the text, and paste it below.' : 'Paste your text below.');
@@ -541,9 +546,9 @@ function loadFromPaste() {
   parseRender(t);
 }
 
-/* ═══════════════════════════════════════════
+/* 
    PARSE & RENDER
-═══════════════════════════════════════════ */
+ */
 function parseRender(raw) {
   document.getElementById('load-area').classList.add('hidden');
   raw = cleanGutenberg(raw);
@@ -580,7 +585,7 @@ function renderParas() {
       wCount = 0;
       var hr = document.createElement('hr');
       hr.className = 'sec-div';
-      hr.setAttribute('data-lbl', '✦ Section '+secNum+' · ~'+microMin+' min read');
+      hr.setAttribute('data-lbl', ' Section '+secNum+' · ~'+microMin+' min read');
       hr.dataset.sec = secNum;
       area.appendChild(hr);
       area.appendChild(mkSecBadge(secNum));
@@ -609,7 +614,7 @@ function renderParas() {
 
     var aib = document.createElement('button');
     aib.className = 'para-ai-btn';
-    aib.innerHTML = '✨ AI Help';
+    aib.innerHTML = ' AI Help';
     var aipanel = document.createElement('div');
     aipanel.className = 'para-ai-box';
     (function(p, panel){ aib.onclick = function(){ toggleAIBox(p, panel); }; })(para, aipanel);
@@ -624,7 +629,7 @@ function renderParas() {
 function mkSecBadge(n) {
   var d = document.createElement('div');
   d.className = 'sec-badge';
-  d.innerHTML = '<span>📖 Section '+n+' · ~'+microMin+' min read</span>';
+  d.innerHTML = '<span> Section '+n+' · ~'+microMin+' min read</span>';
   return d;
 }
 
@@ -632,9 +637,9 @@ function splitSents(t) {
   return t.match(/[^.!?…]+[.!?…]+["']?/g) || [t];
 }
 
-/* ═══════════════════════════════════════════
+/* 
    PROGRESS
-═══════════════════════════════════════════ */
+ */
 function updateProg() {
   var h = document.documentElement.scrollHeight - window.innerHeight;
   var pct = h > 0 ? Math.round(window.scrollY / h * 100) : 0;
@@ -651,9 +656,9 @@ function updateProg() {
   });
 }
 
-/* ═══════════════════════════════════════════
+/* 
    SESSION TIMER + SMART BREAK
-═══════════════════════════════════════════ */
+ */
 function initSession() {
   var breakAfterSec = (prefs.breakMins || 7) * 60;
   sessInt = setInterval(function() {
@@ -681,9 +686,9 @@ function showBreak() {
 function hideBreak() { document.getElementById('break-modal').classList.remove('on'); clearInterval(breakInt); }
 function skipBreak() { hideBreak(); }
 
-/* ═══════════════════════════════════════════
+/* 
    TOOLBAR CONTROLS
-═══════════════════════════════════════════ */
+ */
 function setFont(f) {
   prefs.font = f;
   document.documentElement.style.setProperty('--reader-font', f==='lexend' ? "'Lexend',sans-serif" : "'Segoe UI',system-ui,sans-serif");
@@ -732,9 +737,9 @@ function setMicro(min) {
   if (paras.length) renderParas();
 }
 
-/* ═══════════════════════════════════════════
+/* 
    FOCUS MODE
-═══════════════════════════════════════════ */
+ */
 function toggleFocus() {
   isFocus = !isFocus;
   document.getElementById('focus-ov').classList.toggle('on', isFocus);
@@ -770,9 +775,9 @@ function readFocusPara() {
   }
 }
 
-/* ═══════════════════════════════════════════
+/* 
    READ ALOUD
-═══════════════════════════════════════════ */
+ */
 function toggleRead() {
   if (isRead) stopRead(); else startRead();
 }
@@ -826,9 +831,9 @@ function setSpd(r) {
   prefs.speed = r; saveP();
 }
 
-/* ═══════════════════════════════════════════
+/* 
    AI PARAGRAPH HELP
-═══════════════════════════════════════════ */
+ */
 function toggleAIBox(paraText, panel) {
   if (panel.classList.contains('open')) { panel.classList.remove('open'); return; }
   panel.classList.add('open');
@@ -845,25 +850,25 @@ async function genParaAI(text, panel) {
     var words = text.replace(/[^a-zA-Z\s]/g,'').split(/\s+/).filter(function(w){ return w.length>6; });
     var kw = [...new Set(words)].slice(0,6);
     panel.innerHTML =
-      '<div class="ai-label">📝 SIMPLIFIED</div>' +
+      '<div class="ai-label"> SIMPLIFIED</div>' +
       '<div class="ai-body">'+(text.length>250?text.slice(0,250)+'…':text)+'</div>' +
-      '<div class="ai-label">🔑 KEY WORDS</div>' +
+      '<div class="ai-label"> KEY WORDS</div>' +
       '<div class="ai-body">'+kw.map(function(w){ return '<span class="ai-kw">'+esc(w)+'</span>'; }).join('')+'</div>' +
-      '<div style="font-size:11px;color:#9ca3af;margin-top:8px;">💡 Add OpenRouter API key in <a href="settings.html" style="color:#6366f1;">Settings</a> for full AI analysis.</div>';
+      '<div style="font-size:11px;color:#9ca3af;margin-top:8px;"> Add OpenRouter API key in <a href="settings.html" style="color:#6366f1;">Settings</a> for full AI analysis.</div>';
     return;
   }
   try {
     var prompt = 'For this paragraph, provide:\n1. SIMPLIFIED: A 1-sentence plain-language summary\n2. KEY POINTS: 2-3 bullet points\n3. IMPORTANT WORDS: 4-5 key vocabulary words with brief definitions\n4. VISUAL SUMMARY: One simple analogy or image description\n\nParagraph: "'+text.slice(0,700)+'"';
     var data = await geminiCall(prompt, key);
-    panel.innerHTML = '<div class="ai-label">🤖 AI ANALYSIS</div><div class="ai-body" style="white-space:pre-wrap;font-size:12px;">'+esc(data)+'</div>';
+    panel.innerHTML = '<div class="ai-label"> AI ANALYSIS</div><div class="ai-body" style="white-space:pre-wrap;font-size:12px;">'+esc(data)+'</div>';
   } catch(e) {
-    panel.innerHTML = '<div class="ai-label">❌ Error</div><div class="ai-body">Could not reach AI. Check API key in Settings.</div>';
+    panel.innerHTML = '<div class="ai-label"> Error</div><div class="ai-body">Could not reach AI. Check API key in Settings.</div>';
   }
 }
 
-/* ═══════════════════════════════════════════
+/* 
    CHECKPOINT
-═══════════════════════════════════════════ */
+ */
 function showCP(secText) {
   var modal = document.getElementById('cp-modal');
   modal.classList.add('on');
@@ -900,8 +905,8 @@ function checkAnswer() {
   var correct = !_cpAns || (ans.length > 3 && (_cpAns.slice(0,12).split(/\s+/).some(function(w){ return ans.includes(w); }) || ans.length > 20));
   fb.className = correct ? 'ok' : 'no';
   fb.textContent = correct
-    ? '✅ Well done! Keep reading.'
-    : '❌ Not quite. ' + (_cpAns ? 'Hint: '+_cpAns : 'Try reading the section again.');
+    ? ' Well done! Keep reading.'
+    : ' Not quite. ' + (_cpAns ? 'Hint: '+_cpAns : 'Try reading the section again.');
   if (correct) setTimeout(skipCP, 1600);
 }
 
@@ -911,9 +916,9 @@ function explainAgain() {
 }
 function skipCP() { document.getElementById('cp-modal').classList.remove('on'); }
 
-/* ═══════════════════════════════════════════
+/* 
    VISUAL AI PANEL
-═══════════════════════════════════════════ */
+ */
 function toggleVS() {
   var p = document.getElementById('vs-panel');
   p.classList.toggle('on');
@@ -933,7 +938,7 @@ async function doVS(type) {
   out.innerHTML = '⏳ Generating…';
   var key = getApiKey();
   if (!key) {
-    out.innerHTML = '💡 Add your OpenRouter API key in <a href="settings.html" style="color:#6366f1;font-weight:600;">Settings</a> for AI visual support.';
+    out.innerHTML = ' Add your OpenRouter API key in <a href="settings.html" style="color:#6366f1;font-weight:600;">Settings</a> for AI visual support.';
     return;
   }
   var context = paras.slice(0,25).join(' ').slice(0,1200);
@@ -943,9 +948,9 @@ async function doVS(type) {
   } catch(e) { out.innerHTML = 'Error. Check API key in Settings.'; }
 }
 
-/* ═══════════════════════════════════════════
+/* 
    GEMINI HELPER
-═══════════════════════════════════════════ */
+ */
 function getApiKey() {
   try { return localStorage.getItem('openrouter_api_key') || ''; } catch(e){ return ''; }
 }
@@ -953,7 +958,7 @@ function getApiKey() {
 async function geminiCall(prompt, key) {
   var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
   var r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://starter-code-phi.vercel.app','X-Title':'CelikSense AI'},
+    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://celiksense-ai-116242246073.asia-southeast1.run.app','X-Title':'CelikSense AI'},
     body: JSON.stringify({ model: model, messages:[{ role:'user', content: prompt }] })
   });
   var d = await r.json();
@@ -961,9 +966,9 @@ async function geminiCall(prompt, key) {
   return d.choices && d.choices[0] ? d.choices[0].message.content : 'No response.';
 }
 
-/* ═══════════════════════════════════════════
+/* 
    VOICE NAVIGATION
-═══════════════════════════════════════════ */
+ */
 function initVoice() {
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) return;
@@ -988,9 +993,9 @@ function initVoice() {
   try { rec.start(); } catch(e){}
 }
 
-/* ═══════════════════════════════════════════
+/* 
    KEYBOARD NAVIGATION
-═══════════════════════════════════════════ */
+ */
 document.addEventListener('keydown', function(e) {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if (e.key === 'ArrowRight' || e.key === 'n') { if(isFocus) fNav(1); else nextSent(); }
@@ -1003,9 +1008,9 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-/* ═══════════════════════════════════════════
+/* 
    APPLY SAVED PREFERENCES
-═══════════════════════════════════════════ */
+ */
 function applyPrefs() {
   if (prefs.fontSize)    { document.documentElement.style.setProperty('--reader-size', prefs.fontSize+'px'); document.getElementById('lbl-size').textContent=prefs.fontSize; }
   if (prefs.lineSpacing) { document.documentElement.style.setProperty('--reader-line', prefs.lineSpacing); document.getElementById('lbl-line').textContent=parseFloat(prefs.lineSpacing).toFixed(1); }
@@ -1018,4 +1023,6 @@ function applyPrefs() {
 </script>
 </body>
 </html>
+
+
 

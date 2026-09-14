@@ -44,7 +44,7 @@
 .simple-sentence p { margin:0 0 12px; }
 .simple-sentence p:last-child { margin:0; }
 
-/* ── ReAct Loop UI ── */
+/*  ReAct Loop UI  */
 .react-panel { border:2px solid #6366f1; border-radius:16px; padding:20px; background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04)); margin-bottom:20px; }
 .react-step { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; opacity:0.3; transition:opacity .4s; }
 .react-step.active { opacity:1; }
@@ -74,24 +74,24 @@
       <div class="nav-dropdown">
         <button data-i18n="nav_agents" aria-haspopup="true" aria-expanded="false">Agents ▾</button>
         <div class="dropdown-menu">
-          <a href="ai-librarian.html">📚 AI Librarian</a>
-          <a href="reading-companion.html">📖 Reading Companion</a>
-          <a href="adhd-agent.html">🧠 ADHD Agent</a>
-          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
-          <a href="down-syndrome-agent.html">💛 Down Syndrome Agent</a>
-          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
-          <a href="sign-language.html">🤟 Sign Language Agent</a>
-          <a href="early-warning.html">⚠️ Early Warning Agent</a>
-          <a href="intervention.html">💡 Intervention Agent</a>
+          <a href="ai-librarian.html"> AI Librarian</a>
+          <a href="reading-companion.html"> Reading Companion</a>
+          <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
+          <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
+          <a href="down-syndrome-agent.html"> Down Syndrome Agent</a>
+          <a href="blind-audio.html"> Blind Audio Agent</a>
+          <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
+          <a href="early-warning.html">⚠ Early Warning Agent</a>
+          <a href="intervention.html"> Intervention Agent</a>
         </div>
       </div>
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch language">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
       <a href="dashboard.html" class="btn btn-outline btn-sm">← Dashboard</a>
-      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings">⚙️</a>
-      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </nav>
@@ -99,7 +99,7 @@
 <main class="page-header" id="main-content">
   <div class="container">
   <div class="page-header-card" style="border-top:4px solid #f97316;">
-    <div class="page-badge">💛</div>
+    <div class="page-badge"></div>
     <h1 class="page-title" data-i18n="ds_title">Down Syndrome Adaptive Agent</h1>
     <p class="page-subtitle" data-i18n="ds_subtitle">Simplified language, visual story boards, vocabulary drills, and positive feedback — built for every learner.</p>
   </div>
@@ -114,39 +114,39 @@
 
       <!-- Tool 1: Simplified Language -->
       <div class="control-panel" style="margin-bottom:16px; border-left:3px solid #f97316;">
-        <div class="panel-title">📝 <span data-i18n="ds_tool1">Simplified Language</span></div>
+        <div class="panel-title"> <span data-i18n="ds_tool1">Simplified Language</span></div>
         <p style="font-size:13px;color:var(--text-muted);margin:0 0 12px;" data-i18n="ds_tool1_desc">Paste any text. AI will rewrite it in short, simple sentences.</p>
         <textarea id="dsInput" rows="6" class="form-control" style="font-size:15px;line-height:1.7;"
           placeholder="Paste text here / Tampal teks di sini..." aria-label="Input text for simplification"></textarea>
         <div style="display:flex;gap:8px;margin-top:10px;">
         <button onclick="simplifyText()" class="btn btn-primary btn-sm" style="flex:1;background:linear-gradient(135deg,#f97316,#fb923c);" data-i18n="ds_simplify">
-          ✨ Simplify Text
+           Simplify Text
         </button>
-        <button onclick="runReAct()" class="btn btn-sm" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis">🧠 ReAct</button>
+        <button onclick="runReAct()" class="btn btn-sm" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis"> ReAct</button>
         </div>
       </div>
 
       <!-- Tool 2: Visual Story Board -->
       <div class="control-panel" style="margin-bottom:16px; border-left:3px solid #f59e0b;">
-        <div class="panel-title">🖼️ <span data-i18n="ds_tool2">Visual Story Board</span></div>
+        <div class="panel-title"> <span data-i18n="ds_tool2">Visual Story Board</span></div>
         <p style="font-size:13px;color:var(--text-muted);margin:0 0 12px;" data-i18n="ds_tool2_desc">Turn text into numbered picture cards — one idea per card.</p>
         <button onclick="makeStoryBoard()" class="btn btn-outline btn-sm" style="width:100%;border-color:#f59e0b;color:#d97706;" data-i18n="ds_makestory">
-          🎴 Make Story Board
+           Make Story Board
         </button>
       </div>
 
       <!-- Tool 3: Vocabulary Drill -->
       <div class="control-panel" style="margin-bottom:16px; border-left:3px solid #22c55e;">
-        <div class="panel-title">🔁 <span data-i18n="ds_tool3">Vocabulary Drill</span></div>
+        <div class="panel-title"> <span data-i18n="ds_tool3">Vocabulary Drill</span></div>
         <p style="font-size:13px;color:var(--text-muted);margin:0 0 12px;" data-i18n="ds_tool3_desc">Key words from the text turned into flashcards. Tap to reveal meaning.</p>
         <button onclick="makeDrill()" class="btn btn-outline btn-sm" style="width:100%;border-color:#22c55e;color:#16a34a;" data-i18n="ds_makedrill">
-          🃏 Start Drill
+           Start Drill
         </button>
       </div>
 
       <!-- Settings -->
       <div class="control-panel" style="border-left:3px solid #6366f1;">
-        <div class="panel-title">⚙️ <span data-i18n="ds_settings">Display Settings</span></div>
+        <div class="panel-title">⚙ <span data-i18n="ds_settings">Display Settings</span></div>
         <label style="font-size:13px;color:var(--text-muted);display:block;margin-bottom:8px;" data-i18n="ds_fontsize">Text Size</label>
         <input type="range" min="16" max="28" value="18" oninput="setFontSize(this.value)" style="width:100%;accent-color:#f97316;" aria-label="Text size slider">
         <label style="font-size:13px;color:var(--text-muted);display:block;margin:12px 0 8px;" data-i18n="ds_bgcolor">Background</label>
@@ -166,7 +166,7 @@
       <!-- ReAct Loop Panel -->
 <div class="react-panel" id="reactPanel" style="display:none;">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-    <div style="font-weight:700;font-size:15px;color:#4338ca;">🧠 ReAct Reasoning Loop</div>
+    <div style="font-weight:700;font-size:15px;color:#4338ca;"> ReAct Reasoning Loop</div>
     <span id="reactRound" style="font-size:12px;color:var(--text-muted);"></span>
   </div>
   <div class="react-step" id="reactStep1"><span class="react-badge think">THINK</span><div class="react-content" id="reactThink">Waiting…</div></div>
@@ -185,10 +185,10 @@
       <!-- Simplified text output -->
       <div class="card" style="margin-bottom:20px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-          <h3 style="margin:0;font-size:16px;" data-i18n="ds_result">📝 Simplified Text</h3>
+          <h3 style="margin:0;font-size:16px;" data-i18n="ds_result"> Simplified Text</h3>
           <div style="display:flex;gap:8px;">
-            <button onclick="speakText()" class="btn btn-ghost btn-sm" title="Read aloud" aria-label="Read aloud">🔊</button>
-            <button onclick="copyResult()" class="btn btn-ghost btn-sm" title="Copy" aria-label="Copy text">📋</button>
+            <button onclick="speakText()" class="btn btn-ghost btn-sm" title="Read aloud" aria-label="Read aloud"></button>
+            <button onclick="copyResult()" class="btn btn-ghost btn-sm" title="Copy" aria-label="Copy text"></button>
           </div>
         </div>
         <div id="dsResult" class="simple-sentence" style="font-size:18px;" aria-live="polite" aria-label="Simplified text output">
@@ -198,7 +198,7 @@
 
       <!-- Story board output -->
       <div class="card" style="margin-bottom:20px;" id="storySection" style="display:none;">
-        <h3 style="margin:0 0 4px;font-size:16px;" data-i18n="ds_storyboard">🖼️ Visual Story Board</h3>
+        <h3 style="margin:0 0 4px;font-size:16px;" data-i18n="ds_storyboard"> Visual Story Board</h3>
         <p style="margin:0 0 12px;font-size:13px;color:var(--text-muted);" data-i18n="ds_storyboard_sub">Each card = one idea. Read them in order.</p>
         <div class="story-board" id="storyBoard" aria-live="polite"></div>
       </div>
@@ -206,7 +206,7 @@
       <!-- Drill output -->
       <div class="card" id="drillSection" style="display:none;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-          <h3 style="margin:0;font-size:16px;" data-i18n="ds_drill">🃏 Vocabulary Drill</h3>
+          <h3 style="margin:0;font-size:16px;" data-i18n="ds_drill"> Vocabulary Drill</h3>
           <span id="drillScore" style="font-size:13px;color:var(--text-muted);"></span>
         </div>
         <div id="drillCard" class="drill-card" onclick="revealDrill()" aria-live="polite" role="button" tabindex="0" aria-label="Tap to reveal word meaning">
@@ -215,8 +215,8 @@
           <div class="dc-def" id="dcDef"></div>
         </div>
         <div style="display:flex;gap:8px;margin-top:12px;justify-content:center;">
-          <button onclick="nextDrill(false)" class="btn btn-outline btn-sm" data-i18n="ds_again">🔁 Again</button>
-          <button onclick="nextDrill(true)" class="btn btn-primary btn-sm" style="background:linear-gradient(135deg,#22c55e,#16a34a);" data-i18n="ds_got_it">✅ Got it!</button>
+          <button onclick="nextDrill(false)" class="btn btn-outline btn-sm" data-i18n="ds_again"> Again</button>
+          <button onclick="nextDrill(true)" class="btn btn-primary btn-sm" style="background:linear-gradient(135deg,#22c55e,#16a34a);" data-i18n="ds_got_it"> Got it!</button>
         </div>
       </div>
 
@@ -224,7 +224,7 @@
   </div>
 </div>
 
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script>
 function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
@@ -236,8 +236,8 @@ var _drillGot = 0;
 var _drillTotal = 0;
 var _drillRevealed = false;
 
-/* ── Gemini call ── */
-async function callGemini(prompt){
+/*  Gemini call  */
+async function callAI(prompt){
   var key = '';
   try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e){}
   if(!key){
@@ -249,14 +249,14 @@ async function callGemini(prompt){
   var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
   var res = await fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://starter-code-phi.vercel.app','X-Title':'CelikSense AI'},
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://celiksense-ai-116242246073.asia-southeast1.run.app','X-Title':'CelikSense AI'},
     body:JSON.stringify({model:model,messages:[{role:'user',content:prompt}]})
   });
   var j = await res.json();
   return j.choices && j.choices[0] ? j.choices[0].message.content : 'No response.';
 }
 
-/* ── Tool 1: Simplify ── */
+/*  Tool 1: Simplify  */
 async function simplifyText(){
   var input = document.getElementById('dsInput').value.trim();
   if(!input){alert(LANG==='ms'?'Sila masukkan teks terlebih dahulu.':'Please enter some text first.');return;}
@@ -266,17 +266,17 @@ async function simplifyText(){
     ? 'Tulis semula teks berikut untuk pelajar sindrom Down. Gunakan ayat pendek (maksimum 8 patah perkataan setiap ayat), perkataan mudah, dan bahasa yang mesra kanak-kanak. Setiap idea pada baris baharu. Jangan gunakan istilah sukar. Teks:\n\n'+input
     : 'Rewrite the following text for a student with Down Syndrome. Use short sentences (maximum 8 words each), simple vocabulary, and child-friendly language. Each idea on a new line. Avoid difficult terms. Text:\n\n'+input;
   try{
-    var result = await callGemini(prompt);
+    var result = await callAI(prompt);
     _currentSimple = result;
     var lines = escHtml(result).split('\n').filter(function(l){return l.trim();});
     el.innerHTML = lines.map(function(l){return '<p>'+l+'</p>';}).join('');
-    celebrate(LANG==='ms'?'Syabas! Teks sudah dipermudahkan! 🌟':'Great! Text simplified! 🌟');
+    celebrate(LANG==='ms'?'Syabas! Teks sudah dipermudahkan! ':'Great! Text simplified! ');
   }catch(e){
     el.innerHTML = '<p style="color:#ef4444">'+escHtml(String(e))+'</p>';
   }
 }
 
-/* ── Tool 2: Story Board ── */
+/*  Tool 2: Story Board  */
 async function makeStoryBoard(){
   if(!_currentSimple){alert(LANG==='ms'?'Sila mudahkan teks dahulu.':'Please simplify text first.');return;}
   var board = document.getElementById('storyBoard');
@@ -286,7 +286,7 @@ async function makeStoryBoard(){
     ? 'Pecahkan teks ini kepada maksimum 8 idea utama. Untuk setiap idea, berikan: (1) satu emoji yang sesuai dan (2) satu frasa pendek (maksimum 5 patah perkataan). Format jawapan: EMOJI|FRASA, satu baris setiap idea.\n\nTeks:\n'+_currentSimple
     : 'Break this text into up to 8 key ideas. For each idea give: (1) one suitable emoji and (2) a short phrase (max 5 words). Format: EMOJI|PHRASE, one per line.\n\nText:\n'+_currentSimple;
   try{
-    var result = await callGemini(prompt);
+    var result = await callAI(prompt);
     var lines = result.split('\n').filter(function(l){return l.trim() && l.includes('|');});
     if(!lines.length){board.innerHTML='<p style="color:var(--text-muted)">Could not generate cards.</p>';return;}
     board.innerHTML = lines.map(function(l,i){
@@ -295,13 +295,13 @@ async function makeStoryBoard(){
       var text = escHtml((parts[1]||'').trim());
       return '<div class="story-card"><div class="sc-num">'+(i+1)+'</div><div class="sc-emoji">'+emoji+'</div><div class="sc-text">'+text+'</div></div>';
     }).join('');
-    celebrate(LANG==='ms'?'Kad cerita siap! Baca satu-satu 🎉':'Story cards ready! Read one at a time 🎉');
+    celebrate(LANG==='ms'?'Kad cerita siap! Baca satu-satu ':'Story cards ready! Read one at a time ');
   }catch(e){
     board.innerHTML='<p style="color:#ef4444">'+escHtml(String(e))+'</p>';
   }
 }
 
-/* ── Tool 3: Vocabulary Drill ── */
+/*  Tool 3: Vocabulary Drill  */
 async function makeDrill(){
   if(!_currentSimple){alert(LANG==='ms'?'Sila mudahkan teks dahulu.':'Please simplify text first.');return;}
   document.getElementById('drillSection').style.display='block';
@@ -310,7 +310,7 @@ async function makeDrill(){
     ? 'Dari teks ini, senaraikan 6 perkataan penting yang perlu pelajar tahu. Format: PERKATAAN|MAKSUD MUDAH (satu baris setiap perkataan, maksud dalam 5 patah perkataan atau kurang).\n\nTeks:\n'+_currentSimple
     : 'From this text, list 6 important vocabulary words. Format: WORD|SIMPLE MEANING (one per line, meaning in 5 words or less).\n\nText:\n'+_currentSimple;
   try{
-    var result = await callGemini(prompt);
+    var result = await callAI(prompt);
     var lines = result.split('\n').filter(function(l){return l.trim() && l.includes('|');});
     _drillWords = lines.map(function(l){var p=l.split('|');return{word:(p[0]||'').trim(),def:(p[1]||'').trim()};});
     _drillIdx = 0; _drillGot = 0; _drillTotal = _drillWords.length; _drillRevealed = false;
@@ -337,20 +337,20 @@ function revealDrill(){
 }
 
 function nextDrill(gotIt){
-  if(gotIt){ _drillGot++; if(_drillGot===_drillTotal) celebrate(LANG==='ms'?'Hebat! Semua perkataan dikuasai! ⭐⭐⭐':'Amazing! All words mastered! ⭐⭐⭐'); }
+  if(gotIt){ _drillGot++; if(_drillGot===_drillTotal) celebrate(LANG==='ms'?'Hebat! Semua perkataan dikuasai! ':'Amazing! All words mastered! '); }
   _drillIdx++;
   if(_drillIdx >= _drillWords.length){ _drillIdx = 0; }
   showDrill();
 }
 
-/* ── Helpers ── */
+/*  Helpers  */
 function celebrate(msg){
   var s = document.getElementById('dsStatus');
   var m = document.getElementById('dsStatusMsg');
   var st = document.getElementById('dsStars');
   s.style.display='block';
   m.textContent = msg;
-  st.innerHTML='⭐⭐⭐';
+  st.innerHTML='';
   setTimeout(function(){s.style.display='none';}, 4000);
 }
 
@@ -386,18 +386,18 @@ var I18N = {
     ds_title:'Agen Adaptif Sindrom Down',
     ds_subtitle:'Bahasa dipermudahkan, papan cerita visual, latih tubi kosa kata, dan maklum balas positif — dibina untuk setiap pelajar.',
     ds_tool1:'Bahasa Dipermudahkan', ds_tool1_desc:'Tampal mana-mana teks. AI akan tulis semula dalam ayat pendek dan mudah.',
-    ds_simplify:'✨ Mudahkan Teks',
+    ds_simplify:' Mudahkan Teks',
     ds_tool2:'Papan Cerita Visual', ds_tool2_desc:'Tukar teks kepada kad bergambar bernombor — satu idea setiap kad.',
-    ds_makestory:'🎴 Buat Papan Cerita',
+    ds_makestory:' Buat Papan Cerita',
     ds_tool3:'Latih Tubi Kosa Kata', ds_tool3_desc:'Perkataan utama dari teks dijadikan kad imbas. Ketik untuk lihat maksud.',
-    ds_makedrill:'🃏 Mula Latihan',
+    ds_makedrill:' Mula Latihan',
     ds_settings:'Tetapan Paparan', ds_fontsize:'Saiz Teks', ds_bgcolor:'Warna Latar',
-    ds_result:'📝 Teks Dipermudahkan',
+    ds_result:' Teks Dipermudahkan',
     ds_placeholder:'Tampal teks di sebelah kiri dan tekan Mudahkan Teks untuk bermula.',
-    ds_storyboard:'🖼️ Papan Cerita Visual', ds_storyboard_sub:'Setiap kad = satu idea. Baca mengikut urutan.',
-    ds_drill:'🃏 Latih Tubi Kosa Kata',
+    ds_storyboard:' Papan Cerita Visual', ds_storyboard_sub:'Setiap kad = satu idea. Baca mengikut urutan.',
+    ds_drill:' Latih Tubi Kosa Kata',
     ds_drill_ready:'Sedia!', ds_tap:'Ketik untuk lihat maksud',
-    ds_again:'🔁 Cuba Lagi', ds_got_it:'✅ Faham!',
+    ds_again:' Cuba Lagi', ds_got_it:' Faham!',
     agent_open:'Buka'
   },
   en:{
@@ -406,18 +406,18 @@ var I18N = {
     ds_title:'Down Syndrome Adaptive Agent',
     ds_subtitle:'Simplified language, visual story boards, vocabulary drills, and positive feedback — built for every learner.',
     ds_tool1:'Simplified Language', ds_tool1_desc:'Paste any text. AI will rewrite it in short, simple sentences.',
-    ds_simplify:'✨ Simplify Text',
+    ds_simplify:' Simplify Text',
     ds_tool2:'Visual Story Board', ds_tool2_desc:'Turn text into numbered picture cards — one idea per card.',
-    ds_makestory:'🎴 Make Story Board',
+    ds_makestory:' Make Story Board',
     ds_tool3:'Vocabulary Drill', ds_tool3_desc:'Key words from the text turned into flashcards. Tap to reveal meaning.',
-    ds_makedrill:'🃏 Start Drill',
+    ds_makedrill:' Start Drill',
     ds_settings:'Display Settings', ds_fontsize:'Text Size', ds_bgcolor:'Background',
-    ds_result:'📝 Simplified Text',
+    ds_result:' Simplified Text',
     ds_placeholder:'Paste text on the left and press Simplify Text to begin.',
-    ds_storyboard:'🖼️ Visual Story Board', ds_storyboard_sub:'Each card = one idea. Read them in order.',
-    ds_drill:'🃏 Vocabulary Drill',
+    ds_storyboard:' Visual Story Board', ds_storyboard_sub:'Each card = one idea. Read them in order.',
+    ds_drill:' Vocabulary Drill',
     ds_drill_ready:'Ready!', ds_tap:'Tap to reveal meaning',
-    ds_again:'🔁 Again', ds_got_it:'✅ Got it!',
+    ds_again:' Again', ds_got_it:' Got it!',
     agent_open:'Open'
   }
 };
@@ -440,14 +440,14 @@ function toggleLanguage(){
 
 applyI18n();
 
-/* ── ReAct Loop ─────────────────────────────────────────────────────────── */
+/*  ReAct Loop  */
 async function _reactAI(prompt) {
   var key = ''; try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!key) return null;
   try {
     var model = ''; try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
     var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
       body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
     });
     var j = await res.json();
@@ -487,7 +487,7 @@ async function runReAct() {
 
     var tprompt = (lang === 'en' ? thinkPrompts.en : thinkPrompts.ms).replace('{TEXT}', text.slice(0, 800));
     var thought = await _reactAI(tprompt);
-    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
+    if (!thought) { th.innerHTML = '⚠ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
 
     var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
     var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
@@ -495,17 +495,17 @@ async function runReAct() {
     if (!actPrompts[chosenTool]) chosenTool = Object.keys(actPrompts)[0];
     var reason = reasonMatch ? reasonMatch[1].trim().slice(0, 200) : thought.slice(0, 200);
     s1.className = 'react-step done';
-    th.innerHTML = '🔧 Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(reason) + '</span>';
+    th.innerHTML = ' Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(reason) + '</span>';
 
     s2.className = 'react-step active';
     ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(chosenTool) + '</strong>…';
     var apromptObj = actPrompts[chosenTool];
     var aprompt = (lang === 'en' ? apromptObj.en : apromptObj.ms).replace('{TEXT}', text.slice(0, 1000));
     var output = await _reactAI(aprompt);
-    if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
+    if (!output) { ac.innerHTML = '⚠ Ralat semasa melaksanakan alat.'; break; }
     lastOutput = output;
     s2.className = 'react-step done';
-    ac.innerHTML = '✅ Output: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
+    ac.innerHTML = ' Output: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
 
     s3.className = 'react-step active';
     ob.innerHTML = spinner + 'Menyemak kualiti output…';
@@ -523,8 +523,8 @@ async function runReAct() {
 
     if (score >= 8 || round === MAX_ROUNDS) {
       resultEl.style.display = 'block';
-      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;">✅ OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
-      roundEl.textContent = '✅ Selesai dalam ' + round + ' pusingan';
+      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;"> OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
+      roundEl.textContent = ' Selesai dalam ' + round + ' pusingan';
       break;
     }
     s4.style.display = 'flex'; s4.className = 'react-step active';
@@ -538,3 +538,5 @@ async function runReAct() {
 </script>
 </body>
 </html>
+
+

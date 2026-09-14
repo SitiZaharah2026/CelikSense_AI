@@ -7,7 +7,7 @@
   <title>CelikSense AI – Voice-First Blind Navigation</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* ── Base Reset & Variables ── */
+    /*  Base Reset & Variables  */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -34,7 +34,7 @@
       min-height: 100vh;
     }
 
-    /* ── Skip Link ── */
+    /*  Skip Link  */
     .skip-link {
       position: absolute;
       top: -999px;
@@ -50,7 +50,7 @@
     }
     .skip-link:focus { top: 0; }
 
-    /* ── Screen-reader-only utility ── */
+    /*  Screen-reader-only utility  */
     .sr-only {
       position: absolute;
       width: 1px; height: 1px;
@@ -59,7 +59,7 @@
       white-space: nowrap;
     }
 
-    /* ── ARIA Live Region ── */
+    /*  ARIA Live Region  */
     #announcer {
       position: absolute;
       width: 1px; height: 1px;
@@ -68,14 +68,14 @@
       white-space: nowrap;
     }
 
-    /* ── Layout ── */
+    /*  Layout  */
     .container {
       max-width: 900px;
       margin: 0 auto;
       padding: 2rem 1.5rem 4rem;
     }
 
-    /* ── Header / Hero ── */
+    /*  Header / Hero  */
     .hero {
       text-align: center;
       padding: 3rem 1rem 2rem;
@@ -110,7 +110,7 @@
       font-weight: 600;
     }
 
-    /* ── Mic Orb ── */
+    /*  Mic Orb  */
     .mic-section {
       display: flex;
       flex-direction: column;
@@ -206,7 +206,7 @@
       line-height: 1;
     }
 
-    /* ── Status Text ── */
+    /*  Status Text  */
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -241,7 +241,7 @@
       margin-top: 0.5rem;
     }
 
-    /* ── Command / Speech Display ── */
+    /*  Command / Speech Display  */
     .info-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -274,7 +274,7 @@
       font-style: italic;
     }
 
-    /* ── Quick Access Buttons ── */
+    /*  Quick Access Buttons  */
     .section-title {
       font-size: 1rem;
       font-weight: 700;
@@ -323,7 +323,7 @@
     .quick-btn.accent  { border-color: var(--accent);  background: rgba(99,102,241,0.15); }
     .quick-btn.success { border-color: var(--success); background: rgba(16,185,129,0.12); }
 
-    /* ── Feature Grid ── */
+    /*  Feature Grid  */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -362,7 +362,7 @@
 
     .feature-btn .feat-icon { font-size: 2.25rem; line-height: 1; }
 
-    /* ── Keyboard Shortcuts ── */
+    /*  Keyboard Shortcuts  */
     .shortcuts-panel {
       background: var(--surface);
       border: 2px solid var(--border);
@@ -411,7 +411,7 @@
 
     .shortcut-desc { font-size: 0.95rem; color: var(--muted); }
 
-    /* ── Voice Login Section ── */
+    /*  Voice Login Section  */
     #voice-login {
       display: none;
       background: var(--surface);
@@ -467,7 +467,7 @@
 
     .login-form button:hover { background: var(--accent2); }
 
-    /* ── Footer ── */
+    /*  Footer  */
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -479,7 +479,7 @@
     footer a { color: var(--accent2); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-/* ── ReAct Loop UI ── */
+/*  ReAct Loop UI  */
 .react-panel { border:2px solid #6366f1; border-radius:16px; padding:20px; background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04)); margin-bottom:20px; }
 .react-step { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; opacity:0.3; transition:opacity .4s; }
 .react-step.active { opacity:1; }
@@ -505,7 +505,7 @@
   <!-- ReAct Loop Panel -->
   <div class="react-panel" id="reactPanel" style="display:none;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-      <div style="font-weight:700;font-size:15px;color:#4338ca;">🧠 ReAct Reasoning Loop</div>
+      <div style="font-weight:700;font-size:15px;color:#4338ca;"> ReAct Reasoning Loop</div>
       <span id="reactRound" style="font-size:12px;color:var(--muted);"></span>
     </div>
     <div class="react-step" id="reactStep1"><span class="react-badge think">THINK</span><div class="react-content" id="reactThink">Waiting…</div></div>
@@ -554,7 +554,7 @@
       <!-- Braille Mode Toggle -->
       <div style="display:flex;justify-content:center;margin:20px 0;">
         <button id="brailleToggle" class="braille-toggle-btn" onclick="toggleBrailleMode()" aria-label="Toggle Braille Mode" aria-pressed="false">
-          ⠃ <span data-i18n="braille_toggle">Braille Mode</span>
+           <span data-i18n="braille_toggle">Braille Mode</span>
         </button>
       </div>
       <div id="brailleOutputSection" style="max-width:700px;margin:0 auto;display:none;" class="braille-panel" aria-label="Braille Output Section"></div>
@@ -594,7 +594,7 @@
             Help
           </button>
           <button onclick="runReAct()" class="quick-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;border-color:#6366f1;" title="ReAct AI Analysis" aria-label="ReAct AI Analysis">
-            <span class="btn-icon" aria-hidden="true">🧠</span>
+            <span class="btn-icon" aria-hidden="true"></span>
             ReAct
           </button>
         </div>
@@ -688,7 +688,7 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="shared.js"></script>
+  <script src="shared.js?v=2"></script>
   <script src="voice-system.js"></script>
   <script src="braille-system.js"></script>
   <script>
@@ -803,13 +803,13 @@
       window.speechSynthesis && window.speechSynthesis.speak(utt);
     }
 
-    /* ── AI NLU via serverless agent endpoint ────── */
+    /*  AI NLU via serverless agent endpoint  */
     var LANG = (function(){ try { return JSON.parse(localStorage.getItem('cs_user_prefs')||'{}').lang || localStorage.getItem('cs_lang') || 'ms'; } catch(e){ return 'ms'; } })();
 
     async function _callAgent(task, payload) {
       var apiKey = '';
-      try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
-      var groqKey = ''; try { groqKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
+      try { apiKey = localStorage.getItem('openrouter_api_key') || 'server'; } catch(e) {}
+      var groqKey = ''; try { groqKey = localStorage.getItem('openrouter_api_key') || 'server'; } catch(e) {}
       var body = Object.assign({ task: task, lang: LANG || 'ms', apiKey: apiKey, groqKey: groqKey }, payload);
       try {
         var res = await fetch('/api/agents/blind-audio', {
@@ -842,7 +842,7 @@
 
     async function _nluRoute(raw) {
       var apiKey = '';
-      try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
+      try { apiKey = localStorage.getItem('openrouter_api_key') || 'server'; } catch(e) {}
       if (!apiKey) return null;
       return await _callAgent('route', { command: raw, page_map_json: JSON.stringify(PAGE_MAP) });
     }
@@ -884,9 +884,9 @@
         setStatus("Ready", "ready");
         announce("Stopped.");
       } else {
-        /* ── Gemini NLU fallback for natural language commands ── */
+        /*  Gemini NLU fallback for natural language commands  */
         var _apiKey = '';
-        try { _apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
+        try { _apiKey = localStorage.getItem('openrouter_api_key') || 'server'; } catch(e) {}
         if (_apiKey) {
           speak("Let me understand that…");
           setStatus("AI thinking…", "listening");
@@ -1003,21 +1003,21 @@
       w.id='cv-book-widget';
       w.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9990;width:260px;background:linear-gradient(135deg,#1e1b4b 0%,#1d4ed8 60%,#0891b2 100%);border-radius:16px;box-shadow:0 8px 32px rgba(30,27,75,.45);color:#fff;font-family:inherit;overflow:hidden;';
       var coverImg=cover
-        ?'<img src="'+esc(cover)+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\">📖</div>\'">'
-        :'<div style="width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📖</div>';
+        ?'<img src="'+esc(cover)+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\"></div>\'">'
+        :'<div style="width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;"></div>';
       w.innerHTML=
         '<div style="padding:12px 14px 10px;display:flex;align-items:flex-start;gap:12px;">'+
           coverImg+
           '<div style="flex:1;min-width:0;">'+
-            '<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:4px;">🌍 BUKU AKTIF</div>'+
+            '<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:4px;"> BUKU AKTIF</div>'+
             '<div style="font-size:13px;font-weight:800;line-height:1.3;word-break:break-word;">'+esc(title)+'</div>'+
             '<div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:3px;">'+esc(author||'')+'</div>'+
           '</div>'+
-          '<button onclick="document.getElementById(\'cv-book-widget\').remove();localStorage.removeItem(\'cv_active_book\');" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;">✕</button>'+
+          '<button onclick="document.getElementById(\'cv-book-widget\').remove();localStorage.removeItem(\'cv_active_book\');" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;"></button>'+
         '</div>'+
         '<div style="padding:0 14px 14px;display:flex;gap:8px;flex-wrap:wrap;">'+
           (url?'<a href="'+esc(url)+'" target="_blank" rel="noopener" style="flex:1;text-align:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">↗ Buka Sumber</a>':'')+
-          '<a href="celikverse-library.html" style="flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">🌍 Tukar Buku</a>'+
+          '<a href="celikverse-library.html" style="flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;"> Tukar Buku</a>'+
         '</div>';
       document.body.appendChild(w);
     }
@@ -1048,16 +1048,16 @@
       }, 500);
     });
 
-/* ── ReAct Loop ─────────────────────────────────────────────────────────── */
+/*  ReAct Loop  */
 function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
 async function _reactAI(prompt) {
-  var key = ''; try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
+  var key = ''; try { key = localStorage.getItem('openrouter_api_key') || 'server'; } catch(e) {}
   if (!key) return null;
   try {
     var model = ''; try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
     var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
       body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
     });
     var j = await res.json();
@@ -1070,7 +1070,7 @@ async function runReAct() {
   var text = inputEl ? inputEl.value.trim() : '';
   if (!text) { var ta = document.querySelector('textarea'); text = ta ? ta.value.trim() : ''; }
   if (!text) { alert('Sila masukkan teks atau data terlebih dahulu.'); return; }
-  var hasKey = false; try { hasKey = !!(localStorage.getItem('openrouter_api_key') || ''); } catch(e) {}
+  var hasKey = false; try { hasKey = !!(localStorage.getItem('openrouter_api_key') || 'server'); } catch(e) {}
   if (!hasKey) { alert('Sila masukkan OpenRouter API Key dalam Tetapan untuk ReAct Analysis.'); return; }
   var lang = 'ms'; try { lang = localStorage.getItem('cs_lang') || 'ms'; } catch(e) {}
 
@@ -1097,7 +1097,7 @@ async function runReAct() {
 
     var tprompt = (lang === 'en' ? thinkPrompts.en : thinkPrompts.ms).replace('{TEXT}', text.slice(0, 800));
     var thought = await _reactAI(tprompt);
-    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
+    if (!thought) { th.innerHTML = '⚠ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
 
     var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
     var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
@@ -1105,17 +1105,17 @@ async function runReAct() {
     if (!actPrompts[chosenTool]) chosenTool = Object.keys(actPrompts)[0];
     var reason = reasonMatch ? reasonMatch[1].trim().slice(0, 200) : thought.slice(0, 200);
     s1.className = 'react-step done';
-    th.innerHTML = '🔧 Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--muted);">' + escHtml(reason) + '</span>';
+    th.innerHTML = ' Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--muted);">' + escHtml(reason) + '</span>';
 
     s2.className = 'react-step active';
     ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(chosenTool) + '</strong>…';
     var apromptObj = actPrompts[chosenTool];
     var aprompt = (lang === 'en' ? apromptObj.en : apromptObj.ms).replace('{TEXT}', text.slice(0, 1000));
     var output = await _reactAI(aprompt);
-    if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
+    if (!output) { ac.innerHTML = '⚠ Ralat semasa melaksanakan alat.'; break; }
     lastOutput = output;
     s2.className = 'react-step done';
-    ac.innerHTML = '✅ Output: <span style="font-size:12px;color:var(--muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
+    ac.innerHTML = ' Output: <span style="font-size:12px;color:var(--muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
 
     s3.className = 'react-step active';
     ob.innerHTML = spinner + 'Menyemak kualiti output…';
@@ -1133,8 +1133,8 @@ async function runReAct() {
 
     if (score >= 8 || round === MAX_ROUNDS) {
       resultEl.style.display = 'block';
-      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;">✅ OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
-      roundEl.textContent = '✅ Selesai dalam ' + round + ' pusingan';
+      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;"> OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
+      roundEl.textContent = ' Selesai dalam ' + round + ' pusingan';
       break;
     }
     s4.style.display = 'flex'; s4.className = 'react-step active';

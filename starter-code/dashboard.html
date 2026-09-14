@@ -6,10 +6,10 @@
 <title>Dashboard – CelikSense AI</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-/* ── Dashboard background ── */
+/*  Dashboard background  */
 body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); min-height:100vh; }
 
-/* ── Welcome Header ── */
+/*  Welcome Header  */
 .dash-header {
   background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.06) 50%, rgba(6,182,212,0.06) 100%);
   border: 1px solid rgba(99,102,241,0.2);
@@ -35,7 +35,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 .dash-welcome { font-size: 26px; font-weight: 900; letter-spacing:-0.02em; }
 .dash-time { font-size: 14px; color: #0f172a; margin-top: 5px; }
 
-/* ── Widgets ── */
+/*  Widgets  */
 .widget-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 32px; }
 .widget {
   background: #ffffff;
@@ -62,7 +62,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 .widget-value { font-size: 30px; font-weight: 900; }
 .widget-sub { font-size: 12px; color: #0f172a; }
 
-/* ── Agent cards ── */
+/*  Agent cards  */
 .agent-card {
   background: #ffffff !important;
   border: 1px solid rgba(0,0,0,0.08) !important;
@@ -84,7 +84,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   border: 1px solid rgba(0,0,0,0.06);
 }
 
-/* ── Activity & Stats cards ── */
+/*  Activity & Stats cards  */
 .card {
   background: #ffffff !important;
   border: 1px solid rgba(0,0,0,0.08) !important;
@@ -111,13 +111,13 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 .activity-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; color:#0f172a; }
 .activity-time { font-size: 12px; color: #64748b; }
 
-/* ── Section title ── */
+/*  Section title  */
 .section-title { font-size:clamp(18px,2.5vw,24px) !important; font-weight:900 !important; color:#0f172a !important; }
 .section-desc { color:#0f172a !important; }
 
-/* ── Responsive ── */
+/*  Responsive  */
 @media(max-width:768px){ .widget-grid{grid-template-columns:repeat(2,1fr);} }
-@media(max-width:480px){ .widget-grid{grid-template-columns:1fr;} }
+@media(max-width:480px){ .widget-grid{grid-template-columns:1fr;} .dash-header{padding:20px 18px;border-radius:16px;} }
 .skip-link:focus { left: 8px !important; }
 </style>
 </head>
@@ -139,24 +139,24 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <div class="nav-dropdown">
         <button data-i18n="nav_agents" aria-haspopup="true" aria-expanded="false">Agents ▾</button>
         <div class="dropdown-menu">
-          <a href="ai-librarian.html">📚 AI Librarian</a>
-          <a href="reading-companion.html">📖 Reading Companion</a>
-          <a href="adhd-agent.html">🧠 ADHD Agent</a>
-          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
-          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
-          <a href="sign-language.html">🤟 Sign Language Agent</a>
-          <a href="early-warning.html">⚠️ Early Warning Agent</a>
-          <a href="intervention.html">💡 Intervention Agent</a>
-          <a href="ocr-agent.html">📷 OCR Reading Agent</a>
+          <a href="ai-librarian.html"> AI Librarian</a>
+          <a href="reading-companion.html"> Reading Companion</a>
+          <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
+          <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
+          <a href="blind-audio.html"> Blind Audio Agent</a>
+          <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
+          <a href="early-warning.html">⚠ Early Warning Agent</a>
+          <a href="intervention.html"> Intervention Agent</a>
+          <a href="ocr-agent.html"> OCR Reading Agent</a>
         </div>
       </div>
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
       <a href="profile.html" class="btn btn-primary btn-sm" data-i18n="nav_signup">Sign Up</a>
-      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings">⚙️</a>
-      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </nav>
@@ -169,13 +169,13 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     <div>
       <div class="dash-welcome">
         <span data-i18n="dash_welcome">Welcome back,</span>
-        <span class="gradient-text"> <span data-i18n="dash_name">Learner</span> 👋</span>
+        <span class="gradient-text"> <span data-i18n="dash_name">Learner</span> </span>
       </div>
       <div class="dash-time" data-i18n="dash_subtitle">Your personalised learning dashboard</div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
       <a href="reading-companion.html" class="btn btn-primary" data-i18n="dash_start_reading">▶ Start Reading</a>
-      <a href="early-warning.html" class="btn btn-ghost" data-i18n="dash_view_report">📊 View Report</a>
+      <a href="early-warning.html" class="btn btn-ghost" data-i18n="dash_view_report"> View Report</a>
     </div>
   </div>
 
@@ -190,22 +190,22 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     <div style="position:absolute;bottom:-30px;left:30%;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(8,145,178,.15),transparent);pointer-events:none;"></div>
     <!-- top strip -->
     <div style="padding:22px 26px 0;">
-      <div style="font-size:10px;font-weight:900;letter-spacing:2.5px;color:rgba(255,255,255,.55);margin-bottom:6px;">📚 MY KNOWLEDGE HUB</div>
+      <div style="font-size:10px;font-weight:900;letter-spacing:2.5px;color:rgba(255,255,255,.55);margin-bottom:6px;"> MY KNOWLEDGE HUB</div>
       <div style="font-size:21px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:5px;">Perpustakaan Pembelajaran AI Peribadi Anda</div>
       <div style="font-size:12px;color:rgba(255,255,255,.65);margin-bottom:16px;" id="hub-continue-txt">Satu platform · Pelbagai pengalaman aksesibiliti · Tiada copy-paste.</div>
     </div>
     <!-- stats row -->
     <div style="display:flex;gap:0;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);margin:0 0 0;">
-      <div class="hub-stat-cell" id="hst-books">📚 <span id="hst-n-books">0</span> Sumber</div>
+      <div class="hub-stat-cell" id="hst-books"> <span id="hst-n-books">0</span> Sumber</div>
       <div class="hub-stat-cell" id="hst-time">⏱ <span id="hst-n-time">0</span> min</div>
-      <div class="hub-stat-cell" id="hst-streak">🔥 <span id="hst-n-streak">0</span> hari</div>
-      <div class="hub-stat-cell" id="hst-done">✅ <span id="hst-n-done">0</span> selesai</div>
+      <div class="hub-stat-cell" id="hst-streak"> <span id="hst-n-streak">0</span> hari</div>
+      <div class="hub-stat-cell" id="hst-done"> <span id="hst-n-done">0</span> selesai</div>
     </div>
     <!-- action row -->
     <div style="padding:16px 26px;display:flex;gap:10px;flex-wrap:wrap;">
-      <a href="my-knowledge-hub.html" style="background:#fff;color:#1e1b4b;text-decoration:none;border-radius:11px;padding:10px 22px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:7px;transition:.15s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">📚 Buka Knowledge Hub</a>
+      <a href="my-knowledge-hub.html" style="background:#fff;color:#1e1b4b;text-decoration:none;border-radius:11px;padding:10px 22px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:7px;transition:.15s;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''"> Buka Knowledge Hub</a>
       <a href="my-knowledge-hub.html#continue" style="background:rgba(255,255,255,.15);color:#fff;text-decoration:none;border-radius:11px;padding:10px 18px;font-size:13px;font-weight:700;border:1px solid rgba(255,255,255,.25);">▶ Teruskan Membaca</a>
-      <a href="celikverse-library.html" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);text-decoration:none;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.15);">🌍 Cari Sumber</a>
+      <a href="celikverse-library.html" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);text-decoration:none;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.15);"> Cari Sumber</a>
     </div>
   </div>
   <style>
@@ -240,13 +240,13 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   <!-- Widgets -->
   <div class="widget-grid">
     <div class="widget" style="--wc:linear-gradient(90deg,#6366f1,#06b6d4);">
-      <div class="widget-label" data-i18n="dash_progress">📖 Reading Progress</div>
+      <div class="widget-label" data-i18n="dash_progress"> Reading Progress</div>
       <div class="widget-value" style="background:linear-gradient(135deg,#a5b4fc,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">72%</div>
       <div class="progress-bar"><div class="progress-fill" style="width:72%;background:linear-gradient(90deg,#6366f1,#06b6d4);"></div></div>
       <div class="widget-sub" id="chaptersSubEl"><span id="chaptersText">3 of 5 chapters complete</span></div>
     </div>
     <div class="widget" style="--wc:linear-gradient(90deg,#22c55e,#10b981);">
-      <div class="widget-label" data-i18n="dash_focus">🎯 Focus Score</div>
+      <div class="widget-label" data-i18n="dash_focus"> Focus Score</div>
       <div class="widget-value" style="background:linear-gradient(135deg,#86efac,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">84</div>
       <div class="progress-bar"><div class="progress-fill" style="width:84%;background:linear-gradient(90deg,#22c55e,#10b981);"></div></div>
       <div class="widget-sub">Above average ↑</div>
@@ -258,7 +258,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <div class="widget-sub" id="modeSubEl">Reading window active</div>
     </div>
     <div class="widget" style="--wc:linear-gradient(90deg,#ec4899,#8b5cf6);">
-      <div class="widget-label" data-i18n="dash_intervention">💡 Recommended</div>
+      <div class="widget-label" data-i18n="dash_intervention"> Recommended</div>
       <div class="widget-value" style="background:linear-gradient(135deg,#f9a8d4,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:18px;font-weight:800;line-height:1.3;">Micro-Session<br>Reading</div>
       <a href="intervention.html" class="btn btn-outline btn-sm" style="margin-top:4px;"><span data-i18n="dash_view_plan">View Plan</span></a>
     </div>
@@ -266,7 +266,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 
   <!-- Today's Recommendation Banner -->
   <div id="psTodayBanner" class="ps-today-banner" role="status" aria-live="polite" style="display:none;max-width:900px;margin:0 auto 20px;">
-    <span style="font-size:24px;">🤖</span>
+    <span style="font-size:24px;"></span>
     <span id="psTodayText"></span>
   </div>
 
@@ -305,7 +305,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   <div class="grid grid-auto" style="margin-bottom:40px;">
 
     <a href="book-discovery.html" class="agent-card" style="border-top:3px solid #6366f1;" aria-label="Open AI Book Discovery Agent">
-      <div class="agent-icon" style="background:linear-gradient(135deg,#6366f1,#06b6d4);">🔍</div>
+      <div class="agent-icon" style="background:linear-gradient(135deg,#6366f1,#06b6d4);"></div>
       <div class="agent-info">
         <div class="agent-name" data-i18n="bd_title">AI Book Discovery Agent</div>
         <div class="agent-desc" data-i18n="bd_agent_desc">Find legal reading materials from public domain books, personal files, library systems and approved previews.</div>
@@ -314,7 +314,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </a>
 
     <div class="agent-card" style="--agent-top:linear-gradient(90deg,#6366f1,#8b5cf6);" aria-label="AI Librarian agent – Find and recommend books tailored to your learning profile and accessibility needs" tabindex="0">
-      <div class="agent-icon" style="background:rgba(99,102,241,0.12)" aria-hidden="true">📚</div>
+      <div class="agent-icon" style="background:rgba(99,102,241,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_lib">AI Librarian</div>
       <div class="agent-desc" data-i18n="agent_lib_desc">Find and recommend books tailored to your learning profile and accessibility needs.</div>
       <div class="agent-footer">
@@ -324,7 +324,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </div>
 
     <div class="agent-card" style="--agent-top:linear-gradient(90deg,#06b6d4,#6366f1);" aria-label="Reading Companion agent – Read with AI assistance including comprehension questions, vocabulary, and audio support" tabindex="0">
-      <div class="agent-icon" style="background:rgba(6,182,212,0.12)" aria-hidden="true">📖</div>
+      <div class="agent-icon" style="background:rgba(6,182,212,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_read">Reading Companion</div>
       <div class="agent-desc" data-i18n="agent_read_desc">Read with AI assistance – comprehension questions, vocabulary, and audio support.</div>
       <div class="agent-footer">
@@ -334,7 +334,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </div>
 
     <div class="agent-card" style="--agent-top:linear-gradient(90deg,#f59e0b,#ef4444);" aria-label="ADHD Agent – Micro-reading sessions with focus timers, reading window, and note builder" tabindex="0">
-      <div class="agent-icon" style="background:rgba(245,158,11,0.12)" aria-hidden="true">🧠</div>
+      <div class="agent-icon" style="background:rgba(245,158,11,0.08)" aria-hidden="true"><svg viewBox="0 0 108 52" xmlns="http://www.w3.org/2000/svg" width="48" height="24"><text x="2" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#6366f1">A</text><text x="28" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#22c55e">D</text><text x="54" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#f59e0b">H</text><text x="80" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#ef4444">D</text></svg></div>
       <div class="agent-name" data-i18n="agent_adhd">ADHD Agent</div>
       <div class="agent-desc" data-i18n="agent_adhd_desc">Micro-reading sessions with focus timers, reading window, and note builder.</div>
       <div class="agent-footer">
@@ -344,17 +344,17 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </div>
 
     <div class="agent-card" style="--agent-top:linear-gradient(90deg,#22c55e,#f97316);" aria-label="Disleksia dan Sindrom Down Agent">
-      <div class="agent-icon" style="background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(249,115,22,0.15))" aria-hidden="true">🔤 / 💛</div>
+      <div class="agent-icon" style="background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(249,115,22,0.15))" aria-hidden="true"><svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" width="32" height="32"><g fill="none" stroke="#22c55e" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 42v-22a3.5 3.5 0 0 1 7 0v12"/><path d="M27 32v-5a3.5 3.5 0 0 1 7 0v5"/><path d="M34 34v-2.5a3.5 3.5 0 0 1 7 0v9a12 12 0 0 1-12 12h-2a12 12 0 0 1-9-4l-5-5a3.5 3.5 0 0 1 5-5l2 2"/></g><path d="M13 30 Q17 22 22 30 Q27 38 32 30" fill="none" stroke="#ec4899" stroke-width="3" stroke-linecap="round"/></svg></div>
       <div class="agent-name" data-i18n="agent_dys">Disleksia / Sindrom Down</div>
       <div class="agent-desc" data-i18n="agent_dys_desc">Hamparan warna, fon mesra disleksia, pembaris bacaan, dan peta minda — atau bahasa dipermudahkan &amp; papan cerita untuk Sindrom Down.</div>
       <div class="agent-footer" style="gap:6px;">
-        <a href="dyslexia-agent.html" class="btn btn-primary btn-sm" style="background:linear-gradient(135deg,#22c55e,#16a34a);flex:1;text-align:center;" aria-label="Buka Ejen Disleksia">🔤 Disleksia</a>
-        <a href="down-syndrome-agent.html" class="btn btn-primary btn-sm" style="background:linear-gradient(135deg,#f97316,#fb923c);flex:1;text-align:center;" aria-label="Buka Ejen Sindrom Down">💛 Sindrom Down</a>
+        <a href="dyslexia-agent.html" class="btn btn-primary btn-sm" style="background:linear-gradient(135deg,#22c55e,#16a34a);flex:1;text-align:center;" aria-label="Buka Ejen Disleksia"> Disleksia</a>
+        <a href="down-syndrome-agent.html" class="btn btn-primary btn-sm" style="background:linear-gradient(135deg,#f97316,#fb923c);flex:1;text-align:center;" aria-label="Buka Ejen Sindrom Down"> Sindrom Down</a>
       </div>
     </div>
 
 <div class="agent-card" style="--agent-top:linear-gradient(90deg,#8b5cf6,#ec4899);" aria-label="Blind Audio Agent – Full audio navigation with text-to-speech, keyboard shortcuts, and voice instructions" tabindex="0">
-      <div class="agent-icon" style="background:rgba(139,92,246,0.12)" aria-hidden="true">🔊</div>
+      <div class="agent-icon" style="background:rgba(139,92,246,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_blind">Blind Audio Agent</div>
       <div class="agent-desc" data-i18n="agent_blind_desc">Full audio navigation with TTS, keyboard shortcuts, and voice instructions.</div>
       <div class="agent-footer">
@@ -364,7 +364,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </div>
 
     <a href="sign-language.html" class="agent-card" style="border-top:3px solid #6366f1;" aria-label="Open Visual Communication Agent for Deaf Learners">
-      <div class="agent-icon" style="background:linear-gradient(135deg,#6366f1,#0891b2);">🤟</div>
+      <div class="agent-icon" style="background:linear-gradient(135deg,#6366f1,#0891b2);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="32" height="32"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg></div>
       <div class="agent-info">
         <div class="agent-name" data-i18n="agent_sign">Visual Communication Agent</div>
         <div class="agent-desc" style="color:#475569;font-size:13px;line-height:1.5;" data-i18n="agent_sign_desc">Deaf-friendly reading support with large captions, visual keywords, mind map and comic sequence.</div>
@@ -373,16 +373,16 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </a>
 
     <a href="celikverse-library.html" class="agent-card" style="border-top:3px solid #4f46e5;background:linear-gradient(135deg,rgba(79,70,229,.04),rgba(8,145,178,.04));" aria-label="Open CelikVerse Library – Global Knowledge Gateway">
-      <div class="agent-icon" style="background:linear-gradient(135deg,#1e1b4b,#1d4ed8,#0891b2);">🌍</div>
+      <div class="agent-icon" style="background:linear-gradient(135deg,#1e1b4b,#1d4ed8,#0891b2);"></div>
       <div class="agent-info">
         <div class="agent-name" style="color:#4f46e5;" data-i18n="agent_celikverse">CelikVerse Library</div>
         <div class="agent-desc" style="color:#475569;font-size:13px;line-height:1.5;" data-i18n="agent_celikverse_desc">Terokai buku CelikSense, penerbitan IAB, sumber akses terbuka dan koleksi pembelajaran peribadi dalam satu perpustakaan digital inklusif.</div>
       </div>
-      <span class="agent-badge" style="background:linear-gradient(135deg,#1e1b4b,#0891b2);" data-i18n="agent_celikverse_badge">📚 Library</span>
+      <span class="agent-badge" style="background:linear-gradient(135deg,#1e1b4b,#0891b2);" data-i18n="agent_celikverse_badge"> Library</span>
     </a>
 
     <a href="iab-library.html" class="agent-card" style="border-top:3px solid #1d4ed8;" aria-label="Open IAB Library Collection">
-      <div class="agent-icon" style="background:linear-gradient(135deg,#1d4ed8,#0891b2);">📚</div>
+      <div class="agent-icon" style="background:linear-gradient(135deg,#1d4ed8,#0891b2);"></div>
       <div class="agent-info">
         <div class="agent-name" data-i18n="agent_iab">IAB Library</div>
         <div class="agent-desc" style="color:#475569;font-size:13px;line-height:1.5;" data-i18n="agent_iab_desc">Browse IAB Pusat Sumber collections — new books 2024/2025, e-books PSP, and Buletin IAB with direct OPAC links.</div>
@@ -391,7 +391,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </a>
 
     <a href="signsense-dictionary.html" class="agent-card" style="border-top:3px solid #0891b2;" aria-label="Open SignSense Dictionary – Visual Sign Learning Companion">
-      <div class="agent-icon" style="background:linear-gradient(135deg,#0891b2,#4f46e5);">📖</div>
+      <div class="agent-icon" style="background:linear-gradient(135deg,#0891b2,#4f46e5);"></div>
       <div class="agent-info">
         <div class="agent-name" data-i18n="agent_signsense">SignSense Dictionary</div>
         <div class="agent-desc" style="color:#475569;font-size:13px;line-height:1.5;" data-i18n="agent_signsense_desc">Search words and learn basic sign language guidance through visual cues, captions and fingerspelling support.</div>
@@ -400,7 +400,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </a>
 
     <div class="agent-card" style="--agent-top:linear-gradient(90deg,#ef4444,#f59e0b);" aria-label="Early Warning Agent – Learner risk assessment, performance monitoring, and educator alerts" tabindex="0">
-      <div class="agent-icon" style="background:rgba(239,68,68,0.12)" aria-hidden="true">⚠️</div>
+      <div class="agent-icon" style="background:rgba(239,68,68,0.12)" aria-hidden="true">⚠</div>
       <div class="agent-name" data-i18n="agent_warn">Early Warning Agent</div>
       <div class="agent-desc" data-i18n="agent_warn_desc">Learner risk assessment, performance monitoring, and educator alerts.</div>
       <div class="agent-footer">
@@ -410,7 +410,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </div>
 
     <div class="agent-card" style="--agent-top:linear-gradient(90deg,#10b981,#6366f1);" aria-label="Intervention Agent – Personalised strategies, action plans, and curated resources for every need" tabindex="0">
-      <div class="agent-icon" style="background:rgba(16,185,129,0.12)" aria-hidden="true">💡</div>
+      <div class="agent-icon" style="background:rgba(16,185,129,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_inter">Intervention Agent</div>
       <div class="agent-desc" data-i18n="agent_inter_desc">Personalised strategies, action plans, and curated resources for every need.</div>
       <div class="agent-footer">
@@ -420,7 +420,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </div>
 
     <div class="agent-card" style="--agent-top:linear-gradient(90deg,#f97316,#fbbf24);" aria-label="OCR Reading Agent – Upload book images to extract text with Tesseract.js, then read aloud with full text-to-speech support" tabindex="0">
-      <div class="agent-icon" style="background:rgba(249,115,22,0.12)" aria-hidden="true">📷</div>
+      <div class="agent-icon" style="background:rgba(249,115,22,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_ocr">OCR Reading Agent</div>
       <div class="agent-desc" data-i18n="agent_ocr_desc">Upload book images to extract text with Tesseract.js, then read aloud with full TTS support.</div>
       <div class="agent-footer">
@@ -431,19 +431,19 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 
     <div class="widget" style="border-left:4px solid #6366f1;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(16,185,129,0.05));" aria-label="Braille Output Feature">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-        <span style="font-size:24px;" aria-hidden="true">⠃</span>
+        <span style="font-size:24px;" aria-hidden="true"></span>
         <div class="widget-label" style="color:#0f172a;font-weight:800;" data-i18n="braille_agent_title">Braille Output Agent</div>
       </div>
       <div class="widget-sub" style="color:#475569;font-size:13px;line-height:1.6;" data-i18n="braille_agent_desc">Provides Braille-ready text for refreshable Braille display users.</div>
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
-        <a href="blind-audio.html" class="btn btn-outline btn-sm" data-i18n="braille_open">⠃ Open Braille Mode</a>
+        <a href="blind-audio.html" class="btn btn-outline btn-sm" data-i18n="braille_open"> Open Braille Mode</a>
         <a href="reading-companion.html" class="btn btn-ghost btn-sm" data-i18n="braille_reading">Reading Companion</a>
         <a href="ocr-agent.html" class="btn btn-ghost btn-sm" data-i18n="braille_ocr">OCR to Braille</a>
       </div>
     </div>
 
     <a href="personalisation-agent.html" class="agent-card" style="border-top:3px solid #6366f1;" aria-label="Open AI Learning Personalisation Agent">
-      <div class="agent-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">🧠</div>
+      <div class="agent-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);"></div>
       <div class="agent-info">
         <div class="agent-name" data-i18n="ps_agent_title">AI Personalisation Agent</div>
         <div class="agent-desc" data-i18n="ps_agent_desc">Learns your reading style and recommends the best experience for you.</div>
@@ -452,7 +452,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </a>
 
     <a href="ai-teacher-agent.html" class="agent-card" style="border-top:3px solid #f59e0b;" aria-label="Open AI Teacher Agent">
-      <div class="agent-icon" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">👩‍🏫</div>
+      <div class="agent-icon" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">‍</div>
       <div class="agent-info">
         <div class="agent-name" data-i18n="teacher_agent_title">AI Teacher Agent</div>
         <div class="agent-desc" data-i18n="teacher_agent_desc">Explains books, generates quizzes, answers questions, creates mind maps, and motivates learners.</div>
@@ -467,13 +467,13 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </a>
 
     <a href="competition-dashboard.html" class="agent-card" aria-label="Open Demo Page">
-      <div class="agent-icon">🚀</div>
+      <div class="agent-icon"></div>
       <div class="agent-title">Demo</div>
       <div class="agent-desc">Walkthrough demo, ejen AI, bukti perintis</div>
     </a>
 
     <a href="pilot-evidence.html" class="agent-card" aria-label="Open Pilot Evidence">
-      <div class="agent-icon">🔬</div>
+      <div class="agent-icon"></div>
       <div class="agent-title">Pilot Evidence</div>
       <div class="agent-desc">User validation results from real learners</div>
     </a>
@@ -485,7 +485,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     <div class="card">
       <div class="panel-title">Recent Activity</div>
       <div class="activity-item">
-        <div class="activity-icon" style="background:rgba(99,102,241,0.12)">📖</div>
+        <div class="activity-icon" style="background:rgba(99,102,241,0.12)"></div>
         <div>
           <div class="activity-title">Reading Companion – Chapter 3</div>
           <div class="activity-time">2 hours ago · 15 min session</div>
@@ -493,7 +493,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
         <span class="badge badge-success" style="margin-left:auto;">Done</span>
       </div>
       <div class="activity-item">
-        <div class="activity-icon" style="background:rgba(245,158,11,0.12)">🧠</div>
+        <div class="activity-icon" style="background:rgba(245,158,11,0.08)"><svg viewBox="0 0 108 52" xmlns="http://www.w3.org/2000/svg" width="40" height="20"><text x="2" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#6366f1">A</text><text x="28" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#22c55e">D</text><text x="54" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#f59e0b">H</text><text x="80" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#ef4444">D</text></svg></div>
         <div>
           <div class="activity-title">ADHD Agent – Focus Session</div>
           <div class="activity-time">Yesterday · 10 min session</div>
@@ -501,7 +501,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
         <span class="badge badge-warning" style="margin-left:auto;">Break Due</span>
       </div>
       <div class="activity-item">
-        <div class="activity-icon" style="background:rgba(34,197,94,0.12)">🔤</div>
+        <div class="activity-icon" style="background:rgba(34,197,94,0.12)"></div>
         <div>
           <div class="activity-title">Dyslexia Agent – Green Overlay</div>
           <div class="activity-time">2 days ago · 20 min session</div>
@@ -536,19 +536,19 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <div>
         <div class="footer-heading">Agents</div>
         <div class="footer-links">
-          <a href="ai-librarian.html">📚 AI Librarian</a>
-          <a href="reading-companion.html">📖 Reading Companion</a>
-          <a href="adhd-agent.html">🧠 ADHD Agent</a>
-          <a href="dyslexia-agent.html">🔤 Dyslexia Agent</a>
+          <a href="ai-librarian.html"> AI Librarian</a>
+          <a href="reading-companion.html"> Reading Companion</a>
+          <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
+          <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
         </div>
       </div>
       <div>
         <div class="footer-heading">More Agents</div>
         <div class="footer-links">
-          <a href="blind-audio.html">🔊 Blind Audio</a>
-          <a href="sign-language.html">🤟 Sign Language</a>
-          <a href="early-warning.html">⚠️ Early Warning</a>
-          <a href="intervention.html">💡 Intervention</a>
+          <a href="blind-audio.html"> Blind Audio</a>
+          <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language</a>
+          <a href="early-warning.html">⚠ Early Warning</a>
+          <a href="intervention.html"> Intervention</a>
         </div>
       </div>
       <div>
@@ -561,7 +561,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     </div>
     <div class="footer-bottom">
       <span>© 2026 CelikSense AI</span>
-      <span>Built with Agentic AI 🤖</span>
+      <span>Built with Agentic AI </span>
     </div>
   </div>
 </footer>
@@ -569,27 +569,27 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 <div id="voiceAnnounce" role="status" aria-live="assertive" aria-atomic="true" style="position:absolute;left:-9999px;"></div>
 
 <script src="personalisation-system.js"></script>
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script src="demo-mode.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
-  /* ── Voice navigation context ── */
+  /*  Voice navigation context  */
   if(window.CS_DEMO) CS_DEMO.init();
 
-  /* ── Voice navigation context ── */
+  /*  Voice navigation context  */
   if (window.CS_VOICE && CS_VOICE.setPageContext) {
     CS_VOICE.setPageContext("Dashboard", "Dashboard loaded. Say the name of any agent to open it: AI Librarian, Reading Companion, OCR, ADHD, Dyslexia, Sign Language, Early Warning, Intervention. Say Help for all commands.");
   }
 
-  /* ── User name ── */
+  /*  User name  */
   var profile = CS.user.get();
   var nameEl = document.querySelector('[data-i18n="dash_name"]');
   if (nameEl && profile.displayName && profile.displayName !== 'Learner') {
     nameEl.textContent = profile.displayName;
   }
 
-  /* ── Analytics summary (last 7 days) ── */
+  /*  Analytics summary (last 7 days)  */
   var s    = CS.analytics.getSummary(7);
   var risk = CS.analytics.computeRisk();
   var dis  = profile.disability || 'general';
@@ -667,12 +667,12 @@ document.addEventListener('DOMContentLoaded', function() {
       .slice(-4).reverse();
 
     if (allEvents.length > 0) {
-      var icons  = { adhd:'🧠', ocr:'📷', reading:'📖', dyslexia:'👁️', blind:'🔊', librarian:'📚', early_warning:'⚠️', intervention:'💡' };
+      var icons  = { adhd:'', ocr:'', reading:'', dyslexia:'', blind:'', librarian:'', early_warning:'⚠', intervention:'' };
       var colors = { adhd:'rgba(245,158,11,0.12)', ocr:'rgba(249,115,22,0.12)', reading:'rgba(99,102,241,0.12)', dyslexia:'rgba(34,197,94,0.12)', blind:'rgba(139,92,246,0.12)', librarian:'rgba(99,102,241,0.12)' };
       var html = '<div class="panel-title">' + CS.lang.t('dash_recent_act') + '</div>';
       allEvents.forEach(function(e) {
         var agent   = e.agent || 'reading';
-        var icon    = icons[agent] || '📖';
+        var icon    = icons[agent] || '';
         var color   = colors[agent] || 'rgba(99,102,241,0.12)';
         var dur     = e.durationSec ? Math.round(e.durationSec / 60) + ' min' : '';
         var diffH   = Math.round((Date.now() - new Date(e.ts).getTime()) / 3600000);
@@ -692,7 +692,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (header) {
       var alert = document.createElement('div');
       alert.style.cssText = 'width:100%;margin-top:12px;padding:10px 14px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:8px;font-size:13px;color:#ef4444;display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
-      alert.innerHTML = '⚠️ <strong>' + CS.lang.t('dash_health_alert') + '</strong> Risk score ' + risk.score + '/100. <a href="early-warning.html" style="color:#ef4444;text-decoration:underline;margin-left:4px;">' + CS.lang.t('dash_view_warning') + '</a>';
+      alert.innerHTML = '⚠ <strong>' + CS.lang.t('dash_health_alert') + '</strong> Risk score ' + risk.score + '/100. <a href="early-warning.html" style="color:#ef4444;text-decoration:underline;margin-left:4px;">' + CS.lang.t('dash_view_warning') + '</a>';
       header.appendChild(alert);
     }
   }
@@ -717,7 +717,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}</script>
 <script>
-/* ── Offline widget init ── */
+/*  Offline widget init  */
 document.addEventListener('DOMContentLoaded', function() {
   if (!window.CS || !CS.offline) return;
   CS.offline.init();
@@ -758,6 +758,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
+
 
 
 

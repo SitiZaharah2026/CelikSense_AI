@@ -7,9 +7,9 @@
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.getRegistration().then(function(reg){if(!reg)return;reg.update();if(reg.waiting){reg.waiting.postMessage({type:'SKIP_WAITING'});location.reload();}reg.addEventListener('updatefound',function(){var nw=reg.installing;if(!nw)return;nw.addEventListener('statechange',function(){if(nw.state==='installed'&&reg.waiting){reg.waiting.postMessage({type:'SKIP_WAITING'});location.reload();}});});});}</script>
 <link rel="stylesheet" href="styles.css">
 <style>
-/* ════════════════════════════════════════════════════
+/* 
    SIGNSENSE DICTIONARY — Design Tokens
-   ════════════════════════════════════════════════════ */
+    */
 :root {
   --ss-indigo:   #4f46e5;
   --ss-violet:   #7c3aed;
@@ -29,7 +29,7 @@
   --ss-font-xl:  22px;
 }
 
-/* ── High-contrast override ── */
+/*  High-contrast override  */
 @media (prefers-contrast: high) {
   :root {
     --ss-bg:     #ffffff;
@@ -59,7 +59,7 @@ body {
 }
 .ss-skip:focus { left: 8px; }
 
-/* ── Hero ─────────────────────────────────────────────────────────────── */
+/*  Hero  */
 .ss-hero {
   background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 55%, #0891b2 100%);
   padding: 60px 24px 48px;
@@ -115,7 +115,7 @@ body {
   outline: 3px solid rgba(255,255,255,.5); outline-offset: 2px;
 }
 
-/* ── Disclaimer ───────────────────────────────────────────────────────── */
+/*  Disclaimer  */
 .ss-disclaimer {
   background: #fffbeb; border-bottom: 2px solid #fde68a;
   padding: 13px 24px; text-align: center;
@@ -123,14 +123,14 @@ body {
 }
 .ss-disclaimer strong { color: #78350f; }
 
-/* ── Container ────────────────────────────────────────────────────────── */
+/*  Container  */
 .ss-container {
   max-width: 980px; margin: 0 auto;
   padding: 40px 20px 80px;
   display: flex; flex-direction: column; gap: 28px;
 }
 
-/* ── Generic card ─────────────────────────────────────────────────────── */
+/*  Generic card  */
 .ss-card {
   background: var(--ss-surface);
   border: 1px solid var(--ss-border);
@@ -151,7 +151,7 @@ body {
 }
 .ss-card-body { padding: 24px; }
 
-/* ── Search ───────────────────────────────────────────────────────────── */
+/*  Search  */
 .ss-search-wrap {
   display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;
 }
@@ -184,7 +184,7 @@ body {
 .ss-search-btn:focus-visible { outline: 3px solid var(--ss-indigo); outline-offset: 3px; }
 .ss-search-btn:active { transform: none; }
 
-/* ── Browse chips ─────────────────────────────────────────────────────── */
+/*  Browse chips  */
 .ss-browse-row {
   display: flex; flex-wrap: wrap; gap: 8px;
 }
@@ -198,7 +198,7 @@ body {
 .ss-chip:hover { background: #e0e7ff; color: var(--ss-indigo); transform: translateY(-1px); }
 .ss-chip:focus-visible { outline: 3px solid var(--ss-indigo); outline-offset: 2px; }
 
-/* ── Result card ──────────────────────────────────────────────────────── */
+/*  Result card  */
 .ss-result-card {
   background: #fff;
   border: 2px solid var(--ss-border);
@@ -233,7 +233,7 @@ body {
   align-self: flex-start;
 }
 
-/* ── Info sections ────────────────────────────────────────────────────── */
+/*  Info sections  */
 .ss-sections { padding: 0 28px 28px; display: flex; flex-direction: column; gap: 18px; }
 
 .ss-section {
@@ -273,7 +273,7 @@ body {
 .ss-section.dark  .ss-section-body { color: rgba(255,255,255,.8); }
 .ss-section.bim   .ss-section-body { color: rgba(199,210,254,.75); }
 
-/* ── Visual cue panel ─────────────────────────────────────────────────── */
+/*  Visual cue panel  */
 .ss-visual-panel {
   text-align: center; padding: 8px 0 16px;
 }
@@ -287,7 +287,7 @@ body {
   padding: 5px 14px; border-radius: 20px;
 }
 
-/* ── Fingerspelling ───────────────────────────────────────────────────── */
+/*  Fingerspelling  */
 .ss-finger-row { display: flex; flex-wrap: wrap; gap: 7px; }
 .ss-finger-cell {
   display: flex; flex-direction: column; align-items: center; gap: 3px;
@@ -299,7 +299,7 @@ body {
 .ss-finger-emoji { font-size: 28px; line-height: 1; }
 .ss-finger-char  { font-size: 13px; font-weight: 900; color: var(--ss-indigo); }
 
-/* ── Example sentence ─────────────────────────────────────────────────── */
+/*  Example sentence  */
 .ss-example-en {
   font-size: 16px; line-height: 1.65; font-style: italic;
   color: #1e293b; margin-bottom: 8px;
@@ -309,7 +309,7 @@ body {
   padding-top: 8px; border-top: 1px solid #e0f2fe;
 }
 
-/* ── BIM future placeholder ───────────────────────────────────────────── */
+/*  BIM future placeholder  */
 .ss-bim-video-ph {
   background: rgba(255,255,255,.06);
   border: 1px dashed rgba(99,102,241,.4);
@@ -328,7 +328,7 @@ body {
   padding: 3px 10px; border-radius: 4px; letter-spacing: .5px;
 }
 
-/* ── Not found ────────────────────────────────────────────────────────── */
+/*  Not found  */
 .ss-notfound {
   background: #fff5f5; border: 2px dashed #fca5a5;
   border-radius: var(--ss-radius); padding: 36px 24px;
@@ -361,7 +361,7 @@ body {
 .ss-request-btn:hover { background: #b91c1c; }
 .ss-request-btn:focus-visible { outline: 3px solid var(--ss-red); outline-offset: 2px; }
 
-/* ── Requested words ──────────────────────────────────────────────────── */
+/*  Requested words  */
 .ss-req-list { display: flex; flex-wrap: wrap; gap: 8px; }
 .ss-req-chip {
   display: inline-flex; align-items: center; gap: 7px;
@@ -378,7 +378,7 @@ body {
 .ss-req-chip button:focus-visible { outline: 2px solid var(--ss-violet); border-radius: 2px; }
 .ss-empty-msg { font-size: 14px; color: var(--ss-dim); }
 
-/* ── Related links ────────────────────────────────────────────────────── */
+/*  Related links  */
 .ss-related { display: flex; flex-wrap: wrap; gap: 10px; }
 .ss-related-link {
   display: inline-flex; align-items: center; gap: 8px;
@@ -392,7 +392,7 @@ body {
   outline: 3px solid transparent;
 }
 
-/* ── Toast ────────────────────────────────────────────────────────────── */
+/*  Toast  */
 .ss-toast {
   position: fixed; bottom: 28px; left: 50%;
   transform: translateX(-50%);
@@ -404,7 +404,7 @@ body {
 }
 .ss-toast.show { opacity: 1; }
 
-/* ── Two-column info grid ─────────────────────────────────────────────── */
+/*  Two-column info grid  */
 .ss-two-col {
   display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
 }
@@ -414,7 +414,7 @@ body {
   .ss-hero { padding: 44px 20px 36px; }
 }
 </style>
-<script src="shared.js" defer></script>
+<script src="shared.js?v=2" defer></script>
 </head>
 <body>
 <a href="#main" class="ss-skip" tabindex="0">Skip to main content</a>
@@ -423,7 +423,7 @@ body {
 
 <main id="main" style="padding-top:var(--nav-h,60px);">
 
-  <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+  <!--  Hero  -->
   <div class="ss-hero" role="banner">
     <div class="ss-hero-badge">&#128400; <span id="heroBadge">SignSense Dictionary</span></div>
     <h1 id="heroTitle">SignSense Dictionary</h1>
@@ -440,7 +440,7 @@ body {
     </button>
   </div>
 
-  <!-- ── Disclaimer ─────────────────────────────────────────────────── -->
+  <!--  Disclaimer  -->
   <div class="ss-disclaimer" role="note" aria-label="Prototype disclaimer">
     <strong id="discLabel">Prototype Stage:</strong>
     <span id="discText"> SignSense Dictionary provides visual sign learning support only. Future versions may integrate verified Bahasa Isyarat Malaysia resources through official partnerships.</span>
@@ -448,7 +448,7 @@ body {
 
   <div class="ss-container" id="main-content">
 
-    <!-- ── Search card ─────────────────────────────────────────────── -->
+    <!--  Search card  -->
     <div class="ss-card" role="search" aria-label="Sign language word search">
       <div class="ss-card-header">
         <div class="ss-card-icon" style="background:#eef2ff;">&#128269;</div>
@@ -472,13 +472,13 @@ body {
       </div>
     </div>
 
-    <!-- ── Result ─────────────────────────────────────────────────── -->
+    <!--  Result  -->
     <div id="ssResult" class="ss-result-card"
       role="region" aria-live="polite" aria-label="Sign language result">
       <!-- populated by renderResult() -->
     </div>
 
-    <!-- ── Not found ──────────────────────────────────────────────── -->
+    <!--  Not found  -->
     <div id="ssNotFound" class="ss-notfound"
       role="alert" aria-live="assertive" aria-atomic="true">
       <div class="ss-notfound-icon" aria-hidden="true">&#128400;</div>
@@ -498,7 +498,7 @@ body {
       </div>
     </div>
 
-    <!-- ── Requested words ────────────────────────────────────────── -->
+    <!--  Requested words  -->
     <div class="ss-card" id="reqSection">
       <div class="ss-card-header">
         <div class="ss-card-icon" style="background:#fdf4ff;">&#128203;</div>
@@ -510,7 +510,7 @@ body {
       </div>
     </div>
 
-    <!-- ── Related links ──────────────────────────────────────────── -->
+    <!--  Related links  -->
     <div class="ss-card">
       <div class="ss-card-header">
         <div class="ss-card-icon" style="background:#f0fdf4;">&#128279;</div>
@@ -519,7 +519,7 @@ body {
       <div class="ss-card-body">
         <div class="ss-related">
           <a href="sign-language.html" class="ss-related-link" aria-label="Visual Communication Agent">
-            &#129304; <span id="lnkVCA">Visual Communication Agent</span>
+            <svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> <span id="lnkVCA">Visual Communication Agent</span>
           </a>
           <a href="reading-companion.html" class="ss-related-link" aria-label="Reading Companion">
             &#128214; <span id="lnkRC">Reading Companion</span>
@@ -539,11 +539,11 @@ body {
 
 <div id="ssToast" class="ss-toast" role="status" aria-live="polite"></div>
 
-<!-- ════════════════════════════════════════════════════════════════════ -->
+<!--  -->
 <script>
 'use strict';
 
-// ── Dictionary ─────────────────────────────────────────────────────────────
+//  Dictionary 
 var DICT = [
   {
     en:'book', ms:'buku', cat:'Education', catMs:'Pendidikan',
@@ -551,7 +551,7 @@ var DICT = [
     meanMs:'Hasil tulisan atau cetakan dengan halaman, digunakan untuk membaca atau belajar.',
     gestureEn:'Hold both hands flat with palms up. Bring them together like closing a book, then open them apart — the open-book gesture.',
     gestureMs:'Pegang kedua-dua tangan rata dengan tapak tangan ke atas. Bawa bersama seperti menutup buku, kemudian buka semula — isyarat buka buku.',
-    icon:'📖', handTipEn:'Open-book gesture', handTipMs:'Isyarat buka buku',
+    icon:'', handTipEn:'Open-book gesture', handTipMs:'Isyarat buka buku',
     exEn:'She reads a book every evening.',
     exMs:'Dia membaca sebuah buku setiap petang.',
   },
@@ -561,7 +561,7 @@ var DICT = [
     meanMs:'Melihat dan memahami perkataan yang ditulis atau dicetak.',
     gestureEn:'Hold your non-dominant hand flat like a page. With the other hand, make a "V" shape and move those two fingers down the palm — eyes scanning lines of text.',
     gestureMs:'Pegang tangan bukan dominan rata seperti halaman. Dengan tangan lain, buat bentuk "V" dan gerakkan dua jari itu ke bawah tapak tangan — mata mengimbas baris teks.',
-    icon:'👁️', handTipEn:'V-hand scans flat palm', handTipMs:'Tangan-V mengimbas tapak tangan',
+    icon:'', handTipEn:'V-hand scans flat palm', handTipMs:'Tangan-V mengimbas tapak tangan',
     exEn:'Please read the first paragraph carefully.',
     exMs:'Sila baca perenggan pertama dengan teliti.',
   },
@@ -571,7 +571,7 @@ var DICT = [
     meanMs:'Institusi di mana kanak-kanak dan pelajar pergi untuk belajar.',
     gestureEn:'Bring both flat hands together and clap twice — like a teacher clapping for the class\'s attention.',
     gestureMs:'Bawa kedua-dua tangan rata bersama dan tepuk dua kali — seperti guru menepuk untuk mendapat perhatian kelas.',
-    icon:'🏫', handTipEn:'Flat clap twice', handTipMs:'Tepuk rata dua kali',
+    icon:'', handTipEn:'Flat clap twice', handTipMs:'Tepuk rata dua kali',
     exEn:'The children go to school every morning.',
     exMs:'Kanak-kanak pergi ke sekolah setiap pagi.',
   },
@@ -581,7 +581,7 @@ var DICT = [
     meanMs:'Seseorang yang mengajar ilmu atau kemahiran, terutamanya di sekolah.',
     gestureEn:'Place both open hands near your temples, fingers spread. Move them forward and slightly down — projecting knowledge outward from your mind.',
     gestureMs:'Letakkan kedua-dua tangan terbuka berhampiran pelipis, jari-jari rebak. Gerakkan ke hadapan dan sedikit ke bawah — memancarkan ilmu keluar dari minda.',
-    icon:'👩‍🏫', handTipEn:'Project from temples', handTipMs:'Pancarkan dari pelipis',
+    icon:'‍', handTipEn:'Project from temples', handTipMs:'Pancarkan dari pelipis',
     exEn:'The teacher explains the lesson clearly.',
     exMs:'Guru menerangkan pelajaran dengan jelas.',
   },
@@ -591,7 +591,7 @@ var DICT = [
     meanMs:'Seseorang yang belajar di sekolah atau universiti.',
     gestureEn:'Hold a flat "B" hand on your palm (like holding a book). Then bring the fingers of your other hand together and lift them from the palm — taking knowledge from the book to the mind.',
     gestureMs:'Pegang tangan "B" rata di atas tapak tangan (seperti memegang buku). Kemudian bawa jari tangan lain bersama dan angkat dari tapak tangan — mengambil ilmu dari buku ke minda.',
-    icon:'🧑‍🎓', handTipEn:'Book-to-mind gesture', handTipMs:'Isyarat buku-ke-minda',
+    icon:'‍', handTipEn:'Book-to-mind gesture', handTipMs:'Isyarat buku-ke-minda',
     exEn:'Every student must complete the homework.',
     exMs:'Setiap murid mesti menyiapkan kerja rumah.',
   },
@@ -601,7 +601,7 @@ var DICT = [
     meanMs:'Memperoleh ilmu atau kemahiran melalui kajian, amalan, atau pengalaman.',
     gestureEn:'Cup your non-dominant hand like a book. Bring the fingers of your dominant hand together and touch the palm, then lift up — like picking up knowledge from a page.',
     gestureMs:'Cekungkan tangan bukan dominan seperti buku. Bawa jari tangan dominan bersama dan sentuh tapak tangan, kemudian angkat ke atas — seperti mengambil ilmu dari halaman.',
-    icon:'📚', handTipEn:'Lift knowledge from palm', handTipMs:'Angkat ilmu dari tapak tangan',
+    icon:'', handTipEn:'Lift knowledge from palm', handTipMs:'Angkat ilmu dari tapak tangan',
     exEn:'We learn something new every day.',
     exMs:'Kita belajar sesuatu yang baru setiap hari.',
   },
@@ -611,7 +611,7 @@ var DICT = [
     meanMs:'Organisma hidup yang tumbuh dari tanah dan mempunyai daun.',
     gestureEn:'Start with your dominant hand as a closed fist near the wrist of your other hand. Slowly open your fingers upward — like a seedling sprouting from the soil.',
     gestureMs:'Mulakan dengan tangan dominan mengepal berhampiran pergelangan tangan lain. Perlahan-lahan buka jari ke atas — seperti anak benih tumbuh dari tanah.',
-    icon:'🌱', handTipEn:'Fist blooms upward', handTipMs:'Pengepal mekar ke atas',
+    icon:'', handTipEn:'Fist blooms upward', handTipMs:'Pengepal mekar ke atas',
     exEn:'We water the plant every morning.',
     exMs:'Kami menyiram tumbuhan setiap pagi.',
   },
@@ -621,7 +621,7 @@ var DICT = [
     meanMs:'Cecair jernih yang penting untuk kehidupan, terdapat di sungai, laut, dan hujan.',
     gestureEn:'Make a "W" handshape — hold up three fingers. Tap the side of your index finger to your chin twice.',
     gestureMs:'Buat bentuk tangan "W" — angkat tiga jari. Ketuk sisi jari telunjuk anda ke dagu dua kali.',
-    icon:'💧', handTipEn:'W-hand taps chin twice', handTipMs:'Tangan-W ketuk dagu dua kali',
+    icon:'', handTipEn:'W-hand taps chin twice', handTipMs:'Tangan-W ketuk dagu dua kali',
     exEn:'Drink plenty of water each day.',
     exMs:'Minum banyak air setiap hari.',
   },
@@ -631,7 +631,7 @@ var DICT = [
     meanMs:'Bintang di pusat sistem suria yang memberikan cahaya dan kehangatan.',
     gestureEn:'Point your index finger up and draw a circle in the air above your head. Then open your whole hand with fingers spread wide — showing rays of sunlight expanding outward.',
     gestureMs:'Tunjukkan jari telunjuk ke atas dan lukis bulatan di udara di atas kepala. Kemudian buka seluruh tangan dengan jari merebak luas — menunjukkan sinar matahari yang memancar keluar.',
-    icon:'☀️', handTipEn:'Circle then spread fingers', handTipMs:'Bulatan kemudian rebakkan jari',
+    icon:'☀', handTipEn:'Circle then spread fingers', handTipMs:'Bulatan kemudian rebakkan jari',
     exEn:'The sun rises in the east every morning.',
     exMs:'Matahari terbit di timur setiap pagi.',
   },
@@ -641,19 +641,19 @@ var DICT = [
     meanMs:'Seseorang yang anda sukai dan gemar meluangkan masa bersama.',
     gestureEn:'Hook your two index fingers together like chain links. Then swap which one is on top — interlocking both directions to show a mutual bond.',
     gestureMs:'Kaitkan dua jari telunjuk bersama seperti rantai. Kemudian tukar jari yang berada di atas — saling berkait kedua-dua arah untuk menunjukkan ikatan bersama.',
-    icon:'🤝', handTipEn:'Interlock index fingers both ways', handTipMs:'Saling kait jari telunjuk dua arah',
+    icon:'', handTipEn:'Interlock index fingers both ways', handTipMs:'Saling kait jari telunjuk dua arah',
     exEn:'She is my best friend at school.',
     exMs:'Dia ialah kawan baik saya di sekolah.',
   },
 
-  /* ── Verified BIM signs (MyWSL2023, Universiti Kebangsaan Malaysia) ── */
+  /*  Verified BIM signs (MyWSL2023, Universiti Kebangsaan Malaysia)  */
   {
     en:'eat', ms:'makan', cat:'Action', catMs:'Tindakan',
     meanEn:'To put food in your mouth and swallow it.',
     meanMs:'Memasukkan makanan ke dalam mulut dan menelannya.',
     gestureEn:'Bring all five fingertips together to form a flat "O" shape, then move your hand toward your mouth repeatedly — as if bringing food to eat.',
     gestureMs:'Satukan kesemua lima hujung jari membentuk "O" rata, kemudian gerakkan tangan ke arah mulut berulang kali — seperti membawa makanan untuk dimakan.',
-    icon:'🍽️', handTipEn:'Flat O hand to mouth, repeat', handTipMs:'Tangan O rata ke mulut, ulang',
+    icon:'', handTipEn:'Flat O hand to mouth, repeat', handTipMs:'Tangan O rata ke mulut, ulang',
     exEn:'We eat lunch at school every day.',
     exMs:'Kami makan tengah hari di sekolah setiap hari.',
   },
@@ -663,7 +663,7 @@ var DICT = [
     meanMs:'Menelan cecair seperti air atau jus.',
     gestureEn:'Form a "C" shape with your hand as if holding a cup, then tilt it toward your mouth like you are drinking.',
     gestureMs:'Bentukkan tangan seperti huruf "C" seolah-olah memegang cawan, kemudian condongkan ke arah mulut seperti sedang minum.',
-    icon:'🥤', handTipEn:'C-hand tilt to mouth', handTipMs:'Tangan-C condong ke mulut',
+    icon:'', handTipEn:'C-hand tilt to mouth', handTipMs:'Tangan-C condong ke mulut',
     exEn:'Please drink more water every day.',
     exMs:'Sila minum lebih banyak air setiap hari.',
   },
@@ -673,7 +673,7 @@ var DICT = [
     meanMs:'Menerima bunyi dengan telinga.',
     gestureEn:'Point your index finger toward your ear, then move it slightly forward and back — showing the act of listening.',
     gestureMs:'Tunjukkan jari telunjuk ke arah telinga, kemudian gerakkan sedikit ke hadapan dan ke belakang — menunjukkan tindakan mendengar.',
-    icon:'👂', handTipEn:'Index finger to ear, small movement', handTipMs:'Jari telunjuk ke telinga, gerakan kecil',
+    icon:'', handTipEn:'Index finger to ear, small movement', handTipMs:'Jari telunjuk ke telinga, gerakan kecil',
     exEn:'Can you hear the teacher speaking?',
     exMs:'Bolehkah awak dengar guru bercakap?',
   },
@@ -683,7 +683,7 @@ var DICT = [
     meanMs:'Berehat dengan mata tertutup dalam keadaan santai.',
     gestureEn:'Place both palms together flat, then tilt them sideways and rest your cheek on the back of your hand — like laying your head on a pillow.',
     gestureMs:'Satukan kedua-dua tapak tangan rata, kemudian condongkan ke sisi dan rehatkan pipi di atas belakang tangan — seperti meletakkan kepala di atas bantal.',
-    icon:'😴', handTipEn:'Hands together, cheek on hand', handTipMs:'Tangan bersatu, pipi di atas tangan',
+    icon:'', handTipEn:'Hands together, cheek on hand', handTipMs:'Tangan bersatu, pipi di atas tangan',
     exEn:'Children should sleep early at night.',
     exMs:'Kanak-kanak perlu tidur awal pada waktu malam.',
   },
@@ -693,7 +693,7 @@ var DICT = [
     meanMs:'Suhu badan yang lebih tinggi daripada normal, biasanya tanda sakit.',
     gestureEn:'Place the back of your flat hand on your forehead, hold it there a moment, then pull it away — showing you are checking for a high temperature.',
     gestureMs:'Letakkan belakang tangan rata di dahi, tahan sebentar, kemudian tarik balik — menunjukkan anda memeriksa suhu tinggi.',
-    icon:'🤒', handTipEn:'Back of hand on forehead', handTipMs:'Belakang tangan di dahi',
+    icon:'', handTipEn:'Back of hand on forehead', handTipMs:'Belakang tangan di dahi',
     exEn:'She stayed home because she had a fever.',
     exMs:'Dia tinggal di rumah kerana demam.',
   },
@@ -713,19 +713,19 @@ var DICT = [
     meanMs:'Digunakan untuk merujuk kepada diri sendiri — orang yang bercakap.',
     gestureEn:'Point your index finger directly at the centre of your own chest.',
     gestureMs:'Tunjukkan jari telunjuk terus ke tengah dada anda sendiri.',
-    icon:'🙋', handTipEn:'Index finger point to own chest', handTipMs:'Jari telunjuk tunjuk ke dada sendiri',
+    icon:'', handTipEn:'Index finger point to own chest', handTipMs:'Jari telunjuk tunjuk ke dada sendiri',
     exEn:'I am a student at this school.',
     exMs:'Saya ialah pelajar di sekolah ini.',
   },
 
-  /* ── Body Parts ── */
+  /*  Body Parts  */
   {
     en:'eyes', ms:'mata', cat:'Body', catMs:'Badan',
     meanEn:'The organs used for seeing, located on the face.',
     meanMs:'Organ yang digunakan untuk melihat, terletak di wajah.',
     gestureEn:'Point your index and middle fingers toward both your eyes simultaneously — the classic "look" gesture pointing at your own eyes.',
     gestureMs:'Tunjukkan jari telunjuk dan jari tengah ke arah kedua-dua mata serentak — isyarat klasik "lihat" yang menunjuk ke arah mata sendiri.',
-    icon:'👁️', handTipEn:'Two fingers point to both eyes', handTipMs:'Dua jari tunjuk ke kedua-dua mata',
+    icon:'', handTipEn:'Two fingers point to both eyes', handTipMs:'Dua jari tunjuk ke kedua-dua mata',
     exEn:'Her eyes are brown and very bright.',
     exMs:'Matanya berwarna coklat dan sangat cerah.',
   },
@@ -735,7 +735,7 @@ var DICT = [
     meanMs:'Organ yang digunakan untuk mendengar, di tepi kepala.',
     gestureEn:'Touch the tip of your index finger to your ear lobe and hold it there briefly.',
     gestureMs:'Sentuh hujung jari telunjuk ke cuping telinga dan tahan sebentar.',
-    icon:'👂', handTipEn:'Index finger touch ear lobe', handTipMs:'Jari telunjuk sentuh cuping telinga',
+    icon:'', handTipEn:'Index finger touch ear lobe', handTipMs:'Jari telunjuk sentuh cuping telinga',
     exEn:'The doctor checked his ear carefully.',
     exMs:'Doktor memeriksa telinganya dengan teliti.',
   },
@@ -745,7 +745,7 @@ var DICT = [
     meanMs:'Bahagian badan di hujung lengan, digunakan untuk menyentuh dan memegang.',
     gestureEn:'Hold one open hand flat, palm up, then use the other hand to trace around it from wrist to fingertips — showing the outline of a hand.',
     gestureMs:'Pegang satu tangan terbuka rata, tapak tangan ke atas, kemudian gunakan tangan satu lagi untuk menjejak dari pergelangan ke hujung jari — menunjukkan garisan tangan.',
-    icon:'🖐️', handTipEn:'Trace outline of open hand', handTipMs:'Jejak garisan tangan terbuka',
+    icon:'', handTipEn:'Trace outline of open hand', handTipMs:'Jejak garisan tangan terbuka',
     exEn:'Wash your hands before you eat.',
     exMs:'Basuh tangan sebelum makan.',
   },
@@ -755,7 +755,7 @@ var DICT = [
     meanMs:'Bukaan di wajah yang digunakan untuk makan dan bercakap.',
     gestureEn:'Draw a small circle around your lips with your index finger.',
     gestureMs:'Lukis bulatan kecil di sekeliling bibir dengan jari telunjuk.',
-    icon:'👄', handTipEn:'Index finger circle around lips', handTipMs:'Jari telunjuk berpusing di sekeliling bibir',
+    icon:'', handTipEn:'Index finger circle around lips', handTipMs:'Jari telunjuk berpusing di sekeliling bibir',
     exEn:'Cover your mouth when you cough.',
     exMs:'Tutup mulut apabila anda batuk.',
   },
@@ -765,19 +765,19 @@ var DICT = [
     meanMs:'Bahagian wajah yang digunakan untuk menghidu dan bernafas.',
     gestureEn:'Touch the tip of your index finger to the tip of your nose briefly.',
     gestureMs:'Sentuh hujung jari telunjuk ke hujung hidung sebentar.',
-    icon:'👃', handTipEn:'Index finger touch tip of nose', handTipMs:'Jari telunjuk sentuh hujung hidung',
+    icon:'', handTipEn:'Index finger touch tip of nose', handTipMs:'Jari telunjuk sentuh hujung hidung',
     exEn:'He has a small nose on his face.',
     exMs:'Dia mempunyai hidung yang kecil di wajahnya.',
   },
 
-  /* ── Family ── */
+  /*  Family  */
   {
     en:'mother', ms:'ibu', cat:'Family', catMs:'Keluarga',
     meanEn:'A female parent.',
     meanMs:'Ibu bapa perempuan.',
     gestureEn:'Open your hand with all five fingers spread, then tap your thumb to your chin twice — the chin location distinguishes female family members in BIM.',
     gestureMs:'Buka tangan dengan kelima-lima jari merebak, kemudian ketuk ibu jari ke dagu dua kali — lokasi dagu membezakan ahli keluarga perempuan dalam BIM.',
-    icon:'👩', handTipEn:'Open hand, thumb tap chin twice', handTipMs:'Tangan terbuka, ibu jari ketuk dagu dua kali',
+    icon:'', handTipEn:'Open hand, thumb tap chin twice', handTipMs:'Tangan terbuka, ibu jari ketuk dagu dua kali',
     exEn:'My mother cooks dinner every evening.',
     exMs:'Ibu saya memasak makan malam setiap petang.',
   },
@@ -787,7 +787,7 @@ var DICT = [
     meanMs:'Ibu bapa lelaki.',
     gestureEn:'Open your hand with all five fingers spread, then tap your thumb to your forehead twice — the forehead location distinguishes male family members in BIM.',
     gestureMs:'Buka tangan dengan kelima-lima jari merebak, kemudian ketuk ibu jari ke dahi dua kali — lokasi dahi membezakan ahli keluarga lelaki dalam BIM.',
-    icon:'👨', handTipEn:'Open hand, thumb tap forehead twice', handTipMs:'Tangan terbuka, ibu jari ketuk dahi dua kali',
+    icon:'', handTipEn:'Open hand, thumb tap forehead twice', handTipMs:'Tangan terbuka, ibu jari ketuk dahi dua kali',
     exEn:'My father drives me to school.',
     exMs:'Ayah saya menghantar saya ke sekolah.',
   },
@@ -797,7 +797,7 @@ var DICT = [
     meanMs:'Sekumpulan orang yang berkaitan antara satu sama lain, biasanya tinggal bersama.',
     gestureEn:'Form both hands into "F" shapes (index and thumb touching, other fingers up), then move them outward in a circle until the pinky sides meet — showing a circle of people.',
     gestureMs:'Bentukkan kedua-dua tangan menjadi huruf "F" (jari telunjuk dan ibu jari bertemu, jari lain ke atas), kemudian gerakkan ke luar membentuk bulatan sehingga sisi kelingking bertemu — menunjukkan bulatan manusia.',
-    icon:'👨‍👩‍👧', handTipEn:'Both F-hands circle outward', handTipMs:'Kedua tangan-F bulatan ke luar',
+    icon:'‍‍', handTipEn:'Both F-hands circle outward', handTipMs:'Kedua tangan-F bulatan ke luar',
     exEn:'My family goes to the park on weekends.',
     exMs:'Keluarga saya pergi ke taman pada hujung minggu.',
   },
@@ -807,7 +807,7 @@ var DICT = [
     meanMs:'Adik-beradik lelaki.',
     gestureEn:'Point your index finger to your forehead (male sign), then bring both index fingers together side by side — showing two people of the same gender together.',
     gestureMs:'Tunjukkan jari telunjuk ke dahi (tanda lelaki), kemudian satukan kedua-dua jari telunjuk bersebelahan — menunjukkan dua orang berjantina sama bersama.',
-    icon:'👦', handTipEn:'Forehead point then index fingers together', handTipMs:'Tunjuk dahi kemudian jari telunjuk bersatu',
+    icon:'', handTipEn:'Forehead point then index fingers together', handTipMs:'Tunjuk dahi kemudian jari telunjuk bersatu',
     exEn:'My brother is older than me by two years.',
     exMs:'Abang saya lebih tua dua tahun daripada saya.',
   },
@@ -817,19 +817,19 @@ var DICT = [
     meanMs:'Adik-beradik perempuan.',
     gestureEn:'Point your index finger to your chin (female sign), then bring both index fingers together side by side — showing two people of the same gender together.',
     gestureMs:'Tunjukkan jari telunjuk ke dagu (tanda perempuan), kemudian satukan kedua-dua jari telunjuk bersebelahan — menunjukkan dua orang berjantina sama bersama.',
-    icon:'👧', handTipEn:'Chin point then index fingers together', handTipMs:'Tunjuk dagu kemudian jari telunjuk bersatu',
+    icon:'', handTipEn:'Chin point then index fingers together', handTipMs:'Tunjuk dagu kemudian jari telunjuk bersatu',
     exEn:'My sister studies at the same school.',
     exMs:'Kakak saya belajar di sekolah yang sama.',
   },
 
-  /* ── Emotions ── */
+  /*  Emotions  */
   {
     en:'happy', ms:'gembira', cat:'Emotion', catMs:'Emosi',
     meanEn:'Feeling pleased, content, or joyful.',
     meanMs:'Berasa seronok, puas, atau penuh kegembiraan.',
     gestureEn:'Place one or both open hands on your chest, then brush them upward repeatedly — as if happiness is rising from your heart.',
     gestureMs:'Letakkan satu atau kedua-dua tangan terbuka di dada, kemudian gosok ke atas berulang kali — seolah-olah kegembiraan naik dari hati.',
-    icon:'😄', handTipEn:'Open hand brush up on chest', handTipMs:'Tangan terbuka gosok ke atas di dada',
+    icon:'', handTipEn:'Open hand brush up on chest', handTipMs:'Tangan terbuka gosok ke atas di dada',
     exEn:'The students were happy to receive their results.',
     exMs:'Para pelajar gembira menerima keputusan mereka.',
   },
@@ -839,7 +839,7 @@ var DICT = [
     meanMs:'Berasa tidak gembira, dukacita, atau murung.',
     gestureEn:'Place both open hands in front of your face, then draw them downward slowly — as if a sad expression is pulling your features down.',
     gestureMs:'Letakkan kedua-dua tangan terbuka di hadapan muka, kemudian tarik perlahan-lahan ke bawah — seolah-olah ekspresi sedih menarik wajah ke bawah.',
-    icon:'😢', handTipEn:'Both hands pull down in front of face', handTipMs:'Kedua tangan tarik ke bawah di hadapan muka',
+    icon:'', handTipEn:'Both hands pull down in front of face', handTipMs:'Kedua tangan tarik ke bawah di hadapan muka',
     exEn:'He felt sad when his friend moved away.',
     exMs:'Dia berasa sedih apabila kawannya berpindah.',
   },
@@ -849,7 +849,7 @@ var DICT = [
     meanMs:'Berasa tidak puas hati yang kuat atau marah.',
     gestureEn:'Curl both hands into claws in front of your chest, then pull them outward and upward sharply — showing tension and frustration bursting out.',
     gestureMs:'Kukuhkan kedua-dua tangan menjadi cakar di hadapan dada, kemudian tarik ke luar dan ke atas dengan kuat — menunjukkan ketegangan dan kekecewaan yang meledak.',
-    icon:'😠', handTipEn:'Claw hands pull outward from chest', handTipMs:'Tangan cakar tarik ke luar dari dada',
+    icon:'', handTipEn:'Claw hands pull outward from chest', handTipMs:'Tangan cakar tarik ke luar dari dada',
     exEn:'Try not to be angry at small mistakes.',
     exMs:'Cuba jangan marah kerana kesilapan kecil.',
   },
@@ -859,19 +859,19 @@ var DICT = [
     meanMs:'Perasaan kasih sayang dan peduli yang mendalam terhadap seseorang.',
     gestureEn:'Cross both arms over your chest with hands in fists, as if hugging yourself tightly — showing warmth and love close to the heart.',
     gestureMs:'Silangkan kedua-dua lengan di dada dengan tangan mengepal, seolah-olah memeluk diri sendiri erat — menunjukkan kehangatan dan kasih sayang dekat hati.',
-    icon:'❤️', handTipEn:'Cross arms over chest, fists closed', handTipMs:'Silang lengan di dada, tangan mengepal',
+    icon:'', handTipEn:'Cross arms over chest, fists closed', handTipMs:'Silang lengan di dada, tangan mengepal',
     exEn:'I love my family very much.',
     exMs:'Saya sangat menyayangi keluarga saya.',
   },
 
-  /* ── Daily / School ── */
+  /*  Daily / School  */
   {
     en:'help', ms:'tolong', cat:'Daily', catMs:'Harian',
     meanEn:'To assist or support someone in need.',
     meanMs:'Membantu atau menyokong seseorang yang memerlukan.',
     gestureEn:'Make a fist with one hand and place it on top of your other open flat hand, then lift both hands upward together — showing one person lifting another up.',
     gestureMs:'Genggam satu tangan dan letakkan di atas tangan satu lagi yang rata terbuka, kemudian angkat kedua-dua tangan ke atas bersama — menunjukkan seseorang mengangkat orang lain.',
-    icon:'🤲', handTipEn:'Fist on flat hand, lift both up', handTipMs:'Genggam di atas tangan rata, angkat bersama',
+    icon:'', handTipEn:'Fist on flat hand, lift both up', handTipMs:'Genggam di atas tangan rata, angkat bersama',
     exEn:'Please help me carry these books.',
     exMs:'Tolong bantu saya membawa buku-buku ini.',
   },
@@ -881,7 +881,7 @@ var DICT = [
     meanMs:'Digunakan untuk menyatakan persetujuan atau pengesahan.',
     gestureEn:'Make a fist then nod it up and down like a head nodding — the hand "agrees" like a person nodding yes.',
     gestureMs:'Genggam tangan kemudian anggukkan ke atas dan ke bawah seperti kepala mengangguk — tangan "bersetuju" seperti orang mengangguk ya.',
-    icon:'✅', handTipEn:'Fist nod up and down', handTipMs:'Genggam tangan angguk atas bawah',
+    icon:'', handTipEn:'Fist nod up and down', handTipMs:'Genggam tangan angguk atas bawah',
     exEn:'She said yes to the teacher\'s question.',
     exMs:'Dia menjawab ya kepada soalan guru.',
   },
@@ -891,7 +891,7 @@ var DICT = [
     meanMs:'Digunakan untuk menyatakan penolakan atau penafian.',
     gestureEn:'Extend your index and middle fingers together, then tap them against your thumb twice quickly — like snapping a "no" signal.',
     gestureMs:'Luruskan jari telunjuk dan jari tengah bersama, kemudian ketuk ke ibu jari dua kali dengan cepat — seperti isyarat "tidak" yang pantas.',
-    icon:'❌', handTipEn:'Index and middle finger snap on thumb', handTipMs:'Jari telunjuk dan tengah ketuk ibu jari',
+    icon:'', handTipEn:'Index and middle finger snap on thumb', handTipMs:'Jari telunjuk dan tengah ketuk ibu jari',
     exEn:'No, you cannot run inside the classroom.',
     exMs:'Tidak, kamu tidak boleh berlari di dalam kelas.',
   },
@@ -901,7 +901,7 @@ var DICT = [
     meanMs:'Ungkapan rasa syukur.',
     gestureEn:'Place the fingertips of your flat hand on your chin, then move your hand forward and slightly downward — like sending gratitude outward from yourself.',
     gestureMs:'Letakkan hujung jari tangan rata di dagu, kemudian gerakkan tangan ke hadapan dan sedikit ke bawah — seperti menghantar rasa terima kasih keluar dari diri sendiri.',
-    icon:'🙏', handTipEn:'Flat hand from chin forward and down', handTipMs:'Tangan rata dari dagu ke hadapan ke bawah',
+    icon:'', handTipEn:'Flat hand from chin forward and down', handTipMs:'Tangan rata dari dagu ke hadapan ke bawah',
     exEn:'Thank you for helping me today.',
     exMs:'Terima kasih kerana membantu saya hari ini.',
   },
@@ -911,7 +911,7 @@ var DICT = [
     meanMs:'Perkataan sopan yang digunakan semasa meminta sesuatu.',
     gestureEn:'Place your flat open hand on your chest and rub it in a circular motion — showing a polite, gentle request from the heart.',
     gestureMs:'Letakkan tangan terbuka rata di dada dan gosok dalam gerakan bulatan — menunjukkan permintaan yang sopan dan lembut dari hati.',
-    icon:'🙏', handTipEn:'Flat hand circular rub on chest', handTipMs:'Tangan rata gosok bulatan di dada',
+    icon:'', handTipEn:'Flat hand circular rub on chest', handTipMs:'Tangan rata gosok bulatan di dada',
     exEn:'Please sit down quietly in class.',
     exMs:'Sila duduk dengan senyap di dalam kelas.',
   },
@@ -921,7 +921,7 @@ var DICT = [
     meanMs:'Menanda huruf atau perkataan di permukaan menggunakan pen atau pensel.',
     gestureEn:'Hold your non-dominant hand flat like a piece of paper, then move your dominant index finger and thumb in a small writing motion across it.',
     gestureMs:'Pegang tangan bukan dominan rata seperti sehelai kertas, kemudian gerakkan jari telunjuk dan ibu jari tangan dominan dalam gerakan menulis kecil merentasinya.',
-    icon:'✏️', handTipEn:'Write motion across flat palm', handTipMs:'Gerakan menulis merentas tapak tangan rata',
+    icon:'', handTipEn:'Write motion across flat palm', handTipMs:'Gerakan menulis merentas tapak tangan rata',
     exEn:'Please write your name on the paper.',
     exMs:'Sila tulis nama kamu di atas kertas.',
   },
@@ -931,7 +931,7 @@ var DICT = [
     meanMs:'Nilai matematik yang digunakan untuk mengira dan pengiraan.',
     gestureEn:'Hold up your index finger and shake it slightly side to side — then show any digit on your fingers to indicate a specific number.',
     gestureMs:'Angkat jari telunjuk dan goyangkan sedikit ke kiri dan ke kanan — kemudian tunjukkan mana-mana digit menggunakan jari untuk menunjukkan nombor tertentu.',
-    icon:'🔢', handTipEn:'Index finger shake then show digit', handTipMs:'Jari telunjuk goyong kemudian tunjuk digit',
+    icon:'', handTipEn:'Index finger shake then show digit', handTipMs:'Jari telunjuk goyong kemudian tunjuk digit',
     exEn:'What is your favourite number?',
     exMs:'Apakah nombor kegemaran kamu?',
   },
@@ -941,7 +941,7 @@ var DICT = [
     meanMs:'Negara di Asia Tenggara tempat asal Bahasa Isyarat Malaysia.',
     gestureEn:'Form the letter M with your dominant hand (three middle fingers bent over thumb), then move it in a small downward arc — representing the nation.',
     gestureMs:'Bentukkan huruf M dengan tangan dominan (tiga jari tengah dilipat ke atas ibu jari), kemudian gerakkan dalam lengkok kecil ke bawah — mewakili negara.',
-    icon:'🇲🇾', handTipEn:'M handshape with downward arc', handTipMs:'Bentuk tangan M dengan lengkok ke bawah',
+    icon:'', handTipEn:'M handshape with downward arc', handTipMs:'Bentuk tangan M dengan lengkok ke bawah',
     exEn:'Malaysia has a rich and diverse culture.',
     exMs:'Malaysia mempunyai budaya yang kaya dan pelbagai.',
   },
@@ -951,19 +951,19 @@ var DICT = [
     meanMs:'Mempunyai kualiti positif; betul secara moral atau menyenangkan.',
     gestureEn:'Place the fingertips of your flat hand on your chin, then move it forward and down into your other open palm — sending goodness outward.',
     gestureMs:'Letakkan hujung jari tangan rata di dagu, kemudian gerakkan ke hadapan dan ke bawah ke tapak tangan terbuka satu lagi — menghantar kebaikan ke luar.',
-    icon:'👍', handTipEn:'Flat hand from chin into open palm', handTipMs:'Tangan rata dari dagu ke tapak tangan terbuka',
+    icon:'', handTipEn:'Flat hand from chin into open palm', handTipMs:'Tangan rata dari dagu ke tapak tangan terbuka',
     exEn:'You did a good job today.',
     exMs:'Kamu telah melakukan kerja yang baik hari ini.',
   },
 
-  /* ── More Body Parts ── */
+  /*  More Body Parts  */
   {
     en:'teeth', ms:'gigi', cat:'Body', catMs:'Badan',
     meanEn:'The hard white structures in the mouth used for biting and chewing.',
     meanMs:'Struktur keras berwarna putih dalam mulut yang digunakan untuk menggigit dan mengunyah.',
     gestureEn:'Tap your index finger against your front teeth lightly twice — pointing directly at the teeth.',
     gestureMs:'Ketuk jari telunjuk pada gigi hadapan dua kali ringan — menunjuk terus ke gigi.',
-    icon:'🦷', handTipEn:'Index finger tap front teeth twice', handTipMs:'Jari telunjuk ketuk gigi hadapan dua kali',
+    icon:'', handTipEn:'Index finger tap front teeth twice', handTipMs:'Jari telunjuk ketuk gigi hadapan dua kali',
     exEn:'Brush your teeth every morning and night.',
     exMs:'Gosok gigi setiap pagi dan malam.',
   },
@@ -973,7 +973,7 @@ var DICT = [
     meanMs:'Bahagian bawah kaki yang digunakan untuk berdiri dan berjalan.',
     gestureEn:'Point your index finger downward toward your foot, then trace a small outline around the foot shape.',
     gestureMs:'Tunjukkan jari telunjuk ke bawah ke arah kaki, kemudian jejak garis kecil mengelilingi bentuk kaki.',
-    icon:'🦶', handTipEn:'Index finger point down to foot', handTipMs:'Jari telunjuk tunjuk ke bawah ke kaki',
+    icon:'', handTipEn:'Index finger point down to foot', handTipMs:'Jari telunjuk tunjuk ke bawah ke kaki',
     exEn:'He hurt his foot while playing football.',
     exMs:'Dia mencederakan kakinya semasa bermain bola sepak.',
   },
@@ -983,7 +983,7 @@ var DICT = [
     meanMs:'Bahagian atas badan yang mengandungi otak, mata, telinga, hidung dan mulut.',
     gestureEn:'Touch your fingertips to the side of your head near your temple, then move them down to your chin — tracing the outline of the head.',
     gestureMs:'Sentuh hujung jari ke tepi kepala berhampiran pelipis, kemudian gerakkan ke bawah ke dagu — menjejak garisan kepala.',
-    icon:'🧠', handTipEn:'Fingertips temple to chin', handTipMs:'Hujung jari dari pelipis ke dagu',
+    icon:'', handTipEn:'Fingertips temple to chin', handTipMs:'Hujung jari dari pelipis ke dagu',
     exEn:'Please wear a helmet to protect your head.',
     exMs:'Sila pakai topi keledar untuk melindungi kepala.',
   },
@@ -993,7 +993,7 @@ var DICT = [
     meanMs:'Helaian halus yang tumbuh dari kulit kepala di bahagian atas kepala.',
     gestureEn:'Pinch a small amount of hair between your thumb and index finger and hold it out slightly — showing the texture of hair.',
     gestureMs:'Cubit sedikit rambut di antara ibu jari dan jari telunjuk dan tahan sedikit ke luar — menunjukkan tekstur rambut.',
-    icon:'💇', handTipEn:'Pinch hair between thumb and index', handTipMs:'Cubit rambut antara ibu jari dan telunjuk',
+    icon:'', handTipEn:'Pinch hair between thumb and index', handTipMs:'Cubit rambut antara ibu jari dan telunjuk',
     exEn:'She has long black hair.',
     exMs:'Dia mempunyai rambut panjang berwarna hitam.',
   },
@@ -1003,19 +1003,19 @@ var DICT = [
     meanMs:'Organ dalam badan yang menghadamkan makanan; juga bahagian hadapan abdomen.',
     gestureEn:'Place your flat hand on your stomach area and rub it in a gentle circular motion.',
     gestureMs:'Letakkan tangan rata di kawasan perut dan gosok dalam gerakan bulatan yang lembut.',
-    icon:'🫃', handTipEn:'Flat hand circular rub on stomach', handTipMs:'Tangan rata gosok bulatan di perut',
+    icon:'', handTipEn:'Flat hand circular rub on stomach', handTipMs:'Tangan rata gosok bulatan di perut',
     exEn:'My stomach hurts because I did not eat.',
     exMs:'Perut saya sakit kerana saya tidak makan.',
   },
 
-  /* ── More Actions ── */
+  /*  More Actions  */
   {
     en:'walk', ms:'jalan', cat:'Action', catMs:'Tindakan',
     meanEn:'To move forward on foot at a normal pace.',
     meanMs:'Bergerak ke hadapan dengan kaki pada kelajuan biasa.',
     gestureEn:'Hold both flat hands facing down, then alternate moving them forward and back like legs walking — a miniature walking motion with your hands.',
     gestureMs:'Pegang kedua-dua tangan rata menghadap ke bawah, kemudian bergilir-gilir gerakkan ke hadapan dan ke belakang seperti kaki berjalan — gerakan berjalan kecil dengan tangan.',
-    icon:'🚶', handTipEn:'Both flat hands alternate forward-back', handTipMs:'Kedua tangan rata bergilir maju-undur',
+    icon:'', handTipEn:'Both flat hands alternate forward-back', handTipMs:'Kedua tangan rata bergilir maju-undur',
     exEn:'We walk to school together every day.',
     exMs:'Kami berjalan ke sekolah bersama setiap hari.',
   },
@@ -1025,7 +1025,7 @@ var DICT = [
     meanMs:'Bergerak dengan cepat menggunakan kaki, lebih pantas daripada berjalan.',
     gestureEn:'Hook your index fingers together and swing both arms forward alternately in a fast running rhythm — showing rapid movement.',
     gestureMs:'Kaitkan jari telunjuk bersama dan ayun kedua-dua lengan ke hadapan bergantian dalam irama lari yang cepat — menunjukkan pergerakan pantas.',
-    icon:'🏃', handTipEn:'Index fingers hooked, arms swing fast', handTipMs:'Jari telunjuk berkait, lengan ayun pantas',
+    icon:'', handTipEn:'Index fingers hooked, arms swing fast', handTipMs:'Jari telunjuk berkait, lengan ayun pantas',
     exEn:'The children run and play at the field.',
     exMs:'Kanak-kanak berlari dan bermain di padang.',
   },
@@ -1035,7 +1035,7 @@ var DICT = [
     meanMs:'Berehat dengan badan disokong oleh tempat duduk.',
     gestureEn:'Hold both hands flat with fingers pointing forward, then lower them slightly — like someone sitting down onto a chair.',
     gestureMs:'Pegang kedua-dua tangan rata dengan jari menghala ke hadapan, kemudian turunkan sedikit — seperti seseorang duduk ke atas kerusi.',
-    icon:'🪑', handTipEn:'Both flat hands lower down', handTipMs:'Kedua tangan rata turun ke bawah',
+    icon:'', handTipEn:'Both flat hands lower down', handTipMs:'Kedua tangan rata turun ke bawah',
     exEn:'Please sit down and open your book.',
     exMs:'Sila duduk dan buka buku kamu.',
   },
@@ -1045,7 +1045,7 @@ var DICT = [
     meanMs:'Berada dalam keadaan tegak di atas kaki.',
     gestureEn:'Hold one hand flat palm-up, then place two fingers of the other hand standing upright on the palm — like two legs standing.',
     gestureMs:'Pegang satu tangan rata tapak ke atas, kemudian letakkan dua jari tangan satu lagi berdiri tegak di atas tapak — seperti dua kaki berdiri.',
-    icon:'🧍', handTipEn:'Two fingers stand upright on open palm', handTipMs:'Dua jari berdiri tegak di tapak tangan',
+    icon:'', handTipEn:'Two fingers stand upright on open palm', handTipMs:'Dua jari berdiri tegak di tapak tangan',
     exEn:'Please stand up when the teacher enters.',
     exMs:'Sila berdiri apabila guru masuk.',
   },
@@ -1055,7 +1055,7 @@ var DICT = [
     meanMs:'Terlibat dalam aktiviti untuk keseronokan atau kegembiraan.',
     gestureEn:'Make both hands into "Y" shapes (thumb and pinky out), then shake them back and forth from the wrists — showing a free, playful movement.',
     gestureMs:'Bentukkan kedua-dua tangan menjadi huruf "Y" (ibu jari dan kelingking ke luar), kemudian goyangkan ke depan dan belakang dari pergelangan — menunjukkan pergerakan bebas dan gembira.',
-    icon:'🎮', handTipEn:'Both Y-hands shake from wrists', handTipMs:'Kedua tangan-Y goyong dari pergelangan',
+    icon:'', handTipEn:'Both Y-hands shake from wrists', handTipMs:'Kedua tangan-Y goyong dari pergelangan',
     exEn:'Children love to play outside after school.',
     exMs:'Kanak-kanak suka bermain di luar selepas sekolah.',
   },
@@ -1065,19 +1065,19 @@ var DICT = [
     meanMs:'Bertutur atau berkomunikasi menggunakan perkataan.',
     gestureEn:'Hold your index and middle fingers together pointing sideways at your mouth, then open and close them repeatedly — like a mouth opening and closing to talk.',
     gestureMs:'Pegang jari telunjuk dan jari tengah bersama menghala ke tepi mulut, kemudian buka dan tutup berulang kali — seperti mulut membuka dan menutup untuk bercakap.',
-    icon:'💬', handTipEn:'Two fingers open-close at mouth', handTipMs:'Dua jari buka-tutup di mulut',
+    icon:'', handTipEn:'Two fingers open-close at mouth', handTipMs:'Dua jari buka-tutup di mulut',
     exEn:'Talk to your teacher if you need help.',
     exMs:'Bercakap dengan guru jika kamu memerlukan bantuan.',
   },
 
-  /* ── More School ── */
+  /*  More School  */
   {
     en:'pencil', ms:'pensel', cat:'Education', catMs:'Pendidikan',
     meanEn:'A thin stick used for writing, with a graphite core.',
     meanMs:'Batang nipis yang digunakan untuk menulis, dengan teras grafit.',
     gestureEn:'Mime holding a pencil between your index finger and thumb, then make a short writing motion in the air.',
     gestureMs:'Lakonkan memegang pensel di antara jari telunjuk dan ibu jari, kemudian buat gerakan menulis pendek di udara.',
-    icon:'✏️', handTipEn:'Pinch grip, write in air', handTipMs:'Genggam cubit, tulis di udara',
+    icon:'', handTipEn:'Pinch grip, write in air', handTipMs:'Genggam cubit, tulis di udara',
     exEn:'Please sharpen your pencil before class starts.',
     exMs:'Sila raut pensel sebelum kelas bermula.',
   },
@@ -1087,7 +1087,7 @@ var DICT = [
     meanMs:'Bahan nipis dan rata yang digunakan untuk menulis atau melukis.',
     gestureEn:'Hold both flat hands together palm-to-palm, then slide the top hand back and forth — showing the smooth surface of paper.',
     gestureMs:'Pegang kedua-dua tangan rata tapak bertemu tapak, kemudian geluncurkan tangan atas ke depan dan ke belakang — menunjukkan permukaan kertas yang licin.',
-    icon:'📄', handTipEn:'Flat hands together, top hand slides', handTipMs:'Tangan rata bersatu, tangan atas geluncur',
+    icon:'', handTipEn:'Flat hands together, top hand slides', handTipMs:'Tangan rata bersatu, tangan atas geluncur',
     exEn:'Take out a piece of paper for the test.',
     exMs:'Keluarkan sekeping kertas untuk ujian.',
   },
@@ -1097,7 +1097,7 @@ var DICT = [
     meanMs:'Sekumpulan pelajar yang diajar bersama dalam satu bilik.',
     gestureEn:'Form both hands into "C" shapes, then move them apart sideways — showing the walls of a classroom.',
     gestureMs:'Bentukkan kedua-dua tangan menjadi huruf "C", kemudian gerakkan ke tepi — menunjukkan dinding bilik darjah.',
-    icon:'🏫', handTipEn:'Both C-hands move apart sideways', handTipMs:'Kedua tangan-C gerak ke tepi',
+    icon:'', handTipEn:'Both C-hands move apart sideways', handTipMs:'Kedua tangan-C gerak ke tepi',
     exEn:'Our class has thirty students this year.',
     exMs:'Kelas kami mempunyai tiga puluh pelajar tahun ini.',
   },
@@ -1107,7 +1107,7 @@ var DICT = [
     meanMs:'Kerja sekolah yang perlu dilakukan oleh pelajar di rumah.',
     gestureEn:'First sign HOUSE (fingertips together forming a roof shape), then sign WORK (fists tap on top of each other) — combining both concepts.',
     gestureMs:'Mula-mula isyarat RUMAH (hujung jari bertemu membentuk bumbung), kemudian isyarat KERJA (genggam ketuk di atas satu sama lain) — menggabungkan kedua-dua konsep.',
-    icon:'📝', handTipEn:'Roof shape then fists tap together', handTipMs:'Bentuk bumbung kemudian genggam ketuk bersama',
+    icon:'', handTipEn:'Roof shape then fists tap together', handTipMs:'Bentuk bumbung kemudian genggam ketuk bersama',
     exEn:'Did you finish all your homework today?',
     exMs:'Adakah kamu sudah siapkan semua kerja rumah hari ini?',
   },
@@ -1117,19 +1117,19 @@ var DICT = [
     meanMs:'Satu set soalan yang digunakan untuk mengukur pengetahuan atau kemampuan.',
     gestureEn:'Hold one hand flat like a paper, then use your other index finger to point and move along it row by row — like reading questions on a test paper.',
     gestureMs:'Pegang satu tangan rata seperti kertas, kemudian gunakan jari telunjuk tangan satu lagi untuk menunjuk dan bergerak baris demi baris — seperti membaca soalan di atas kertas ujian.',
-    icon:'📋', handTipEn:'Index finger scan across flat palm rows', handTipMs:'Jari telunjuk imbas merentas baris tapak tangan',
+    icon:'', handTipEn:'Index finger scan across flat palm rows', handTipMs:'Jari telunjuk imbas merentas baris tapak tangan',
     exEn:'Study well before your science test tomorrow.',
     exMs:'Belajar bersungguh-sungguh sebelum ujian sains esok.',
   },
 
-  /* ── Colours ── */
+  /*  Colours  */
   {
     en:'red', ms:'merah', cat:'Colour', catMs:'Warna',
     meanEn:'The colour of blood and fire.',
     meanMs:'Warna darah dan api.',
     gestureEn:'Brush your index finger downward across your lips once — red lips represent the colour red.',
     gestureMs:'Gosok jari telunjuk ke bawah merentasi bibir sekali — bibir merah mewakili warna merah.',
-    icon:'🔴', handTipEn:'Index finger brush down on lips', handTipMs:'Jari telunjuk gosok ke bawah di bibir',
+    icon:'', handTipEn:'Index finger brush down on lips', handTipMs:'Jari telunjuk gosok ke bawah di bibir',
     exEn:'She is wearing a bright red dress.',
     exMs:'Dia memakai gaun merah yang cerah.',
   },
@@ -1139,7 +1139,7 @@ var DICT = [
     meanMs:'Warna langit dan lautan.',
     gestureEn:'Form the letter B with your hand (four fingers up, thumb tucked), then shake it slightly side to side.',
     gestureMs:'Bentukkan huruf B dengan tangan (empat jari ke atas, ibu jari dilipat), kemudian goyangkan sedikit ke kiri dan ke kanan.',
-    icon:'🔵', handTipEn:'B handshape shake side to side', handTipMs:'Bentuk tangan B goyong kiri kanan',
+    icon:'', handTipEn:'B handshape shake side to side', handTipMs:'Bentuk tangan B goyong kiri kanan',
     exEn:'The sky is clear and blue today.',
     exMs:'Langit cerah dan biru hari ini.',
   },
@@ -1149,7 +1149,7 @@ var DICT = [
     meanMs:'Warna matahari dan pisang masak.',
     gestureEn:'Form the letter Y with your hand (thumb and pinky out), then shake it side to side.',
     gestureMs:'Bentukkan huruf Y dengan tangan (ibu jari dan kelingking ke luar), kemudian goyangkan ke kiri dan ke kanan.',
-    icon:'🟡', handTipEn:'Y handshape shake side to side', handTipMs:'Bentuk tangan Y goyong kiri kanan',
+    icon:'', handTipEn:'Y handshape shake side to side', handTipMs:'Bentuk tangan Y goyong kiri kanan',
     exEn:'The school bus is painted yellow.',
     exMs:'Bas sekolah itu dicat warna kuning.',
   },
@@ -1159,19 +1159,19 @@ var DICT = [
     meanMs:'Warna daun dan rumput.',
     gestureEn:'Form the letter G with your hand (index finger and thumb pointing sideways), then shake it slightly.',
     gestureMs:'Bentukkan huruf G dengan tangan (jari telunjuk dan ibu jari menghala ke tepi), kemudian goyangkan sedikit.',
-    icon:'🟢', handTipEn:'G handshape shake slightly', handTipMs:'Bentuk tangan G goyong sedikit',
+    icon:'', handTipEn:'G handshape shake slightly', handTipMs:'Bentuk tangan G goyong sedikit',
     exEn:'The grass in the park is very green.',
     exMs:'Rumput di taman itu sangat hijau.',
   },
 
-  /* ── Numbers ── */
+  /*  Numbers  */
   {
     en:'one', ms:'satu', cat:'Number', catMs:'Nombor',
     meanEn:'The number 1.',
     meanMs:'Nombor 1.',
     gestureEn:'Hold up just your index finger, pointing upward.',
     gestureMs:'Angkat hanya jari telunjuk, menghala ke atas.',
-    icon:'1️⃣', handTipEn:'Index finger up', handTipMs:'Jari telunjuk ke atas',
+    icon:'1', handTipEn:'Index finger up', handTipMs:'Jari telunjuk ke atas',
     exEn:'I have one younger brother.',
     exMs:'Saya mempunyai seorang adik lelaki.',
   },
@@ -1181,7 +1181,7 @@ var DICT = [
     meanMs:'Nombor 2.',
     gestureEn:'Hold up your index finger and middle finger together, pointing upward — like a peace sign.',
     gestureMs:'Angkat jari telunjuk dan jari tengah bersama, menghala ke atas — seperti tanda keamanan.',
-    icon:'2️⃣', handTipEn:'Index and middle finger up', handTipMs:'Jari telunjuk dan tengah ke atas',
+    icon:'2', handTipEn:'Index and middle finger up', handTipMs:'Jari telunjuk dan tengah ke atas',
     exEn:'We have two cats at home.',
     exMs:'Kami mempunyai dua ekor kucing di rumah.',
   },
@@ -1191,19 +1191,19 @@ var DICT = [
     meanMs:'Nombor 5.',
     gestureEn:'Hold up all five fingers spread wide open — a fully open hand.',
     gestureMs:'Angkat kelima-lima jari terbuka luas — tangan yang terbuka sepenuhnya.',
-    icon:'5️⃣', handTipEn:'All five fingers spread open', handTipMs:'Kelima-lima jari terbuka lebar',
+    icon:'5', handTipEn:'All five fingers spread open', handTipMs:'Kelima-lima jari terbuka lebar',
     exEn:'There are five days in a school week.',
     exMs:'Terdapat lima hari dalam seminggu persekolahan.',
   },
 
-  /* ── More Daily ── */
+  /*  More Daily  */
   {
     en:'home', ms:'rumah', cat:'Daily', catMs:'Harian',
     meanEn:'The place where a person lives with their family.',
     meanMs:'Tempat seseorang tinggal bersama keluarganya.',
     gestureEn:'Bring your fingertips together above your head to form a pointed roof shape, like a house outline.',
     gestureMs:'Satukan hujung jari di atas kepala membentuk bumbung yang runcing, seperti garisan rumah.',
-    icon:'🏠', handTipEn:'Fingertips meet to form roof above head', handTipMs:'Hujung jari bertemu bentuk bumbung di atas kepala',
+    icon:'', handTipEn:'Fingertips meet to form roof above head', handTipMs:'Hujung jari bertemu bentuk bumbung di atas kepala',
     exEn:'I go home after school at two o\'clock.',
     exMs:'Saya pulang ke rumah selepas sekolah pukul dua.',
   },
@@ -1213,7 +1213,7 @@ var DICT = [
     meanMs:'Apa sahaja yang boleh dimakan untuk memberi tenaga kepada badan.',
     gestureEn:'Bring all five fingertips together to form a flat "O" and tap them on your lips twice — showing food being placed in the mouth.',
     gestureMs:'Satukan kesemua lima hujung jari membentuk "O" rata dan ketuk di bibir dua kali — menunjukkan makanan dimasukkan ke dalam mulut.',
-    icon:'🍱', handTipEn:'Flat O fingertips tap lips twice', handTipMs:'Hujung jari O rata ketuk bibir dua kali',
+    icon:'', handTipEn:'Flat O fingertips tap lips twice', handTipMs:'Hujung jari O rata ketuk bibir dua kali',
     exEn:'The school sells healthy food every day.',
     exMs:'Sekolah menjual makanan sihat setiap hari.',
   },
@@ -1223,7 +1223,7 @@ var DICT = [
     meanMs:'Ungkapan yang digunakan apabila kamu telah melakukan sesuatu yang salah atau ingin memohon maaf.',
     gestureEn:'Make a fist and rub it in a circular motion on your chest — showing a heartfelt apology coming from inside.',
     gestureMs:'Genggam tangan dan gosok dalam gerakan bulatan di dada — menunjukkan permintaan maaf yang ikhlas dari dalam hati.',
-    icon:'🙇', handTipEn:'Fist circular rub on chest', handTipMs:'Genggam gosok bulatan di dada',
+    icon:'', handTipEn:'Fist circular rub on chest', handTipMs:'Genggam gosok bulatan di dada',
     exEn:'I am sorry for being late to class.',
     exMs:'Saya memohon maaf kerana lewat ke kelas.',
   },
@@ -1233,7 +1233,7 @@ var DICT = [
     meanMs:'Berasa tidak sihat atau mengalami penyakit.',
     gestureEn:'Touch your middle finger to your forehead and the middle finger of your other hand to your stomach simultaneously — showing the body feels unwell in two places.',
     gestureMs:'Sentuh jari tengah ke dahi dan jari tengah tangan satu lagi ke perut serentak — menunjukkan badan berasa tidak sihat di dua tempat.',
-    icon:'🤢', handTipEn:'Both middle fingers touch head and stomach', handTipMs:'Kedua jari tengah sentuh kepala dan perut',
+    icon:'', handTipEn:'Both middle fingers touch head and stomach', handTipMs:'Kedua jari tengah sentuh kepala dan perut',
     exEn:'She stayed home because she felt sick.',
     exMs:'Dia tinggal di rumah kerana berasa sakit.',
   },
@@ -1243,19 +1243,19 @@ var DICT = [
     meanMs:'Perasaan ketidakselesaan fizikal atau kesakitan dalam badan.',
     gestureEn:'Point both index fingers at each other without touching, then twist them in opposite directions — showing tension and pain.',
     gestureMs:'Tunjukkan kedua-dua jari telunjuk ke arah satu sama lain tanpa menyentuh, kemudian pusingkan ke arah bertentangan — menunjukkan ketegangan dan kesakitan.',
-    icon:'🤕', handTipEn:'Index fingers face each other, twist apart', handTipMs:'Jari telunjuk berhadapan, pusing berlawanan',
+    icon:'', handTipEn:'Index fingers face each other, twist apart', handTipMs:'Jari telunjuk berhadapan, pusing berlawanan',
     exEn:'Tell the nurse if you feel any pain.',
     exMs:'Beritahu jururawat jika kamu berasa kesakitan.',
   },
 
-  /* ── Emosi Tambahan ── */
+  /*  Emosi Tambahan  */
   {
     en:'like', ms:'suka', cat:'Emotion', catMs:'Emosi',
     meanEn:'To find something or someone pleasant or enjoyable.',
     meanMs:'Mendapati sesuatu atau seseorang menyenangkan atau menggembirakan.',
     gestureEn:'Place your middle finger and thumb on your chest, then flick your middle finger outward — as if pulling good feelings from your heart.',
     gestureMs:'Letakkan jari tengah dan ibu jari di dada, kemudian sentakkan jari tengah ke luar — seolah-olah menarik perasaan baik dari hati.',
-    icon:'😊', handTipEn:'Middle finger and thumb flick from chest', handTipMs:'Jari tengah dan ibu jari sentak dari dada',
+    icon:'', handTipEn:'Middle finger and thumb flick from chest', handTipMs:'Jari tengah dan ibu jari sentak dari dada',
     exEn:'I like reading books about animals.',
     exMs:'Saya suka membaca buku tentang haiwan.',
   },
@@ -1265,7 +1265,7 @@ var DICT = [
     meanMs:'Berasa takut atau gerun tentang sesuatu.',
     gestureEn:'Hold both open hands in front of your chest, then quickly bring them toward your body — like recoiling in sudden fright.',
     gestureMs:'Pegang kedua-dua tangan terbuka di hadapan dada, kemudian cepat-cepat tarik ke arah badan — seperti tersentak kerana terkejut.',
-    icon:'😨', handTipEn:'Both open hands pull inward quickly', handTipMs:'Kedua tangan terbuka tarik ke dalam dengan cepat',
+    icon:'', handTipEn:'Both open hands pull inward quickly', handTipMs:'Kedua tangan terbuka tarik ke dalam dengan cepat',
     exEn:'The little boy was scared of the dark.',
     exMs:'Budak lelaki itu takut akan kegelapan.',
   },
@@ -1275,7 +1275,7 @@ var DICT = [
     meanMs:'Berasa sangat bersemangat dan teruja tentang sesuatu.',
     gestureEn:'Bend both index fingers and alternate brushing them upward on your chest quickly — showing excitement rising from inside.',
     gestureMs:'Bengkokkan kedua-dua jari telunjuk dan bergantian gosok ke atas di dada dengan cepat — menunjukkan kegembiraan yang naik dari dalam.',
-    icon:'🤩', handTipEn:'Both bent index fingers brush up chest alternately', handTipMs:'Kedua jari telunjuk bengkok gosok ke atas dada bergilir',
+    icon:'', handTipEn:'Both bent index fingers brush up chest alternately', handTipMs:'Kedua jari telunjuk bengkok gosok ke atas dada bergilir',
     exEn:'She was very excited about the school trip.',
     exMs:'Dia sangat teruja dengan lawatan sekolah itu.',
   },
@@ -1285,7 +1285,7 @@ var DICT = [
     meanMs:'Berasa tidak berminat atau jemu dengan sesuatu.',
     gestureEn:'Place your index finger on the side of your nose and twist it slightly — showing a dull, uninterested expression.',
     gestureMs:'Letakkan jari telunjuk di tepi hidung dan pusing sedikit — menunjukkan ekspresi yang hambar dan tidak berminat.',
-    icon:'😒', handTipEn:'Index finger twist on side of nose', handTipMs:'Jari telunjuk pusing di tepi hidung',
+    icon:'', handTipEn:'Index finger twist on side of nose', handTipMs:'Jari telunjuk pusing di tepi hidung',
     exEn:'The students felt bored during the long lecture.',
     exMs:'Para pelajar berasa bosan semasa kuliah yang panjang itu.',
   },
@@ -1295,7 +1295,7 @@ var DICT = [
     meanMs:'Berasa terkejut atau hairan secara tiba-tiba.',
     gestureEn:'Hold both index fingers at the sides of your eyes, then flick them outward quickly — like your eyes popping open wide in surprise.',
     gestureMs:'Pegang kedua-dua jari telunjuk di tepi mata, kemudian sentakkan ke luar dengan cepat — seperti mata terbeliak luas kerana terkejut.',
-    icon:'😲', handTipEn:'Index fingers at eyes flick outward', handTipMs:'Jari telunjuk di mata sentak ke luar',
+    icon:'', handTipEn:'Index fingers at eyes flick outward', handTipMs:'Jari telunjuk di mata sentak ke luar',
     exEn:'Everyone was surprised by the good news.',
     exMs:'Semua orang terkejut dengan berita baik itu.',
   },
@@ -1305,19 +1305,19 @@ var DICT = [
     meanMs:'Berasa perlu berehat selepas usaha atau aktiviti.',
     gestureEn:'Hold both bent hands at shoulder height with fingertips touching your shoulders, then let them drop and fall forward — showing exhaustion.',
     gestureMs:'Pegang kedua-dua tangan bengkok setinggi bahu dengan hujung jari menyentuh bahu, kemudian biarkan jatuh ke hadapan — menunjukkan keletihan.',
-    icon:'😫', handTipEn:'Bent hands at shoulders drop forward', handTipMs:'Tangan bengkok di bahu jatuh ke hadapan',
+    icon:'', handTipEn:'Bent hands at shoulders drop forward', handTipMs:'Tangan bengkok di bahu jatuh ke hadapan',
     exEn:'I feel tired after running in the sun.',
     exMs:'Saya berasa penat selepas berlari di bawah terik matahari.',
   },
 
-  /* ── Haiwan ── */
+  /*  Haiwan  */
   {
     en:'cat', ms:'kucing', cat:'Animal', catMs:'Haiwan',
     meanEn:'A small furry animal kept as a pet.',
     meanMs:'Haiwan berbulu kecil yang dipelihara sebagai haiwan kesayangan.',
     gestureEn:'Use your index finger and thumb to mime cat whiskers at the sides of your upper lip — tracing outward from your nose.',
     gestureMs:'Gunakan jari telunjuk dan ibu jari untuk lakonkan misai kucing di tepi bibir atas — menjejak ke luar dari hidung.',
-    icon:'🐱', handTipEn:'Pinch and pull whiskers from upper lip', handTipMs:'Cubit dan tarik misai dari bibir atas',
+    icon:'', handTipEn:'Pinch and pull whiskers from upper lip', handTipMs:'Cubit dan tarik misai dari bibir atas',
     exEn:'Our cat sleeps on the sofa every day.',
     exMs:'Kucing kami tidur di sofa setiap hari.',
   },
@@ -1327,7 +1327,7 @@ var DICT = [
     meanMs:'Haiwan peliharaan biasa yang sering dipelihara sebagai haiwan kesayangan.',
     gestureEn:'Snap your fingers at your side, then pat your thigh — like calling a dog to come.',
     gestureMs:'Jentikkan jari di sisi, kemudian tepuk peha — seperti memanggil anjing untuk datang.',
-    icon:'🐶', handTipEn:'Snap fingers then pat thigh', handTipMs:'Jentik jari kemudian tepuk peha',
+    icon:'', handTipEn:'Snap fingers then pat thigh', handTipMs:'Jentik jari kemudian tepuk peha',
     exEn:'The dog runs fast in the park.',
     exMs:'Anjing itu berlari laju di taman.',
   },
@@ -1337,7 +1337,7 @@ var DICT = [
     meanMs:'Haiwan berbulu dengan sayap yang biasanya boleh terbang.',
     gestureEn:'Join your index finger and thumb at your mouth like a beak, then open and close them to show a bird talking or chirping.',
     gestureMs:'Satukan jari telunjuk dan ibu jari di mulut seperti paruh, kemudian buka dan tutup untuk menunjukkan burung bercakap atau berkicau.',
-    icon:'🐦', handTipEn:'Index and thumb form beak, open-close at mouth', handTipMs:'Jari telunjuk dan ibu jari bentuk paruh, buka-tutup di mulut',
+    icon:'', handTipEn:'Index and thumb form beak, open-close at mouth', handTipMs:'Jari telunjuk dan ibu jari bentuk paruh, buka-tutup di mulut',
     exEn:'A small bird is singing in the tree.',
     exMs:'Seekor burung kecil sedang berkicau di pokok.',
   },
@@ -1347,7 +1347,7 @@ var DICT = [
     meanMs:'Haiwan berdarah sejuk yang hidup di dalam air dan berenang menggunakan sirip.',
     gestureEn:'Hold one flat hand sideways and wiggle it forward in a wavy motion — like a fish swimming through water.',
     gestureMs:'Pegang satu tangan rata ke tepi dan goyangkan ke hadapan dalam gerakan berombak — seperti ikan berenang melalui air.',
-    icon:'🐟', handTipEn:'Flat hand wiggle forward in wave motion', handTipMs:'Tangan rata goyong ke hadapan dalam gelombang',
+    icon:'', handTipEn:'Flat hand wiggle forward in wave motion', handTipMs:'Tangan rata goyong ke hadapan dalam gelombang',
     exEn:'We saw many colourful fish in the aquarium.',
     exMs:'Kami melihat banyak ikan berwarna-warni di akuarium.',
   },
@@ -1357,19 +1357,19 @@ var DICT = [
     meanMs:'Haiwan kelabu yang sangat besar dengan belalai yang panjang.',
     gestureEn:'Place the back of your hand on your nose and swing it downward and outward — mimicking the swinging trunk of an elephant.',
     gestureMs:'Letakkan belakang tangan di hidung dan ayun ke bawah dan ke luar — meniru belalai gajah yang berayun.',
-    icon:'🐘', handTipEn:'Hand on nose swing down and out like trunk', handTipMs:'Tangan di hidung ayun ke bawah keluar seperti belalai',
+    icon:'', handTipEn:'Hand on nose swing down and out like trunk', handTipMs:'Tangan di hidung ayun ke bawah keluar seperti belalai',
     exEn:'The elephant is the largest animal on land.',
     exMs:'Gajah ialah haiwan terbesar di darat.',
   },
 
-  /* ── Makanan ── */
+  /*  Makanan  */
   {
     en:'rice', ms:'nasi', cat:'Food', catMs:'Makanan',
     meanEn:'Cooked grains that are a staple food in Malaysia.',
     meanMs:'Bijirin yang dimasak dan merupakan makanan ruji di Malaysia.',
     gestureEn:'Cup your non-dominant hand into a bowl shape, then use your dominant hand to mime scooping rice with a spoon.',
     gestureMs:'Cungkupkan tangan bukan dominan menjadi bentuk mangkuk, kemudian gunakan tangan dominan untuk lakonkan menyendok nasi dengan sudu.',
-    icon:'🍚', handTipEn:'Bowl hand, scoop with dominant hand', handTipMs:'Tangan mangkuk, senduk dengan tangan dominan',
+    icon:'', handTipEn:'Bowl hand, scoop with dominant hand', handTipMs:'Tangan mangkuk, senduk dengan tangan dominan',
     exEn:'We eat rice with curry for lunch.',
     exMs:'Kami makan nasi dengan kari untuk makan tengah hari.',
   },
@@ -1379,7 +1379,7 @@ var DICT = [
     meanMs:'Bahagian tumbuhan yang manis dan boleh dimakan, seperti mangga atau pisang.',
     gestureEn:'Form a bent "F" handshape (index and thumb touching), place it at the side of your cheek and twist it slightly — showing a round fruit.',
     gestureMs:'Bentukkan tangan "F" bengkok (jari telunjuk dan ibu jari bersentuh), letakkan di tepi pipi dan pusing sedikit — menunjukkan buah yang bulat.',
-    icon:'🍎', handTipEn:'F-handshape twist at cheek', handTipMs:'Bentuk tangan F pusing di pipi',
+    icon:'', handTipEn:'F-handshape twist at cheek', handTipMs:'Bentuk tangan F pusing di pipi',
     exEn:'Eat more fruit to stay healthy.',
     exMs:'Makan lebih banyak buah untuk kekal sihat.',
   },
@@ -1389,7 +1389,7 @@ var DICT = [
     meanMs:'Cecair putih yang dihasilkan oleh lembu, digunakan sebagai minuman.',
     gestureEn:'Open and close your fist repeatedly as if milking a cow — showing the squeezing motion.',
     gestureMs:'Buka dan tutup genggaman berulang kali seolah-olah memerah susu lembu — menunjukkan gerakan memerah.',
-    icon:'🥛', handTipEn:'Fist open-close repeatedly', handTipMs:'Genggam buka-tutup berulang kali',
+    icon:'', handTipEn:'Fist open-close repeatedly', handTipMs:'Genggam buka-tutup berulang kali',
     exEn:'Children should drink milk every morning.',
     exMs:'Kanak-kanak patut minum susu setiap pagi.',
   },
@@ -1399,7 +1399,7 @@ var DICT = [
     meanMs:'Makanan yang dibakar diperbuat daripada tepung, air dan yis.',
     gestureEn:'Hold one flat hand and use the other to mime slicing across it back and forth — like slicing a loaf of bread.',
     gestureMs:'Pegang satu tangan rata dan gunakan tangan satu lagi untuk lakonkan menghiris merentasinya ke depan dan ke belakang — seperti menghiris roti.',
-    icon:'🍞', handTipEn:'Slice motion across flat palm', handTipMs:'Gerakan hiris merentas tapak tangan rata',
+    icon:'', handTipEn:'Slice motion across flat palm', handTipMs:'Gerakan hiris merentas tapak tangan rata',
     exEn:'I eat bread with butter in the morning.',
     exMs:'Saya makan roti dengan mentega pada waktu pagi.',
   },
@@ -1409,19 +1409,19 @@ var DICT = [
     meanMs:'Objek bujur yang dikeluarkan oleh ayam betina, digunakan sebagai makanan.',
     gestureEn:'Form a bent claw with both hands touching, then pull them apart — like cracking open an egg.',
     gestureMs:'Bentukkan cakar bengkok dengan kedua-dua tangan bersentuhan, kemudian tarik ke tepi — seperti memecahkan telur.',
-    icon:'🥚', handTipEn:'Both claw hands pull apart like cracking egg', handTipMs:'Kedua tangan cakar tarik ke tepi seperti pecah telur',
+    icon:'', handTipEn:'Both claw hands pull apart like cracking egg', handTipMs:'Kedua tangan cakar tarik ke tepi seperti pecah telur',
     exEn:'She fried two eggs for breakfast.',
     exMs:'Dia menggoreng dua biji telur untuk sarapan.',
   },
 
-  /* ── Nombor Tambahan ── */
+  /*  Nombor Tambahan  */
   {
     en:'three', ms:'tiga', cat:'Number', catMs:'Nombor',
     meanEn:'The number 3.',
     meanMs:'Nombor 3.',
     gestureEn:'Hold up your index finger, middle finger, and ring finger — three fingers spread.',
     gestureMs:'Angkat jari telunjuk, jari tengah, dan jari manis — tiga jari terbuka.',
-    icon:'3️⃣', handTipEn:'Three fingers up: index, middle, ring', handTipMs:'Tiga jari ke atas: telunjuk, tengah, manis',
+    icon:'3', handTipEn:'Three fingers up: index, middle, ring', handTipMs:'Tiga jari ke atas: telunjuk, tengah, manis',
     exEn:'I have three books in my bag.',
     exMs:'Saya ada tiga buku dalam beg saya.',
   },
@@ -1431,7 +1431,7 @@ var DICT = [
     meanMs:'Nombor 4.',
     gestureEn:'Hold up four fingers — all except the thumb.',
     gestureMs:'Angkat empat jari — semua kecuali ibu jari.',
-    icon:'4️⃣', handTipEn:'Four fingers up, thumb tucked', handTipMs:'Empat jari ke atas, ibu jari dilipat',
+    icon:'4', handTipEn:'Four fingers up, thumb tucked', handTipMs:'Empat jari ke atas, ibu jari dilipat',
     exEn:'There are four seasons in some countries.',
     exMs:'Terdapat empat musim di sesetengah negara.',
   },
@@ -1441,19 +1441,19 @@ var DICT = [
     meanMs:'Nombor 10.',
     gestureEn:'Hold up both hands with all ten fingers spread wide open.',
     gestureMs:'Angkat kedua-dua tangan dengan kesemua sepuluh jari terbuka luas.',
-    icon:'🔟', handTipEn:'Both hands open, all ten fingers spread', handTipMs:'Kedua tangan terbuka, semua sepuluh jari merebak',
+    icon:'', handTipEn:'Both hands open, all ten fingers spread', handTipMs:'Kedua tangan terbuka, semua sepuluh jari merebak',
     exEn:'Count from one to ten using your fingers.',
     exMs:'Kira dari satu hingga sepuluh menggunakan jari.',
   },
 
-  /* ── Tempat ── */
+  /*  Tempat  */
   {
     en:'hospital', ms:'hospital', cat:'Places', catMs:'Tempat',
     meanEn:'A place where sick people are treated by doctors.',
     meanMs:'Tempat di mana orang sakit dirawat oleh doktor.',
     gestureEn:'Form the letter H with your dominant hand (index and middle fingers extended together), then draw a small cross on your upper arm — like a hospital cross symbol.',
     gestureMs:'Bentukkan huruf H dengan tangan dominan (jari telunjuk dan tengah lurus bersama), kemudian lukis salib kecil pada lengan atas — seperti simbol salib hospital.',
-    icon:'🏥', handTipEn:'H-hand draw cross on upper arm', handTipMs:'Tangan H lukis salib di lengan atas',
+    icon:'', handTipEn:'H-hand draw cross on upper arm', handTipMs:'Tangan H lukis salib di lengan atas',
     exEn:'The doctor works at the hospital every day.',
     exMs:'Doktor itu bekerja di hospital setiap hari.',
   },
@@ -1463,7 +1463,7 @@ var DICT = [
     meanMs:'Tempat ibadat bagi umat Islam.',
     gestureEn:'Form both hands into curved shapes and bring them together at the top, making a dome shape — representing the roof of a mosque.',
     gestureMs:'Bentukkan kedua-dua tangan melengkung dan satukan di bahagian atas, membentuk kubah — mewakili bumbung masjid.',
-    icon:'🕌', handTipEn:'Both curved hands form dome at top', handTipMs:'Kedua tangan melengkung bentuk kubah di atas',
+    icon:'', handTipEn:'Both curved hands form dome at top', handTipMs:'Kedua tangan melengkung bentuk kubah di atas',
     exEn:'My family goes to the mosque every Friday.',
     exMs:'Keluarga saya pergi ke masjid setiap hari Jumaat.',
   },
@@ -1473,19 +1473,19 @@ var DICT = [
     meanMs:'Tempat di mana orang membeli dan menjual barangan.',
     gestureEn:'Hold both hands facing each other and move them back and forth alternately — like exchanging goods between buyers and sellers.',
     gestureMs:'Pegang kedua-dua tangan berhadapan dan gerakkan ke depan dan ke belakang bergantian — seperti menukar barangan antara pembeli dan penjual.',
-    icon:'🛒', handTipEn:'Both hands alternate back-forth exchange', handTipMs:'Kedua tangan bergilir maju-undur seperti tukar barang',
+    icon:'', handTipEn:'Both hands alternate back-forth exchange', handTipMs:'Kedua tangan bergilir maju-undur seperti tukar barang',
     exEn:'Mother buys vegetables at the market every week.',
     exMs:'Ibu membeli sayur di pasar setiap minggu.',
   },
 
-  /* ── Alam Sekitar ── */
+  /*  Alam Sekitar  */
   {
     en:'rain', ms:'hujan', cat:'Nature', catMs:'Alam Semula Jadi',
     meanEn:'Water that falls from clouds in drops.',
     meanMs:'Air yang jatuh dari awan dalam bentuk titisan.',
     gestureEn:'Hold both hands up with fingers spread, then wiggle all fingers as you move both hands downward — like raindrops falling.',
     gestureMs:'Angkat kedua-dua tangan dengan jari merebak, kemudian goyangkan semua jari sambil gerakkan kedua-dua tangan ke bawah — seperti titisan hujan jatuh.',
-    icon:'🌧️', handTipEn:'Both hands fingers wiggle downward', handTipMs:'Kedua tangan jari goyong ke bawah',
+    icon:'', handTipEn:'Both hands fingers wiggle downward', handTipMs:'Kedua tangan jari goyong ke bawah',
     exEn:'We cannot play outside when it rains.',
     exMs:'Kami tidak boleh bermain di luar semasa hujan.',
   },
@@ -1495,7 +1495,7 @@ var DICT = [
     meanMs:'Tumbuhan tinggi dengan batang, dahan, dan daun.',
     gestureEn:'Place your elbow on your other palm as a base, then spread your upper arm and hand wide — like a tree trunk and spreading branches.',
     gestureMs:'Letakkan siku di atas tapak tangan satu lagi sebagai alas, kemudian rebakkan lengan atas dan tangan lebar — seperti batang pokok dan dahan yang merebak.',
-    icon:'🌳', handTipEn:'Elbow on palm as base, arm and hand spread wide', handTipMs:'Siku di tapak sebagai alas, lengan dan tangan merebak',
+    icon:'', handTipEn:'Elbow on palm as base, arm and hand spread wide', handTipMs:'Siku di tapak sebagai alas, lengan dan tangan merebak',
     exEn:'Many trees grow in the Malaysian rainforest.',
     exMs:'Banyak pokok tumbuh di hutan hujan Malaysia.',
   },
@@ -1505,12 +1505,12 @@ var DICT = [
     meanMs:'Bahagian tumbuhan yang berwarna-warni dan mekar.',
     gestureEn:'Place your index finger and thumb together at your nose as if sniffing a flower, then open your hand into a bloom — petals opening.',
     gestureMs:'Letakkan jari telunjuk dan ibu jari bersama di hidung seolah-olah menghidu bunga, kemudian buka tangan menjadi mekar — kelopak terbuka.',
-    icon:'🌸', handTipEn:'Sniff pinch at nose then open to bloom', handTipMs:'Cubit di hidung kemudian tangan terbuka mekar',
+    icon:'', handTipEn:'Sniff pinch at nose then open to bloom', handTipMs:'Cubit di hidung kemudian tangan terbuka mekar',
     exEn:'She planted beautiful flowers in the garden.',
     exMs:'Dia menanam bunga yang cantik di kebun.',
   },
 
-  /* ── Aktiviti Harian Tambahan ── */
+  /*  Aktiviti Harian Tambahan  */
   {
     en:'wake up', ms:'bangun', cat:'Action', catMs:'Tindakan',
     meanEn:'To stop sleeping and become conscious.',
@@ -1527,7 +1527,7 @@ var DICT = [
     meanMs:'Bergerak atau pergi dari satu tempat ke tempat lain.',
     gestureEn:'Extend your index finger and move it forward in the direction you are going.',
     gestureMs:'Luruskan jari telunjuk dan gerakkan ke hadapan ke arah yang ingin dituju.',
-    icon:'➡️', handTipEn:'Index finger point and move forward', handTipMs:'Jari telunjuk tunjuk dan gerak ke hadapan',
+    icon:'', handTipEn:'Index finger point and move forward', handTipMs:'Jari telunjuk tunjuk dan gerak ke hadapan',
     exEn:'Let us go to the library after school.',
     exMs:'Jom kita pergi ke perpustakaan selepas sekolah.',
   },
@@ -1537,7 +1537,7 @@ var DICT = [
     meanMs:'Bergerak ke arah penutur atau tempat tertentu.',
     gestureEn:'Extend your index finger and curl it inward toward yourself — beckoning someone to come closer.',
     gestureMs:'Luruskan jari telunjuk dan lengkungkan ke arah diri sendiri — memberi isyarat kepada seseorang untuk datang lebih dekat.',
-    icon:'👋', handTipEn:'Index finger curl inward toward self', handTipMs:'Jari telunjuk lengkung ke dalam ke arah diri',
+    icon:'', handTipEn:'Index finger curl inward toward self', handTipMs:'Jari telunjuk lengkung ke dalam ke arah diri',
     exEn:'Come here and sit with us.',
     exMs:'Datang ke sini dan duduk bersama kami.',
   },
@@ -1547,7 +1547,7 @@ var DICT = [
     meanMs:'Menyerahkan sesuatu kepada orang lain.',
     gestureEn:'Hold both flat hands together palms up, then push them forward — as if offering something to another person.',
     gestureMs:'Pegang kedua-dua tangan rata tapak ke atas, kemudian tolak ke hadapan — seolah-olah menawarkan sesuatu kepada orang lain.',
-    icon:'🎁', handTipEn:'Both palms-up push forward', handTipMs:'Kedua tapak tangan tolak ke hadapan',
+    icon:'', handTipEn:'Both palms-up push forward', handTipMs:'Kedua tapak tangan tolak ke hadapan',
     exEn:'Please give this book to your teacher.',
     exMs:'Sila berikan buku ini kepada guru kamu.',
   },
@@ -1557,7 +1557,7 @@ var DICT = [
     meanMs:'Mendapatkan sesuatu dengan membayar wang.',
     gestureEn:'Hold one hand palm up like you are holding money, then move it forward and swap it to the other hand — like paying and receiving an item.',
     gestureMs:'Pegang satu tangan tapak ke atas seolah-olah memegang wang, kemudian gerakkan ke hadapan dan tukarkan ke tangan satu lagi — seperti membayar dan menerima barang.',
-    icon:'🛍️', handTipEn:'Palm-up hand move forward, swap to other hand', handTipMs:'Tangan tapak atas gerak ke hadapan, tukar ke tangan lain',
+    icon:'', handTipEn:'Palm-up hand move forward, swap to other hand', handTipMs:'Tangan tapak atas gerak ke hadapan, tukar ke tangan lain',
     exEn:'I want to buy a new pencil case.',
     exMs:'Saya ingin membeli kotak pensel baru.',
   },
@@ -1567,7 +1567,7 @@ var DICT = [
     meanMs:'Menggerakkan sesuatu supaya ia tidak lagi tertutup.',
     gestureEn:'Hold both flat hands side by side, then rotate them outward like opening a book or door.',
     gestureMs:'Pegang kedua-dua tangan rata bersebelahan, kemudian pusingkan ke luar seperti membuka buku atau pintu.',
-    icon:'📖', handTipEn:'Both flat hands rotate outward', handTipMs:'Kedua tangan rata pusing ke luar',
+    icon:'', handTipEn:'Both flat hands rotate outward', handTipMs:'Kedua tangan rata pusing ke luar',
     exEn:'Open your book to page five.',
     exMs:'Buka buku kamu ke halaman lima.',
   },
@@ -1577,19 +1577,19 @@ var DICT = [
     meanMs:'Menggerakkan sesuatu supaya ia menutup bukaan.',
     gestureEn:'Hold both flat hands apart, then bring them together to meet in the middle — like closing a book.',
     gestureMs:'Pegang kedua-dua tangan rata berasingan, kemudian satukan ke tengah — seperti menutup buku.',
-    icon:'📕', handTipEn:'Both flat hands come together in middle', handTipMs:'Kedua tangan rata bertemu di tengah',
+    icon:'', handTipEn:'Both flat hands come together in middle', handTipMs:'Kedua tangan rata bertemu di tengah',
     exEn:'Please close the door quietly.',
     exMs:'Sila tutup pintu dengan senyap.',
   },
 
-  /* ── Kata Ganti Tambahan ── */
+  /*  Kata Ganti Tambahan  */
   {
     en:'you', ms:'awak', cat:'Pronoun', catMs:'Kata Ganti',
     meanEn:'Used to refer to the person being spoken to.',
     meanMs:'Digunakan untuk merujuk kepada orang yang sedang diajak bercakap.',
     gestureEn:'Point your index finger directly at the person you are speaking to.',
     gestureMs:'Tunjukkan jari telunjuk terus ke arah orang yang sedang diajak bercakap.',
-    icon:'👉', handTipEn:'Index finger point at other person', handTipMs:'Jari telunjuk tunjuk ke arah orang lain',
+    icon:'', handTipEn:'Index finger point at other person', handTipMs:'Jari telunjuk tunjuk ke arah orang lain',
     exEn:'Can you help me with this question?',
     exMs:'Boleh awak bantu saya dengan soalan ini?',
   },
@@ -1599,7 +1599,7 @@ var DICT = [
     meanMs:'Digunakan untuk merujuk kepada diri sendiri dan orang lain bersama.',
     gestureEn:'Point your index finger at yourself, then sweep it in an arc to include the people around you.',
     gestureMs:'Tunjukkan jari telunjuk ke diri sendiri, kemudian ayunkan dalam lengkok untuk memasukkan orang-orang di sekeliling kamu.',
-    icon:'👥', handTipEn:'Index point self then arc to include others', handTipMs:'Jari tunjuk diri kemudian lengkok memasukkan orang lain',
+    icon:'', handTipEn:'Index point self then arc to include others', handTipMs:'Jari tunjuk diri kemudian lengkok memasukkan orang lain',
     exEn:'We are all students at this school.',
     exMs:'Kita semua ialah pelajar di sekolah ini.',
   },
@@ -1609,19 +1609,19 @@ var DICT = [
     meanMs:'Digunakan untuk merujuk kepada orang selain daripada penutur.',
     gestureEn:'Point your index finger sideways and sweep it in an arc — pointing away from yourself to indicate a group of others.',
     gestureMs:'Tunjukkan jari telunjuk ke tepi dan ayunkan dalam lengkok — menunjuk menjauhi diri sendiri untuk menandakan sekumpulan orang lain.',
-    icon:'👨‍👩‍👧‍👦', handTipEn:'Index finger sweep arc away from self', handTipMs:'Jari telunjuk ayun lengkok menjauhi diri',
+    icon:'‍‍‍', handTipEn:'Index finger sweep arc away from self', handTipMs:'Jari telunjuk ayun lengkok menjauhi diri',
     exEn:'They are waiting for us outside.',
     exMs:'Mereka sedang menunggu kita di luar.',
   },
 
-  /* ── Warna Tambahan ── */
+  /*  Warna Tambahan  */
   {
     en:'white', ms:'putih', cat:'Colour', catMs:'Warna',
     meanEn:'The colour of snow and clouds.',
     meanMs:'Warna salji dan awan.',
     gestureEn:'Place your open hand on your chest, then pull it away while closing the fingers together — showing something pure and clean.',
     gestureMs:'Letakkan tangan terbuka di dada, kemudian tarik ke hadapan sambil tutupkan jari bersama — menunjukkan sesuatu yang tulen dan bersih.',
-    icon:'⬜', handTipEn:'Open hand pull from chest closing fingers', handTipMs:'Tangan terbuka tarik dari dada tutup jari',
+    icon:'', handTipEn:'Open hand pull from chest closing fingers', handTipMs:'Tangan terbuka tarik dari dada tutup jari',
     exEn:'She wears a white uniform to school.',
     exMs:'Dia memakai uniform putih ke sekolah.',
   },
@@ -1631,19 +1631,19 @@ var DICT = [
     meanMs:'Warna paling gelap, seperti langit malam.',
     gestureEn:'Draw your index finger across your forehead from one side to the other — a single sweep.',
     gestureMs:'Tarik jari telunjuk merentasi dahi dari satu sisi ke sisi lain — satu sapuan tunggal.',
-    icon:'⬛', handTipEn:'Index finger sweep across forehead', handTipMs:'Jari telunjuk sapu merentas dahi',
+    icon:'', handTipEn:'Index finger sweep across forehead', handTipMs:'Jari telunjuk sapu merentas dahi',
     exEn:'He has short black hair.',
     exMs:'Dia mempunyai rambut hitam pendek.',
   },
 
-  /* ── Sekolah Tambahan ── */
+  /*  Sekolah Tambahan  */
   {
     en:'principal', ms:'pengetua', cat:'Education', catMs:'Pendidikan',
     meanEn:'The head teacher who leads a school.',
     meanMs:'Guru besar yang mengetuai sekolah.',
     gestureEn:'Point your index finger to your shoulder (authority/rank), then draw it downward — indicating a person of leadership.',
     gestureMs:'Tunjukkan jari telunjuk ke bahu (kuasa/pangkat), kemudian tarik ke bawah — menandakan seseorang yang berkepimpinan.',
-    icon:'👨‍💼', handTipEn:'Index finger to shoulder then down', handTipMs:'Jari telunjuk ke bahu kemudian ke bawah',
+    icon:'‍', handTipEn:'Index finger to shoulder then down', handTipMs:'Jari telunjuk ke bahu kemudian ke bawah',
     exEn:'The principal gave a speech at assembly.',
     exMs:'Pengetua menyampaikan ucapan semasa perhimpunan.',
   },
@@ -1653,7 +1653,7 @@ var DICT = [
     meanMs:'Bilik atau bangunan yang mempunyai koleksi buku.',
     gestureEn:'Form the letter L with your dominant hand (index finger up, thumb out), then move it in a small circular motion — representing a place full of books.',
     gestureMs:'Bentukkan huruf L dengan tangan dominan (jari telunjuk ke atas, ibu jari ke luar), kemudian gerakkan dalam gerakan bulatan kecil — mewakili tempat yang penuh dengan buku.',
-    icon:'📚', handTipEn:'L-handshape move in small circle', handTipMs:'Bentuk tangan L gerak dalam bulatan kecil',
+    icon:'', handTipEn:'L-handshape move in small circle', handTipMs:'Bentuk tangan L gerak dalam bulatan kecil',
     exEn:'We go to the library to borrow books.',
     exMs:'Kami pergi ke perpustakaan untuk meminjam buku.',
   },
@@ -1663,7 +1663,7 @@ var DICT = [
     meanMs:'Tempat di sekolah di mana pelajar membeli dan makan makanan.',
     gestureEn:'Bring your flat O fingertips to your mouth (eating), then point outward — showing you go somewhere to eat.',
     gestureMs:'Bawa hujung jari O rata ke mulut (makan), kemudian tunjuk ke luar — menunjukkan kamu pergi ke suatu tempat untuk makan.',
-    icon:'🍽️', handTipEn:'Eating gesture then point outward', handTipMs:'Isyarat makan kemudian tunjuk ke luar',
+    icon:'', handTipEn:'Eating gesture then point outward', handTipMs:'Isyarat makan kemudian tunjuk ke luar',
     exEn:'Students eat lunch at the school canteen.',
     exMs:'Pelajar makan tengah hari di kantin sekolah.',
   },
@@ -1671,24 +1671,24 @@ var DICT = [
 
 // Fingerspelling hand emoji map (letter → hand symbol)
 var HANDS = {
-  A:'✊',B:'🖐',C:'🤏',D:'☝️',E:'🤞',F:'👌',G:'👉',H:'🫳',I:'🤙',J:'🤙',
-  K:'✌️',L:'👆',M:'✊',N:'✊',O:'👌',P:'✌️',Q:'✌️',R:'✌️',S:'✊',T:'✊',
-  U:'✌️',V:'✌️',W:'🖖',X:'☝️',Y:'🤙',Z:'☝️'
+  A:'',B:'',C:'',D:'☝',E:'',F:'',G:'',H:'',I:'',J:'',
+  K:'',L:'',M:'',N:'',O:'',P:'',Q:'',R:'',S:'',T:'',
+  U:'',V:'',W:'',X:'☝',Y:'',Z:'☝'
 };
 
-// ── State ──────────────────────────────────────────────────────────────────
+//  State 
 var lang      = localStorage.getItem('cs_lang') || 'ms';
 var requested = (function(){try{return JSON.parse(localStorage.getItem('ss_requested')||'[]');}catch(e){return [];}})();
 var lastQuery = '';
 
-// ── i18n strings ───────────────────────────────────────────────────────────
+//  i18n strings 
 var I = {
   en: {
     heroBadge:'SignSense Dictionary',
     heroTitle:'SignSense Dictionary',
     heroSub:'Visual Sign Learning Companion',
     tag1:'Fingerspelling', tag2:'Visual Cues', tag3:'Large Captions', tag4:'Bilingual',
-    langBtn:'🌐 BM / EN',
+    langBtn:' BM / EN',
     discLabel:'Prototype Stage:',
     discText:' SignSense Dictionary provides visual sign learning support only. Future versions may integrate verified Bahasa Isyarat Malaysia resources through official partnerships.',
     searchCardTitle:'Search a Word',
@@ -1723,7 +1723,7 @@ var I = {
     heroTitle:'Kamus SignSense',
     heroSub:'Teman Pembelajaran Isyarat Visual',
     tag1:'Ejaan Jari', tag2:'Panduan Visual', tag3:'Kapsyen Besar', tag4:'Dwibahasa',
-    langBtn:'🌐 EN / BM',
+    langBtn:' EN / BM',
     discLabel:'Peringkat Prototaip:',
     discText:' SignSense Dictionary menyediakan sokongan pembelajaran isyarat secara visual sahaja. Versi akan datang boleh mengintegrasikan sumber Bahasa Isyarat Malaysia yang disahkan melalui kerjasama rasmi.',
     searchCardTitle:'Cari Perkataan',
@@ -1756,7 +1756,7 @@ var I = {
 };
 function t(k) { return (I[lang] && I[lang][k]) || I.en[k] || k; }
 
-// ── Language toggle ────────────────────────────────────────────────────────
+//  Language toggle 
 function toggleLang() {
   lang = lang === 'ms' ? 'en' : 'ms';
   localStorage.setItem('cs_lang', lang);
@@ -1786,7 +1786,7 @@ function applyLang() {
   renderRequested();
 }
 
-// ── Browse chips ───────────────────────────────────────────────────────────
+//  Browse chips 
 function buildBrowse() {
   var row = document.getElementById('browseRow');
   if (!row) return;
@@ -1806,7 +1806,7 @@ function buildBrowse() {
   });
 }
 
-// ── Search ─────────────────────────────────────────────────────────────────
+//  Search 
 function doSearch() {
   var q = (document.getElementById('ssInput').value || '').trim().toLowerCase();
   if (!q) { showToast(t('toastEmpty')); return; }
@@ -1835,7 +1835,7 @@ function doSearch() {
   }
 }
 
-// ── Render result ──────────────────────────────────────────────────────────
+//  Render result 
 function renderResult(e, displayLang) {
   var iMs = (displayLang || lang) === 'ms';
   var word    = iMs ? e.ms : e.en;
@@ -1853,7 +1853,7 @@ function renderResult(e, displayLang) {
   for (var i = 0; i < spelling.length; i++) {
     var ch = spelling[i];
     fingerHtml += '<div class="ss-finger-cell" role="img" aria-label="Letter ' + ch + '">' +
-      '<span class="ss-finger-emoji" aria-hidden="true">' + (HANDS[ch] || '✋') + '</span>' +
+      '<span class="ss-finger-emoji" aria-hidden="true">' + (HANDS[ch] || '') + '</span>' +
       '<span class="ss-finger-char">' + ch + '</span>' +
       '</div>';
   }
@@ -1916,7 +1916,7 @@ function renderResult(e, displayLang) {
         '<div style="text-align:center;padding:14px 0 6px;">' +
           '<a href="https://bimsignbank.org/home" target="_blank" rel="noopener noreferrer" ' +
           'style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;padding:11px 22px;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 2px 10px rgba(99,102,241,.35);">' +
-          '🤟 ' + (iMs ? 'Lihat di BIM SignBank' : 'View on BIM SignBank') + ' →</a>' +
+          ' ' + (iMs ? 'Lihat di BIM SignBank' : 'View on BIM SignBank') + ' →</a>' +
           '<div style="margin-top:9px;font-size:12px;color:var(--cs-muted,#94a3b8);">' +
           (iMs ? 'Laman web rasmi Bahasa Isyarat Malaysia' : 'Official Malaysian Sign Language reference') +
           '</div>' +
@@ -1926,7 +1926,7 @@ function renderResult(e, displayLang) {
     '</div>'; /* /ss-sections */
 }
 
-// ── Request word ───────────────────────────────────────────────────────────
+//  Request word 
 function requestWord() {
   var val = (document.getElementById('ssReqInput').value || '').trim().toLowerCase();
   if (!val) { showToast(t('toastEmpty')); return; }
@@ -1966,7 +1966,7 @@ function renderRequested() {
   });
 }
 
-// ── Toast ──────────────────────────────────────────────────────────────────
+//  Toast 
 var _tt = null;
 function showToast(msg) {
   var el = document.getElementById('ssToast');
@@ -1975,14 +1975,14 @@ function showToast(msg) {
   _tt = setTimeout(function() { el.classList.remove('show'); }, 3000);
 }
 
-// ── Escape HTML ────────────────────────────────────────────────────────────
+//  Escape HTML 
 function x(s) {
   return String(s)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ── Boot ───────────────────────────────────────────────────────────────────
+//  Boot 
 document.addEventListener('DOMContentLoaded', function() {
   lang = localStorage.getItem('cs_lang') || 'ms';
   applyLang();

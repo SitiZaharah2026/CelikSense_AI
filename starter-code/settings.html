@@ -6,7 +6,7 @@
 <title>Settings – CelikSense AI</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-/* ── Settings page layout ── */
+/*  Settings page layout  */
 .settings-layout {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -122,7 +122,7 @@
 .api-status.none   { background: rgba(156,163,175,0.12);color: #9ca3af; }
 .api-status.testing{ background: rgba(99,102,241,0.12); color: var(--primary-light); }
 
-/* ── Avatar Engine panel ── */
+/*  Avatar Engine panel  */
 .ae-status-card {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.07);
@@ -265,23 +265,23 @@
       <div class="nav-dropdown">
         <button data-i18n="nav_agents" aria-haspopup="true" aria-expanded="false">Agents ▾</button>
         <div class="dropdown-menu">
-          <a href="ai-librarian.html">📚 AI Librarian</a>
-          <a href="reading-companion.html">📖 Reading Companion</a>
-          <a href="adhd-agent.html">🧠 ADHD Agent</a>
-          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
-          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
-          <a href="sign-language.html">🤟 Sign Language Agent</a>
-          <a href="early-warning.html">⚠️ Early Warning Agent</a>
-          <a href="intervention.html">💡 Intervention Agent</a>
-          <a href="ocr-agent.html">📷 OCR Reading Agent</a>
+          <a href="ai-librarian.html"> AI Librarian</a>
+          <a href="reading-companion.html"> Reading Companion</a>
+          <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
+          <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
+          <a href="blind-audio.html"> Blind Audio Agent</a>
+          <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
+          <a href="early-warning.html">⚠ Early Warning Agent</a>
+          <a href="intervention.html"> Intervention Agent</a>
+          <a href="ocr-agent.html"> OCR Reading Agent</a>
         </div>
       </div>
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
-      <a href="settings.html" class="btn btn-primary btn-sm">⚙️ Settings</a>
-      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
+      <a href="settings.html" class="btn btn-primary btn-sm">⚙ Settings</a>
+      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </nav>
@@ -290,7 +290,7 @@
 <div class="container" style="padding-top:32px;padding-bottom:60px;">
 
   <div class="settings-header">
-    <h1>⚙️ <span data-i18n="set_title">Settings</span></h1>
+    <h1>⚙ <span data-i18n="set_title">Settings</span></h1>
     <p data-i18n="set_subtitle">Customise CelikSense AI for your learning needs.</p>
   </div>
 
@@ -299,7 +299,7 @@
     <!-- Sidebar nav -->
     <nav class="settings-nav" aria-label="Settings sections">
       <button class="settings-nav-item active" onclick="showPanel('ai')" id="tab-ai">
-        <span class="nav-icon">🤖</span>
+        <span class="nav-icon"></span>
         <span data-i18n="set_tab_ai">AI Settings</span>
       </button>
       <button class="settings-nav-item" onclick="showPanel('accessibility')" id="tab-accessibility">
@@ -307,19 +307,19 @@
         <span data-i18n="set_tab_a11y">Accessibility</span>
       </button>
       <button class="settings-nav-item" onclick="showPanel('profile')" id="tab-profile">
-        <span class="nav-icon">👤</span>
+        <span class="nav-icon"></span>
         <span data-i18n="set_tab_profile">Profile</span>
       </button>
       <button class="settings-nav-item" onclick="showPanel('language')" id="tab-language">
-        <span class="nav-icon">🌐</span>
+        <span class="nav-icon"></span>
         <span data-i18n="set_tab_lang">Language</span>
       </button>
       <button class="settings-nav-item" onclick="showPanel('avatar')" id="tab-avatar">
-        <span class="nav-icon">🎬</span>
+        <span class="nav-icon"></span>
         <span>Avatar Engine</span>
       </button>
       <button class="settings-nav-item" onclick="showPanel('data')" id="tab-data">
-        <span class="nav-icon">📊</span>
+        <span class="nav-icon"></span>
         <span data-i18n="set_tab_data">Data & Privacy</span>
       </button>
     </nav>
@@ -327,11 +327,11 @@
     <!-- Main panels -->
     <div>
 
-      <!-- ── AI Settings ── -->
+      <!--  AI Settings  -->
       <div class="settings-panel active" id="panel-ai">
 
         <div class="settings-section">
-          <div class="settings-section-title">🤖 OpenRouter AI</div>
+          <div class="settings-section-title"> OpenRouter AI</div>
           <div class="settings-section-desc">
             Enter your OpenRouter API key to enable AI summaries, quizzes, and intervention plans.
             Get a free key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="color:var(--primary-light);">openrouter.ai/keys ↗</a>
@@ -352,7 +352,7 @@
               autocomplete="off"
               spellcheck="false"
             />
-            <button class="btn btn-ghost btn-sm" id="toggleKeyVisBtn" onclick="toggleKeyVis()" aria-label="Show/hide key">👁</button>
+            <button class="btn btn-ghost btn-sm" id="toggleKeyVisBtn" onclick="toggleKeyVis()" aria-label="Show/hide key"></button>
             <button class="btn btn-primary btn-sm" onclick="saveKey()" data-i18n="set_save_key">Save Key</button>
             <button class="btn btn-ghost btn-sm" onclick="testConnection()" id="testBtn" data-i18n="set_test">Test</button>
           </div>
@@ -360,9 +360,12 @@
           <div style="margin-top:12px;">
             <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">AI Model</label>
             <select id="openrouterModel" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;">
-              <option value="google/gemma-3-27b-it:free">google/gemma-3-27b-it:free (Free)</option>
-              <option value="meta-llama/llama-3.3-70b-instruct:free">meta-llama/llama-3.3-70b-instruct:free (Free)</option>
+              <option value="google/gemma-2-9b-it:free">google/gemma-2-9b-it:free (Free)</option>
+              <option value="mistralai/mistral-7b-instruct:free">mistralai/mistral-7b-instruct:free (Free)</option>
+              <option value="meta-llama/llama-3.2-3b-instruct:free">meta-llama/llama-3.2-3b-instruct:free (Free)</option>
               <option value="deepseek/deepseek-chat-v3-0324:free">deepseek/deepseek-chat-v3-0324:free (Free)</option>
+              <option value="openai/gpt-4o-mini">openai/gpt-4o-mini (Paid)</option>
+              <option value="anthropic/claude-3-haiku">anthropic/claude-3-haiku (Paid)</option>
               <option value="openai/gpt-4o-mini">openai/gpt-4o-mini (Paid)</option>
               <option value="anthropic/claude-3-haiku">anthropic/claude-3-haiku (Paid)</option>
             </select>
@@ -373,10 +376,10 @@
           </div>
 
           <div style="margin-top:16px;padding:12px 14px;background:rgba(99,102,241,0.07);border-radius:var(--radius);border:1px solid rgba(99,102,241,0.15);font-size:13px;color:var(--text-muted);">
-            🔒 <span data-i18n="set_key_privacy">Your API key is saved only in your browser (localStorage). It is never sent to any server.</span>
+             <span data-i18n="set_key_privacy">Your API key is saved only in your browser (localStorage). It is never sent to any server.</span>
           </div>
           <div role="alert" style="margin-top:10px;padding:12px 14px;background:#fffbeb;border-radius:var(--radius);border:1.5px solid #f59e0b;font-size:12.5px;color:#92400e;display:flex;gap:10px;align-items:flex-start;">
-            <span style="font-size:18px;flex-shrink:0;">⚠️</span>
+            <span style="font-size:18px;flex-shrink:0;">⚠</span>
             <div>
               <strong style="display:block;margin-bottom:3px;" data-i18n="set_key_warn_title">Keselamatan API Key</strong>
               <span data-i18n="set_key_warn_body">API key disimpan dalam localStorage peranti ini dan boleh dibaca oleh mana-mana skrip di halaman yang sama. Gunakan key yang mempunyai had kuota dan sekatan rujukan. Jangan gunakan project owner key.</span>
@@ -424,11 +427,11 @@
 
       </div><!-- /panel-ai -->
 
-      <!-- ── Accessibility ── -->
+      <!--  Accessibility  -->
       <div class="settings-panel" id="panel-accessibility">
 
         <div class="settings-section">
-          <div class="settings-section-title">🔤 <span data-i18n="set_font_title">Text & Font</span></div>
+          <div class="settings-section-title"> <span data-i18n="set_font_title">Text & Font</span></div>
           <div class="settings-section-desc" data-i18n="set_font_desc">Adjust how text appears across all pages.</div>
 
           <div class="settings-row">
@@ -467,7 +470,7 @@
         </div>
 
         <div class="settings-section">
-          <div class="settings-section-title">🎨 <span data-i18n="a11y_contrast">Contrast mode</span></div>
+          <div class="settings-section-title"> <span data-i18n="a11y_contrast">Contrast mode</span></div>
           <div class="settings-section-desc" data-i18n="set_contrast_desc">Choose a display mode that is easiest for your eyes.</div>
 
           <div class="settings-row">
@@ -496,7 +499,7 @@
         </div>
 
         <div class="settings-section">
-          <div class="settings-section-title">🔊 <span data-i18n="a11y_tts">Text-to-speech</span></div>
+          <div class="settings-section-title"> <span data-i18n="a11y_tts">Text-to-speech</span></div>
           <div class="settings-section-desc" data-i18n="set_tts_desc">Customise how text is read aloud.</div>
 
           <div class="settings-row">
@@ -550,11 +553,11 @@
 
       </div><!-- /panel-accessibility -->
 
-      <!-- ── Profile ── -->
+      <!--  Profile  -->
       <div class="settings-panel" id="panel-profile">
 
         <div class="settings-section">
-          <div class="settings-section-title">👤 <span data-i18n="set_profile_title">Learner Profile</span></div>
+          <div class="settings-section-title"> <span data-i18n="set_profile_title">Learner Profile</span></div>
           <div class="settings-section-desc" data-i18n="set_profile_desc">Your profile helps agents personalise their support.</div>
 
           <div class="settings-row">
@@ -598,11 +601,11 @@
 
       </div><!-- /panel-profile -->
 
-      <!-- ── Language ── -->
+      <!--  Language  -->
       <div class="settings-panel" id="panel-language">
 
         <div class="settings-section">
-          <div class="settings-section-title">🌐 <span data-i18n="set_lang_title">Display Language</span></div>
+          <div class="settings-section-title"> <span data-i18n="set_lang_title">Display Language</span></div>
           <div class="settings-section-desc" data-i18n="set_lang_desc">Choose the language for all text in the app.</div>
 
           <div class="settings-row">
@@ -628,18 +631,18 @@
           </div>
 
           <div style="margin-top:16px;">
-            <button class="btn btn-primary" onclick="setLanguage('en')" id="btnLangEn" style="margin-right:8px;">🇬🇧 English</button>
-            <button class="btn btn-ghost"   onclick="setLanguage('ms')" id="btnLangMs">🇲🇾 Bahasa Melayu</button>
+            <button class="btn btn-primary" onclick="setLanguage('en')" id="btnLangEn" style="margin-right:8px;"> English</button>
+            <button class="btn btn-ghost"   onclick="setLanguage('ms')" id="btnLangMs"> Bahasa Melayu</button>
           </div>
         </div>
 
       </div><!-- /panel-language -->
 
-      <!-- ── Data & Privacy ── -->
+      <!--  Data & Privacy  -->
       <div class="settings-panel" id="panel-data">
 
         <div class="settings-section">
-          <div class="settings-section-title">📊 <span data-i18n="set_analytics_title">Learning Analytics</span></div>
+          <div class="settings-section-title"> <span data-i18n="set_analytics_title">Learning Analytics</span></div>
           <div class="settings-section-desc" data-i18n="set_analytics_desc">Data is stored only in your browser — never uploaded to any server.</div>
 
           <div id="analyticsStats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;">
@@ -676,7 +679,7 @@
 </div>
 
         <div class="settings-section">
-          <div class="settings-section-title">🗑️ <span data-i18n="set_danger_title">Danger Zone</span></div>
+          <div class="settings-section-title"> <span data-i18n="set_danger_title">Danger Zone</span></div>
           <div class="settings-section-desc" data-i18n="set_danger_desc">These actions cannot be undone.</div>
 
           <div class="settings-row">
@@ -698,11 +701,11 @@
 
       </div><!-- /panel-data -->
 
-      <!-- ── Avatar Engine ── -->
+      <!--  Avatar Engine  -->
       <div class="settings-panel" id="panel-avatar">
 
         <div class="settings-section">
-          <div class="settings-section-title">🎬 Avatar Engine</div>
+          <div class="settings-section-title"> Avatar Engine</div>
           <div class="settings-section-desc">
             Configure the professional AI avatar system for BIM Sign Language presentation.
             The engine automatically switches to a backup provider if one fails.
@@ -715,7 +718,7 @@
               <select id="aeProviderSelect" class="api-key-input" style="max-width:260px;padding:10px 14px;cursor:pointer;"
                       onchange="aeSetProvider(this.value)">
                 <option value="placeholder">Canvas Presenter (Offline — always available)</option>
-                <option value="heygen">HeyGen Avatar API ⭐ Highest Quality</option>
+                <option value="heygen">HeyGen Avatar API  Highest Quality</option>
                 <option value="did">D-ID API</option>
                 <option value="nvidia">NVIDIA ACE (Enterprise)</option>
                 <option value="rpm">Ready Player Me (3D)</option>
@@ -759,7 +762,7 @@
             <input type="password" id="heygenKeyInput" class="api-key-input"
               placeholder="Paste HeyGen API key" autocomplete="off" spellcheck="false"
               oninput="aeSaveField('heygenApiKey', this.value)">
-            <button class="api-key-btn" onclick="aeToggleVisibility('heygenKeyInput')">👁</button>
+            <button class="api-key-btn" onclick="aeToggleVisibility('heygenKeyInput')"></button>
             <button class="api-key-btn" onclick="aeTestProvider('heygen')">Test</button>
           </div>
           <div class="settings-row" style="margin-top:10px;flex-wrap:wrap;gap:8px;">
@@ -788,7 +791,7 @@
             <input type="password" id="didKeyInput" class="api-key-input"
               placeholder="Paste D-ID API key" autocomplete="off" spellcheck="false"
               oninput="aeSaveField('didApiKey', this.value)">
-            <button class="api-key-btn" onclick="aeToggleVisibility('didKeyInput')">👁</button>
+            <button class="api-key-btn" onclick="aeToggleVisibility('didKeyInput')"></button>
             <button class="api-key-btn" onclick="aeTestProvider('did')">Test</button>
           </div>
           <div class="settings-row" style="margin-top:10px;flex-wrap:wrap;gap:8px;">
@@ -817,7 +820,7 @@
             <input type="password" id="nvidiaToken" class="api-key-input"
               placeholder="NVIDIA NGC API token" autocomplete="off" spellcheck="false"
               oninput="aeSaveField('nvidiaToken', this.value)">
-            <button class="api-key-btn" onclick="aeToggleVisibility('nvidiaToken')">👁</button>
+            <button class="api-key-btn" onclick="aeToggleVisibility('nvidiaToken')"></button>
             <button class="api-key-btn" onclick="aeTestProvider('nvidia')">Test</button>
           </div>
           <div id="aeTestResult-nvidia" style="margin-top:8px;font-size:12px;display:none;"></div>
@@ -871,16 +874,16 @@
 </div>
 </main>
 
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script src="demo-mode.js"></script>
 <script>
-/* ════════════════════════════════════════════════════
+/* 
    Settings page script
    Reads from and writes to CS.user, CS.a11y, CS.groq,
    CS.analytics, CS.lang — all defined in shared.js.
-════════════════════════════════════════════════════ */
+ */
 
-/* ── Panel navigation ─────────────────────────────── */
+/*  Panel navigation  */
 function showPanel(name) {
   document.querySelectorAll('.settings-panel').forEach(function(p) { p.classList.remove('active'); });
   document.querySelectorAll('.settings-nav-item').forEach(function(b) { b.classList.remove('active'); });
@@ -890,7 +893,7 @@ function showPanel(name) {
   if (tab)   tab.classList.add('active');
 }
 
-/* ── OpenRouter API Key ────────────────────────────────── */
+/*  OpenRouter API Key  */
 function loadApiStatus() {
   var badge = document.getElementById('apiStatusBadge');
   var dot   = document.getElementById('apiStatusDot');
@@ -914,7 +917,7 @@ function loadApiStatus() {
 
   input.value = '••••••••••••' + key.slice(-4);
   badge.className = 'api-status warn';
-  dot.textContent = '🟡';
+  dot.textContent = '';
   text.textContent = CS.lang.t('set_api_saved') || 'Key saved — click Test to verify';
 }
 
@@ -950,7 +953,7 @@ function testConnection() {
   var btn   = document.getElementById('testBtn');
 
   badge.className = 'api-status testing';
-  dot.textContent = '🔵';
+  dot.textContent = '';
   text.textContent = 'Testing connection...';
   btn.disabled = true;
 
@@ -958,27 +961,28 @@ function testConnection() {
     .then(function(result) {
       if (result.ok) {
         badge.className = 'api-status ok';
-        dot.textContent = '🟢';
+        dot.textContent = '';
         text.textContent = CS.lang.t('set_api_ok') || 'Connected — OpenRouter AI is working';
         CS.toast('OpenRouter AI connected!', 'success');
       } else {
         badge.className = 'api-status error';
-        dot.textContent = '🔴';
-        text.textContent = result.message.includes('quota') ? 'Quota exceeded — try tomorrow' : 'Connection failed — check your key';
-        CS.toast('Test failed: ' + result.message, 'error');
+        dot.textContent = '';
+        var errMsg = result.error || result.message || 'Unknown error';
+        text.textContent = 'Failed: ' + errMsg;
+        alert('OpenRouter Error: ' + errMsg);
       }
     })
     .catch(function(err) {
       badge.className = 'api-status error';
-      dot.textContent = '🔴';
+      dot.textContent = '';
       var msg = err && err.message ? err.message : 'Connection failed';
-      text.textContent = 'Connection failed — check your key';
-      CS.toast('Test failed: ' + msg, 'error');
+      text.textContent = 'Error: ' + msg;
+      alert('Connection Error: ' + msg);
     })
     .finally(function() { btn.disabled = false; });
 }
 
-/* ── AI preferences ───────────────────────────────── */
+/*  AI preferences  */
 function savePref(key, value) {
   var prefs = {};
   try { prefs = JSON.parse(localStorage.getItem('cs_prefs') || '{}'); } catch(e) {}
@@ -1000,7 +1004,7 @@ function loadPrefs() {
   def('toggleVoiceCmd', 'voiceCommands', false);
 }
 
-/* ── Accessibility ────────────────────────────────── */
+/*  Accessibility  */
 function applyFontSize(val) {
   document.getElementById('fontSizeLabel').textContent = val + '%';
   document.documentElement.style.fontSize = val + '%';
@@ -1113,7 +1117,7 @@ function loadAccessibilityPanel() {
   if (rw) rw.checked = !!a11y.readingWindow;
 }
 
-/* ── Profile ──────────────────────────────────────── */
+/*  Profile  */
 function saveProfile() {
   var name       = (document.getElementById('profileName')?.value || '').trim();
   var disability = document.getElementById('profileDisability')?.value || 'general';
@@ -1136,7 +1140,7 @@ function loadProfilePanel() {
   if (gradeEl) gradeEl.value = profile.grade || '';
 }
 
-/* ── Language ─────────────────────────────────────── */
+/*  Language  */
 function setLanguage(lang) {
   CS.lang.set(lang);
   var btn = document.getElementById('langBtn');
@@ -1151,7 +1155,7 @@ function setLanguage(lang) {
   CS.toast(lang === 'en' ? 'Language: English' : 'Bahasa: Melayu', 'success');
 }
 
-/* ── Analytics stats ──────────────────────────────── */
+/*  Analytics stats  */
 function loadAnalyticsStats() {
   try {
     var summary = CS.analytics.getSummary(30);
@@ -1168,7 +1172,7 @@ function loadAnalyticsStats() {
   } catch(e) {}
 }
 
-/* ── Clear / reset ────────────────────────────────── */
+/*  Clear / reset  */
 function clearAnalytics() {
   if (!confirm('Clear all learning data? This cannot be undone.')) return;
   try { localStorage.removeItem('cs_analytics'); localStorage.removeItem('cs_analytics_v1'); } catch(e) {}
@@ -1194,14 +1198,14 @@ function clearEverything() {
   setTimeout(function() { location.reload(); }, 1200);
 }
 
-/* ── Competition & Demo ───────────────────────────── */
+/*  Competition & Demo  */
 function enableDemo(){ if(window.CS_DEMO) CS_DEMO.enable(); else { localStorage.setItem('cs_demo_mode','1'); CS.toast('Demo mode enabled','success'); }}
 function disableDemo(){ if(window.CS_DEMO) CS_DEMO.disable(); else { localStorage.removeItem('cs_demo_mode'); CS.toast('Demo mode disabled','info'); }}
 function exportData(){ if(window.CS&&CS.db){ var j=CS.db.exportToJSON(); var b=new Blob([JSON.stringify(j,null,2)],{type:'application/json'}); var u=URL.createObjectURL(b); var a=document.createElement('a'); a.href=u; a.download='celiksense-export.json'; a.click(); URL.revokeObjectURL(u); } else CS.toast('Export ready','info'); }
 
-/* ══════════════════════════════════════════════════
+/* 
    AVATAR ENGINE SETTINGS
-   ══════════════════════════════════════════════════ */
+    */
 function aeLoad() {
   var cfg = {};
   try { cfg = JSON.parse(localStorage.getItem('cs_avatar_engine') || '{}'); } catch(e) {}
@@ -1329,7 +1333,7 @@ async function aeTestProvider(name) {
   aeUpdateBadges();
 }
 
-/* ── Init ─────────────────────────────────────────── */
+/*  Init  */
 document.addEventListener('DOMContentLoaded', function() {
   loadApiStatus();
   loadPrefs();
@@ -1352,3 +1356,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
+

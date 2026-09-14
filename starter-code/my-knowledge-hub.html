@@ -8,10 +8,10 @@
 <meta name="description" content="Hub Ilmu peribadi anda — buku, artikel, PDF dan koleksi IAB dalam satu platform aksesibiliti.">
 
 <style>
-/* ── HIDE SHARED.JS INJECTED NAVBAR ─── */
+/*  HIDE SHARED.JS INJECTED NAVBAR  */
 nav.navbar { display:none!important; }
 
-/* ── CSS CUSTOM PROPERTIES ─────────── */
+/*  CSS CUSTOM PROPERTIES  */
 :root {
   --bg:      #f4f3ff;
   --bg2:     #eef2ff;
@@ -46,7 +46,7 @@ body.dark {
   --shadow-lg: 0 8px 40px rgba(0,0,0,.5);
 }
 
-/* ── RESET ──────────────────────────── */
+/*  RESET  */
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior: smooth; }
 body {
@@ -62,7 +62,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 2.5px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
-/* ── CUSTOM NAVBAR ──────────────────── */
+/*  CUSTOM NAVBAR  */
 .hub-nav {
   position: fixed; top: 0; left: 0; right: 0;
   height: var(--nav-h); z-index: 300;
@@ -107,7 +107,7 @@ a { color: inherit; text-decoration: none; }
 .hub-nav-btn.accent-btn:hover { background: rgba(99,102,241,.55); color: #fff; }
 #darkToggleBtn { font-size: 16px; width: 36px; padding: 0; justify-content: center; }
 
-/* ── STATS BAR ──────────────────────── */
+/*  STATS BAR  */
 .stats-bar {
   position: fixed; top: var(--nav-h); left: 0; right: 0;
   height: var(--stats-h); z-index: 200;
@@ -163,7 +163,7 @@ a { color: inherit; text-decoration: none; }
   50% { box-shadow: 0 0 0 8px rgba(239,68,68,0); }
 }
 
-/* ── MAIN LAYOUT ────────────────────── */
+/*  MAIN LAYOUT  */
 .hub-layout {
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
@@ -172,7 +172,7 @@ a { color: inherit; text-decoration: none; }
   min-height: calc(100vh - var(--nav-h) - var(--stats-h));
 }
 
-/* ── SIDEBAR ────────────────────────── */
+/*  SIDEBAR  */
 .hub-sidebar {
   padding: 24px 0 40px;
   border-right: 1px solid var(--border);
@@ -230,7 +230,7 @@ a { color: inherit; text-decoration: none; }
   border-color: var(--accent2); transform: translateY(-1px);
 }
 
-/* ── MAIN CONTENT ───────────────────── */
+/*  MAIN CONTENT  */
 .hub-main {
   padding: 24px 28px 60px;
   min-width: 0;
@@ -258,14 +258,14 @@ a { color: inherit; text-decoration: none; }
 }
 .sort-select:focus { border-color: var(--accent); outline: none; }
 
-/* ── RESOURCE GRID ──────────────────── */
+/*  RESOURCE GRID  */
 .hub-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(198px, 1fr));
   gap: 18px;
 }
 
-/* ── RESOURCE CARD ──────────────────── */
+/*  RESOURCE CARD  */
 .hub-card {
   background: var(--card); border-radius: var(--radius);
   border: 1.5px solid var(--border);
@@ -380,7 +380,7 @@ a { color: inherit; text-decoration: none; }
 }
 .hc-btn-icon:hover { background: var(--bg3); color: var(--text); border-color: var(--dim); }
 
-/* ── MORE DROPDOWN ──────────────────── */
+/*  MORE DROPDOWN  */
 .hc-more-dd {
   display: none; position: absolute; right: 10px;
   bottom: calc(100% - 130px); z-index: 50;
@@ -400,7 +400,7 @@ a { color: inherit; text-decoration: none; }
 .hc-more-dd button.danger { color: #ef4444; }
 .hc-more-dd button.danger:hover { background: rgba(239,68,68,.08); }
 
-/* ── EMPTY STATE ────────────────────── */
+/*  EMPTY STATE  */
 .hub-empty {
   grid-column: 1 / -1;
   text-align: center; padding: 80px 20px;
@@ -426,7 +426,7 @@ a { color: inherit; text-decoration: none; }
 }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-/* ── IAB SECTION ────────────────────── */
+/*  IAB SECTION  */
 .iab-section {
   margin-top: 48px;
   border-radius: 20px; overflow: hidden;
@@ -519,7 +519,7 @@ a { color: inherit; text-decoration: none; }
 }
 .iab-btn-add:hover { background: var(--accent); color: #fff; }
 
-/* ── EXPERIENCE MODAL ───────────────── */
+/*  EXPERIENCE MODAL  */
 .exp-overlay {
   position: fixed; inset: 0; z-index: 600;
   background: rgba(0,0,0,.78); backdrop-filter: blur(6px);
@@ -595,7 +595,7 @@ a { color: inherit; text-decoration: none; }
   height: 1px; background: var(--border); margin: 16px 0;
 }
 
-/* ── AI PANEL ───────────────────────── */
+/*  AI PANEL  */
 .ai-panel {
   position: fixed; right: 0; top: var(--nav-h); bottom: 0;
   width: 340px; z-index: 400;
@@ -641,7 +641,7 @@ a { color: inherit; text-decoration: none; }
 }
 .ai-no-key .key-icon { font-size: 32px; margin-bottom: 10px; }
 
-/* ── ADD MANUAL MODAL ───────────────── */
+/*  ADD MANUAL MODAL  */
 .add-manual-overlay {
   position: fixed; inset: 0; z-index: 650;
   background: rgba(0,0,0,.7);
@@ -680,7 +680,7 @@ a { color: inherit; text-decoration: none; }
 }
 .form-btn-save:hover { background: #4f46e5; }
 
-/* ── TOAST ──────────────────────────── */
+/*  TOAST  */
 .hub-toast {
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
   background: #1e293b; color: #f0f6ff;
@@ -693,7 +693,7 @@ a { color: inherit; text-decoration: none; }
 }
 .hub-toast.show { transform: translateX(-50%) translateY(0); }
 
-/* ── RESPONSIVE ─────────────────────── */
+/*  RESPONSIVE  */
 @media (max-width: 820px) {
   .hub-layout { grid-template-columns: 1fr; }
   .hub-sidebar {
@@ -725,10 +725,10 @@ a { color: inherit; text-decoration: none; }
 </head>
 <body>
 
-<!-- ── CUSTOM NAVBAR ──────────────────────────────────────── -->
+<!--  CUSTOM NAVBAR  -->
 <nav class="hub-nav" role="navigation" aria-label="Hub Ilmu navigasi utama">
   <a href="dashboard.html" class="hub-nav-logo" aria-label="CelikSense AI - ke Dashboard">
-    <div class="logo-badge" aria-hidden="true">🧠</div>
+    <div class="logo-badge" aria-hidden="true"></div>
     <span>CelikSense AI</span>
   </a>
   <span class="hub-nav-title">
@@ -738,15 +738,15 @@ a { color: inherit; text-decoration: none; }
   <div class="hub-nav-spacer"></div>
   <div class="hub-nav-actions">
     <a href="dashboard.html" class="hub-nav-btn" aria-label="Kembali ke Dashboard">← Dashboard</a>
-    <a href="settings.html" class="hub-nav-btn" aria-label="Buka Tetapan">⚙️ Tetapan</a>
-    <button id="darkToggleBtn" class="hub-nav-btn" onclick="toggleDark()" aria-label="Toggle mod gelap/cerah">🌙</button>
+    <a href="settings.html" class="hub-nav-btn" aria-label="Buka Tetapan">⚙ Tetapan</a>
+    <button id="darkToggleBtn" class="hub-nav-btn" onclick="toggleDark()" aria-label="Toggle mod gelap/cerah"></button>
   </div>
 </nav>
 
-<!-- ── STATS BAR ──────────────────────────────────────────── -->
+<!--  STATS BAR  -->
 <div class="stats-bar" role="status" aria-label="Statistik pembelajaran anda">
   <div class="stat-pill">
-    <span class="si" aria-hidden="true">📚</span>
+    <span class="si" aria-hidden="true"></span>
     <span class="sv" id="stat-books">0</span>
     <span>Sumber</span>
   </div>
@@ -756,78 +756,78 @@ a { color: inherit; text-decoration: none; }
     <span>Dibaca</span>
   </div>
   <div class="stat-pill streak">
-    <span class="si" aria-hidden="true">🔥</span>
+    <span class="si" aria-hidden="true"></span>
     <span class="sv" id="stat-streak">0</span>
     <span>Hari berturut</span>
   </div>
   <div class="stat-pill finished">
-    <span class="si" aria-hidden="true">✅</span>
+    <span class="si" aria-hidden="true"></span>
     <span class="sv" id="stat-finished">0</span>
     <span>Selesai</span>
   </div>
   <div class="stats-spacer"></div>
   <div class="stats-search">
-    <span class="s-icon" aria-hidden="true">🔍</span>
+    <span class="s-icon" aria-hidden="true"></span>
     <input type="search" id="searchInput" placeholder="Cari sumber..." aria-label="Cari sumber pembelajaran" oninput="searchHub(this.value)">
   </div>
-  <button class="mic-btn" id="micBtn" onclick="startVoice()" aria-label="Aktifkan arahan suara" title="Arahan Suara">🎤</button>
+  <button class="mic-btn" id="micBtn" onclick="startVoice()" aria-label="Aktifkan arahan suara" title="Arahan Suara"></button>
 </div>
 
-<!-- ── MAIN LAYOUT ────────────────────────────────────────── -->
+<!--  MAIN LAYOUT  -->
 <div class="hub-layout">
 
   <!-- SIDEBAR -->
   <aside class="hub-sidebar" role="complementary" aria-label="Penapisan koleksi">
-    <div class="sidebar-section-title">📂 Koleksi Saya</div>
+    <div class="sidebar-section-title"> Koleksi Saya</div>
 
     <button class="filter-btn active" onclick="filterBy('all')" id="fb-all" aria-pressed="true" aria-label="Tunjuk semua sumber">
-      <span class="fb-icon" aria-hidden="true">📚</span>
+      <span class="fb-icon" aria-hidden="true"></span>
       <span class="fb-label">Semua Sumber</span>
       <span class="fb-count" id="fc-all">0</span>
     </button>
     <button class="filter-btn" onclick="filterBy('book')" id="fb-book" aria-pressed="false" aria-label="Tapis: Buku">
-      <span class="fb-icon" aria-hidden="true">📖</span>
+      <span class="fb-icon" aria-hidden="true"></span>
       <span class="fb-label">Buku</span>
       <span class="fb-count" id="fc-book">0</span>
     </button>
     <button class="filter-btn" onclick="filterBy('pdf')" id="fb-pdf" aria-pressed="false" aria-label="Tapis: PDF dan Artikel">
-      <span class="fb-icon" aria-hidden="true">📄</span>
+      <span class="fb-icon" aria-hidden="true"></span>
       <span class="fb-label">PDF / Artikel</span>
       <span class="fb-count" id="fc-pdf">0</span>
     </button>
     <button class="filter-btn" onclick="filterBy('thesis')" id="fb-thesis" aria-pressed="false" aria-label="Tapis: Tesis dan Jurnal">
-      <span class="fb-icon" aria-hidden="true">🎓</span>
+      <span class="fb-icon" aria-hidden="true"></span>
       <span class="fb-label">Tesis / Jurnal</span>
       <span class="fb-count" id="fc-thesis">0</span>
     </button>
     <button class="filter-btn" onclick="filterBy('iab')" id="fb-iab" aria-pressed="false" aria-label="Tapis: Penerbitan IAB">
-      <span class="fb-icon" aria-hidden="true">📰</span>
+      <span class="fb-icon" aria-hidden="true"></span>
       <span class="fb-label">Penerbitan IAB</span>
       <span class="fb-count" id="fc-iab">0</span>
     </button>
     <button class="filter-btn" onclick="filterBy('audio')" id="fb-audio" aria-pressed="false" aria-label="Tapis: Buku audio">
-      <span class="fb-icon" aria-hidden="true">🎧</span>
+      <span class="fb-icon" aria-hidden="true"></span>
       <span class="fb-label">Buku Audio</span>
       <span class="fb-count" id="fc-audio">0</span>
     </button>
     <button class="filter-btn" onclick="filterBy('notes')" id="fb-notes" aria-pressed="false" aria-label="Tapis: Nota peribadi">
-      <span class="fb-icon" aria-hidden="true">📝</span>
+      <span class="fb-icon" aria-hidden="true"></span>
       <span class="fb-label">Nota Peribadi</span>
       <span class="fb-count" id="fc-notes">0</span>
     </button>
     <button class="filter-btn" onclick="filterBy('ocr')" id="fb-ocr" aria-pressed="false" aria-label="Tapis: Dokumen OCR">
-      <span class="fb-icon" aria-hidden="true">📷</span>
+      <span class="fb-icon" aria-hidden="true"></span>
       <span class="fb-label">Dokumen OCR</span>
       <span class="fb-count" id="fc-ocr">0</span>
     </button>
     <button class="filter-btn" onclick="filterBy('favourite')" id="fb-favourite" aria-pressed="false" aria-label="Tapis: Kegemaran">
-      <span class="fb-icon" aria-hidden="true">⭐</span>
+      <span class="fb-icon" aria-hidden="true"></span>
       <span class="fb-label">Kegemaran</span>
       <span class="fb-count" id="fc-favourite">0</span>
     </button>
 
     <a href="#iab-collection" class="iab-link-btn" aria-label="Pergi ke Koleksi IAB">
-      <span aria-hidden="true">🏛</span>
+      <span aria-hidden="true"></span>
       <span>Koleksi IAB</span>
     </a>
   </aside>
@@ -855,7 +855,7 @@ a { color: inherit; text-decoration: none; }
     <section class="iab-section" id="iab-collection" aria-labelledby="iab-heading">
       <div class="iab-header">
         <div class="iab-header-top">
-          <div class="iab-badge" aria-hidden="true">🏛</div>
+          <div class="iab-badge" aria-hidden="true"></div>
           <div>
             <h2 id="iab-heading">Koleksi Digital Ilmu IAB</h2>
             <p>IAB Digital Knowledge Collection — Institut Aminuddin Baki, Kementerian Pendidikan Malaysia. Sumber kepimpinan, pengurusan dan pedagogi untuk pendidik profesional.</p>
@@ -875,42 +875,42 @@ a { color: inherit; text-decoration: none; }
   </main>
 </div>
 
-<!-- ── EXPERIENCE MODAL ───────────────────────────────────── -->
+<!--  EXPERIENCE MODAL  -->
 <div class="exp-overlay" id="expOverlay" role="dialog" aria-modal="true" aria-labelledby="expTitle" onclick="closeExpOnBackdrop(event)">
   <div class="exp-card">
     <div class="exp-header">
-      <div class="exp-book-cover" id="expCover" aria-hidden="true">📚</div>
+      <div class="exp-book-cover" id="expCover" aria-hidden="true"></div>
       <div class="exp-book-info">
         <h3 id="expTitle">Pilih Pengalaman Pembelajaran</h3>
         <p id="expAuthor"></p>
       </div>
-      <button class="exp-close" onclick="closeExp()" aria-label="Tutup modal">✕</button>
+      <button class="exp-close" onclick="closeExp()" aria-label="Tutup modal"></button>
     </div>
     <div class="exp-body">
-      <div class="exp-section-label"><span>🎯</span>Mod Aksesibiliti (Accessibility Modes)</div>
+      <div class="exp-section-label"><span></span>Mod Aksesibiliti (Accessibility Modes)</div>
       <div class="exp-grid" id="expModeGrid"></div>
       <div class="exp-divider"></div>
-      <div class="exp-section-label"><span>🤖</span>Pengalaman AI (AI Experiences)</div>
+      <div class="exp-section-label"><span></span>Pengalaman AI (AI Experiences)</div>
       <div class="exp-grid" id="expAiGrid"></div>
     </div>
   </div>
 </div>
 
-<!-- ── AI PANEL ───────────────────────────────────────────── -->
+<!--  AI PANEL  -->
 <aside class="ai-panel" id="aiPanel" role="complementary" aria-label="Panel AI" aria-hidden="true">
   <div class="ai-panel-head">
-    <h3 id="aiPanelTitle">🤖 AI Panel</h3>
-    <button class="ai-panel-close" onclick="togglePanel()" aria-label="Tutup panel AI">✕</button>
+    <h3 id="aiPanelTitle"> AI Panel</h3>
+    <button class="ai-panel-close" onclick="togglePanel()" aria-label="Tutup panel AI"></button>
   </div>
   <div class="ai-panel-content" id="aiPanelContent" aria-live="polite">
     <div class="ai-no-key">
-      <div class="key-icon">🔑</div>
-      <p>Tambah kunci API Gemini di <strong>⚙️ Tetapan</strong> untuk guna ciri AI.</p>
+      <div class="key-icon"></div>
+      <p>Tambah kunci API Gemini di <strong>⚙ Tetapan</strong> untuk guna ciri AI.</p>
     </div>
   </div>
 </aside>
 
-<!-- ── ADD MANUAL MODAL ───────────────────────────────────── -->
+<!--  ADD MANUAL MODAL  -->
 <div class="add-manual-overlay" id="addManualOverlay" role="dialog" aria-modal="true" aria-labelledby="addManualTitle">
   <div class="add-manual-card">
     <h3 id="addManualTitle">+ Tambah Sumber Manual</h3>
@@ -929,26 +929,26 @@ a { color: inherit; text-decoration: none; }
     <div class="form-row">
       <label class="form-label" for="amType">Jenis</label>
       <select class="form-input form-select" id="amType" aria-label="Pilih jenis sumber">
-        <option value="book">📖 Buku</option>
-        <option value="pdf">📄 PDF / Artikel</option>
-        <option value="thesis">🎓 Tesis / Jurnal</option>
-        <option value="audio">🎧 Buku Audio</option>
-        <option value="notes">📝 Nota Peribadi</option>
-        <option value="ocr">📷 Dokumen OCR</option>
+        <option value="book"> Buku</option>
+        <option value="pdf"> PDF / Artikel</option>
+        <option value="thesis"> Tesis / Jurnal</option>
+        <option value="audio"> Buku Audio</option>
+        <option value="notes"> Nota Peribadi</option>
+        <option value="ocr"> Dokumen OCR</option>
       </select>
     </div>
     <div class="form-btns">
       <button class="form-btn-cancel" onclick="closeAddManual()" aria-label="Batal">Batal</button>
-      <button class="form-btn-save" onclick="saveManual()" aria-label="Simpan sumber">💾 Simpan</button>
+      <button class="form-btn-save" onclick="saveManual()" aria-label="Simpan sumber"> Simpan</button>
     </div>
   </div>
 </div>
 
-<!-- ── TOAST ──────────────────────────────────────────────── -->
+<!--  TOAST  -->
 <div class="hub-toast" id="hubToast" role="alert" aria-live="assertive"></div>
 
-<!-- ── SHARED.JS ──────────────────────────────────────────── -->
-<script src="shared.js"></script>
+<!--  SHARED.JS  -->
+<script src="shared.js?v=2"></script>
 
 <script>
 /* ============================================================
@@ -956,14 +956,14 @@ a { color: inherit; text-decoration: none; }
    CelikSense AI — Malaysian Special Needs Education Platform
 ============================================================ */
 
-/* ── STATE ──────────────────────────────────────────────── */
+/*  STATE  */
 var _currentFilter = 'all';
 var _currentSort   = 'recent';
 var _searchQuery   = '';
 var _currentBookId = null;   // for experience modal
 var _voiceActive   = false;
 
-/* ── COVER GRADIENTS (deterministic from id hash) ─────── */
+/*  COVER GRADIENTS (deterministic from id hash)  */
 var COVER_GRADIENTS = [
   'linear-gradient(135deg,#6366f1,#818cf8)',
   'linear-gradient(135deg,#0891b2,#22d3ee)',
@@ -982,33 +982,33 @@ function coverGrad(id) {
   return COVER_GRADIENTS[hash % COVER_GRADIENTS.length];
 }
 
-/* ── TYPE CONFIG ────────────────────────────────────────── */
+/*  TYPE CONFIG  */
 var TYPE_CFG = {
-  book:    { icon:'📖', label:'Buku' },
-  pdf:     { icon:'📄', label:'PDF' },
-  thesis:  { icon:'🎓', label:'Tesis' },
-  iab:     { icon:'📰', label:'IAB' },
-  audio:   { icon:'🎧', label:'Audio' },
-  notes:   { icon:'📝', label:'Nota' },
-  ocr:     { icon:'📷', label:'OCR' },
+  book:    { icon:'', label:'Buku' },
+  pdf:     { icon:'', label:'PDF' },
+  thesis:  { icon:'', label:'Tesis' },
+  iab:     { icon:'', label:'IAB' },
+  audio:   { icon:'', label:'Audio' },
+  notes:   { icon:'', label:'Nota' },
+  ocr:     { icon:'', label:'OCR' },
 };
 function typeIcon(t) { return (TYPE_CFG[t]||TYPE_CFG.book).icon; }
 function typeLabel(t){ return (TYPE_CFG[t]||TYPE_CFG.book).label; }
 
-/* ── MODE CONFIG ────────────────────────────────────────── */
+/*  MODE CONFIG  */
 var MODE_CFG = {
-  blind:     { icon:'🔊', label:'Blind' },
-  lowvision: { icon:'🔍', label:'Low Vision' },
-  dyslexia:  { icon:'📖', label:'Dyslexia' },
-  adhd:      { icon:'🧠', label:'ADHD' },
-  deaf:      { icon:'🤟', label:'Deaf' },
-  standard:  { icon:'📱', label:'Standard' },
-  audio:     { icon:'🎧', label:'Audio' },
+  blind:     { icon:'', label:'Blind' },
+  lowvision: { icon:'', label:'Low Vision' },
+  dyslexia:  { icon:'', label:'Dyslexia' },
+  adhd:      { icon:'', label:'ADHD' },
+  deaf:      { icon:'<svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg>', label:'Deaf' },
+  standard:  { icon:'', label:'Standard' },
+  audio:     { icon:'', label:'Audio' },
 };
 function modeIcon(m) { return (MODE_CFG[m]||MODE_CFG.adhd).icon; }
 function modeName(m) { return (MODE_CFG[m]||MODE_CFG.adhd).label; }
 
-/* ── RELATIVE TIME ──────────────────────────────────────── */
+/*  RELATIVE TIME  */
 function relTime(ts) {
   if (!ts) return 'Belum dibaca';
   var diff = Date.now() - ts;
@@ -1023,7 +1023,7 @@ function relTime(ts) {
   return Math.floor(days/30) + ' bulan lalu';
 }
 
-/* ── UPDATE STATS BAR ───────────────────────────────────── */
+/*  UPDATE STATS BAR  */
 function updateStats() {
   try {
     var all = window.CS_SHELF ? CS_SHELF.getAll() : [];
@@ -1037,7 +1037,7 @@ function updateStats() {
   } catch(e) {}
 }
 
-/* ── COUNT BADGES ───────────────────────────────────────── */
+/*  COUNT BADGES  */
 function updateCounts() {
   try {
     var all = window.CS_SHELF ? CS_SHELF.getAll() : [];
@@ -1052,7 +1052,7 @@ function updateCounts() {
   } catch(e) {}
 }
 
-/* ── GET FILTERED & SORTED RESOURCES ───────────────────── */
+/*  GET FILTERED & SORTED RESOURCES  */
 function getResources() {
   if (!window.CS_SHELF) return [];
   var all = CS_SHELF.getAll();
@@ -1080,7 +1080,7 @@ function getResources() {
   return all;
 }
 
-/* ── RENDER HUB GRID ────────────────────────────────────── */
+/*  RENDER HUB GRID  */
 function renderHub() {
   var grid = document.getElementById('hubGrid');
   if (!grid) return;
@@ -1091,10 +1091,10 @@ function renderHub() {
   if (!resources.length) {
     grid.innerHTML =
       '<div class="hub-empty" role="listitem">' +
-      '<div style="font-size:72px" aria-hidden="true">📚</div>' +
+      '<div style="font-size:72px" aria-hidden="true"></div>' +
       '<h2>Hub Ilmu Anda Kosong</h2>' +
       '<p>Tambah buku, artikel, atau PDF untuk memulakan perjalanan pembelajaran anda.</p>' +
-      '<a href="celikverse-library.html" class="btn-hero" aria-label="Layari CelikVerse Library">🌍 Layari CelikVerse Library →</a>' +
+      '<a href="celikverse-library.html" class="btn-hero" aria-label="Layari CelikVerse Library"> Layari CelikVerse Library →</a>' +
       '<button onclick="showAddManual()" class="btn-outline" aria-label="Tambah sumber manual">+ Tambah Manual</button>' +
       '</div>';
     return;
@@ -1104,7 +1104,7 @@ function renderHub() {
   updateCounts();
 }
 
-/* ── BUILD CARD HTML ────────────────────────────────────── */
+/*  BUILD CARD HTML  */
 function buildCard(b) {
   var grad = b.cover ? '' : coverGrad(b.id);
   var coverStyle = grad ? 'background:' + grad : '';
@@ -1139,21 +1139,21 @@ function buildCard(b) {
       '</div>' +
       '<div class="hc-more-dd" id="more_' + esc(b.id) + '" role="menu">' +
         '<button role="menuitem" onclick="openExperience(\'' + esc(b.id) + '\')">▶ Pilih Pengalaman</button>' +
-        '<button role="menuitem" onclick="doAI(\'' + esc(b.id) + '\',\'summary\')">📝 AI Ringkasan</button>' +
-        '<button role="menuitem" onclick="doAI(\'' + esc(b.id) + '\',\'quiz\')">❓ Kuiz AI</button>' +
-        '<button role="menuitem" onclick="doAI(\'' + esc(b.id) + '\',\'mindmap\')">🧠 Peta Minda</button>' +
-        '<button role="menuitem" class="danger" onclick="removeResource(\'' + esc(b.id) + '\')">🗑 Buang</button>' +
+        '<button role="menuitem" onclick="doAI(\'' + esc(b.id) + '\',\'summary\')"> AI Ringkasan</button>' +
+        '<button role="menuitem" onclick="doAI(\'' + esc(b.id) + '\',\'quiz\')"> Kuiz AI</button>' +
+        '<button role="menuitem" onclick="doAI(\'' + esc(b.id) + '\',\'mindmap\')"> Peta Minda</button>' +
+        '<button role="menuitem" class="danger" onclick="removeResource(\'' + esc(b.id) + '\')"> Buang</button>' +
       '</div>' +
     '</div>' +
   '</div>';
 }
 
-/* ── ESCAPE HTML ────────────────────────────────────────── */
+/*  ESCAPE HTML  */
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-/* ── FILTER ─────────────────────────────────────────────── */
+/*  FILTER  */
 function filterBy(type) {
   _currentFilter = type;
   document.querySelectorAll('.filter-btn').forEach(function(btn){
@@ -1164,19 +1164,19 @@ function filterBy(type) {
   renderHub();
 }
 
-/* ── SORT ───────────────────────────────────────────────── */
+/*  SORT  */
 function sortBy(key) {
   _currentSort = key;
   renderHub();
 }
 
-/* ── SEARCH ─────────────────────────────────────────────── */
+/*  SEARCH  */
 function searchHub(q) {
   _searchQuery = q.trim();
   renderHub();
 }
 
-/* ── TOGGLE FAVOURITE ───────────────────────────────────── */
+/*  TOGGLE FAVOURITE  */
 function toggleFav(id) {
   if (!window.CS_SHELF) return;
   var b = CS_SHELF.getById(id);
@@ -1184,10 +1184,10 @@ function toggleFav(id) {
   CS_SHELF.setFavourite(id, !b.isFavourite);
   renderHub();
   updateStats();
-  showToast(b.isFavourite ? '⭐ Dibuang dari kegemaran' : '⭐ Ditambah ke kegemaran');
+  showToast(b.isFavourite ? ' Dibuang dari kegemaran' : ' Ditambah ke kegemaran');
 }
 
-/* ── SHOW MORE DROPDOWN ─────────────────────────────────── */
+/*  SHOW MORE DROPDOWN  */
 function showMore(id) {
   var dd = document.getElementById('more_' + id);
   if (!dd) return;
@@ -1197,7 +1197,7 @@ function showMore(id) {
   if (!wasOpen) dd.classList.add('open');
 }
 
-/* ── REMOVE RESOURCE ────────────────────────────────────── */
+/*  REMOVE RESOURCE  */
 function removeResource(id) {
   if (!window.CS_SHELF) return;
   var b = CS_SHELF.getById(id);
@@ -1207,11 +1207,11 @@ function removeResource(id) {
     renderHub();
     updateStats();
     updateCounts();
-    showToast('🗑 Sumber dibuang');
+    showToast(' Sumber dibuang');
   }
 }
 
-/* ── OPEN EXPERIENCE MODAL ──────────────────────────────── */
+/*  OPEN EXPERIENCE MODAL  */
 var _expBook = null;
 function openExperience(id) {
   if (!window.CS_SHELF) return;
@@ -1235,14 +1235,14 @@ function openExperience(id) {
 
   // Mode grid
   var modes = [
-    { icon:'🔊', label:'Blind Reader',    sub:'Pembaca suara penuh',   url:'celiksense-reader.html', mode:'blind'     },
-    { icon:'🔍', label:'Low Vision',      sub:'Besarkan & warna teks', url:'celiksense-reader.html', mode:'lowvision' },
-    { icon:'📖', label:'Dyslexia Reader', sub:'Fon & jarak khas',      url:'celiksense-reader.html', mode:'dyslexia'  },
-    { icon:'🧠', label:'ADHD Reader',     sub:'Fokus satu ayat',       url:'celiksense-reader.html', mode:'adhd'      },
-    { icon:'🤟', label:'Deaf Reader',     sub:'Visual & isyarat',      url:'celiksense-reader.html', mode:'deaf'      },
-    { icon:'🎧', label:'Audio Reader',    sub:'Dengar buku',           url:'celiksense-reader.html', mode:'blind'     },
-    { icon:'⠿',  label:'Braille Reader', sub:'Output braille',        url:'celiksense-reader.html', mode:'blind'     },
-    { icon:'📱', label:'Standard Reader', sub:'Mod biasa',             url:'celiksense-reader.html', mode:'adhd'      },
+    { icon:'', label:'Blind Reader',    sub:'Pembaca suara penuh',   url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'', label:'Low Vision',      sub:'Besarkan & warna teks', url:'celiksense-reader.html', mode:'lowvision' },
+    { icon:'', label:'Dyslexia Reader', sub:'Fon & jarak khas',      url:'celiksense-reader.html', mode:'dyslexia'  },
+    { icon:'', label:'ADHD Reader',     sub:'Fokus satu ayat',       url:'celiksense-reader.html', mode:'adhd'      },
+    { icon:'<svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg>', label:'Deaf Reader',     sub:'Visual & isyarat',      url:'celiksense-reader.html', mode:'deaf'      },
+    { icon:'', label:'Audio Reader',    sub:'Dengar buku',           url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'',  label:'Braille Reader', sub:'Output braille',        url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'', label:'Standard Reader', sub:'Mod biasa',             url:'celiksense-reader.html', mode:'adhd'      },
   ];
   var modeHtml = modes.map(function(m){
     return '<button class="exp-btn" onclick="selectExperience(\'' + m.url + '\',\'' + m.mode + '\')" aria-label="' + m.label + '">' +
@@ -1254,12 +1254,12 @@ function openExperience(id) {
 
   // AI grid
   var ais = [
-    { icon:'🤖', label:'AI Teacher',       sub:'Ajar interaktif',     action:'page', url:'ai-teacher-agent.html' },
-    { icon:'📚', label:'Reading Companion', sub:'Baca bersama AI',     action:'page', url:'reading-companion.html' },
-    { icon:'📝', label:'AI Ringkasan',      sub:'Ringkaskan kandungan', action:'ai',   type:'summary' },
-    { icon:'❓', label:'Jana Kuiz',         sub:'Soalan ujian AI',      action:'ai',   type:'quiz' },
-    { icon:'🧠', label:'Peta Minda',        sub:'Peta visual konsep',   action:'ai',   type:'mindmap' },
-    { icon:'💡', label:'AI Terangkan',      sub:'Jelaskan topik',       action:'ai',   type:'explain' },
+    { icon:'', label:'AI Teacher',       sub:'Ajar interaktif',     action:'page', url:'ai-teacher-agent.html' },
+    { icon:'', label:'Reading Companion', sub:'Baca bersama AI',     action:'page', url:'reading-companion.html' },
+    { icon:'', label:'AI Ringkasan',      sub:'Ringkaskan kandungan', action:'ai',   type:'summary' },
+    { icon:'', label:'Jana Kuiz',         sub:'Soalan ujian AI',      action:'ai',   type:'quiz' },
+    { icon:'', label:'Peta Minda',        sub:'Peta visual konsep',   action:'ai',   type:'mindmap' },
+    { icon:'', label:'AI Terangkan',      sub:'Jelaskan topik',       action:'ai',   type:'explain' },
   ];
   var aiHtml = ais.map(function(a){
     var onclick = a.action === 'ai'
@@ -1278,7 +1278,7 @@ function openExperience(id) {
   ov.removeAttribute('aria-hidden');
 }
 
-/* ── SELECT EXPERIENCE ──────────────────────────────────── */
+/*  SELECT EXPERIENCE  */
 function selectExperience(readerUrl, mode) {
   if (!_expBook) return;
   var b = _expBook;
@@ -1299,7 +1299,7 @@ function selectExperience(readerUrl, mode) {
   window.location.href = readerUrl + '?' + params.toString();
 }
 
-/* ── CLOSE EXPERIENCE MODAL ─────────────────────────────── */
+/*  CLOSE EXPERIENCE MODAL  */
 function closeExp() {
   var ov = document.getElementById('expOverlay');
   ov.classList.remove('open');
@@ -1309,28 +1309,27 @@ function closeExpOnBackdrop(e) {
   if (e.target === document.getElementById('expOverlay')) closeExp();
 }
 
-/* ── AI PANEL ───────────────────────────────────────────── */
+/*  AI PANEL  */
 function togglePanel() {
   var panel = document.getElementById('aiPanel');
   var isOpen = panel.classList.toggle('open');
   panel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
 }
 
-function getGeminiKey() {
-  try { return localStorage.getItem('openrouter_api_key') || ''; } catch(e) { return ''; }
+ catch(e) { return ''; }
 }
 
 function doAI(id, type) {
-  var key = getGeminiKey();
+  var key = ''; try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   var panel = document.getElementById('aiPanel');
   var content = document.getElementById('aiPanelContent');
   var titleEl = document.getElementById('aiPanelTitle');
 
-  var labels = { summary:'📝 AI Ringkasan', quiz:'❓ Kuiz AI', mindmap:'🧠 Peta Minda', explain:'💡 AI Terangkan' };
-  titleEl.textContent = labels[type] || '🤖 AI';
+  var labels = { summary:' AI Ringkasan', quiz:' Kuiz AI', mindmap:' Peta Minda', explain:' AI Terangkan' };
+  titleEl.textContent = labels[type] || ' AI';
 
   if (!key) {
-    content.innerHTML = '<div class="ai-no-key"><div class="key-icon">🔑</div><p>Tambah kunci API Gemini di <strong>⚙️ Tetapan</strong> untuk guna ciri AI.</p></div>';
+    content.innerHTML = '<div class="ai-no-key"><div class="key-icon"></div><p>Tambah kunci API Gemini di <strong>⚙ Tetapan</strong> untuk guna ciri AI.</p></div>';
     panel.classList.add('open');
     panel.setAttribute('aria-hidden','false');
     return;
@@ -1358,7 +1357,7 @@ function doAI(id, type) {
   var orModel = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
   fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
     body: JSON.stringify({ model: orModel, messages: [{ role: 'user', content: prompt }] })
   })
   .then(function(r){ return r.json(); })
@@ -1372,10 +1371,10 @@ function doAI(id, type) {
   });
 }
 
-/* ── DARK MODE ──────────────────────────────────────────── */
+/*  DARK MODE  */
 function toggleDark() {
   var isDark = document.body.classList.toggle('dark');
-  document.getElementById('darkToggleBtn').textContent = isDark ? '☀️' : '🌙';
+  document.getElementById('darkToggleBtn').textContent = isDark ? '☀' : '';
   try { localStorage.setItem('cs_dark_mode', isDark ? '1' : '0'); } catch(e) {}
 }
 function initDark() {
@@ -1384,15 +1383,15 @@ function initDark() {
     var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (saved === '1' || (saved === null && prefersDark)) {
       document.body.classList.add('dark');
-      document.getElementById('darkToggleBtn').textContent = '☀️';
+      document.getElementById('darkToggleBtn').textContent = '☀';
     }
   } catch(e) {}
 }
 
-/* ── VOICE COMMANDS ─────────────────────────────────────── */
+/*  VOICE COMMANDS  */
 function startVoice() {
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { showToast('🎤 Pelayar anda tidak menyokong arahan suara.'); return; }
+  if (!SR) { showToast(' Pelayar anda tidak menyokong arahan suara.'); return; }
   var micBtn = document.getElementById('micBtn');
 
   if (_voiceActive) {
@@ -1405,7 +1404,7 @@ function startVoice() {
   _voiceActive = true;
   micBtn.classList.add('listening');
   micBtn.setAttribute('aria-label','Dengar arahan suara...');
-  showToast('🎤 Dengar...');
+  showToast(' Dengar...');
 
   var recog = new SR();
   recog.lang = 'ms-MY';
@@ -1426,7 +1425,7 @@ function startVoice() {
       var q = transcript.replace(/^cari\s+/,'');
       document.getElementById('searchInput').value = q;
       searchHub(q);
-      showToast('🔍 Mencari: ' + q);
+      showToast(' Mencari: ' + q);
     } else {
       showToast('Arahan tidak dikenali: "' + transcript + '"');
     }
@@ -1445,7 +1444,7 @@ function startVoice() {
   recog.start();
 }
 
-/* ── ADD MANUAL ─────────────────────────────────────────── */
+/*  ADD MANUAL  */
 function showAddManual() {
   var ov = document.getElementById('addManualOverlay');
   ov.classList.add('open');
@@ -1459,7 +1458,7 @@ function closeAddManual() {
 }
 function saveManual() {
   var title = document.getElementById('amTitle').value.trim();
-  if (!title) { showToast('⚠️ Sila masukkan tajuk.'); return; }
+  if (!title) { showToast('⚠ Sila masukkan tajuk.'); return; }
   if (!window.CS_SHELF) { showToast('Ralat: CS_SHELF tidak tersedia.'); return; }
   CS_SHELF.add({
     title:  title,
@@ -1473,10 +1472,10 @@ function saveManual() {
   document.getElementById('amAuthor').value = '';
   document.getElementById('amUrl').value = '';
   renderHub(); updateStats(); updateCounts();
-  showToast('✅ Sumber ditambah!');
+  showToast(' Sumber ditambah!');
 }
 
-/* ── TOAST ──────────────────────────────────────────────── */
+/*  TOAST  */
 var _toastTimer = null;
 function showToast(msg) {
   var t = document.getElementById('hubToast');
@@ -1487,14 +1486,14 @@ function showToast(msg) {
   _toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3000);
 }
 
-/* ── IAB BOOKS ──────────────────────────────────────────── */
+/*  IAB BOOKS  */
 var IAB_BOOKS = [
-  { id:'iab1', title:'Kepimpinan Instruksional dalam Pendidikan',    author:'IAB Malaysia', category:'Kepimpinan',         year:2023, emoji:'🎓', cover:'', source:'IAB', type:'iab' },
-  { id:'iab2', title:'Transformasi Sekolah Berprestasi Tinggi',      author:'IAB Malaysia', category:'Pengurusan Sekolah', year:2022, emoji:'🏫', cover:'', source:'IAB', type:'iab' },
-  { id:'iab3', title:'Pembelajaran Abad Ke-21 dalam Bilik Darjah',   author:'IAB Malaysia', category:'Pedagogi',           year:2023, emoji:'📡', cover:'', source:'IAB', type:'iab' },
-  { id:'iab4', title:'Pengurusan Kewangan Sekolah',                  author:'IAB Malaysia', category:'Kewangan',           year:2021, emoji:'💼', cover:'', source:'IAB', type:'iab' },
-  { id:'iab5', title:'Pentaksiran Bilik Darjah dan PBS',             author:'IAB Malaysia', category:'Pentaksiran',        year:2022, emoji:'📊', cover:'', source:'IAB', type:'iab' },
-  { id:'iab6', title:'Pelan Pembangunan Pendidikan Malaysia 2013–2025', author:'KPM / IAB', category:'Dasar Pendidikan',   year:2020, emoji:'🇲🇾', cover:'', source:'IAB', type:'iab' },
+  { id:'iab1', title:'Kepimpinan Instruksional dalam Pendidikan',    author:'IAB Malaysia', category:'Kepimpinan',         year:2023, emoji:'', cover:'', source:'IAB', type:'iab' },
+  { id:'iab2', title:'Transformasi Sekolah Berprestasi Tinggi',      author:'IAB Malaysia', category:'Pengurusan Sekolah', year:2022, emoji:'', cover:'', source:'IAB', type:'iab' },
+  { id:'iab3', title:'Pembelajaran Abad Ke-21 dalam Bilik Darjah',   author:'IAB Malaysia', category:'Pedagogi',           year:2023, emoji:'', cover:'', source:'IAB', type:'iab' },
+  { id:'iab4', title:'Pengurusan Kewangan Sekolah',                  author:'IAB Malaysia', category:'Kewangan',           year:2021, emoji:'', cover:'', source:'IAB', type:'iab' },
+  { id:'iab5', title:'Pentaksiran Bilik Darjah dan PBS',             author:'IAB Malaysia', category:'Pentaksiran',        year:2022, emoji:'', cover:'', source:'IAB', type:'iab' },
+  { id:'iab6', title:'Pelan Pembangunan Pendidikan Malaysia 2013–2025', author:'KPM / IAB', category:'Dasar Pendidikan',   year:2020, emoji:'', cover:'', source:'IAB', type:'iab' },
 ];
 var IAB_GRADS = [
   'linear-gradient(135deg,#0c4a6e,#0891b2)',
@@ -1520,9 +1519,9 @@ function renderIAB() {
         '<div class="iab-title">' + esc(b.title) + '</div>' +
         '<div class="iab-author">' + esc(b.author) + '</div>' +
         '<div class="iab-btns">' +
-          '<button class="iab-btn iab-btn-primary" onclick="openIAB(\'' + b.id + '\')" aria-label="Baca ' + esc(b.title) + '">📖 Baca</button>' +
-          '<button class="iab-btn iab-btn-ghost" onclick="iabAI(\'' + b.id + '\')" aria-label="AI Teacher untuk ' + esc(b.title) + '">🤖 AI</button>' +
-          '<button class="iab-btn iab-btn-add" id="iab-add-' + b.id + '" onclick="addIABToHub(\'' + b.id + '\')" aria-label="' + (isOnShelf ? 'Sudah dalam Hub' : 'Tambah ke Hub') + '">' + (isOnShelf ? '✅ Ada' : '+ Hub') + '</button>' +
+          '<button class="iab-btn iab-btn-primary" onclick="openIAB(\'' + b.id + '\')" aria-label="Baca ' + esc(b.title) + '"> Baca</button>' +
+          '<button class="iab-btn iab-btn-ghost" onclick="iabAI(\'' + b.id + '\')" aria-label="AI Teacher untuk ' + esc(b.title) + '"> AI</button>' +
+          '<button class="iab-btn iab-btn-add" id="iab-add-' + b.id + '" onclick="addIABToHub(\'' + b.id + '\')" aria-label="' + (isOnShelf ? 'Sudah dalam Hub' : 'Tambah ke Hub') + '">' + (isOnShelf ? ' Ada' : '+ Hub') + '</button>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -1538,11 +1537,11 @@ function addIABToHub(id) {
   var b = getIABBook(id);
   if (!b) return;
   if (CS_SHELF.isOnShelf(b.title, '')) {
-    showToast('📚 Sumber ini sudah dalam Hub anda!'); return;
+    showToast(' Sumber ini sudah dalam Hub anda!'); return;
   }
   CS_SHELF.add({ title:b.title, author:b.author, type:'iab', source:'IAB', year:b.year });
   renderHub(); updateStats(); updateCounts(); renderIAB();
-  showToast('✅ Ditambah ke Hub Ilmu!');
+  showToast(' Ditambah ke Hub Ilmu!');
 }
 
 function openIAB(id) {
@@ -1565,7 +1564,7 @@ function iabAI(id) {
   }
 }
 
-/* ── CLOSE DROPDOWNS ON OUTSIDE CLICK ──────────────────── */
+/*  CLOSE DROPDOWNS ON OUTSIDE CLICK  */
 document.addEventListener('click', function(e) {
   if (!e.target.closest('.hc-btn-icon') && !e.target.closest('.hc-more-dd')) {
     document.querySelectorAll('.hc-more-dd.open').forEach(function(d){ d.classList.remove('open'); });
@@ -1575,7 +1574,7 @@ document.addEventListener('click', function(e) {
   }
 });
 
-/* ── KEYBOARD TRAP FOR MODALS ───────────────────────────── */
+/*  KEYBOARD TRAP FOR MODALS  */
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeExp();
@@ -1584,7 +1583,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-/* ── INIT ───────────────────────────────────────────────── */
+/*  INIT  */
 document.addEventListener('DOMContentLoaded', function() {
   initDark();
   // Wait a tick for shared.js to finish initialising CS_SHELF

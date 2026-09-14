@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -46,7 +46,7 @@ body {
 }
 .print-hint button:hover { background:#4338ca; }
 
-/* ── A4 sheet ── */
+/*  A4 sheet  */
 .sheet {
   width:210mm;
   min-height:297mm;
@@ -59,7 +59,7 @@ body {
   gap:0;
 }
 
-/* ── Header strip ── */
+/*  Header strip  */
 .header {
   display:flex;
   align-items:center;
@@ -97,7 +97,7 @@ body {
 }
 .header-meta strong { color:#0f172a; font-size:9px; }
 
-/* ── Hero stats row ── */
+/*  Hero stats row  */
 .stats-row {
   display:grid;
   grid-template-columns:repeat(5,1fr);
@@ -121,7 +121,7 @@ body {
   margin-top:3px; line-height:1.3;
 }
 
-/* ── Section heading ── */
+/*  Section heading  */
 .sec {
   font-size:8px; font-weight:800; text-transform:uppercase;
   letter-spacing:0.1em; color:#6366f1;
@@ -129,7 +129,7 @@ body {
   padding-bottom:3px; margin-bottom:6px; margin-top:8px;
 }
 
-/* ── Participants grid ── */
+/*  Participants grid  */
 .participants {
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -173,7 +173,7 @@ body {
 }
 .p-outcome b { color:#4f46e5; }
 
-/* ── Quote blocks ── */
+/*  Quote blocks  */
 .quotes {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -192,7 +192,7 @@ body {
 }
 .quote-attr { font-size:7.5px; color:#6366f1; font-weight:700; }
 
-/* ── Outcomes table ── */
+/*  Outcomes table  */
 .outcomes-table {
   width:100%; border-collapse:collapse; margin-bottom:4px;
 }
@@ -212,7 +212,7 @@ body {
 .badge-green { background:#d1fae5; color:#065f46; border-radius:4px; padding:1px 6px; font-size:7.5px; font-weight:700; }
 .badge-blue  { background:#dbeafe; color:#1e40af; border-radius:4px; padding:1px 6px; font-size:7.5px; font-weight:700; }
 
-/* ── Agents strip ── */
+/*  Agents strip  */
 .agents-row {
   display:grid;
   grid-template-columns:repeat(8,1fr);
@@ -229,7 +229,7 @@ body {
 .agent-icon { font-size:14px; display:block; margin-bottom:2px; }
 .agent-name { font-size:6.5px; font-weight:700; color:#3730a3; text-transform:uppercase; letter-spacing:0.04em; line-height:1.3; }
 
-/* ── Footer ── */
+/*  Footer  */
 .footer {
   margin-top:auto;
   display:flex;
@@ -246,7 +246,7 @@ body {
   align-items:flex-end;
   gap:4px;
 }
-/* ── QR code area ── */
+/*  QR code area  */
 .qr-area {
   display:flex;
   flex-direction:column;
@@ -264,7 +264,7 @@ body {
   position:relative;
   overflow:hidden;
 }
-/* ── Corner marks ── */
+/*  Corner marks  */
 .qr-frame::before, .qr-frame::after {
   content:'';
   position:absolute;
@@ -285,7 +285,7 @@ body {
 .qr-title { font-size:7.5px; color:#1e1b4b; font-weight:800; text-align:center; text-transform:uppercase; letter-spacing:0.06em; }
 .qr-url { font-size:6px; color:#64748b; text-align:center; max-width:90px; word-break:break-all; }
 
-/* ── Methodology note ── */
+/*  Methodology note  */
 .method-note {
   background:#fffbeb;
   border:1px solid #fde68a;
@@ -297,7 +297,7 @@ body {
 }
 .method-note b { color:#92400e; }
 
-/* ── WCAG badges ── */
+/*  WCAG badges  */
 .compliance-row {
   display:flex; gap:6px; flex-wrap:wrap; margin-bottom:4px;
 }
@@ -310,7 +310,7 @@ body {
 .c-sw     { background:#fef3c7; color:#92400e; }
 .c-pilot  { background:#dbeafe; color:#1e40af; }
 
-/* ─── Print styles ─── */
+/*  Print styles  */
 @media print {
   body { background:#fff; padding:0; }
   .print-hint { display:none; }
@@ -322,7 +322,7 @@ body {
 <body>
 
 <div class="print-hint" role="note">
-  <span>🖨️ <b>Print this page</b> to A4. Set margins to "None" or "Minimum" in print dialog.</span>
+  <span> <b>Print this page</b> to A4. Set margins to "None" or "Minimum" in print dialog.</span>
   <button onclick="window.print()">Print / Save as PDF</button>
   <button onclick="window.history.back()">← Back</button>
 </div>
@@ -499,14 +499,14 @@ body {
   <!-- Agents -->
   <div class="sec">Platform Agents Demonstrated</div>
   <div class="agents-row" aria-label="Eight learning agents">
-    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">📖</span><span class="agent-name">Reading Companion</span></div>
-    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">⏱️</span><span class="agent-name">ADHD Focus Timer</span></div>
-    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">🔊</span><span class="agent-name">Blind Audio Nav</span></div>
-    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">🤟</span><span class="agent-name">BIM Sign Language</span></div>
-    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">⠃⠗⠇</span><span class="agent-name">Braille Output</span></div>
-    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">🤖</span><span class="agent-name">AI Teacher Agent</span></div>
-    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">📊</span><span class="agent-name">Personalisation</span></div>
-    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">🧑‍🏫</span><span class="agent-name">Teacher Dashboard</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true"></span><span class="agent-name">Reading Companion</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">⏱</span><span class="agent-name">ADHD Focus Timer</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true"></span><span class="agent-name">Blind Audio Nav</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg></span><span class="agent-name">BIM Sign Language</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true"></span><span class="agent-name">Braille Output</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true"></span><span class="agent-name">AI Teacher Agent</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true"></span><span class="agent-name">Personalisation</span></div>
+    <div class="agent-pill"><span class="agent-icon" aria-hidden="true">‍</span><span class="agent-name">Teacher Dashboard</span></div>
   </div>
 
   <!-- Compliance + methodology -->

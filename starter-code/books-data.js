@@ -1,123 +1,8 @@
-﻿<!DOCTYPE html>
-<html lang="ms">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rak Buku Maya CelikSense – 566 Buku Digital</title>
-<link rel="stylesheet" href="styles.css">
-<style>
-body{background:linear-gradient(160deg,#fef3c7 0%,#fff7ed 50%,#fde68a 100%);min-height:100vh;}
-.vl-hero{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(251,191,36,.08));border:1.5px solid rgba(245,158,11,.28);border-radius:20px;padding:28px 36px 24px;text-align:center;margin-bottom:22px;}
-.src-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-.src-tab{padding:8px 16px;border-radius:24px;border:2px solid transparent;font-weight:700;font-size:13px;cursor:pointer;background:#fff;color:#92400e;border-color:#fde68a;transition:all .18s;}
-.src-tab.active{background:#f59e0b;color:#fff;border-color:#f59e0b;box-shadow:0 2px 10px rgba(245,158,11,.3);}
-.cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
-.cat-tab{padding:6px 14px;border-radius:20px;border:1.5px solid #e5e7eb;font-size:12px;font-weight:600;cursor:pointer;background:#f9fafb;color:#374151;transition:all .15s;}
-.cat-tab.active{background:#f59e0b;color:#fff;border-color:#f59e0b;}
-.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:28px;}
-.book-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);transition:transform .18s,box-shadow .18s;cursor:pointer;text-decoration:none;display:block;}
-.book-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.14);}
-.book-cover{width:100%;height:190px;object-fit:cover;background:#f3f4f6;display:block;}
-.book-cover-placeholder{width:100%;height:190px;background:linear-gradient(135deg,#fef3c7,#fed7aa);display:flex;align-items:center;justify-content:center;font-size:40px;}
-.book-info{padding:10px 12px;}
-.book-title{font-size:12px;font-weight:700;color:#1f2937;line-height:1.35;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.book-meta{font-size:11px;color:#6b7280;}
-.badge-src{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:4px;letter-spacing:.3px;}
-.badge-src-lukut{background:#fef3c7;color:#92400e;}
-.badge-src-setapak{background:#dbeafe;color:#1e40af;}
-.badge-src-batu-pahat{background:#dcfce7;color:#166534;}
-.badge-src-smktsw{background:#fce7f3;color:#9d174d;}
-.pagination{display:flex;gap:6px;align-items:center;justify-content:center;margin-top:8px;flex-wrap:wrap;}
-.pg-btn{padding:8px 14px;border:1.5px solid #fde68a;border-radius:10px;background:#fff;color:#92400e;font-weight:700;font-size:13px;cursor:pointer;transition:all .15s;}
-.pg-btn:hover,.pg-btn.active{background:#f59e0b;color:#fff;border-color:#f59e0b;}
-.pg-btn:disabled{opacity:.4;cursor:default;}
-.stats-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
-.stat-pill{background:#fff;border:1.5px solid #fde68a;border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:#92400e;}
-.search-wrap{position:relative;margin-bottom:16px;}
-.search-wrap input{width:100%;padding:11px 16px 11px 42px;border:2px solid #fde68a;border-radius:12px;font-size:14px;background:#fff;color:#1f2937;outline:none;box-sizing:border-box;}
-.search-wrap input:focus{border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.15);}
-.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:17px;pointer-events:none;}
-</style>
-</head>
-<body>
-<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#f59e0b;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;">Skip to main content</a>
-<nav class="navbar">
-  <div class="container nav-container">
-    <a href="index.html" class="nav-brand">
-      <div class="brand-icon">CS</div>
-      <div><span class="brand-name">CelikSense AI</span><span class="brand-tagline" data-i18n="tagline">Agentic Multi-Sensory Learning</span></div>
-    </a>
-    <div class="nav-links" id="navLinks">
-      <a href="index.html" data-i18n="nav_home">Home</a>
-      <a href="dashboard.html" data-i18n="nav_dashboard">Dashboard</a>
-      <div class="nav-dropdown">
-        <button data-i18n="nav_agents" aria-haspopup="true" aria-expanded="false">Agents ▾</button>
-        <div class="dropdown-menu">
-          <a href="ai-librarian.html"> AI Librarian</a>
-          <a href="reading-companion.html"> Reading Companion</a>
-          <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
-          <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
-          <a href="blind-audio.html"> Blind Audio Agent</a>
-          <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
-          <a href="early-warning.html">⚠ Early Warning Agent</a>
-          <a href="intervention.html"> Intervention Agent</a>
-        </div>
-      </div>
-    </div>
-    <div class="nav-actions">
-      <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
-      <a href="book-discovery.html" class="btn btn-outline btn-sm">← Book Discovery</a>
-      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
-      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-    </div>
-  </div>
-</nav>
-<main id="main-content">
-<div class="container" style="padding:28px 0 60px;">
-  <div class="vl-hero">
-    <div style="font-size:48px;margin-bottom:10px;"></div>
-    <h1 style="font-size:clamp(20px,4vw,32px);font-weight:900;color:#78350f;margin-bottom:7px;">Rak Buku Maya CelikSense</h1>
-    <p style="font-size:14px;color:#92400e;max-width:560px;margin:0 auto 14px;">Koleksi buku digital daripada sekolah-sekolah Malaysia — baca terus dalam penyemak imbas anda.</p>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-      <a href="book-discovery.html" class="btn btn-outline">← Book Discovery</a>
-      <a href="ai-librarian.html" class="btn btn-ghost"> AI Librarian</a>
-    </div>
-  </div>
-  <div class="control-panel">
-    <div class="stats-bar">
-      <div class="stat-pill"> <span id="statTotal">566</span> jumlah buku</div>
-      <div class="stat-pill"> 4 koleksi sekolah</div>
-      <div class="stat-pill" id="statFiltered"></div>
-    </div>
-    <div class="search-wrap">
-      <span class="search-icon"></span>
-      <input type="text" id="searchInput" placeholder="Cari tajuk buku..." oninput="onSearch()" aria-label="Cari tajuk buku">
-    </div>
-    <div class="src-tabs" role="tablist" aria-label="Pilih koleksi sekolah">
-      <button class="src-tab active" data-src="SEMUA" onclick="setSrc('SEMUA',this)"> Semua</button>
-      <button class="src-tab" data-src="SK Lukut" onclick="setSrc('SK Lukut',this)"> Koleksi 1 (244)</button>
-      <button class="src-tab" data-src="SK Setapak" onclick="setSrc('SK Setapak',this)"> Koleksi 2 (83)</button>
-      <button class="src-tab" data-src="SKPRj Batu Pahat" onclick="setSrc('SKPRj Batu Pahat',this)"> Koleksi 3 (128)</button>
-      <button class="src-tab" data-src="PSS SMKTSW, KL" onclick="setSrc('PSS SMKTSW, KL',this)"> Koleksi 4 (111)</button>
-    </div>
-    <div class="cat-tabs" id="catTabs" role="tablist" aria-label="Tapis mengikut kategori"></div>
-    <div class="book-grid" id="bookGrid" aria-live="polite" aria-label="Senarai buku"></div>
-    <div class="pagination" id="pagination"></div>
-  </div>
-</div>
-</main>
-<footer class="footer">
-  <div class="container">
-    <div class="footer-bottom">
-      <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)">Dashboard</a></span>
-      <span> Rak Buku Maya CelikSense</span>
-    </div>
-  </div>
-</footer>
-<script src="shared.js?v=2"></script>
-<script>
-const BOOKS = [
+﻿/* CelikSense AI – Shared Books Data
+   Virtual Library (SK Lukut) + IAB curated books
+   Auto-generated — edit source in virtual-library.html */
+
+window.VL_BOOKS = [
     {
         "title":  "TAMAN SERIBU BUNGA",
         "url":  "https://online.anyflip.com/erspg/vqae/",
@@ -4920,42 +4805,20 @@ const BOOKS = [
     }
 ];
 
-const PAGE_SIZE = 24;
-let curSrc = 'SEMUA', curCat = 'SEMUA', curPage = 1, curSearch = '';
-
-function filtered() {
-  return BOOKS.filter(b => {
-    if (curSrc !== 'SEMUA' && b.source !== curSrc) return false;
-    if (curCat !== 'SEMUA' && b.categoryname !== curCat) return false;
-    if (curSearch && !b.title.toLowerCase().includes(curSearch.toLowerCase())) return false;
-    return true;
-  });
-}
-
-function getBadgeClass(src) {
-  if (!src) return 'badge-cs';
-  if (src.startsWith('SK') || src.startsWith('SMK') || src.startsWith('PSS')) return 'badge-school';
-  return 'badge-cs';
-}
-
-function getBadgeLabel(src) { return src || 'CelikSense'; }
-
-function buildCatTabs() {
-  const srcBooks = curSrc === 'SEMUA' ? BOOKS : BOOKS.filter(b => b.source === curSrc);
-  const cats = ['SEMUA', ...[...new Set(srcBooks.map(b => b.categoryname).filter(Boolean))].sort()];
-  document.getElementById('catTabs').innerHTML = cats.map(c => '<button class="cat-tab' + (c === curCat ? ' active' : '') + '" onclick="setCat(\'' + c.replace(/'/g, "\\'") + '\',this)">' + (c === 'SEMUA' ? ' Semua Kategori' : c) + '</button>').join('');}
-function setSrc(s,btn){curSrc=s;curCat='SEMUA';curPage=1;document.querySelectorAll('.src-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');buildCatTabs();renderPage();}
-function setCat(c,btn){curCat=c;curPage=1;document.querySelectorAll('.cat-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderPage();}
-function onSearch(){curSearch=document.getElementById('searchInput').value;curPage=1;renderPage();}
-function renderPage(){const all=filtered();const total=all.length;const pages=Math.max(1,Math.ceil(total/PAGE_SIZE));if(curPage>pages)curPage=pages;const slice=all.slice((curPage-1)*PAGE_SIZE,curPage*PAGE_SIZE);document.getElementById('statFiltered').textContent=(curSrc==='SEMUA'&&!curSearch&&curCat==='SEMUA')?'':total+' dijumpai';const grid=document.getElementById('bookGrid');if(!slice.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:#9ca3af;font-size:15px;"> Tiada buku ditemui.</div>';}else{grid.innerHTML=slice.map(b=>'<a class="book-card" href="'+b.url+'" target="_blank" rel="noopener" title="'+b.title+'"><img class="book-cover" src="'+b.coverimg+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="book-cover-placeholder" style="display:none"></div><div class="book-info"><div class="book-title">'+b.title+'</div><div class="book-meta">'+(b.pages||'')+' '+(b.pages?'ms':'')+'</div><span class="badge-src '+getBadgeClass(b.source)+'">'+getBadgeLabel(b.source)+'</span></div></a>').join('');}const pg=document.getElementById('pagination');if(pages<=1){pg.innerHTML='';return;}let html='<button class="pg-btn" onclick="goPage('+(curPage-1)+')" '+(curPage===1?'disabled':'')+'>‹ Prev</button>';for(let i=1;i<=pages;i++){if(i===1||i===pages||Math.abs(i-curPage)<=2)html+='<button class="pg-btn'+(i===curPage?' active':'')+'" onclick="goPage('+i+')">'+i+'</button>';else if(Math.abs(i-curPage)===3)html+='<span style="padding:0 4px;color:#9ca3af;">…</span>';}html+='<button class="pg-btn" onclick="goPage('+(curPage+1)+')" '+(curPage===pages?'disabled':'')+'>Next ›</button>';pg.innerHTML=html;}
-function goPage(p){curPage=p;renderPage();window.scrollTo({top:0,behavior:'smooth'});}
-buildCatTabs();renderPage();
-document.getElementById('statTotal').textContent=BOOKS.length;
-</script>
-</body>
-</html>
-
-
-
-
-
+window.IAB_BOOKS = [
+  {"title":"Kepimpinan Instruksional","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Kepimpinan Pendidikan","source":"IAB","pages":0},
+  {"title":"Pengurusan Sekolah Berkesan","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Pengurusan Sekolah","source":"IAB","pages":0},
+  {"title":"Modul Pembangunan Profesionalisme Guru","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Pembangunan Profesional","source":"IAB","pages":0},
+  {"title":"Komunikasi Berkesan Dalam Organisasi Pendidikan","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Komunikasi","source":"IAB","pages":0},
+  {"title":"Transformasi Pendidikan Malaysia","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Dasar Pendidikan","source":"IAB","pages":0},
+  {"title":"Modul Kecemerlangan Kepimpinan","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Kepimpinan Pendidikan","source":"IAB","pages":0},
+  {"title":"Pengurusan Kurikulum Sekolah","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Kurikulum","source":"IAB","pages":0},
+  {"title":"Bimbingan dan Kaunseling Pendidikan","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Kaunseling","source":"IAB","pages":0},
+  {"title":"Teknologi Maklumat Dalam Pendidikan","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Teknologi Pendidikan","source":"IAB","pages":0},
+  {"title":"Pengurusan Kewangan Sekolah","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Pengurusan","source":"IAB","pages":0},
+  {"title":"Penilaian dan Pentaksiran Pendidikan","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Pentaksiran","source":"IAB","pages":0},
+  {"title":"Komunikasi dan Hubungan Awam Sekolah","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Komunikasi","source":"IAB","pages":0},
+  {"title":"Pembangunan Modal Insan Pendidikan","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Pembangunan Profesional","source":"IAB","pages":0},
+  {"title":"Pengurusan Perubahan Dalam Pendidikan","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Pengurusan","source":"IAB","pages":0},
+  {"title":"Sekolah Berprestasi Tinggi","author":"IAB","url":"https://iab.moe.gov.my","categoryname":"Kepimpinan Pendidikan","source":"IAB","pages":0}
+]

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#4f46e5">
-  <title>Offline Library — CelikSense AI</title>
+  <title>Offline Library &mdash; CelikSense AI</title>
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="styles.css">
   <style>
@@ -210,7 +210,7 @@
 <body>
   <nav class="nav-bar" role="navigation" aria-label="Main navigation">
     <a href="dashboard.html" class="nav-brand" aria-label="CelikSense AI home">
-      <span class="brand-icon" aria-hidden="true">🧠</span>
+      <span class="brand-icon" aria-hidden="true"></span>
       <span class="brand-text">CelikSense AI</span>
     </a>
     <div class="nav-links" role="list">
@@ -223,29 +223,29 @@
 
   <!-- Hero -->
   <section class="ol-hero" role="banner">
-    <div class="hero-icon" aria-hidden="true" style="font-size:3rem;margin-bottom:12px;">📚</div>
+    <div class="hero-icon" aria-hidden="true" style="font-size:3rem;margin-bottom:12px;"></div>
     <h1 data-i18n="offline_lib_title">Offline Library</h1>
-    <p data-i18n="offline_lib_subtitle">Saved books, OCR scans, AI answers &amp; sync queue — all available without internet.</p>
+    <p data-i18n="offline_lib_subtitle">Saved books, OCR scans, AI answers &amp; sync queue &mdash; all available without internet.</p>
   </section>
 
   <!-- Status bar -->
   <div class="ol-status-bar" role="complementary" aria-label="Storage status">
     <div class="ol-stat-chip">
-      <span class="chip-icon" aria-hidden="true">📶</span>
+      <span class="chip-icon" aria-hidden="true"></span>
       <span id="statusChip" data-i18n="offline_status_online">Online</span>
     </div>
     <div class="ol-stat-chip">
-      <span class="chip-icon" aria-hidden="true">📥</span>
+      <span class="chip-icon" aria-hidden="true"></span>
       <span id="downloadCount">0</span>
       <span data-i18n="offline_books_saved">books saved</span>
     </div>
     <div class="ol-stat-chip">
-      <span class="chip-icon" aria-hidden="true">💾</span>
-      <span id="storageUsed">—</span>
+      <span class="chip-icon" aria-hidden="true"></span>
+      <span id="storageUsed">&mdash;</span>
       <span data-i18n="offline_storage_used">used</span>
     </div>
     <div class="ol-stat-chip">
-      <span class="chip-icon" aria-hidden="true">🔄</span>
+      <span class="chip-icon" aria-hidden="true"></span>
       <span id="pendingSync">0</span>
       <span data-i18n="offline_pending_sync">pending sync</span>
     </div>
@@ -253,11 +253,11 @@
 
   <!-- Tabs -->
   <div class="ol-tabs" role="tablist" aria-label="Offline content categories">
-    <button class="ol-tab active" role="tab" aria-selected="true"  aria-controls="tab-downloads"  onclick="switchTab('downloads')"  data-i18n="offline_tab_downloads">📥 Downloads</button>
-    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-ocr"        onclick="switchTab('ocr')"        data-i18n="offline_tab_ocr">📷 OCR Cache</button>
-    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-ai"         onclick="switchTab('ai')"         data-i18n="offline_tab_ai">🤖 AI Cache</button>
-    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-notes"      onclick="switchTab('notes')"      data-i18n="offline_tab_notes">📝 Notes</button>
-    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-storage"    onclick="switchTab('storage')"    data-i18n="offline_tab_storage">💾 Storage</button>
+    <button class="ol-tab active" role="tab" aria-selected="true"  aria-controls="tab-downloads"  onclick="switchTab('downloads')"  data-i18n="offline_tab_downloads"> Downloads</button>
+    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-ocr"        onclick="switchTab('ocr')"        data-i18n="offline_tab_ocr"> OCR Cache</button>
+    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-ai"         onclick="switchTab('ai')"         data-i18n="offline_tab_ai"> AI Cache</button>
+    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-notes"      onclick="switchTab('notes')"      data-i18n="offline_tab_notes"> Notes</button>
+    <button class="ol-tab"        role="tab" aria-selected="false" aria-controls="tab-storage"    onclick="switchTab('storage')"    data-i18n="offline_tab_storage"> Storage</button>
   </div>
 
   <!-- Tab: Downloads -->
@@ -271,7 +271,7 @@
     </div>
     <div id="downloadsGrid" class="ol-grid" aria-live="polite" aria-label="Downloaded books list">
       <div class="ol-empty">
-        <div class="empty-icon" aria-hidden="true">📭</div>
+        <div class="empty-icon" aria-hidden="true"></div>
         <h3 data-i18n="offline_empty_downloads">No downloads yet</h3>
         <p data-i18n="offline_empty_downloads_sub">Books you save offline will appear here. Tap "Download for Offline" on any book in Book Discovery.</p>
         <a href="book-discovery.html" class="ol-btn primary" data-i18n="offline_go_discover">Browse Books</a>
@@ -290,7 +290,7 @@
     </div>
     <div id="ocrGrid" class="ol-grid" aria-live="polite" aria-label="OCR scan cache list">
       <div class="ol-empty">
-        <div class="empty-icon" aria-hidden="true">📷</div>
+        <div class="empty-icon" aria-hidden="true"></div>
         <h3 data-i18n="offline_empty_ocr">No OCR scans cached</h3>
         <p data-i18n="offline_empty_ocr_sub">Text extracted from images is saved here for offline access. Scan a document to begin.</p>
         <a href="ocr-agent.html" class="ol-btn primary" data-i18n="offline_go_ocr">Open OCR Agent</a>
@@ -307,7 +307,7 @@
     <p style="font-size:12px;color:#64748b;margin:0 0 20px;" data-i18n="offline_ai_cache_info">AI answers are cached automatically when you are online. When offline, the Teacher Agent replays these saved answers.</p>
     <div id="aiGrid" class="ol-grid" aria-live="polite" aria-label="Cached AI responses list">
       <div class="ol-empty">
-        <div class="empty-icon" aria-hidden="true">🤖</div>
+        <div class="empty-icon" aria-hidden="true"></div>
         <h3 data-i18n="offline_empty_ai">No AI responses cached</h3>
         <p data-i18n="offline_empty_ai_sub">Use AI Teacher or AI Librarian while online and answers will be saved here for offline access.</p>
         <a href="ai-teacher-agent.html" class="ol-btn primary" data-i18n="offline_go_ai">Open AI Teacher</a>
@@ -325,32 +325,32 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:24px;">
       <!-- Notes summary -->
       <div class="ol-card" style="border-top:3px solid #a78bfa;">
-        <div class="ol-card-title" data-i18n="offline_notes_label">📝 Notes</div>
-        <div class="ol-card-meta" id="notesCount">Loading…</div>
+        <div class="ol-card-title" data-i18n="offline_notes_label"> Notes</div>
+        <div class="ol-card-meta" id="notesCount">Loading&hellip;</div>
         <div class="ol-card-actions">
           <a href="reading-companion.html" class="ol-btn" data-i18n="offline_open_reading">Open Reading Companion</a>
         </div>
       </div>
       <!-- Bookmarks -->
       <div class="ol-card" style="border-top:3px solid #f59e0b;">
-        <div class="ol-card-title" data-i18n="offline_bookmarks_label">🔖 Bookmarks</div>
-        <div class="ol-card-meta" id="bookmarksCount">Loading…</div>
+        <div class="ol-card-title" data-i18n="offline_bookmarks_label"> Bookmarks</div>
+        <div class="ol-card-meta" id="bookmarksCount">Loading&hellip;</div>
         <div class="ol-card-actions">
           <a href="reading-companion.html" class="ol-btn" data-i18n="offline_open_reading">Open Reading Companion</a>
         </div>
       </div>
       <!-- Highlights -->
       <div class="ol-card" style="border-top:3px solid #f472b6;">
-        <div class="ol-card-title" data-i18n="offline_highlights_label">🖍️ Highlights</div>
-        <div class="ol-card-meta" id="highlightsCount">Loading…</div>
+        <div class="ol-card-title" data-i18n="offline_highlights_label"> Highlights</div>
+        <div class="ol-card-meta" id="highlightsCount">Loading&hellip;</div>
         <div class="ol-card-actions">
           <a href="adhd-agent.html" class="ol-btn" data-i18n="offline_open_adhd">Open ADHD Agent</a>
         </div>
       </div>
       <!-- Quiz history -->
       <div class="ol-card" style="border-top:3px solid #34d399;">
-        <div class="ol-card-title" data-i18n="offline_quiz_label">🧩 Quiz History</div>
-        <div class="ol-card-meta" id="quizCount">Loading…</div>
+        <div class="ol-card-title" data-i18n="offline_quiz_label"> Quiz History</div>
+        <div class="ol-card-meta" id="quizCount">Loading&hellip;</div>
         <div class="ol-card-actions">
           <a href="ai-teacher-agent.html" class="ol-btn" data-i18n="offline_open_teacher">Open AI Teacher</a>
         </div>
@@ -370,9 +370,9 @@
       </div>
       <div class="storage-labels">
         <span id="storageUsedLabel">0 MB used</span>
-        <span id="storageQuotaLabel">— MB total</span>
+        <span id="storageQuotaLabel">&mdash; MB total</span>
       </div>
-      <div style="margin-top:10px;font-size:12px;color:#64748b;" id="storageDetail">Calculating…</div>
+      <div style="margin-top:10px;font-size:12px;color:#64748b;" id="storageDetail">Calculating&hellip;</div>
     </div>
 
     <!-- Cache breakdown -->
@@ -415,11 +415,11 @@
     <!-- SW status -->
     <div class="ol-card">
       <div class="ol-card-title" style="margin-bottom:8px;" data-i18n="offline_sw_title">Service Worker Status</div>
-      <div style="font-size:12px;color:#94a3b8;" id="swStatus">Checking…</div>
+      <div style="font-size:12px;color:#94a3b8;" id="swStatus">Checking&hellip;</div>
     </div>
   </div>
 
-  <script src="shared.js"></script>
+  <script src="shared.js?v=2"></script>
   <script>
     /* ── Helpers ─────────────────────────────────── */
     function escHtml(s) {
@@ -471,7 +471,7 @@
 
         if (!items.length) {
           grid.innerHTML = '<div class="ol-empty">' +
-            '<div class="empty-icon" aria-hidden="true">📭</div>' +
+            '<div class="empty-icon" aria-hidden="true">ðŸ“­</div>' +
             '<h3>' + CS.lang.t('offline_empty_downloads') + '</h3>' +
             '<p>' + CS.lang.t('offline_empty_downloads_sub') + '</p>' +
             '<a href="book-discovery.html" class="ol-btn primary">' + CS.lang.t('offline_go_discover') + '</a>' +
@@ -670,9 +670,9 @@
         swEl.innerHTML = '✅ Active · Scope: ' + escHtml(sw.scriptURL || '—') + '<br>' +
           'State: ' + escHtml(sw.state || '—');
       } else if ('serviceWorker' in navigator) {
-        swEl.textContent = '⏳ Service Worker registered but not yet controlling this page. Reload to activate.';
+        swEl.textContent = 'â³ Service Worker registered but not yet controlling this page. Reload to activate.';
       } else {
-        swEl.textContent = '⚠️ Service Worker not supported in this browser.';
+        swEl.textContent = 'âš ï¸ Service Worker not supported in this browser.';
       }
     }
 

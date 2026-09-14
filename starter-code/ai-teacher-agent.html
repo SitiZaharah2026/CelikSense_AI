@@ -51,7 +51,7 @@
 <nav class="nav" role="navigation" aria-label="Main Navigation">
   <div class="nav-container">
     <a href="index.html" class="nav-brand" aria-label="CelikSense AI Home">
-      <span class="brand-icon">🎓</span>
+      <span class="brand-icon"></span>
       <span class="brand-name">CelikSense <span style="color:var(--primary,#6366f1)">AI</span></span>
     </a>
     <div class="nav-links">
@@ -66,20 +66,20 @@
 
 <!-- PAGE HEADER -->
 <div style="background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#06b6d4 100%);padding:40px 24px;text-align:center;color:#fff;">
-  <div style="font-size:52px;margin-bottom:12px;" aria-hidden="true">👩‍🏫</div>
+  <div style="font-size:52px;margin-bottom:12px;" aria-hidden="true">‍</div>
   <h1 style="font-size:28px;font-weight:900;margin:0 0 8px;" data-i18n="teacher_title">AI Teacher Agent</h1>
   <p style="font-size:15px;opacity:.85;max-width:540px;margin:0 auto;" data-i18n="teacher_subtitle">Your virtual teacher — explains, quizzes, answers questions, creates diagrams and mind maps, and motivates you.</p>
   <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-    <span style="background:rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;" data-i18n="teacher_badge1">🤖 Gemini AI</span>
-    <span style="background:rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;" data-i18n="teacher_badge2">📚 Quiz Generator</span>
-    <span style="background:rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;" data-i18n="teacher_badge3">🗺️ Mind Map</span>
-    <span style="background:rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;" data-i18n="teacher_badge4">💪 Motivation</span>
+    <span style="background:rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;" data-i18n="teacher_badge1"> Gemini AI</span>
+    <span style="background:rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;" data-i18n="teacher_badge2"> Quiz Generator</span>
+    <span style="background:rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;" data-i18n="teacher_badge3"> Mind Map</span>
+    <span style="background:rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;" data-i18n="teacher_badge4"> Motivation</span>
   </div>
 </div>
 
 <!-- API KEY NOTICE -->
 <div id="apiNotice" style="background:#fef9c3;border:1px solid #fde68a;border-radius:12px;padding:12px 18px;margin:16px auto;max-width:900px;font-size:13px;color:#78350f;display:flex;align-items:center;gap:10px;">
-  <span>🔑</span>
+  <span></span>
   <span data-i18n="teacher_api_notice">OpenRouter API Key required for AI features. <a href="settings.html" style="color:#92400e;font-weight:700;">Set key in Settings →</a> Prototype mode is active if no key is set.</span>
 </div>
 
@@ -91,7 +91,7 @@
 
     <!-- Section 1: Text Input -->
     <div class="teacher-card">
-      <h2 data-i18n="teacher_input_title">📄 Reading Text Input</h2>
+      <h2 data-i18n="teacher_input_title"> Reading Text Input</h2>
       <textarea
         id="teacherInput"
         rows="10"
@@ -104,10 +104,10 @@
       ></textarea>
 
       <div class="teacher-btn-row" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
-        <button id="btnExplain" class="t-btn" onclick="teacherExplain()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);" data-i18n="teacher_btn_explain">💡 Explain This</button>
-        <button id="btnSimple" class="t-btn" onclick="teacherSimple()" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);" data-i18n="teacher_btn_simple">🔤 Simple Words</button>
-        <button id="btnExplainBM" class="t-btn" onclick="teacherExplainBM()" style="background:linear-gradient(135deg,#059669,#10b981);" data-i18n="teacher_btn_bm">🇲🇾 Explain in BM</button>
-        <button id="btnExplainEN" class="t-btn" onclick="teacherExplainEN()" style="background:linear-gradient(135deg,#4f46e5,#6366f1);" data-i18n="teacher_btn_en">🇬🇧 Explain in EN</button>
+        <button id="btnExplain" class="t-btn" onclick="teacherExplain()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);" data-i18n="teacher_btn_explain"> Explain This</button>
+        <button id="btnSimple" class="t-btn" onclick="teacherSimple()" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);" data-i18n="teacher_btn_simple"> Simple Words</button>
+        <button id="btnExplainBM" class="t-btn" onclick="teacherExplainBM()" style="background:linear-gradient(135deg,#059669,#10b981);" data-i18n="teacher_btn_bm"> Explain in BM</button>
+        <button id="btnExplainEN" class="t-btn" onclick="teacherExplainEN()" style="background:linear-gradient(135deg,#4f46e5,#6366f1);" data-i18n="teacher_btn_en"> Explain in EN</button>
       </div>
 
       <div id="teacherLoading" style="display:none;margin-top:14px;text-align:center;padding:12px;background:#f8fafc;border-radius:10px;" aria-live="polite" aria-label="Loading">
@@ -118,7 +118,7 @@
 
     <!-- Section 2: Ask the Teacher -->
     <div class="teacher-card">
-      <h2 data-i18n="teacher_ask_title">💬 Ask the Teacher</h2>
+      <h2 data-i18n="teacher_ask_title"> Ask the Teacher</h2>
       <input
         id="teacherQuestion"
         type="text"
@@ -130,7 +130,7 @@
         onkeydown="if(event.key==='Enter')teacherAsk()"
         aria-label="Question input"
       />
-      <button id="btnAsk" class="t-btn" onclick="teacherAsk()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);width:100%;margin-top:10px;" data-i18n="teacher_btn_ask">🙋 Ask</button>
+      <button id="btnAsk" class="t-btn" onclick="teacherAsk()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);width:100%;margin-top:10px;" data-i18n="teacher_btn_ask"> Ask</button>
       <div
         id="teacherAnswer"
         style="display:none;background:#f0f9ff;border-left:4px solid #0ea5e9;border-radius:10px;padding:14px;margin-top:12px;font-size:14px;line-height:1.7;color:#0c4a6e;"
@@ -142,15 +142,15 @@
 
     <!-- Section 3: Motivation -->
     <div class="teacher-card" style="background:linear-gradient(135deg,#fef3c7,#fde68a);border-color:#fcd34d;">
-      <h2 data-i18n="teacher_motivation_title" style="color:#92400e;">💪 Motivation Corner</h2>
+      <h2 data-i18n="teacher_motivation_title" style="color:#92400e;"> Motivation Corner</h2>
       <div
         id="motivationMessage"
         style="font-size:15px;font-weight:600;color:#78350f;line-height:1.7;min-height:48px;margin-bottom:14px;"
         aria-live="polite"
       ></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button onclick="showMotivation()" class="t-btn" style="background:linear-gradient(135deg,#f59e0b,#d97706);" data-i18n="teacher_btn_new_msg">✨ New Message</button>
-        <button onclick="speakMotivation()" class="t-btn-ghost" data-i18n="teacher_btn_read_aloud">🔊 Read Aloud</button>
+        <button onclick="showMotivation()" class="t-btn" style="background:linear-gradient(135deg,#f59e0b,#d97706);" data-i18n="teacher_btn_new_msg"> New Message</button>
+        <button onclick="speakMotivation()" class="t-btn-ghost" data-i18n="teacher_btn_read_aloud"> Read Aloud</button>
       </div>
     </div>
 
@@ -161,7 +161,7 @@
 
     <!-- Section 4: Explanation Output -->
     <div class="teacher-card">
-      <h2 data-i18n="teacher_explain_title">📖 Explanation</h2>
+      <h2 data-i18n="teacher_explain_title"> Explanation</h2>
       <div
         id="teacherOutput"
         style="min-height:120px;font-size:15px;line-height:1.8;color:#1e293b;"
@@ -172,20 +172,20 @@
         <span id="teacherOutputPlaceholder" style="color:#94a3b8;font-style:italic;" data-i18n="teacher_output_placeholder">Explanation will appear here...</span>
       </div>
       <div id="teacherOutputActions" style="display:none;margin-top:12px;display:none;gap:8px;flex-wrap:wrap;">
-        <button onclick="speakExplanation()" class="t-btn-ghost" data-i18n="teacher_btn_speak">🔊 Read Aloud</button>
-        <button onclick="copyExplanation()" class="t-btn-ghost" data-i18n="teacher_btn_copy">📋 Copy</button>
-        <button onclick="saveExplanation()" class="t-btn-ghost" data-i18n="teacher_btn_save">💾 Save</button>
+        <button onclick="speakExplanation()" class="t-btn-ghost" data-i18n="teacher_btn_speak"> Read Aloud</button>
+        <button onclick="copyExplanation()" class="t-btn-ghost" data-i18n="teacher_btn_copy"> Copy</button>
+        <button onclick="saveExplanation()" class="t-btn-ghost" data-i18n="teacher_btn_save"> Save</button>
       </div>
     </div>
 
     <!-- Section 5: Quiz Generator -->
     <div class="teacher-card">
-      <h2 data-i18n="teacher_quiz_title">📝 Quiz Generator</h2>
+      <h2 data-i18n="teacher_quiz_title"> Quiz Generator</h2>
       <div class="teacher-btn-row" style="display:flex;flex-wrap:wrap;gap:8px;">
-        <button class="t-btn" onclick="generateQuiz('mcq')" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);font-size:13px;padding:9px 14px;" data-i18n="teacher_quiz_mcq">🎯 Multiple Choice</button>
-        <button class="t-btn" onclick="generateQuiz('tf')" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);font-size:13px;padding:9px 14px;" data-i18n="teacher_quiz_tf">✅ True/False</button>
-        <button class="t-btn" onclick="generateQuiz('short')" style="background:linear-gradient(135deg,#059669,#10b981);font-size:13px;padding:9px 14px;" data-i18n="teacher_quiz_short">✍️ Short Answer</button>
-        <button class="t-btn" onclick="generateQuiz('reflect')" style="background:linear-gradient(135deg,#f59e0b,#d97706);font-size:13px;padding:9px 14px;" data-i18n="teacher_quiz_reflect">💭 Reflection</button>
+        <button class="t-btn" onclick="generateQuiz('mcq')" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);font-size:13px;padding:9px 14px;" data-i18n="teacher_quiz_mcq"> Multiple Choice</button>
+        <button class="t-btn" onclick="generateQuiz('tf')" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);font-size:13px;padding:9px 14px;" data-i18n="teacher_quiz_tf"> True/False</button>
+        <button class="t-btn" onclick="generateQuiz('short')" style="background:linear-gradient(135deg,#059669,#10b981);font-size:13px;padding:9px 14px;" data-i18n="teacher_quiz_short"> Short Answer</button>
+        <button class="t-btn" onclick="generateQuiz('reflect')" style="background:linear-gradient(135deg,#f59e0b,#d97706);font-size:13px;padding:9px 14px;" data-i18n="teacher_quiz_reflect"> Reflection</button>
       </div>
       <div id="quizOutput" style="margin-top:14px;" aria-live="polite" role="region" aria-label="Quiz output"></div>
       <div id="quizScore" style="display:none;margin-top:12px;background:#d1fae5;border:2px solid #10b981;border-radius:12px;padding:14px;text-align:center;font-size:16px;font-weight:800;color:#065f46;" aria-live="polite"></div>
@@ -193,12 +193,12 @@
 
     <!-- Section 6: Diagram & Mind Map -->
     <div class="teacher-card">
-      <h2 data-i18n="teacher_diagram_title">🗺️ Diagram &amp; Mind Map</h2>
+      <h2 data-i18n="teacher_diagram_title"> Diagram &amp; Mind Map</h2>
       <div class="teacher-btn-row" style="display:flex;flex-wrap:wrap;gap:8px;">
-        <button class="t-btn" onclick="generateDiagram('flow')" style="background:linear-gradient(135deg,#4f46e5,#6366f1);font-size:13px;padding:9px 14px;" data-i18n="teacher_diag_flow">📊 Flow Chart</button>
-        <button class="t-btn" onclick="generateDiagram('cause')" style="background:linear-gradient(135deg,#7c3aed,#8b5cf6);font-size:13px;padding:9px 14px;" data-i18n="teacher_diag_cause">🔗 Cause &amp; Effect</button>
-        <button class="t-btn" onclick="generateDiagram('mindmap')" style="background:linear-gradient(135deg,#6d28d9,#7c3aed);font-size:13px;padding:9px 14px;" data-i18n="teacher_diag_mindmap">🧠 Mind Map</button>
-        <button class="t-btn" onclick="generateDiagram('steps')" style="background:linear-gradient(135deg,#0891b2,#06b6d4);font-size:13px;padding:9px 14px;" data-i18n="teacher_diag_steps">📋 Step-by-Step</button>
+        <button class="t-btn" onclick="generateDiagram('flow')" style="background:linear-gradient(135deg,#4f46e5,#6366f1);font-size:13px;padding:9px 14px;" data-i18n="teacher_diag_flow"> Flow Chart</button>
+        <button class="t-btn" onclick="generateDiagram('cause')" style="background:linear-gradient(135deg,#7c3aed,#8b5cf6);font-size:13px;padding:9px 14px;" data-i18n="teacher_diag_cause"> Cause &amp; Effect</button>
+        <button class="t-btn" onclick="generateDiagram('mindmap')" style="background:linear-gradient(135deg,#6d28d9,#7c3aed);font-size:13px;padding:9px 14px;" data-i18n="teacher_diag_mindmap"> Mind Map</button>
+        <button class="t-btn" onclick="generateDiagram('steps')" style="background:linear-gradient(135deg,#0891b2,#06b6d4);font-size:13px;padding:9px 14px;" data-i18n="teacher_diag_steps"> Step-by-Step</button>
       </div>
       <div id="diagramOutput" style="margin-top:14px;" aria-live="polite" role="region" aria-label="Diagram output"></div>
     </div>
@@ -212,11 +212,11 @@
   <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:16px;padding:18px 22px;">
     <div style="font-weight:800;font-size:15px;color:#1e293b;margin-bottom:12px;" data-i18n="teacher_inclusive_title">♿ Inclusive Support</div>
     <div style="display:flex;flex-wrap:wrap;gap:10px;">
-      <button onclick="enableBlindMode()" style="background:#1e293b;color:#f8fafc;border:none;padding:9px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;" aria-label="Enable Blind Learner Mode" data-i18n="teacher_blind_mode">🎙️ Blind Mode</button>
-      <button onclick="enableDeafMode()" style="background:#0284c7;color:#fff;border:none;padding:9px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;" aria-label="Enable Deaf Learner Mode" data-i18n="teacher_deaf_mode">🖐️ Deaf Mode</button>
+      <button onclick="enableBlindMode()" style="background:#1e293b;color:#f8fafc;border:none;padding:9px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;" aria-label="Enable Blind Learner Mode" data-i18n="teacher_blind_mode"> Blind Mode</button>
+      <button onclick="enableDeafMode()" style="background:#0284c7;color:#fff;border:none;padding:9px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;" aria-label="Enable Deaf Learner Mode" data-i18n="teacher_deaf_mode"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Deaf Mode</button>
       <button onclick="enableADHDMode()" style="background:#7c3aed;color:#fff;border:none;padding:9px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;" aria-label="Enable ADHD Mode" data-i18n="teacher_adhd_mode">⚡ ADHD Mode</button>
-      <button onclick="enableDyslexiaMode()" style="background:#059669;color:#fff;border:none;padding:9px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;" aria-label="Enable Dyslexia Mode" data-i18n="teacher_dyslexia_mode">📖 Dyslexia Mode</button>
-      <button id="btnTTS" onclick="toggleTTS()" style="background:#f59e0b;color:#fff;border:none;padding:9px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;" aria-label="Toggle Text to Speech" data-i18n="teacher_tts">🔊 Auto TTS</button>
+      <button onclick="enableDyslexiaMode()" style="background:#059669;color:#fff;border:none;padding:9px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;" aria-label="Enable Dyslexia Mode" data-i18n="teacher_dyslexia_mode"> Dyslexia Mode</button>
+      <button id="btnTTS" onclick="toggleTTS()" style="background:#f59e0b;color:#fff;border:none;padding:9px 18px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;" aria-label="Toggle Text to Speech" data-i18n="teacher_tts"> Auto TTS</button>
     </div>
   </div>
 </div>
@@ -226,27 +226,25 @@
   <span data-i18n="footer_tagline1">CelikSense AI</span> · <span data-i18n="teacher_footer_note">AI Teacher Agent · Prototype</span>
 </footer>
 
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script src="personalisation-system.js"></script>
 <script>
-// ─── CONFIG ───────────────────────────────────────────────────────────────────
+//  CONFIG 
 var GEMINI_MODEL = 'google/gemma-3-27b-it:free'; // OpenRouter model
 var autoTTS = false;
 var currentLang = localStorage.getItem('cs_lang') || 'en';
 
-// ─── GEMINI HELPER ────────────────────────────────────────────────────────────
-function getGeminiKey() {
-  return localStorage.getItem('openrouter_api_key') || '';
-}
-
-async function callGemini(prompt) {
-  var key = getGeminiKey();
+//  OPENROUTER HELPER 
+async function callAI(prompt) {
+  var key = '';
+  try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!key) return null;
-  var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
+  var model = '';
+  try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
   try {
     var resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
       body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
     });
     var data = await resp.json();
@@ -256,7 +254,7 @@ async function callGemini(prompt) {
   }
 }
 
-// ─── PROTOTYPE FALLBACKS ──────────────────────────────────────────────────────
+//  PROTOTYPE FALLBACKS 
 var FALLBACK_EXPLAIN = {
   en: "This text discusses an important topic. Key ideas include the main subject and its supporting details. To understand better, focus on the first and last sentences of each paragraph as they usually contain the main idea.",
   ms: "Teks ini membincangkan topik yang penting. Idea utama merangkumi subjek utama dan butiran sokongannya. Untuk memahami dengan lebih baik, fokus pada ayat pertama dan terakhir setiap perenggan kerana ia biasanya mengandungi idea utama."
@@ -270,29 +268,29 @@ var FALLBACK_QA = {
   ms: "Berdasarkan teks, berikut adalah jawapan yang mungkin: Idea utama berkaitan dengan subjek petikan. Cari kata kunci dan ayat topik untuk butiran lanjut."
 };
 
-// ─── MOTIVATIONAL MESSAGES ────────────────────────────────────────────────────
+//  MOTIVATIONAL MESSAGES 
 var MOTIVATION_EN = [
-  "Great effort! You have completed one reading task. 🌟",
-  "Take your time. Learning is a journey, not a race. 🚀",
-  "You are improving your reading confidence every day. 💪",
-  "Let us try one small step together. You can do it! 🎯",
-  "Every paragraph you read makes you smarter. 📚",
-  "Mistakes help us learn. Keep going! 🌈",
-  "Your brain is growing stronger with every reading session. 🧠",
-  "Well done! Progress, not perfection. 🏆"
+  "Great effort! You have completed one reading task. ",
+  "Take your time. Learning is a journey, not a race. ",
+  "You are improving your reading confidence every day. ",
+  "Let us try one small step together. You can do it! ",
+  "Every paragraph you read makes you smarter. ",
+  "Mistakes help us learn. Keep going! ",
+  "Your brain is growing stronger with every reading session. ",
+  "Well done! Progress, not perfection. "
 ];
 var MOTIVATION_MS = [
-  "Usaha yang baik! Anda telah menyelesaikan satu tugasan bacaan. 🌟",
-  "Ambil masa anda. Pembelajaran adalah perjalanan, bukan perlumbaan. 🚀",
-  "Keyakinan membaca anda semakin meningkat setiap hari. 💪",
-  "Mari cuba satu langkah kecil bersama. Anda boleh! 🎯",
-  "Setiap perenggan yang anda baca menjadikan anda lebih bijak. 📚",
-  "Kesilapan membantu kita belajar. Teruskan! 🌈",
-  "Otak anda semakin kuat dengan setiap sesi membaca. 🧠",
-  "Syabas! Kemajuan, bukan kesempurnaan. 🏆"
+  "Usaha yang baik! Anda telah menyelesaikan satu tugasan bacaan. ",
+  "Ambil masa anda. Pembelajaran adalah perjalanan, bukan perlumbaan. ",
+  "Keyakinan membaca anda semakin meningkat setiap hari. ",
+  "Mari cuba satu langkah kecil bersama. Anda boleh! ",
+  "Setiap perenggan yang anda baca menjadikan anda lebih bijak. ",
+  "Kesilapan membantu kita belajar. Teruskan! ",
+  "Otak anda semakin kuat dengan setiap sesi membaca. ",
+  "Syabas! Kemajuan, bukan kesempurnaan. "
 ];
 
-// ─── LOADING STATE ────────────────────────────────────────────────────────────
+//  LOADING STATE 
 function showLoading() {
   document.getElementById('teacherLoading').style.display = 'block';
 }
@@ -300,7 +298,7 @@ function hideLoading() {
   document.getElementById('teacherLoading').style.display = 'none';
 }
 
-// ─── OUTPUT HELPER ────────────────────────────────────────────────────────────
+//  OUTPUT HELPER 
 function setOutput(text) {
   var out = document.getElementById('teacherOutput');
   var ph = document.getElementById('teacherOutputPlaceholder');
@@ -328,12 +326,12 @@ function alertEmpty() {
     : 'Please enter some text first.');
 }
 
-// ─── EXPLAIN FUNCTIONS ────────────────────────────────────────────────────────
+//  EXPLAIN FUNCTIONS 
 async function teacherExplain() {
   var text = getInputText();
   if (!text) { alertEmpty(); return; }
   showLoading();
-  var result = await callGemini(
+  var result = await callAI(
     'You are a helpful teacher. Explain this text clearly in simple English for a student. Text: ' + text
   );
   hideLoading();
@@ -347,7 +345,7 @@ async function teacherSimple() {
   var text = getInputText();
   if (!text) { alertEmpty(); return; }
   showLoading();
-  var result = await callGemini(
+  var result = await callAI(
     'Explain in very simple words, short sentences, suitable for a primary school student: ' + text
   );
   hideLoading();
@@ -361,7 +359,7 @@ async function teacherExplainBM() {
   var text = getInputText();
   if (!text) { alertEmpty(); return; }
   showLoading();
-  var result = await callGemini(
+  var result = await callAI(
     'Terangkan teks ini dalam Bahasa Melayu yang mudah untuk pelajar sekolah menengah: ' + text
   );
   hideLoading();
@@ -375,7 +373,7 @@ async function teacherExplainEN() {
   var text = getInputText();
   if (!text) { alertEmpty(); return; }
   showLoading();
-  var result = await callGemini(
+  var result = await callAI(
     'Explain in simple English for a secondary school student: ' + text
   );
   hideLoading();
@@ -385,7 +383,7 @@ async function teacherExplainEN() {
   localStorage.setItem('teacher_last_explanation', result);
 }
 
-// ─── ASK THE TEACHER ─────────────────────────────────────────────────────────
+//  ASK THE TEACHER 
 async function teacherAsk() {
   var question = document.getElementById('teacherQuestion').value.trim();
   var text = getInputText();
@@ -396,7 +394,7 @@ async function teacherAsk() {
   showLoading();
   var lang = currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
   var prompt = 'You are a patient teacher. A student asks: \'' + question + '\'. Based on this text: \'' + (text || '(no text provided)') + '\'. Give a clear, simple, encouraging answer in ' + lang + '.';
-  var result = await callGemini(prompt);
+  var result = await callAI(prompt);
   hideLoading();
   result = result || (currentLang === 'ms' ? FALLBACK_QA.ms : FALLBACK_QA.en);
   var answerEl = document.getElementById('teacherAnswer');
@@ -405,7 +403,7 @@ async function teacherAsk() {
   if (autoTTS) speakText(result);
 }
 
-// ─── QUIZ GENERATOR ───────────────────────────────────────────────────────────
+//  QUIZ GENERATOR 
 async function generateQuiz(type) {
   var text = getInputText();
   if (!text) { alertEmpty(); return; }
@@ -421,7 +419,7 @@ async function generateQuiz(type) {
   } else if (type === 'reflect') {
     prompt = 'Generate 2 reflection questions that help a learner think deeply about this text. Language: ' + lang + '\n\nText: ' + text;
   }
-  var result = await callGemini(prompt);
+  var result = await callAI(prompt);
   hideLoading();
   if (!result) result = getPrototypeQuiz(type, text);
   renderQuiz(type, result);
@@ -481,8 +479,8 @@ function renderQuiz(type, content) {
       html += '<div class="quiz-block">';
       html += '<div class="quiz-question">' + escapeHtml(stmtText) + '</div>';
       html += '<div role="radiogroup" aria-label="Answer options" style="display:flex;gap:8px;margin-top:6px;">';
-      html += '<button class="quiz-option" role="radio" tabindex="0" aria-checked="false" style="width:auto;padding:8px 20px;" onclick="selectOption(this);checkTF(this,\'true\',\'' + correctAnswer + '\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();selectOption(this);checkTF(this,\'true\',\'' + correctAnswer + '\');}">✅ True</button>';
-      html += '<button class="quiz-option" role="radio" tabindex="0" aria-checked="false" style="width:auto;padding:8px 20px;" onclick="selectOption(this);checkTF(this,\'false\',\'' + correctAnswer + '\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();selectOption(this);checkTF(this,\'false\',\'' + correctAnswer + '\');}">❌ False</button>';
+      html += '<button class="quiz-option" role="radio" tabindex="0" aria-checked="false" style="width:auto;padding:8px 20px;" onclick="selectOption(this);checkTF(this,\'true\',\'' + correctAnswer + '\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();selectOption(this);checkTF(this,\'true\',\'' + correctAnswer + '\');}"> True</button>';
+      html += '<button class="quiz-option" role="radio" tabindex="0" aria-checked="false" style="width:auto;padding:8px 20px;" onclick="selectOption(this);checkTF(this,\'false\',\'' + correctAnswer + '\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();selectOption(this);checkTF(this,\'false\',\'' + correctAnswer + '\');}"> False</button>';
       html += '</div></div>';
     });
   } else if (type === 'short') {
@@ -497,7 +495,7 @@ function renderQuiz(type, content) {
     var ritems = content.split('\n').filter(function(l){return l.trim().length > 0;});
     ritems.forEach(function(item) {
       html += '<div class="quiz-block" style="background:linear-gradient(135deg,#fef3c7,#fff);">';
-      html += '<div class="quiz-question" style="color:#92400e;">🤔 ' + escapeHtml(item) + '</div>';
+      html += '<div class="quiz-question" style="color:#92400e;"> ' + escapeHtml(item) + '</div>';
       html += '<textarea style="width:100%;border:1.5px solid #fde68a;border-radius:8px;padding:10px;font-size:13px;font-family:inherit;resize:vertical;min-height:70px;box-sizing:border-box;background:#fffbeb;" placeholder="Your reflection..."></textarea>';
       html += '</div>';
     });
@@ -522,7 +520,7 @@ function checkMCQ(btn, isCorrect) {
   opts.forEach(function(o) { o.disabled = true; });
   if (isCorrect) {
     btn.classList.add('correct');
-    btn.innerHTML = btn.innerHTML + ' ✓';
+    btn.innerHTML = btn.innerHTML + ' ';
   } else {
     btn.classList.add('incorrect');
     opts.forEach(function(o) {
@@ -545,7 +543,7 @@ function checkTF(btn, chosen, correct) {
   }
 }
 
-// ─── DIAGRAM / MIND MAP ───────────────────────────────────────────────────────
+//  DIAGRAM / MIND MAP 
 async function generateDiagram(type) {
   var text = getInputText();
   if (!text) { alertEmpty(); return; }
@@ -561,7 +559,7 @@ async function generateDiagram(type) {
   } else if (type === 'steps') {
     prompt = 'Convert this text into 5 numbered step-by-step learning points. Language: ' + lang + '. Text: ' + text;
   }
-  var result = await callGemini(prompt);
+  var result = await callAI(prompt);
   hideLoading();
   if (!result) result = getPrototypeDiagram(type, text);
   renderDiagram(type, result);
@@ -609,7 +607,7 @@ function renderDiagram(type, content) {
         html += '<div class="cause-effect-row">';
         html += '<div class="cause-box">⚡ Cause<br>' + escapeHtml(cause) + '</div>';
         html += '<div class="ce-arrow">→</div>';
-        html += '<div class="effect-box">💥 Effect<br>' + escapeHtml(effect) + '</div>';
+        html += '<div class="effect-box"> Effect<br>' + escapeHtml(effect) + '</div>';
         html += '</div>';
       } else {
         html += '<div style="padding:8px;font-size:14px;color:#475569;">' + escapeHtml(pair) + '</div>';
@@ -634,7 +632,7 @@ function renderDiagram(type, content) {
     if (subtopics.length > 0) {
       html += '<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:10px;">';
       subtopics.forEach(function(s) {
-        html += '<div class="mindmap-child">📌 ' + escapeHtml(s) + '</div>';
+        html += '<div class="mindmap-child"> ' + escapeHtml(s) + '</div>';
       });
       html += '</div>';
     }
@@ -646,7 +644,7 @@ function renderDiagram(type, content) {
       html += '</div>';
     }
     if (summary) {
-      html += '<div style="background:#f8fafc;border:1.5px dashed #6366f1;border-radius:10px;padding:10px 14px;font-size:13px;color:#4338ca;font-weight:700;margin-top:8px;">📝 ' + escapeHtml(summary) + '</div>';
+      html += '<div style="background:#f8fafc;border:1.5px dashed #6366f1;border-radius:10px;padding:10px 14px;font-size:13px;color:#4338ca;font-weight:700;margin-top:8px;"> ' + escapeHtml(summary) + '</div>';
     }
   } else if (type === 'steps') {
     var lines = content.split('\n').filter(function(l){return l.trim().length > 0;});
@@ -660,7 +658,7 @@ function renderDiagram(type, content) {
   output.innerHTML = html;
 }
 
-// ─── MOTIVATION ───────────────────────────────────────────────────────────────
+//  MOTIVATION 
 function showMotivation() {
   var msgs = currentLang === 'ms' ? MOTIVATION_MS : MOTIVATION_EN;
   var idx = Math.floor(Math.random() * msgs.length);
@@ -723,7 +721,7 @@ function showToast(msg) {
   setTimeout(function() { toast.remove(); }, 2200);
 }
 
-// ─── INCLUSIVE MODES ──────────────────────────────────────────────────────────
+//  INCLUSIVE MODES 
 function enableBlindMode() {
   document.body.classList.add('blind-teacher-mode');
   speakText(currentLang === 'ms'
@@ -767,10 +765,10 @@ function toggleTTS() {
   autoTTS = !autoTTS;
   var btn = document.getElementById('btnTTS');
   if (autoTTS) {
-    btn.textContent = '🔊 Auto TTS: ON';
+    btn.textContent = ' Auto TTS: ON';
     btn.style.background = '#10b981';
   } else {
-    btn.textContent = '🔊 Auto TTS';
+    btn.textContent = ' Auto TTS';
     btn.style.background = '#f59e0b';
   }
 }
@@ -789,7 +787,7 @@ function announceAriaLive(msg) {
   setTimeout(function() { el.textContent = msg; }, 50);
 }
 
-// ─── LANGUAGE TOGGLE ─────────────────────────────────────────────────────────
+//  LANGUAGE TOGGLE 
 function toggleLang() {
   if (typeof CS !== 'undefined' && CS.lang && typeof CS.lang.toggle === 'function') {
     CS.lang.toggle();
@@ -818,31 +816,31 @@ function injectCelikVerseBook() {
   w.id = 'cv-book-widget';
   w.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9990;width:260px;background:linear-gradient(135deg,#1e1b4b 0%,#1d4ed8 60%,#0891b2 100%);border-radius:16px;box-shadow:0 8px 32px rgba(30,27,75,.45);color:#fff;font-family:inherit;overflow:hidden;';
   var coverImg=cover
-    ?'<img src="'+esc(cover)+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\">📖</div>\'">'
-    :'<div style="width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📖</div>';
+    ?'<img src="'+esc(cover)+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\"></div>\'">'
+    :'<div style="width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;"></div>';
   w.innerHTML=
     '<div style="padding:12px 14px 10px;display:flex;align-items:flex-start;gap:12px;">'+
       coverImg+
       '<div style="flex:1;min-width:0;">'+
-        '<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:4px;">🌍 BUKU AKTIF</div>'+
+        '<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:4px;"> BUKU AKTIF</div>'+
         '<div style="font-size:13px;font-weight:800;line-height:1.3;word-break:break-word;">'+esc(title)+'</div>'+
         '<div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:3px;">'+esc(author||'')+'</div>'+
       '</div>'+
-      '<button onclick="document.getElementById(\'cv-book-widget\').remove();localStorage.removeItem(\'cv_active_book\');" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;">✕</button>'+
+      '<button onclick="document.getElementById(\'cv-book-widget\').remove();localStorage.removeItem(\'cv_active_book\');" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;"></button>'+
     '</div>'+
     '<div style="padding:0 14px 14px;display:flex;gap:8px;flex-wrap:wrap;">'+
       (url?'<a href="'+esc(url)+'" target="_blank" rel="noopener" style="flex:1;text-align:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">↗ Buka Sumber</a>':'')+
-      '<a href="celikverse-library.html" style="flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">🌍 Tukar Buku</a>'+
+      '<a href="celikverse-library.html" style="flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;"> Tukar Buku</a>'+
     '</div>';
   document.body.appendChild(w);
   // Also pre-fill teacher input if available
   try {
     var existing = localStorage.getItem('teacher_input_text');
-    if (!existing) localStorage.setItem('teacher_input_text', '📖 '+title+(author?'\n✍️ '+author:'')+(source?'\n📚 '+source:'')+'\n\n[Open the source link above to read the full book, then paste text here for AI analysis.]');
+    if (!existing) localStorage.setItem('teacher_input_text', ' '+title+(author?'\n '+author:'')+(source?'\n '+source:'')+'\n\n[Open the source link above to read the full book, then paste text here for AI analysis.]');
   } catch(e) {}
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
+//  INIT 
 document.addEventListener('DOMContentLoaded', function() {
   injectCelikVerseBook();
   // Personalisation
@@ -869,13 +867,13 @@ document.addEventListener('DOMContentLoaded', function() {
   updateLangDisplay();
 
   // API notice
-  var key = getGeminiKey();
+  var key = ''; try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   var notice = document.getElementById('apiNotice');
   if (key && notice) {
     notice.style.background = '#f0fdf4';
     notice.style.borderColor = '#86efac';
     notice.style.color = '#166534';
-    notice.innerHTML = '<span>✅</span><span>OpenRouter API Key detected. AI features are active.</span>';
+    notice.innerHTML = '<span></span><span>OpenRouter API Key detected. AI features are active.</span>';
   }
 });
 </script>

@@ -24,10 +24,10 @@ if('serviceWorker' in navigator){
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ── HIDE SHARED.JS INJECTED NAVBAR — this page has its own #top-nav ── */
+/*  HIDE SHARED.JS INJECTED NAVBAR — this page has its own #top-nav  */
 nav.navbar, .navbar { display: none !important; }
 
-/* ── DESIGN TOKENS ── */
+/*  DESIGN TOKENS  */
 :root{
   --bg:#f4f3ff;--text:#1a1a2e;--card:#fff;--accent:#6366f1;--accent2:#0891b2;
   --muted:#6b7280;--border:#e5e7eb;--hl:#fef08a;--shadow:0 4px 24px rgba(99,102,241,.10);
@@ -48,7 +48,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--rf);transition:bac
 .skip:focus{left:8px;}
 #aria-live{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
 
-/* ── CUSTOM NAVBAR (self-contained, not relying on shared.css) ── */
+/*  CUSTOM NAVBAR (self-contained, not relying on shared.css)  */
 #top-nav{
   position:fixed;top:0;left:0;right:0;height:56px;z-index:300;
   background:linear-gradient(135deg,#1e1b4b 0%,#312e81 60%,#1e40af 100%);
@@ -65,7 +65,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--rf);transition:bac
 .tn-link.pill{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);}
 .tn-link.pill:hover{background:rgba(255,255,255,.25);}
 
-/* ── MODE SWITCHER BAR ── */
+/*  MODE SWITCHER BAR  */
 #mode-bar{
   position:fixed;top:56px;left:0;right:0;z-index:210;
   background:linear-gradient(90deg,#1e1b4b 0%,#1e40af 100%);
@@ -90,7 +90,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--rf);transition:bac
   background:rgba(255,255,255,.1);border-radius:6px;padding:4px 10px;
 }
 
-/* ── TOOLBAR ── */
+/*  TOOLBAR  */
 #toolbars{
   position:fixed;top:calc(56px + 52px);left:0;right:0;z-index:209;
   background:var(--card);border-bottom:2px solid var(--border);
@@ -109,18 +109,18 @@ body{background:var(--bg);color:var(--text);font-family:var(--rf);transition:bac
 .tbb.on{background:var(--accent);color:#fff;border-color:var(--accent);}
 .tbb-v{font-size:12px;font-weight:800;min-width:30px;text-align:center;color:var(--accent);}
 
-/* ── PROGRESS BAR ── */
+/*  PROGRESS BAR  */
 #prog-wrap{position:fixed;top:calc(56px+52px+50px);left:0;right:0;height:3px;background:var(--border);z-index:208;}
 #prog{height:100%;background:linear-gradient(90deg,#6366f1,#0891b2,#06b6d4);width:0%;transition:width .3s;border-radius:0 2px 2px 0;}
 
-/* ── MAIN CONTENT AREA ── */
+/*  MAIN CONTENT AREA  */
 #rd-wrap{
   max-width:760px;margin:0 auto;
   padding-top:calc(56px+52px+50px+22px);
   padding-left:24px;padding-right:24px;padding-bottom:160px;
 }
 
-/* ── BOOK HERO CARD ── */
+/*  BOOK HERO CARD  */
 #bk-hero{
   background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#1d4ed8 100%);
   border-radius:20px;padding:28px 24px;margin-bottom:22px;
@@ -141,7 +141,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--rf);transition:bac
 .bk-src-link:hover{color:#fff;}
 #bk-hero.empty{display:none;}
 
-/* ── LOAD / PASTE AREA ── */
+/*  LOAD / PASTE AREA  */
 #load-area{margin-bottom:22px;}
 #load-area.hidden{display:none;}
 
@@ -194,13 +194,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--rf);transition:bac
 #paste-txt.show ~ .ld-cta{display:block;}
 .ld-cta:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(99,102,241,.35);}
 
-/* ── SECTIONS ── */
+/*  SECTIONS  */
 .sec-badge{text-align:center;margin:6px 0 20px;}
 .sec-badge span{display:inline-block;background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;font-size:10px;font-weight:800;padding:5px 18px;border-radius:99px;letter-spacing:1.5px;box-shadow:0 3px 10px rgba(99,102,241,.3);}
 .sec-div{border:none;border-top:2px dashed var(--border);margin:36px 0;position:relative;}
 .sec-div::after{content:attr(data-lbl);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg);padding:0 14px;font-size:10px;font-weight:800;color:var(--muted);letter-spacing:1px;white-space:nowrap;}
 
-/* ── PARAGRAPHS ── */
+/*  PARAGRAPHS  */
 .para-block{margin-bottom:var(--rp);position:relative;padding-left:0;}
 .para-block.done{border-left:3px solid #22c55e;padding-left:14px;}
 .para-text{font-family:var(--rf);font-size:var(--rs);line-height:var(--rl);color:var(--text);letter-spacing:var(--ls);word-spacing:var(--ws);}
@@ -222,7 +222,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--rf);transition:bac
 .sign-pop{display:none;position:fixed;background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:16px;z-index:800;box-shadow:0 12px 36px rgba(0,0,0,.2);font-size:13px;max-width:230px;}
 .sign-pop.on{display:block;}
 
-/* ── BLIND LARGE BUTTONS ── */
+/*  BLIND LARGE BUTTONS  */
 #blind-ui{display:none;background:linear-gradient(135deg,#0a0a20,#1a1a3a);border-radius:18px;padding:26px;margin-bottom:22px;}
 body.mode-blind #blind-ui{display:block;}
 .bl-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;}
@@ -233,20 +233,20 @@ body.mode-blind #blind-ui{display:block;}
 #braille-panel{display:none;background:#060614;color:#00ff88;font-family:'Courier New',monospace;border-radius:12px;padding:18px;margin-top:14px;font-size:15px;line-height:2.2;word-break:break-all;border:1px solid #00ff8844;}
 #braille-panel.on{display:block;}
 
-/* ── LOW VISION ── */
+/*  LOW VISION  */
 #rd-content.zoom-150{transform:scale(1.5);transform-origin:top left;width:66.7%;}
 #rd-content.zoom-200{transform:scale(2);transform-origin:top left;width:50%;}
 #rd-content.zoom-300{transform:scale(3);transform-origin:top left;width:33.3%;}
 #reading-guide{display:none;position:fixed;left:0;right:0;height:44px;background:rgba(255,255,0,.25);pointer-events:none;z-index:400;border-top:2px solid rgba(200,160,0,.5);border-bottom:2px solid rgba(200,160,0,.5);}
 #reading-guide.on{display:block;}
 
-/* ── DYSLEXIA ── */
+/*  DYSLEXIA  */
 #colour-overlay{display:none;position:fixed;inset:0;pointer-events:none;z-index:300;opacity:.16;}
 #colour-overlay.on{display:block;}
 #ruler{display:none;position:fixed;left:0;right:0;height:40px;background:rgba(255,220,0,.35);pointer-events:none;z-index:301;border:1.5px solid rgba(180,140,0,.3);}
 #ruler.on{display:block;}
 
-/* ── ADHD FOCUS OVERLAY ── */
+/*  ADHD FOCUS OVERLAY  */
 #focus-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;align-items:center;justify-content:center;padding:32px 16px;}
 #focus-ov.on{display:flex;}
 #focus-card{background:var(--card);border-radius:22px;padding:40px;max-width:680px;width:100%;max-height:84vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.5);}
@@ -259,14 +259,14 @@ body.mode-blind #blind-ui{display:block;}
 .fn:disabled{opacity:.3;cursor:default;transform:none;}
 .fn.outline{background:none;border:2px solid var(--accent);color:var(--accent);}
 
-/* ── SMART BREAK ── */
+/*  SMART BREAK  */
 #break-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:600;align-items:center;justify-content:center;}
 #break-modal.on{display:flex;}
 #break-card{background:var(--card);border-radius:24px;padding:42px 36px;max-width:360px;width:92%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);}
 #break-cd{font-size:52px;font-weight:900;background:linear-gradient(135deg,#6366f1,#0891b2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:16px 0 24px;}
 .br-btn{background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;border:none;border-radius:12px;padding:12px 30px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;}
 
-/* ── CHECKPOINT ── */
+/*  CHECKPOINT  */
 #cp-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:600;align-items:center;justify-content:center;}
 #cp-modal.on{display:flex;}
 #cp-card{background:var(--card);border-radius:22px;padding:34px;max-width:520px;width:94%;box-shadow:0 30px 80px rgba(0,0,0,.4);}
@@ -281,7 +281,7 @@ body.mode-blind #blind-ui{display:block;}
 .cp-row{display:flex;gap:8px;flex-wrap:wrap;}
 .cp-btn{border-radius:10px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;border:none;transition:.15s;}
 
-/* ── AI SIDEBAR ── */
+/*  AI SIDEBAR  */
 #ai-sidebar{
   position:fixed;right:0;top:calc(56px+52px+50px);bottom:0;width:310px;
   background:var(--card);border-left:2px solid var(--border);
@@ -301,7 +301,7 @@ body.mode-blind #blind-ui{display:block;}
 #notes-area{width:100%;min-height:90px;border:1.5px solid var(--border);border-radius:10px;padding:11px;font-size:13px;font-family:inherit;background:var(--bg);color:var(--text);resize:vertical;outline:none;transition:.15s;}
 #notes-area:focus{border-color:var(--accent);}
 
-/* ── READ ALOUD BAR ── */
+/*  READ ALOUD BAR  */
 #aloud-bar{
   position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
   background:linear-gradient(135deg,#1e1b4b,#1d4ed8);color:#fff;
@@ -316,7 +316,7 @@ body.mode-blind #blind-ui{display:block;}
 .a-spd.on{background:rgba(255,255,255,.3);color:#fff;border-color:rgba(255,255,255,.5);}
 #a-prog{font-size:11px;color:rgba(255,255,255,.7);min-width:48px;text-align:center;}
 
-/* ── MICRO TIMER ── */
+/*  MICRO TIMER  */
 #micro-timer{
   position:fixed;top:calc(56px+52px+50px+12px);right:20px;
   background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;
@@ -325,7 +325,7 @@ body.mode-blind #blind-ui{display:block;}
 }
 #micro-timer.show{display:flex;}
 
-/* ── NO BOOK STATE ── */
+/*  NO BOOK STATE  */
 #no-book{
   text-align:center;padding:60px 20px;
   background:var(--card);border-radius:20px;margin-bottom:22px;
@@ -356,7 +356,7 @@ body.mode-blind #blind-ui{display:block;}
 <a href="#rd-wrap" class="skip">Skip to content</a>
 <div id="aria-live" aria-live="assertive" aria-atomic="true" role="status"></div>
 
-<!-- ── NAVBAR ── -->
+<!--  NAVBAR  -->
 <nav id="top-nav" aria-label="CelikSense navigation">
   <a href="index.html" class="tn-brand">
     <div class="tn-icon">CS</div>
@@ -368,32 +368,32 @@ body.mode-blind #blind-ui{display:block;}
   <div class="tn-links">
     <a href="index.html" class="tn-link">Home</a>
     <a href="dashboard.html" class="tn-link">Dashboard</a>
-    <a href="celikverse-library.html" class="tn-link pill">🌍 Library</a>
-    <a href="settings.html" class="tn-link pill">⚙️ Settings</a>
+    <a href="celikverse-library.html" class="tn-link pill"> Library</a>
+    <a href="settings.html" class="tn-link pill">⚙ Settings</a>
   </div>
 </nav>
 
-<!-- ── MODE SWITCHER BAR ── -->
+<!--  MODE SWITCHER BAR  -->
 <div id="mode-bar" role="tablist" aria-label="Accessibility reading modes">
   <button class="mode-pill" id="pill-blind"     onclick="setMode('blind')"     role="tab" aria-selected="false">
-    <span class="mp-emoji">🔊</span><span class="mp-lbl">Blind</span>
+    <span class="mp-emoji"></span><span class="mp-lbl">Blind</span>
   </button>
   <button class="mode-pill" id="pill-lowvision" onclick="setMode('lowvision')" role="tab" aria-selected="false">
-    <span class="mp-emoji">🔍</span><span class="mp-lbl">Low Vision</span>
+    <span class="mp-emoji"></span><span class="mp-lbl">Low Vision</span>
   </button>
   <button class="mode-pill" id="pill-dyslexia"  onclick="setMode('dyslexia')"  role="tab" aria-selected="false">
-    <span class="mp-emoji">📖</span><span class="mp-lbl">Dyslexia</span>
+    <span class="mp-emoji"></span><span class="mp-lbl">Dyslexia</span>
   </button>
   <button class="mode-pill" id="pill-adhd"      onclick="setMode('adhd')"      role="tab" aria-selected="false">
-    <span class="mp-emoji">🧠</span><span class="mp-lbl">ADHD</span>
+    <span class="mp-emoji"></span><span class="mp-lbl">ADHD</span>
   </button>
   <button class="mode-pill" id="pill-deaf"      onclick="setMode('deaf')"      role="tab" aria-selected="false">
-    <span class="mp-emoji">🤟</span><span class="mp-lbl">Deaf</span>
+    <span class="mp-emoji"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg></span><span class="mp-lbl">Deaf</span>
   </button>
   <span id="mode-badge">ADAPTIVE READER</span>
 </div>
 
-<!-- ── TOOLBARS ── -->
+<!--  TOOLBARS  -->
 <div id="toolbars" role="toolbar">
   <!-- Blind -->
   <div class="tb" id="tb-blind">
@@ -406,8 +406,8 @@ body.mode-blind #blind-ui{display:block;}
       <button class="tbb"    data-r="1.25" onclick="setSpd(1.25)">1.25×</button>
       <button class="tbb"    data-r="1.5"  onclick="setSpd(1.5)">1.5×</button>
     </div>
-    <div class="tbg"><button class="tbb" onclick="toggleBraille()">⠃ Braille</button></div>
-    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🤖 AI</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleBraille()"> Braille</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()"> AI</button></div>
   </div>
   <!-- Low Vision -->
   <div class="tb" id="tb-lowvision">
@@ -422,9 +422,9 @@ body.mode-blind #blind-ui{display:block;}
       <button class="tbb"    id="hc-dark"   onclick="setHC('dark')">Dark</button>
       <button class="tbb"    id="hc-yellow" onclick="setHC('yellow')">Yellow</button>
     </div>
-    <div class="tbg"><button class="tbb" id="guide-btn" onclick="toggleGuide()">📏 Guide</button></div>
-    <div class="tbg"><button class="tbb" onclick="toggleRead()">🔊 Read</button></div>
-    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🤖 AI</button></div>
+    <div class="tbg"><button class="tbb" id="guide-btn" onclick="toggleGuide()"> Guide</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleRead()"> Read</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()"> AI</button></div>
   </div>
   <!-- Dyslexia -->
   <div class="tb" id="tb-dyslexia">
@@ -445,31 +445,31 @@ body.mode-blind #blind-ui{display:block;}
     </div>
     <div class="tbg"><span class="tbl">OVERLAY</span>
       <button class="tbb on" onclick="setOverlay('none')">None</button>
-      <button class="tbb" onclick="setOverlay('#ffff00')">🟡</button>
-      <button class="tbb" onclick="setOverlay('#aad4f5')">🔵</button>
-      <button class="tbb" onclick="setOverlay('#90ee90')">🟢</button>
-      <button class="tbb" onclick="setOverlay('#ffb6c1')">🩷</button>
+      <button class="tbb" onclick="setOverlay('#ffff00')"></button>
+      <button class="tbb" onclick="setOverlay('#aad4f5')"></button>
+      <button class="tbb" onclick="setOverlay('#90ee90')"></button>
+      <button class="tbb" onclick="setOverlay('#ffb6c1')"></button>
     </div>
-    <div class="tbg"><button class="tbb" id="ruler-btn" onclick="toggleRuler()">📏 Ruler</button></div>
-    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🤖 AI</button></div>
+    <div class="tbg"><button class="tbb" id="ruler-btn" onclick="toggleRuler()"> Ruler</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()"> AI</button></div>
   </div>
   <!-- ADHD -->
   <div class="tb" id="tb-adhd">
-    <div class="tbg"><button class="tbb" id="focus-btn" onclick="toggleFocus()">🎯 Focus</button></div>
+    <div class="tbg"><button class="tbb" id="focus-btn" onclick="toggleFocus()"> Focus</button></div>
     <div class="tbg"><span class="tbl">SESSION</span>
       <button class="tbb"    id="m2"  onclick="setMicro(2)">2 min</button>
       <button class="tbb on" id="m5"  onclick="setMicro(5)">5 min</button>
       <button class="tbb"    id="m10" onclick="setMicro(10)">10 min</button>
     </div>
-    <div class="tbg"><button class="tbb" id="read-btn" onclick="toggleRead()">🔊 Read</button></div>
-    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🤖 AI</button></div>
+    <div class="tbg"><button class="tbb" id="read-btn" onclick="toggleRead()"> Read</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()"> AI</button></div>
   </div>
   <!-- Deaf -->
   <div class="tb" id="tb-deaf">
-    <div class="tbg"><button class="tbb" id="simp-btn" onclick="toggleSimplify()">🔤 Simplify</button></div>
-    <div class="tbg"><button class="tbb" id="kw-btn"   onclick="toggleKeywords()">🔑 Keywords</button></div>
-    <div class="tbg"><button class="tbb" onclick="toggleSidebar()">🗺️ Mind Map</button></div>
-    <div class="tbg"><a href="signsense-dictionary.html" class="tbb" style="text-decoration:none;">🤟 Sign Dict</a></div>
+    <div class="tbg"><button class="tbb" id="simp-btn" onclick="toggleSimplify()"> Simplify</button></div>
+    <div class="tbg"><button class="tbb" id="kw-btn"   onclick="toggleKeywords()"> Keywords</button></div>
+    <div class="tbg"><button class="tbb" onclick="toggleSidebar()"> Mind Map</button></div>
+    <div class="tbg"><a href="signsense-dictionary.html" class="tbb" style="text-decoration:none;"> Sign Dict</a></div>
   </div>
 </div>
 
@@ -484,50 +484,50 @@ body.mode-blind #blind-ui{display:block;}
 <div id="colour-overlay" aria-hidden="true"></div>
 <div id="ruler" aria-hidden="true"></div>
 
-<!-- ── AI SIDEBAR ── -->
+<!--  AI SIDEBAR  -->
 <div id="ai-sidebar" role="complementary" aria-label="AI Reading Assistant">
-  <button id="sidebar-close" onclick="toggleSidebar()" aria-label="Close AI panel">✕</button>
+  <button id="sidebar-close" onclick="toggleSidebar()" aria-label="Close AI panel"></button>
   <div class="sb-head">
-    <div class="sb-head-t">🤖 AI Reading Assistant</div>
+    <div class="sb-head-t"> AI Reading Assistant</div>
     <div class="sb-head-s">Powered by Gemini · Add key in Settings</div>
   </div>
-  <button class="ai-s-btn" onclick="doAI('simplify')"><span class="si">📝</span> Simplify This Section</button>
-  <button class="ai-s-btn" onclick="doAI('keywords')"><span class="si">🔑</span> Extract Keywords</button>
-  <button class="ai-s-btn" onclick="doAI('teacher')"><span class="si">👩‍🏫</span> AI Teacher — Explain This</button>
-  <button class="ai-s-btn" onclick="doAI('quiz')"><span class="si">🧩</span> Generate Quiz</button>
-  <button class="ai-s-btn" onclick="doAI('mindmap')"><span class="si">🗺️</span> Mind Map</button>
-  <button class="ai-s-btn" onclick="doAI('summary')"><span class="si">📄</span> Summary</button>
+  <button class="ai-s-btn" onclick="doAI('simplify')"><span class="si"></span> Simplify This Section</button>
+  <button class="ai-s-btn" onclick="doAI('keywords')"><span class="si"></span> Extract Keywords</button>
+  <button class="ai-s-btn" onclick="doAI('teacher')"><span class="si">‍</span> AI Teacher — Explain This</button>
+  <button class="ai-s-btn" onclick="doAI('quiz')"><span class="si"></span> Generate Quiz</button>
+  <button class="ai-s-btn" onclick="doAI('mindmap')"><span class="si"></span> Mind Map</button>
+  <button class="ai-s-btn" onclick="doAI('summary')"><span class="si"></span> Summary</button>
   <div id="ai-s-out" style="margin-top:4px;font-size:13px;line-height:1.7;color:var(--text);"></div>
-  <div class="ai-s-lbl">📝 MY NOTES</div>
+  <div class="ai-s-lbl"> MY NOTES</div>
   <textarea id="notes-area" placeholder="Write your notes here…" oninput="saveNotes()"></textarea>
-  <button class="ai-s-btn" style="margin-top:8px;" onclick="saveBookmark()"><span class="si">🔖</span> Bookmark Position</button>
-  <div id="bm-msg" style="font-size:11px;color:#22c55e;margin-top:4px;display:none;font-weight:700;">✓ Bookmarked!</div>
+  <button class="ai-s-btn" style="margin-top:8px;" onclick="saveBookmark()"><span class="si"></span> Bookmark Position</button>
+  <div id="bm-msg" style="font-size:11px;color:#22c55e;margin-top:4px;display:none;font-weight:700;"> Bookmarked!</div>
 </div>
 
-<!-- ── MAIN ── -->
+<!--  MAIN  -->
 <div id="rd-wrap" tabindex="-1">
   <!-- Book hero -->
   <div id="bk-hero" class="empty"></div>
 
   <!-- No book state -->
   <div id="no-book">
-    <div class="nb-icon">📚</div>
+    <div class="nb-icon"></div>
     <h2>Choose a Book to Begin</h2>
     <p>Pick any book from CelikVerse Library and it will open here with your accessibility mode automatically applied.</p>
-    <a href="celikverse-library.html" class="nb-cta">🌍 Browse CelikVerse Library →</a>
+    <a href="celikverse-library.html" class="nb-cta"> Browse CelikVerse Library →</a>
   </div>
 
   <!-- Blind large-button UI -->
   <div id="blind-ui" aria-label="Blind reader controls">
-    <div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#818cf8;margin-bottom:16px;text-align:center;">🔊 BLIND READER — AUDIO FIRST</div>
+    <div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#818cf8;margin-bottom:16px;text-align:center;"> BLIND READER — AUDIO FIRST</div>
     <div class="bl-row">
       <button class="bl-btn" onclick="toggleRead()">▶ Read Aloud</button>
       <button class="bl-btn" onclick="prevSent()">⏮ Previous</button>
       <button class="bl-btn" onclick="nextSent()">⏭ Next</button>
     </div>
     <div class="bl-row">
-      <button class="bl-btn secondary" onclick="toggleBraille()">⠃ Braille Output</button>
-      <button class="bl-btn secondary" onclick="toggleSidebar()">🤖 AI Help</button>
+      <button class="bl-btn secondary" onclick="toggleBraille()"> Braille Output</button>
+      <button class="bl-btn secondary" onclick="toggleSidebar()"> AI Help</button>
     </div>
     <div id="braille-panel" aria-label="Braille output"></div>
   </div>
@@ -539,24 +539,24 @@ body.mode-blind #blind-ui{display:block;}
   <div id="rd-content"></div>
 </div>
 
-<!-- ── FOCUS OVERLAY (ADHD) ── -->
+<!--  FOCUS OVERLAY (ADHD)  -->
 <div id="focus-ov" role="dialog" aria-modal="true" aria-label="Focus reading mode">
-  <button style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,.15);border:none;color:#fff;width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;" onclick="toggleFocus()" aria-label="Exit focus mode">✕</button>
+  <button style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,.15);border:none;color:#fff;width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;" onclick="toggleFocus()" aria-label="Exit focus mode"></button>
   <div id="focus-card">
     <div id="focus-meta">
-      <div id="focus-pill">🎯 FOCUS MODE</div>
+      <div id="focus-pill"> FOCUS MODE</div>
       <span id="foc-ctr" style="color:var(--muted);font-size:11px;">1 / 1</span>
     </div>
     <div id="focus-para" tabindex="0"></div>
     <div id="focus-nav">
       <button class="fn outline" id="fp-prev" onclick="fNav(-1)">← Prev</button>
-      <button class="fn" onclick="readFocusPara()">🔊 Read</button>
+      <button class="fn" onclick="readFocusPara()"> Read</button>
       <button class="fn" id="fp-next" onclick="fNav(1)">Next →</button>
     </div>
   </div>
 </div>
 
-<!-- ── SMART BREAK ── -->
+<!--  SMART BREAK  -->
 <div id="break-modal" role="dialog" aria-modal="true" aria-label="Break time">
   <div id="break-card">
     <div style="font-size:52px;margin-bottom:8px;">☕</div>
@@ -567,10 +567,10 @@ body.mode-blind #blind-ui{display:block;}
   </div>
 </div>
 
-<!-- ── AI CHECKPOINT (ADHD) ── -->
+<!--  AI CHECKPOINT (ADHD)  -->
 <div id="cp-modal" role="dialog" aria-modal="true" aria-label="Comprehension checkpoint">
   <div id="cp-card">
-    <div id="cp-header"><span>🧠</span><div>Quick Checkpoint — How well did you follow?</div></div>
+    <div id="cp-header"><span></span><div>Quick Checkpoint — How well did you follow?</div></div>
     <div id="cp-q">Loading…</div>
     <input type="text" id="cp-in" placeholder="Your answer…" onkeydown="if(event.key==='Enter')checkAns()">
     <div id="cp-fb"></div>
@@ -597,9 +597,9 @@ body.mode-blind #blind-ui{display:block;}
   <button class="a-spd"    data-r="1.5"  onclick="setSpd(1.5)">1.5×</button>
 </div>
 
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script>
-/* ═══════ BOOK DATA ═══════ */
+/*  BOOK DATA  */
 var BK = {}, SHELF_ID = null;
 function _bkKey(){return SHELF_ID||BK.title.toLowerCase().trim().replace(/[^a-z0-9]/g,'_').slice(0,60);}
 (function(){
@@ -622,18 +622,18 @@ function _bkKey(){return SHELF_ID||BK.title.toLowerCase().trim().replace(/[^a-z0
 })();
 
 var MODES    = ['blind','lowvision','dyslexia','adhd','deaf'];
-var MNAMES   = {blind:'🔊 Blind Reader',lowvision:'🔍 Low Vision',dyslexia:'📖 Dyslexia',adhd:'🧠 ADHD Reader',deaf:'🤟 Deaf Reader'};
+var MNAMES   = {blind:' Blind Reader',lowvision:' Low Vision',dyslexia:' Dyslexia',adhd:' ADHD Reader',deaf:'<svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Deaf Reader'};
 var MCOLORS  = {blind:'#818cf8',lowvision:'#7c3aed',dyslexia:'#d97706',adhd:'#6366f1',deaf:'#0284c7'};
 
-/* ═══════ PREFS ═══════ */
+/*  PREFS  */
 var PR = (function(){ try{return JSON.parse(localStorage.getItem('cs_reader_prefs')||'{}');}catch(e){return{};} })();
 function saveP(){ try{localStorage.setItem('cs_reader_prefs',JSON.stringify(PR));}catch(e){} }
 
-/* ═══════ STATE ═══════ */
+/*  STATE  */
 var paras=[],sents=[],sIdx=0,fIdx=0,isRead=false,isFocus=false,spd=1.0,microMin=5;
 var sessSec=0,sessInt=null,breakInt=null,_cpAns='',showKW=false,simplifyOn=false;
 
-/* ═══════ INIT ═══════ */
+/*  INIT  */
 document.addEventListener('DOMContentLoaded',function(){
   applyPrefs();
   setMode(PR.mode||BK.mode||'adhd');
@@ -650,25 +650,25 @@ document.addEventListener('DOMContentLoaded',function(){
 
 function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s||''));return d.innerHTML;}
 
-/* ═══════ BOOK HERO ═══════ */
+/*  BOOK HERO  */
 function renderBkHero(){
   var h=document.getElementById('bk-hero');
   if(!BK.title){h.classList.add('empty');return;}
   h.classList.remove('empty');
   document.title=BK.title+' · CelikSense Adaptive Reader';
   var mode=PR.mode||BK.mode||'adhd';
-  var cov=BK.cover?'<img src="'+esc(BK.cover)+'" alt="Book cover" onerror="this.outerHTML=\'<div id=bk-ph>📖</div>\'">':'<div id="bk-ph">📖</div>';
+  var cov=BK.cover?'<img src="'+esc(BK.cover)+'" alt="Book cover" onerror="this.outerHTML=\'<div id=bk-ph></div>\'">':'<div id="bk-ph"></div>';
   h.innerHTML='<div id="bk-cover-wrap">'+cov+'</div>'
     +'<div id="bk-info">'
     +'<div id="bk-mode-tag">'+MNAMES[mode]+'</div>'
     +'<div class="bk-title">'+esc(BK.title)+'</div>'
     +(BK.author?'<div class="bk-author">by '+esc(BK.author)+'</div>':'')
-    +(BK.source?'<span class="bk-source-badge">📚 '+esc(BK.source)+'</span>':'')
+    +(BK.source?'<span class="bk-source-badge"> '+esc(BK.source)+'</span>':'')
     +(BK.url?'<a class="bk-src-link" href="'+esc(BK.url)+'" target="_blank" rel="noopener">↗ View Original Source</a>':'')
     +'</div>';
 }
 
-/* ═══════ FETCH / LOAD ═══════ */
+/*  FETCH / LOAD  */
 async function tryFetch(){
   document.getElementById('no-book').classList.remove('show');
   var la=document.getElementById('load-area');
@@ -724,9 +724,9 @@ function cacheAndRender(text){
 function showPaste(){
   var la=document.getElementById('load-area');
   la.classList.remove('hidden');
-  var hasUrl=BK.url?'<a class="paste-src-link" href="'+BK.url+'" target="_blank" rel="noopener">📖 Open Source Page →</a>':'';
+  var hasUrl=BK.url?'<a class="paste-src-link" href="'+BK.url+'" target="_blank" rel="noopener"> Open Source Page →</a>':'';
   la.innerHTML='<div class="ld-paste">'
-    +'<div class="ld-paste-header"><div class="ld-paste-icon">📋</div><div class="ld-paste-title"><h3>Paste Book Text</h3><p>Auto-fetch failed (CORS). Follow these steps:</p></div></div>'
+    +'<div class="ld-paste-header"><div class="ld-paste-icon"></div><div class="ld-paste-title"><h3>Paste Book Text</h3><p>Auto-fetch failed (CORS). Follow these steps:</p></div></div>'
     +'<div class="ld-paste-body">'
     +'<div class="steps">'
     +'<div class="step"><div class="sn">1</div><div class="st">Open Source</div><div class="sd">Click the button below</div></div>'
@@ -750,7 +750,7 @@ function loadPaste(){
   parseRender(t);
 }
 
-/* ═══════ PARSE & RENDER ═══════ */
+/*  PARSE & RENDER  */
 function parseRender(raw){
   document.getElementById('load-area').classList.add('hidden');
   var t=raw;
@@ -773,7 +773,7 @@ function renderParas(){
     if(wCount>0&&wCount+pw>secWords){
       secNum++;wCount=0;
       var hr=document.createElement('hr');hr.className='sec-div';
-      hr.setAttribute('data-lbl','✦ Section '+secNum+' · ~'+microMin+' min');
+      hr.setAttribute('data-lbl',' Section '+secNum+' · ~'+microMin+' min');
       hr.dataset.cpTrigger='1';hr.dataset.cpIdx=i;
       area.appendChild(hr);area.appendChild(mkBadge(secNum));
     }
@@ -793,7 +793,7 @@ function renderParas(){
       sp.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();jumpSent(parseInt(sp.dataset.si));}};
       sents.push({paraIdx:i,text:s,el:sp});pt.appendChild(sp);
     });
-    var aib=document.createElement('button');aib.className='ai-btn';aib.innerHTML='✨ AI Help';
+    var aib=document.createElement('button');aib.className='ai-btn';aib.innerHTML=' AI Help';
     var aip=document.createElement('div');aip.className='ai-box';
     (function(p2,panel){aib.onclick=function(){toggleAIBox(p2,panel);};})(para,aip);
     blk.appendChild(pt);blk.appendChild(aib);blk.appendChild(aip);
@@ -803,10 +803,10 @@ function renderParas(){
   done.forEach(function(i){var el=document.getElementById('p'+i);if(el)el.classList.add('done');});
 }
 
-function mkBadge(n){var d=document.createElement('div');d.className='sec-badge';d.innerHTML='<span>📖 Section '+n+' · ~'+microMin+' min</span>';return d;}
+function mkBadge(n){var d=document.createElement('div');d.className='sec-badge';d.innerHTML='<span> Section '+n+' · ~'+microMin+' min</span>';return d;}
 function extractKW(text){var freq={};text.split(/\s+/).forEach(function(w){w=w.replace(/[^a-zA-Z]/g,'');if(w.length>5)freq[w]=(freq[w]||0)+1;});return Object.keys(freq).filter(function(w){return freq[w]>=2;}).slice(0,6);}
 
-/* ═══════ MODE SWITCHER ═══════ */
+/*  MODE SWITCHER  */
 function setMode(m){
   MODES.forEach(function(x){
     document.body.classList.remove('mode-'+x);
@@ -824,7 +824,7 @@ function setMode(m){
   PR.mode=m;saveP();
 }
 
-/* ═══════ SCROLL / PROGRESS ═══════ */
+/*  SCROLL / PROGRESS  */
 function onScroll(){
   var h=document.documentElement.scrollHeight-window.innerHeight;
   document.getElementById('prog').style.width=(h>0?Math.round(window.scrollY/h*100):0)+'%';
@@ -843,7 +843,7 @@ function onMouse(e){
   var r=document.getElementById('ruler');if(r.classList.contains('on'))r.style.top=(e.clientY-20)+'px';
 }
 
-/* ═══════ SESSION TIMER + SMART BREAK ═══════ */
+/*  SESSION TIMER + SMART BREAK  */
 function initSession(){
   sessInt=setInterval(function(){
     sessSec++;
@@ -871,7 +871,7 @@ function showBreak(){
 }
 function skipBreak(){document.getElementById('break-modal').classList.remove('on');clearInterval(breakInt);}
 
-/* ═══════ TOOLBAR CONTROLS ═══════ */
+/*  TOOLBAR CONTROLS  */
 function setZoom(z){['100','150','200','300'].forEach(function(x){document.getElementById('z'+x).classList.toggle('on',x==z);});var c=document.getElementById('rd-content');c.classList.remove('zoom-150','zoom-200','zoom-300');if(z!==100)c.classList.add('zoom-'+z);PR.zoom=z;saveP();}
 function setHC(m){document.body.classList.remove('hc-dark','hc-yellow');['norm','dark','yellow'].forEach(function(x){document.getElementById('hc-'+x).classList.toggle('on',x===m);});if(m==='dark')document.body.classList.add('hc-dark');if(m==='yellow')document.body.classList.add('hc-yellow');PR.hc=m;saveP();}
 function toggleGuide(){var g=document.getElementById('reading-guide');g.classList.toggle('on');document.getElementById('guide-btn').classList.toggle('on',g.classList.contains('on'));}
@@ -884,13 +884,13 @@ function setMicro(m){microMin=m;[2,5,10].forEach(function(x){document.getElement
 function toggleSimplify(){simplifyOn=!simplifyOn;document.getElementById('simp-btn').classList.toggle('on',simplifyOn);if(paras.length)renderParas();}
 function toggleKeywords(){showKW=!showKW;document.getElementById('kw-btn').classList.toggle('on',showKW);if(paras.length)renderParas();}
 
-/* ═══════ FOCUS MODE ═══════ */
+/*  FOCUS MODE  */
 function toggleFocus(){isFocus=!isFocus;document.getElementById('focus-ov').classList.toggle('on',isFocus);document.getElementById('focus-btn').classList.toggle('on',isFocus);if(isFocus)renderFP();}
 function renderFP(){if(!paras.length)return;document.getElementById('focus-para').textContent=paras[fIdx];document.getElementById('foc-ctr').textContent=(fIdx+1)+' / '+paras.length;document.getElementById('fp-prev').disabled=fIdx<=0;document.getElementById('fp-next').disabled=fIdx>=paras.length-1;}
 function fNav(d){fIdx=Math.max(0,Math.min(paras.length-1,fIdx+d));renderFP();var el=document.getElementById('p'+fIdx);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});}
 function readFocusPara(){if(!paras.length)return;if('speechSynthesis' in window){speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(paras[fIdx]);u.rate=spd;speechSynthesis.speak(u);}}
 
-/* ═══════ READ ALOUD ═══════ */
+/*  READ ALOUD  */
 function toggleRead(){if(isRead)stopRead();else startRead();}
 function startRead(){if(!sents.length)return;isRead=true;document.getElementById('aloud-bar').classList.add('on');['read-btn','tb-autoread'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('on');});readAt(sIdx);}
 function stopRead(){isRead=false;if('speechSynthesis' in window)speechSynthesis.cancel();clearHL();document.getElementById('aloud-bar').classList.remove('on');['read-btn','tb-autoread'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('on');});}
@@ -913,41 +913,41 @@ function prevSent(){if(isRead){speechSynthesis.cancel();readAt(Math.max(0,sIdx-1
 function jumpSent(i){sIdx=i;if(!isRead)startRead();else readAt(i);}
 function setSpd(r){spd=r;document.querySelectorAll('.a-spd,[data-r]').forEach(function(b){if(b.dataset.r)b.classList.toggle('on',parseFloat(b.dataset.r)===r);});if(isRead){speechSynthesis.cancel();readAt(sIdx);}PR.speed=r;saveP();}
 
-/* ═══════ BRAILLE ═══════ */
-var BRL_MAP={'a':'⠁','b':'⠃','c':'⠉','d':'⠙','e':'⠑','f':'⠋','g':'⠛','h':'⠓','i':'⠊','j':'⠚','k':'⠅','l':'⠇','m':'⠍','n':'⠝','o':'⠕','p':'⠏','q':'⠟','r':'⠗','s':'⠎','t':'⠞','u':'⠥','v':'⠧','w':'⠺','x':'⠭','y':'⠽','z':'⠵',' ':' '};
+/*  BRAILLE  */
+var BRL_MAP={'a':'','b':'','c':'','d':'','e':'','f':'','g':'','h':'','i':'','j':'','k':'','l':'','m':'','n':'','o':'','p':'','q':'','r':'','s':'','t':'','u':'','v':'','w':'','x':'','y':'','z':'',' ':' '};
 function toBraille(t){return t.toLowerCase().split('').map(function(c){return BRL_MAP[c]||c;}).join('');}
 function toggleBraille(){var bp=document.getElementById('braille-panel');bp.classList.toggle('on');if(bp.classList.contains('on')&&paras.length){var para=paras[sents[sIdx]?sents[sIdx].paraIdx:0]||paras[0];bp.textContent=toBraille(para.slice(0,200));}}
 
-/* ═══════ AI PARAGRAPH HELP ═══════ */
+/*  AI PARAGRAPH HELP  */
 function toggleAIBox(text,panel){if(panel.classList.contains('open')){panel.classList.remove('open');return;}panel.classList.add('open');if(panel._done)return;panel._done=true;panel.innerHTML='<div class="ai-lbl">⏳ ANALYSING…</div>';genParaAI(text,panel);}
 async function genParaAI(text,panel){
   var key=getKey();
   if(!key){
     var words=text.replace(/[^a-zA-Z\s]/g,'').split(/\s+/).filter(function(w){return w.length>5;});
     var kw=[...new Set(words)].slice(0,6);
-    panel.innerHTML='<div class="ai-lbl">🔑 KEY WORDS</div><div style="margin-bottom:8px;">'+kw.map(function(w){return '<span class="ai-kw">'+esc(w)+'</span>';}).join('')+'</div><div style="font-size:11px;color:#9ca3af;">Add OpenRouter key in <a href="settings.html" style="color:var(--accent);">Settings</a> for full AI analysis.</div>';
+    panel.innerHTML='<div class="ai-lbl"> KEY WORDS</div><div style="margin-bottom:8px;">'+kw.map(function(w){return '<span class="ai-kw">'+esc(w)+'</span>';}).join('')+'</div><div style="font-size:11px;color:#9ca3af;">Add OpenRouter key in <a href="settings.html" style="color:var(--accent);">Settings</a> for full AI analysis.</div>';
     return;
   }
   try{
     var mode=PR.mode||'adhd';
     var prmts={'blind':'Describe this paragraph vividly for a blind reader (audio-first).','lowvision':'Explain clearly in 2 sentences with key visual descriptions.','dyslexia':'Rewrite in 3 simple short sentences. List 5 key words.','adhd':'Give 3 bullet-point key ideas for an ADHD reader.','deaf':'Simplify into 3 short visual sentences. List key concepts as emoji + word.'};
     var r=await gemCall((prmts[mode]||'Simplify and list 5 keywords.')+'\n\nParagraph: "'+text.slice(0,600)+'"',key);
-    panel.innerHTML='<div class="ai-lbl">🤖 AI — '+mode.toUpperCase()+'</div><div style="white-space:pre-wrap;font-size:12px;line-height:1.65;">'+esc(r)+'</div>';
-  }catch(e){panel.innerHTML='<div class="ai-lbl">❌ Error</div><div>Check API key in <a href="settings.html">Settings</a>.</div>';}
+    panel.innerHTML='<div class="ai-lbl"> AI — '+mode.toUpperCase()+'</div><div style="white-space:pre-wrap;font-size:12px;line-height:1.65;">'+esc(r)+'</div>';
+  }catch(e){panel.innerHTML='<div class="ai-lbl"> Error</div><div>Check API key in <a href="settings.html">Settings</a>.</div>';}
 }
 
-/* ═══════ CHECKPOINT ═══════ */
+/*  CHECKPOINT  */
 function showCP(secText){document.getElementById('cp-modal').classList.add('on');document.getElementById('cp-q').textContent='Loading…';document.getElementById('cp-in').value='';document.getElementById('cp-fb').style.display='none';_cpAns='';genCPQ(secText);}
 async function genCPQ(text){var key=getKey();if(!key){document.getElementById('cp-q').textContent='What was the main idea of this section?';return;}try{var r=await gemCall('Create ONE comprehension question and its answer. Format:\nQUESTION: ...\nANSWER: ...\n\nText: "'+text.slice(0,800)+'"',key);var qm=r.match(/QUESTION:\s*(.+)/i),am=r.match(/ANSWER:\s*(.+)/i);document.getElementById('cp-q').textContent=qm?qm[1].trim():'What was the main idea?';_cpAns=am?am[1].trim().toLowerCase():'';}catch(e){document.getElementById('cp-q').textContent='What was the main idea of this section?';}}
-function checkAns(){var ans=document.getElementById('cp-in').value.trim().toLowerCase();var fb=document.getElementById('cp-fb');fb.style.display='block';if(!ans){fb.className='';fb.textContent='Please write an answer.';return;}var ok=!_cpAns||(ans.length>3&&(_cpAns.slice(0,15).split(/\s+/).some(function(w){return w.length>2&&ans.includes(w);})||ans.length>20));fb.className=ok?'ok':'no';fb.textContent=ok?'✅ Great! Keep reading.':'❌ Not quite. '+(_cpAns?'Hint: '+_cpAns:'Try again.');if(ok)setTimeout(skipCP,1600);}
+function checkAns(){var ans=document.getElementById('cp-in').value.trim().toLowerCase();var fb=document.getElementById('cp-fb');fb.style.display='block';if(!ans){fb.className='';fb.textContent='Please write an answer.';return;}var ok=!_cpAns||(ans.length>3&&(_cpAns.slice(0,15).split(/\s+/).some(function(w){return w.length>2&&ans.includes(w);})||ans.length>20));fb.className=ok?'ok':'no';fb.textContent=ok?' Great! Keep reading.':' Not quite. '+(_cpAns?'Hint: '+_cpAns:'Try again.');if(ok)setTimeout(skipCP,1600);}
 function explainAgain(){skipCP();if(sIdx>8){sIdx=Math.max(0,sIdx-8);if(!isRead)startRead();else readAt(sIdx);}}
 function skipCP(){document.getElementById('cp-modal').classList.remove('on');}
 
-/* ═══════ SIGN POPUP ═══════ */
-var CICONS={'love':'❤️','death':'💀','war':'⚔️','nature':'🌿','sea':'🌊','family':'👨‍👩‍👧','home':'🏠','god':'✨','king':'👑','money':'💰','child':'👶','night':'🌙','day':'☀️','book':'📚','school':'🏫','friend':'🤝','enemy':'👿','time':'⏰','dream':'💭','truth':'💡'};
-function showSign(word){var pop=document.getElementById('sign-pop');var icon=CICONS[word.toLowerCase()]||'🤟';pop.innerHTML=icon+' <strong>'+esc(word)+'</strong><br><a href="signsense-dictionary.html?word='+encodeURIComponent(word)+'" style="color:var(--accent);font-size:12px;font-weight:600;">View in Sign Dictionary →</a><br><button onclick="document.getElementById(\'sign-pop\').classList.remove(\'on\')" style="font-size:11px;background:none;border:none;color:#9ca3af;cursor:pointer;margin-top:4px;">Close</button>';pop.style.left=Math.min(window.innerWidth-235,180)+'px';pop.style.top=(window.scrollY+180)+'px';pop.classList.add('on');}
+/*  SIGN POPUP  */
+var CICONS={'love':'','death':'','war':'⚔','nature':'','sea':'','family':'‍‍','home':'','god':'','king':'','money':'','child':'','night':'','day':'☀','book':'','school':'','friend':'','enemy':'','time':'⏰','dream':'','truth':''};
+function showSign(word){var pop=document.getElementById('sign-pop');var icon=CICONS[word.toLowerCase()]||'';pop.innerHTML=icon+' <strong>'+esc(word)+'</strong><br><a href="signsense-dictionary.html?word='+encodeURIComponent(word)+'" style="color:var(--accent);font-size:12px;font-weight:600;">View in Sign Dictionary →</a><br><button onclick="document.getElementById(\'sign-pop\').classList.remove(\'on\')" style="font-size:11px;background:none;border:none;color:#9ca3af;cursor:pointer;margin-top:4px;">Close</button>';pop.style.left=Math.min(window.innerWidth-235,180)+'px';pop.style.top=(window.scrollY+180)+'px';pop.classList.add('on');}
 
-/* ═══════ AI SIDEBAR ═══════ */
+/*  AI SIDEBAR  */
 function toggleSidebar(){document.getElementById('ai-sidebar').classList.toggle('on');}
 var AI_PROMPTS={simplify:'Simplify this text in plain language (Grade 6 level). Be concise.',keywords:'List the 8 most important vocabulary words from this text with brief definitions.',teacher:'Explain this text as a friendly teacher to a 12-year-old. Use simple analogies.',quiz:'Create 5 multiple-choice questions based on this text. Return ONLY a valid JSON array, no markdown, no explanation. Format: [{"q":"question","options":["A","B","C","D"],"answer":0}] where answer is the 0-based index of the correct option.',mindmap:'Create a text-based mind map of this text. Use indented bullets to show relationships.',summary:'Write a concise 3-paragraph summary of this text.'};
 function _renderQuiz(questions,isCached,dateStr){
@@ -965,7 +965,7 @@ function _renderQuiz(questions,isCached,dateStr){
   });
   html+='</div>';
   html+='<div id="quiz-score" style="display:none;margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;font-size:13px;font-weight:700;text-align:center;"></div>';
-  html+=(isCached?'<div style="font-size:11px;color:var(--muted);margin-top:6px;">💾 Cached '+dateStr+' · <button onclick="doAI(\'quiz\',true)" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;text-decoration:underline;">Regenerate</button></div>':'');
+  html+=(isCached?'<div style="font-size:11px;color:var(--muted);margin-top:6px;"> Cached '+dateStr+' · <button onclick="doAI(\'quiz\',true)" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;text-decoration:underline;">Regenerate</button></div>':'');
   out.innerHTML=html;
   window._quizState={score:0,answered:0,total:total};
 }
@@ -977,17 +977,17 @@ window._quizAns=function(qi,oi,correct){
   var fb=document.getElementById('qfb-'+qi);
   if(oi===correct){
     chosen.style.background='#d1fae5';chosen.style.borderColor='#10b981';
-    fb.innerHTML='<span style="color:#059669;">✅ Betul!</span>';
+    fb.innerHTML='<span style="color:#059669;"> Betul!</span>';
     window._quizState.score++;
   }else{
     chosen.style.background='#fee2e2';chosen.style.borderColor='#ef4444';
     correctBtn.style.background='#d1fae5';correctBtn.style.borderColor='#10b981';
-    fb.innerHTML='<span style="color:#dc2626;">❌ Salah.</span> <span style="color:#059669;">Jawapan: '+esc(correctBtn.textContent)+'</span>';
+    fb.innerHTML='<span style="color:#dc2626;"> Salah.</span> <span style="color:#059669;">Jawapan: '+esc(correctBtn.textContent)+'</span>';
   }
   window._quizState.answered++;
   if(window._quizState.answered===window._quizState.total){
     var sc=window._quizState.score,tot=window._quizState.total;
-    var emoji=sc===tot?'🏆':sc>=tot/2?'👍':'💪';
+    var emoji=sc===tot?'':sc>=tot/2?'':'';
     var scoreEl=document.getElementById('quiz-score');
     scoreEl.style.display='block';
     scoreEl.textContent=emoji+' Skor kamu: '+sc+'/'+tot+' — '+(sc===tot?'Sempurna!':sc>=tot/2?'Bagus, teruskan!':'Cuba lagi!');
@@ -1006,9 +1006,9 @@ function _renderAI(type,text){
     }catch(e){}
   }
   out.innerHTML='<div style="background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(8,145,178,.05));border:1.5px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;white-space:pre-wrap;">'+esc(text)+'</div>'
-    +(isCached?'<div style="font-size:11px;color:var(--muted);margin-top:6px;">💾 Cached '+dateStr+' · <button onclick="doAI(\''+type+'\',true)" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;text-decoration:underline;">Regenerate</button></div>':'');
+    +(isCached?'<div style="font-size:11px;color:var(--muted);margin-top:6px;"> Cached '+dateStr+' · <button onclick="doAI(\''+type+'\',true)" style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;text-decoration:underline;">Regenerate</button></div>':'');
 }
-/* ═══════ LANGCHAIN READER AGENT ═══════ */
+/*  LANGCHAIN READER AGENT  */
 // Calls /api/agents/reader (LangChain ReAct agent) when on Vercel.
 // Falls back to direct Gemini call when running on GitHub Pages / locally.
 var AGENT_BASE = (function(){
@@ -1035,7 +1035,7 @@ async function callReaderAgent(type, text, lang){
 async function doAI(type,force){
   var out=document.getElementById('ai-s-out');
   var key=getKey();
-  if(!key){out.innerHTML='<div style="background:#ede9fe;border-radius:10px;padding:14px;font-size:13px;">💡 Add OpenRouter API key in <a href="settings.html" style="color:#6366f1;font-weight:700;">Settings</a> for AI features.</div>';return;}
+  if(!key){out.innerHTML='<div style="background:#ede9fe;border-radius:10px;padding:14px;font-size:13px;"> Add OpenRouter API key in <a href="settings.html" style="color:#6366f1;font-weight:700;">Settings</a> for AI features.</div>';return;}
   // Serve from cache unless force-regenerate
   if(!force){var cached=_aiCacheGet(type);if(cached&&cached.text){_renderAI(type,cached.text);return;}}
   out.innerHTML='<div style="background:var(--bg);border-radius:10px;padding:14px;font-size:12px;color:var(--muted);">⏳ Generating…</div>';
@@ -1055,27 +1055,27 @@ async function doAI(type,force){
   }catch(e){out.innerHTML='<div style="background:#fee2e2;border-radius:10px;padding:12px;font-size:12px;color:#991b1b;">Error. Check API key in Settings.</div>';}
 }
 
-/* ═══════ NOTES & BOOKMARKS ═══════ */
+/*  NOTES & BOOKMARKS  */
 function saveNotes(){try{localStorage.setItem('cs_notes_'+_bkKey(),document.getElementById('notes-area').value);}catch(e){}}
 function loadNotes(){try{document.getElementById('notes-area').value=localStorage.getItem('cs_notes_'+_bkKey())||'';}catch(e){}}
 function saveBookmark(){try{var pos={sIdx:sIdx,scrollY:window.scrollY,ts:Date.now()};localStorage.setItem('cs_bm_'+_bkKey(),JSON.stringify(pos));var m=document.getElementById('bm-msg');m.style.display='block';setTimeout(function(){m.style.display='none';},2000);}catch(e){}}
 
-/* ═══════ GEMINI ═══════ */
-function getKey(){return localStorage.getItem('openrouter_api_key')||'';}
-async function gemCall(prompt,key){var model=localStorage.getItem('openrouter_model')||'google/gemma-3-27b-it:free';var r=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://starter-code-phi.vercel.app','X-Title':'CelikSense AI'},body:JSON.stringify({model:model,messages:[{role:'user',content:prompt}]})});var d=await r.json();if(d.error)throw new Error(d.error.message);return d.choices&&d.choices[0]?d.choices[0].message.content:'No response.';}
+/*  GEMINI  */
+function getKey(){return localStorage.getItem('openrouter_api_key')||'server';}
+async function gemCall(prompt,key){var model=localStorage.getItem('openrouter_model')||'google/gemma-3-27b-it:free';var r=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://celiksense-ai-116242246073.asia-southeast1.run.app','X-Title':'CelikSense AI'},body:JSON.stringify({model:model,messages:[{role:'user',content:prompt}]})});var d=await r.json();if(d.error)throw new Error(d.error.message);return d.choices&&d.choices[0]?d.choices[0].message.content:'No response.';}
 
-/* ═══════ AI RESPONSE CACHE ═══════ */
+/*  AI RESPONSE CACHE  */
 function _aiCacheKey(type){return 'cs_ai_'+_bkKey()+'_'+type;}
 function _aiCacheGet(type){try{var v=localStorage.getItem(_aiCacheKey(type));if(!v)return null;var obj=JSON.parse(v);return obj&&obj.text?obj:null;}catch(e){return null;}}
 function _aiCacheSet(type,text){try{localStorage.setItem(_aiCacheKey(type),JSON.stringify({text:text,ts:Date.now()}));}catch(e){}}
 
-/* ═══════ VOICE NAV ═══════ */
+/*  VOICE NAV  */
 function initVoice(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;var rec=new SR();rec.continuous=true;rec.interimResults=false;rec.lang='en-US';rec.onresult=function(e){var cmd=e.results[e.results.length-1][0].transcript.trim().toLowerCase();if(cmd.includes('next'))isFocus?fNav(1):nextSent();else if(cmd.includes('previous')||cmd.includes('back'))isFocus?fNav(-1):prevSent();else if(cmd.includes('read')||cmd.includes('start')){if(!isRead)startRead();}else if(cmd.includes('pause')||cmd.includes('stop')){if(isRead)stopRead();}else if(cmd.includes('focus'))toggleFocus();};rec.onerror=function(){};try{rec.start();}catch(e){}}
 
-/* ═══════ KEYBOARD ═══════ */
+/*  KEYBOARD  */
 document.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;if(e.key===' '){e.preventDefault();toggleRead();}if(e.key==='f')toggleFocus();if(e.key==='r')toggleRuler();if(e.key==='g')toggleGuide();if(e.key==='ArrowRight'||e.key==='n')isFocus?fNav(1):nextSent();if(e.key==='ArrowLeft'||e.key==='b')isFocus?fNav(-1):prevSent();if(e.key==='Escape'){if(isFocus)toggleFocus();if(isRead)stopRead();skipBreak();skipCP();}});
 
-/* ═══════ APPLY SAVED PREFS ═══════ */
+/*  APPLY SAVED PREFS  */
 function applyPrefs(){
   if(PR.ls){document.documentElement.style.setProperty('--ls',PR.ls+'em');document.getElementById('lbl-ls').textContent=PR.ls.toFixed(2);}
   if(PR.ws){document.documentElement.style.setProperty('--ws',PR.ws+'em');document.getElementById('lbl-ws').textContent=PR.ws.toFixed(2);}

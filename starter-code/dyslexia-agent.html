@@ -23,7 +23,7 @@
 .skim-highlight { background:#fbbf2460; border-radius:3px; padding:0 2px; }
 @media(max-width:768px){ .dys-layout{grid-template-columns:1fr;} }
 
-/* ── ReAct Loop UI ── */
+/*  ReAct Loop UI  */
 .react-panel { border:2px solid #6366f1; border-radius:16px; padding:20px; background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04)); margin-bottom:20px; }
 .react-step { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; opacity:0.3; transition:opacity .4s; }
 .react-step.active { opacity:1; }
@@ -56,23 +56,23 @@
       <div class="nav-dropdown">
         <button data-i18n="nav_agents" aria-haspopup="true" aria-expanded="false">Agents ▾</button>
         <div class="dropdown-menu">
-          <a href="ai-librarian.html">📚 AI Librarian</a>
-          <a href="reading-companion.html">📖 Reading Companion</a>
-          <a href="adhd-agent.html">🧠 ADHD Agent</a>
-          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
-          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
-          <a href="sign-language.html">🤟 Sign Language Agent</a>
-          <a href="early-warning.html">⚠️ Early Warning Agent</a>
-          <a href="intervention.html">💡 Intervention Agent</a>
+          <a href="ai-librarian.html"> AI Librarian</a>
+          <a href="reading-companion.html"> Reading Companion</a>
+          <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
+          <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
+          <a href="blind-audio.html"> Blind Audio Agent</a>
+          <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
+          <a href="early-warning.html">⚠ Early Warning Agent</a>
+          <a href="intervention.html"> Intervention Agent</a>
         </div>
       </div>
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
       <a href="dashboard.html" class="btn btn-outline btn-sm">← Dashboard</a>
-      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings">⚙️</a>
-      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </nav>
@@ -80,7 +80,7 @@
 <main class="page-header" id="main-content">
   <div class="container">
   <div class="page-header-card">
-    <div class="page-badge">🔤</div>
+    <div class="page-badge"></div>
     <h1 class="page-title">Dyslexia Adaptive Reading Agent</h1>
     <p class="page-subtitle">Dyslexia-friendly fonts, colour overlays, reading ruler, mind map, and intervention support.</p>
   </div>
@@ -94,18 +94,18 @@
     <div>
       <!-- Font -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title">🔤 Font Mode</div>
+        <div class="panel-title"> Font Mode</div>
         <div class="toggle-group">
-          <button class="toggle-btn active" id="fontNormal" onclick="setFont('normal')">Normal</button>
+          <button class="toggle-btn" id="fontNormal" onclick="setFont('normal')">Normal</button>
           <button class="toggle-btn" id="fontDys" onclick="setFont('dyslexic')">Lexend</button>
-          <button class="toggle-btn" id="fontOD" onclick="setFont('opendyslexic')">OpenDyslexic</button>
+          <button class="toggle-btn active" id="fontOD" onclick="setFont('opendyslexic')">OpenDyslexic</button>
         </div>
         <div style="font-size:11px;color:var(--text-dim);margin-top:8px;" id="fontDesc">Lexend reduces visual stress. OpenDyslexic uses weighted bottoms to anchor letters and reduce reversals.</div>
       </div>
 
       <!-- Font Size -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title">📏 Text Size</div>
+        <div class="panel-title"> Text Size</div>
         <div class="range-label">
           <span style="font-size:12px;color:var(--text-muted);">Size</span>
           <span class="range-value" id="sizeVal">16px</span>
@@ -131,7 +131,7 @@
 
       <!-- Colour Overlay -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title">🎨 Colour Overlay</div>
+        <div class="panel-title"> Colour Overlay</div>
         <div class="color-swatches">
           <div class="color-swatch active" style="background:#fffdf5;" onclick="setOverlay('none',this)" title="None (White)" role="button" tabindex="0" aria-label="None (White) overlay" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()"></div>
           <div class="color-swatch" style="background:#fffde0;" onclick="setOverlay('overlay-yellow',this)" title="Yellow" role="button" tabindex="0" aria-label="Yellow overlay" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()"></div>
@@ -145,7 +145,7 @@
 
       <!-- Reading Ruler -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title">📏 Reading Ruler</div>
+        <div class="panel-title"> Reading Ruler</div>
         <div style="display:flex;align-items:center;gap:12px;">
           <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
             <input type="checkbox" id="rulerToggle" onchange="toggleRuler()" style="width:18px;height:18px;cursor:pointer;">
@@ -157,7 +157,7 @@
 
       <!-- TTS Controls -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title">🔊 Text-to-Speech</div>
+        <div class="panel-title"> Text-to-Speech</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <button class="btn btn-primary" onclick="readText()">▶ Read Text Aloud</button>
           <button class="btn btn-ghost" onclick="stopSpeech()">⏹ Stop Audio</button>
@@ -173,7 +173,7 @@
 
       <!-- Difficulty + Intervention -->
       <div class="control-panel">
-        <div class="panel-title">📊 Reading Difficulty</div>
+        <div class="panel-title"> Reading Difficulty</div>
         <select class="form-control" id="diffLevel" onchange="showIntervention()">
           <option value="low">Low Difficulty</option>
           <option value="medium" selected>Medium Difficulty</option>
@@ -188,20 +188,20 @@
     <div>
       <!-- Text Input -->
       <div class="control-panel" style="margin-bottom:20px;">
-        <div class="panel-title">📝 Reading Text</div>
+        <div class="panel-title"> Reading Text</div>
         <textarea class="form-control" id="dysInput" rows="5" placeholder="Paste or type your reading text here…">Coral reefs are one of the most beautiful and diverse ecosystems on Earth. They are sometimes called the "rainforests of the sea" because of the incredible variety of life they support. Coral reefs are built by tiny animals called coral polyps. These polyps live in a symbiotic relationship with algae called zooxanthellae. The algae provide the coral with food through photosynthesis. In return, the coral gives the algae a safe home. This relationship is very delicate. When sea temperatures rise, the coral becomes stressed and expels the algae. Without the algae, the coral turns white – a process known as coral bleaching. If the bleaching is severe or prolonged, the coral can die.</textarea>
         <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
-          <button class="btn btn-primary" onclick="loadDysText()">📖 Load Text</button>
+          <button class="btn btn-primary" onclick="loadDysText()"> Load Text</button>
           <button class="btn btn-secondary" onclick="runSkimGuide()">⚡ Skim Guide</button>
           <button class="btn btn-ghost" onclick="clearDysText()">Clear</button>
-          <button class="btn btn-sm" onclick="runReAct()" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="Run full ReAct reasoning loop">🧠 ReAct Analysis</button>
+          <button class="btn btn-sm" onclick="runReAct()" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="Run full ReAct reasoning loop"> ReAct Analysis</button>
         </div>
       </div>
 
       <!-- ReAct Loop Panel -->
       <div class="react-panel" id="reactPanel" style="display:none;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-          <div style="font-weight:700;font-size:15px;color:#4338ca;">🧠 ReAct Reasoning Loop</div>
+          <div style="font-weight:700;font-size:15px;color:#4338ca;"> ReAct Reasoning Loop</div>
           <span id="reactRound" style="font-size:12px;color:var(--text-muted);"></span>
         </div>
         <div class="react-step" id="reactStep1">
@@ -225,7 +225,7 @@
 
       <!-- Reading Display -->
       <div class="control-panel" style="margin-bottom:20px;">
-        <div class="panel-title">📖 Reading Display</div>
+        <div class="panel-title"> Reading Display</div>
         <div class="reading-wrap" id="readingWrap">
           <div id="readingRuler" class="reading-ruler"></div>
           <div class="reading-area" id="dysReadArea" onmousemove="moveRuler(event)" style="min-height:220px;">
@@ -242,8 +242,8 @@
 
       <!-- Mind Map -->
       <div class="control-panel">
-        <div class="panel-title">🗺 Visual Mind Map</div>
-        <button class="btn btn-primary btn-sm" style="margin-bottom:14px;" onclick="generateMindMap()">🗺 Auto Mind Map (Pattern-based)</button>
+        <div class="panel-title"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" style="vertical-align:middle;margin-right:6px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="5" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="6.3" y1="6.3" x2="8.5" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="5" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="17.7" y1="6.3" x2="15.5" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="19" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="6.3" y1="17.7" x2="8.5" y2="15" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="19" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="17.7" y1="17.7" x2="15.5" y2="15" stroke="currentColor" stroke-width="1.5"/></svg> Visual Mind Map</div>
+        <button class="btn btn-primary btn-sm" style="margin-bottom:14px;" onclick="generateMindMap()"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Auto Mind Map (Pattern-based)</button>
         <div class="mindmap-canvas" id="mindmapCanvas">
           <div style="text-align:center;color:var(--text-muted);font-size:14px;">Load a text and click Generate Mind Map</div>
         </div>
@@ -257,12 +257,12 @@
   <div class="container">
     <div class="footer-bottom">
       <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)">Dashboard</a></span>
-      <span>🔤 Dyslexia Adaptive Reading Agent</span>
+      <span> Dyslexia Adaptive Reading Agent</span>
     </div>
   </div>
 </footer>
 
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script>
 function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 let dysText = '';
@@ -367,7 +367,7 @@ function setSpeed(val) {
   document.getElementById('speedVal').textContent = parseFloat(val).toFixed(1)+'x';
 }
 
-/* ── Agent API helper ──────────────────────────────────────────────────── */
+/*  Agent API helper  */
 async function _callAgent(task, payload) {
   var apiKey = '';
   try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
@@ -392,7 +392,7 @@ function _dysHasKey() {
   try { return !!(localStorage.getItem('openrouter_api_key') || ''); } catch(e) { return false; }
 }
 
-/* ── AI Skim Guide ────────────────────────────────────────────────────── */
+/*  AI Skim Guide  */
 async function runSkimGuide() {
   if (!dysText) { alert('Load a text first.'); return; }
   const panel = document.getElementById('skimPanel');
@@ -401,13 +401,13 @@ async function runSkimGuide() {
 
   // Instant rule-based preview while AI loads
   const sentences = dysText.split(/[.!?]+/).filter(s=>s.trim().length>10);
-  out.innerHTML = `<strong>📌 Opening:</strong><br><span class="skim-highlight">${(sentences[0]||'').trim()}.</span><br><br><div style="font-size:12px;color:var(--muted);">🤖 AI analysing key concepts…</div>`;
+  out.innerHTML = `<strong> Opening:</strong><br><span class="skim-highlight">${(sentences[0]||'').trim()}.</span><br><br><div style="font-size:12px;color:var(--muted);"> AI analysing key concepts…</div>`;
 
   if(!_dysHasKey()){
     const words=dysText.match(/\b[A-Za-z]{5,}\b/g)||[];
     const freq={};words.forEach(w=>{const k=w.toLowerCase();freq[k]=(freq[k]||0)+1;});
     const top=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,6).map(e=>e[0]);
-    out.innerHTML+=`<br><strong>🔑 Frequent Key Words:</strong><br>${top.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br><small>Add OpenRouter API key in <a href="settings.html">Settings</a> for AI-powered skim analysis.</small>`;
+    out.innerHTML+=`<br><strong> Frequent Key Words:</strong><br>${top.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br><small>Add OpenRouter API key in <a href="settings.html">Settings</a> for AI-powered skim analysis.</small>`;
     return;
   }
 
@@ -423,21 +423,21 @@ async function runSkimGuide() {
   const keyWords = (keyWordsMatch?.[1]||'').split(',').map(w=>w.trim()).filter(Boolean);
   const mainIdea = mainIdeaMatch?.[1]?.trim() || '';
   out.innerHTML =
-    `<strong>📌 Most Important Sentence (AI):</strong><br><span class="skim-highlight">${keySent}</span><br><br>` +
-    (mainIdea?`<strong>💡 Main Idea:</strong><br><div style="font-size:14px;font-style:italic;margin-bottom:12px;">"${mainIdea}"</div>`:'') +
-    `<strong>🔑 Key Words to Know:</strong><br>${keyWords.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br>` +
-    `<strong>📌 Closing Sentence:</strong><br><span class="skim-highlight">${(sentences[sentences.length-1]||'').trim()}.</span>`;
+    `<strong> Most Important Sentence (AI):</strong><br><span class="skim-highlight">${keySent}</span><br><br>` +
+    (mainIdea?`<strong> Main Idea:</strong><br><div style="font-size:14px;font-style:italic;margin-bottom:12px;">"${mainIdea}"</div>`:'') +
+    `<strong> Key Words to Know:</strong><br>${keyWords.map(w=>`<span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:3px 10px;margin:3px;display:inline-block;font-size:13px;">${w}</span>`).join('')}<br><br>` +
+    `<strong> Closing Sentence:</strong><br><span class="skim-highlight">${(sentences[sentences.length-1]||'').trim()}.</span>`;
   localStorage.setItem('cs_dys_skim', JSON.stringify({keySent,keyWords,mainIdea,ts:Date.now()}));
 }
 
-/* ── AI Mind Map Generator ────────────────────────────────────────────── */
+/*  AI Mind Map Generator  */
 async function generateMindMap() {
   if (!dysText && document.getElementById('dysReadArea').innerText.includes('Load Text')) {
     alert('Load a text first.'); return;
   }
   const text = dysText || document.getElementById('dysReadArea').innerText;
   const canvas = document.getElementById('mindmapCanvas');
-  canvas.innerHTML = '<div style="text-align:center;padding:20px;font-size:13px;color:var(--muted);">🤖 AI generating mind map…</div>';
+  canvas.innerHTML = '<div style="text-align:center;padding:20px;font-size:13px;color:var(--muted);"> AI generating mind map…</div>';
 
   const colors = ['#6366f1','#22c55e','#f59e0b','#ec4899','#06b6d4','#8b5cf6'];
   const positions = [{top:'20%',left:'60%'},{top:'50%',left:'72%'},{top:'78%',left:'58%'},{top:'78%',left:'22%'},{top:'50%',left:'8%'},{top:'20%',left:'22%'}];
@@ -476,14 +476,14 @@ async function generateMindMap() {
   localStorage.setItem('cs_dys_mindmap', JSON.stringify({topic,branches,ts:Date.now()}));
 }
 
-/* ── AI Intervention Advisor ──────────────────────────────────────────── */
+/*  AI Intervention Advisor  */
 async function showIntervention() {
   const level = document.getElementById('diffLevel').value;
   const el = document.getElementById('interventionBox');
   const baseRecs = {
-    low: '✅ <strong>Light Support:</strong> Standard font with yellow overlay. 15–20 min sessions. TTS optional.',
-    medium: '🟡 <strong>Moderate Support:</strong> OpenDyslexic font. Green overlay. Reading ruler. TTS recommended. 10–15 min sessions.',
-    high: '🔴 <strong>Intensive Support:</strong> Full OpenDyslexic + blue overlay. Mandatory TTS. 5-min micro-sessions. See <a href="intervention.html">full intervention plan</a>.'
+    low: ' <strong>Light Support:</strong> Standard font with yellow overlay. 15–20 min sessions. TTS optional.',
+    medium: ' <strong>Moderate Support:</strong> OpenDyslexic font. Green overlay. Reading ruler. TTS recommended. 10–15 min sessions.',
+    high: ' <strong>Intensive Support:</strong> Full OpenDyslexic + blue overlay. Mandatory TTS. 5-min micro-sessions. See <a href="intervention.html">full intervention plan</a>.'
   };
   el.innerHTML = `<div class="alert alert-info" style="margin:0;">${baseRecs[level]}</div>`;
 
@@ -493,10 +493,10 @@ async function showIntervention() {
   }
 
   if(dysText){
-    el.innerHTML += '<div style="font-size:12px;color:var(--muted);margin-top:8px;">🤖 AI personalising advice…</div>';
+    el.innerHTML += '<div style="font-size:12px;color:var(--muted);margin-top:8px;"> AI personalising advice…</div>';
     const result = await _callAgent('intervention', { difficulty_level: level, text: dysText.slice(0, 400) });
     if (result) {
-      el.innerHTML += `<div style="margin-top:10px;font-size:13px;padding:10px;background:rgba(99,102,241,0.08);border-radius:8px;">🤖 <strong>AI Tips for this text:</strong><br>${escHtml(result).replace(/\n/g,'<br>').replace(/Tip \d:/g,'<br>•')}</div>`;
+      el.innerHTML += `<div style="margin-top:10px;font-size:13px;padding:10px;background:rgba(99,102,241,0.08);border-radius:8px;"> <strong>AI Tips for this text:</strong><br>${escHtml(result).replace(/\n/g,'<br>').replace(/Tip \d:/g,'<br>•')}</div>`;
       localStorage.setItem('cs_dys_level', JSON.stringify({level,ts:Date.now()}));
     } else {
       el.innerHTML += `<div style="font-size:12px;color:var(--danger);margin-top:8px;">Could not load AI tips. Please check your API key in <a href="settings.html">Settings</a>.</div>`;
@@ -506,7 +506,7 @@ async function showIntervention() {
 
 showIntervention();
 
-/* ── ReAct Loop ─────────────────────────────────────────────────────────── */
+/*  ReAct Loop  */
 async function _gemini(prompt) {
   var key = '';
   try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
@@ -558,7 +558,7 @@ async function runReAct() {
   for (var round = 1; round <= MAX_ROUNDS; round++) {
     roundEl.textContent = 'Pusingan ' + round + ' / ' + MAX_ROUNDS;
 
-    /* ── THINK ── */
+    /*  THINK  */
     s1.className = 'react-step active';
     th.innerHTML = spinner + 'Menganalisis teks dan merancang pendekatan…';
 
@@ -566,7 +566,7 @@ async function runReAct() {
     if (lang === 'en') thinkPrompt = 'You are an expert dyslexia AI agent. A student with dyslexia needs help reading this text.\n\nText:\n"""\n' + text.slice(0, 800) + '\n"""\n\nThink: What are the main challenges of this text for a dyslexic learner? Available tools: [simplify, skim, mindmap, intervention]. Choose ONE most suitable tool and explain why in 2-3 sentences. Format:\nTOOL: <name>\nREASON: <explanation>';
 
     var thought = await _gemini(thinkPrompt);
-    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke OpenRouter.'; break; }
+    if (!thought) { th.innerHTML = '⚠ Tidak dapat sambungan ke OpenRouter.'; break; }
 
     var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
     var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
@@ -574,9 +574,9 @@ async function runReAct() {
     var reason = reasonMatch ? reasonMatch[1].trim() : thought;
 
     var toolLabel = { simplify:'Mudahkan Teks', skim:'Skim Guide', mindmap:'Mind Map', intervention:'Pelan Intervensi' }[chosenTool] || chosenTool;
-    _reactSet(s1, 'think', th, '🔧 Alat dipilih: <strong>' + escHtml(toolLabel) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(reason.slice(0, 200)) + '</span>', false);
+    _reactSet(s1, 'think', th, ' Alat dipilih: <strong>' + escHtml(toolLabel) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(reason.slice(0, 200)) + '</span>', false);
 
-    /* ── ACT ── */
+    /*  ACT  */
     s2.className = 'react-step active';
     ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(toolLabel) + '</strong>…';
 
@@ -600,11 +600,11 @@ async function runReAct() {
     }
 
     var output = await _gemini(actPrompt);
-    if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
+    if (!output) { ac.innerHTML = '⚠ Ralat semasa melaksanakan alat.'; break; }
     lastOutput = output;
-    _reactSet(s2, 'act', ac, '✅ Output dijana: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>', false);
+    _reactSet(s2, 'act', ac, ' Output dijana: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>', false);
 
-    /* ── OBSERVE ── */
+    /*  OBSERVE  */
     s3.className = 'react-step active';
     ob.innerHTML = spinner + 'Menyemak kualiti output…';
 
@@ -626,8 +626,8 @@ async function runReAct() {
     if (score >= 8 || round === MAX_ROUNDS) {
       /* Done — show final result */
       resultEl.style.display = 'block';
-      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;">✅ OUTPUT AKHIR — ' + escHtml(toolLabel.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g, '<br>');
-      roundEl.textContent = '✅ Selesai dalam ' + round + ' pusingan';
+      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;"> OUTPUT AKHIR — ' + escHtml(toolLabel.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g, '<br>');
+      roundEl.textContent = ' Selesai dalam ' + round + ' pusingan';
       break;
     }
 
@@ -661,21 +661,21 @@ function injectCelikVerseBook() {
   w.id = 'cv-book-widget';
   w.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9990;width:260px;background:linear-gradient(135deg,#1e1b4b 0%,#1d4ed8 60%,#0891b2 100%);border-radius:16px;box-shadow:0 8px 32px rgba(30,27,75,.45);color:#fff;font-family:inherit;overflow:hidden;';
   var coverImg = cover
-    ? '<img src="'+esc(cover)+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\">📖</div>\'">'
-    : '<div style="width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📖</div>';
+    ? '<img src="'+esc(cover)+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\"></div>\'">'
+    : '<div style="width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;"></div>';
   w.innerHTML =
     '<div style="padding:12px 14px 10px;display:flex;align-items:flex-start;gap:12px;">' +
       coverImg +
       '<div style="flex:1;min-width:0;">' +
-        '<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:4px;">🌍 BUKU AKTIF</div>' +
+        '<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:4px;"> BUKU AKTIF</div>' +
         '<div style="font-size:13px;font-weight:800;line-height:1.3;word-break:break-word;">'+esc(title)+'</div>' +
         '<div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:3px;">'+esc(author||'')+'</div>' +
       '</div>' +
-      '<button onclick="document.getElementById(\'cv-book-widget\').remove();localStorage.removeItem(\'cv_active_book\');" title="Clear book" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;">✕</button>' +
+      '<button onclick="document.getElementById(\'cv-book-widget\').remove();localStorage.removeItem(\'cv_active_book\');" title="Clear book" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;"></button>' +
     '</div>' +
     '<div style="padding:0 14px 14px;display:flex;gap:8px;flex-wrap:wrap;">' +
       (url ? '<a href="'+esc(url)+'" target="_blank" rel="noopener" style="flex:1;text-align:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">↗ Buka Sumber</a>' : '') +
-      '<a href="celikverse-library.html" style="flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">🌍 Tukar Buku</a>' +
+      '<a href="celikverse-library.html" style="flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;"> Tukar Buku</a>' +
     '</div>';
   document.body.appendChild(w);
 }
@@ -697,7 +697,7 @@ function _dysLoadBookFromStorage() {
     var banner = document.createElement('div');
     banner.id = '_dysBookBanner';
     banner.style.cssText = 'background:rgba(99,102,241,0.12);border:1.5px solid rgba(99,102,241,0.35);border-radius:10px;padding:10px 16px;font-size:13px;color:#4338ca;margin-bottom:14px;display:flex;align-items:center;gap:10px;';
-    banner.innerHTML = '📖 <strong>' + (bookTitle || 'Buku') + '</strong> berjaya dimuatkan ke Reading Area <button onclick="this.parentNode.remove()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;color:#6366f1;">✕</button>';
+    banner.innerHTML = ' <strong>' + (bookTitle || 'Buku') + '</strong> berjaya dimuatkan ke Reading Area <button onclick="this.parentNode.remove()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;color:#6366f1;"></button>';
     if (ta && ta.parentNode) ta.parentNode.insertBefore(banner, ta);
   } catch(e) {}
 }
@@ -712,7 +712,7 @@ function _dysCheckPendingBook() {
     var btn = document.createElement('div');
     btn.id = '_dysFloatBtn';
     btn.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;background:#6366f1;color:#fff;border-radius:14px;padding:14px 20px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(99,102,241,0.45);display:flex;align-items:center;gap:10px;animation:dysPulse 1.5s infinite;';
-    btn.innerHTML = '📖 ' + (bookTitle ? '<strong>' + bookTitle + '</strong>' : 'Buku') + ' — Muatkan ke Reading Area';
+    btn.innerHTML = ' ' + (bookTitle ? '<strong>' + bookTitle + '</strong>' : 'Buku') + ' — Muatkan ke Reading Area';
     btn.onclick = function() { btn.remove(); _dysLoadBookFromStorage(); };
     document.body.appendChild(btn);
     if (!document.getElementById('_dysPulseStyle')) {
@@ -725,6 +725,7 @@ function _dysCheckPendingBook() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  setFont('opendyslexic');
   if (localStorage.getItem('cs_book_content')) {
     _dysLoadBookFromStorage();
   }
@@ -747,7 +748,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var banner = document.createElement('div');
   banner.className = 'ps-card';
   banner.setAttribute('role','note');
-  banner.innerHTML = '<div class="ps-card-title">📖 ' + (lang==='ms'?'Sokongan Diperibadikan':'Personalised Support') + '</div>' +
+  banner.innerHTML = '<div class="ps-card-title"> ' + (lang==='ms'?'Sokongan Diperibadikan':'Personalised Support') + '</div>' +
     '<div class="ps-insight">' + (lang==='ms'?'Berdasarkan profil anda: Fon OpenDyslexic, saiz teks yang lebih besar, lapisan warna, dan sokongan audio adalah yang paling berkesan untuk anda.':'Based on your profile: OpenDyslexic font, larger text size, color overlay, and audio support are most effective for you.') + '</div>';
   var main = document.querySelector('main') || document.querySelector('.container') || document.body;
   main.insertBefore(banner, main.firstChild);
@@ -755,3 +756,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
+

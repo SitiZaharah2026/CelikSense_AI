@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   'use strict';
 
   var synth = window.speechSynthesis;
@@ -516,7 +516,7 @@
       };
       fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
         body: JSON.stringify(body)
       })
         .then(function (response) {
@@ -554,7 +554,7 @@
       };
       fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
         body: JSON.stringify(body)
       })
         .then(function (res) { return res.json(); })

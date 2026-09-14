@@ -140,11 +140,11 @@ nav.navbar{display:none!important;}
 <!-- TOP NAV -->
 <nav id="top-nav" role="navigation" aria-label="Main navigation">
   <div class="nav-logo">Celik<span>Sense</span></div>
-  <span class="nav-title" id="nav-shelf-label">📚 My Reading Shelf</span>
+  <span class="nav-title" id="nav-shelf-label"> My Reading Shelf</span>
   <div class="nav-spacer"></div>
   <input class="nav-search" id="nav-search-input" type="search" placeholder="Cari buku…" aria-label="Search books" autocomplete="off"/>
   <a class="nav-link" href="celikverse-library.html">← Library</a>
-  <a class="nav-link" href="settings.html">⚙️ Settings</a>
+  <a class="nav-link" href="settings.html">⚙ Settings</a>
 </nav>
 
 <!-- FILTER BAR -->
@@ -152,7 +152,7 @@ nav.navbar{display:none!important;}
   <div class="tab-list" role="tablist">
     <button class="tab-btn active" role="tab" data-tab="all" id="tab-all">Semua</button>
     <button class="tab-btn" role="tab" data-tab="recent" id="tab-recent">Baru Dibaca</button>
-    <button class="tab-btn" role="tab" data-tab="fav" id="tab-fav">⭐ Kegemaran</button>
+    <button class="tab-btn" role="tab" data-tab="fav" id="tab-fav"> Kegemaran</button>
     <button class="tab-btn" role="tab" data-tab="downloaded" id="tab-downloaded">Dimuat Turun</button>
   </div>
   <div class="filter-right">
@@ -168,17 +168,17 @@ nav.navbar{display:none!important;}
 
 <!-- STATS BAR -->
 <div id="stats-bar" role="complementary" aria-label="Reading statistics">
-  <div class="stat-item"><span>📚</span><span id="stat-books">0</span> buku</div>
-  <div class="stat-item"><span>🔥</span><span id="stat-streak">0</span> hari berturut</div>
+  <div class="stat-item"><span></span><span id="stat-books">0</span> buku</div>
+  <div class="stat-item"><span></span><span id="stat-streak">0</span> hari berturut</div>
   <div class="stat-item"><span>⏱</span><span id="stat-mins">0</span> min dibaca</div>
-  <div class="stat-item"><span>✅</span><span id="stat-finished">0</span> selesai</div>
+  <div class="stat-item"><span></span><span id="stat-finished">0</span> selesai</div>
 </div>
 
 <!-- MAIN CONTENT -->
 <main id="main">
   <!-- EMPTY STATE -->
   <div id="empty-state" role="status" aria-live="polite">
-    <div class="empty-icon">📖</div>
+    <div class="empty-icon"></div>
     <h2 class="empty-heading" id="empty-heading">Rak Buku Anda Kosong</h2>
     <p class="empty-sub" id="empty-sub">Tiada buku dalam rak anda lagi. Layari CelikVerse Library dan tambah buku untuk mula membaca!</p>
     <a class="btn-primary" href="celikverse-library.html" id="empty-cta">Jelajah Perpustakaan</a>
@@ -191,13 +191,13 @@ nav.navbar{display:none!important;}
 <!-- SMART FEATURES -->
 <section id="smart-section" aria-label="Smart reading features">
   <div id="continue-section" style="display:none;">
-    <h2 class="smart-heading">📖 Teruskan Membaca</h2>
+    <h2 class="smart-heading"> Teruskan Membaca</h2>
     <div class="continue-card" id="continue-card"></div>
   </div>
   <div id="streak-section" style="display:none;max-width:240px;">
     <div class="streak-card">
       <div class="streak-num" id="streak-num">0</div>
-      <div class="streak-label" id="streak-lbl">🔥 Hari Membaca Berturut-turut</div>
+      <div class="streak-label" id="streak-lbl"> Hari Membaca Berturut-turut</div>
     </div>
   </div>
 </section>
@@ -217,14 +217,14 @@ nav.navbar{display:none!important;}
 <aside id="ai-panel" role="complementary" aria-label="AI assistant panel">
   <div class="panel-header">
     <h3 id="panel-title">AI Summary</h3>
-    <button class="panel-close" id="panel-close-btn" aria-label="Close panel">✕</button>
+    <button class="panel-close" id="panel-close-btn" aria-label="Close panel"></button>
   </div>
   <div class="panel-body" id="panel-body">
-    <div class="panel-loader"><span class="spin">⚙️</span>Memuatkan…</div>
+    <div class="panel-loader"><span class="spin">⚙</span>Memuatkan…</div>
   </div>
 </aside>
 
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script>
 /* ============================================================
    i18n
@@ -342,12 +342,12 @@ function renderCard(book){
     img.src=book.cover;
     img.alt=book.title+' cover';
     img.loading='lazy';
-    img.onerror=function(){coverWrap.innerHTML='<div class="bk-cover-placeholder">📖</div>';};
+    img.onerror=function(){coverWrap.innerHTML='<div class="bk-cover-placeholder"></div>';};
     coverWrap.appendChild(img);
   } else {
     var ph=document.createElement('div');
     ph.className='bk-cover-placeholder';
-    ph.textContent='📖';
+    ph.textContent='';
     coverWrap.appendChild(ph);
   }
   // Mode badge
@@ -363,7 +363,7 @@ function renderCard(book){
   var favBtn=document.createElement('button');
   favBtn.className='bk-fav-btn';
   favBtn.setAttribute('aria-label', book.isFavourite?'Remove from favourites':'Add to favourites');
-  favBtn.textContent=book.isFavourite?'⭐':'☆';
+  favBtn.textContent=book.isFavourite?'':'☆';
   favBtn.onclick=function(e){e.stopPropagation();toggleFavourite(book.id);};
   coverWrap.appendChild(favBtn);
   card.appendChild(coverWrap);
@@ -427,12 +427,12 @@ function renderCard(book){
   dropdown.className='dropdown-menu';
 
   var menuItems=[
-    {label:'🔖 '+t('open'), action:function(){openBook(book.id, book.lastMode||'adhd');}},
-    {label:'📂 '+t('open_with'), action:function(){openWith(book.id);}},
-    {label:'🤖 '+t('ai_summary'), action:function(){doAI(book.id,'summary');}},
-    {label:'📝 '+t('gen_quiz'), action:function(){doAI(book.id,'quiz');}},
-    {label:'🗺️ '+t('mind_map'), action:function(){doAI(book.id,'mindmap');}},
-    {label:'🗑️ '+t('remove'), action:function(){removeBook(book.id);}, danger:true}
+    {label:' '+t('open'), action:function(){openBook(book.id, book.lastMode||'adhd');}},
+    {label:' '+t('open_with'), action:function(){openWith(book.id);}},
+    {label:' '+t('ai_summary'), action:function(){doAI(book.id,'summary');}},
+    {label:' '+t('gen_quiz'), action:function(){doAI(book.id,'quiz');}},
+    {label:' '+t('mind_map'), action:function(){doAI(book.id,'mindmap');}},
+    {label:' '+t('remove'), action:function(){removeBook(book.id);}, danger:true}
   ];
   menuItems.forEach(function(item){
     var di=document.createElement('button');
@@ -493,7 +493,7 @@ function renderSmartSection(books){
     contSec.style.display='block';
     var card=document.getElementById('continue-card');
     var ph=last.cover?'<img src="'+last.cover+'" class="continue-cover" alt="cover" onerror="this.style.display=\'none\'">'
-      :'<div class="continue-cover-ph">📖</div>';
+      :'<div class="continue-cover-ph"></div>';
     var pct=Math.min(100,Math.max(0,last.progress||0));
     card.innerHTML=ph+'<div class="continue-info"><div class="continue-title">'+escHtml(last.title||'')+'</div><div class="continue-author">'+escHtml(last.author||'')+'</div><div class="bk-progress-bar" style="max-width:240px;"><div class="bk-progress-fill" style="width:'+pct+'%"></div></div><div class="bk-progress-label" style="margin-top:4px;font-size:12px;color:var(--muted);">'+pct+'% '+t('pct_done')+'</div></div><button class="btn-primary" onclick="openBook(\''+last.id+'\',\''+( last.lastMode||'adhd')+'\')" style="margin-left:auto;font-size:14px;padding:10px 20px;">'+t('continue')+' →</button>';
   } else {
@@ -507,14 +507,14 @@ function renderSmartSection(books){
    OPEN WITH MODAL
    ============================================================ */
 var AGENTS=[
-  {icon:'🔊',label:t('blind'), mode:'blind', page:'celiksense-reader.html'},
-  {icon:'🔍',label:t('lowvision'), mode:'lowvision', page:'celiksense-reader.html'},
-  {icon:'📖',label:t('dyslexia'), mode:'dyslexia', page:'celiksense-reader.html'},
-  {icon:'🧠',label:t('adhd'), mode:'adhd', page:'celiksense-reader.html'},
-  {icon:'🤟',label:t('deaf'), mode:'deaf', page:'celiksense-reader.html'},
-  {icon:'📚',label:t('companion'), mode:'companion', page:'reading-companion.html'},
-  {icon:'🤖',label:t('aiteacher'), mode:'aiteacher', page:'ai-teacher-agent.html'},
-  {icon:'🎧',label:t('audio'), mode:'audio', page:'celiksense-reader.html'}
+  {icon:'',label:t('blind'), mode:'blind', page:'celiksense-reader.html'},
+  {icon:'',label:t('lowvision'), mode:'lowvision', page:'celiksense-reader.html'},
+  {icon:'',label:t('dyslexia'), mode:'dyslexia', page:'celiksense-reader.html'},
+  {icon:'',label:t('adhd'), mode:'adhd', page:'celiksense-reader.html'},
+  {icon:'<svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg>',label:t('deaf'), mode:'deaf', page:'celiksense-reader.html'},
+  {icon:'',label:t('companion'), mode:'companion', page:'reading-companion.html'},
+  {icon:'',label:t('aiteacher'), mode:'aiteacher', page:'ai-teacher-agent.html'},
+  {icon:'',label:t('audio'), mode:'audio', page:'celiksense-reader.html'}
 ];
 
 function openWith(bookId){
@@ -586,7 +586,7 @@ function toggleFavourite(bookId){
    ============================================================ */
 function doAI(bookId, type){
   var key='';
-  try{key=localStorage.getItem('openrouter_api_key')||'';}catch(e){}
+  try{key=localStorage.getItem('openrouter_api_key')||'server';}catch(e){}
   if(!key){alert(t('no_key'));return;}
   var book=CS_SHELF.getById(bookId);
   if(!book)return;
@@ -595,7 +595,7 @@ function doAI(bookId, type){
   var panelTitle=document.getElementById('panel-title');
   var panelBody=document.getElementById('panel-body');
   panelTitle.textContent=type==='summary'?t('ai_summary'):type==='quiz'?t('gen_quiz'):t('mind_map');
-  panelBody.innerHTML='<div class="panel-loader"><span class="spin">⚙️</span>'+t('loading_ai')+'</div>';
+  panelBody.innerHTML='<div class="panel-loader"><span class="spin">⚙</span>'+t('loading_ai')+'</div>';
   panel.classList.add('open');
   var text=CS_SHELF.getCachedText(bookId);
   var excerpt=text?text.slice(0,2000):'(Teks tidak tersedia. Gunakan metadata sahaja.)';
@@ -608,7 +608,7 @@ function doAI(bookId, type){
   var orModel = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
   fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://starter-code-phi.vercel.app','X-Title':'CelikSense AI'},
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://celiksense-ai-116242246073.asia-southeast1.run.app','X-Title':'CelikSense AI'},
     body:JSON.stringify({model:orModel,messages:[{role:'user',content:prompt}]})
   }).then(function(r){return r.json();}).then(function(data){
     var txt = data.choices && data.choices[0] ? data.choices[0].message.content : '(Tiada respons)';
@@ -690,10 +690,10 @@ document.addEventListener('keydown',function(e){
 // Apply i18n labels
 (function(){
   document.title=(LANG==='en'?'My Reading Shelf':'Rak Buku Saya')+' – CelikSense AI';
-  document.getElementById('nav-shelf-label').textContent='📚 '+(LANG==='en'?'My Reading Shelf':'Rak Buku Saya');
+  document.getElementById('nav-shelf-label').textContent=' '+(LANG==='en'?'My Reading Shelf':'Rak Buku Saya');
   document.getElementById('tab-all').textContent=t('all');
   document.getElementById('tab-recent').textContent=t('recent');
-  document.getElementById('tab-fav').textContent='⭐ '+t('fav');
+  document.getElementById('tab-fav').textContent=' '+t('fav');
   document.getElementById('tab-downloaded').textContent=t('downloaded');
   document.getElementById('empty-heading').textContent=t('empty_heading');
   document.getElementById('empty-sub').textContent=t('empty_sub');
@@ -701,7 +701,7 @@ document.addEventListener('keydown',function(e){
   document.getElementById('modal-title').textContent=t('modal_title');
   document.getElementById('modal-sub').textContent=t('modal_sub');
   document.getElementById('modal-close-btn').textContent=t('cancel');
-  document.getElementById('streak-lbl').textContent='🔥 '+t('streak_label');
+  document.getElementById('streak-lbl').textContent=' '+t('streak_label');
   var nav=document.getElementById('nav-search-input');
   nav.placeholder=LANG==='en'?'Search books…':'Cari buku…';
   document.querySelectorAll('#sort-select option').forEach(function(o){

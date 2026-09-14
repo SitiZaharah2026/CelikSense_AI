@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,7 +6,7 @@
 <title>CelikSense AI – 90-Second Demo | Skrip Demo 90 Saat</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-/* ── Demo Script Page Styles ── */
+/*  Demo Script Page Styles  */
 :root {
   --demo-primary: #7c3aed;
   --demo-accent: #0891b2;
@@ -22,7 +22,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ── CONTROL BAR ── */
+/*  CONTROL BAR  */
 .demo-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -180,7 +180,7 @@ body {
 .lang-btn.active { background: #7c3aed; color: white; }
 .lang-btn:focus  { outline: 2px solid #7c3aed; outline-offset: -2px; }
 
-/* ── STEP AREA ── */
+/*  STEP AREA  */
 .demo-stage {
   padding-top: 80px;
   min-height: 100vh;
@@ -302,7 +302,7 @@ body {
 body.lang-bm .en-text { display: none; }
 body.lang-bm .bm-text { display: block; }
 
-/* ── VISUAL PANELS ── */
+/*  VISUAL PANELS  */
 .visual-panel {
   border-radius: 16px;
   overflow: hidden;
@@ -667,7 +667,7 @@ body.lang-bm .bm-text { display: block; }
 .cta-btn.secondary:hover { background: rgba(255,255,255,0.14); }
 .cta-btn.secondary:focus { outline: 3px solid #c4b5fd; outline-offset: 3px; }
 
-/* ── TIME INDICATOR ── */
+/*  TIME INDICATOR  */
 .time-indicator {
   display: inline-flex;
   align-items: center;
@@ -692,7 +692,7 @@ body.lang-bm .bm-text { display: block; }
   50%       { opacity: 0.3; }
 }
 
-/* ── STEP NUMBER COLORS ── */
+/*  STEP NUMBER COLORS  */
 .step-slide[data-step="1"]  { --step-color: #7c3aed; }
 .step-slide[data-step="2"]  { --step-color: #dc2626; }
 .step-slide[data-step="3"]  { --step-color: #0891b2; }
@@ -717,7 +717,7 @@ body.lang-bm .bm-text { display: block; }
   display: inline-block;
 }
 
-/* ── KEYBOARD HINT ── */
+/*  KEYBOARD HINT  */
 .kbd-hint {
   position: fixed;
   bottom: 20px;
@@ -747,7 +747,7 @@ kbd {
   color: #94a3b8;
 }
 
-/* ── PAUSED OVERLAY ── */
+/*  PAUSED OVERLAY  */
 .paused-overlay {
   position: fixed;
   inset: 0;
@@ -771,7 +771,7 @@ kbd {
 .paused-box h2 { font-size: 28px; color: #c4b5fd; margin-bottom: 8px; }
 .paused-box p  { color: #64748b; font-size: 14px; }
 
-/* ── CLICK TO ADVANCE HINT ── */
+/*  CLICK TO ADVANCE HINT  */
 .click-hint {
   position: fixed;
   bottom: 56px;
@@ -794,7 +794,7 @@ kbd {
 </head>
 <body>
 
-<!-- ── CONTROL BAR ── -->
+<!--  CONTROL BAR  -->
 <header class="demo-bar" role="banner">
   <div class="demo-bar-inner">
 
@@ -839,7 +839,7 @@ kbd {
   </div>
 </header>
 
-<!-- ── PAUSED OVERLAY ── -->
+<!--  PAUSED OVERLAY  -->
 <div class="paused-overlay" id="pausedOverlay" role="dialog" aria-modal="true" aria-label="Demo paused">
   <div class="paused-box">
     <h2>&#9646;&#9646; <span class="en-text">Demo Paused</span><span class="bm-text">Demo Dijeda</span></h2>
@@ -847,7 +847,7 @@ kbd {
   </div>
 </div>
 
-<!-- ── DEMO STAGE ── -->
+<!--  DEMO STAGE  -->
 <main class="demo-stage" id="demoStage" aria-label="Demo presentation">
 
   <!-- STEP 1: WELCOME -->
@@ -1416,7 +1416,7 @@ kbd {
             <span class="bm-text">Lancarkan Mod Demo</span>
           </a>
           <a href="competition-dashboard.html" class="cta-btn secondary" aria-label="View Demo Page">
-            <span aria-hidden="true">🚀</span>
+            <span aria-hidden="true"></span>
             <span class="en-text">View Demo Page</span>
             <span class="bm-text">Lihat Halaman Demo</span>
           </a>
@@ -1460,7 +1460,7 @@ kbd {
 
 </main>
 
-<!-- ── KEYBOARD HINT ── -->
+<!--  KEYBOARD HINT  -->
 <div class="kbd-hint" role="note" aria-label="Keyboard shortcuts: left and right arrow keys to navigate, space to pause">
   <kbd aria-hidden="true">&#8592;</kbd>
   <kbd aria-hidden="true">&#8594;</kbd>
@@ -1476,7 +1476,7 @@ kbd {
 </div>
 
 <script>
-// ── DEMO STATE ──
+//  DEMO STATE 
 const TOTAL_STEPS  = 8;
 const STEP_SECS    = 11;   // seconds per step
 const TOTAL_SECS   = 90;
@@ -1488,7 +1488,7 @@ let intervalId   = null;
 let stepTimer    = 0;
 let currentLang  = 'en';
 
-// ── DOM refs ──
+//  DOM refs 
 const progressFill   = document.getElementById('progressFill');
 const progressBar    = document.getElementById('progressBar');
 const stepCounter    = document.getElementById('stepCounter');
@@ -1496,13 +1496,13 @@ const timerDisplay   = document.getElementById('timerDisplay');
 const pausedOverlay  = document.getElementById('pausedOverlay');
 const btnPause       = document.getElementById('btnPause');
 
-// ── INIT ──
+//  INIT 
 function init() {
   showStep(1, false);
   startTimer();
 }
 
-// ── TIMER ──
+//  TIMER 
 function startTimer() {
   if (intervalId) clearInterval(intervalId);
   intervalId = setInterval(tick, 100);
@@ -1550,7 +1550,7 @@ function updateProgress(totalSec) {
   progressBar.setAttribute('aria-valuenow', Math.round(pct));
 }
 
-// ── NAVIGATION ──
+//  NAVIGATION 
 function showStep(n, animate) {
   const slides = document.querySelectorAll('.step-slide');
 
@@ -1605,7 +1605,7 @@ function prevStep() {
   }
 }
 
-// ── PAUSE ──
+//  PAUSE 
 function togglePause() {
   isPaused = !isPaused;
   pausedOverlay.classList.toggle('show', isPaused);
@@ -1617,7 +1617,7 @@ function togglePause() {
   btnPause.setAttribute('aria-label', isPaused ? 'Resume demo' : 'Pause demo');
 }
 
-// ── RESTART ──
+//  RESTART 
 function restartDemo() {
   isPaused = false;
   pausedOverlay.classList.remove('show');
@@ -1630,7 +1630,7 @@ function restartDemo() {
   btnPause.innerHTML = '&#9646;&#9646; <span class="en-text">Pause</span><span class="bm-text">Jeda</span>';
 }
 
-// ── LANGUAGE SWITCH ──
+//  LANGUAGE SWITCH 
 function setLang(lang) {
   currentLang = lang;
   document.body.classList.toggle('lang-bm', lang === 'bm');
@@ -1645,7 +1645,7 @@ function setLang(lang) {
   stepCounter.textContent = lang === 'bm' ? labelBM : labelEN;
 }
 
-// ── KEYBOARD ──
+//  KEYBOARD 
 document.addEventListener('keydown', function(e) {
   switch(e.key) {
     case 'ArrowRight':
@@ -1672,12 +1672,12 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// ── PAUSE OVERLAY CLICK ──
+//  PAUSE OVERLAY CLICK 
 pausedOverlay.addEventListener('click', function(e) {
   if (e.target === pausedOverlay || e.target.closest('.paused-box')) togglePause();
 });
 
-// ── START ──
+//  START 
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>

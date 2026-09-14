@@ -32,7 +32,7 @@ body {
   min-height: 100vh;
 }
 
-/* ── Page hero ─────────────────────────────────────────────────────────── */
+/*  Page hero  */
 .vca-hero {
   background: linear-gradient(135deg, #312e81 0%, #4f46e5 45%, #0891b2 100%);
   padding: 52px 20px 40px;
@@ -105,7 +105,7 @@ body {
 }
 .vca-lang-btn:hover { background: rgba(255,255,255,.3); }
 
-/* ── Prototype disclaimer bar ──────────────────────────────────────────── */
+/*  Prototype disclaimer bar  */
 .vca-disclaimer {
   background: #fffbeb;
   border-bottom: 1px solid #fde68a;
@@ -117,7 +117,7 @@ body {
 }
 .vca-disclaimer strong { color: #78350f; }
 
-/* ── Container ─────────────────────────────────────────────────────────── */
+/*  Container  */
 .vca-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -127,7 +127,7 @@ body {
   gap: 24px;
 }
 
-/* ── Card ──────────────────────────────────────────────────────────────── */
+/*  Card  */
 .vca-card {
   background: var(--vca-card);
   border: 1px solid var(--vca-border);
@@ -156,7 +156,7 @@ body {
 }
 .vca-card-body { padding: 20px; }
 
-/* ── Input section ─────────────────────────────────────────────────────── */
+/*  Input section  */
 .vca-input-toolbar {
   display: flex;
   gap: 8px;
@@ -210,7 +210,7 @@ body {
   margin-bottom: 14px;
 }
 
-/* ── Action buttons ────────────────────────────────────────────────────── */
+/*  Action buttons  */
 .vca-action-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -256,7 +256,7 @@ body {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Caption display ───────────────────────────────────────────────────── */
+/*  Caption display  */
 .vca-caption-card {
   background: #0f172a;
   border-radius: var(--radius);
@@ -323,7 +323,7 @@ body {
 }
 .vca-caption-arrow:hover { background: rgba(255,255,255,.2); }
 
-/* ── Two-column grid ───────────────────────────────────────────────────── */
+/*  Two-column grid  */
 .vca-two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -331,7 +331,7 @@ body {
 }
 @media (max-width: 768px) { .vca-two-col { grid-template-columns: 1fr; } }
 
-/* ── Simplified sentences ──────────────────────────────────────────────── */
+/*  Simplified sentences  */
 .vca-sentence-list {
   display: flex;
   flex-direction: column;
@@ -367,7 +367,7 @@ body {
   font-weight: 500;
 }
 
-/* ── Visual keywords ───────────────────────────────────────────────────── */
+/*  Visual keywords  */
 .vca-keyword-grid {
   display: flex;
   flex-wrap: wrap;
@@ -393,7 +393,7 @@ body {
 .vca-keyword-chip.cat-4 { background: #f0f9ff; color: #0c4a6e; border: 1px solid #bae6fd; }
 .vca-keyword-chip.cat-5 { background: #fef9c3; color: #854d0e; border: 1px solid #fde047; }
 
-/* ── Mind map ──────────────────────────────────────────────────────────── */
+/*  Mind map  */
 .vca-mindmap-wrap {
   background: #f8fafc;
   border-radius: 10px;
@@ -403,7 +403,7 @@ body {
 }
 .vca-mindmap-wrap svg { display: block; margin: 0 auto; }
 
-/* ── Comic sequence ────────────────────────────────────────────────────── */
+/*  Comic sequence  */
 .vca-comic-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -441,7 +441,7 @@ body {
   transform: translateY(-50%);
 }
 
-/* ── Glossary ──────────────────────────────────────────────────────────── */
+/*  Glossary  */
 .vca-glossary-list {
   display: flex;
   flex-direction: column;
@@ -469,7 +469,7 @@ body {
 }
 .vca-glossary-icon { font-size: 20px; flex-shrink: 0; }
 
-/* ── Future BIM notice ─────────────────────────────────────────────────── */
+/*  Future BIM notice  */
 .vca-future-notice {
   background: linear-gradient(135deg, #1e1b4b, #312e81);
   border-radius: var(--radius);
@@ -512,7 +512,7 @@ body {
   letter-spacing: .5px;
 }
 
-/* ── Placeholder states ────────────────────────────────────────────────── */
+/*  Placeholder states  */
 .vca-placeholder {
   text-align: center;
   padding: 32px 20px;
@@ -521,7 +521,7 @@ body {
 .vca-placeholder-icon { font-size: 36px; margin-bottom: 10px; }
 .vca-placeholder-text { font-size: 13px; line-height: 1.5; }
 
-/* ── Processing overlay ────────────────────────────────────────────────── */
+/*  Processing overlay  */
 .vca-processing {
   display: flex;
   align-items: center;
@@ -543,7 +543,7 @@ body {
 .vca-processing-dot:nth-child(3) { animation-delay: .4s; }
 @keyframes pulse { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1)} }
 
-/* ── Integration badges ────────────────────────────────────────────────── */
+/*  Integration badges  */
 .vca-integrations {
   display: flex;
   gap: 8px;
@@ -564,15 +564,18 @@ body {
   letter-spacing: .3px;
 }
 
-/* ── Skip link ─────────────────────────────────────────────────────────── */
+/*  Skip link  */
 .skip-link:focus { left: 8px !important; }
 
 @media (max-width: 600px) {
   .vca-action-row { grid-template-columns: 1fr 1fr; }
   .vca-future-notice { flex-direction: column; }
 }
+@media (max-width: 380px) {
+  .vca-action-row { grid-template-columns: 1fr; }
+}
 
-/* ── ReAct Loop UI ── */
+/*  ReAct Loop UI  */
 .react-panel { border:2px solid #6366f1; border-radius:16px; padding:20px; background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04)); margin-bottom:20px; }
 .react-step { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; opacity:0.3; transition:opacity .4s; }
 .react-step.active { opacity:1; }
@@ -586,7 +589,7 @@ body {
 .react-spinner { display:inline-block; width:14px; height:14px; border:2px solid #6366f1; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; margin-right:6px; vertical-align:middle; }
 @keyframes spin { to { transform:rotate(360deg); } }
 </style>
-<script src="shared.js" defer></script>
+<script src="shared.js?v=2" defer></script>
 <script src="avatar-engine.js" defer></script>
 </head>
 <body>
@@ -604,22 +607,22 @@ body {
       <div class="nav-dropdown">
         <button aria-haspopup="true" aria-expanded="false">Agents ▾</button>
         <div class="dropdown-menu">
-          <a href="ai-librarian.html">📚 AI Librarian</a>
-          <a href="reading-companion.html">📖 Reading Companion</a>
-          <a href="adhd-agent.html">🧠 ADHD Agent</a>
-          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
-          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
-          <a href="sign-language.html">🤟 Sign Language Agent</a>
-          <a href="early-warning.html">⚠️ Early Warning Agent</a>
-          <a href="intervention.html">💡 Intervention Agent</a>
+          <a href="ai-librarian.html"> AI Librarian</a>
+          <a href="reading-companion.html"> Reading Companion</a>
+          <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
+          <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
+          <a href="blind-audio.html"> Blind Audio Agent</a>
+          <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
+          <a href="early-warning.html">⚠ Early Warning Agent</a>
+          <a href="intervention.html"> Intervention Agent</a>
         </div>
       </div>
     </div>
     <div class="nav-actions">
-      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
       <a href="dashboard.html" class="btn btn-outline btn-sm">← Dashboard</a>
-      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings">⚙️</a>
-      <button class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+      <button class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </nav>
@@ -641,7 +644,7 @@ body {
       <span class="vca-hero-tag" id="tag4">Comic Sequence</span>
       <span class="vca-hero-tag" id="tag5">Glossary</span>
     </div>
-    <button class="vca-lang-btn" onclick="toggleLang()" id="langBtn">🌐 BM / EN</button>
+    <button class="vca-lang-btn" onclick="toggleLang()" id="langBtn"> BM / EN</button>
   </div>
 
   <!-- Prototype disclaimer -->
@@ -655,7 +658,7 @@ body {
     <!-- ReAct Loop Panel -->
     <div class="react-panel" id="reactPanel" style="display:none;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-        <div style="font-weight:700;font-size:15px;color:#4338ca;">🧠 ReAct Reasoning Loop</div>
+        <div style="font-weight:700;font-size:15px;color:#4338ca;"> ReAct Reasoning Loop</div>
         <span id="reactRound" style="font-size:12px;color:var(--text-muted);"></span>
       </div>
       <div class="react-step" id="reactStep1"><span class="react-badge think">THINK</span><div class="react-content" id="reactThink">Waiting…</div></div>
@@ -665,10 +668,10 @@ body {
       <div id="reactResult" style="display:none;margin-top:12px;padding:16px;background:var(--bg);border-radius:12px;border-left:4px solid #22c55e;font-size:15px;line-height:1.8;"></div>
     </div>
 
-    <!-- ── Input Card ───────────────────────────────────────────────────── -->
+    <!--  Input Card  -->
     <div class="vca-card">
       <div class="vca-card-header">
-        <div class="vca-card-icon" style="background:#eef2ff;">📝</div>
+        <div class="vca-card-icon" style="background:#eef2ff;"></div>
         <div class="vca-card-title" id="inputCardTitle">Input Text</div>
       </div>
       <div class="vca-card-body">
@@ -704,14 +707,14 @@ body {
             <span id="btnKWLabel">Generate Visual Keywords</span>
           </button>
           <button class="vca-btn vca-btn-green" id="btnMindMap" onclick="createMindMap()">
-            <span>&#129504;</span>
+            <span><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="10" cy="10" rx="3.5" ry="2.5"/><circle cx="10" cy="3" r="2"/><line x1="10" y1="5" x2="10" y2="7.5"/><circle cx="17" cy="6" r="1.8"/><line x1="15.3" y1="7.3" x2="13.2" y2="8.7"/><circle cx="17" cy="14" r="1.8"/><line x1="15.3" y1="12.7" x2="13.2" y2="11.3"/><circle cx="10" cy="17" r="2"/><line x1="10" y1="15" x2="10" y2="12.5"/><circle cx="3" cy="14" r="1.8"/><line x1="4.7" y1="12.7" x2="6.8" y2="11.3"/><circle cx="3" cy="6" r="1.8"/><line x1="4.7" y1="7.3" x2="6.8" y2="8.7"/></svg></span>
             <span id="btnMMLabel">Create Mind Map</span>
           </button>
           <button class="vca-btn vca-btn-amber" id="btnComic" onclick="createComicSequence()">
             <span>&#128214;</span>
             <span id="btnCSLabel">Create Comic Sequence</span>
           </button>
-          <button onclick="runReAct()" class="vca-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis">🧠 ReAct</button>
+          <button onclick="runReAct()" class="vca-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis"> ReAct</button>
         </div>
 
         <div class="vca-integrations">
@@ -723,7 +726,7 @@ body {
       </div>
     </div>
 
-    <!-- ── Caption Display ─────────────────────────────────────────────── -->
+    <!--  Caption Display  -->
     <div class="vca-caption-card" id="vcaCaptionSection" style="display:none;" aria-live="polite" role="status">
       <div class="vca-caption-label" id="captionLabel">CAPTION</div>
       <div class="vca-caption-text" id="vcaCaptionText">—</div>
@@ -735,7 +738,7 @@ body {
       </div>
     </div>
 
-    <!-- ── Simplified + Keywords (2-col) ──────────────────────────────── -->
+    <!--  Simplified + Keywords (2-col)  -->
     <div class="vca-two-col">
 
       <!-- Simplified Sentences -->
@@ -768,22 +771,22 @@ body {
 
     </div>
 
-    <!-- ── Mind Map ────────────────────────────────────────────────────── -->
+    <!--  Mind Map  -->
     <div class="vca-card" id="vcaMindMapCard">
       <div class="vca-card-header">
-        <div class="vca-card-icon" style="background:#f0fdf4;">&#129504;</div>
+        <div class="vca-card-icon" style="background:#f0fdf4;"><svg viewBox="0 0 40 40" width="22" height="22" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="20" cy="20" rx="7" ry="5"/><circle cx="20" cy="6" r="4"/><line x1="20" y1="10" x2="20" y2="15"/><circle cx="34" cy="12" r="3.5"/><line x1="30.5" y1="14.5" x2="26.5" y2="17.5"/><circle cx="34" cy="28" r="3.5"/><line x1="30.5" y1="25.5" x2="26.5" y2="22.5"/><circle cx="20" cy="34" r="4"/><line x1="20" y1="30" x2="20" y2="25"/><circle cx="6" cy="28" r="3.5"/><line x1="9.5" y1="25.5" x2="13.5" y2="22.5"/><circle cx="6" cy="12" r="3.5"/><line x1="9.5" y1="14.5" x2="13.5" y2="17.5"/></svg></div>
         <div class="vca-card-title" id="mindMapTitle">Mind Map</div>
         <button class="vca-btn vca-btn-ghost" style="padding:6px 12px;font-size:11px;" onclick="downloadMindMap()" id="btnDownloadMM">Download</button>
       </div>
       <div class="vca-card-body" id="vcaMindMapContent">
         <div class="vca-placeholder">
-          <div class="vca-placeholder-icon">&#129504;</div>
+          <div class="vca-placeholder-icon"><svg viewBox="0 0 80 80" width="56" height="56" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="40" cy="40" rx="14" ry="10"/><circle cx="40" cy="12" r="7"/><line x1="40" y1="19" x2="40" y2="30"/><circle cx="68" cy="28" r="6"/><line x1="62" y1="31" x2="53" y2="36"/><circle cx="68" cy="52" r="6"/><line x1="62" y1="49" x2="53" y2="44"/><circle cx="40" cy="68" r="7"/><line x1="40" y1="61" x2="40" y2="50"/><circle cx="12" cy="52" r="6"/><line x1="18" y1="49" x2="27" y2="44"/><circle cx="12" cy="28" r="6"/><line x1="18" y1="31" x2="27" y2="36"/></svg></div>
           <div class="vca-placeholder-text" id="mindMapPlaceholder">Press "Create Mind Map" to generate a visual concept map.</div>
         </div>
       </div>
     </div>
 
-    <!-- ── Comic Sequence ──────────────────────────────────────────────── -->
+    <!--  Comic Sequence  -->
     <div class="vca-card" id="vcaComicCard">
       <div class="vca-card-header">
         <div class="vca-card-icon" style="background:#fff7ed;">&#128214;</div>
@@ -797,7 +800,7 @@ body {
       </div>
     </div>
 
-    <!-- ── Glossary ────────────────────────────────────────────────────── -->
+    <!--  Glossary  -->
     <div class="vca-card" id="vcaGlossaryCard">
       <div class="vca-card-header">
         <div class="vca-card-icon" style="background:#fdf4ff;">&#128218;</div>
@@ -811,7 +814,7 @@ body {
       </div>
     </div>
 
-    <!-- ── Future BIM Integration Notice ──────────────────────────────── -->
+    <!--  Future BIM Integration Notice  -->
     <div class="vca-future-notice">
       <div class="vca-future-icon">&#129311;</div>
       <div>
@@ -846,26 +849,26 @@ body {
 </main>
 
 <script>
-// ════════════════════════════════════════════════════════════════════════════
+// 
 // VISUAL COMMUNICATION AGENT
 // CelikSense AI · Deaf-Friendly Reading Support
-// ════════════════════════════════════════════════════════════════════════════
+// 
 
-// ── State ─────────────────────────────────────────────────────────────────
+//  State 
 var vcaLang        = localStorage.getItem('cs_lang') || 'ms';
 var vcaSentences   = [];
 var vcaKeywords    = [];
 var vcaSimplified  = [];
 var captionIndex   = 0;
 
-// ── i18n ──────────────────────────────────────────────────────────────────
+//  i18n 
 var I18N = {
   en: {
     heroTitle:          'Visual Communication Agent',
     heroSub:            'Deaf-Friendly Reading Support',
     heroBadge:          'Visual Communication',
     tag1:'Large Captions', tag2:'Visual Keywords', tag3:'Mind Map', tag4:'Comic Sequence', tag5:'Glossary',
-    langBtn:            '🌐 BM / EN',
+    langBtn:            ' BM / EN',
     disclaimerLabel:    'Prototype Stage:',
     disclaimerText:     ' This module provides deaf-friendly visual communication support. Future versions may integrate verified Bahasa Isyarat Malaysia (BIM) videos through official partnerships.',
     inputTitle:         'Input Text',
@@ -904,7 +907,7 @@ var I18N = {
     heroSub:            'Sokongan Bacaan Mesra OKU Pendengaran',
     heroBadge:          'Komunikasi Visual',
     tag1:'Kapsyen Besar', tag2:'Kata Kunci Visual', tag3:'Peta Minda', tag4:'Jujukan Komik', tag5:'Glosari',
-    langBtn:            '🌐 EN / BM',
+    langBtn:            ' EN / BM',
     disclaimerLabel:    'Peringkat Prototaip:',
     disclaimerText:     ' Modul ini menyediakan sokongan komunikasi visual mesra OKU pendengaran. Versi masa hadapan mungkin mengintegrasikan video Bahasa Isyarat Malaysia (BIM) yang disahkan melalui perkongsian rasmi.',
     inputTitle:         'Masukkan Teks',
@@ -942,7 +945,7 @@ var I18N = {
 
 function t(key) { return (I18N[vcaLang] && I18N[vcaLang][key]) || (I18N.en[key]) || key; }
 
-// ── Language toggle ────────────────────────────────────────────────────────
+//  Language toggle 
 function toggleLang() {
   vcaLang = vcaLang === 'ms' ? 'en' : 'ms';
   localStorage.setItem('cs_lang', vcaLang);
@@ -975,7 +978,7 @@ function applyLang() {
   document.documentElement.lang = vcaLang === 'ms' ? 'ms' : 'en';
 }
 
-// ── Input handling ─────────────────────────────────────────────────────────
+//  Input handling 
 function onInputChange() {
   var val = document.getElementById('vcaInput').value;
   document.getElementById('charCount').textContent = val.length;
@@ -988,7 +991,7 @@ function clearAll() {
   document.getElementById('vcaCaptionSection').style.display = 'none';
   resetPanel('vcaSimplifiedContent', 'simplifiedPH', '&#128196;');
   resetPanel('vcaKeywordsContent',   'keywordsPH',   '&#128273;');
-  resetPanel('vcaMindMapContent',    'mindMapPH',    '&#129504;');
+  resetPanel('vcaMindMapContent',    'mindMapPH',    '<svg viewBox="0 0 80 80" width="56" height="56" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="40" cy="40" rx="14" ry="10"/><circle cx="40" cy="12" r="7"/><line x1="40" y1="19" x2="40" y2="30"/><circle cx="68" cy="28" r="6"/><line x1="62" y1="31" x2="53" y2="36"/><circle cx="68" cy="52" r="6"/><line x1="62" y1="49" x2="53" y2="44"/><circle cx="40" cy="68" r="7"/><line x1="40" y1="61" x2="40" y2="50"/><circle cx="12" cy="52" r="6"/><line x1="18" y1="49" x2="27" y2="44"/><circle cx="12" cy="28" r="6"/><line x1="18" y1="31" x2="27" y2="36"/></svg>');
   resetPanel('vcaComicContent',      'comicPH',      '&#128214;');
   resetPanel('vcaGlossaryContent',   'glossaryPH',   '&#128218;');
   vcaSentences = []; vcaKeywords = []; vcaSimplified = [];
@@ -1001,7 +1004,7 @@ function resetPanel(contentId, phKey, icon) {
     '<div class="vca-placeholder-text" id="' + phKey + '">' + t(phKey) + '</div></div>';
 }
 
-// ── Import functions ───────────────────────────────────────────────────────
+//  Import functions 
 function importFromOCR() {
   var text = localStorage.getItem('ocrExtractedText') || localStorage.getItem('ocr_last_text') || '';
   if (!text) { showToast(vcaLang === 'ms' ? 'Tiada teks OCR ditemui.' : 'No OCR text found.', 'warn'); return; }
@@ -1019,15 +1022,15 @@ function importFromReading() {
   showToast(vcaLang === 'ms' ? 'Teks diimport!' : 'Text imported!', 'success');
 }
 
-// ── Gemini helper ──────────────────────────────────────────────────────────
-async function callGemini(prompt) {
+//  Gemini helper 
+async function callAI(prompt) {
   var key = '';
   try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!key) throw new Error('no_key');
   var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
   var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
     body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
   });
   if (!res.ok) throw new Error('api_error_' + res.status);
@@ -1044,7 +1047,7 @@ function setProcessing(panelId, show) {
     '<span>' + t('processing') + '</span></div>';
 }
 
-// ── Feature 1: Convert to Visual Summary ──────────────────────────────────
+//  Feature 1: Convert to Visual Summary 
 async function convertToVisualSummary() {
   var text = document.getElementById('vcaInput').value.trim();
   if (!text) { showToast(t('noText'), 'warn'); return; }
@@ -1060,7 +1063,7 @@ async function convertToVisualSummary() {
     'Write in ' + lang + '.';
 
   try {
-    var result = await callGemini(prompt);
+    var result = await callAI(prompt);
     vcaSimplified = parseNumberedList(result);
   } catch(e) {
     vcaSimplified = splitIntoSentences(text);
@@ -1109,7 +1112,7 @@ function selectSentence(idx) {
   updateCaptionDots();
 }
 
-// ── Caption section ────────────────────────────────────────────────────────
+//  Caption section 
 function showCaptionSection(sentences) {
   var sec = document.getElementById('vcaCaptionSection');
   if (!sec || !sentences.length) return;
@@ -1165,39 +1168,39 @@ function captionNext() {
   selectSentence(captionIndex);
 }
 
-// ── Feature 2: Generate Visual Keywords ───────────────────────────────────
+//  Feature 2: Generate Visual Keywords 
 var ICON_MAP = {
   // People & roles
-  'kanak-kanak':'👦','children':'👦','child':'👦','pelajar':'🧑‍🎓','student':'🧑‍🎓','guru':'👩‍🏫','teacher':'👩‍🏫',
-  'doktor':'👨‍⚕️','doctor':'👨‍⚕️','ibu bapa':'👨‍👩‍👧','parents':'👨‍👩‍👧','keluarga':'👨‍👩‍👧‍👦','family':'👨‍👩‍👧‍👦',
+  'kanak-kanak':'','children':'','child':'','pelajar':'‍','student':'‍','guru':'‍','teacher':'‍',
+  'doktor':'‍⚕','doctor':'‍⚕','ibu bapa':'‍‍','parents':'‍‍','keluarga':'‍‍‍','family':'‍‍‍',
   // Education
-  'sekolah':'🏫','school':'🏫','buku':'📚','book':'📚','belajar':'📖','learn':'📖','membaca':'📖','read':'📖',
-  'menulis':'✏️','write':'✏️','matematik':'🔢','math':'🔢','sains':'🔬','science':'🔬','ujian':'📝','test':'📝',
+  'sekolah':'','school':'','buku':'','book':'','belajar':'','learn':'','membaca':'','read':'',
+  'menulis':'','write':'','matematik':'','math':'','sains':'','science':'','ujian':'','test':'',
   // Nature
-  'pokok':'🌳','tree':'🌳','bunga':'🌸','flower':'🌸','matahari':'☀️','sun':'☀️','hujan':'🌧️','rain':'🌧️',
-  'air':'💧','water':'💧','bumi':'🌍','earth':'🌍','haiwan':'🐾','animal':'🐾','burung':'🐦','bird':'🐦',
-  'ikan':'🐟','fish':'🐟','kucing':'🐱','cat':'🐱','anjing':'🐶','dog':'🐶',
+  'pokok':'','tree':'','bunga':'','flower':'','matahari':'☀','sun':'☀','hujan':'','rain':'',
+  'air':'','water':'','bumi':'','earth':'','haiwan':'','animal':'','burung':'','bird':'',
+  'ikan':'','fish':'','kucing':'','cat':'','anjing':'','dog':'',
   // Health
-  'kesihatan':'❤️','health':'❤️','hospital':'🏥','ubat':'💊','medicine':'💊','sakit':'🤒','sick':'🤒',
-  'gembira':'😊','happy':'😊','sedih':'😢','sad':'😢',
+  'kesihatan':'','health':'','hospital':'','ubat':'','medicine':'','sakit':'','sick':'',
+  'gembira':'','happy':'','sedih':'','sad':'',
   // Places
-  'rumah':'🏠','home':'🏠','house':'🏠','bandar':'🌆','city':'🌆','kampung':'🏡','village':'🏡',
-  'masjid':'🕌','mosque':'🕌',
+  'rumah':'','home':'','house':'','bandar':'','city':'','kampung':'','village':'',
+  'masjid':'','mosque':'',
   // Transport
-  'kereta':'🚗','car':'🚗','bas':'🚌','bus':'🚌','kapal terbang':'✈️','plane':'✈️','kereta api':'🚂','train':'🚂',
+  'kereta':'','car':'','bas':'','bus':'','kapal terbang':'','plane':'','kereta api':'','train':'',
   // Food
-  'makanan':'🍽️','food':'🍽️','makan':'🍴','eat':'🍴','minum':'🥤','drink':'🥤','nasi':'🍚','rice':'🍚',
+  'makanan':'','food':'','makan':'','eat':'','minum':'','drink':'','nasi':'','rice':'',
   // Concepts
-  'masa':'⏰','time':'⏰','wang':'💰','money':'💰','kerja':'💼','work':'💼','teknologi':'💻','technology':'💻',
-  'komunikasi':'📡','communication':'📡','bahasa':'🗣️','language':'🗣️','keselamatan':'🛡️','safety':'🛡️',
-  'alam sekitar':'🌿','environment':'🌿','budaya':'🎭','culture':'🎭','sukan':'⚽','sport':'⚽',
-  'muzik':'🎵','music':'🎵','seni':'🎨','art':'🎨','agama':'🙏','religion':'🙏',
+  'masa':'⏰','time':'⏰','wang':'','money':'','kerja':'','work':'','teknologi':'','technology':'',
+  'komunikasi':'','communication':'','bahasa':'','language':'','keselamatan':'','safety':'',
+  'alam sekitar':'','environment':'','budaya':'','culture':'','sukan':'⚽','sport':'⚽',
+  'muzik':'','music':'','seni':'','art':'','agama':'','religion':'',
   // Numbers/Math
-  'nombor':'🔢','number':'🔢','bilangan':'🔢','pengiraan':'🧮','calculation':'🧮',
+  'nombor':'','number':'','bilangan':'','pengiraan':'','calculation':'',
   // Actions
-  'tolong':'🆘','help':'🆘','jaga':'🤲','care':'🤲','kongsi':'🤝','share':'🤝','bersama':'🤝','together':'🤝',
-  'bina':'🏗️','build':'🏗️','pergi':'🚶','go':'🚶','datang':'🚶','come':'🚶','tahu':'💡','know':'💡',
-  'tanya':'❓','ask':'❓','jawab':'✅','answer':'✅','pilih':'🎯','choose':'🎯'
+  'tolong':'','help':'','jaga':'','care':'','kongsi':'','share':'','bersama':'','together':'',
+  'bina':'','build':'','pergi':'','go':'','datang':'','come':'','tahu':'','know':'',
+  'tanya':'','ask':'','jawab':'','answer':'','pilih':'','choose':''
 };
 
 function getIcon(word) {
@@ -1208,11 +1211,11 @@ function getIcon(word) {
     if (w.includes(k) || k.includes(w)) return ICON_MAP[k];
   }
   // Category fallback
-  if (/makanan|makan|nasi|sayur|buah/.test(w)) return '🍽️';
-  if (/belajar|ilmu|pendidikan|sekolah|universiti/.test(w)) return '📚';
-  if (/alam|hijau|hutan|laut|sungai/.test(w)) return '🌿';
-  if (/rasa|emosi|perasaan/.test(w)) return '💭';
-  return '🔹';
+  if (/makanan|makan|nasi|sayur|buah/.test(w)) return '';
+  if (/belajar|ilmu|pendidikan|sekolah|universiti/.test(w)) return '';
+  if (/alam|hijau|hutan|laut|sungai/.test(w)) return '';
+  if (/rasa|emosi|perasaan/.test(w)) return '';
+  return '';
 }
 
 var CAT_CLASSES = ['cat-0','cat-1','cat-2','cat-3','cat-4','cat-5'];
@@ -1229,7 +1232,7 @@ async function generateVisualKeywords() {
     'Return ONLY a comma-separated list of single words or short phrases (2-3 words max). No numbering. Write in ' + lang + '.';
 
   var raw = '';
-  try { raw = await callGemini(prompt); }
+  try { raw = await callAI(prompt); }
   catch(e) { raw = extractKeywordsLocal(text); }
 
   vcaKeywords = raw.split(/[,\n]/)
@@ -1278,7 +1281,7 @@ function showKeywordCaption(word) {
   if (sub) sub.textContent = t('keyword');
 }
 
-// ── Feature 3: Create Mind Map ─────────────────────────────────────────────
+//  Feature 3: Create Mind Map 
 async function createMindMap() {
   var text = document.getElementById('vcaInput').value.trim();
   if (!text) { showToast(t('noText'), 'warn'); return; }
@@ -1359,7 +1362,7 @@ function downloadMindMap() {
   URL.revokeObjectURL(url);
 }
 
-// ── Feature 4: Create Comic Sequence ──────────────────────────────────────
+//  Feature 4: Create Comic Sequence 
 async function createComicSequence() {
   var text = document.getElementById('vcaInput').value.trim();
   if (!text) { showToast(t('noText'), 'warn'); return; }
@@ -1375,7 +1378,7 @@ async function createComicSequence() {
     var prompt = 'Convert these sentences into 4-6 visual story panels for deaf learners. ' +
       'For each panel write: one SHORT action phrase (max 6 words) in ' + lang + '.\n\n' +
       sentences.slice(0, 6).join('\n') + '\n\nReturn ONLY a numbered list.';
-    var result = await callGemini(prompt);
+    var result = await callAI(prompt);
     var panels = parseNumberedList(result);
     if (panels.length >= 2) sentences = panels;
   } catch(e) {}
@@ -1405,9 +1408,9 @@ function getIconFromSentence(text) {
   var words = text.toLowerCase().split(/\s+/);
   for (var i = 0; i < words.length; i++) {
     var icon = getIcon(words[i]);
-    if (icon !== '🔹') return icon;
+    if (icon !== '') return icon;
   }
-  return '📌';
+  return '';
 }
 
 function showComicCaption(idx) {
@@ -1417,7 +1420,7 @@ function showComicCaption(idx) {
   document.getElementById('vcaCaptionSection').style.display = 'block';
 }
 
-// ── Glossary ───────────────────────────────────────────────────────────────
+//  Glossary 
 async function buildGlossary(keywords) {
   var el = document.getElementById('vcaGlossaryContent');
   if (!el) return;
@@ -1432,7 +1435,7 @@ async function buildGlossary(keywords) {
   try {
     var prompt = 'Write VERY SHORT definitions (max 12 words each) for these words in ' + lang + ':\n' +
       keywords.join(', ') + '\n\nFormat: WORD: definition\nOne per line. Simple language for children.';
-    var result = await callGemini(prompt);
+    var result = await callAI(prompt);
     var lines = result.split('\n').filter(function(l) { return l.includes(':'); });
     lines.forEach(function(l) {
       var idx2 = l.indexOf(':');
@@ -1467,7 +1470,7 @@ function renderGlossary(keywords, definitions) {
   el.innerHTML = html;
 }
 
-// ── Button helpers ─────────────────────────────────────────────────────────
+//  Button helpers 
 function setBtn(id, loading) {
   var btn = document.getElementById(id);
   if (!btn) return;
@@ -1481,7 +1484,7 @@ function setBtn(id, loading) {
   }
 }
 
-// ── Toast helper ───────────────────────────────────────────────────────────
+//  Toast helper 
 function showToast(msg, type) {
   if (window.CS && CS.toast) { CS.toast(msg, type || 'info'); return; }
   var t2 = document.createElement('div');
@@ -1493,7 +1496,7 @@ function showToast(msg, type) {
   setTimeout(function() { t2.remove(); }, 3000);
 }
 
-// ── Util ───────────────────────────────────────────────────────────────────
+//  Util 
 function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -1501,14 +1504,14 @@ function escAttr(s) {
   return String(s).replace(/'/g,'&#39;').replace(/"/g,'&quot;');
 }
 
-/* ── ReAct Loop ─────────────────────────────────────────────────────────── */
+/*  ReAct Loop  */
 async function _reactAI(prompt) {
   var key = ''; try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!key) return null;
   try {
     var model = ''; try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
     var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
       body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
     });
     var j = await res.json();
@@ -1548,7 +1551,7 @@ async function runReAct() {
 
     var tprompt = (lang === 'en' ? thinkPrompts.en : thinkPrompts.ms).replace('{TEXT}', text.slice(0, 800));
     var thought = await _reactAI(tprompt);
-    if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
+    if (!thought) { th.innerHTML = '⚠ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
 
     var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
     var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
@@ -1556,17 +1559,17 @@ async function runReAct() {
     if (!actPrompts[chosenTool]) chosenTool = Object.keys(actPrompts)[0];
     var reason = reasonMatch ? reasonMatch[1].trim().slice(0, 200) : thought.slice(0, 200);
     s1.className = 'react-step done';
-    th.innerHTML = '🔧 Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--vca-muted);">' + escHtml(reason) + '</span>';
+    th.innerHTML = ' Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--vca-muted);">' + escHtml(reason) + '</span>';
 
     s2.className = 'react-step active';
     ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(chosenTool) + '</strong>…';
     var apromptObj = actPrompts[chosenTool];
     var aprompt = (lang === 'en' ? apromptObj.en : apromptObj.ms).replace('{TEXT}', text.slice(0, 1000));
     var output = await _reactAI(aprompt);
-    if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
+    if (!output) { ac.innerHTML = '⚠ Ralat semasa melaksanakan alat.'; break; }
     lastOutput = output;
     s2.className = 'react-step done';
-    ac.innerHTML = '✅ Output: <span style="font-size:12px;color:var(--vca-muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
+    ac.innerHTML = ' Output: <span style="font-size:12px;color:var(--vca-muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
 
     s3.className = 'react-step active';
     ob.innerHTML = spinner + 'Menyemak kualiti output…';
@@ -1584,8 +1587,8 @@ async function runReAct() {
 
     if (score >= 8 || round === MAX_ROUNDS) {
       resultEl.style.display = 'block';
-      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;">✅ OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
-      roundEl.textContent = '✅ Selesai dalam ' + round + ' pusingan';
+      resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;"> OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
+      roundEl.textContent = ' Selesai dalam ' + round + ' pusingan';
       break;
     }
     s4.style.display = 'flex'; s4.className = 'react-step active';
@@ -1597,7 +1600,7 @@ async function runReAct() {
   }
 }
 
-// ── Init ───────────────────────────────────────────────────────────────────
+//  Init 
 document.addEventListener('DOMContentLoaded', function() {
   vcaLang = localStorage.getItem('cs_lang') || 'ms';
   applyLang();
@@ -1620,3 +1623,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
+

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher Dashboard — CelikSense AI</title>
+<title>Teacher Dashboard &mdash; CelikSense AI</title>
 <link rel="stylesheet" href="styles.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
@@ -269,7 +269,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo" aria-label="CelikSense AI home">
-      <span class="logo-icon" aria-hidden="true">🧠</span>
+      <span class="logo-icon" aria-hidden="true"></span>
       <span class="logo-text">CelikSense AI</span>
     </a>
     <ul class="nav-links" role="list">
@@ -288,7 +288,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
 <!-- Main content -->
 <main id="main-content" class="container" style="padding-top:24px;" tabindex="-1">
 
-  <!-- ⚠️ Demo Data Notice -->
+  <!-- ⚠ Demo Data Notice -->
   <div role="alert" aria-live="polite" style="
     display:flex;align-items:flex-start;gap:12px;
     background:rgba(245,158,11,0.12);
@@ -299,9 +299,9 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
     font-size:13px;
     line-height:1.6;
   ">
-    <span style="font-size:20px;flex-shrink:0;" aria-hidden="true">⚠️</span>
+    <span style="font-size:20px;flex-shrink:0;" aria-hidden="true">⚠</span>
     <div>
-      <strong style="color:#92400e;display:block;margin-bottom:2px;">Demo Data — For Demonstration Purposes Only</strong>
+      <strong style="color:#92400e;display:block;margin-bottom:2px;">Demo Data &mdash; For Demonstration Purposes Only</strong>
       <span style="color:#78350f;">
         All student names, profiles, progress scores and disability data shown on this dashboard are
         <strong>entirely fictional</strong> and created solely to demonstrate system functionality.
@@ -320,7 +320,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
       <span style="font-size:13px;color:#0f172a;font-weight:600;" data-i18n="td_last_sync">Last synced: just now</span>
       <button class="btn-action btn-action-green" style="padding:9px 16px;font-size:13px;" onclick="showToast('td_toast_refresh')" aria-label="Refresh dashboard data">
-        <span aria-hidden="true">🔄</span> <span data-i18n="td_refresh">Refresh</span>
+        <span aria-hidden="true"></span> <span data-i18n="td_refresh">Refresh</span>
       </button>
     </div>
   </header>
@@ -328,12 +328,12 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
   <!-- 1. CLASS SUMMARY CARDS -->
   <section aria-labelledby="summary-heading">
     <h2 class="section-title" id="summary-heading">
-      <span aria-hidden="true">📊</span> <span data-i18n="td_summary_heading">Class Summary</span>
+      <span aria-hidden="true"></span> <span data-i18n="td_summary_heading">Class Summary</span>
     </h2>
     <div class="metric-grid" role="list">
 
       <article class="metric-card" role="listitem" style="--mc:linear-gradient(90deg,#10b981,#059669);" aria-label="Total Students">
-        <span class="metric-icon" aria-hidden="true">👥</span>
+        <span class="metric-icon" aria-hidden="true"></span>
         <div class="metric-label" data-i18n="td_total_students">Total Students</div>
         <div class="metric-value" id="stat-total" aria-live="polite">12</div>
         <div class="metric-sub" data-i18n="td_total_students_sub">in this class roster</div>
@@ -347,14 +347,14 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
       </article>
 
       <article class="metric-card" role="listitem" style="--mc:linear-gradient(90deg,#8b5cf6,#6366f1);" aria-label="Average Streak Days">
-        <span class="metric-icon" aria-hidden="true">🔥</span>
+        <span class="metric-icon" aria-hidden="true"></span>
         <div class="metric-label" data-i18n="td_avg_streak">Avg Streak Days</div>
         <div class="metric-value" id="stat-streak" aria-live="polite">4.2</div>
         <div class="metric-sub" data-i18n="td_avg_streak_sub">days average this month</div>
       </article>
 
       <article class="metric-card" role="listitem" style="--mc:linear-gradient(90deg,#f59e0b,#ef4444);" aria-label="Most Used Agent">
-        <span class="metric-icon" aria-hidden="true">🏆</span>
+        <span class="metric-icon" aria-hidden="true"></span>
         <div class="metric-label" data-i18n="td_top_agent">Agents Used Most</div>
         <div class="metric-value" style="font-size:18px;padding-top:6px;" id="stat-top-agent" aria-live="polite">Reading Companion</div>
         <div class="metric-sub" data-i18n="td_top_agent_sub">highest class engagement</div>
@@ -366,7 +366,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
   <!-- 2. STUDENT ROSTER TABLE -->
   <section aria-labelledby="roster-heading">
     <h2 class="section-title" id="roster-heading">
-      <span aria-hidden="true">📋</span> <span data-i18n="td_roster_heading">Student Roster</span>
+      <span aria-hidden="true"></span> <span data-i18n="td_roster_heading">Student Roster</span>
     </h2>
     <div class="add-student-wrap">
       <button class="btn-add-student" onclick="showToast('td_toast_add_student')" aria-label="Add a new student to the roster">
@@ -392,7 +392,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
             <td><span class="badge badge-blue" data-i18n="profile_dyslexia">Dyslexia</span></td>
             <td>Reading Companion</td>
             <td>7</td>
-            <td>🔥 8 <span data-i18n="td_days">days</span></td>
+            <td> 8 <span data-i18n="td_days">days</span></td>
             <td data-i18n="td_today">Today</td>
             <td><span class="badge badge-green" data-i18n="status_on_track">On Track</span></td>
           </tr>
@@ -401,7 +401,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
             <td><span class="badge badge-purple" data-i18n="profile_adhd">ADHD</span></td>
             <td>Focus Timer</td>
             <td>2</td>
-            <td>🔥 1 <span data-i18n="td_days">days</span></td>
+            <td> 1 <span data-i18n="td_days">days</span></td>
             <td data-i18n="td_3days">3 days ago</td>
             <td><span class="badge badge-red" data-i18n="status_at_risk">At Risk</span></td>
           </tr>
@@ -410,7 +410,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
             <td><span class="badge" style="background:#fce7f3;color:#9d174d;" data-i18n="profile_blind">Visual Impairment</span></td>
             <td>Blind Audio Guide</td>
             <td>6</td>
-            <td>🔥 6 <span data-i18n="td_days">days</span></td>
+            <td> 6 <span data-i18n="td_days">days</span></td>
             <td data-i18n="td_yesterday">Yesterday</td>
             <td><span class="badge badge-green" data-i18n="status_on_track">On Track</span></td>
           </tr>
@@ -419,7 +419,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
             <td><span class="badge badge-blue" data-i18n="profile_dyslexia">Dyslexia</span></td>
             <td>OCR Agent</td>
             <td>4</td>
-            <td>🔥 3 <span data-i18n="td_days">days</span></td>
+            <td> 3 <span data-i18n="td_days">days</span></td>
             <td data-i18n="td_2days">2 days ago</td>
             <td><span class="badge badge-amber" data-i18n="status_needs_attention">Needs Attention</span></td>
           </tr>
@@ -428,7 +428,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
             <td><span class="badge" style="background:#ecfeff;color:#164e63;" data-i18n="profile_deaf">Deaf / HoH</span></td>
             <td>Sign Language Agent</td>
             <td>5</td>
-            <td>🔥 5 <span data-i18n="td_days">days</span></td>
+            <td> 5 <span data-i18n="td_days">days</span></td>
             <td data-i18n="td_today">Today</td>
             <td><span class="badge badge-green" data-i18n="status_on_track">On Track</span></td>
           </tr>
@@ -440,7 +440,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
   <!-- 3. CLASS ACTIVITY CHART -->
   <section aria-labelledby="chart-heading">
     <h2 class="section-title" id="chart-heading">
-      <span aria-hidden="true">📈</span> <span data-i18n="td_chart_heading">Agent Usage Frequency — Class Overview</span>
+      <span aria-hidden="true"></span> <span data-i18n="td_chart_heading">Agent Usage Frequency &mdash; Class Overview</span>
     </h2>
     <div class="chart-card">
       <div class="chart-wrap" role="img" aria-label="Bar chart showing agent usage frequency across the class">
@@ -452,12 +452,12 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
   <!-- 4. EARLY WARNING ALERTS -->
   <section aria-labelledby="alerts-heading">
     <h2 class="section-title" id="alerts-heading">
-      <span aria-hidden="true">⚠️</span> <span data-i18n="td_alerts_heading">Early Warning Alerts</span>
+      <span aria-hidden="true">⚠</span> <span data-i18n="td_alerts_heading">Early Warning Alerts</span>
     </h2>
     <div class="alerts-card" role="list" aria-label="Early warning alerts">
 
       <article class="alert-item" role="listitem" aria-label="Alert for Haziq bin Kamarudin">
-        <div class="alert-icon danger" aria-hidden="true">😴</div>
+        <div class="alert-icon danger" aria-hidden="true"></div>
         <div class="alert-body">
           <div class="alert-student">Haziq bin Kamarudin</div>
           <div class="alert-msg" data-i18n="td_alert_haziq">No activity for 3 days. Focus Timer sessions have stopped. May need a check-in.</div>
@@ -474,7 +474,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
       </article>
 
       <article class="alert-item" role="listitem" aria-label="Alert for Danial Hakim">
-        <div class="alert-icon warn" aria-hidden="true">📉</div>
+        <div class="alert-icon warn" aria-hidden="true"></div>
         <div class="alert-body">
           <div class="alert-student">Danial Hakim</div>
           <div class="alert-msg" data-i18n="td_alert_danial">Quiz scores have dropped 2 weeks in a row. OCR comprehension accuracy at 58%.</div>
@@ -496,18 +496,18 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
   <!-- 5. TEACHER ACTIONS -->
   <section aria-labelledby="actions-heading">
     <h2 class="section-title" id="actions-heading">
-      <span aria-hidden="true">🛠️</span> <span data-i18n="td_actions_heading">Teacher Actions</span>
+      <span aria-hidden="true"></span> <span data-i18n="td_actions_heading">Teacher Actions</span>
     </h2>
     <div class="actions-card">
       <div class="actions-grid">
         <button class="btn-action btn-action-green" onclick="showToast('td_toast_export')" aria-label="Export class report as PDF">
-          <span aria-hidden="true">📄</span> <span data-i18n="td_export">Export Report (PDF)</span>
+          <span aria-hidden="true"></span> <span data-i18n="td_export">Export Report (PDF)</span>
         </button>
         <button class="btn-action btn-action-blue" onclick="showToast('td_toast_announce')" aria-label="Add a class announcement">
-          <span aria-hidden="true">📢</span> <span data-i18n="td_announce">Add Class Announcement</span>
+          <span aria-hidden="true"></span> <span data-i18n="td_announce">Add Class Announcement</span>
         </button>
         <button class="btn-action btn-action-purple" onclick="showToast('td_toast_meeting')" aria-label="Schedule a parent meeting">
-          <span aria-hidden="true">📅</span> <span data-i18n="td_schedule_meeting">Schedule Parent Meeting</span>
+          <span aria-hidden="true"></span> <span data-i18n="td_schedule_meeting">Schedule Parent Meeting</span>
         </button>
       </div>
     </div>
@@ -515,7 +515,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
 
   <!-- Footer note -->
   <p class="td-footer-note" role="note">
-    <span aria-hidden="true">💾</span>
+    <span aria-hidden="true"></span>
     <span data-i18n="td_footer_note">Data is stored locally. Connect a backend to sync across devices.</span>
   </p>
 
@@ -524,7 +524,7 @@ body { background: linear-gradient(160deg,#c4f0e0 0%,#ddf4ff 40%,#c4b8ff 100%); 
 <!-- Toast container -->
 <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script>
 /* ── Bilingual strings for this page ── */
 const TD_STRINGS = {

@@ -21,7 +21,7 @@
 @media(max-width:768px){ .adhd-layout{grid-template-columns:1fr;} }
 .skip-link:focus { left: 8px !important; }
 
-/* ── ReAct Loop UI ── */
+/*  ReAct Loop UI  */
 .react-panel { border:2px solid #6366f1; border-radius:16px; padding:20px; background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04)); margin-bottom:20px; }
 .react-step { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; opacity:0.3; transition:opacity .4s; }
 .react-step.active { opacity:1; }
@@ -51,23 +51,23 @@
       <div class="nav-dropdown">
         <button data-i18n="nav_agents" aria-haspopup="true" aria-expanded="false">Agents ▾</button>
         <div class="dropdown-menu">
-          <a href="ai-librarian.html">📚 AI Librarian</a>
-          <a href="reading-companion.html">📖 Reading Companion</a>
-          <a href="adhd-agent.html">🧠 ADHD Agent</a>
-          <a href="dyslexia-agent.html">👁️ Dyslexia Agent</a>
-          <a href="blind-audio.html">🔊 Blind Audio Agent</a>
-          <a href="sign-language.html">🤟 Sign Language Agent</a>
-          <a href="early-warning.html">⚠️ Early Warning Agent</a>
-          <a href="intervention.html">💡 Intervention Agent</a>
+          <a href="ai-librarian.html"> AI Librarian</a>
+          <a href="reading-companion.html"> Reading Companion</a>
+          <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
+          <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
+          <a href="blind-audio.html"> Blind Audio Agent</a>
+          <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
+          <a href="early-warning.html">⚠ Early Warning Agent</a>
+          <a href="intervention.html"> Intervention Agent</a>
         </div>
       </div>
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm">👤 Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
       <a href="dashboard.html" class="btn btn-outline btn-sm">← Dashboard</a>
-      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings">⚙️</a>
-      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+      <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </nav>
@@ -75,7 +75,7 @@
 <main class="page-header" id="main-content">
   <div class="container">
   <div class="page-header-card">
-    <div class="page-badge">🧠</div>
+    <div class="page-badge"></div>
     <h1 class="page-title">ADHD Adaptive Reading Agent</h1>
     <p class="page-subtitle">Focus-optimised reading with micro-sessions, timers, highlighting, and smart note builder.</p>
   </div>
@@ -87,7 +87,7 @@
   <!-- Break Banner (hidden initially) -->
   <div class="break-banner hidden" id="breakBanner" style="margin-bottom:20px;">
     <div style="display:flex;align-items:center;gap:10px;">
-      <span style="font-size:24px;">⏸️</span>
+      <span style="font-size:24px;">⏸</span>
       <div>
         <div style="font-weight:700;font-size:15px;">Time for a Focus Break!</div>
         <div style="font-size:13px;color:var(--text-muted);">Great work! Take a 5-minute break before continuing.</div>
@@ -106,7 +106,7 @@
       <!-- ReAct Loop Panel -->
       <div class="react-panel" id="reactPanel" style="display:none;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-          <div style="font-weight:700;font-size:15px;color:#4338ca;">🧠 ReAct Reasoning Loop</div>
+          <div style="font-weight:700;font-size:15px;color:#4338ca;"> ReAct Reasoning Loop</div>
           <span id="reactRound" style="font-size:12px;color:var(--text-muted);"></span>
         </div>
         <div class="react-step" id="reactStep1"><span class="react-badge think">THINK</span><div class="react-content" id="reactThink">Waiting…</div></div>
@@ -141,7 +141,7 @@
 
       <!-- Interest Input + Strategy -->
       <div class="control-panel" style="margin-bottom:20px;">
-        <div class="panel-title">🎯 Interest & Strategy</div>
+        <div class="panel-title"> Interest & Strategy</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
           <div class="form-group" style="margin-bottom:0;">
             <label class="form-label">My Interests</label>
@@ -156,14 +156,14 @@
             </select>
           </div>
         </div>
-        <button class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="generateStrategy()">🤖 Generate Strategy</button>
-        <button onclick="runReAct()" class="btn btn-sm" style="margin-top:12px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis">🧠 ReAct</button>
+        <button class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="generateStrategy()"> Generate Strategy</button>
+        <button onclick="runReAct()" class="btn btn-sm" style="margin-top:12px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis"> ReAct</button>
         <div id="strategyOutput" class="hidden" style="margin-top:12px;padding:14px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:var(--radius);font-size:13px;line-height:1.6;"></div>
       </div>
 
       <!-- Reading Area with Focus Window -->
       <div class="control-panel" style="margin-bottom:20px;">
-        <div class="panel-title">📖 Reading Area</div>
+        <div class="panel-title"> Reading Area</div>
 
         <!-- Highlight Toolbar -->
         <div class="highlight-toolbar" role="toolbar" aria-label="Text highlight colours">
@@ -183,8 +183,8 @@
           <div class="focus-mask-bot hidden" id="maskBot" style="height:0;"></div>
         </div>
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-          <button class="btn btn-primary btn-sm" onclick="readAreaAloud()">🔊 Read Aloud</button>
-          <button class="btn btn-ghost btn-sm" id="focusToggle" onclick="toggleFocusWindow()">👁 Focus Window</button>
+          <button class="btn btn-primary btn-sm" onclick="readAreaAloud()"> Read Aloud</button>
+          <button class="btn btn-ghost btn-sm" id="focusToggle" onclick="toggleFocusWindow()"> Focus Window</button>
           <button class="btn btn-ghost btn-sm" onclick="stopSpeech()">⏹ Stop</button>
         </div>
       </div>
@@ -195,39 +195,39 @@
     <div>
       <!-- Focus Score -->
       <div class="control-panel" style="margin-bottom:16px;text-align:center;">
-        <div class="panel-title">🎯 Focus Score</div>
+        <div class="panel-title"> Focus Score</div>
         <div class="gauge" id="focusGauge" style="--pct:72;">
           <div class="gauge-value" id="focusVal">72</div>
         </div>
-        <div style="font-size:12px;color:var(--text-muted);margin-top:10px;" id="focusMsg">Good Focus Level 👍</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:10px;" id="focusMsg">Good Focus Level </div>
         <button class="btn btn-ghost btn-sm w-full" style="margin-top:10px;" onclick="simulateFocus()">↻ Simulate Score</button>
       </div>
 
       <!-- Multi-Book Strategy -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title">📚 Multi-Book Strategy</div>
+        <div class="panel-title"> Multi-Book Strategy</div>
         <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:10px;">ADHD learners often thrive reading 2–3 books simultaneously. Rotate based on energy level:</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span>🔵</span><span style="font-size:13px;"><strong>High Focus:</strong> Science / Maths</span></div>
-          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span>🟡</span><span style="font-size:13px;"><strong>Medium Focus:</strong> Stories</span></div>
-          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span>🟢</span><span style="font-size:13px;"><strong>Low Focus:</strong> Comics / BIM</span></div>
+          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;"><strong>High Focus:</strong> Science / Maths</span></div>
+          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;"><strong>Medium Focus:</strong> Stories</span></div>
+          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;"><strong>Low Focus:</strong> Comics / BIM</span></div>
         </div>
       </div>
 
       <!-- Note Builder -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title">📝 AI Note Builder</div>
+        <div class="panel-title"> AI Note Builder</div>
         <div style="display:flex;gap:8px;margin-bottom:10px;">
           <input type="text" class="form-control" id="noteInput" placeholder="Add a note or quote…" style="flex:1;">
           <button class="btn btn-primary btn-sm" onclick="addNote()">+</button>
         </div>
         <div id="notesList" aria-live="polite" aria-label="Notes list"></div>
-        <button class="btn btn-ghost btn-sm w-full" onclick="exportNotes()" style="margin-top:8px;">📤 Export Notes</button>
+        <button class="btn btn-ghost btn-sm w-full" onclick="exportNotes()" style="margin-top:8px;"> Export Notes</button>
       </div>
 
       <!-- Intervention Rec -->
       <div class="control-panel">
-        <div class="panel-title">💡 ADHD Intervention</div>
+        <div class="panel-title"> ADHD Intervention</div>
         <div id="interventionRec" style="font-size:13px;color:var(--text-muted);line-height:1.6;">
           Start a session to receive personalised ADHD reading interventions.
         </div>
@@ -241,12 +241,12 @@
   <div class="container">
     <div class="footer-bottom">
       <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)">Dashboard</a></span>
-      <span>🧠 ADHD Adaptive Reading Agent</span>
+      <span> ADHD Adaptive Reading Agent</span>
     </div>
   </div>
 </footer>
 
-<script src="shared.js"></script>
+<script src="shared.js?v=2"></script>
 <script>
 function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 let sessionMins = 10;
@@ -284,7 +284,7 @@ function startSession() {
   var minutes = Math.ceil(timerSecs / 60);
   if (statusEl) { statusEl.textContent = 'Focus session started. ' + minutes + ' minutes.'; }
 
-  /* ── Analytics: start session ── */
+  /*  Analytics: start session  */
   CS.analytics.startSession('adhd');
 
   timerInterval = setInterval(()=>{
@@ -300,7 +300,7 @@ function startSession() {
       var statusEl = document.getElementById('timerStatus');
       if (statusEl) { statusEl.textContent = 'Session complete. Time for a break.'; }
 
-      /* ── Analytics: log focus + end session ── */
+      /*  Analytics: log focus + end session  */
       const finalScore = simulateFocus();
       CS.analytics.logFocus({ score: finalScore, agent: 'adhd', sessionMins });
       CS.analytics.endSession({ completedSessions, sessionMins, focusScore: finalScore });
@@ -321,13 +321,13 @@ function pauseSession() {
   var statusEl = document.getElementById('timerStatus');
   if (statusEl) { statusEl.textContent = 'Session paused.'; }
 
-  /* ── Analytics: log partial focus on pause ── */
+  /*  Analytics: log partial focus on pause  */
   CS.analytics.logFocus({ score: currentFocusScore, agent: 'adhd', partial: true });
 }
 
 function stopSession() {
   if (timerRunning || CS.analytics._session) {
-    /* ── Analytics: end session early ── */
+    /*  Analytics: end session early  */
     CS.analytics.logFocus({ score: currentFocusScore, agent: 'adhd', partial: true });
     CS.analytics.endSession({ completedSessions, sessionMins, focusScore: currentFocusScore, stoppedEarly: true });
   }
@@ -420,7 +420,7 @@ function readAreaAloud() {
   speak(text);
 }
 
-/* ── Serverless agent helper ───────────────────────────────────────────── */
+/*  Serverless agent helper  */
 async function _callAgent(task, payload) {
   var apiKey = '';
   try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
@@ -441,7 +441,7 @@ async function _callAgent(task, payload) {
   }
 }
 
-/* ── AI Strategy Generator ─────────────────────────────────────────────── */
+/*  AI Strategy Generator  */
 async function generateStrategy() {
   const interest = document.getElementById('interestInput').value || 'general topics';
   const mode = document.getElementById('readingMode').value;
@@ -452,23 +452,23 @@ async function generateStrategy() {
   try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!apiKey) {
     const fallbacks={focus:`Focus Window Strategy for <strong>${interest}</strong>:<br>• Isolate one line at a time.<br>• 10-min timer, 3-min breaks.<br>• Highlight key concepts in yellow.`,chunk:`Chunk Reading for <strong>${interest}</strong>:<br>• 3–4 sentence chunks.<br>• Summarise each chunk in 1 sentence.<br>• Use TTS when overwhelmed.`,free:`Free Reading for <strong>${interest}</strong>:<br>• No pressure — your own pace.<br>• Mark interesting words.<br>• Stop when focus drops.`};
-    el.innerHTML=`<strong>📋 Strategy:</strong><br><br>${fallbacks[mode]||fallbacks.free}<br><br><small style="color:var(--muted);">💡 Add OpenRouter API key in <a href="settings.html">Settings</a> for personalised AI strategies.</small>`;
+    el.innerHTML=`<strong> Strategy:</strong><br><br>${fallbacks[mode]||fallbacks.free}<br><br><small style="color:var(--muted);"> Add OpenRouter API key in <a href="settings.html">Settings</a> for personalised AI strategies.</small>`;
     return;
   }
 
-  el.innerHTML='<div style="padding:10px;font-size:13px;color:var(--muted);">🤖 Generating personalised ADHD strategy…</div>';
+  el.innerHTML='<div style="padding:10px;font-size:13px;color:var(--muted);"> Generating personalised ADHD strategy…</div>';
   const modeLabel={focus:'Focus Window (one paragraph at a time)',chunk:'Chunk Reading (short segments)',free:'Free Reading (self-paced)'}[mode]||mode;
   const result = await _callAgent('strategy', { interest, mode: modeLabel, profile_summary: interest, session_count: completedSessions });
   if (result) {
-    el.innerHTML=`<strong>🤖 AI-Personalised Strategy:</strong><br><br>${escHtml(result).replace(/\n/g,'<br>')}`;
+    el.innerHTML=`<strong> AI-Personalised Strategy:</strong><br><br>${escHtml(result).replace(/\n/g,'<br>')}`;
     // Share with Learning Coach agent
     localStorage.setItem('cs_adhd_strategy', JSON.stringify({interest,mode,strategy:result,ts:Date.now()}));
   } else {
-    el.innerHTML=`<span style="color:var(--danger);">⚠️ AI error. Please try again or Add OpenRouter API key in <a href="settings.html">Settings</a>.</span>`;
+    el.innerHTML=`<span style="color:var(--danger);">⚠ AI error. Please try again or Add OpenRouter API key in <a href="settings.html">Settings</a>.</span>`;
   }
 }
 
-/* ── AI-Enhanced Focus Analysis ───────────────────────────────────────── */
+/*  AI-Enhanced Focus Analysis  */
 function simulateFocus() {
   // Score based on session count + time of day + notes written (more realistic than Math.random)
   const hour = new Date().getHours();
@@ -479,14 +479,14 @@ function simulateFocus() {
   currentFocusScore = score;
   document.getElementById('focusGauge').style.setProperty('--pct',score);
   document.getElementById('focusVal').textContent = score;
-  const msgs = ['Excellent Focus! 🌟','Good Focus Level 👍','Moderate Focus 😊','Consider a break 💤'];
+  const msgs = ['Excellent Focus! ','Good Focus Level ','Moderate Focus ','Consider a break '];
   document.getElementById('focusMsg').textContent = score>=85?msgs[0]:score>=70?msgs[1]:score>=55?msgs[2]:msgs[3];
   // Save focus data for Early Warning agent to read
   localStorage.setItem('cs_adhd_focus', JSON.stringify({score,sessions:completedSessions,ts:Date.now()}));
   return score;
 }
 
-/* ── AI Post-Session Intervention ─────────────────────────────────────── */
+/*  AI Post-Session Intervention  */
 async function showIntervention() {
   const el = document.getElementById('interventionRec');
   const score = currentFocusScore||70;
@@ -495,20 +495,20 @@ async function showIntervention() {
   var apiKey = '';
   try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!apiKey) {
-    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today.</div></div><strong>Next Steps:</strong><br>• Take a 5-minute movement break<br>• Drink water and look away from screen<br>• Review your notes before next session<br><br><small>💡 Add OpenRouter API key in <a href="settings.html">Settings</a> for AI-personalised interventions.</small>`;
+    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span></span><div>Session complete! ${completedSessions} session(s) done today.</div></div><strong>Next Steps:</strong><br>• Take a 5-minute movement break<br>• Drink water and look away from screen<br>• Review your notes before next session<br><br><small> Add OpenRouter API key in <a href="settings.html">Settings</a> for AI-personalised interventions.</small>`;
     return;
   }
 
-  el.innerHTML='<div style="padding:10px;font-size:13px;color:var(--muted);">🤖 Analysing your session…</div>';
+  el.innerHTML='<div style="padding:10px;font-size:13px;color:var(--muted);"> Analysing your session…</div>';
   const result = await _callAgent('intervention', { profile_summary: interest, session_count: completedSessions, focus_score: score, session_mins: sessionMins });
   if (result) {
-    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today.</div></div><div style="font-size:14px;line-height:1.7;">${escHtml(result).replace(/\n/g,'<br>')}</div>`;
+    el.innerHTML=`<div class="alert alert-success" style="margin-bottom:10px;"><span></span><div>Session complete! ${completedSessions} session(s) done today.</div></div><div style="font-size:14px;line-height:1.7;">${escHtml(result).replace(/\n/g,'<br>')}</div>`;
     // Chain to Early Warning — save session result
     const prev = JSON.parse(localStorage.getItem('cs_adhd_sessions')||'[]');
     prev.push({score,sessions:completedSessions,interest,ts:Date.now()});
     localStorage.setItem('cs_adhd_sessions', JSON.stringify(prev.slice(-10)));
   } else {
-    el.innerHTML=`<div class="alert alert-success"><span>✅</span><div>Session complete! ${completedSessions} session(s) done today. Great effort!</div></div>`;
+    el.innerHTML=`<div class="alert alert-success"><span></span><div>Session complete! ${completedSessions} session(s) done today. Great effort!</div></div>`;
   }
 }
 
@@ -571,21 +571,21 @@ function injectCelikVerseBook() {
   w.id = 'cv-book-widget';
   w.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9990;width:260px;background:linear-gradient(135deg,#1e1b4b 0%,#1d4ed8 60%,#0891b2 100%);border-radius:16px;box-shadow:0 8px 32px rgba(30,27,75,.45);color:#fff;font-family:inherit;overflow:hidden;transition:transform .2s;';
   var coverImg = cover
-    ? '<img src="'+esc(cover)+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\">📖</div>\'">'
-    : '<div style="width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📖</div>';
+    ? '<img src="'+esc(cover)+'" style="width:52px;height:72px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.outerHTML=\'<div style=\\\"width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;\\\"></div>\'">'
+    : '<div style="width:52px;height:72px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;"></div>';
   w.innerHTML =
     '<div style="padding:12px 14px 10px;display:flex;align-items:flex-start;gap:12px;">' +
       coverImg +
       '<div style="flex:1;min-width:0;">' +
-        '<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:4px;">🌍 BUKU AKTIF</div>' +
+        '<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#a5b4fc;margin-bottom:4px;"> BUKU AKTIF</div>' +
         '<div style="font-size:13px;font-weight:800;line-height:1.3;word-break:break-word;">'+esc(title)+'</div>' +
         '<div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:3px;">'+esc(author||'')+'</div>' +
       '</div>' +
-      '<button onclick="document.getElementById(\'cv-book-widget\').remove();localStorage.removeItem(\'cv_active_book\');" title="Clear book" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;">✕</button>' +
+      '<button onclick="document.getElementById(\'cv-book-widget\').remove();localStorage.removeItem(\'cv_active_book\');" title="Clear book" style="background:none;border:none;color:rgba(255,255,255,.45);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;"></button>' +
     '</div>' +
     '<div style="padding:0 14px 14px;display:flex;gap:8px;flex-wrap:wrap;">' +
       (url ? '<a href="'+esc(url)+'" target="_blank" rel="noopener" style="flex:1;text-align:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">↗ Buka Sumber</a>' : '') +
-      '<a href="celikverse-library.html" style="flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;">🌍 Tukar Buku</a>' +
+      '<a href="celikverse-library.html" style="flex:1;text-align:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:7px 10px;border-radius:8px;text-decoration:none;"> Tukar Buku</a>' +
     '</div>';
   document.body.appendChild(w);
 }
@@ -600,7 +600,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (inp) inp.value = bookTitle;
       var notice = document.createElement('div');
       notice.style.cssText = 'background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:8px;padding:8px 14px;font-size:13px;color:#4338ca;margin-bottom:12px;';
-      notice.innerHTML = '📖 <strong>' + bookTitle + '</strong> dimuatkan dari Book Discovery';
+      notice.innerHTML = ' <strong>' + bookTitle + '</strong> dimuatkan dari Book Discovery';
       var inp2 = document.getElementById('interestInput');
       if (inp2 && inp2.parentNode) inp2.parentNode.insertBefore(notice, inp2);
       localStorage.removeItem('cs_book_content');
@@ -609,7 +609,7 @@ document.addEventListener('DOMContentLoaded', function() {
   } catch(e) {}
   injectCelikVerseBook();
 
-  /* ── ReAct Loop ─────────────────────────────────────────────────────────── */
+  /*  ReAct Loop  */
   window.runReAct = async function runReAct() {
     var inputEl = document.getElementById('sessionText');
     var text = inputEl ? inputEl.value.trim() : '';
@@ -641,7 +641,7 @@ document.addEventListener('DOMContentLoaded', function() {
       try {
         var model = ''; try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
         var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-          method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://starter-code-phi.vercel.app', 'X-Title': 'CelikSense AI' },
+          method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
           body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
         });
         var j = await res.json();
@@ -669,7 +669,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       var tprompt = (lang === 'en' ? thinkPrompts.en : thinkPrompts.ms).replace('{TEXT}', text.slice(0, 800));
       var thought = await _reactAI(tprompt);
-      if (!thought) { th.innerHTML = '⚠️ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
+      if (!thought) { th.innerHTML = '⚠ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
 
       var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
       var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
@@ -677,17 +677,17 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!actPrompts[chosenTool]) chosenTool = Object.keys(actPrompts)[0];
       var reason = reasonMatch ? reasonMatch[1].trim().slice(0, 200) : thought.slice(0, 200);
       s1.className = 'react-step done';
-      th.innerHTML = '🔧 Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(reason) + '</span>';
+      th.innerHTML = ' Alat: <strong>' + escHtml(chosenTool) + '</strong><br><span style="font-size:12px;color:var(--text-muted);">' + escHtml(reason) + '</span>';
 
       s2.className = 'react-step active';
       ac.innerHTML = spinner + 'Melaksanakan <strong>' + escHtml(chosenTool) + '</strong>…';
       var apromptObj = actPrompts[chosenTool];
       var aprompt = (lang === 'en' ? apromptObj.en : apromptObj.ms).replace('{TEXT}', text.slice(0, 1000));
       var output = await _reactAI(aprompt);
-      if (!output) { ac.innerHTML = '⚠️ Ralat semasa melaksanakan alat.'; break; }
+      if (!output) { ac.innerHTML = '⚠ Ralat semasa melaksanakan alat.'; break; }
       lastOutput = output;
       s2.className = 'react-step done';
-      ac.innerHTML = '✅ Output: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
+      ac.innerHTML = ' Output: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
 
       s3.className = 'react-step active';
       ob.innerHTML = spinner + 'Menyemak kualiti output…';
@@ -705,8 +705,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (score >= 8 || round === MAX_ROUNDS) {
         resultEl.style.display = 'block';
-        resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;">✅ OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
-        roundEl.textContent = '✅ Selesai dalam ' + round + ' pusingan';
+        resultEl.innerHTML = '<div style="font-size:11px;font-weight:700;color:#15803d;letter-spacing:.06em;margin-bottom:10px;"> OUTPUT AKHIR — ' + escHtml(chosenTool.toUpperCase()) + ' (Skor: ' + score + '/10)</div>' + escHtml(lastOutput).replace(/\n/g,'<br>');
+        roundEl.textContent = ' Selesai dalam ' + round + ' pusingan';
         break;
       }
       s4.style.display = 'flex'; s4.className = 'react-step active';
@@ -741,3 +741,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
+

@@ -180,7 +180,7 @@
     if (isNaN(start)) return;
 
     var durationMs = Date.now() - start;
-    var durationMinutes = durationMs / 60000;
+    var durationMinutes = Math.round(durationMs / 60000);
 
     var profile = this.getProfile();
 

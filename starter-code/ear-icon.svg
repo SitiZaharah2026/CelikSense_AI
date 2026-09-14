@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130" fill="none" stroke="#1c3a5c" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer ear helix -->
+  <path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/>
+  <!-- Inner antihelix -->
+  <path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/>
+  <!-- Tragus -->
+  <path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/>
+</svg>

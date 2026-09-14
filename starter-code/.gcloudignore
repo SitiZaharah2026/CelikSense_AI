@@ -1,0 +1,11 @@
+.gcloudignore
+.git
+.gitignore
+node_modules/
+package.json
+package-lock.json
+*.log
+.env
+vercel.json
+serve.json
+test-agents.mjs
