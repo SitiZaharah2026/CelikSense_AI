@@ -841,5 +841,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(function(reg){
+      console.log('[SW] Registered:', reg.scope);
+    }).catch(function(e){ console.log('[SW] Registration failed:', e); });
+  }
+  </script>
 </body>
 </html>

@@ -6,7 +6,7 @@
 // when deployed as a project page, so BASE_PATH strips that prefix from every
 // request URL before comparing against SHELL_FILES (which are bare filenames).
 
-const SW_VERSION    = 'cs-v24';
+const SW_VERSION    = 'cs-v25';
 const CACHE_SHELL   = SW_VERSION + '-shell';    // long-lived HTML/CSS/JS
 const CACHE_RUNTIME = SW_VERSION + '-runtime';  // dynamic pages + images
 const OFFLINE_URL   = 'offline.html';
@@ -26,6 +26,7 @@ const SHELL_FILES = [
   'ocr-agent.html',
   'blind-audio.html',
   'sign-language.html',
+  'sign-dictionary.html',
   'signsense-dictionary.html',
   '404.html',
   'iab-library.html',
@@ -36,6 +37,7 @@ const SHELL_FILES = [
   'reading-shelf.html',
   'my-knowledge-hub.html',
   'dyslexia-agent.html',
+  'down-syndrome-agent.html',
   'ai-librarian.html',
   'ai-teacher-agent.html',
   'personalisation-agent.html',
@@ -50,6 +52,7 @@ const SHELL_FILES = [
   'offline-library.html',
   'offline.html',
   'evidence-summary.html',
+  'presentation.html',
   'shared.js',
   'styles.css',
   'voice-system.js',
@@ -58,6 +61,7 @@ const SHELL_FILES = [
   'avatar-creator.js',
   'personalisation-system.js',
   'avatar-engine.js',
+  'books-data.js',
   'providers/heygen-provider.js',
   'providers/did-provider.js',
   'providers/nvidia-provider.js',

@@ -405,3 +405,10 @@ function go(d){var next=cur+d;if(next<1||next>total)return;document.getElementBy
 document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key===' '||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);if(e.key==='Home')go(1-cur);if(e.key==='End')go(total-cur);});
 document.getElementById('prog').style.width=((1/total)*100)+'%';
 </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(function(reg){
+      console.log('[SW] Registered:', reg.scope);
+    }).catch(function(e){ console.log('[SW] Registration failed:', e); });
+  }
+  </script>
