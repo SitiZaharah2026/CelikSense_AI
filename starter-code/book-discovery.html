@@ -473,6 +473,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <span id="pill-openlibrary" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#e0f2fe;color:#0369a1;">⏳ Open Library</span>
       <span id="pill-googlebooks" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#e0f2fe;color:#0369a1;">⏳ Google Books</span>
 <span id="pill-iab" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#f3e8ff;color:#7e22ce;">📘 IAB</span>
+      <span id="pill-pnm" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fef3c7;color:#92400e;">📚 PNM</span>
     </div>
   </div>
 
@@ -613,6 +614,12 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   <section class="results-panel" id="panel-iab-search" aria-labelledby="iabSearchHeading" aria-live="polite">
     <div class="results-panel-title" id="iabSearchHeading">📘 IAB – Institut Aminuddin Baki &mdash; <span style="color:#5b21b6;font-size:11px;">Penerbitan Pendidikan</span></div>
     <div class="book-result-list" id="iabSearchResults"></div>
+  </section>
+
+  <!-- PNM Digital Library Search Panel -->
+  <section class="results-panel" id="panel-pnm-search" aria-labelledby="pnmSearchHeading" aria-live="polite" style="display:none;">
+    <div class="results-panel-title" id="pnmSearchHeading">📚 Perpustakaan Digital Negara (PNM) &mdash; <span style="color:#92400e;font-size:11px;">pnm.odilo.us</span></div>
+    <div id="pnmSearchResults"></div>
   </section>
 
   <!-- OPAC connector (school + university) -->
@@ -828,7 +835,7 @@ var _selectedBook = null;
 var _activeSource = null;
 var ALL_PANELS = ['upload','scan','gutenberg','openlibrary','googlebooks',
                   'school','university','gdrive','onedrive','community','iab',
-                  'iab-search'];
+                  'iab-search','pnm-search'];
 
 function hideAllPanels() {
   ALL_PANELS.forEach(function(id) {
@@ -919,14 +926,31 @@ function runSearch() {
   setPill('googlebooks', 'loading');
   setPill('vl', 'loading');
   setPill('iab', 'loading');
+  setPill('pnm', 'loading');
 
-  // Fire all 5 searches simultaneously
+  // Fire all searches simultaneously
   showGutenberg(q);
   showOpenLibrary(q);
   showGoogleBooks(q);
   searchIABBooks(q);
+  searchPNM(q);
 }
 
+
+function searchPNM(q) {
+  var sec = document.getElementById('panel-pnm-search');
+  var el  = document.getElementById('pnmSearchResults');
+  if (!sec || !el) return;
+  var pnmUrl = 'https://pnm.odilo.us/results?limit=24&offset=0&query=allfields_txt:'
+               + encodeURIComponent(q) + '&order=relevance:desc';
+  sec.style.display = 'block';
+  el.innerHTML = '<div style="padding:16px;background:#fffbeb;border-radius:12px;border:1px solid #fde68a;">'
+    + '<p style="margin:0 0 12px;font-size:14px;color:#78350f;">Cari "<strong>' + escHtml(q) + '</strong>" di Perpustakaan Digital Negara (PNM) — koleksi eBook, audiobook, majalah dan akhbar Malaysia.</p>'
+    + '<a href="' + pnmUrl + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#d97706;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;">'
+    + '📚 Buka di PNM Digital Library →</a>'
+    + '</div>';
+  setPill('pnm', 'done');
+}
 
 function searchIABBooks(q) {
   var el = document.getElementById('iabSearchResults');
