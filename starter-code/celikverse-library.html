@@ -115,6 +115,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cv-bg);color:v
 .cv-modal-btn-outline:hover{border-color:var(--cv-p);color:var(--cv-p);background:rgba(79,70,229,.05);}
 .cv-modal-btn-ghost{background:rgba(79,70,229,.08);color:var(--cv-p);}
 .cv-modal-btn-ghost:hover{background:rgba(79,70,229,.15);}
+.cv-modal-btn-shelf{background:linear-gradient(135deg,#059669,#0891b2);color:#fff;}
+.cv-modal-btn-shelf:hover{filter:brightness(1.1);}
+.cv-modal-btn-shelf:disabled{cursor:default;}
 .cv-modal-close{position:absolute;top:16px;right:16px;background:rgba(0,0,0,.08);border:none;color:var(--cv-muted);width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .cv-modal-close:hover{background:rgba(0,0,0,.16);color:var(--cv-text);}
 .cv-modal-access-section{background:linear-gradient(135deg,rgba(79,70,229,.05),rgba(8,145,178,.05));border:1px solid rgba(79,70,229,.15);border-radius:12px;padding:14px;margin-bottom:16px;}
@@ -5032,7 +5035,27 @@ function openIABModal(id){
     id:b.id,isIAB:true
   });
 }
+var _curModalData=null;
+function addToShelf(){
+  if(!_curModalData)return;
+  var d=_curModalData;
+  if(!window.CS_SHELF){alert('Rak Buku Maya tidak tersedia.');return;}
+  var id=CS_SHELF.add({
+    title:d.title,author:d.author,
+    url:d.officialUrl||'',
+    coverUrl:d.cover||'',
+    source:d.source||'celikverse',
+    genre:d.cat||'',
+    language:d.lang||'ms',
+    description:d.desc||'',
+    accessibility: d.isIAB ? 'none' : 'adhd'
+  });
+  var btn=document.getElementById('shelfBtn');
+  if(btn){btn.textContent='✅ Tersimpan!';btn.disabled=true;btn.style.background='#10b981';btn.style.color='#fff';}
+}
+
 function _showModal(d){
+  _curModalData=d;
   document.getElementById('modalTitle').textContent=d.title;
   document.getElementById('modalAuthor').textContent=d.author;
   document.getElementById('modalSource').textContent=d.source;
@@ -5045,9 +5068,11 @@ function _showModal(d){
   if(d.cover){img.src=d.cover;img.alt=d.title;img.hidden=false;ph.hidden=true;}
   else{img.hidden=true;ph.hidden=false;ph.innerHTML=d.isIAB?'&#127963;&#65039;':'&#128218;';}
   var isFav=FAVS.includes(d.id);
+  var shelfSaved=window.CS_SHELF&&CS_SHELF.getAll().some(function(b){return b.title===d.title;});
   var actions='';
   if(d.officialUrl)actions+='<a href="'+escHtml(d.officialUrl)+'" target="_blank" rel="noopener" class="cv-modal-btn cv-modal-btn-primary">&#128279; Buka Sumber Rasmi</a>';
   actions+='<button class="cv-modal-btn cv-modal-btn-outline" onclick="toggleFav(\''+escHtml(d.id)+'\')" id="favBtn">'+(isFav?'&#11088; Buang Kegemaran':'&#9734; Tambah Kegemaran')+'</button>';
+  actions+='<button class="cv-modal-btn cv-modal-btn-shelf" onclick="addToShelf()" id="shelfBtn"'+(shelfSaved?' disabled style="background:#10b981;color:#fff;"':'')+'>'+(shelfSaved?'✅ Tersimpan':'📚 Simpan ke Rak Buku Maya')+'</button>';
   if(!d.isIAB)actions+='<button class="cv-modal-btn cv-modal-btn-ghost" onclick="document.getElementById(\'modalReadSection\').hidden=!document.getElementById(\'modalReadSection\').hidden">&#128214; Baca dengan CelikSense</button>';
   document.getElementById('modalActions').innerHTML=actions;
   document.getElementById('modalReadSection').hidden=d.isIAB;
