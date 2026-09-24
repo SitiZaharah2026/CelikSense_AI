@@ -711,6 +711,121 @@ document.addEventListener('keydown',function(e){
 })();
 
 /* ============================================================
+   DEMO BOOKS SEED — only runs if shelf is completely empty
+   ============================================================ */
+(function seedDemoBooks(){
+  if(!window.CS_SHELF) return;
+  if(CS_SHELF.getAll().length > 0) return;
+  var SEED_KEY = 'cs_shelf_seeded_v1';
+  try{ if(localStorage.getItem(SEED_KEY)) return; } catch(e){}
+
+  var demos = [
+    {
+      title: 'Kisah Si Belalang dan Semut',
+      author: 'Cerita Rakyat Malaysia',
+      url: 'https://www.gutenberg.org/files/11/11-0.txt',
+      coverUrl: '',
+      source: 'demo',
+      accessibility: 'adhd',
+      genre: 'Cerita Kanak-Kanak',
+      language: 'ms',
+      description: 'Kisah belalang yang suka bermain dan semut yang rajin bekerja. Sesuai untuk pelajar ADHD dengan teks pendek dan mesej yang jelas.',
+      progress: 45,
+      isFavourite: true,
+      lastOpened: Date.now() - 86400000,
+      lastMode: 'adhd'
+    },
+    {
+      title: "Alice's Adventures in Wonderland",
+      author: 'Lewis Carroll',
+      url: 'https://www.gutenberg.org/files/11/11-0.txt',
+      coverUrl: '',
+      source: 'gutenberg',
+      accessibility: 'dyslexia',
+      genre: 'Fantasi',
+      language: 'en',
+      description: 'Pengembaraan Alice ke dunia ajaib. Teks klasik dengan fon mesra disleksia dan sokongan audio.',
+      progress: 20,
+      isFavourite: false,
+      lastOpened: Date.now() - 172800000,
+      lastMode: 'dyslexia'
+    },
+    {
+      title: 'Hikayat Hang Tuah',
+      author: 'Sastera Melayu Klasik',
+      url: 'https://www.gutenberg.org/files/19055/19055-0.txt',
+      coverUrl: '',
+      source: 'demo',
+      accessibility: 'blind',
+      genre: 'Sastera Klasik',
+      language: 'ms',
+      description: 'Epik pahlawan Melayu yang setia dan berani. Sesuai dengan mod audio untuk pelajar masalah penglihatan.',
+      progress: 10,
+      isFavourite: false,
+      lastOpened: null,
+      lastMode: 'blind'
+    },
+    {
+      title: 'The Wonderful Wizard of Oz',
+      author: 'L. Frank Baum',
+      url: 'https://www.gutenberg.org/files/55/55-0.txt',
+      coverUrl: '',
+      source: 'gutenberg',
+      accessibility: 'adhd',
+      genre: 'Fantasi Kanak-Kanak',
+      language: 'en',
+      description: 'Pengembaraan Dorothy ke negeri Oz yang ajaib. Cerita mudah difahami, sesuai untuk pelajar ADHD dan Sindrom Down.',
+      progress: 0,
+      isFavourite: false,
+      lastOpened: null,
+      lastMode: 'adhd'
+    },
+    {
+      title: 'Buku Teks Sains Tahun 4',
+      author: 'Kementerian Pendidikan Malaysia',
+      url: '',
+      coverUrl: '',
+      source: 'demo',
+      accessibility: 'dyslexia',
+      genre: 'Buku Teks',
+      language: 'ms',
+      description: 'Kandungan Sains KSSR Tahun 4. Gunakan mod disleksia dengan fon OpenDyslexic untuk kemudahan membaca.',
+      progress: 65,
+      isFavourite: true,
+      lastOpened: Date.now() - 3600000,
+      lastMode: 'dyslexia'
+    },
+    {
+      title: 'Pride and Prejudice',
+      author: 'Jane Austen',
+      url: 'https://www.gutenberg.org/files/1342/1342-0.txt',
+      coverUrl: '',
+      source: 'gutenberg',
+      accessibility: 'none',
+      genre: 'Novel Klasik',
+      language: 'en',
+      description: 'Novel cinta klasik karya Jane Austen. Tersedia dalam mod baca biasa atau audio.',
+      progress: 30,
+      isFavourite: false,
+      lastOpened: Date.now() - 259200000,
+      lastMode: 'normal'
+    }
+  ];
+
+  demos.forEach(function(d, i){
+    var id = CS_SHELF.add(d);
+    if(d.progress > 0) CS_SHELF.update(id, {
+      progress: d.progress,
+      lastOpened: d.lastOpened || null,
+      lastMode: d.lastMode || 'adhd',
+      isFavourite: d.isFavourite || false
+    });
+  });
+
+  try{ localStorage.setItem(SEED_KEY, '1'); } catch(e){}
+})();
+
+/* ============================================================
    INIT
    ============================================================ */
 renderShelf();
