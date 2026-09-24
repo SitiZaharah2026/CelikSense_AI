@@ -228,7 +228,7 @@ nav.navbar{display:none!important;}
   </div>
 </aside>
 
-<script src="shared.js?v=2"></script>
+<script src="shared.js?v=3"></script>
 <script>
 /* ============================================================
    i18n
@@ -698,7 +698,7 @@ document.addEventListener('keydown',function(e){
 /* ============================================================
    DEMO BOOKS SEED — only runs if shelf is completely empty
    ============================================================ */
-(function seedDemoBooks(){
+function seedDemoBooks(){
   if(!window.CS_SHELF) return;
   if(CS_SHELF.getAll().length > 0) return;
   var SEED_KEY = 'cs_shelf_seeded_v1';
@@ -808,11 +808,12 @@ document.addEventListener('keydown',function(e){
   });
 
   try{ localStorage.setItem(SEED_KEY, '1'); } catch(e){}
-})();
+}
 
 /* ============================================================
-   INIT
+   INIT — seed demo books then render
    ============================================================ */
+seedDemoBooks();
 renderShelf();
 </script>
   <script>
