@@ -668,6 +668,17 @@ body {
       <div id="reactResult" style="display:none;margin-top:12px;padding:16px;background:var(--bg);border-radius:12px;border-left:4px solid #22c55e;font-size:15px;line-height:1.8;"></div>
     </div>
 
+    <!-- Quick Actions Banner -->
+    <div style="padding:16px 20px;background:linear-gradient(135deg,rgba(79,70,229,0.07),rgba(8,145,178,0.05));border-radius:12px;border:1px solid rgba(79,70,229,0.18);">
+      <div style="font-size:12px;font-weight:700;color:#4338ca;margin-bottom:10px;">⚡ Tindakan Pantas — masukkan teks dan tekan butang di bawah</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;">
+        <button class="vca-btn vca-btn-primary" onclick="convertToVisualSummary()" style="font-size:13px;padding:12px;">📄 Visual Summary</button>
+        <button class="vca-btn vca-btn-cyan" onclick="generateVisualKeywords()" style="font-size:13px;padding:12px;">🔑 Visual Keywords</button>
+        <button class="vca-btn vca-btn-green" onclick="createMindMap()" style="font-size:13px;padding:12px;">🗺 Mind Map</button>
+        <button class="vca-btn vca-btn-amber" onclick="createComicSequence()" style="font-size:13px;padding:12px;">📖 Comic Sequence</button>
+      </div>
+    </div>
+
     <!--  Input Card  -->
     <div class="vca-card">
       <div class="vca-card-header">

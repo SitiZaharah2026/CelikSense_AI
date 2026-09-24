@@ -573,6 +573,22 @@
         </div>
       </section>
 
+      <!-- Primary CTA -->
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;max-width:600px;margin-left:auto;margin-right:auto;">
+        <div style="font-size:12px;font-weight:700;color:var(--accent2);text-align:center;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">⚡ Tindakan Utama</div>
+        <button id="btn-main-listen" onclick="document.getElementById('btn-start-guide').click()" aria-label="Mula Dengar — aktifkan panduan suara" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:linear-gradient(135deg,#6366f1,#7c3aed);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(99,102,241,0.4);">
+          🔊 <span>Mula Dengar Panduan</span>
+        </button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <button onclick="document.getElementById('btn-guest').click()" aria-label="Mod Tetamu" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:linear-gradient(135deg,#059669,#10b981);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">
+            👤 Mod Tetamu
+          </button>
+          <button onclick="document.getElementById('btn-help').click()" aria-label="Bantuan — senarai arahan suara" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:linear-gradient(135deg,#0891b2,#06b6d4);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">
+            ❓ Bantuan &amp; Arahan
+          </button>
+        </div>
+      </div>
+
       <!-- Quick Access -->
       <section aria-labelledby="quick-label">
         <p class="section-title" id="quick-label">Quick Access</p>

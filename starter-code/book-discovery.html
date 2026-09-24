@@ -425,42 +425,47 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   <div class="send-panel" id="sendPanel" role="region" aria-label="Send to accessibility tools" aria-live="polite">
     <div class="send-title" data-i18n="bd_send_to">Send to Tools</div>
     <div class="send-book-name" id="sendBookName"></div>
+    <!-- PRIMARY agents — large, coloured -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:14px;">
+      <button onclick="sendTo('adhd-agent.html')" style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(135deg,#3730a3,#6366f1);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;text-align:left;">
+        🧠 <span>Mod ADHD<br><small style="font-weight:400;opacity:.85">Fokus &amp; Perhatian</small></span>
+      </button>
+      <button onclick="sendTo('dyslexia-agent.html')" style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(135deg,#b45309,#f59e0b);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;text-align:left;">
+        📖 <span>Mod Disleksia<br><small style="font-weight:400;opacity:.85">Fon &amp; Warna Khas</small></span>
+      </button>
+      <button onclick="sendTo('blind-audio.html')" style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(135deg,#1e293b,#475569);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;text-align:left;">
+        🔊 <span>Mod Audio<br><small style="font-weight:400;opacity:.85">Teks-ke-Suara</small></span>
+      </button>
+      <button onclick="sendTo('reading-companion.html')" style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(135deg,#0891b2,#06b6d4);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;text-align:left;">
+        📚 <span>Rakan Membaca<br><small style="font-weight:400;opacity:.85">AI Companion</small></span>
+      </button>
+    </div>
+    <!-- SECONDARY agents -->
+    <div style="font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Alat Lain</div>
     <div class="send-grid">
       <button class="send-btn" onclick="sendTo('ai-teacher-agent.html')" aria-label="Read with AI Teacher">
-        <span class="send-btn-icon" aria-hidden="true"></span><span data-i18n="bd_send_teacher">Read with AI Teacher</span>
-      </button>
-      <button class="send-btn" onclick="sendTo('reading-companion.html')" aria-label="Open in Reading Companion">
-        <span class="send-btn-icon" aria-hidden="true"></span><span data-i18n="bd_send_companion">Open in Reading Companion</span>
-      </button>
-      <button class="send-btn" onclick="sendTo('blind-audio.html')" aria-label="Convert to Audio">
-        <span class="send-btn-icon" aria-hidden="true"></span><span data-i18n="bd_send_audio">Convert to Audio</span>
+        <span class="send-btn-icon" aria-hidden="true">📋</span><span data-i18n="bd_send_teacher">AI Teacher</span>
       </button>
       <button class="send-btn" onclick="sendTo('blind-audio.html?mode=braille')" aria-label="Convert to Braille">
-        <span class="send-btn-icon" aria-hidden="true">â ƒ</span><span data-i18n="bd_send_braille">Convert to Braille</span>
+        <span class="send-btn-icon" aria-hidden="true">⠃</span><span data-i18n="bd_send_braille">Braille</span>
       </button>
       <button class="send-btn" onclick="sendTo('sign-language.html')" aria-label="Open Visual Communication Agent">
-        <span class="send-btn-icon" aria-hidden="true"></span><span data-i18n="bd_send_bim">Visual Comm Agent</span>
+        <span class="send-btn-icon" aria-hidden="true">👋</span><span data-i18n="bd_send_bim">Bahasa Isyarat</span>
       </button>
       <button class="send-btn" onclick="window.location.href='signsense-dictionary.html'" aria-label="Open SignSense Dictionary">
-        <span class="send-btn-icon" aria-hidden="true"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg></span>SignSense Dictionary
+        <span class="send-btn-icon" aria-hidden="true">🤟</span>Kamus BIM
       </button>
       <button class="send-btn" onclick="window.location.href='iab-library.html'" aria-label="Open IAB Library">
-        <span class="send-btn-icon" aria-hidden="true"></span>IAB Library
+        <span class="send-btn-icon" aria-hidden="true">🏛</span>IAB Library
       </button>
-      <button class="send-btn" onclick="window.location.href='virtual-library.html'" aria-label="Open Rak Buku Maya SK Lukut">
-        <span class="send-btn-icon" aria-hidden="true"></span>Rak Buku Maya
-      </button>
-      <button class="send-btn" onclick="sendTo('adhd-agent.html')" aria-label="Apply ADHD Mode">
-        <span class="send-btn-icon" aria-hidden="true"></span><span data-i18n="bd_send_adhd">Apply ADHD Mode</span>
-      </button>
-      <button class="send-btn" onclick="sendTo('dyslexia-agent.html')" aria-label="Apply Dyslexia Mode">
-        <span class="send-btn-icon" aria-hidden="true"></span><span data-i18n="bd_send_dyslexia">Apply Dyslexia Mode</span>
+      <button class="send-btn" onclick="window.location.href='reading-shelf.html'" aria-label="Open Rak Buku Maya">
+        <span class="send-btn-icon" aria-hidden="true">📚</span>Rak Buku Maya
       </button>
       <button class="send-btn" onclick="sendTo('ocr-agent.html')" aria-label="Open in OCR Agent">
-        <span class="send-btn-icon" aria-hidden="true"></span>OCR Agent
+        <span class="send-btn-icon" aria-hidden="true">📷</span>OCR Agent
       </button>
       <button class="send-btn" id="downloadOfflineBtn" onclick="downloadForOffline()" aria-label="Download this book for offline reading" style="border-color:rgba(16,185,129,0.5);background:rgba(16,185,129,0.12);">
-        <span class="send-btn-icon" aria-hidden="true"></span><span data-i18n="offline_download_btn">Download for Offline</span>
+        <span class="send-btn-icon" aria-hidden="true">⬇</span><span data-i18n="offline_download_btn">Muat Turun Offline</span>
       </button>
     </div>
   </div>
