@@ -412,10 +412,11 @@ function renderCard(book){
   // Actions
   var actions=document.createElement('div');
   actions.className='bk-actions';
-  var contBtn=document.createElement('button');
-  contBtn.className='btn-continue';
-  contBtn.textContent=t('continue');
-  contBtn.onclick=function(e){e.stopPropagation();openBook(book.id, book.lastMode||'adhd');};
+  // Primary: "Buka Dengan" always visible
+  var openWithBtn=document.createElement('button');
+  openWithBtn.className='btn-continue';
+  openWithBtn.textContent='📖 '+(LANG==='en'?'Open With…':'Buka Dengan…');
+  openWithBtn.onclick=function(e){e.stopPropagation();openWith(book.id);};
 
   var moreWrap=document.createElement('div');
   moreWrap.style.position='relative';
@@ -428,7 +429,6 @@ function renderCard(book){
 
   var menuItems=[
     {label:' '+t('open'), action:function(){openBook(book.id, book.lastMode||'adhd');}},
-    {label:' '+t('open_with'), action:function(){openWith(book.id);}},
     {label:' '+t('ai_summary'), action:function(){doAI(book.id,'summary');}},
     {label:' '+t('gen_quiz'), action:function(){doAI(book.id,'quiz');}},
     {label:' '+t('mind_map'), action:function(){doAI(book.id,'mindmap');}},
@@ -448,7 +448,7 @@ function renderCard(book){
   };
   moreWrap.appendChild(moreBtn);
   moreWrap.appendChild(dropdown);
-  actions.appendChild(contBtn);
+  actions.appendChild(openWithBtn);
   actions.appendChild(moreWrap);
 
   body.appendChild(titleEl);
