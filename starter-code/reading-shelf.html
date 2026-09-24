@@ -50,33 +50,37 @@ nav.navbar{display:none!important;}
 #book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;}
 
 /* BOOK CARD */
-.bk-card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;transition:transform .2s,box-shadow .2s;position:relative;cursor:pointer;}
-.bk-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(99,102,241,.18);}
-.bk-cover-wrap{position:relative;width:100%;height:220px;overflow:hidden;background:#ede9fe;}
+.bk-card{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;transition:transform .2s,box-shadow .2s;position:relative;display:flex;flex-direction:column;}
+.bk-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(99,102,241,.2);}
+.bk-cover-wrap{position:relative;width:100%;height:160px;overflow:hidden;background:#ede9fe;flex-shrink:0;}
 .bk-cover{width:100%;height:100%;object-fit:cover;}
-.bk-cover-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:56px;background:linear-gradient(135deg,#ede9fe,#dbeafe);}
-.bk-badge{position:absolute;top:10px;left:10px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
-.badge-blind{background:#334155;color:#e2e8f0;}
-.badge-lowvision{background:#6d28d9;color:#ede9fe;}
-.badge-dyslexia{background:#d97706;color:#fef3c7;}
-.badge-adhd{background:#4338ca;color:#e0e7ff;}
-.badge-deaf{background:#1d4ed8;color:#dbeafe;}
-.badge-none{background:rgba(0,0,0,.35);color:#fff;}
-.bk-fav-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.85);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:transform .2s;box-shadow:0 2px 8px rgba(0,0,0,.15);}
-.bk-fav-btn:hover{transform:scale(1.15);}
-.bk-body{padding:12px 14px;}
-.bk-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.bk-author{font-size:11px;color:var(--muted);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bk-cover-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,#ede9fe,#dbeafe);}
+/* Badge — bottom of cover, full width strip */
+.bk-badge{position:absolute;bottom:0;left:0;right:0;padding:5px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;text-align:center;}
+.badge-blind{background:#1e293b;color:#e2e8f0;}
+.badge-lowvision{background:#5b21b6;color:#ede9fe;}
+.badge-dyslexia{background:#b45309;color:#fef3c7;}
+.badge-adhd{background:#3730a3;color:#e0e7ff;}
+.badge-deaf{background:#1e40af;color:#dbeafe;}
+.badge-none{background:rgba(0,0,0,.55);color:#fff;}
+.bk-body{padding:14px 14px 0;flex:1;}
+.bk-title{font-size:14px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.bk-author{font-size:12px;color:var(--muted);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .bk-progress-wrap{margin-bottom:6px;}
-.bk-progress-bar{height:5px;background:#e5e7eb;border-radius:99px;overflow:hidden;}
+.bk-progress-bar{height:8px;background:#e5e7eb;border-radius:99px;overflow:hidden;}
 .bk-progress-fill{height:100%;background:linear-gradient(90deg,#6366f1,#0891b2);border-radius:99px;transition:width .4s;}
-.bk-progress-label{font-size:10px;color:var(--muted);margin-top:3px;}
-.bk-last{font-size:10px;color:var(--muted);margin-bottom:10px;}
-.bk-actions{display:flex;gap:6px;}
-.btn-continue{flex:1;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:600;cursor:pointer;transition:background .2s;}
-.btn-continue:hover{background:#4f46e5;}
-.btn-more{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;cursor:pointer;position:relative;transition:background .2s;}
-.btn-more:hover{background:#e0e7ff;}
+.bk-progress-label{font-size:11px;font-weight:600;color:var(--accent);margin-top:4px;}
+.bk-last{font-size:11px;color:var(--muted);margin-bottom:12px;}
+/* ACTION ROW — 3 visible buttons */
+.bk-actions{display:flex;gap:6px;padding:0 14px 14px;margin-top:auto;}
+.btn-open-with{flex:1;background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;border:none;border-radius:10px;padding:10px 8px;font-size:12px;font-weight:700;cursor:pointer;transition:filter .2s;text-align:center;line-height:1.3;}
+.btn-open-with:hover{filter:brightness(1.1);}
+.btn-fav-visible{background:#fff3;border:1.5px solid #fcd34d;border-radius:10px;padding:10px 10px;font-size:16px;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.btn-fav-visible.active{background:#fef3c7;border-color:#f59e0b;}
+.btn-fav-visible:hover{background:#fef9c3;}
+.btn-del-visible{background:#fff;border:1.5px solid #fca5a5;border-radius:10px;padding:10px 10px;font-size:15px;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.btn-del-visible:hover{background:#fef2f2;}
+/* dropdown kept for extra options via ⋮ if ever needed */
 .dropdown-menu{display:none;position:absolute;bottom:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.12);min-width:180px;z-index:100;overflow:hidden;}
 .dropdown-menu.open{display:block;}
 .dropdown-item{display:block;width:100%;text-align:left;padding:10px 14px;font-size:13px;background:none;border:none;cursor:pointer;color:var(--text);transition:background .2s;}
@@ -235,6 +239,8 @@ var T={
   all:{ms:'Semua',en:'All'},
   recent:{ms:'Baru Dibaca',en:'Recently Read'},
   fav:{ms:'Kegemaran',en:'Favourites'},
+  fav_add:{ms:'Tambah Kegemaran',en:'Add to Favourites'},
+  fav_remove:{ms:'Buang Kegemaran',en:'Remove from Favourites'},
   downloaded:{ms:'Dimuat Turun',en:'Downloaded'},
   sort_added:{ms:'Baru Ditambah',en:'Recently Added'},
   sort_last:{ms:'Baru Dibaca',en:'Recently Read'},
@@ -359,13 +365,6 @@ function renderCard(book){
     badge.setAttribute('aria-label','Last mode: '+book.lastMode);
     coverWrap.appendChild(badge);
   }
-  // Fav button
-  var favBtn=document.createElement('button');
-  favBtn.className='bk-fav-btn';
-  favBtn.setAttribute('aria-label', book.isFavourite?'Remove from favourites':'Add to favourites');
-  favBtn.textContent=book.isFavourite?'':'☆';
-  favBtn.onclick=function(e){e.stopPropagation();toggleFavourite(book.id);};
-  coverWrap.appendChild(favBtn);
   card.appendChild(coverWrap);
 
   // Body
@@ -409,54 +408,40 @@ function renderCard(book){
     lastEl.textContent=t('never_read');
   }
 
-  // Actions
-  var actions=document.createElement('div');
-  actions.className='bk-actions';
-  // Primary: "Buka Dengan" always visible
-  var openWithBtn=document.createElement('button');
-  openWithBtn.className='btn-continue';
-  openWithBtn.textContent='📖 '+(LANG==='en'?'Open With…':'Buka Dengan…');
-  openWithBtn.onclick=function(e){e.stopPropagation();openWith(book.id);};
-
-  var moreWrap=document.createElement('div');
-  moreWrap.style.position='relative';
-  var moreBtn=document.createElement('button');
-  moreBtn.className='btn-more';
-  moreBtn.setAttribute('aria-label','More options');
-  moreBtn.textContent='⋮';
-  var dropdown=document.createElement('div');
-  dropdown.className='dropdown-menu';
-
-  var menuItems=[
-    {label:' '+t('open'), action:function(){openBook(book.id, book.lastMode||'adhd');}},
-    {label:' '+t('ai_summary'), action:function(){doAI(book.id,'summary');}},
-    {label:' '+t('gen_quiz'), action:function(){doAI(book.id,'quiz');}},
-    {label:' '+t('mind_map'), action:function(){doAI(book.id,'mindmap');}},
-    {label:' '+t('remove'), action:function(){removeBook(book.id);}, danger:true}
-  ];
-  menuItems.forEach(function(item){
-    var di=document.createElement('button');
-    di.className='dropdown-item'+(item.danger?' danger':'');
-    di.textContent=item.label;
-    di.onclick=function(e){e.stopPropagation();dropdown.classList.remove('open');item.action();};
-    dropdown.appendChild(di);
-  });
-  moreBtn.onclick=function(e){
-    e.stopPropagation();
-    document.querySelectorAll('.dropdown-menu.open').forEach(function(d){if(d!==dropdown)d.classList.remove('open');});
-    dropdown.classList.toggle('open');
-  };
-  moreWrap.appendChild(moreBtn);
-  moreWrap.appendChild(dropdown);
-  actions.appendChild(openWithBtn);
-  actions.appendChild(moreWrap);
-
   body.appendChild(titleEl);
   body.appendChild(authorEl);
   body.appendChild(progWrap);
   body.appendChild(lastEl);
-  body.appendChild(actions);
   card.appendChild(body);
+
+  // 3 visible action buttons
+  var actions=document.createElement('div');
+  actions.className='bk-actions';
+
+  var openWithBtn=document.createElement('button');
+  openWithBtn.className='btn-open-with';
+  openWithBtn.innerHTML='📖<br>'+(LANG==='en'?'Open With…':'Buka Dengan…');
+  openWithBtn.setAttribute('aria-label', LANG==='en'?'Open with learning agent':'Buka dengan agen pembelajaran');
+  openWithBtn.onclick=function(e){e.stopPropagation();openWith(book.id);};
+
+  var favBtn2=document.createElement('button');
+  favBtn2.className='btn-fav-visible'+(book.isFavourite?' active':'');
+  favBtn2.textContent=book.isFavourite?'❤️':'🤍';
+  favBtn2.setAttribute('aria-label', book.isFavourite?t('fav_remove'):t('fav_add'));
+  favBtn2.title=book.isFavourite?(LANG==='en'?'Remove from favourites':'Buang dari Kegemaran'):(LANG==='en'?'Add to favourites':'Tambah Kegemaran');
+  favBtn2.onclick=function(e){e.stopPropagation();toggleFavourite(book.id);};
+
+  var delBtn=document.createElement('button');
+  delBtn.className='btn-del-visible';
+  delBtn.textContent='🗑';
+  delBtn.setAttribute('aria-label', LANG==='en'?'Remove from shelf':'Buang dari rak');
+  delBtn.title=LANG==='en'?'Remove from shelf':'Buang dari Rak';
+  delBtn.onclick=function(e){e.stopPropagation();removeBook(book.id);};
+
+  actions.appendChild(openWithBtn);
+  actions.appendChild(favBtn2);
+  actions.appendChild(delBtn);
+  card.appendChild(actions);
 
   card.onclick=function(){openWith(book.id);};
   return card;
