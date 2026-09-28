@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Akaun – CelikSense AI</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); min-height:100vh; display:flex; align-items:center; justify-content:center; font-family:'Inter',sans-serif; padding:20px 0; }
+.auth-card { background:#fff; border-radius:24px; padding:40px 36px; width:100%; max-width:420px; box-shadow:0 20px 60px rgba(99,102,241,0.18); }
+.auth-logo { text-align:center; margin-bottom:28px; }
+.auth-logo .logo-icon { font-size:48px; line-height:1; }
+.auth-logo h1 { font-size:22px; font-weight:900; color:#1e1b4b; margin:8px 0 2px; }
+.auth-logo p { font-size:13px; color:#64748b; }
+.form-group { margin-bottom:18px; }
+.form-group label { display:block; font-size:13px; font-weight:600; color:#374151; margin-bottom:6px; }
+.form-group input { width:100%; padding:12px 14px; border:1.5px solid #e2e8f0; border-radius:12px; font-size:15px; outline:none; transition:border-color 0.2s; box-sizing:border-box; }
+.form-group input:focus { border-color:#6366f1; box-shadow:0 0 0 3px rgba(99,102,241,0.12); }
+.btn-primary { width:100%; padding:14px; background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer; transition:opacity 0.2s; }
+.btn-primary:hover { opacity:0.9; }
+.btn-primary:disabled { opacity:0.6; cursor:not-allowed; }
+.auth-links { text-align:center; margin-top:20px; font-size:13px; color:#64748b; }
+.auth-links a { color:#6366f1; font-weight:600; text-decoration:none; }
+.auth-links a:hover { text-decoration:underline; }
+.divider { border:none; border-top:1px solid #f1f5f9; margin:20px 0; }
+.error-msg { background:#fef2f2; border:1px solid #fecaca; border-radius:10px; padding:10px 14px; font-size:13px; color:#dc2626; margin-bottom:16px; display:none; }
+.success-msg { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:10px 14px; font-size:13px; color:#16a34a; margin-bottom:16px; display:none; }
+.password-hint { font-size:11px; color:#94a3b8; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="auth-card">
+  <div class="auth-logo">
+    <div class="logo-icon">📚</div>
+    <h1>CelikSense AI</h1>
+    <p>Cipta akaun baharu</p>
+  </div>
+
+  <div class="error-msg" id="errorMsg"></div>
+  <div class="success-msg" id="successMsg"></div>
+
+  <form id="signupForm" onsubmit="handleSignUp(event)">
+    <div class="form-group">
+      <label for="name">Nama Penuh</label>
+      <input type="text" id="name" placeholder="Nama anda" required autocomplete="name">
+    </div>
+    <div class="form-group">
+      <label for="email">Emel</label>
+      <input type="email" id="email" placeholder="nama@emel.com" required autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Kata Laluan</label>
+      <input type="password" id="password" placeholder="Sekurang-kurangnya 6 aksara" required autocomplete="new-password">
+      <div class="password-hint">Minimum 6 aksara</div>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Sahkan Kata Laluan</label>
+      <input type="password" id="confirmPassword" placeholder="Ulang kata laluan" required autocomplete="new-password">
+    </div>
+    <button type="submit" class="btn-primary" id="submitBtn">Daftar Sekarang</button>
+  </form>
+
+  <hr class="divider">
+  <div class="auth-links">
+    Sudah ada akaun? <a href="signin.html">Log masuk</a>
+  </div>
+  <div class="auth-links" style="margin-top:10px;">
+    <a href="index.html">← Kembali ke Laman Utama</a>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA3yXQ06-FtBXIJ6oMFDDUjP6Z6-qeEKEU",
+    authDomain: "prestij-zaharah-celiksense.firebaseapp.com",
+    projectId: "prestij-zaharah-celiksense",
+    storageBucket: "prestij-zaharah-celiksense.firebasestorage.app",
+    messagingSenderId: "116242246073",
+    appId: "1:116242246073:web:e40d0d20f4c6b733b0ae68",
+    measurementId: "G-V54MJ8HBVJ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Check if already logged in
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      window.location.href = 'dashboard.html';
+    }
+  });
+
+  window.handleSignUp = async function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const btn = document.getElementById('submitBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+
+    errorMsg.style.display = 'none';
+    successMsg.style.display = 'none';
+
+    if (password !== confirmPassword) {
+      errorMsg.textContent = 'Kata laluan tidak sepadan. Cuba semula.';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sedang mendaftar...';
+
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(cred.user, { displayName: name });
+      localStorage.setItem('cs_user', JSON.stringify({
+        uid: cred.user.uid,
+        email: cred.user.email,
+        displayName: name
+      }));
+      successMsg.textContent = 'Akaun berjaya dicipta! Mengalihkan...';
+      successMsg.style.display = 'block';
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+    } catch (err) {
+      let msg = 'Ralat semasa mendaftar. Cuba lagi.';
+      if (err.code === 'auth/email-already-in-use') {
+        msg = 'Emel ini sudah didaftarkan. Sila log masuk.';
+      } else if (err.code === 'auth/invalid-email') {
+        msg = 'Format emel tidak sah.';
+      } else if (err.code === 'auth/weak-password') {
+        msg = 'Kata laluan terlalu lemah. Guna sekurang-kurangnya 6 aksara.';
+      }
+      errorMsg.textContent = msg;
+      errorMsg.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Daftar Sekarang';
+    }
+  };
+</script>
+</body>
+</html>
