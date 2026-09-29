@@ -22,6 +22,22 @@
 .recommend-card { background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(139,92,246,0.08)); border:1px solid rgba(99,102,241,0.2); border-radius:var(--radius-lg); padding:20px; margin-bottom:16px; }
 .recommend-reason { font-size:12px; color:var(--primary-light); font-weight:600; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em; }
 .skip-link:focus { left: 8px !important; }
+
+/* Agent Picker Modal */
+#agentPickerOverlay { position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px; }
+#agentPickerOverlay.active { display:flex; }
+#agentPickerModal { background:#fff;border-radius:20px;padding:28px 24px;max-width:480px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.25); }
+.agent-picker-title { font-size:17px;font-weight:800;color:#1e1b4b;margin-bottom:6px; }
+.agent-picker-subtitle { font-size:13px;color:#64748b;margin-bottom:20px; }
+.agent-picker-book { font-size:13px;font-weight:700;color:#4f46e5;background:#eff6ff;border-radius:8px;padding:8px 12px;margin-bottom:18px;line-height:1.4; }
+.agent-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px; }
+.agent-choice { padding:12px;border-radius:12px;border:2px solid #e2e8f0;cursor:pointer;text-align:center;transition:all 0.2s;background:#fff; }
+.agent-choice:hover { border-color:#6366f1;background:#f5f3ff; }
+.agent-choice .agent-icon { font-size:26px;margin-bottom:4px; }
+.agent-choice .agent-name { font-size:12px;font-weight:700;color:#1e1b4b; }
+.agent-choice .agent-desc { font-size:11px;color:#64748b;margin-top:2px; }
+.agent-open-direct { width:100%;padding:10px;background:none;border:1.5px solid #e2e8f0;border-radius:10px;color:#64748b;font-size:13px;cursor:pointer;transition:border-color 0.2s; }
+.agent-open-direct:hover { border-color:#94a3b8;color:#374151; }
 </style>
 </head>
 <body>
@@ -453,7 +469,7 @@ function renderBooks(list) {
     if (b.source === 'Gutenberg' && b.gutId) {
       actionBtn = `<button class="btn btn-primary btn-sm" onclick="loadGutBook(${b.gutId},${JSON.stringify(b.txtUrl||'')},${JSON.stringify(b.title)})">▶ Read Free</button>`;
     } else if (b.source === 'OpenLibrary' || b.source === 'OxfordOwl' || b.source === 'IAB') {
-      actionBtn = `<a href="${escHtml(b.url||'#')}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">▶ Buka</a>`;
+      actionBtn = `<button class="btn btn-primary btn-sm" onclick="showAgentPicker(${JSON.stringify(b.url||'#')},${JSON.stringify(b.title)})">▶ Buka</button>`;
     } else {
       actionBtn = `<a href="reading-companion.html" class="btn btn-primary btn-sm">▶ Read</a>`;
     }
@@ -623,6 +639,85 @@ document.addEventListener('DOMContentLoaded', function() {
     }).catch(function(e){ console.log('[SW] Registration failed:', e); });
   }
   </script>
+
+<!-- Agent Picker Modal -->
+<div id="agentPickerOverlay" onclick="if(event.target===this)closeAgentPicker()">
+  <div id="agentPickerModal">
+    <div class="agent-picker-title">🎯 Pilih Cara Baca</div>
+    <div class="agent-picker-subtitle">Buku ini akan dibuka dengan bantuan agent pilihan anda.</div>
+    <div class="agent-picker-book" id="agentPickerBookTitle"></div>
+    <div class="agent-grid">
+      <div class="agent-choice" onclick="openWithAgent('adhd')">
+        <div class="agent-icon">🎯</div>
+        <div class="agent-name">ADHD Agent</div>
+        <div class="agent-desc">Fokus & mod tenang</div>
+      </div>
+      <div class="agent-choice" onclick="openWithAgent('dyslexia')">
+        <div class="agent-icon">📖</div>
+        <div class="agent-name">Disleksia Agent</div>
+        <div class="agent-desc">Fon besar & skim guide</div>
+      </div>
+      <div class="agent-choice" onclick="openWithAgent('blind')">
+        <div class="agent-icon">🔊</div>
+        <div class="agent-name">Audio Agent</div>
+        <div class="agent-desc">Baca teks kuat</div>
+      </div>
+      <div class="agent-choice" onclick="openWithAgent('downsyndrome')">
+        <div class="agent-icon">🧩</div>
+        <div class="agent-name">Down Syndrome</div>
+        <div class="agent-desc">Ringkas & visual</div>
+      </div>
+      <div class="agent-choice" onclick="openWithAgent('sign')">
+        <div class="agent-icon">🤟</div>
+        <div class="agent-name">Bahasa Isyarat</div>
+        <div class="agent-desc">Visual keywords</div>
+      </div>
+      <div class="agent-choice" onclick="openWithAgent('ocr')">
+        <div class="agent-icon">📷</div>
+        <div class="agent-name">OCR Agent</div>
+        <div class="agent-desc">Scan & ekstrak teks</div>
+      </div>
+    </div>
+    <button class="agent-open-direct" onclick="openBookDirect()">↗ Buka terus tanpa agent</button>
+  </div>
+</div>
+
+<script>
+var _agentBookUrl = '';
+var _agentBookTitle = '';
+
+var AGENT_MAP = {
+  adhd: 'adhd-agent.html',
+  dyslexia: 'dyslexia-agent.html',
+  blind: 'blind-audio.html',
+  downsyndrome: 'down-syndrome-agent.html',
+  sign: 'sign-language.html',
+  ocr: 'ocr-agent.html'
+};
+
+function showAgentPicker(url, title) {
+  _agentBookUrl = url;
+  _agentBookTitle = title;
+  document.getElementById('agentPickerBookTitle').textContent = '📚 ' + title;
+  document.getElementById('agentPickerOverlay').classList.add('active');
+}
+
+function closeAgentPicker() {
+  document.getElementById('agentPickerOverlay').classList.remove('active');
+}
+
+function openWithAgent(agentKey) {
+  closeAgentPicker();
+  var page = AGENT_MAP[agentKey] || 'reading-companion.html';
+  var dest = page + '?bookUrl=' + encodeURIComponent(_agentBookUrl) + '&bookTitle=' + encodeURIComponent(_agentBookTitle);
+  window.location.href = dest;
+}
+
+function openBookDirect() {
+  closeAgentPicker();
+  window.open(_agentBookUrl, '_blank', 'noopener');
+}
+</script>
 </body>
 </html>
 
