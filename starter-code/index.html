@@ -629,7 +629,7 @@
       <a href="competition-dashboard.html" class="btn btn-ghost btn-sm hide-xs">Demo</a>
       <a href="profile.html" class="btn btn-ghost btn-sm hide-xs" aria-label="View profile"> Profile</a>
       <button onclick="openSignup()" class="btn btn-primary btn-sm" data-i18n="nav_signup">Sign Up</button>
-      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+      <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings" id="adminSettingsBtn" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks" id="hamburger"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
@@ -878,7 +878,7 @@
       </div>
 
       <div class="learner-card-v2 reveal reveal-delay-1" style="--lc:#ec4899;--lc2:#f43f5e;">
-        <div class="learner-icon-wrap" style="background:linear-gradient(135deg,rgba(236,72,153,0.2),rgba(244,63,94,0.1));border-color:rgba(236,72,153,0.3);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="40" height="40"><path d="M6 10a6 6 0 1 1 12 0c0 3.31-1.5 4.5-3 6s-1.5 3-1.5 5h-3c0-2-.5-3.5-2-5s-2.5-2.69-2.5-6z"/><path d="M9 21h6"/><circle cx="12" cy="11" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+        <div class="learner-icon-wrap" style="background:linear-gradient(135deg,rgba(236,72,153,0.2),rgba(244,63,94,0.1));border-color:rgba(236,72,153,0.3);"><span style="font-size:38px;line-height:1;" role="img" aria-label="ear">🦻</span></div>
         <div class="learner-v2-name" data-i18n="learner_deaf">Deaf & Hard of Hearing</div>
         <div class="learner-v2-desc" data-i18n="learner_deaf_desc">MSL/BIM sign cards, visual reading modes, and captioned content support.</div>
         <div class="learner-v2-agents" data-i18n="learner_deaf_agent">Visual Communication Agent</div>
@@ -1230,6 +1230,27 @@ function submitSignup(e) {
   document.getElementById('signupForm').style.opacity = '0.5';
   setTimeout(function(){ window.location.href = 'dashboard.html'; }, 1500);
 }
+</script>
+
+<!-- Admin settings button: only visible to zaharah@iegcampus.com -->
+<script>
+(function(){
+  var ADMIN_EMAIL = 'zaharah@iegcampus.com';
+  function checkAdmin() {
+    try {
+      var u = JSON.parse(localStorage.getItem('cs_user') || '{}');
+      if (u.email === ADMIN_EMAIL) {
+        var btn = document.getElementById('adminSettingsBtn');
+        if (btn) btn.style.display = '';
+      }
+    } catch(e) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', checkAdmin);
+  } else {
+    checkAdmin();
+  }
+})();
 </script>
 </body>
 </html>
