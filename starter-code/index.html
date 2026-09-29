@@ -1235,11 +1235,11 @@ function submitSignup(e) {
 <!-- Admin settings button: only visible to zaharah@iegcampus.com -->
 <script>
 (function(){
-  var ADMIN_EMAIL = 'zaharah@iegcampus.com';
+  var ADMIN_EMAILS = ['zaharah.alias@iab.moe.gov.my','wgr1380@yahoo.com','wgr1380@gmail.com','iab-1019@moe-dl.edu.my'];
   function checkAdmin() {
     try {
       var u = JSON.parse(localStorage.getItem('cs_user') || '{}');
-      if (u.email === ADMIN_EMAIL) {
+      if (ADMIN_EMAILS.indexOf(u.email) !== -1) {
         var btn = document.getElementById('adminSettingsBtn');
         if (btn) btn.style.display = '';
       }
