@@ -410,6 +410,17 @@
         </button>
       </div>
 
+      <!-- Demo Samples -->
+      <div class="cam-divider" style="margin-top:12px;"><span>atau</span></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
+        <button class="camera-launch-btn" onclick="loadDemoImage('demo/sejarah.png','Sejarah Tingkatan 1')"
+                style="background:linear-gradient(135deg,#7c3aed,#4f46e5);border-color:#7c3aed;"
+                title="Muat gambar demo buku Sejarah">
+          <span aria-hidden="true" style="font-size:22px;">📚</span>
+          <span>Demo: Buku Sejarah</span>
+        </button>
+      </div>
+
       <!-- Thumbnail Strip -->
       <div class="thumb-strip" id="thumbStrip" style="display:none;"></div>
 
@@ -812,6 +823,19 @@ function handleFileSelect(e) {
   const selected = [...e.target.files].filter(f => f.type.startsWith('image/'));
   if (selected.length) addFiles(selected);
   e.target.value = ''; // reset so same file can be re-uploaded
+}
+
+async function loadDemoImage(src, label) {
+  try {
+    const resp = await fetch(src);
+    if (!resp.ok) throw new Error('fetch failed');
+    const blob = await resp.blob();
+    const name = label ? label + '.png' : src.split('/').pop();
+    const file = new File([blob], name, { type: blob.type || 'image/png' });
+    addFiles([file]);
+  } catch(e) {
+    alert('Tidak dapat muatkan gambar demo. Cuba semak sambungan.');
+  }
 }
 
 function addFiles(newFiles) {
