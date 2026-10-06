@@ -99,6 +99,10 @@
         <svg viewBox="0 0 22 22" width="18" height="18" fill="none" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="9"/><path d="M8 14s1.5 2 3 2 3-2 3-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="13" y1="9" x2="13.01" y2="9"/></svg>
         Oxford Owl
       </a>
+      <a href="https://www.u-library.gov.my/portal/web/guest/home" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,0.25);border:2px solid rgba(255,255,255,0.7);border-radius:30px;color:#1e1b4b;font-size:13px;font-weight:800;text-decoration:none;backdrop-filter:blur(6px);transition:background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.38)'" onmouseout="this.style.background='rgba(255,255,255,0.25)'">
+        <svg viewBox="0 0 22 22" width="18" height="18" fill="none" stroke="#1e1b4b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="16" height="16" rx="2"/><path d="M8 7h6M8 11h6M8 15h4"/><path d="M3 7h2M3 11h2M3 15h2"/></svg>
+        🇲🇾 u-Pustaka
+      </a>
     </div>
   </div>
   </div>
@@ -125,6 +129,7 @@
           <button class="filter-tab" onclick="setFilter('iab',this)" aria-pressed="false" style="border-color:#a78bfa;color:#7e22ce;">📘 Rak Buku Maya IAB</button>
           <button class="filter-tab" onclick="setFilter('openlibrary',this)" aria-pressed="false" style="border-color:#93c5fd;color:#0369a1;">📙 Open Library</button>
           <button class="filter-tab" onclick="setFilter('freelibrary',this)" aria-pressed="false" style="border-color:#6ee7b7;color:#15803d;">📗 Free Library</button>
+          <button class="filter-tab" onclick="setFilter('upustaka',this)" aria-pressed="false" style="border-color:#dc2626;color:#dc2626;">🇲🇾 u-Pustaka</button>
         </div>
       </div>
 
@@ -185,6 +190,31 @@
         <div class="panel-title"> Find More Books</div>
         <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">Search public domain books, connect your school library, or upload your own files.</p>
         <a href="book-discovery.html" class="btn btn-primary w-full" style="text-align:center;">Open Book Discovery Agent →</a>
+      </div>
+
+      <!-- u-Pustaka Panel -->
+      <div class="control-panel" style="margin-top:16px;background:linear-gradient(135deg,rgba(220,38,38,0.06),rgba(239,68,68,0.04));border:1.5px solid rgba(220,38,38,0.25);">
+        <div class="panel-title">🇲🇾 Perpustakaan Digital Negara</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.5;">u-Pustaka — Portal Perpustakaan Digital Malaysia, koleksi nasional dari perpustakaan awam seluruh Malaysia.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+          <a href="https://www.u-library.gov.my/portal/web/guest/onesearch" target="_blank" rel="noopener" class="btn btn-sm" style="display:flex;align-items:center;gap:8px;background:#dc2626;color:#fff;border-radius:10px;padding:9px 14px;text-decoration:none;font-size:13px;font-weight:700;border:none;">
+            <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="6"/><line x1="13.5" y1="13.5" x2="17" y2="17"/></svg>
+            Cari Katalog (One Search)
+          </a>
+          <a href="https://www.u-library.gov.my/portal/web/guest/e-resources" target="_blank" rel="noopener" class="btn btn-sm" style="display:flex;align-items:center;gap:8px;background:#fff;color:#dc2626;border:1.5px solid #dc2626;border-radius:10px;padding:9px 14px;text-decoration:none;font-size:13px;font-weight:700;">
+            📚 e-Resources (eBook, eJournal)
+          </a>
+          <a href="https://www.u-library.gov.my/portal/web/guest/home" target="_blank" rel="noopener" class="btn btn-sm" style="display:flex;align-items:center;gap:8px;background:#fff;color:#374151;border:1.5px solid #e5e7eb;border-radius:10px;padding:9px 14px;text-decoration:none;font-size:13px;font-weight:600;">
+            🏠 Laman Utama u-Pustaka
+          </a>
+        </div>
+        <div id="upustaka-search-box" style="display:none;margin-top:4px;">
+          <div style="background:rgba(220,38,38,0.06);border-radius:10px;padding:12px;font-size:12px;color:#374151;line-height:1.6;">
+            <strong>Cari di u-Pustaka:</strong><br>
+            Taip kata kunci di atas, kemudian klik <em>"Cari di u-Pustaka"</em> untuk membuka hasil carian di portal u-Pustaka.
+          </div>
+          <button onclick="searchUpustaka()" class="btn btn-primary w-full" style="margin-top:10px;background:#dc2626;border:none;">🔍 Cari di u-Pustaka</button>
+        </div>
       </div>
 
       <!-- Reading List -->
@@ -280,8 +310,58 @@ function setFilter(filter, btn) {
   });
   btn.classList.add('active');
   btn.setAttribute('aria-pressed', 'true');
+
+  // Show/hide u-Pustaka search helper box
+  const upBox = document.getElementById('upustaka-search-box');
+  if (upBox) upBox.style.display = filter === 'upustaka' ? 'block' : 'none';
+
+  if (filter === 'upustaka') {
+    showUpustakaPanel();
+    return;
+  }
   const q = document.getElementById('searchInput').value.trim();
   if (q) searchBooks(); else filterBooks();
+}
+
+function showUpustakaPanel() {
+  const grid = document.getElementById('bookGrid');
+  const noRes = document.getElementById('noResults');
+  noRes.classList.add('hidden');
+  grid.innerHTML = `
+    <div style="grid-column:1/-1;background:linear-gradient(135deg,#fff5f5,#fff);border:2px solid #fecaca;border-radius:20px;padding:32px 28px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:12px;">🇲🇾</div>
+      <div style="font-size:20px;font-weight:800;color:#1e1b4b;margin-bottom:6px;">Perpustakaan Digital Negara</div>
+      <div style="font-size:14px;color:#6b7280;margin-bottom:24px;line-height:1.6;">u-Pustaka menyediakan akses kepada jutaan koleksi digital dari perpustakaan awam seluruh Malaysia — eBook, eJournal, eMagazine dan lebih lagi.</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;">
+        <a href="https://www.u-library.gov.my/portal/web/guest/onesearch" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:#dc2626;color:#fff;border-radius:30px;font-size:14px;font-weight:700;text-decoration:none;">🔍 One Search — Cari Katalog</a>
+        <a href="https://www.u-library.gov.my/portal/web/guest/e-resources" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:#fff;color:#dc2626;border:2px solid #dc2626;border-radius:30px;font-size:14px;font-weight:700;text-decoration:none;">📚 e-Resources</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;text-align:left;">
+        ${[
+          {icon:'📖', label:'eBook', url:'https://www.u-library.gov.my/portal/web/guest/ebook', desc:'Ribuan eBook percuma'},
+          {icon:'📰', label:'eMagazine', url:'https://www.u-library.gov.my/portal/web/guest/emagazine', desc:'Majalah digital'},
+          {icon:'📄', label:'eJournal', url:'https://www.u-library.gov.my/portal/web/guest/ejournal', desc:'Jurnal ilmiah'},
+          {icon:'🎧', label:'Audiobook', url:'https://www.u-library.gov.my/portal/web/guest/audiobook', desc:'Buku audio BM'},
+          {icon:'🗞', label:'eNewspaper', url:'https://www.u-library.gov.my/portal/web/guest/enewspaper', desc:'Akhbar digital'},
+          {icon:'🎓', label:'e-Learning', url:'https://www.u-library.gov.my/portal/web/guest/e-learning', desc:'Kursus & pembelajaran'},
+        ].map(c => `<a href="${c.url}" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:4px;padding:14px;background:#fff;border:1.5px solid #fecaca;border-radius:12px;text-decoration:none;transition:border-color .2s;" onmouseover="this.style.borderColor='#dc2626'" onmouseout="this.style.borderColor='#fecaca'">
+          <span style="font-size:24px;">${c.icon}</span>
+          <span style="font-size:13px;font-weight:700;color:#1e1b4b;">${c.label}</span>
+          <span style="font-size:11px;color:#6b7280;">${c.desc}</span>
+        </a>`).join('')}
+      </div>
+      <div style="margin-top:20px;padding:14px;background:#fef2f2;border-radius:12px;font-size:12px;color:#7f1d1d;line-height:1.6;">
+        <strong>💡 Tip:</strong> Taip kata kunci di bar carian di atas, kemudian klik butang <strong>"Cari di u-Pustaka"</strong> di panel sebelah kanan untuk terus membuka hasil carian di portal u-Pustaka.
+      </div>
+    </div>`;
+}
+
+function searchUpustaka() {
+  const q = document.getElementById('searchInput').value.trim();
+  const url = q
+    ? `https://www.u-library.gov.my/portal/web/guest/onesearch#search=${encodeURIComponent(q)}`
+    : 'https://www.u-library.gov.my/portal/web/guest/onesearch';
+  window.open(url, '_blank', 'noopener');
 }
 
 function filterBooks() {
