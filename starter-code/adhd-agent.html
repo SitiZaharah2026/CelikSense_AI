@@ -762,9 +762,36 @@ document.addEventListener('DOMContentLoaded', function() {
     if (bookUrl && bookUrl !== '#') {
       var banner = document.createElement('div');
       banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9000;background:linear-gradient(135deg,#4338ca,#6366f1);color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;box-shadow:0 4px 16px rgba(99,102,241,0.35);';
-      banner.innerHTML = '<div><div style="font-size:12px;font-weight:700;opacity:0.85;margin-bottom:2px;">📚 BUKU DIPILIH</div><div style="font-size:14px;font-weight:800;">' + (bookTitle||'Buku dari Rak Buku Maya') + '</div><div style="font-size:11px;opacity:0.8;margin-top:2px;">Buka buku → salin teks → tampal dalam kotak teks di bawah → tekan Load Text</div></div><div style="display:flex;gap:8px;"><a href="' + bookUrl + '" target="_blank" rel="noopener" style="padding:8px 16px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.5);border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">↗ Buka Buku</a><button onclick="this.parentNode.parentNode.remove()" style="padding:8px 12px;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.3);border-radius:8px;color:#fff;font-size:13px;cursor:pointer;">✕</button></div>';
+      banner.innerHTML = '<div><div style="font-size:12px;font-weight:700;opacity:0.85;margin-bottom:2px;">📚 BUKU DIPILIH</div><div style="font-size:14px;font-weight:800;">' + (bookTitle||'Buku dari Rak Buku Maya') + '</div><div style="font-size:11px;opacity:0.8;margin-top:2px;">1) Buka buku → salin teks → 2) Klik "Tampal &amp; Analisis"</div></div><div style="display:flex;gap:8px;flex-wrap:wrap;"><a href="' + bookUrl + '" target="_blank" rel="noopener" style="padding:8px 16px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.5);border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;">↗ Buka Buku</a><button id="pasteAnalyseBtn" style="padding:8px 16px;background:#22c55e;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">📋 Tampal &amp; Analisis</button><button onclick="this.closest(\'div[style]\').remove();document.body.style.paddingTop=\'\';" style="padding:8px 12px;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.3);border-radius:8px;color:#fff;font-size:13px;cursor:pointer;">✕</button></div>';
       document.body.insertBefore(banner, document.body.firstChild);
       document.body.style.paddingTop = '80px';
+      var pasteBtn = document.getElementById('pasteAnalyseBtn');
+      if (pasteBtn) {
+        pasteBtn.addEventListener('click', function() {
+          navigator.clipboard.readText().then(function(text) {
+            if (!text || !text.trim()) {
+              alert('Tiada teks dalam clipboard. Sila salin teks dari buku dahulu.');
+              return;
+            }
+            var area = document.getElementById('readingArea');
+            if (area) {
+              area.innerText = text.trim();
+              area.scrollIntoView({behavior:'smooth', block:'start'});
+              pasteBtn.textContent = '✓ Berjaya!';
+              pasteBtn.style.background = '#16a34a';
+              setTimeout(function(){ pasteBtn.textContent = '📋 Tampal & Analisis'; pasteBtn.style.background = '#22c55e'; }, 2000);
+            }
+          }).catch(function() {
+            var area = document.getElementById('readingArea');
+            if (area) {
+              area.focus();
+              area.innerText = '';
+              var ok = document.execCommand('paste');
+              if (!ok) alert('Sila benarkan akses clipboard atau gunakan Ctrl+V dalam kotak teks di bawah.');
+            }
+          });
+        });
+      }
     }
   })();
   </script>

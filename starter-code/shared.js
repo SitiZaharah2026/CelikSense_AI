@@ -231,7 +231,7 @@ const CS_LANG = {
     signup_err_email: 'Please enter a valid email address.',
 
     /* Hero section */
-    hero_badge:     '8 AI Agents · Inclusive Learning',
+    hero_badge:     '10 AI Agents · Inclusive Learning',
     hero_title:     'CelikSense AI',
     hero_subtitle:  'Multi-Sensory Learning Ecosystem',
     hero_tagline:   'Knowledge Without Barrier, Intelligence Without Limits',
@@ -1015,7 +1015,7 @@ const CS_LANG = {
     signup_err_email: 'Sila masukkan alamat emel yang sah.',
 
     /* Bahagian Hero */
-    hero_badge:     '8 Ejen AI · Pembelajaran Inklusif',
+    hero_badge:     '10 Ejen AI · Pembelajaran Inklusif',
     hero_title:     'CelikSense AI',
     hero_subtitle:  'Ekosistem Pembelajaran Multi-Deria',
     hero_tagline:   'Ilmu Tanpa Sempadan, Kecerdasan Tanpa Had',
@@ -2179,12 +2179,69 @@ const _groq = (() => {
     return null;
   }
 
+  /* Generate a short stable cache key from the prompt */
+  function _cacheKey(prompt) {
+    var s = prompt.replace(/\s+/g, ' ').trim().substring(0, 300);
+    var h = 0;
+    for (var i = 0; i < s.length; i++) {
+      h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+    }
+    return 'ai_' + (h >>> 0).toString(36);
+  }
+
+  /* Read one item from ai_cache in IndexedDB (direct, no SW postMessage needed) */
+  function _readCache(key) {
+    return new Promise(function(resolve) {
+      try {
+        var req = indexedDB.open('celiksense-idb', 2);
+        req.onerror = function() { resolve(null); };
+        req.onsuccess = function() {
+          try {
+            var tx = req.result.transaction('ai_cache', 'readonly');
+            var get = tx.objectStore('ai_cache').get(key);
+            get.onsuccess = function() { resolve(get.result || null); };
+            get.onerror   = function() { resolve(null); };
+          } catch(e) { resolve(null); }
+        };
+      } catch(e) { resolve(null); }
+    });
+  }
+
+  /* Write one item to ai_cache */
+  function _writeCache(key, promptText, responseText) {
+    try {
+      var req = indexedDB.open('celiksense-idb', 2);
+      req.onsuccess = function() {
+        try {
+          var tx = req.result.transaction('ai_cache', 'readwrite');
+          tx.objectStore('ai_cache').put({
+            key:      key,
+            prompt:   promptText.substring(0, 400),
+            response: responseText,
+            savedAt:  Date.now(),
+          });
+        } catch(e) {}
+      };
+    } catch(e) {}
+  }
+
   async function _call(prompt) {
     _key = localStorage.getItem('openrouter_api_key') || '';
-    if (_quota)            return { error: 'quota',   fallback: true };
-    if (!navigator.onLine) return { error: 'offline', fallback: true };
-    // Server has its own API key — allow calls even without client key
+    if (_quota) return { error: 'quota', fallback: true };
 
+    const cKey = _cacheKey(prompt);
+
+    /* ── OFFLINE: serve from cache if available ── */
+    if (!navigator.onLine) {
+      const cached = await _readCache(cKey);
+      if (cached && cached.response) {
+        const parsed = _extractJSON(cached.response);
+        if (parsed) return { data: parsed, fallback: false, _fromCache: true };
+      }
+      return { error: 'offline', fallback: true };
+    }
+
+    /* ── ONLINE: try network, save to cache on success ── */
     try {
       const model = localStorage.getItem('openrouter_model') || 'google/gemma-2-9b-it:free';
       const res = await fetch(BASE_URL, {
@@ -2211,8 +2268,18 @@ const _groq = (() => {
       const data = await res.json();
       const text = data?.choices?.[0]?.message?.content || '';
       if (!text) return { error: 'empty_response', fallback: true };
+
+      /* Save to cache for offline replay */
+      _writeCache(cKey, prompt, text);
+
       return { data: _extractJSON(text), fallback: false };
     } catch(e) {
+      /* Network failed — try cache as last resort */
+      const cached = await _readCache(cKey);
+      if (cached && cached.response) {
+        const parsed = _extractJSON(cached.response);
+        if (parsed) return { data: parsed, fallback: false, _fromCache: true };
+      }
       console.warn('[OpenRouter AI]', e.message);
       return { error: e.message, fallback: true };
     }

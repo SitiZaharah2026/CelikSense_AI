@@ -130,6 +130,14 @@ nav.navbar{display:none!important;}
 .streak-num{font-size:48px;font-weight:900;color:#d97706;}
 .streak-label{font-size:13px;font-weight:600;color:#92400e;}
 
+/* OFFLINE BANNER */
+#offline-banner{display:none;background:linear-gradient(135deg,#1e40af,#1e1b4b);color:#e0e7ff;padding:10px 24px;font-size:13px;font-weight:600;align-items:center;gap:12px;flex-wrap:wrap;}
+#offline-banner.show{display:flex;}
+.offline-icon{font-size:18px;}
+.offline-count{background:rgba(255,255,255,.2);border-radius:20px;padding:2px 10px;font-size:12px;}
+/* OFFLINE READY badge on card cover */
+.bk-offline-badge{position:absolute;top:8px;right:8px;background:rgba(16,185,129,.92);color:#fff;font-size:10px;font-weight:800;border-radius:20px;padding:3px 8px;letter-spacing:.4px;box-shadow:0 2px 8px rgba(0,0,0,.25);}
+
 @media(max-width:640px){
   #book-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}
   #top-nav .nav-title{display:none;}
@@ -176,6 +184,13 @@ nav.navbar{display:none!important;}
   <div class="stat-item"><span></span><span id="stat-streak">0</span> hari berturut</div>
   <div class="stat-item"><span>⏱</span><span id="stat-mins">0</span> min dibaca</div>
   <div class="stat-item"><span></span><span id="stat-finished">0</span> selesai</div>
+</div>
+
+<!-- OFFLINE BANNER -->
+<div id="offline-banner" role="alert" aria-live="polite">
+  <span class="offline-icon">📵</span>
+  <span id="offline-msg">Anda sedang <strong>offline</strong>. Hanya buku yang telah dimuat turun boleh dibaca.</span>
+  <span class="offline-count" id="offline-avail-count"></span>
 </div>
 
 <!-- MAIN CONTENT -->
@@ -364,6 +379,14 @@ function renderCard(book){
     badge.textContent=modeNames[book.lastMode]||book.lastMode;
     badge.setAttribute('aria-label','Last mode: '+book.lastMode);
     coverWrap.appendChild(badge);
+  }
+  // Offline-ready badge
+  if(window.CS_SHELF && (CS_SHELF.getCachedText(book.id)||'').length > 200){
+    var offBadge=document.createElement('span');
+    offBadge.className='bk-offline-badge';
+    offBadge.textContent='📥 Offline';
+    offBadge.title='Buku ini tersedia untuk dibaca tanpa internet';
+    coverWrap.appendChild(offBadge);
   }
   card.appendChild(coverWrap);
 
@@ -811,10 +834,39 @@ function seedDemoBooks(){
 }
 
 /* ============================================================
+   OFFLINE BANNER
+   ============================================================ */
+function updateOfflineBanner(){
+  var banner=document.getElementById('offline-banner');
+  var countEl=document.getElementById('offline-avail-count');
+  var msgEl=document.getElementById('offline-msg');
+  if(!banner) return;
+  if(!navigator.onLine){
+    var books=window.CS_SHELF?CS_SHELF.getAll():[];
+    var avail=books.filter(function(b){return (CS_SHELF.getCachedText(b.id)||'').length>200;});
+    countEl.textContent=avail.length+' buku tersedia';
+    var lang=document.documentElement.lang||'ms';
+    if(lang==='en'){
+      msgEl.innerHTML='You are <strong>offline</strong>. Only downloaded books can be read.';
+      countEl.textContent=avail.length+' book'+(avail.length!==1?'s':'')+' available';
+    } else {
+      msgEl.innerHTML='Anda sedang <strong>offline</strong>. Hanya buku yang telah dimuat turun boleh dibaca.';
+    }
+    banner.classList.add('show');
+  } else {
+    banner.classList.remove('show');
+  }
+}
+
+window.addEventListener('online',  function(){ updateOfflineBanner(); renderShelf(); });
+window.addEventListener('offline', function(){ updateOfflineBanner(); renderShelf(); });
+
+/* ============================================================
    INIT — seed demo books then render
    ============================================================ */
 seedDemoBooks();
 renderShelf();
+updateOfflineBanner();
 </script>
   <script>
   if ('serviceWorker' in navigator) {
