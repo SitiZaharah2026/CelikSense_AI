@@ -614,12 +614,12 @@ function doAI(bookId, type){
   };
   var prompt=prompts[type]||prompts.summary;
   var orModel = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
-  fetch('https://openrouter.ai/api/v1/chat/completions',{
+  fetch('/api/proxy',{
     method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://celiksense-ai-116242246073.asia-southeast1.run.app','X-Title':'CelikSense AI'},
-    body:JSON.stringify({model:orModel,messages:[{role:'user',content:prompt}]})
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({apiKey:key,target:'chat',payload:{model:orModel,messages:[{role:'user',content:prompt}]}})
   }).then(function(r){return r.json();}).then(function(data){
-    var txt = data.choices && data.choices[0] ? data.choices[0].message.content : '(Tiada respons)';
+    var txt = data.raw || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '(Tiada respons)';
     if(type==='quiz'){
       panelBody.innerHTML='<div class="ai-result">'+escHtml(txt)+'</div>';
     } else {

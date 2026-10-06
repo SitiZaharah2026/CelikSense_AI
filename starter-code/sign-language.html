@@ -1525,15 +1525,16 @@ function escAttr(s) {
 /*  ReAct Loop  */
 async function _reactAI(prompt) {
   var key = ''; try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
-  if (!key) return null;
+  var model = ''; try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
   try {
-    var model = ''; try { model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free'; } catch(e) { model = 'google/gemma-3-27b-it:free'; }
-    var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
-      body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
+    var res = await fetch('/api/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ apiKey: key, target: 'chat', payload: { model: model, messages: [{ role: 'user', content: prompt }] } })
     });
+    if (!res.ok) return null;
     var j = await res.json();
-    return j.choices && j.choices[0] ? j.choices[0].message.content : null;
+    return j.raw || (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) || j.text || null;
   } catch(e) { return null; }
 }
 

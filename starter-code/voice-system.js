@@ -562,21 +562,14 @@
           ]
         }]
       };
-      fetch('https://openrouter.ai/api/v1/chat/completions', {
+      fetch('/api/proxy', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
-        body: JSON.stringify(body)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey: apiKey, target: 'chat', payload: body })
       })
-        .then(function (response) {
-          if (!response.ok) {
-            return response.json().catch(function () { return {}; }).then(function (err) {
-              throw new Error('OpenRouter ' + response.status + ': ' + (err.error && err.error.message || 'Unknown'));
-            });
-          }
-          return response.json();
-        })
+        .then(function (response) { return response.json(); })
         .then(function (data) {
-          var text = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+          var text = data.raw || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || data.text || null;
           if (!text) throw new Error('No text in response');
           var event = new CustomEvent('cs_voice_ocr_result', { detail: { text: text } });
           window.dispatchEvent(event);
@@ -600,19 +593,18 @@
         model: model,
         messages: [{ role: 'user', content: 'You are a helpful assistant for a blind learner. Be concise and clear. ' + prompt }]
       };
-      fetch('https://openrouter.ai/api/v1/chat/completions', {
+      fetch('/api/proxy', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
-        body: JSON.stringify(body)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey: apiKey, target: 'chat', payload: body })
       })
         .then(function (res) { return res.json(); })
         .then(function (data) {
-          var text = '';
-          try { text = data.choices[0].message.content; } catch (e) { text = 'Sorry, I could not get a response.'; }
+          var text = data.raw || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || data.text || 'Sorry, I could not get a response.';
           speak(text);
         })
         .catch(function () {
-          speak('Failed to reach OpenRouter. Please check your connection.');
+          speak('Failed to reach the AI. Please check your connection.');
           startListening();
         });
     },
