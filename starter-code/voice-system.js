@@ -17,22 +17,58 @@
   var isListening = false;
   var restartTimer = null;
 
+  /* ── Voice selection: pick best available voice per language ── */
+  var _bmVoice = null;   // ms-MY or closest fallback
+  var _enVoice = null;   // en-US / en-GB
+
+  function _loadVoices() {
+    var voices = synth ? synth.getVoices() : [];
+    if (!voices.length) return;
+
+    // Priority for BM: ms-MY (exact) → ms (any) → id-ID (Indonesian, closest phonetics) → en-GB → first available
+    var msMY  = voices.filter(function(v){ return /^ms(-MY)?$/i.test(v.lang); });
+    var msAny = voices.filter(function(v){ return v.lang.toLowerCase().startsWith('ms'); });
+    var idID  = voices.filter(function(v){ return v.lang.toLowerCase().startsWith('id'); });
+    var enGB  = voices.filter(function(v){ return /^en-GB$/i.test(v.lang); });
+    var enUS  = voices.filter(function(v){ return /^en-US$/i.test(v.lang); });
+
+    // Prefer Google voices (online, richer) then Microsoft Neural, then any
+    function preferGoogle(arr) {
+      var g = arr.filter(function(v){ return /google/i.test(v.name); });
+      return g.length ? g[0] : (arr[0] || null);
+    }
+
+    _bmVoice = preferGoogle(msMY) || preferGoogle(msAny) || preferGoogle(idID) || enGB[0] || voices[0] || null;
+    _enVoice = preferGoogle(enUS) || enGB[0] || voices[0] || null;
+  }
+
+  if (synth) {
+    if (typeof synth.addEventListener === 'function') {
+      synth.addEventListener('voiceschanged', _loadVoices);
+    } else if ('onvoiceschanged' in synth) {
+      synth.onvoiceschanged = _loadVoices;
+    }
+    _loadVoices(); // Try immediately (voices may already be loaded)
+    setTimeout(_loadVoices, 500);  // Retry — Google voices load async
+  }
+
+  function _makeUtter(text, lang, voice, rate) {
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.lang   = lang;
+    utter.rate   = rate || 0.92;
+    utter.pitch  = 1.0;
+    utter.volume = 1.0;
+    if (voice) utter.voice = voice;
+    return utter;
+  }
+
   function speak(text, onEnd) {
     if (!synth) return;
     synth.cancel();
     lastSpoken = text;
-    var utter = new SpeechSynthesisUtterance(text);
-    utter.rate = 0.95;
-    utter.pitch = 1.0;
-    utter.volume = 1.0;
-    utter.lang = 'en-US';
-    utter.onend = function () {
-      if (onEnd) onEnd();
-      else startListening();
-    };
-    utter.onerror = function () {
-      startListening();
-    };
+    var utter = _makeUtter(text, 'en-US', _enVoice, 0.95);
+    utter.onend  = function(){ if (onEnd) onEnd(); else startListening(); };
+    utter.onerror = function(){ startListening(); };
     synth.speak(utter);
   }
 
@@ -40,25 +76,35 @@
     if (!synth) return;
     synth.cancel();
     lastSpoken = text;
-    var utter = new SpeechSynthesisUtterance(text);
-    utter.rate = 0.95;
-    utter.pitch = 1.0;
-    utter.volume = 1.0;
-    utter.lang = 'ms-MY';
-    utter.onend = function () {
-      if (onEnd) onEnd();
-      else startListening();
-    };
-    utter.onerror = function () {
-      startListening();
+
+    // Use best BM voice; if none found, reload voices first
+    if (!_bmVoice) _loadVoices();
+
+    var useLang = _bmVoice ? _bmVoice.lang : 'ms-MY';
+    var useRate = 0.88; // slightly slower for BM clarity
+
+    var utter = _makeUtter(text, useLang, _bmVoice, useRate);
+    utter.onend  = function(){ if (onEnd) onEnd(); else startListening(); };
+    utter.onerror = function(){
+      // If BM voice fails, fall back to EN
+      var fallback = _makeUtter(text, 'en-US', _enVoice, 0.88);
+      fallback.onend  = function(){ if (onEnd) onEnd(); else startListening(); };
+      fallback.onerror = function(){ startListening(); };
+      synth.speak(fallback);
     };
     synth.speak(utter);
   }
 
   function speakAuto(text, onEnd) {
-    var bmWords = ['halaman', 'bantuan', 'berhenti', 'ulang', 'kamera', 'buka', 'imbas', 'buku', 'pustakawan', 'membaca', 'disleksia', 'isyarat', 'amaran', 'awal', 'intervensi', 'profil', 'keluar', 'dimuat', 'sedia', 'kata', 'laluan'];
+    // Detect language from page setting first, then heuristic
+    var pageLang = localStorage.getItem('cs_lang') || document.documentElement.lang || 'ms';
+    if (pageLang.startsWith('en')) { speak(text, onEnd); return; }
+
+    var bmWords = ['halaman','bantuan','berhenti','ulang','kamera','buka','imbas','buku',
+      'pustakawan','membaca','disleksia','isyarat','amaran','awal','intervensi','profil',
+      'keluar','dimuat','sedia','kata','laluan','agen','pelajar','pilih','muat'];
     var lowerText = text.toLowerCase();
-    var isBM = bmWords.some(function (w) { return lowerText.indexOf(w) !== -1; });
+    var isBM = bmWords.some(function(w){ return lowerText.indexOf(w) !== -1; });
     if (isBM) speakBM(text, onEnd);
     else speak(text, onEnd);
   }
@@ -68,8 +114,10 @@
     var r = new SpeechRecognition();
     r.continuous = false;
     r.interimResults = false;
-    r.lang = 'en-US';
-    r.maxAlternatives = 3;
+    // Use ms-MY for BM-first platforms; fall back to en-US if page lang is English
+    var pageLang = localStorage.getItem('cs_lang') || document.documentElement.lang || 'ms';
+    r.lang = pageLang.startsWith('en') ? 'en-US' : 'ms-MY';
+    r.maxAlternatives = 5; // More alternatives — better BM matching
     r.onresult = function (event) {
       var lastResult = event.results[event.results.length - 1];
       var bestTranscript = '', bestConf = 0;
