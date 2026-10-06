@@ -253,12 +253,10 @@ async function callAI(prompt) {
     });
     if (!resp.ok) return null;
     var data = await resp.json();
-    // Backend returns raw OpenRouter response
-    var text = data.choices && data.choices[0] ? data.choices[0].message.content : null;
-    if (!text) {
-      // Fallback: check if backend wrapped it
-      text = data.data || data.text || data.content || null;
-    }
+    // Backend returns { raw: "..." } or OpenRouter format { choices: [...] }
+    var text = data.raw
+      || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content)
+      || data.text || data.content || null;
     return text;
   } catch (e) {
     return null;
