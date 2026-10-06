@@ -966,13 +966,22 @@ function getApiKey() {
 
 async function geminiCall(prompt, key) {
   var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
-  var r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':'https://celiksense-ai-116242246073.asia-southeast1.run.app','X-Title':'CelikSense AI'},
-    body: JSON.stringify({ model: model, messages:[{ role:'user', content: prompt }] })
-  });
-  var d = await r.json();
-  if (d.error) throw new Error(d.error.message);
-  return d.choices && d.choices[0] ? d.choices[0].message.content : 'No response.';
+  try {
+    var res = await fetch('/api/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        apiKey:  key,
+        target:  'chat',
+        payload: { model: model, messages: [{ role: 'user', content: prompt }] }
+      })
+    });
+    if (!res.ok) throw new Error('api_error_' + res.status);
+    var j = await res.json();
+    return j.raw
+      || (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content)
+      || j.text || j.content || '';
+  } catch(e) { throw new Error('no_key'); }
 }
 
 /* 

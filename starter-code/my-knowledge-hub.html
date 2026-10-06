@@ -1355,15 +1355,20 @@ function doAI(id, type) {
   panel.setAttribute('aria-hidden','false');
 
   var orModel = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
-  fetch('https://openrouter.ai/api/v1/chat/completions', {
+  fetch('/api/proxy', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
-    body: JSON.stringify({ model: orModel, messages: [{ role: 'user', content: prompt }] })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      apiKey:  key,
+      target:  'chat',
+      payload: { model: orModel, messages: [{ role: 'user', content: prompt }] }
+    })
   })
-  .then(function(r){ return r.json(); })
+  .then(function(r){ if (!r.ok) throw new Error('api_error_' + r.status); return r.json(); })
   .then(function(data){
-    var text = '';
-    try { text = data.choices[0].message.content; } catch(e) { text = 'Tiada respons dari AI.'; }
+    var text = data.raw
+      || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content)
+      || data.text || data.content || 'Tiada respons dari AI.';
     content.innerHTML = '<div style="white-space:pre-wrap;line-height:1.75;font-size:13.5px">' + esc(text) + '</div>';
   })
   .catch(function(err){

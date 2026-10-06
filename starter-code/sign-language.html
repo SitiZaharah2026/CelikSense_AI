@@ -1037,16 +1037,23 @@ function importFromReading() {
 async function callAI(prompt) {
   var key = '';
   try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
-  if (!key) throw new Error('no_key');
   var model = localStorage.getItem('openrouter_model') || 'google/gemma-3-27b-it:free';
-  var res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app', 'X-Title': 'CelikSense AI' },
-    body: JSON.stringify({ model: model, messages: [{ role: 'user', content: prompt }] })
-  });
-  if (!res.ok) throw new Error('api_error_' + res.status);
-  var j = await res.json();
-  return j.choices && j.choices[0] ? j.choices[0].message.content : '';
+  try {
+    var res = await fetch('/api/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        apiKey:  key,
+        target:  'chat',
+        payload: { model: model, messages: [{ role: 'user', content: prompt }] }
+      })
+    });
+    if (!res.ok) throw new Error('api_error_' + res.status);
+    var j = await res.json();
+    return j.raw
+      || (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content)
+      || j.text || j.content || '';
+  } catch(e) { throw new Error('no_key'); }
 }
 
 function setProcessing(panelId, show) {
