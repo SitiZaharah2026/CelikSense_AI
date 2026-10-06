@@ -232,6 +232,84 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Vision OCR endpoint — uses OpenRouter vision model to extract text from images
+  if (req.url === '/api/vision' && req.method === 'POST') {
+    let body = '';
+    req.on('data', d => body += d);
+    req.on('end', () => {
+      let parsed;
+      try { parsed = JSON.parse(body); } catch(e) {
+        res.writeHead(400, {'Content-Type':'application/json'});
+        res.end(JSON.stringify({error:'bad_request'}));
+        return;
+      }
+      const serverKey = process.env.OPENROUTER_API_KEY || '';
+      const apiKey = serverKey || parsed.apiKey || '';
+      if (!apiKey) {
+        res.writeHead(400, {'Content-Type':'application/json'});
+        res.end(JSON.stringify({error:'no_key'}));
+        return;
+      }
+      const imageData = parsed.image || '';
+      const mimeType  = parsed.mimeType || 'image/jpeg';
+      const lang      = parsed.lang || 'ms';
+      const prompt    = lang === 'ms'
+        ? 'Ekstrak dan tulis semula SEMUA teks yang kelihatan dalam imej ini dengan tepat. Kekalkan format asal. Jangan tambah penjelasan. Hanya tulis teks sahaja.'
+        : 'Extract and write out ALL text visible in this image accurately. Preserve the original format. No explanations. Only output the text.';
+      const VISION_MODELS = [
+        'meta-llama/llama-3.2-11b-vision-instruct:free',
+        'qwen/qwen2-vl-7b-instruct:free',
+        'google/gemini-flash-1.5-8b',
+      ];
+      function tryVisionModel(idx) {
+        if (idx >= VISION_MODELS.length) {
+          res.writeHead(502, {'Content-Type':'application/json'});
+          res.end(JSON.stringify({error:'all_vision_models_failed'}));
+          return;
+        }
+        const model = VISION_MODELS[idx];
+        const reqBody = JSON.stringify({
+          model: model,
+          max_tokens: 2000,
+          messages: [{ role: 'user', content: [
+            { type: 'text', text: prompt },
+            { type: 'image_url', image_url: { url: 'data:' + mimeType + ';base64,' + imageData } }
+          ]}]
+        });
+        const opts = {
+          hostname: 'openrouter.ai', port: 443,
+          path: '/api/v1/chat/completions', method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + apiKey,
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(reqBody),
+            'HTTP-Referer': 'https://celiksense-ai-116242246073.asia-southeast1.run.app',
+            'X-Title': 'CelikSense AI',
+          }
+        };
+        const proxyReq = https.request(opts, proxyRes => {
+          let data = '';
+          proxyRes.on('data', d => data += d);
+          proxyRes.on('end', () => {
+            try {
+              const j = JSON.parse(data);
+              const text = j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
+              if (text) {
+                res.writeHead(200, {'Content-Type':'application/json'});
+                res.end(JSON.stringify({raw: text, model: model}));
+              } else { tryVisionModel(idx + 1); }
+            } catch(e) { tryVisionModel(idx + 1); }
+          });
+        });
+        proxyReq.on('error', () => tryVisionModel(idx + 1));
+        proxyReq.write(reqBody);
+        proxyReq.end();
+      }
+      tryVisionModel(0);
+    });
+    return;
+  }
+
   // Static file serving
   let filePath = path.join(__dirname, url.parse(req.url).pathname);
   if (filePath.endsWith('/') || !path.extname(filePath)) {

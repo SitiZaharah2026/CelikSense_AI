@@ -868,13 +868,34 @@ function removeFile(idx) {
   renderThumbs();
 }
 
+/*  AI Vision OCR — uses server-side vision model for accurate text extraction  */
+async function _tryAIVisionOCR(file, lang) {
+  return new Promise(function(resolve) {
+    var reader = new FileReader();
+    reader.onload = async function(e) {
+      var dataUrl = e.target.result;
+      var base64 = dataUrl.split(',')[1];
+      var mimeType = dataUrl.split(';')[0].split(':')[1] || 'image/jpeg';
+      try {
+        var key = ''; try { key = localStorage.getItem('openrouter_api_key') || ''; } catch(err) {}
+        var resp = await fetch('/api/vision', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({image: base64, mimeType: mimeType, lang: lang.startsWith('ms') ? 'ms' : 'en', apiKey: key})
+        });
+        if (!resp.ok) { resolve(null); return; }
+        var data = await resp.json();
+        resolve(data.raw || null);
+      } catch(err) { resolve(null); }
+    };
+    reader.onerror = function() { resolve(null); };
+    reader.readAsDataURL(file);
+  });
+}
+
 /*  OCR  */
 async function runOCR() {
   if (files.length === 0 || isProcessing) return;
-  if (typeof Tesseract === 'undefined') {
-    showOCRError('Tesseract.js failed to load. Please check your internet connection and refresh.');
-    return;
-  }
 
   isProcessing = true;
   const file = files[activeIdx];
@@ -884,26 +905,45 @@ async function runOCR() {
   // Show progress UI
   const progressEl = document.getElementById('ocrProgress');
   progressEl.classList.add('active');
-  setProgress(0, 'Initialising OCR engine…');
+  setProgress(10, 'Trying AI Vision OCR…');
   document.getElementById('imgScanOverlay').classList.add('active');
   document.getElementById('runBtn').disabled = true;
   document.getElementById('runBtn').textContent = '⏳ Processing…';
   announce(ocrT('processing'));
 
   try {
-    const result = await Tesseract.recognize(file, lang, {
-      logger: logOCR,
-      tessedit_pageseg_mode: psm,
-    });
+    // Try AI Vision first (much more accurate)
+    var aiText = await _tryAIVisionOCR(file, lang);
 
-    const { text, confidence, words, lines } = result.data;
-
-    if (appendMode && extractedText) {
-      extractedText += '\n\n Page ' + (activeIdx + 1) + ' \n\n' + text.trim();
-      wordData = wordData.concat(words);
+    if (aiText && aiText.trim().length > 10) {
+      // AI Vision succeeded
+      setProgress(90, 'AI Vision OCR complete…');
+      if (appendMode && extractedText) {
+        extractedText += '\n\n Page ' + (activeIdx + 1) + ' \n\n' + aiText.trim();
+        wordData = wordData.concat(aiText.trim().split(/\s+/).map(function(w){ return {text:w}; }));
+      } else {
+        extractedText = aiText.trim();
+        wordData = aiText.trim().split(/\s+/).map(function(w){ return {text:w}; });
+      }
     } else {
-      extractedText = text.trim();
-      wordData = words;
+      // Fallback to Tesseract.js
+      if (typeof Tesseract === 'undefined') {
+        showOCRError('OCR failed. Please check your internet connection and refresh.');
+        return;
+      }
+      setProgress(20, 'Using Tesseract OCR…');
+      const result = await Tesseract.recognize(file, lang, {
+        logger: logOCR,
+        tessedit_pageseg_mode: psm,
+      });
+      const { text, words } = result.data;
+      if (appendMode && extractedText) {
+        extractedText += '\n\n Page ' + (activeIdx + 1) + ' \n\n' + text.trim();
+        wordData = wordData.concat(words);
+      } else {
+        extractedText = text.trim();
+        wordData = words;
+      }
     }
 
     renderResult();
@@ -914,12 +954,10 @@ async function runOCR() {
     ['copyBtn','downloadBtn','editBtn'].forEach(id=>{var b=document.getElementById(id);b.disabled=false;b.style.opacity='1';});
     document.getElementById('statsRow').style.display = 'grid';
     announce(`${ocrT('done')} ${wordData.length} words extracted. Press R to hear the text.`);
-    // Auto-speak when triggered from camera capture
     if (window._cameraAutoSpeak && extractedText) {
       window._cameraAutoSpeak = false;
       setTimeout(() => { speak(extractedText); }, 600);
     }
-    // Auto AI post-processing after OCR
     _ocrAiPostProcess(extractedText);
 
   } catch (err) {
@@ -966,12 +1004,6 @@ async function _ocrAiPostProcess(text) {
   var aiPanel = document.getElementById('ocrAiPanel') || document.createElement('div');
   aiPanel.id = 'ocrAiPanel';
   aiPanel.style.cssText = 'margin-top:14px;padding:14px;background:rgba(99,102,241,0.07);border-radius:12px;border-left:4px solid #6366f1;font-size:13px;';
-
-  if (!apiKey) {
-    aiPanel.innerHTML = ' <strong>AI Analysis</strong> — <em style="color:var(--text-muted);">Add your API key in <a href="settings.html" style="color:#6366f1;">Settings</a> to enable AI analysis.</em>';
-    resultArea.insertAdjacentElement('afterend', aiPanel);
-    return;
-  }
 
   aiPanel.innerHTML = ' <strong>AI Analysis</strong> — <em style="color:var(--text-muted);">Analysing extracted text…</em>';
   resultArea.insertAdjacentElement('afterend', aiPanel);
