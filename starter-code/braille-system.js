@@ -220,14 +220,7 @@ window.CS_BRAILLE = (function () {
     title.innerHTML = '⠃ Braille Output <span class="braille-mode-badge">GRADE 1</span>';
     panel.appendChild(title);
 
-    /* Original text */
-    var orig = document.createElement('div');
-    orig.className = 'braille-original';
-    orig.setAttribute('aria-label', 'Original text');
-    orig.textContent = text || '';
-    panel.appendChild(orig);
-
-    /* Braille preview */
+    /* Braille preview — shown first, prominently */
     var preview = document.createElement('div');
     preview.className = 'braille-preview';
     preview.setAttribute('aria-label', 'Braille preview');
@@ -235,6 +228,21 @@ window.CS_BRAILLE = (function () {
     preview.setAttribute('role', 'region');
     preview.textContent = brailleText;
     panel.appendChild(preview);
+
+    /* Original text — collapsible, truncated */
+    var details = document.createElement('details');
+    details.style.marginTop = '12px';
+    var summary = document.createElement('summary');
+    summary.style.cssText = 'color:#a5b4fc;font-weight:700;cursor:pointer;font-size:13px;';
+    summary.textContent = 'Teks asal (klik untuk buka)';
+    details.appendChild(summary);
+    var orig = document.createElement('div');
+    orig.className = 'braille-original';
+    orig.setAttribute('aria-label', 'Original text');
+    var displayText = (text || '');
+    orig.textContent = displayText.length > 500 ? displayText.slice(0, 500) + '…' : displayText;
+    details.appendChild(orig);
+    panel.appendChild(details);
 
     /* ARIA live region (visually hidden) – reuse or create via helper */
     _ensureLiveRegion();
