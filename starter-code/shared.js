@@ -231,7 +231,7 @@ const CS_LANG = {
     signup_err_email: 'Please enter a valid email address.',
 
     /* Hero section */
-    hero_badge:     '10 AI Agents · Inclusive Learning',
+    hero_badge:     '9 AI Agents · Inclusive Learning',
     hero_title:     'CelikSense AI',
     hero_subtitle:  'Multi-Sensory Learning Ecosystem',
     hero_tagline:   'Knowledge Without Barrier, Intelligence Without Limits',
@@ -1015,7 +1015,7 @@ const CS_LANG = {
     signup_err_email: 'Sila masukkan alamat emel yang sah.',
 
     /* Bahagian Hero */
-    hero_badge:     '10 Ejen AI · Pembelajaran Inklusif',
+    hero_badge:     '9 Ejen AI · Pembelajaran Inklusif',
     hero_title:     'CelikSense AI',
     hero_subtitle:  'Ekosistem Pembelajaran Multi-Deria',
     hero_tagline:   'Ilmu Tanpa Sempadan, Kecerdasan Tanpa Had',
