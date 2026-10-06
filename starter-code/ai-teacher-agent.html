@@ -264,8 +264,8 @@ var FALLBACK_SIMPLE = {
   ms: "Ini adalah versi mudah: Teks ini membincangkan satu topik. Ia mempunyai idea utama dan butiran sokongan. Baca dengan perlahan. Berhenti sebentar di setiap ayat. Tanya diri anda: ini tentang apa?"
 };
 var FALLBACK_QA = {
-  en: "Based on the text, here is a possible answer: The main idea relates to the subject of the passage. Look for key words and topic sentences for more details.",
-  ms: "Berdasarkan teks, berikut adalah jawapan yang mungkin: Idea utama berkaitan dengan subjek petikan. Cari kata kunci dan ayat topik untuk butiran lanjut."
+  en: "Sorry, I could not reach the AI right now. Please check your internet connection or API key in Settings, then try again.",
+  ms: "Maaf, saya tidak dapat menghubungi AI pada masa ini. Sila semak sambungan internet atau kunci API dalam Tetapan, kemudian cuba lagi."
 };
 
 //  MOTIVATIONAL MESSAGES 
@@ -393,7 +393,24 @@ async function teacherAsk() {
   }
   showLoading();
   var lang = currentLang === 'ms' ? 'Bahasa Melayu' : 'English';
-  var prompt = 'You are a patient teacher. A student asks: \'' + question + '\'. Based on this text: \'' + (text || '(no text provided)') + '\'. Give a clear, simple, encouraging answer in ' + lang + '.';
+  var prompt;
+  if (text && text.length > 30) {
+    // Has passage — use both AI knowledge AND the passage
+    prompt = 'You are a knowledgeable, patient teacher helping a student. ' +
+      'The student asks: "' + question + '". ' +
+      'Answer this question accurately and completely using your knowledge. ' +
+      'If the following passage is relevant to the question, also reference it to support your answer. ' +
+      'Give a clear, accurate, encouraging answer in ' + lang + '. ' +
+      'Do NOT say "based on the text" if the question is a general knowledge question — answer it directly.\n\n' +
+      'Passage: ' + text.substring(0, 1500);
+  } else {
+    // No passage — answer from AI knowledge directly
+    prompt = 'You are a knowledgeable, patient teacher. ' +
+      'A student asks: "' + question + '". ' +
+      'Answer this question accurately and completely using your knowledge. ' +
+      'Give a clear, simple, encouraging answer in ' + lang + '. ' +
+      'Use examples where helpful. Be specific and informative, not vague.';
+  }
   var result = await callAI(prompt);
   hideLoading();
   result = result || (currentLang === 'ms' ? FALLBACK_QA.ms : FALLBACK_QA.en);
