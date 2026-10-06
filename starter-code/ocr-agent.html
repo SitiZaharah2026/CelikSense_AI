@@ -932,10 +932,12 @@ async function runOCR() {
         return;
       }
       setProgress(20, 'Using Tesseract OCR…');
-      const result = await Tesseract.recognize(file, lang, {
+      const blobUrl = URL.createObjectURL(file);
+      const result = await Tesseract.recognize(blobUrl, lang, {
         logger: logOCR,
         tessedit_pageseg_mode: psm,
       });
+      URL.revokeObjectURL(blobUrl);
       const { text, words } = result.data;
       if (appendMode && extractedText) {
         extractedText += '\n\n Page ' + (activeIdx + 1) + ' \n\n' + text.trim();

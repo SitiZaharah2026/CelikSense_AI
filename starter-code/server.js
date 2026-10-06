@@ -257,9 +257,10 @@ const server = http.createServer((req, res) => {
         ? 'Ekstrak dan tulis semula SEMUA teks yang kelihatan dalam imej ini dengan tepat. Kekalkan format asal. Jangan tambah penjelasan. Hanya tulis teks sahaja.'
         : 'Extract and write out ALL text visible in this image accurately. Preserve the original format. No explanations. Only output the text.';
       const VISION_MODELS = [
+        'google/gemini-2.0-flash-exp:free',
         'meta-llama/llama-3.2-11b-vision-instruct:free',
         'qwen/qwen2-vl-7b-instruct:free',
-        'google/gemini-flash-1.5-8b',
+        'google/gemini-flash-1.5',
       ];
       function tryVisionModel(idx) {
         if (idx >= VISION_MODELS.length) {
