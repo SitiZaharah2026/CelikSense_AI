@@ -551,7 +551,7 @@ function renderBooks(list) {
     } else if (b.source === 'OpenLibrary' || b.source === 'OxfordOwl' || b.source === 'IAB') {
       actionBtn = `<button class="btn btn-primary btn-sm" onclick="showAgentPicker(${JSON.stringify(b.url||'#')},${JSON.stringify(b.title)})">▶ Buka</button>`;
     } else {
-      actionBtn = `<a href="reading-companion.html" class="btn btn-primary btn-sm">▶ Read</a>`;
+      actionBtn = `<button class="btn btn-primary btn-sm" onclick="showAgentPicker('',${JSON.stringify(b.title)})">▶ Read</button>`;
     }
     return `
     <div class="book-card">
@@ -649,7 +649,7 @@ async function updateRecommendations() {
       <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">${b.emoji}</span><div><div style="font-size:14px;font-weight:700;">${b.title}</div><div style="font-size:12px;color:var(--text-muted);">${b.author}</div></div></div>
       <div style="margin:8px 0 4px;">${availHTML}</div>
       <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
-        <a href="reading-companion.html" class="btn btn-primary btn-sm">▶ Read</a>
+        <button class="btn btn-primary btn-sm" onclick="showAgentPicker(${JSON.stringify(b.url||'')},${JSON.stringify(b.title)})">▶ Read</button>
         <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add ${b.title} to reading list">+ Add</button>
         <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-outline btn-sm" style="font-size:11px;"> Find</a>
       </div>
@@ -789,7 +789,10 @@ function closeAgentPicker() {
 function openWithAgent(agentKey) {
   closeAgentPicker();
   var page = AGENT_MAP[agentKey] || 'reading-companion.html';
-  var dest = page + '?bookUrl=' + encodeURIComponent(_agentBookUrl) + '&bookTitle=' + encodeURIComponent(_agentBookTitle);
+  var dest = page + '?bookTitle=' + encodeURIComponent(_agentBookTitle);
+  if (_agentBookUrl && _agentBookUrl !== '#' && _agentBookUrl !== '') {
+    dest += '&bookUrl=' + encodeURIComponent(_agentBookUrl);
+  }
   window.location.href = dest;
 }
 

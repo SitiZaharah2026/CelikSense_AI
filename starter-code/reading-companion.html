@@ -594,6 +594,33 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   } catch(e) {}
+
+  // Handle ?bookTitle= and ?bookUrl= from AI Librarian agent picker
+  try {
+    var params2 = new URLSearchParams(window.location.search);
+    var bookTitle2 = params2.get('bookTitle');
+    var bookUrl2   = params2.get('bookUrl');
+    if (bookTitle2) {
+      var ta2 = document.getElementById('readingInput');
+      if (ta2 && !ta2.value) {
+        var placeholder = bookTitle2 + '\n\n';
+        if (bookUrl2) {
+          placeholder += '[Buku ini dari perpustakaan dalam talian. Klik pautan di bawah untuk membuka teks penuh, kemudian salin teks ke sini untuk menggunakan agent.]\n\nPautan: ' + bookUrl2;
+        } else {
+          placeholder += '[Buku platform CelikSense. Taip atau tampal teks buku di sini untuk memulakan sesi pembacaan dengan agent.]';
+        }
+        ta2.value = placeholder;
+      }
+      // Also show a banner
+      var banner = document.createElement('div');
+      banner.style.cssText = 'background:#eff6ff;border:1.5px solid #60a5fa;border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:13px;color:#1e3a8a;display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
+      banner.innerHTML = '<span style="font-size:18px;">📚</span><strong>' + bookTitle2 + '</strong>' +
+        (bookUrl2 ? ' — <a href="' + bookUrl2 + '" target="_blank" rel="noopener" style="color:#2563eb;">Buka di laman asal ↗</a>' : '') +
+        '<span style="color:#64748b;font-size:12px;margin-left:auto;">Tampal teks buku untuk mula</span>';
+      var area = document.querySelector('.reading-area, main, .container, body');
+      if (area) area.insertBefore(banner, area.firstChild);
+    }
+  } catch(e) {}
 });
 
 function injectCelikVerseBook() {
