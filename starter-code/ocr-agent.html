@@ -1619,6 +1619,11 @@ function ocrConvertToBraille() {
 document.addEventListener('DOMContentLoaded', () => {
   applyOCRTranslations();
   document.getElementById('ttsStatus').textContent = ocrT('ready_status');
+
+  // Auto-load demo image if ?demo=1 in URL
+  if (new URLSearchParams(location.search).get('demo') === '1') {
+    setTimeout(() => loadDemoImage('demo/sejarah.png', 'Sejarah Tingkatan 1'), 600);
+  }
   // Sync TTS speed from localStorage
   const savedRate = localStorage.getItem('cs_tts_rate');
   if (savedRate) {
