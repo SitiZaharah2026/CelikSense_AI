@@ -55,6 +55,7 @@
           <a href="reading-companion.html"> Reading Companion</a>
           <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
           <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
+          <a href="down-syndrome-agent.html">🧩 Down Syndrome Agent</a>
           <a href="blind-audio.html"> Blind Audio Agent</a>
           <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
           <a href="early-warning.html">⚠ Early Warning Agent</a>
@@ -174,12 +175,15 @@
         <div class="panel-title"> Reading Area</div>
 
         <!-- Highlight Toolbar -->
-        <div class="highlight-toolbar" role="toolbar" aria-label="Text highlight colours">
-          <button class="hl-btn" style="background:#fbbf2440;color:#92400e;" onclick="hlColor('#fbbf2440')" aria-label="Highlight selection yellow">Yellow</button>
-          <button class="hl-btn" style="background:#6ee7b740;color:#065f46;" onclick="hlColor('#6ee7b740')" aria-label="Highlight selection green">Green</button>
-          <button class="hl-btn" style="background:#a5b4fc40;color:#3730a3;" onclick="hlColor('#a5b4fc40')" aria-label="Highlight selection purple">Purple</button>
-          <button class="hl-btn" style="background:#fca5a540;color:#7f1d1d;" onclick="hlColor('#fca5a540')" aria-label="Highlight selection red">Red</button>
-          <button class="hl-btn" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);" onclick="clearHighlights()" aria-label="Clear all highlights">Clear</button>
+        <div class="highlight-toolbar" role="toolbar" aria-label="Text highlight colours" style="position:relative;z-index:10;">
+          <button class="hl-btn" style="background:#fbbf2440;color:#92400e;cursor:pointer;" onmousedown="hlColor('#fbbf2440')" aria-label="Highlight selection yellow">Yellow</button>
+          <button class="hl-btn" style="background:#6ee7b740;color:#065f46;cursor:pointer;" onmousedown="hlColor('#6ee7b740')" aria-label="Highlight selection green">Green</button>
+          <button class="hl-btn" style="background:#a5b4fc40;color:#3730a3;cursor:pointer;" onmousedown="hlColor('#a5b4fc40')" aria-label="Highlight selection purple">Purple</button>
+          <button class="hl-btn" style="background:#fca5a540;color:#7f1d1d;cursor:pointer;" onmousedown="hlColor('#fca5a540')" aria-label="Highlight selection red">Red</button>
+          <button class="hl-btn" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;" onclick="clearHighlights()" aria-label="Clear all highlights">Clear</button>
+          <span style="width:1px;background:var(--border);margin:0 4px;align-self:stretch;display:inline-block;"></span>
+          <button class="hl-btn" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);font-size:15px;cursor:pointer;" onclick="changeFontSize(-1)" title="Kecilkan teks">A−</button>
+          <button class="hl-btn" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);font-size:15px;cursor:pointer;" onclick="changeFontSize(1)" title="Besarkan teks">A+</button>
         </div>
 
         <div id="focusWrapper" class="focus-window-wrap" style="position:relative;">
@@ -423,6 +427,13 @@ function clearHighlights() {
   });
 }
 
+var _fontSize = 16;
+function changeFontSize(delta) {
+  _fontSize = Math.min(28, Math.max(12, _fontSize + delta * 2));
+  document.getElementById('readingArea').style.fontSize = _fontSize + 'px';
+  document.getElementById('readingArea').style.lineHeight = (_fontSize <= 16 ? 1.7 : 1.9).toString();
+}
+
 function readAreaAloud() {
   const text = document.getElementById('readingArea').innerText;
   speak(text);
@@ -551,7 +562,7 @@ function exportNotes() {
 }
 
 function applyMode() {
-  generateStrategy();
+  // Mode applied visually; user presses Generate Strategy to get AI suggestions.
 }
 
 // Init
