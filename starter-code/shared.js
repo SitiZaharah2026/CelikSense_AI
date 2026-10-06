@@ -238,7 +238,7 @@ const CS_LANG = {
     hero_cta1:      'Get Started',
 
     /* Agents section */
-    agents_title:   '8 Agents, One Ecosystem',
+    agents_title:   '9 Agents, One Ecosystem',
     agents_desc:    'Each agent is purpose-built for a specific learning need. Together they form a personalised, adaptive learning system.',
 
     /* Learner profiles */
@@ -258,7 +258,7 @@ const CS_LANG = {
     learner_deaf_agent:    'Visual Communication Agent',
     learner_adhd_agent:    'ADHD Agent',
     learner_dyslexia_agent:'Dyslexia / Down Syndrome Agent',
-    learner_general_agent: 'All 8 Agents',
+    learner_general_agent: 'All 9 Agents',
     /* Stat labels */
     stat_agents:'AI Agents', stat_learner_types:'Learner Types', stat_languages:'Languages', stat_accessible:'Accessible',
     /* Orb tags */
@@ -268,11 +268,11 @@ const CS_LANG = {
     how_title:'How It Works',
     how_desc:'Three steps from signup to a fully personalised, accessible learning experience.',
     how_step1_title:'Set Your Profile', how_step1_desc:'Tell CelikSense about your learning needs, language preference, and interests. Takes under two minutes.', how_step1_btn:'Go to Profile',
-    how_step2_title:'AI Adapts for You', how_step2_desc:'The 8 agents automatically configure fonts, audio, overlays, session length, and language to match your profile.', how_step2_btn:'Open Dashboard',
+    how_step2_title:'AI Adapts for You', how_step2_desc:'The 9 agents automatically configure fonts, audio, overlays, session length, and language to match your profile.', how_step2_btn:'Open Dashboard',
     how_step3_title:'Learn Without Barriers', how_step3_desc:'Read, listen, sign, and explore. The Early Warning Agent monitors your progress and suggests interventions when needed.', how_step3_btn:'Start Reading',
     /* Why */
     why_title:'Why CelikSense AI?', why_desc:'Designed from the ground up for inclusive, accessible, bilingual learning.',
-    why1_title:'Truly Agentic AI', why1_desc:'8 specialised agents that communicate and co-ordinate to personalise every session, not just a single chatbot.',
+    why1_title:'Truly Agentic AI', why1_desc:'9 specialised agents that communicate and co-ordinate to personalise every session, not just a single chatbot.',
     why2_title:'Bilingual Throughout', why2_desc:'Complete English and Bahasa Melayu support across every agent, every label, and every audio instruction.',
     why3_title:'Built for Access', why3_desc:'Keyboard navigation, ARIA labels, TTS, high-contrast mode, and screen-reader support are first-class features, not add-ons.',
     why4_title:'Adaptive by Default', why4_desc:'Learns your preferences, adjusts fonts, colours, session lengths, and content difficulty automatically session by session.',
@@ -1052,11 +1052,11 @@ const CS_LANG = {
     how_title:'Cara Ia Berfungsi',
     how_desc:'Tiga langkah dari pendaftaran hingga pengalaman pembelajaran peribadi yang aksesibel sepenuhnya.',
     how_step1_title:'Tetapkan Profil Anda', how_step1_desc:'Beritahu CelikSense tentang keperluan pembelajaran, pilihan bahasa, dan minat anda. Mengambil masa kurang dua minit.', how_step1_btn:'Ke Profil',
-    how_step2_title:'AI Sesuai Untuk Anda', how_step2_desc:'8 ejen secara automatik mengkonfigurasi fon, audio, lapisan, tempoh sesi, dan bahasa mengikut profil anda.', how_step2_btn:'Buka Papan Pemuka',
+    how_step2_title:'AI Sesuai Untuk Anda', how_step2_desc:'9 ejen secara automatik mengkonfigurasi fon, audio, lapisan, tempoh sesi, dan bahasa mengikut profil anda.', how_step2_btn:'Buka Papan Pemuka',
     how_step3_title:'Belajar Tanpa Sempadan', how_step3_desc:'Baca, dengar, isyarat, dan terokai. Ejen Amaran Awal memantau kemajuan anda dan mencadangkan intervensi bila perlu.', how_step3_btn:'Mula Membaca',
     /* Kenapa */
     why_title:'Kenapa CelikSense AI?', why_desc:'Direka dari asas untuk pembelajaran inklusif, aksesibel, dan dwibahasa.',
-    why1_title:'AI Benar-Benar Agentik', why1_desc:'8 ejen khusus yang berkomunikasi dan berkoordinasi untuk memperibadikan setiap sesi, bukan sekadar chatbot biasa.',
+    why1_title:'AI Benar-Benar Agentik', why1_desc:'9 ejen khusus yang berkomunikasi dan berkoordinasi untuk memperibadikan setiap sesi, bukan sekadar chatbot biasa.',
     why2_title:'Dwibahasa Sepenuhnya', why2_desc:'Sokongan penuh Bahasa Inggeris dan Bahasa Melayu merentas setiap ejen, setiap label, dan setiap arahan audio.',
     why3_title:'Dibina untuk Aksesibiliti', why3_desc:'Navigasi papan kekunci, label ARIA, TTS, mod kontras tinggi, dan sokongan pembaca skrin adalah ciri utama, bukan tambahan.',
     why4_title:'Adaptif secara Lalai', why4_desc:'Mempelajari pilihan anda, menyesuaikan fon, warna, tempoh sesi, dan kesukaran kandungan secara automatik setiap sesi.',
