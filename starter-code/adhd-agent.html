@@ -407,8 +407,19 @@ function moveFocusLine(e) {
   document.getElementById('maskBot').style.height = (h-top-lineH)+'px';
 }
 
+var _hlOverlayMap = {
+  '#fbbf2440': 'rgba(251,191,36,0.18)',
+  '#6ee7b740': 'rgba(110,231,183,0.18)',
+  '#a5b4fc40': 'rgba(165,180,252,0.18)',
+  '#fca5a540': 'rgba(252,165,165,0.18)'
+};
+
 function hlColor(color) {
   hlColorCurrent = color;
+  // Always set the reading area background overlay
+  var area = document.getElementById('readingArea');
+  if (area) area.style.background = _hlOverlayMap[color] || 'transparent';
+  // Also highlight any selected text
   const sel = window.getSelection();
   if (sel && !sel.isCollapsed && sel.toString().length > 0) {
     const range = sel.getRangeAt(0);
@@ -425,6 +436,7 @@ function clearHighlights() {
   el.querySelectorAll('mark').forEach(m=>{
     m.replaceWith(document.createTextNode(m.textContent));
   });
+  el.style.background = '';
 }
 
 var _fontSize = 16;
