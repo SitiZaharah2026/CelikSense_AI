@@ -260,7 +260,7 @@
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">BM</button>
       <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
-      <a href="dashboard.html" class="btn btn-ghost btn-sm">← Dashboard</a>
+      <a href="dashboard.html" class="btn btn-ghost btn-sm" data-i18n="nav_back_dashboard">← Dashboard</a>
     </div>
     <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('navLinks').classList.toggle('open')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </div>
@@ -282,32 +282,32 @@
 <div id="rd-toolbar" role="toolbar" aria-label="Reading controls">
   <!-- Font: fixed Lexend -->
   <div class="tbg">
-    <span class="tbl">FONT</span>
+    <span class="tbl" data-i18n="ar_font">FONT</span>
     <span class="tbb on" style="cursor:default;">Lexend</span>
   </div>
   <!-- Size -->
   <div class="tbg">
-    <span class="tbl">SIZE</span>
+    <span class="tbl" data-i18n="ar_size">SIZE</span>
     <button class="tbb" onclick="adjSize(-2)" aria-label="Decrease font size">A−</button>
     <span class="tbb-val" id="lbl-size">18</span>
     <button class="tbb" onclick="adjSize(2)" aria-label="Increase font size">A+</button>
   </div>
   <!-- Line spacing -->
   <div class="tbg">
-    <span class="tbl">LINE</span>
+    <span class="tbl" data-i18n="ar_line">LINE</span>
     <button class="tbb" onclick="adjLine(-0.2)" aria-label="Decrease line spacing">↓</button>
     <span class="tbb-val" id="lbl-line">1.9</span>
     <button class="tbb" onclick="adjLine(0.2)" aria-label="Increase line spacing">↑</button>
   </div>
   <!-- Para spacing -->
   <div class="tbg">
-    <span class="tbl">PARA</span>
+    <span class="tbl" data-i18n="ar_para">PARA</span>
     <button class="tbb" onclick="adjPara(-4)">↓</button>
     <button class="tbb" onclick="adjPara(4)">↑</button>
   </div>
   <!-- Colour mode -->
   <div class="tbg">
-    <span class="tbl">MODE</span>
+    <span class="tbl" data-i18n="ar_mode">MODE</span>
     <button class="tbb on" id="tb-light" onclick="setMode('light')">☀</button>
     <button class="tbb" id="tb-cream" onclick="setMode('cream')"></button>
     <button class="tbb" id="tb-dark" onclick="setMode('dark')"></button>
@@ -319,7 +319,7 @@
   </div>
   <!-- Micro session -->
   <div class="tbg">
-    <span class="tbl">SESSION</span>
+    <span class="tbl" data-i18n="ar_session">SESSION</span>
     <button class="tbb" id="tb-m2" onclick="setMicro(2)">2 min</button>
     <button class="tbb on" id="tb-m5" onclick="setMicro(5)">5 min</button>
     <button class="tbb" id="tb-m10" onclick="setMicro(10)">10 min</button>

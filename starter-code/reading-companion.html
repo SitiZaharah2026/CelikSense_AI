@@ -184,15 +184,15 @@
       <div class="control-panel" style="margin-bottom:16px;">
         <div class="panel-title" data-i18n="rc_reading_stats"> Reading Stats</div>
         <div id="readingStats">
-          <p style="font-size:13px;color:var(--text-muted);">Load a text to see stats.</p>
+          <p style="font-size:13px;color:var(--text-muted);" data-i18n="rc_stats_empty">Load a text to see stats.</p>
         </div>
       </div>
 
       <!-- Accessibility Options -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title">♿ Accessibility</div>
+        <div class="panel-title" data-i18n="rc_a11y_header">♿ Accessibility</div>
         <div class="form-group">
-          <label class="form-label">Text Size</label>
+          <label class="form-label" data-i18n="rc_text_size">Text Size</label>
           <div class="toggle-group">
             <button class="toggle-btn active" onclick="setTextSize('normal',this)">Aa</button>
             <button class="toggle-btn" onclick="setTextSize('large',this)">A+</button>
@@ -200,7 +200,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Colour Overlay</label>
+          <label class="form-label" data-i18n="rc_colour_overlay">Colour Overlay</label>
           <div class="color-swatches">
             <button class="color-swatch active" style="background:#fffdf5;" onclick="setOverlay('none',this)" title="None" aria-label="No overlay" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()"></button>
             <button class="color-swatch" style="background:#fffde0;" onclick="setOverlay('overlay-yellow',this)" title="Yellow" aria-label="Yellow overlay" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()"></button>
@@ -232,7 +232,7 @@
       <div class="control-panel">
         <div class="panel-title"> Status</div>
         <div id="statusLog" style="font-size:13px;color:var(--text-muted);line-height:1.6;">
-          Ready. Load a text to begin.
+          <span data-i18n="rc_status_ready">Ready. Load a text to begin.</span>
         </div>
       </div>
     </div>

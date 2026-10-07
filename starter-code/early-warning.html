@@ -93,16 +93,16 @@
     <!-- Left: Assessment Form -->
     <div>
       <div class="control-panel">
-        <div class="panel-title"> Learner Assessment Form</div>
+        <div class="panel-title" data-i18n="ew_form_title"> Learner Assessment Form</div>
 
         <!-- Learner Info -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
           <div class="form-group" style="margin-bottom:0;">
-            <label for="learnerName" class="form-label">Learner Name</label>
+            <label for="learnerName" class="form-label" data-i18n="ew_learner_name">Learner Name</label>
             <input type="text" class="form-control" id="learnerName" placeholder="Enter name or ID…">
           </div>
           <div class="form-group" style="margin-bottom:0;">
-            <label for="learnerGrade" class="form-label">Grade Level</label>
+            <label for="learnerGrade" class="form-label" data-i18n="ew_grade_level">Grade Level</label>
             <select class="form-control" id="learnerGrade">
               <option>Primary 1</option><option>Primary 2</option><option>Primary 3</option>
               <option selected>Primary 4</option><option>Primary 5</option><option>Primary 6</option>
@@ -111,7 +111,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="primaryNeed" class="form-label">Primary Learning Need</label>
+          <label for="primaryNeed" class="form-label" data-i18n="ew_learning_need">Primary Learning Need</label>
           <select class="form-control" id="primaryNeed">
             <option value="general">General Learner</option>
             <option value="adhd">ADHD</option>
@@ -122,28 +122,28 @@
         </div>
 
         <!-- Performance Scores -->
-        <div class="panel-title" style="margin-top:12px;"> Performance Scores (0–100)</div>
+        <div class="panel-title" style="margin-top:12px;" data-i18n="ew_perf_scores"> Performance Scores (0–100)</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
           <div class="form-group" style="margin-bottom:0;">
-            <label for="scoreReading" class="form-label">Reading Score</label>
+            <label for="scoreReading" class="form-label" data-i18n="ew_reading_score">Reading Score</label>
             <input type="number" class="form-control" id="scoreReading" min="0" max="100" value="58">
           </div>
           <div class="form-group" style="margin-bottom:0;">
-            <label for="scoreComp" class="form-label">Comprehension</label>
+            <label for="scoreComp" class="form-label" data-i18n="ew_comprehension">Comprehension</label>
             <input type="number" class="form-control" id="scoreComp" min="0" max="100" value="52">
           </div>
           <div class="form-group" style="margin-bottom:0;">
-            <label for="scoreFocus" class="form-label">Attention/Focus</label>
+            <label for="scoreFocus" class="form-label" data-i18n="ew_attention_focus">Attention/Focus</label>
             <input type="number" class="form-control" id="scoreFocus" min="0" max="100" value="41">
           </div>
           <div class="form-group" style="margin-bottom:0;">
-            <label for="scoreParticip" class="form-label">Participation</label>
+            <label for="scoreParticip" class="form-label" data-i18n="ew_participation">Participation</label>
             <input type="number" class="form-control" id="scoreParticip" min="0" max="100" value="65">
           </div>
         </div>
 
         <!-- Observed Behaviours -->
-        <div class="panel-title" style="margin-top:12px;"> Observed Warning Signs</div>
+        <div class="panel-title" style="margin-top:12px;" data-i18n="ew_warning_signs"> Observed Warning Signs</div>
         <div style="margin-bottom:16px;">
           <div class="form-check"><input type="checkbox" id="w1" checked><label for="w1">Frequently loses focus during reading</label></div>
           <div class="form-check"><input type="checkbox" id="w2" checked><label for="w2">Reading speed significantly below average</label></div>
@@ -157,7 +157,7 @@
 
         <!-- Duration -->
         <div class="form-group">
-          <label for="duration" class="form-label">Duration of Concern</label>
+          <label for="duration" class="form-label" data-i18n="ew_duration">Duration of Concern</label>
           <select class="form-control" id="duration">
             <option>Less than 2 weeks</option>
             <option selected>2–4 weeks</option>
@@ -167,7 +167,7 @@
         </div>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="btn btn-danger btn-lg" style="flex:1;" onclick="analyseRisk()">⚠ Analyse Risk Now</button>
+        <button class="btn btn-danger btn-lg" style="flex:1;" onclick="analyseRisk()" data-i18n="ew_analyse_btn">⚠ Analyse Risk Now</button>
         <button onclick="runReAct()" class="btn btn-sm" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis"> ReAct</button>
         </div>
       </div>
@@ -201,17 +201,17 @@
       <div class="card" style="margin-bottom:20px;">
         <div class="panel-title"> Risk Assessment Meter</div>
         <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:13px;color:var(--text-muted);">Overall Risk Level</span>
-          <span class="badge" id="riskBadge" style="font-size:12px;">Run Assessment</span>
+          <span style="font-size:13px;color:var(--text-muted);" data-i18n="ew_overall_risk">Overall Risk Level</span>
+          <span class="badge" id="riskBadge" style="font-size:12px;" data-i18n="ew_run_btn">Run Assessment</span>
         </div>
         <div class="risk-meter"><div class="risk-fill" id="riskFill" style="width:0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Risk score"></div></div>
         <div class="risk-labels"><span>Low Risk</span><span>Medium</span><span>High Risk</span></div>
-        <div style="margin-top:12px;font-size:13px;color:var(--text-muted);" id="riskDesc">Complete and submit the assessment form to see risk analysis.</div>
+        <div style="margin-top:12px;font-size:13px;color:var(--text-muted);" id="riskDesc" data-i18n="ew_empty_msg">Complete and submit the assessment form to see risk analysis.</div>
       </div>
 
       <!-- Performance Trend (simulated chart) -->
       <div class="card" style="margin-bottom:20px;">
-        <div class="panel-title"> Performance Trend (Last 6 Weeks)</div>
+        <div class="panel-title" data-i18n="ew_perf_trend"> Performance Trend (Last 6 Weeks)</div>
         <div id="trendChart" style="display:flex;align-items:flex-end;gap:8px;height:70px;margin-bottom:8px;">
           <div style="flex:1;background:rgba(99,102,241,0.5);border-radius:4px 4px 0 0;height:60%;"></div>
           <div style="flex:1;background:rgba(99,102,241,0.5);border-radius:4px 4px 0 0;height:55%;"></div>
@@ -228,14 +228,14 @@
 
       <!-- Risk Factors -->
       <div class="card" style="margin-bottom:20px;" id="riskFactorsCard">
-        <div class="panel-title"> Risk Factors</div>
-        <div id="riskFactors" style="font-size:13px;color:var(--text-muted);">Submit assessment to see risk factors.</div>
+        <div class="panel-title" data-i18n="ew_risk_factors"> Risk Factors</div>
+        <div id="riskFactors" style="font-size:13px;color:var(--text-muted);" data-i18n="ew_risk_empty">Submit assessment to see risk factors.</div>
       </div>
 
       <!-- Alerts -->
       <div class="card" id="alertsCard" style="margin-bottom:20px;">
-        <div class="panel-title"> Active Alerts</div>
-        <div id="alertsList" style="font-size:13px;color:var(--text-muted);">No alerts generated yet.</div>
+        <div class="panel-title" data-i18n="ew_active_alerts"> Active Alerts</div>
+        <div id="alertsList" style="font-size:13px;color:var(--text-muted);" data-i18n="ew_no_alerts">No alerts generated yet.</div>
       </div>
 
       <!-- CTA -->
