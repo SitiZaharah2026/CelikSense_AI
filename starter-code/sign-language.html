@@ -636,21 +636,21 @@ body {
       <span>&#9679;</span>
       <span id="heroBadgeText">Visual Communication</span>
     </div>
-    <h1 id="heroTitle">Visual Communication Agent</h1>
-    <p class="vca-hero-sub" id="heroSub">Deaf-Friendly Reading Support</p>
+    <h1 id="heroTitle" data-i18n="sl_page_title">Visual Communication Agent</h1>
+    <p class="vca-hero-sub" id="heroSub" data-i18n="sl_page_subtitle">Deaf-Friendly Reading Support</p>
     <div class="vca-hero-tags">
-      <span class="vca-hero-tag" id="tag1">Large Captions</span>
-      <span class="vca-hero-tag" id="tag2">Visual Keywords</span>
-      <span class="vca-hero-tag" id="tag3">Mind Map</span>
-      <span class="vca-hero-tag" id="tag4">Comic Sequence</span>
-      <span class="vca-hero-tag" id="tag5">Glossary</span>
+      <span class="vca-hero-tag" id="tag1" data-i18n="sl_large_captions">Large Captions</span>
+      <span class="vca-hero-tag" id="tag2" data-i18n="sl_visual_keywords_badge">Visual Keywords</span>
+      <span class="vca-hero-tag" id="tag3" data-i18n="sl_mind_map_badge">Mind Map</span>
+      <span class="vca-hero-tag" id="tag4" data-i18n="sl_comic_badge">Comic Sequence</span>
+      <span class="vca-hero-tag" id="tag5" data-i18n="sl_glossary_badge">Glossary</span>
     </div>
     <button class="vca-lang-btn" onclick="toggleLang()" id="langBtn"> BM / EN</button>
   </div>
 
   <!-- Prototype disclaimer -->
   <div class="vca-disclaimer" id="vcaDisclaimer">
-    <strong id="disclaimerLabel">Prototype Stage:</strong>
+    <strong id="disclaimerLabel" data-i18n="sl_prototype">Prototype Stage:</strong>
     <span id="disclaimerText"> This module provides deaf-friendly visual communication support. Future versions may integrate verified Bahasa Isyarat Malaysia (BIM) videos through official partnerships.</span>
   </div>
 
@@ -684,17 +684,17 @@ body {
     <div class="vca-card">
       <div class="vca-card-header">
         <div class="vca-card-icon" style="background:#eef2ff;"></div>
-        <div class="vca-card-title" id="inputCardTitle">Input Text</div>
+        <div class="vca-card-title" id="inputCardTitle" data-i18n="sl_input_text">Input Text</div>
       </div>
       <div class="vca-card-body">
         <div class="vca-input-toolbar">
           <button class="vca-import-btn" onclick="importFromOCR()">
             <span class="dot"></span>
-            <span id="btnImportOCR">Import from OCR Agent</span>
+            <span id="btnImportOCR" data-i18n="sl_import_ocr">Import from OCR Agent</span>
           </button>
           <button class="vca-import-btn" onclick="importFromReading()">
             <span class="dot" style="background:#059669;"></span>
-            <span id="btnImportRC">Import from Reading Companion</span>
+            <span id="btnImportRC" data-i18n="sl_import_rc">Import from Reading Companion</span>
           </button>
           <button class="vca-import-btn" onclick="clearAll()">
             <span>&#10005;</span>
@@ -740,7 +740,7 @@ body {
 
     <!--  Caption Display  -->
     <div class="vca-caption-card" id="vcaCaptionSection" style="display:none;" aria-live="polite" role="status">
-      <div class="vca-caption-label" id="captionLabel">CAPTION</div>
+      <div class="vca-caption-label" id="captionLabel" data-i18n="sl_caption">CAPTION</div>
       <div class="vca-caption-text" id="vcaCaptionText">—</div>
       <div class="vca-caption-sub" id="captionSentenceCount"></div>
       <div class="vca-caption-nav" id="captionNav">
@@ -757,7 +757,7 @@ body {
       <div class="vca-card" id="vcaSimplifiedCard">
         <div class="vca-card-header">
           <div class="vca-card-icon" style="background:#eef2ff;">&#128196;</div>
-          <div class="vca-card-title" id="simplifiedTitle">Simplified Sentences</div>
+          <div class="vca-card-title" id="simplifiedTitle" data-i18n="sl_simplified">Simplified Sentences</div>
         </div>
         <div class="vca-card-body" id="vcaSimplifiedContent">
           <div class="vca-placeholder">
@@ -771,7 +771,7 @@ body {
       <div class="vca-card" id="vcaKeywordsCard">
         <div class="vca-card-header">
           <div class="vca-card-icon" style="background:#f0f9ff;">&#128273;</div>
-          <div class="vca-card-title" id="keywordsTitle">Visual Keywords</div>
+          <div class="vca-card-title" id="keywordsTitle" data-i18n="sl_visual_kw">Visual Keywords</div>
         </div>
         <div class="vca-card-body" id="vcaKeywordsContent">
           <div class="vca-placeholder">
@@ -787,8 +787,8 @@ body {
     <div class="vca-card" id="vcaMindMapCard">
       <div class="vca-card-header">
         <div class="vca-card-icon" style="background:#f0fdf4;"><svg viewBox="0 0 40 40" width="22" height="22" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="20" cy="20" rx="7" ry="5"/><circle cx="20" cy="6" r="4"/><line x1="20" y1="10" x2="20" y2="15"/><circle cx="34" cy="12" r="3.5"/><line x1="30.5" y1="14.5" x2="26.5" y2="17.5"/><circle cx="34" cy="28" r="3.5"/><line x1="30.5" y1="25.5" x2="26.5" y2="22.5"/><circle cx="20" cy="34" r="4"/><line x1="20" y1="30" x2="20" y2="25"/><circle cx="6" cy="28" r="3.5"/><line x1="9.5" y1="25.5" x2="13.5" y2="22.5"/><circle cx="6" cy="12" r="3.5"/><line x1="9.5" y1="14.5" x2="13.5" y2="17.5"/></svg></div>
-        <div class="vca-card-title" id="mindMapTitle">Mind Map</div>
-        <button class="vca-btn vca-btn-ghost" style="padding:6px 12px;font-size:11px;" onclick="downloadMindMap()" id="btnDownloadMM">Download</button>
+        <div class="vca-card-title" id="mindMapTitle" data-i18n="sl_mind_map_out">Mind Map</div>
+        <button class="vca-btn vca-btn-ghost" style="padding:6px 12px;font-size:11px;" onclick="downloadMindMap()" id="btnDownloadMM" data-i18n="sl_download">Download</button>
       </div>
       <div class="vca-card-body" id="vcaMindMapContent">
         <div class="vca-placeholder">
@@ -802,7 +802,7 @@ body {
     <div class="vca-card" id="vcaComicCard">
       <div class="vca-card-header">
         <div class="vca-card-icon" style="background:#fff7ed;">&#128214;</div>
-        <div class="vca-card-title" id="comicTitle">Visual Story Sequence</div>
+        <div class="vca-card-title" id="comicTitle" data-i18n="sl_story_seq">Visual Story Sequence</div>
       </div>
       <div class="vca-card-body" id="vcaComicContent">
         <div class="vca-placeholder">
@@ -816,7 +816,7 @@ body {
     <div class="vca-card" id="vcaGlossaryCard">
       <div class="vca-card-header">
         <div class="vca-card-icon" style="background:#fdf4ff;">&#128218;</div>
-        <div class="vca-card-title" id="glossaryTitle">Glossary of Key Words</div>
+        <div class="vca-card-title" id="glossaryTitle" data-i18n="sl_glossary_out">Glossary of Key Words</div>
       </div>
       <div class="vca-card-body" id="vcaGlossaryContent">
         <div class="vca-placeholder">
@@ -830,7 +830,7 @@ body {
     <div class="vca-future-notice">
       <div class="vca-future-icon">&#129311;</div>
       <div>
-        <div class="vca-future-title" id="futureTitle">Future BIM Integration</div>
+        <div class="vca-future-title" id="futureTitle" data-i18n="sl_future_bim">Future BIM Integration</div>
         <div class="vca-future-text" id="futureText">
           This platform is designed to integrate with verified Bahasa Isyarat Malaysia (BIM) video datasets
           when they become available through official partnerships with the Ministry of Education, Jabatan
@@ -852,7 +852,7 @@ body {
       <a href="signsense-dictionary.html"
         style="display:inline-flex;align-items:center;gap:8px;background:rgba(8,145,178,.18);border:1px solid rgba(8,145,178,.35);color:#a5f3fc;font-size:13px;font-weight:700;padding:10px 18px;border-radius:8px;text-decoration:none;transition:background .2s;"
         onmouseover="this.style.background='rgba(8,145,178,.28)'" onmouseout="this.style.background='rgba(8,145,178,.18)'"
-        aria-label="Open SignSense Dictionary">
+        aria-label="Open SignSense Dictionary" data-i18n="sl_open_signsense">
         &#128214; SignSense Dictionary / Kamus Isyarat Visual
       </a>
     </div>

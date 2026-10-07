@@ -83,7 +83,7 @@
   <div class="page-header-card">
     <div class="page-badge"></div>
     <h1 class="page-title">Dyslexia Adaptive Reading Agent</h1>
-    <p class="page-subtitle">Dyslexia-friendly fonts, colour overlays, reading ruler, mind map, and intervention support.</p>
+    <p class="page-subtitle" data-i18n="dys_page_subtitle">Dyslexia-friendly fonts, colour overlays, reading ruler, mind map, and intervention support.</p>
   </div>
   </div>
 </main>
@@ -115,7 +115,7 @@
       <div class="control-panel" style="margin-bottom:16px;">
         <div class="panel-title" data-i18n="dys_text_size"> Text Size</div>
         <div class="range-label">
-          <span style="font-size:12px;color:var(--text-muted);">Size</span>
+          <span style="font-size:12px;color:var(--text-muted);" data-i18n="dys_size_lbl">Size</span>
           <span class="range-value" id="sizeVal">16px</span>
         </div>
         <input type="range" min="14" max="30" value="16" id="sizeRange" aria-label="Text size" oninput="setFontSize(this.value)">
@@ -131,7 +131,7 @@
       <div class="control-panel" style="margin-bottom:16px;">
         <div class="panel-title" data-i18n="dys_line_spacing">↕ Line Spacing</div>
         <div class="range-label">
-          <span style="font-size:12px;color:var(--text-muted);">Spacing</span>
+          <span style="font-size:12px;color:var(--text-muted);" data-i18n="dys_spacing_lbl">Spacing</span>
           <span class="range-value" id="spacingVal">1.8</span>
         </div>
         <input type="range" min="1.2" max="3.0" step="0.1" value="1.8" id="spacingRange" aria-label="Letter spacing" oninput="setSpacing(this.value)">
@@ -148,7 +148,7 @@
           <div class="color-swatch" style="background:#ffe0f0;" onclick="setOverlay('overlay-pink',this)" title="Pink" role="button" tabindex="0" aria-label="Pink overlay" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()"></div>
           <div class="color-swatch" style="background:#f0f0f0;" onclick="setOverlay('overlay-grey',this)" title="Grey" role="button" tabindex="0" aria-label="Grey overlay" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()"></div>
         </div>
-        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">Colour overlays reduce visual stress and improve reading comfort.</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;" data-i18n="dys_overlay_help">Colour overlays reduce visual stress and improve reading comfort.</div>
       </div>
 
       <!-- Reading Ruler -->
@@ -160,7 +160,7 @@
             <span style="font-size:13px;font-weight:600;" data-i18n="dys_enable_ruler">Enable Reading Ruler</span>
           </label>
         </div>
-        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">The ruler highlights one line as your mouse moves over the text.</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;" data-i18n="dys_ruler_help">The ruler highlights one line as your mouse moves over the text.</div>
       </div>
 
       <!-- TTS Controls -->
@@ -244,7 +244,7 @@
 
       <!-- Skim Guide Output -->
       <div class="control-panel hidden" id="skimPanel" style="margin-bottom:20px;">
-        <div class="panel-title">⚡ Pre-Reading Skim Guide</div>
+        <div class="panel-title" data-i18n="dys_skim_guide">⚡ Pre-Reading Skim Guide</div>
         <div id="skimOutput" style="font-size:14px;line-height:1.8;"></div>
       </div>
 
@@ -490,13 +490,13 @@ async function showIntervention() {
   const el = document.getElementById('interventionBox');
   const baseRecs = {
     low: ' <strong>Light Support:</strong> Standard font with yellow overlay. 15–20 min sessions. TTS optional.',
-    medium: ' <strong>Moderate Support:</strong> OpenDyslexic font. Green overlay. Reading ruler. TTS recommended. 10–15 min sessions.',
+    medium: ' <strong>' + (typeof CS !== 'undefined' ? CS.lang.t('dys_moderate_support') : 'Moderate Support:') + '</strong> OpenDyslexic font. Green overlay. Reading ruler. TTS recommended. 10–15 min sessions.',
     high: ' <strong>Intensive Support:</strong> Full OpenDyslexic + blue overlay. Mandatory TTS. 5-min micro-sessions. See <a href="intervention.html">full intervention plan</a>.'
   };
   el.innerHTML = `<div class="alert alert-info" style="margin:0;">${baseRecs[level]}</div>`;
 
   if(!_dysHasKey()){
-    el.innerHTML += `<div style="font-size:12px;color:var(--muted);margin-top:8px;">Add your OpenRouter API key in <a href="settings.html">Settings</a> for personalised AI tips.</div>`;
+    el.innerHTML += `<div style="font-size:12px;color:var(--muted);margin-top:8px;">${(typeof CS !== 'undefined' ? CS.lang.t('dys_api_tip') : 'Add your OpenRouter API key in Settings for personalised AI tips.')}</div>`;
     return;
   }
 
@@ -742,6 +742,8 @@ function _dysCheckPendingBook() {
 
 document.addEventListener('DOMContentLoaded', function() {
   setFont('opendyslexic');
+  var dysInputEl = document.getElementById('dysInput');
+  if (dysInputEl && typeof CS !== 'undefined') dysInputEl.placeholder = CS.lang.t('dys_placeholder');
   if (localStorage.getItem('cs_book_content')) {
     _dysLoadBookFromStorage();
   }
