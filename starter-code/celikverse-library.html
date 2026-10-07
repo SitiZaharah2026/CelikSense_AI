@@ -161,7 +161,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cv-bg);color:v
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch language">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span data-i18n="nav_profile">Profile</span></a>
       <a href="dashboard.html" class="btn btn-outline btn-sm" data-i18n="nav_back_dashboard">&#8592; Dashboard</a>
       <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       <button class="nav-hamburger" onclick="toggleNav()" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">&#9776;</button>
@@ -172,7 +172,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cv-bg);color:v
 <section class="cv-hero" role="banner">
   <div class="cv-badge">&#127758; CelikVerse Library</div>
   <h1>Rak Buku Maya Pintar<br><span>CelikSense AI</span></h1>
-  <p class="cv-subtitle">One Search. Many Collections. Unlimited Accessibility.</p>
+  <p class="cv-subtitle" data-i18n="cv_subtitle">One Search. Many Collections. Unlimited Accessibility.</p>
   <p class="cv-tagline">Satu Carian. Pelbagai Koleksi. Kebolehcapaian Tanpa Batas.</p>
   <div class="cv-stats">
     <div class="cv-stat"><div class="cv-stat-num" id="statCS">566</div><div class="cv-stat-label">&#128218; CelikSense</div></div>
@@ -233,10 +233,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cv-bg);color:v
     <div class="cv-iab-header">
       <span style="font-size:28px;">&#127963;&#65039;</span>
       <div>
-        <div class="cv-iab-title">IAB Virtual Bookshelf</div>
+        <div class="cv-iab-title" data-i18n="cv_iab_title">IAB Virtual Bookshelf</div>
         <div style="font-size:12px;color:#6d28d9;font-weight:600;">Rak Buku Maya IAB &#8212; Institut Aminuddin Baki</div>
       </div>
-      <span class="cv-demo-badge" style="margin-left:auto;">Demo Data</span>
+      <span class="cv-demo-badge" style="margin-left:auto;" data-i18n="cv_demo_badge">Demo Data</span>
     </div>
     <p class="cv-iab-desc">
       Koleksi penerbitan rasmi Institut Aminuddin Baki (IAB) &#8212; buku kepimpinan, jurnal pengurusan pendidikan, modul latihan dan dokumen dasar.
@@ -310,12 +310,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cv-bg);color:v
         <div class="cv-modal-access-section">
           <div class="cv-modal-access-title">&#128214; Pilih Pengalaman Bacaan Anda</div>
           <div class="cv-reader-grid">
-            <a href="blind-audio.html" class="cv-reader-btn"><span class="icon">&#128266;</span>Blind Reader</a>
-            <a href="dyslexia-agent.html" class="cv-reader-btn"><span class="icon">&#128065;&#65039;</span>Dyslexia Reader</a>
-            <a href="adhd-agent.html" class="cv-reader-btn"><span class="icon">&#129504;</span>ADHD Reader</a>
-            <a href="sign-language.html" class="cv-reader-btn"><span class="icon"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg></span>Deaf Reader</a>
-            <a href="reading-companion.html" class="cv-reader-btn"><span class="icon">&#128214;</span>Reading Companion</a>
-            <a href="ai-librarian.html" class="cv-reader-btn"><span class="icon">&#129302;</span>AI Teacher</a>
+            <a href="blind-audio.html" class="cv-reader-btn"><span class="icon">&#128266;</span><span data-i18n="cv_mode_blind">Blind Reader</span></a>
+            <a href="dyslexia-agent.html" class="cv-reader-btn"><span class="icon">&#128065;&#65039;</span><span data-i18n="cv_mode_dyslexia">Dyslexia Reader</span></a>
+            <a href="adhd-agent.html" class="cv-reader-btn"><span class="icon">&#129504;</span><span data-i18n="cv_mode_adhd">ADHD Reader</span></a>
+            <a href="sign-language.html" class="cv-reader-btn"><span class="icon"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg></span><span data-i18n="cv_mode_deaf">Deaf Reader</span></a>
+            <a href="reading-companion.html" class="cv-reader-btn"><span class="icon">&#128214;</span><span data-i18n="cv_mode_reading">Reading Companion</span></a>
+            <a href="ai-librarian.html" class="cv-reader-btn"><span class="icon">&#129302;</span><span data-i18n="cv_mode_teacher">AI Teacher</span></a>
           </div>
         </div>
       </div>

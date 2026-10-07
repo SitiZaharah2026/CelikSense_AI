@@ -348,7 +348,7 @@
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span data-i18n="nav_profile">Profile</span></a>
       <a href="dashboard.html" class="btn btn-outline btn-sm" data-i18n="nav_back_dashboard">← Dashboard</a>
       <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
@@ -638,7 +638,7 @@
       <span style="font-size:26px;" aria-hidden="true"></span>
       <h2 class="panel-title camera-panel-title" id="cameraModalTitle" data-i18n="ocr_camera_title">Camera Capture</h2>
       <button class="btn btn-ghost btn-sm" onclick="closeCamera()" id="camCloseBtn"
-              style="margin-left:auto;" aria-label="Close camera"> Close</button>
+              style="margin-left:auto;" aria-label="Close camera" data-i18n="btn_close"> Close</button>
     </div>
 
     <!-- Video / Photo area -->
@@ -656,7 +656,7 @@
     <!-- Status -->
     <div class="cam-status cam-s-loading" id="camStatus" role="status" aria-live="polite">
       <span class="cam-live-dot" id="camLiveDot" aria-hidden="true"></span>
-      <span id="camStatusText">Starting camera…</span>
+      <span id="camStatusText" data-i18n="ocr_cam_starting">Starting camera…</span>
     </div>
 
     <!-- Controls -->
@@ -666,12 +666,12 @@
          Capture Image
       </button>
       <button class="btn btn-outline" id="switchCamBtn" onclick="switchCameraFacing()"
-              style="display:none;" aria-label="Switch between front and rear camera">
+              style="display:none;" aria-label="Switch between front and rear camera" data-i18n="ocr_cam_switch">
          Switch Camera
       </button>
       <button class="btn btn-outline" id="retakeBtn" onclick="retakePhoto()"
               style="display:none;border-color:rgba(249,115,22,0.5);color:var(--ocr);"
-              aria-label="Retake photo — discard current capture and try again">
+              aria-label="Retake photo — discard current capture and try again" data-i18n="ocr_cam_retake">
          Retake Photo
       </button>
       <button class="btn btn-primary" id="usePhotoBtn" onclick="useCapture()"
@@ -684,7 +684,7 @@
     <!-- Accessibility tip -->
     <div class="cam-tip" role="note" aria-label="Camera usage tip">
       <span style="font-size:18px;flex-shrink:0;" aria-hidden="true"></span>
-      <div id="camTipText">
+      <div id="camTipText" data-i18n="ocr_cam_tip">
         <strong>Tip:</strong> Hold the camera steady over the printed text.
         Press <kbd>Space</kbd> or click <strong>Capture Image</strong> to take a photo.
         Press <kbd>Escape</kbd> to close. After capture, click <strong>Use This Image</strong>

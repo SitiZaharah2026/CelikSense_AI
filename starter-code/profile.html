@@ -156,7 +156,7 @@
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm active"> Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm active" data-i18n="nav_profile"> Profile</a>
       <a href="dashboard.html" class="btn btn-primary btn-sm" data-i18n="nav_dashboard">Dashboard</a>
       <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
@@ -669,7 +669,7 @@ function saveSettings() {
   };
   localStorage.setItem('cs_profile', JSON.stringify(data));
   const msg = document.getElementById('saveMsg');
-  msg.innerHTML = '<div class="alert alert-success"><span>✅</span>Profile saved successfully!</div>';
+  msg.innerHTML = '<div class="alert alert-success"><span>✅</span>'+(window.CS&&CS.lang?CS.lang.t('prof_save_success'):'Profile saved successfully!')+'</div>';
   msg.classList.remove('hidden');
   setTimeout(()=>msg.classList.add('hidden'), 3000);
   updateDisplayName(); updateNeedBadge(); updateRole();
@@ -772,8 +772,8 @@ function renderActivity() {
 }
 
 function clearActivity() {
-  if(confirm('Clear all activity? This cannot be undone.'))
-    document.getElementById('activityFeed').innerHTML = '<p style="padding:20px 0;color:var(--text-muted);font-size:13px;">No activity recorded yet.</p>';
+  if(confirm(window.CS&&CS.lang?CS.lang.t('prof_clear_confirm'):'Clear all activity? This cannot be undone.'))
+    document.getElementById('activityFeed').innerHTML = '<p style="padding:20px 0;color:var(--text-muted);font-size:13px;">'+(window.CS&&CS.lang?CS.lang.t('prof_no_activity'):'No activity recorded yet.')+'</p>';
 }
 
 /* ── ACHIEVEMENTS ── */
@@ -856,7 +856,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   window.profileUpdateAvatar = function() { window.location.href='sign-language.html'; };
   window.profileDeleteAvatar = function() {
-    if (confirm('Delete your avatar?')) {
+    if (confirm(window.CS&&CS.lang?CS.lang.t('prof_delete_avatar'):'Delete your avatar?')) {
       localStorage.removeItem('cs_personal_avatar');
       var disp = document.getElementById('profileAvatarDisplay');
       var cre = document.getElementById('profileAvatarCreate');

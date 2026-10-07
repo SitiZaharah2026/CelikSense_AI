@@ -65,7 +65,7 @@
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm" data-i18n="nav_profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
       <a href="dashboard.html" class="btn btn-outline btn-sm" data-i18n="nav_back_dashboard">← Dashboard</a>
       <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
@@ -77,7 +77,7 @@
   <div class="container">
   <div class="page-header-card">
     <div class="page-badge"></div>
-    <h1 class="page-title">ADHD Adaptive Reading Agent</h1>
+    <h1 class="page-title" data-i18n="adhd_page_title_full">ADHD Adaptive Reading Agent</h1>
     <p class="page-subtitle" data-i18n="adhd_page_subtitle">Focus-optimised reading with micro-sessions, timers, highlighting, and smart note builder.</p>
   </div>
   </div>
@@ -294,7 +294,7 @@ function startSession() {
 
   var statusEl = document.getElementById('timerStatus');
   var minutes = Math.ceil(timerSecs / 60);
-  if (statusEl) { statusEl.textContent = 'Focus session started. ' + minutes + ' minutes.'; }
+  if (statusEl) { statusEl.textContent = CS.lang.t('adhd_timer_started').replace('{n}', minutes); }
 
   /*  Analytics: start session  */
   CS.analytics.startSession('adhd');
@@ -310,7 +310,7 @@ function startSession() {
       document.getElementById('breakBanner').classList.remove('hidden');
 
       var statusEl = document.getElementById('timerStatus');
-      if (statusEl) { statusEl.textContent = 'Session complete. Time for a break.'; }
+      if (statusEl) { statusEl.textContent = CS.lang.t('adhd_timer_complete'); }
 
       /*  Analytics: log focus + end session  */
       const finalScore = simulateFocus();
@@ -331,7 +331,7 @@ function pauseSession() {
   document.getElementById('pauseBtn').disabled = true;
 
   var statusEl = document.getElementById('timerStatus');
-  if (statusEl) { statusEl.textContent = 'Session paused.'; }
+  if (statusEl) { statusEl.textContent = CS.lang.t('adhd_timer_paused'); }
 
   /*  Analytics: log partial focus on pause  */
   CS.analytics.logFocus({ score: currentFocusScore, agent: 'adhd', partial: true });
@@ -351,13 +351,13 @@ function stopSession() {
   document.getElementById('pauseBtn').disabled = true;
 
   var statusEl = document.getElementById('timerStatus');
-  if (statusEl) { statusEl.textContent = 'Session stopped.'; }
+  if (statusEl) { statusEl.textContent = CS.lang.t('adhd_timer_stopped'); }
 }
 
 function startBreak() {
   document.getElementById('breakBanner').classList.add('hidden');
   var ts = document.getElementById('timerStatus');
-  if (ts) ts.textContent = 'Break time started.';
+  if (ts) ts.textContent = CS.lang.t('adhd_break_started');
   speak('Great work! Time for a 5-minute break. Stand up, stretch, and rest your eyes.');
 }
 
@@ -498,7 +498,7 @@ function simulateFocus() {
   currentFocusScore = score;
   document.getElementById('focusGauge').style.setProperty('--pct',score);
   document.getElementById('focusVal').textContent = score;
-  const msgs = ['Excellent Focus! ','Good Focus Level ','Moderate Focus ','Consider a break '];
+  const msgs = [CS.lang.t('adhd_focus_excellent'),CS.lang.t('adhd_focus_good'),CS.lang.t('adhd_focus_moderate'),CS.lang.t('adhd_focus_break')];
   document.getElementById('focusMsg').textContent = score>=85?msgs[0]:score>=70?msgs[1]:score>=55?msgs[2]:msgs[3];
   // Save focus data for Early Warning agent to read
   localStorage.setItem('cs_adhd_focus', JSON.stringify({score,sessions:completedSessions,ts:Date.now()}));

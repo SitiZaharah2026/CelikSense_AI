@@ -733,7 +733,7 @@ a { color: inherit; text-decoration: none; }
   </a>
   <span class="hub-nav-title">
     <span aria-hidden="true">/</span>
-    My Knowledge Hub
+    <span data-i18n="hub_title">My Knowledge Hub</span>
   </span>
   <div class="hub-nav-spacer"></div>
   <div class="hub-nav-actions">
@@ -862,7 +862,7 @@ a { color: inherit; text-decoration: none; }
             <div class="iab-meta-chips">
               <span class="iab-chip">6 Penerbitan</span>
               <span class="iab-chip">IAB Malaysia</span>
-              <span class="iab-chip">Open Access</span>
+              <span class="iab-chip" data-i18n="hub_open_access">Open Access</span>
               <span class="iab-chip">Boleh Dimuat Turun</span>
             </div>
           </div>
@@ -899,7 +899,7 @@ a { color: inherit; text-decoration: none; }
 <!--  AI PANEL  -->
 <aside class="ai-panel" id="aiPanel" role="complementary" aria-label="Panel AI" aria-hidden="true">
   <div class="ai-panel-head">
-    <h3 id="aiPanelTitle"> AI Panel</h3>
+    <h3 id="aiPanelTitle"><span data-i18n="hub_ai_panel"> AI Panel</span></h3>
     <button class="ai-panel-close" onclick="togglePanel()" aria-label="Tutup panel AI"></button>
   </div>
   <div class="ai-panel-content" id="aiPanelContent" aria-live="polite">
@@ -997,16 +997,20 @@ function typeLabel(t){ return (TYPE_CFG[t]||TYPE_CFG.book).label; }
 
 /*  MODE CONFIG  */
 var MODE_CFG = {
-  blind:     { icon:'', label:'Blind' },
-  lowvision: { icon:'', label:'Low Vision' },
-  dyslexia:  { icon:'', label:'Dyslexia' },
-  adhd:      { icon:'', label:'ADHD' },
-  deaf:      { icon:'<svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg>', label:'Deaf' },
-  standard:  { icon:'', label:'Standard' },
-  audio:     { icon:'', label:'Audio' },
+  blind:     { icon:'', labelKey:'hub_mode_blind' },
+  lowvision: { icon:'', labelKey:'hub_mode_low_vision' },
+  dyslexia:  { icon:'', labelKey:'hub_mode_dyslexia' },
+  adhd:      { icon:'', labelKey:'hub_mode_adhd' },
+  deaf:      { icon:'<svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg>', labelKey:'hub_mode_deaf' },
+  standard:  { icon:'', labelKey:'hub_mode_standard' },
+  audio:     { icon:'', labelKey:'hub_mode_audio' },
 };
 function modeIcon(m) { return (MODE_CFG[m]||MODE_CFG.adhd).icon; }
-function modeName(m) { return (MODE_CFG[m]||MODE_CFG.adhd).label; }
+function modeName(m) {
+  var cfg = MODE_CFG[m] || MODE_CFG.adhd;
+  if (window.CS && CS.lang && CS.lang.t) { try { return CS.lang.t(cfg.labelKey); } catch(e) {} }
+  return cfg.labelKey.replace('hub_mode_','').replace(/_/g,' ');
+}
 
 /*  RELATIVE TIME  */
 function relTime(ts) {
@@ -1234,15 +1238,16 @@ function openExperience(id) {
   }
 
   // Mode grid
+  var _t = (window.CS && CS.lang && CS.lang.t) ? function(k){ try{return CS.lang.t(k);}catch(e){return k;} } : function(k){return k;};
   var modes = [
-    { icon:'', label:'Blind Reader',    sub:'Pembaca suara penuh',   url:'celiksense-reader.html', mode:'blind'     },
-    { icon:'', label:'Low Vision',      sub:'Besarkan & warna teks', url:'celiksense-reader.html', mode:'lowvision' },
-    { icon:'', label:'Dyslexia Reader', sub:'Fon & jarak khas',      url:'celiksense-reader.html', mode:'dyslexia'  },
-    { icon:'', label:'ADHD Reader',     sub:'Fokus satu ayat',       url:'celiksense-reader.html', mode:'adhd'      },
-    { icon:'<svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg>', label:'Deaf Reader',     sub:'Visual & isyarat',      url:'celiksense-reader.html', mode:'deaf'      },
-    { icon:'', label:'Audio Reader',    sub:'Dengar buku',           url:'celiksense-reader.html', mode:'blind'     },
-    { icon:'',  label:'Braille Reader', sub:'Output braille',        url:'celiksense-reader.html', mode:'blind'     },
-    { icon:'', label:'Standard Reader', sub:'Mod biasa',             url:'celiksense-reader.html', mode:'adhd'      },
+    { icon:'', label:_t('hub_mode_blind_reader'),    sub:'Pembaca suara penuh',   url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'', label:_t('hub_mode_low_vision_reader'),sub:'Besarkan & warna teks', url:'celiksense-reader.html', mode:'lowvision' },
+    { icon:'', label:_t('hub_mode_dyslexia_reader'), sub:'Fon & jarak khas',      url:'celiksense-reader.html', mode:'dyslexia'  },
+    { icon:'', label:_t('hub_mode_adhd_reader'),     sub:'Fokus satu ayat',       url:'celiksense-reader.html', mode:'adhd'      },
+    { icon:'<svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg>', label:_t('hub_mode_deaf_reader'),sub:'Visual & isyarat', url:'celiksense-reader.html', mode:'deaf'      },
+    { icon:'', label:_t('hub_mode_audio_reader'),    sub:'Dengar buku',           url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'',  label:'Braille Reader',              sub:'Output braille',        url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'', label:_t('hub_mode_standard_reader'), sub:'Mod biasa',             url:'celiksense-reader.html', mode:'adhd'      },
   ];
   var modeHtml = modes.map(function(m){
     return '<button class="exp-btn" onclick="selectExperience(\'' + m.url + '\',\'' + m.mode + '\')" aria-label="' + m.label + '">' +
