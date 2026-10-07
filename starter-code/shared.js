@@ -238,6 +238,7 @@ const CS_LANG = {
     hero_cta1:      'Get Started',
 
     /* Agents section */
+    agents_badge:   'Our 10 AI Agents',
     agents_title:   '10 Agents, One Ecosystem',
     agents_desc:    'Each agent is purpose-built for a specific learning need. Together they form a personalised, adaptive learning system.',
 
@@ -1027,6 +1028,7 @@ const CS_LANG = {
     hero_cta1:      'Mulakan',
 
     /* Bahagian Ejen */
+    agents_badge:   '10 Ejen AI Kami',
     agents_title:   '10 Ejen, Satu Ekosistem',
     agents_desc:    'Setiap ejen dibina khusus untuk keperluan pembelajaran tertentu. Bersama-sama mereka membentuk sistem pembelajaran peribadi yang adaptif.',
 
