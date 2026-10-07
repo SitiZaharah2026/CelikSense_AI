@@ -81,8 +81,8 @@
   <div class="container">
   <div class="page-header-card">
     <div class="page-badge">⚠</div>
-    <h1 class="page-title">Early Warning Agent</h1>
-    <p class="page-subtitle">Learner performance monitoring and risk assessment. Identify at-risk learners early and trigger timely interventions.</p>
+    <h1 class="page-title" data-i18n="ew_page_title">Early Warning Agent</h1>
+    <p class="page-subtitle" data-i18n="ew_page_subtitle">Learner performance monitoring and risk assessment. Identify at-risk learners early and trigger timely interventions.</p>
   </div>
   </div>
 </main>
@@ -104,20 +104,20 @@
           <div class="form-group" style="margin-bottom:0;">
             <label for="learnerGrade" class="form-label" data-i18n="ew_grade_level">Grade Level</label>
             <select class="form-control" id="learnerGrade">
-              <option>Primary 1</option><option>Primary 2</option><option>Primary 3</option>
-              <option selected>Primary 4</option><option>Primary 5</option><option>Primary 6</option>
-              <option>Secondary 1</option><option>Secondary 2</option><option>Secondary 3</option>
+              <option data-i18n="prof_primary1">Primary 1</option><option data-i18n="prof_primary2">Primary 2</option><option data-i18n="prof_primary3">Primary 3</option>
+              <option selected data-i18n="prof_primary4">Primary 4</option><option data-i18n="prof_primary5">Primary 5</option><option data-i18n="prof_primary6">Primary 6</option>
+              <option data-i18n="prof_secondary1">Secondary 1</option><option data-i18n="prof_secondary2">Secondary 2</option><option data-i18n="prof_secondary3">Secondary 3</option>
             </select>
           </div>
         </div>
         <div class="form-group">
           <label for="primaryNeed" class="form-label" data-i18n="ew_learning_need">Primary Learning Need</label>
           <select class="form-control" id="primaryNeed">
-            <option value="general">General Learner</option>
-            <option value="adhd">ADHD</option>
-            <option value="dyslexia">Dyslexia</option>
-            <option value="blind">Blind / Low Vision</option>
-            <option value="deaf">Deaf / Hard of Hearing</option>
+            <option value="general" data-i18n="prof_need_general">General Learner</option>
+            <option value="adhd" data-i18n="need_adhd">ADHD</option>
+            <option value="dyslexia" data-i18n="need_dyslexia">Dyslexia</option>
+            <option value="blind" data-i18n="prof_need_blind">Blind / Low Vision</option>
+            <option value="deaf" data-i18n="prof_need_deaf">Deaf / Hard of Hearing</option>
           </select>
         </div>
 
@@ -145,24 +145,24 @@
         <!-- Observed Behaviours -->
         <div class="panel-title" style="margin-top:12px;" data-i18n="ew_warning_signs"> Observed Warning Signs</div>
         <div style="margin-bottom:16px;">
-          <div class="form-check"><input type="checkbox" id="w1" checked><label for="w1">Frequently loses focus during reading</label></div>
-          <div class="form-check"><input type="checkbox" id="w2" checked><label for="w2">Reading speed significantly below average</label></div>
-          <div class="form-check"><input type="checkbox" id="w3"><label for="w3">Difficulty recognising common words</label></div>
-          <div class="form-check"><input type="checkbox" id="w4" checked><label for="w4">Low comprehension scores despite effort</label></div>
-          <div class="form-check"><input type="checkbox" id="w5"><label for="w5">Avoids reading tasks consistently</label></div>
-          <div class="form-check"><input type="checkbox" id="w6" checked><label for="w6">Incomplete assignments regularly</label></div>
-          <div class="form-check"><input type="checkbox" id="w7"><label for="w7">Emotional distress related to reading</label></div>
-          <div class="form-check"><input type="checkbox" id="w8"><label for="w8">Difficulty with text organisation</label></div>
+          <div class="form-check"><input type="checkbox" id="w1" checked><label for="w1" data-i18n="ew_sign1">Frequently loses focus during reading</label></div>
+          <div class="form-check"><input type="checkbox" id="w2" checked><label for="w2" data-i18n="ew_sign2">Reading speed significantly below average</label></div>
+          <div class="form-check"><input type="checkbox" id="w3"><label for="w3" data-i18n="ew_sign3">Difficulty recognising common words</label></div>
+          <div class="form-check"><input type="checkbox" id="w4" checked><label for="w4" data-i18n="ew_sign4">Low comprehension scores despite effort</label></div>
+          <div class="form-check"><input type="checkbox" id="w5"><label for="w5" data-i18n="ew_sign5">Avoids reading tasks consistently</label></div>
+          <div class="form-check"><input type="checkbox" id="w6" checked><label for="w6" data-i18n="ew_sign6">Incomplete assignments regularly</label></div>
+          <div class="form-check"><input type="checkbox" id="w7"><label for="w7" data-i18n="ew_sign7">Emotional distress related to reading</label></div>
+          <div class="form-check"><input type="checkbox" id="w8"><label for="w8" data-i18n="ew_sign8">Difficulty with text organisation</label></div>
         </div>
 
         <!-- Duration -->
         <div class="form-group">
           <label for="duration" class="form-label" data-i18n="ew_duration">Duration of Concern</label>
           <select class="form-control" id="duration">
-            <option>Less than 2 weeks</option>
-            <option selected>2–4 weeks</option>
-            <option>1–2 months</option>
-            <option>More than 2 months</option>
+            <option data-i18n="ew_dur_2w">Less than 2 weeks</option>
+            <option selected data-i18n="ew_dur_4w">2–4 weeks</option>
+            <option data-i18n="ew_dur_2m">1–2 months</option>
+            <option data-i18n="ew_dur_over2m">More than 2 months</option>
           </select>
         </div>
 
@@ -191,21 +191,21 @@
 
       <!-- Overview Stat Widgets -->
       <div class="grid grid-4" style="margin-bottom:20px;">
-        <div class="stat-card" id="statRisk"><div class="stat-value" style="font-size:28px;">--</div><div class="stat-label">Risk Level</div></div>
-        <div class="stat-card" id="statScore"><div class="stat-value" style="font-size:28px;">--</div><div class="stat-label">Avg Score</div></div>
-        <div class="stat-card" id="statWarnings"><div class="stat-value" style="font-size:28px;">0</div><div class="stat-label">Warning Signs</div></div>
-        <div class="stat-card" id="statPriority"><div class="stat-value" style="font-size:28px;">--</div><div class="stat-label">Priority</div></div>
+        <div class="stat-card" id="statRisk"><div class="stat-value" style="font-size:28px;">--</div><div class="stat-label" data-i18n="ew_risk_level_lbl">Risk Level</div></div>
+        <div class="stat-card" id="statScore"><div class="stat-value" style="font-size:28px;">--</div><div class="stat-label" data-i18n="ew_avg_score">Avg Score</div></div>
+        <div class="stat-card" id="statWarnings"><div class="stat-value" style="font-size:28px;">0</div><div class="stat-label" data-i18n="ew_warning_count">Warning Signs</div></div>
+        <div class="stat-card" id="statPriority"><div class="stat-value" style="font-size:28px;">--</div><div class="stat-label" data-i18n="ew_priority">Priority</div></div>
       </div>
 
       <!-- Risk Meter -->
       <div class="card" style="margin-bottom:20px;">
-        <div class="panel-title"> Risk Assessment Meter</div>
+        <div class="panel-title" data-i18n="ew_risk_meter"> Risk Assessment Meter</div>
         <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
           <span style="font-size:13px;color:var(--text-muted);" data-i18n="ew_overall_risk">Overall Risk Level</span>
           <span class="badge" id="riskBadge" style="font-size:12px;" data-i18n="ew_run_btn">Run Assessment</span>
         </div>
         <div class="risk-meter"><div class="risk-fill" id="riskFill" style="width:0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Risk score"></div></div>
-        <div class="risk-labels"><span>Low Risk</span><span>Medium</span><span>High Risk</span></div>
+        <div class="risk-labels"><span data-i18n="ew_low_risk">Low Risk</span><span data-i18n="ew_medium">Medium</span><span data-i18n="ew_high_risk">High Risk</span></div>
         <div style="margin-top:12px;font-size:13px;color:var(--text-muted);" id="riskDesc" data-i18n="ew_empty_msg">Complete and submit the assessment form to see risk analysis.</div>
       </div>
 

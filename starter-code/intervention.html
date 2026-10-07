@@ -85,8 +85,8 @@
   <div class="container">
   <div class="page-header-card">
     <div class="page-badge"></div>
-    <h1 class="page-title">Intervention Recommendation Agent</h1>
-    <p class="page-subtitle">AI-generated personalised intervention strategies, action plans, and curated learning resources for every learner profile.</p>
+    <h1 class="page-title" data-i18n="iv_page_title">Intervention Recommendation Agent</h1>
+    <p class="page-subtitle" data-i18n="iv_page_subtitle">AI-generated personalised intervention strategies, action plans, and curated learning resources for every learner profile.</p>
   </div>
   </div>
 </main>
@@ -106,55 +106,55 @@
         <div class="form-group">
           <label class="form-label" for="lNeed" data-i18n="iv_primary_need">Primary Need</label>
           <select class="form-control" id="lNeed">
-            <option value="adhd" selected>ADHD</option>
-            <option value="dyslexia">Dyslexia</option>
-            <option value="blind">Blind / Low Vision</option>
-            <option value="deaf">Deaf / Hard of Hearing</option>
-            <option value="general">General Learner</option>
+            <option value="adhd" selected data-i18n="need_adhd">ADHD</option>
+            <option value="dyslexia" data-i18n="need_dyslexia">Dyslexia</option>
+            <option value="blind" data-i18n="prof_need_blind">Blind / Low Vision</option>
+            <option value="deaf" data-i18n="prof_need_deaf">Deaf / Hard of Hearing</option>
+            <option value="general" data-i18n="prof_need_general">General Learner</option>
           </select>
         </div>
         <div class="form-group">
           <label class="form-label" for="lRisk" data-i18n="iv_risk_level">Risk Level</label>
           <select class="form-control" id="lRisk">
-            <option value="low">Low Risk</option>
-            <option value="medium" selected>Medium Risk</option>
-            <option value="high">High Risk</option>
+            <option value="low" data-i18n="ew_low_risk">Low Risk</option>
+            <option value="medium" selected data-i18n="iv_medium_risk">Medium Risk</option>
+            <option value="high" data-i18n="ew_high_risk">High Risk</option>
           </select>
         </div>
         <div class="form-group">
           <label class="form-label" for="lGrade" data-i18n="iv_grade_level">Grade Level</label>
           <select class="form-control" id="lGrade">
-            <option>Primary 1–3</option>
-            <option selected>Primary 4–6</option>
-            <option>Secondary 1–3</option>
-            <option>Secondary 4–5</option>
+            <option data-i18n="iv_grade_p13">Primary 1–3</option>
+            <option selected data-i18n="iv_grade_p46">Primary 4–6</option>
+            <option data-i18n="iv_grade_s13">Secondary 1–3</option>
+            <option data-i18n="iv_grade_s45">Secondary 4–5</option>
           </select>
         </div>
         <div class="form-group">
           <label class="form-label" for="lWeakness" data-i18n="iv_weakest_area">Weakest Area</label>
           <select class="form-control" id="lWeakness">
-            <option value="focus">Focus / Attention</option>
-            <option value="reading">Reading Fluency</option>
-            <option value="comprehension">Comprehension</option>
-            <option value="writing">Writing</option>
-            <option value="maths">Maths</option>
+            <option value="focus" data-i18n="iv_focus_att">Focus / Attention</option>
+            <option value="reading" data-i18n="iv_read_fluency">Reading Fluency</option>
+            <option value="comprehension" data-i18n="iv_comprehension">Comprehension</option>
+            <option value="writing" data-i18n="iv_writing">Writing</option>
+            <option value="maths" data-i18n="iv_maths">Maths</option>
           </select>
         </div>
         <div class="form-group">
           <label class="form-label" for="lSupport" data-i18n="iv_available_support">Available Support</label>
           <select class="form-control" id="lSupport">
-            <option value="teacher">Class Teacher Only</option>
-            <option value="specialist" selected>Specialist + Teacher</option>
-            <option value="family">Family + School</option>
-            <option value="full">Full MDT Support</option>
+            <option value="teacher" data-i18n="iv_sup1">Class Teacher Only</option>
+            <option value="specialist" selected data-i18n="iv_sup2">Specialist + Teacher</option>
+            <option value="family" data-i18n="iv_sup3">Family + School</option>
+            <option value="full" data-i18n="iv_sup4">Full MDT Support</option>
           </select>
         </div>
         <div class="form-group">
           <label class="form-label" for="lLang" data-i18n="iv_lang_pref">Language Preference</label>
           <select class="form-control" id="lLang">
-            <option value="en">English</option>
+            <option value="en" data-i18n="prof_lang_en">English</option>
             <option value="bm" selected>Bahasa Melayu</option>
-            <option value="both">Bilingual</option>
+            <option value="both" data-i18n="iv_bilingual">Bilingual</option>
           </select>
         </div>
 

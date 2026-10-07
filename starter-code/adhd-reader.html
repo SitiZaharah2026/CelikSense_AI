@@ -315,7 +315,7 @@
   </div>
   <!-- Focus mode -->
   <div class="tbg">
-    <button class="tbb" id="tb-focus" onclick="toggleFocus()"> Focus</button>
+    <button class="tbb" id="tb-focus" onclick="toggleFocus()" data-i18n="ar_focus"> Focus</button>
   </div>
   <!-- Micro session -->
   <div class="tbg">
@@ -326,11 +326,11 @@
   </div>
   <!-- Read aloud -->
   <div class="tbg">
-    <button class="tbb" id="tb-read" onclick="toggleRead()"> Read</button>
+    <button class="tbb" id="tb-read" onclick="toggleRead()" data-i18n="ar_read"> Read</button>
   </div>
   <!-- Visual AI -->
   <div class="tbg">
-    <button class="tbb" id="tb-ai" onclick="toggleVS()"> Visual AI</button>
+    <button class="tbb" id="tb-ai" onclick="toggleVS()" data-i18n="ar_visual_ai"> Visual AI</button>
   </div>
 </div>
 
@@ -345,8 +345,8 @@
   <div id="load-area">
     <h3>⏳ Loading book content…</h3>
     <p>Please wait while we retrieve the text.</p>
-    <textarea id="paste-txt" placeholder="Or paste the book text here…" style="display:none;"></textarea>
-    <button class="load-btn" onclick="loadFromPaste()" style="display:none;">▶ Start Reading</button>
+    <textarea id="paste-txt" placeholder="Or paste the book text here…" data-i18n-placeholder="ar_paste_ph" style="display:none;"></textarea>
+    <button class="load-btn" onclick="loadFromPaste()" style="display:none;" data-i18n="ar_start_reading">▶ Start Reading</button>
     <div id="load-spinner"></div>
   </div>
   <!-- Content rendered here -->
@@ -356,33 +356,33 @@
 <!-- Visual Support Panel -->
 <div id="vs-panel">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-    <span style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--accent);"> VISUAL AI</span>
+    <span style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--accent);" data-i18n="ar_visual_ai_title"> VISUAL AI</span>
     <button onclick="toggleVS()" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--muted);"></button>
   </div>
-  <button class="vs-btn" onclick="doVS('mindmap')"> Mind Map</button>
-  <button class="vs-btn" onclick="doVS('timeline')"> Timeline</button>
-  <button class="vs-btn" onclick="doVS('characters')"> Key Characters</button>
-  <button class="vs-btn" onclick="doVS('places')"> Key Places</button>
-  <button class="vs-btn" onclick="doVS('concepts')"> Concept Diagram</button>
+  <button class="vs-btn" onclick="doVS('mindmap')" data-i18n="ar_mind_map"> Mind Map</button>
+  <button class="vs-btn" onclick="doVS('timeline')" data-i18n="ar_timeline"> Timeline</button>
+  <button class="vs-btn" onclick="doVS('characters')" data-i18n="ar_key_chars"> Key Characters</button>
+  <button class="vs-btn" onclick="doVS('places')" data-i18n="ar_key_places"> Key Places</button>
+  <button class="vs-btn" onclick="doVS('concepts')" data-i18n="ar_concept_diag"> Concept Diagram</button>
   <div id="vs-out"></div>
 </div>
 
 <!-- Focus Overlay -->
 <div id="focus-ov" role="dialog" aria-modal="true" aria-label="Focus reading mode">
-  <button id="focus-close" onclick="toggleFocus()" aria-label="Exit focus mode"></button>
+  <button id="focus-close" onclick="toggleFocus()" aria-label="Exit focus mode" data-i18n-aria="ar_exit_focus"></button>
   <div id="focus-card">
     <div id="focus-meta">
-      <span> FOCUS MODE</span>
+      <span data-i18n="ar_focus_mode"> FOCUS MODE</span>
       <span id="focus-ctr">1 / 1</span>
     </div>
     <div id="focus-para" tabindex="0"></div>
     <div id="focus-nav">
-      <button class="fnav" id="fp-prev" onclick="fNav(-1)" aria-label="Previous paragraph">← Prev</button>
+      <button class="fnav" id="fp-prev" onclick="fNav(-1)" aria-label="Previous paragraph" data-i18n-aria="ar_prev_para">← Prev</button>
       <span id="focus-ctr2" style="font-size:13px;color:var(--muted);min-width:70px;text-align:center;"></span>
-      <button class="fnav" id="fp-next" onclick="fNav(1)" aria-label="Next paragraph">Next →</button>
+      <button class="fnav" id="fp-next" onclick="fNav(1)" aria-label="Next paragraph" data-i18n-aria="ar_next_para">Next →</button>
     </div>
     <div style="text-align:center;margin-top:16px;">
-      <button id="focus-read-btn" onclick="readFocusPara()"> Read This</button>
+      <button id="focus-read-btn" onclick="readFocusPara()" data-i18n="ar_read_this"> Read This</button>
     </div>
   </div>
 </div>
@@ -391,24 +391,24 @@
 <div id="break-modal" role="dialog" aria-modal="true">
   <div id="break-card">
     <div style="font-size:44px;margin-bottom:12px;">☕</div>
-    <h2>Time for a Short Break</h2>
-    <p>You've been reading for a while — rest your eyes and breathe.</p>
+    <h2 data-i18n="ar_break_title">Time for a Short Break</h2>
+    <p data-i18n="ar_break_msg">You've been reading for a while — rest your eyes and breathe.</p>
     <div id="break-cd">0:30</div>
-    <button class="break-btn" onclick="skipBreak()">Skip Break →</button>
+    <button class="break-btn" onclick="skipBreak()" data-i18n="ar_skip_break">Skip Break →</button>
   </div>
 </div>
 
 <!-- Checkpoint Modal -->
 <div id="cp-modal" role="dialog" aria-modal="true">
   <div id="cp-card">
-    <h3> AI Checkpoint — Quick Check!</h3>
-    <div id="cp-q">Loading question…</div>
-    <input type="text" id="cp-input" placeholder="Type your answer here…" onkeydown="if(event.key==='Enter')checkAnswer()">
+    <h3 data-i18n="ar_checkpoint_title"> AI Checkpoint — Quick Check!</h3>
+    <div id="cp-q" data-i18n="ar_loading_q">Loading question…</div>
+    <input type="text" id="cp-input" placeholder="Type your answer here…" data-i18n-placeholder="ar_answer_placeholder" onkeydown="if(event.key==='Enter')checkAnswer()">
     <div id="cp-fb"></div>
     <div class="cp-row">
-      <button class="cp-btn" id="cp-submit" onclick="checkAnswer()">Submit</button>
-      <button class="cp-btn" id="cp-explain" onclick="explainAgain()">Explain Again</button>
-      <button class="cp-btn" id="cp-skip" onclick="skipCP()">Continue →</button>
+      <button class="cp-btn" id="cp-submit" onclick="checkAnswer()" data-i18n="ar_submit">Submit</button>
+      <button class="cp-btn" id="cp-explain" onclick="explainAgain()" data-i18n="ar_explain_again">Explain Again</button>
+      <button class="cp-btn" id="cp-skip" onclick="skipCP()" data-i18n="ar_continue">Continue →</button>
     </div>
   </div>
 </div>
@@ -541,12 +541,16 @@ function setLoadMsg(msg) {
 }
 
 function showPaste() {
+  var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){return k;};
   var la = document.getElementById('load-area');
-  la.querySelector('h3').textContent = ' Paste Book Text';
+  la.querySelector('h3').textContent = ' ' + _t('ar_paste_title');
   la.querySelector('p').innerHTML =
-    'We couldn\'t auto-fetch the text (CORS restriction).<br>' +
-    (BK.url ? '<a href="'+BK.url+'" target="_blank" rel="noopener" style="color:#6366f1;font-weight:600;">Open source ↗</a>, copy the text, and paste it below.' : 'Paste your text below.');
-  la.querySelector('#paste-txt').style.display = '';
+    _t('ar_cors_msg') + '<br>' +
+    (BK.url ? '<a href="'+BK.url+'" target="_blank" rel="noopener" style="color:#6366f1;font-weight:600;">Open source ↗</a>, copy the text, and paste it below.' : '');
+  var ptxt = la.querySelector('#paste-txt');
+  ptxt.placeholder = _t('ar_paste_ph');
+  ptxt.style.display = '';
+  la.querySelector('.load-btn').textContent = _t('ar_start_reading');
   la.querySelector('.load-btn').style.display = '';
 }
 
@@ -880,9 +884,15 @@ async function genParaAI(text, panel) {
    CHECKPOINT
  */
 function showCP(secText) {
+  var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){return k;};
   var modal = document.getElementById('cp-modal');
   modal.classList.add('on');
-  document.getElementById('cp-q').textContent = 'Loading question…';
+  document.getElementById('cp-q').textContent = _t('ar_loading_q');
+  document.getElementById('cp-input').placeholder = _t('ar_answer_placeholder');
+  document.getElementById('cp-submit').textContent = _t('ar_submit');
+  document.getElementById('cp-explain').textContent = _t('ar_explain_again');
+  document.getElementById('cp-skip').textContent = _t('ar_continue');
+  document.getElementById('cp-card').querySelector('h3').textContent = ' ' + _t('ar_checkpoint_title');
   document.getElementById('cp-input').value = '';
   document.getElementById('cp-fb').style.display = 'none';
   _cpAns = '';
