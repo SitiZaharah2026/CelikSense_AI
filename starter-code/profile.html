@@ -358,27 +358,27 @@
       <!-- ── SETTINGS ── -->
       <div class="tab-pane" id="tab-settings" role="tabpanel" aria-labelledby="tab-btn-settings" tabindex="-1">
         <div class="card" style="margin-bottom:16px;">
-          <div class="panel-title"> Personal Information</div>
+          <div class="panel-title" data-i18n="prof_personal_info"> Personal Information</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
             <div class="form-group">
-              <label class="form-label">Full Name</label>
+              <label class="form-label" data-i18n="prof_full_name">Full Name</label>
               <input type="text" class="form-control" id="settingName" value="Ahmad Zaki" oninput="updateDisplayName()">
             </div>
             <div class="form-group">
-              <label class="form-label">Display ID / Username</label>
+              <label class="form-label" data-i18n="prof_display_id">Display ID / Username</label>
               <input type="text" class="form-control" value="AhmadZ_04" readonly style="opacity:0.6;">
             </div>
             <div class="form-group">
-              <label class="form-label">Email Address</label>
+              <label class="form-label" data-i18n="prof_email">Email Address</label>
               <input type="email" class="form-control" value="learner@celiksense.demo" placeholder="Your email address">
             </div>
             <div class="form-group">
-              <label class="form-label">Role</label>
+              <label class="form-label" data-i18n="prof_role">Role</label>
               <select class="form-control" id="settingRole" onchange="updateRole()">
-                <option value="student" selected>Student / Learner</option>
-                <option value="teacher">Teacher / Educator</option>
-                <option value="parent">Parent / Guardian</option>
-                <option value="admin">School Administrator</option>
+                <option value="student" selected data-i18n="prof_role_student">Student / Learner</option>
+                <option value="teacher" data-i18n="prof_role_teacher">Teacher / Educator</option>
+                <option value="parent" data-i18n="prof_role_parent">Parent / Guardian</option>
+                <option value="admin" data-i18n="prof_role_admin">School Administrator</option>
               </select>
             </div>
           </div>
@@ -388,33 +388,33 @@
           <div class="panel-title"> Learning Profile</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
             <div class="form-group">
-              <label class="form-label">Primary Learning Need</label>
+              <label class="form-label" data-i18n="prof_learning_need_lbl">Primary Learning Need</label>
               <select class="form-control" id="settingNeed" onchange="updateNeedBadge()">
                 <option value="adhd" selected>ADHD</option>
                 <option value="dyslexia">Dyslexia</option>
-                <option value="blind">Blind / Low Vision</option>
-                <option value="deaf">Deaf / Hard of Hearing</option>
-                <option value="general">General Learner</option>
+                <option value="blind" data-i18n="prof_need_blind">Blind / Low Vision</option>
+                <option value="deaf" data-i18n="prof_need_deaf">Deaf / Hard of Hearing</option>
+                <option value="general" data-i18n="prof_need_general">General Learner</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Grade Level</label>
+              <label class="form-label" data-i18n="prof_grade_lbl">Grade Level</label>
               <select class="form-control" id="settingGrade" onchange="updateRole()">
-                <option>Primary 1</option><option>Primary 2</option><option>Primary 3</option>
-                <option selected>Primary 4</option><option>Primary 5</option><option>Primary 6</option>
-                <option>Secondary 1</option><option>Secondary 2</option><option>Secondary 3</option>
+                <option data-i18n="prof_primary1">Primary 1</option><option data-i18n="prof_primary2">Primary 2</option><option data-i18n="prof_primary3">Primary 3</option>
+                <option selected data-i18n="prof_primary4">Primary 4</option><option data-i18n="prof_primary5">Primary 5</option><option data-i18n="prof_primary6">Primary 6</option>
+                <option data-i18n="prof_secondary1">Secondary 1</option><option data-i18n="prof_secondary2">Secondary 2</option><option data-i18n="prof_secondary3">Secondary 3</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Language Preference</label>
+              <label class="form-label" data-i18n="prof_lang_pref_lbl">Language Preference</label>
               <select class="form-control" id="settingLang" onchange="savePref()">
-                <option value="en">English</option>
+                <option value="en" data-i18n="prof_lang_en">English</option>
                 <option value="bm">Bahasa Melayu</option>
-                <option value="both" selected>Bilingual (EN + BM)</option>
+                <option value="both" selected data-i18n="prof_lang_bilingual">Bilingual (EN + BM)</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Interests (for book matching)</label>
+              <label class="form-label" data-i18n="prof_interests_lbl">Interests (for book matching)</label>
               <input type="text" class="form-control" id="settingInterests" placeholder="e.g. science, football, music&hellip;" value="science, nature, sports">
             </div>
           </div>
@@ -424,7 +424,7 @@
           <div class="panel-title">â± Session Preferences</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
             <div class="form-group">
-              <label class="form-label">Default Session Length</label>
+              <label class="form-label" data-i18n="prof_session_len_lbl">Default Session Length</label>
               <select class="form-control" id="settingSession">
                 <option>5 minutes</option>
                 <option selected>10 minutes</option>
@@ -433,7 +433,7 @@
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Break Length</label>
+              <label class="form-label" data-i18n="prof_break_len_lbl">Break Length</label>
               <select class="form-control">
                 <option>2 minutes</option>
                 <option selected>3 minutes</option>
@@ -444,8 +444,8 @@
         </div>
 
         <div style="display:flex;gap:10px;">
-          <button class="btn btn-primary" onclick="saveSettings()">✓ Save Profile</button>
-          <button class="btn btn-ghost" onclick="resetSettings()">Reset</button>
+          <button class="btn btn-primary" onclick="saveSettings()" data-i18n="prof_save_btn">✓ Save Profile</button>
+          <button class="btn btn-ghost" onclick="resetSettings()" data-i18n="prof_reset_btn">Reset</button>
         </div>
         <div id="saveMsg" class="hidden" style="margin-top:10px;"></div>
       </div>
@@ -453,12 +453,12 @@
       <!-- ── ACCESSIBILITY ── -->
       <div class="tab-pane" id="tab-accessibility" role="tabpanel" aria-labelledby="tab-btn-accessibility" tabindex="-1">
         <div class="card" style="margin-bottom:16px;">
-          <div class="panel-title"> Visual Accessibility</div>
+          <div class="panel-title" data-i18n="prof_visual_a11y"> Visual Accessibility</div>
 
           <div class="pref-row">
             <div>
-              <div class="pref-label">OpenDyslexic Font</div>
-              <div class="pref-desc">Use dyslexia-friendly font across all reading areas</div>
+              <div class="pref-label" data-i18n="prof_dyslexia_font">OpenDyslexic Font</div>
+              <div class="pref-desc" data-i18n="prof_dyslexia_font_desc">Use dyslexia-friendly font across all reading areas</div>
             </div>
             <label class="toggle-switch" aria-label="Toggle OpenDyslexic font">
               <input type="checkbox" id="prefDyslexicFont" onchange="savePref()">
@@ -468,23 +468,23 @@
 
           <div class="pref-row">
             <div>
-              <div class="pref-label">Colour Overlay</div>
-              <div class="pref-desc">Default reading overlay colour</div>
+              <div class="pref-label" data-i18n="prof_colour_overlay_lbl">Colour Overlay</div>
+              <div class="pref-desc" data-i18n="prof_colour_desc">Default reading overlay colour</div>
             </div>
             <select class="form-control" style="width:130px;" id="prefOverlay" onchange="savePref()">
-              <option value="none">None</option>
-              <option value="yellow">Yellow</option>
-              <option value="blue">Blue</option>
-              <option value="green" selected>Green</option>
-              <option value="pink">Pink</option>
-              <option value="grey">Grey</option>
+              <option value="none" data-i18n="prof_col_none">None</option>
+              <option value="yellow" data-i18n="prof_col_yellow">Yellow</option>
+              <option value="blue" data-i18n="prof_col_blue">Blue</option>
+              <option value="green" selected data-i18n="prof_col_green">Green</option>
+              <option value="pink" data-i18n="prof_col_pink">Pink</option>
+              <option value="grey" data-i18n="prof_col_grey">Grey</option>
             </select>
           </div>
 
           <div class="pref-row">
             <div>
-              <div class="pref-label">Large Text Mode</div>
-              <div class="pref-desc">Increase default font size across all pages</div>
+              <div class="pref-label" data-i18n="prof_large_text">Large Text Mode</div>
+              <div class="pref-desc" data-i18n="prof_large_text_desc">Increase default font size across all pages</div>
             </div>
             <label class="toggle-switch" aria-label="Toggle large text mode">
               <input type="checkbox" id="prefLargeText" onchange="savePref();applyLargeText()">
@@ -494,8 +494,8 @@
 
           <div class="pref-row">
             <div>
-              <div class="pref-label">High Contrast Mode</div>
-              <div class="pref-desc">Increase contrast for low-vision learners</div>
+              <div class="pref-label" data-i18n="prof_high_contrast">High Contrast Mode</div>
+              <div class="pref-desc" data-i18n="prof_high_contrast_desc">Increase contrast for low-vision learners</div>
             </div>
             <label class="toggle-switch" aria-label="Toggle high contrast">
               <input type="checkbox" id="prefHighContrast" onchange="savePref()">
@@ -505,8 +505,8 @@
 
           <div class="pref-row" style="border-bottom:none;">
             <div>
-              <div class="pref-label">Reading Ruler</div>
-              <div class="pref-desc">Show reading ruler by default on all pages</div>
+              <div class="pref-label" data-i18n="prof_ruler_lbl">Reading Ruler</div>
+              <div class="pref-desc" data-i18n="prof_ruler_desc">Show reading ruler by default on all pages</div>
             </div>
             <label class="toggle-switch" aria-label="Toggle reading ruler">
               <input type="checkbox" id="prefRuler" onchange="savePref()">
@@ -516,12 +516,12 @@
         </div>
 
         <div class="card" style="margin-bottom:16px;">
-          <div class="panel-title"> Audio Accessibility</div>
+          <div class="panel-title" data-i18n="prof_audio_a11y"> Audio Accessibility</div>
 
           <div class="pref-row">
             <div>
-              <div class="pref-label">Auto-Read on Page Load</div>
-              <div class="pref-desc">Automatically start audio guide when any agent opens</div>
+              <div class="pref-label" data-i18n="prof_auto_read">Auto-Read on Page Load</div>
+              <div class="pref-desc" data-i18n="prof_auto_read_desc">Automatically start audio guide when any agent opens</div>
             </div>
             <label class="toggle-switch" aria-label="Toggle auto-read">
               <input type="checkbox" id="prefAutoRead" onchange="savePref()">
@@ -531,24 +531,24 @@
 
           <div class="pref-row">
             <div>
-              <div class="pref-label">TTS Speed</div>
-              <div class="pref-desc">Default speech rate for all Text-to-Speech</div>
+              <div class="pref-label" data-i18n="prof_tts_speed">TTS Speed</div>
+              <div class="pref-desc" data-i18n="prof_tts_speed_desc">Default speech rate for all Text-to-Speech</div>
             </div>
             <select class="form-control" style="width:120px;" id="prefTTSSpeed" onchange="saveTTSRate()">
-              <option value="0.6">Slow (0.6×)</option>
-              <option value="0.9" selected>Normal (0.9×)</option>
-              <option value="1.2">Fast (1.2×)</option>
-              <option value="1.5">Very Fast (1.5×)</option>
+              <option value="0.6" data-i18n="prof_tts_slow">Slow (0.6×)</option>
+              <option value="0.9" selected data-i18n="prof_tts_normal">Normal (0.9×)</option>
+              <option value="1.2" data-i18n="prof_tts_fast">Fast (1.2×)</option>
+              <option value="1.5" data-i18n="prof_tts_vfast">Very Fast (1.5×)</option>
             </select>
           </div>
 
           <div class="pref-row" style="border-bottom:none;">
             <div>
-              <div class="pref-label">TTS Language</div>
-              <div class="pref-desc">Language for voice output (matches UI language by default)</div>
+              <div class="pref-label" data-i18n="prof_tts_lang">TTS Language</div>
+              <div class="pref-desc" data-i18n="prof_tts_lang_desc">Language for voice output (matches UI language by default)</div>
             </div>
             <select class="form-control" style="width:170px;" id="prefTTSLang" onchange="savePref()">
-              <option value="auto" selected>Auto (matches UI)</option>
+              <option value="auto" selected data-i18n="prof_tts_auto">Auto (matches UI)</option>
               <option value="en-US">English (US)</option>
               <option value="en-GB">English (UK)</option>
               <option value="ms-MY">Bahasa Melayu</option>
@@ -557,11 +557,11 @@
         </div>
 
         <div class="card">
-          <div class="panel-title">âŒ¨ Navigation Preferences</div>
+          <div class="panel-title" data-i18n="prof_nav_prefs">⌨ Navigation Preferences</div>
           <div class="pref-row">
             <div>
-              <div class="pref-label">Keyboard Navigation Hints</div>
-              <div class="pref-desc">Show keyboard shortcut hints on agent pages</div>
+              <div class="pref-label" data-i18n="prof_kbd_hints">Keyboard Navigation Hints</div>
+              <div class="pref-desc" data-i18n="prof_kbd_hints_desc">Show keyboard shortcut hints on agent pages</div>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" id="prefKeyHints" checked onchange="savePref()">
@@ -570,8 +570,8 @@
           </div>
           <div class="pref-row" style="border-bottom:none;">
             <div>
-              <div class="pref-label">Reduced Motion</div>
-              <div class="pref-desc">Minimise animations across all pages</div>
+              <div class="pref-label" data-i18n="prof_reduced_motion">Reduced Motion</div>
+              <div class="pref-desc" data-i18n="prof_reduced_motion_desc">Minimise animations across all pages</div>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" id="prefReducedMotion" onchange="savePref();applyReducedMotion()">
@@ -581,7 +581,7 @@
         </div>
 
         <div style="margin-top:16px;">
-          <button class="btn btn-primary" onclick="saveAllPrefs()">✓ Save Accessibility Settings</button>
+          <button class="btn btn-primary" onclick="saveAllPrefs()" data-i18n="prof_save_a11y_btn">✓ Save Accessibility Settings</button>
           <span id="prefSaveMsg" style="margin-left:12px;font-size:13px;color:var(--success);display:none;">Saved!</span>
         </div>
       </div>
@@ -590,8 +590,8 @@
       <div class="tab-pane" id="tab-activity" role="tabpanel" aria-labelledby="tab-btn-activity" tabindex="-1">
         <div class="card">
           <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;">
-             Recent Activity
-            <button class="btn btn-ghost btn-sm" onclick="clearActivity()">Clear All</button>
+            <span data-i18n="prof_recent_activity">Recent Activity</span>
+            <button class="btn btn-ghost btn-sm" onclick="clearActivity()" data-i18n="prof_clear_all">Clear All</button>
           </div>
           <div class="activity-feed" id="activityFeed">
             <!-- populated by JS -->
@@ -602,7 +602,7 @@
       <!-- ── ACHIEVEMENTS ── -->
       <div class="tab-pane" id="tab-achievements" role="tabpanel" aria-labelledby="tab-btn-achievements" tabindex="-1">
         <div class="card">
-          <div class="panel-title"> Achievements</div>
+          <div class="panel-title" data-i18n="prof_achievements_title"> Achievements</div>
           <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">Earn badges by completing reading sessions and reaching milestones.</p>
           <div class="achievement-grid" id="achievementsGrid"></div>
         </div>
@@ -743,18 +743,22 @@ function loadPrefs() {
 }
 
 /* ── ACTIVITY LOG ── */
-const activityData = [
-  {title:'ADHD Agent – 10 min Focus Session',time:'Today, 9:42 AM',color:'#f59e0b',badge:'Focus',badgeCls:'badge-warning'},
-  {title:'Reading Companion – The Magic of Reading Ch. 3',time:'Today, 9:15 AM',color:'#06b6d4',badge:'Reading',badgeCls:'badge-cyan'},
-  {title:'AI Librarian – Added "Dunia Sains Kita"',time:'Yesterday, 4:30 PM',color:'#6366f1',badge:'Library',badgeCls:'badge-primary'},
-  {title:'Dyslexia Agent – Green overlay enabled',time:'Yesterday, 3:00 PM',color:'#22c55e',badge:'Accessibility',badgeCls:'badge-success'},
-  {title:'Early Warning – Risk assessment completed',time:'2 days ago',color:'#ef4444',badge:'Low Risk',badgeCls:'badge-success'},
-  {title:'Intervention Plan – ADHD strategy generated',time:'2 days ago',color:'#10b981',badge:'Plan',badgeCls:'badge-success'},
-  {title:'Sign Language – Practised BIM alphabet A–M',time:'3 days ago',color:'#ec4899',badge:'Sign',badgeCls:'badge-violet'},
-  {title:'Reading Companion – My First Science Book completed',time:'4 days ago',color:'#06b6d4',badge:'Complete',badgeCls:'badge-success'},
-];
+function getActivityData() {
+  const t = (k,fb) => (window.CS && CS.lang ? CS.lang.t(k) : fb);
+  return [
+    {title:'ADHD Agent – 10 min Focus Session',time:'Today, 9:42 AM',color:'#f59e0b',badgeKey:'act_tag_focus',badge:'Focus',badgeCls:'badge-warning'},
+    {title:'Reading Companion – The Magic of Reading Ch. 3',time:'Today, 9:15 AM',color:'#06b6d4',badgeKey:'act_tag_reading',badge:'Reading',badgeCls:'badge-cyan'},
+    {title:'AI Librarian – Added "Dunia Sains Kita"',time:'Yesterday, 4:30 PM',color:'#6366f1',badgeKey:'act_tag_library',badge:'Library',badgeCls:'badge-primary'},
+    {title:'Dyslexia Agent – Green overlay enabled',time:'Yesterday, 3:00 PM',color:'#22c55e',badgeKey:'act_tag_a11y',badge:'Accessibility',badgeCls:'badge-success'},
+    {title:'Early Warning – Risk assessment completed',time:'2 days ago',color:'#ef4444',badgeKey:'act_tag_low_risk',badge:'Low Risk',badgeCls:'badge-success'},
+    {title:'Intervention Plan – ADHD strategy generated',time:'2 days ago',color:'#10b981',badgeKey:'act_tag_plan',badge:'Plan',badgeCls:'badge-success'},
+    {title:'Sign Language – Practised BIM alphabet A–M',time:'3 days ago',color:'#ec4899',badgeKey:'act_tag_sign',badge:'Sign',badgeCls:'badge-violet'},
+    {title:'Reading Companion – My First Science Book completed',time:'4 days ago',color:'#06b6d4',badgeKey:'act_tag_complete',badge:'Complete',badgeCls:'badge-success'},
+  ].map(a => Object.assign({}, a, {badge: t(a.badgeKey, a.badge)}));
+}
 
 function renderActivity() {
+  const activityData = getActivityData();
   document.getElementById('activityFeed').innerHTML = activityData.map(a=>`
     <div class="activity-entry">
       <div class="activity-dot" style="background:${a.color};box-shadow:0 0 0 3px ${a.color}22;"></div>
@@ -773,22 +777,26 @@ function clearActivity() {
 }
 
 /* ── ACHIEVEMENTS ── */
-const achievements = [
-  {icon:'🚀',name:'First Session',desc:'Completed your first reading session',earned:true},
-  {icon:'📚',name:'Book Worm',desc:'Added 3 books to your reading list',earned:true},
-  {icon:'â±',name:'Time Keeper',desc:'Completed 5 timed ADHD sessions',earned:true},
-  {icon:'🎯',name:'Sharp Focus',desc:'Achieved 80+ focus score',earned:true},
-  {icon:'ðŸŒ',name:'Colour Explorer',desc:'Tried all 5 colour overlays',earned:false},
-  {icon:'ðŸ¤Ÿ',name:'Sign Learner',desc:'Learned 10 BIM signs',earned:false},
-  {icon:'ðŸ”Š',name:'Audio Navigator',desc:'Used blind audio agent 3 times',earned:false},
-  {icon:'💡',name:'Intervention Pro',desc:'Generated a full intervention plan',earned:true},
-  {icon:'ðŸ†',name:'Week Streak',desc:'Logged 7 days in a row',earned:false},
-  {icon:'🌟',name:'All-Rounder',desc:'Used all 8 AI agents',earned:false},
-  {icon:'📖',name:'Chapter Done',desc:'Finished a full book chapter',earned:true},
-  {icon:'🧠',name:'ADHD Champion',desc:'15 ADHD sessions completed',earned:false},
-];
+function getAchievements() {
+  const t = (k,fb) => (window.CS && CS.lang ? CS.lang.t(k) : fb);
+  return [
+    {icon:'🚀',nameKey:'badge_first_session',name:'First Session',descKey:'badge_first_session_desc',desc:'Completed your first reading session',earned:true},
+    {icon:'📚',nameKey:'badge_book_worm',name:'Book Worm',descKey:'badge_book_worm_desc',desc:'Added 3 books to your reading list',earned:true},
+    {icon:'⏱',nameKey:'badge_time_keeper',name:'Time Keeper',descKey:'badge_time_keeper_desc',desc:'Completed 5 timed ADHD sessions',earned:true},
+    {icon:'🎯',nameKey:'badge_sharp_focus',name:'Sharp Focus',descKey:'badge_sharp_focus_desc',desc:'Achieved 80+ focus score',earned:true},
+    {icon:'🌈',nameKey:'badge_colour_explorer',name:'Colour Explorer',descKey:'badge_colour_explorer_desc',desc:'Tried all 5 colour overlays',earned:false},
+    {icon:'🤟',nameKey:'badge_sign_learner',name:'Sign Learner',descKey:'badge_sign_learner_desc',desc:'Learned 10 BIM signs',earned:false},
+    {icon:'🔊',nameKey:'badge_audio_nav',name:'Audio Navigator',descKey:'badge_audio_nav_desc',desc:'Used blind audio agent 3 times',earned:false},
+    {icon:'💡',nameKey:'badge_intervention_pro',name:'Intervention Pro',descKey:'badge_intervention_pro_desc',desc:'Generated a full intervention plan',earned:true},
+    {icon:'🏆',nameKey:'badge_week_streak',name:'Week Streak',descKey:'badge_week_streak_desc',desc:'Logged 7 days in a row',earned:false},
+    {icon:'🌟',nameKey:'badge_all_rounder',name:'All-Rounder',descKey:'badge_all_rounder_desc',desc:'Used all 8 AI agents',earned:false},
+    {icon:'📖',nameKey:'badge_chapter_done',name:'Chapter Done',descKey:'badge_chapter_done_desc',desc:'Finished a full book chapter',earned:true},
+    {icon:'🧠',nameKey:'badge_adhd_champ',name:'ADHD Champion',descKey:'badge_adhd_champ_desc',desc:'15 ADHD sessions completed',earned:false},
+  ].map(a => Object.assign({}, a, {name: t(a.nameKey, a.name), desc: t(a.descKey, a.desc)}));
+}
 
 function renderAchievements() {
+  const achievements = getAchievements();
   document.getElementById('achievementsGrid').innerHTML = achievements.map(a=>`
     <div class="achievement ${a.earned?'earned':'locked'}" title="${a.desc}">
       <span class="achievement-icon">${a.earned?a.icon:'ðŸ”’'}</span>
