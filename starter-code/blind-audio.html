@@ -505,13 +505,13 @@
   <!-- ReAct Loop Panel -->
   <div class="react-panel" id="reactPanel" style="display:none;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-      <div style="font-weight:700;font-size:15px;color:#4338ca;"> ReAct Reasoning Loop</div>
+      <div style="font-weight:700;font-size:15px;color:#4338ca;" data-i18n="react_loop_title"> ReAct Reasoning Loop</div>
       <span id="reactRound" style="font-size:12px;color:var(--muted);"></span>
     </div>
-    <div class="react-step" id="reactStep1"><span class="react-badge think">THINK</span><div class="react-content" id="reactThink">Waiting…</div></div>
-    <div class="react-step" id="reactStep2"><span class="react-badge act">ACT</span><div class="react-content" id="reactAct">Waiting…</div></div>
-    <div class="react-step" id="reactStep3"><span class="react-badge observe">OBSERVE</span><div class="react-content" id="reactObserve">Waiting…</div></div>
-    <div class="react-step" id="reactStep4" style="display:none;"><span class="react-badge retry">RETRY</span><div class="react-content" id="reactRetry">Improving…</div></div>
+    <div class="react-step" id="reactStep1"><span class="react-badge think" data-i18n="react_think">THINK</span><div class="react-content" id="reactThink" data-i18n="react_waiting">Waiting…</div></div>
+    <div class="react-step" id="reactStep2"><span class="react-badge act" data-i18n="react_act">ACT</span><div class="react-content" id="reactAct" data-i18n="react_waiting">Waiting…</div></div>
+    <div class="react-step" id="reactStep3"><span class="react-badge observe" data-i18n="react_observe">OBSERVE</span><div class="react-content" id="reactObserve" data-i18n="react_waiting">Waiting…</div></div>
+    <div class="react-step" id="reactStep4" style="display:none;"><span class="react-badge retry" data-i18n="react_retry">RETRY</span><div class="react-content" id="reactRetry" data-i18n="react_improving">Improving…</div></div>
     <div id="reactResult" style="display:none;margin-top:12px;padding:16px;background:var(--bg);border-radius:12px;border-left:4px solid #22c55e;font-size:15px;line-height:1.8;"></div>
   </div>
 
@@ -609,7 +609,7 @@
             <span class="btn-icon" aria-hidden="true">&#10067;</span>
             Help
           </button>
-          <button onclick="runReAct()" class="quick-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;border-color:#6366f1;" title="ReAct AI Analysis" aria-label="ReAct AI Analysis">
+          <button onclick="runReAct()" class="quick-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;border-color:#6366f1;" title="ReAct AI Analysis" aria-label="ReAct AI Analysis" data-i18n="react_btn">
             <span class="btn-icon" aria-hidden="true"></span>
             ReAct
           </button>
