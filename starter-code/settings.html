@@ -616,7 +616,7 @@
             </div>
             <label class="toggle-switch settings-row-ctrl">
               <input type="radio" name="langRadio" value="en" id="langEn" onchange="setLanguage('en')" style="opacity:0;position:absolute;">
-              <span class="toggle-track" id="langEnTrack" style="background:var(--primary-light)"></span>
+              <span class="toggle-track" id="langEnTrack"></span>
             </label>
           </div>
 
@@ -1153,6 +1153,13 @@ function setLanguage(lang) {
   if (enBtn) { enBtn.className = lang === 'en' ? 'btn btn-primary' : 'btn btn-ghost'; }
   if (msBtn) { msBtn.className = lang === 'ms' ? 'btn btn-primary' : 'btn btn-ghost'; }
 
+  var enTrack = document.getElementById('langEnTrack');
+  var msTrack = document.getElementById('langMsTrack');
+  var activeColor = 'var(--primary-light)';
+  var inactiveColor = '';
+  if (enTrack) enTrack.style.background = lang === 'en' ? activeColor : inactiveColor;
+  if (msTrack) msTrack.style.background = lang === 'ms' ? activeColor : inactiveColor;
+
   CS.toast(lang === 'en' ? 'Language: English' : 'Bahasa: Melayu', 'success');
 }
 
@@ -1343,12 +1350,16 @@ document.addEventListener('DOMContentLoaded', function() {
   loadAnalyticsStats();
   aeLoad();
 
-  /* Sync language buttons */
+  /* Sync language buttons and toggles */
   var lang = CS.lang.get();
   var enBtn = document.getElementById('btnLangEn');
   var msBtn = document.getElementById('btnLangMs');
   if (enBtn) enBtn.className = lang === 'en' ? 'btn btn-primary' : 'btn btn-ghost';
   if (msBtn) msBtn.className = lang === 'ms' ? 'btn btn-primary' : 'btn btn-ghost';
+  var enTrack = document.getElementById('langEnTrack');
+  var msTrack = document.getElementById('langMsTrack');
+  if (enTrack) enTrack.style.background = lang === 'en' ? 'var(--primary-light)' : '';
+  if (msTrack) msTrack.style.background = lang === 'ms' ? 'var(--primary-light)' : '';
 
   /* Show panel from URL hash */
   var hash = location.hash.replace('#','');
