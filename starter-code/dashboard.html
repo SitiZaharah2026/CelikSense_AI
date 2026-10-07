@@ -250,12 +250,12 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <div class="widget-label" data-i18n="dash_focus"> Focus Score</div>
       <div class="widget-value" style="background:linear-gradient(135deg,#86efac,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">84</div>
       <div class="progress-bar"><div class="progress-fill" style="width:84%;background:linear-gradient(90deg,#22c55e,#10b981);"></div></div>
-      <div class="widget-sub">Above average ↑</div>
+      <div class="widget-sub" data-i18n="dash_above_avg">Above average ↑</div>
     </div>
     <div class="widget" style="--wc:linear-gradient(90deg,#f59e0b,#f97316);">
       <div class="widget-label" data-i18n="dash_mode">♿ Accessibility Mode</div>
       <div class="widget-value" style="background:linear-gradient(135deg,#fde68a,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:22px;">ADHD</div>
-      <div class="badge badge-warning" id="focusModeBadge" style="display:inline-flex;margin-top:4px;">Focus Mode On</div>
+      <div class="badge badge-warning" id="focusModeBadge" style="display:inline-flex;margin-top:4px;" data-i18n="dash_focus_mode">Focus Mode On</div>
       <div class="widget-sub" id="modeSubEl">Reading window active</div>
     </div>
     <div class="widget" style="--wc:linear-gradient(90deg,#ec4899,#8b5cf6);">
@@ -464,19 +464,19 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
     <a href="teacher-dashboard.html" class="agent-card" aria-label="Open Teacher Dashboard">
       <div class="agent-icon">Teacher</div>
       <div class="agent-title" data-i18n="nav_teacher">Teacher Dashboard</div>
-      <div class="agent-desc">Class insights, student progress, early warnings</div>
+      <div class="agent-desc" data-i18n="dash_teacher_desc">Class insights, student progress, early warnings</div>
     </a>
 
     <a href="competition-dashboard.html" class="agent-card" aria-label="Open Demo Page">
       <div class="agent-icon"></div>
-      <div class="agent-title">Demo</div>
-      <div class="agent-desc">Walkthrough demo, ejen AI, bukti perintis</div>
+      <div class="agent-title" data-i18n="dash_demo_title">Demo</div>
+      <div class="agent-desc" data-i18n="dash_demo_desc">Walkthrough demo, AI agents, pilot evidence</div>
     </a>
 
     <a href="pilot-evidence.html" class="agent-card" aria-label="Open Pilot Evidence">
       <div class="agent-icon"></div>
-      <div class="agent-title">Pilot Evidence</div>
-      <div class="agent-desc">User validation results from real learners</div>
+      <div class="agent-title" data-i18n="dash_pilot_title">Pilot Evidence</div>
+      <div class="agent-desc" data-i18n="dash_pilot_desc">User validation results from real learners</div>
     </a>
 
   </div>
@@ -484,7 +484,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   <!-- Recent Activity -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
     <div class="card">
-      <div class="panel-title">Recent Activity</div>
+      <div class="panel-title" data-i18n="dash_recent_act">Recent Activity</div>
       <div class="activity-item">
         <div class="activity-icon" style="background:rgba(99,102,241,0.12)"></div>
         <div>
@@ -511,12 +511,12 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       </div>
     </div>
     <div class="card">
-      <div class="panel-title">Quick Stats</div>
+      <div class="panel-title" data-i18n="dash_quick_stats">Quick Stats</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-        <div class="stat-card"><div class="stat-value">12</div><div class="stat-label">Sessions This Week</div></div>
-        <div class="stat-card"><div class="stat-value">3.2h</div><div class="stat-label">Total Reading Time</div></div>
-        <div class="stat-card"><div class="stat-value">5</div><div class="stat-label">Books Explored</div></div>
-        <div class="stat-card"><div class="stat-value">92%</div><div class="stat-label">Comprehension Avg</div></div>
+        <div class="stat-card"><div class="stat-value">12</div><div class="stat-label" data-i18n="dash_sessions_week">Sessions This Week</div></div>
+        <div class="stat-card"><div class="stat-value">3.2h</div><div class="stat-label" data-i18n="dash_total_read_time">Total Reading Time</div></div>
+        <div class="stat-card"><div class="stat-value">5</div><div class="stat-label" data-i18n="dash_books_explored">Books Explored</div></div>
+        <div class="stat-card"><div class="stat-value">92%</div><div class="stat-label" data-i18n="dash_comp_avg">Comprehension Avg</div></div>
       </div>
     </div>
   </div>
