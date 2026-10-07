@@ -237,6 +237,23 @@ const CS_LANG = {
     hero_tagline:   'Knowledge Without Barrier, Intelligence Without Limits',
     hero_cta1:      'Get Started',
 
+    /* Profile page */
+    prof_badge:          'My Profile',
+    prof_title:          'Learner Profile',
+    prof_subtitle:       'Manage your accessibility settings, reading preferences, and learning history.',
+    prof_edit:           '✎ Edit Profile',
+    prof_this_week:      '📊 This Week',
+    prof_sessions:       'Sessions',
+    prof_read_time:      'Read Time',
+    prof_focus_score:    'Focus Score',
+    prof_books:          'Books',
+    prof_quick_access:   '⚡ Quick Access',
+    prof_my_adhd:        '🧠 My ADHD Agent',
+    prof_reading_companion: '📚 Reading Companion',
+    prof_reading_list:   '📖 My Reading List',
+    prof_risk_report:    '⚠ Risk Report',
+    prof_intervention:   '💡 Intervention Plan',
+
     /* Agents section */
     agents_badge:   'Our 10 AI Agents',
     agents_title:   '10 Agents, One Ecosystem',
@@ -1026,6 +1043,23 @@ const CS_LANG = {
     hero_subtitle:  'Ekosistem Pembelajaran Multi-Deria',
     hero_tagline:   'Ilmu Tanpa Sempadan, Kecerdasan Tanpa Had',
     hero_cta1:      'Mulakan',
+
+    /* Halaman Profil */
+    prof_badge:          'Profil Saya',
+    prof_title:          'Profil Pelajar',
+    prof_subtitle:       'Urus tetapan aksesibiliti, pilihan bacaan, dan sejarah pembelajaran anda.',
+    prof_edit:           '✎ Edit Profil',
+    prof_this_week:      '📊 Minggu Ini',
+    prof_sessions:       'Sesi',
+    prof_read_time:      'Masa Baca',
+    prof_focus_score:    'Skor Fokus',
+    prof_books:          'Buku',
+    prof_quick_access:   '⚡ Akses Pantas',
+    prof_my_adhd:        '🧠 Ejen ADHD Saya',
+    prof_reading_companion: '📚 Rakan Bacaan',
+    prof_reading_list:   '📖 Senarai Bacaan Saya',
+    prof_risk_report:    '⚠ Laporan Risiko',
+    prof_intervention:   '💡 Pelan Intervensi',
 
     /* Bahagian Ejen */
     agents_badge:   '10 Ejen AI Kami',

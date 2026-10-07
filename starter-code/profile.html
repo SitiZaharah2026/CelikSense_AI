@@ -165,9 +165,9 @@
 </nav>
 
 <main class="page-header" style="padding-bottom:24px;" id="main-content">
-  <div class="page-badge"> My Profile</div>
-  <h1 class="page-title gradient-text">Learner Profile</h1>
-  <p class="page-subtitle">Manage your accessibility settings, reading preferences, and learning history.</p>
+  <div class="page-badge" data-i18n="prof_badge"> My Profile</div>
+  <h1 class="page-title gradient-text" data-i18n="prof_title">Learner Profile</h1>
+  <p class="page-subtitle" data-i18n="prof_subtitle">Manage your accessibility settings, reading preferences, and learning history.</p>
 </main>
 
 <div class="container" style="padding-bottom:60px;">
@@ -191,31 +191,31 @@
             <span class="badge badge-primary" id="langBadge">Bilingual</span>
             <span class="badge badge-success">Active</span>
           </div>
-          <button class="btn btn-outline btn-sm w-full" onclick="showTab('settings')">âœ Edit Profile</button>
+          <button class="btn btn-outline btn-sm w-full" onclick="showTab('settings')" data-i18n="prof_edit">✎ Edit Profile</button>
         </div>
       </div>
 
       <!-- Quick Stats -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title"> This Week</div>
+        <div class="panel-title" data-i18n="prof_this_week"> This Week</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div class="stat-card"><div class="stat-value" style="font-size:24px;">12</div><div class="stat-label">Sessions</div></div>
-          <div class="stat-card"><div class="stat-value" style="font-size:24px;">3.2h</div><div class="stat-label">Read Time</div></div>
-          <div class="stat-card"><div class="stat-value" style="font-size:24px;">84</div><div class="stat-label">Focus Score</div></div>
-          <div class="stat-card"><div class="stat-value" style="font-size:24px;">5</div><div class="stat-label">Books</div></div>
+          <div class="stat-card"><div class="stat-value" style="font-size:24px;">12</div><div class="stat-label" data-i18n="prof_sessions">Sessions</div></div>
+          <div class="stat-card"><div class="stat-value" style="font-size:24px;">3.2h</div><div class="stat-label" data-i18n="prof_read_time">Read Time</div></div>
+          <div class="stat-card"><div class="stat-value" style="font-size:24px;">84</div><div class="stat-label" data-i18n="prof_focus_score">Focus Score</div></div>
+          <div class="stat-card"><div class="stat-value" style="font-size:24px;">5</div><div class="stat-label" data-i18n="prof_books">Books</div></div>
         </div>
       </div>
 
       <!-- Quick Nav -->
       <div class="control-panel">
-        <div class="panel-title">⚡ Quick Access</div>
+        <div class="panel-title" data-i18n="prof_quick_access">⚡ Quick Access</div>
         <div style="display:flex;flex-direction:column;gap:6px;">
-          <a href="adhd-agent.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;"> My ADHD Agent</a>
-          <a href="reading-companion.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;"> Reading Companion</a>
-          <a href="ai-librarian.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;"> My Reading List</a>
-          <a href="early-warning.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;">⚠ Risk Report</a>
-          <a href="intervention.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;"> Intervention Plan</a>
-          <a href="dashboard.html" class="btn btn-primary btn-sm"> Dashboard</a>
+          <a href="adhd-agent.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;" data-i18n="prof_my_adhd"> My ADHD Agent</a>
+          <a href="reading-companion.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;" data-i18n="prof_reading_companion"> Reading Companion</a>
+          <a href="ai-librarian.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;" data-i18n="prof_reading_list"> My Reading List</a>
+          <a href="early-warning.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;" data-i18n="prof_risk_report">⚠ Risk Report</a>
+          <a href="intervention.html" class="btn btn-ghost btn-sm" style="justify-content:flex-start;" data-i18n="prof_intervention"> Intervention Plan</a>
+          <a href="dashboard.html" class="btn btn-primary btn-sm" data-i18n="nav_dashboard"> Dashboard</a>
         </div>
       </div>
     </div>
