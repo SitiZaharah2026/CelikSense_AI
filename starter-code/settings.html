@@ -1153,12 +1153,10 @@ function setLanguage(lang) {
   if (enBtn) { enBtn.className = lang === 'en' ? 'btn btn-primary' : 'btn btn-ghost'; }
   if (msBtn) { msBtn.className = lang === 'ms' ? 'btn btn-primary' : 'btn btn-ghost'; }
 
-  var enTrack = document.getElementById('langEnTrack');
-  var msTrack = document.getElementById('langMsTrack');
-  var activeColor = 'var(--primary-light)';
-  var inactiveColor = '';
-  if (enTrack) enTrack.style.background = lang === 'en' ? activeColor : inactiveColor;
-  if (msTrack) msTrack.style.background = lang === 'ms' ? activeColor : inactiveColor;
+  var enInput = document.getElementById('langEn');
+  var msInput = document.getElementById('langMs');
+  if (enInput) enInput.checked = lang === 'en';
+  if (msInput) msInput.checked = lang === 'ms';
 
   CS.toast(lang === 'en' ? 'Language: English' : 'Bahasa: Melayu', 'success');
 }
@@ -1356,10 +1354,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var msBtn = document.getElementById('btnLangMs');
   if (enBtn) enBtn.className = lang === 'en' ? 'btn btn-primary' : 'btn btn-ghost';
   if (msBtn) msBtn.className = lang === 'ms' ? 'btn btn-primary' : 'btn btn-ghost';
-  var enTrack = document.getElementById('langEnTrack');
-  var msTrack = document.getElementById('langMsTrack');
-  if (enTrack) enTrack.style.background = lang === 'en' ? 'var(--primary-light)' : '';
-  if (msTrack) msTrack.style.background = lang === 'ms' ? 'var(--primary-light)' : '';
+  var enInput = document.getElementById('langEn');
+  var msInput = document.getElementById('langMs');
+  if (enInput) enInput.checked = lang === 'en';
+  if (msInput) msInput.checked = lang === 'ms';
 
   /* Show panel from URL hash */
   var hash = location.hash.replace('#','');
