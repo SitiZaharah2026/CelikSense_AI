@@ -500,7 +500,9 @@ async function _reactAI(prompt) {
   } catch(e) { return null; }
 }
 
+var _reactRunning = false;
 async function runReAct() {
+  if (_reactRunning) return;
   var text = '';
   var ta = document.querySelector('textarea'); if (ta) text = ta.value.trim();
   if (!text) {
@@ -514,6 +516,9 @@ async function runReAct() {
   if (!text) { alert('Sila masukkan teks atau data terlebih dahulu.'); return; }
   var hasKey = false; try { hasKey = !!(localStorage.getItem('openrouter_api_key') || ''); } catch(e) {}
   if (!hasKey) { alert('Sila masukkan OpenRouter API Key dalam Tetapan untuk ReAct Analysis.'); return; }
+  _reactRunning = true;
+  var reactBtn = document.querySelector('button[onclick="runReAct()"]');
+  if (reactBtn) { reactBtn.disabled = true; reactBtn.textContent = '⏳ Sedang berjalan…'; }
   var lang = 'ms'; try { lang = localStorage.getItem('cs_lang') || 'ms'; } catch(e) {}
 
   var panel = document.getElementById('reactPanel');
@@ -541,7 +546,7 @@ async function runReAct() {
 
     var tprompt = (lang === 'en' ? thinkPrompts.en : thinkPrompts.ms).replace('{TEXT}', text.slice(0, 800));
     var thought = await _reactAI(tprompt);
-    if (!thought) { th.innerHTML = '⚠ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; break; }
+    if (!thought) { th.innerHTML = '⚠ Tidak dapat sambungan ke OpenRouter. Semak API Key dalam Tetapan.'; s1.className='react-step done'; _reactRunning=false; if(reactBtn){reactBtn.disabled=false;reactBtn.textContent=' ReAct';} break; }
 
     var toolMatch = thought.match(/(?:ALAT|TOOL):\s*(\w+)/i);
     var reasonMatch = thought.match(/(?:SEBAB|REASON):\s*(.+)/is);
@@ -556,7 +561,7 @@ async function runReAct() {
     var apromptObj = actPrompts[chosenTool];
     var aprompt = (lang === 'en' ? apromptObj.en : apromptObj.ms).replace('{TEXT}', text.slice(0, 1000));
     var output = await _reactAI(aprompt);
-    if (!output) { ac.innerHTML = '⚠ Ralat semasa melaksanakan alat.'; break; }
+    if (!output) { ac.innerHTML = '⚠ Ralat semasa melaksanakan alat.'; s2.className='react-step done'; _reactRunning=false; if(reactBtn){reactBtn.disabled=false;reactBtn.textContent=' ReAct';} break; }
     lastOutput = output;
     s2.className = 'react-step done';
     ac.innerHTML = ' Output: <span style="font-size:12px;color:var(--text-muted);">' + escHtml(output.slice(0, 120)) + '…</span>';
@@ -588,6 +593,8 @@ async function runReAct() {
     s4.className = 'react-step done';
     rt.innerHTML = 'Pusingan ' + (round+1) + ' bermula dengan prompt yang diperbaiki.';
   }
+  _reactRunning = false;
+  if (reactBtn) { reactBtn.disabled = false; reactBtn.textContent = ' ReAct'; }
 }
 
 function exportPlan(name, need, risk) {
