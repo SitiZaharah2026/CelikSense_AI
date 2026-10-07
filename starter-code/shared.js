@@ -263,7 +263,8 @@ const CS_LANG = {
     stat_agents:'AI Agents', stat_learner_types:'Learner Types', stat_languages:'Languages', stat_accessible:'Accessible',
     /* Orb tags */
     orb_discover:'DISCOVER', orb_read:'READ', orb_focus:'FOCUS', orb_read_easier:'READ EASIER',
-    orb_listen:'LISTEN', orb_sign:'DEAF SUPPORT', orb_monitor:'MONITOR', orb_plan:'PLAN',
+    orb_listen:'LISTEN', orb_sign:'DEAF SUPPORT', orb_monitor:'MONITOR', orb_plan:'PLAN', orb_support:'SUPPORT', orb_shelf:'SHELF',
+    hero_platform_desc:'— a bilingual AI platform that adapts to blind, deaf, ADHD, and dyslexia learners.',
     /* How It Works */
     how_title:'How It Works',
     how_desc:'Three steps from signup to a fully personalised, accessible learning experience.',
@@ -1051,7 +1052,8 @@ const CS_LANG = {
     stat_agents:'Ejen AI', stat_learner_types:'Jenis Pelajar', stat_languages:'Bahasa', stat_accessible:'Aksesibel',
     /* Tag orb */
     orb_discover:'TEMUI', orb_read:'BACA', orb_focus:'FOKUS', orb_read_easier:'BACA MUDAH',
-    orb_listen:'DENGAR', orb_sign:'SOKONG OKU', orb_monitor:'PANTAU', orb_plan:'RANCANG',
+    orb_listen:'DENGAR', orb_sign:'SOKONG OKU', orb_monitor:'PANTAU', orb_plan:'RANCANG', orb_support:'SOKONG', orb_shelf:'RAK',
+    hero_platform_desc:'— platform AI dwibahasa yang menyokong pelajar buta, pekak, ADHD, dan disleksia.',
     /* Cara Ia Berfungsi */
     how_title:'Cara Ia Berfungsi',
     how_desc:'Tiga langkah dari pendaftaran hingga pengalaman pembelajaran peribadi yang aksesibel sepenuhnya.',
