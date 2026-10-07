@@ -91,7 +91,7 @@
   <div class="alert alert-info" style="margin-bottom:24px;">
     <span></span>
     <div>
-      <strong data-i18n="rc_blind_guide_lbl">Audio Guide for Blind Learner</strong>: Press the audio buttons below to navigate this page using your screen reader or Text-to-Speech. All content is audio-accessible.
+      <strong data-i18n="rc_blind_guide_lbl">Audio Guide for Blind Learner</strong>: <span data-i18n="rc_audio_guide_desc">Press the audio buttons below to navigate this page using your screen reader or Text-to-Speech. All content is audio-accessible.</span>
     </div>
   </div>
 
@@ -175,7 +175,7 @@
       <div class="control-panel" style="margin-bottom:16px;">
         <div class="panel-title" data-i18n="rc_vocab_helper"> Vocabulary Helper</div>
         <div id="vocabWords" style="margin-bottom:12px;">
-          <p style="font-size:13px;color:var(--text-muted);">Load a text to see key vocabulary words.</p>
+          <p style="font-size:13px;color:var(--text-muted);" data-i18n="rc_vocab_empty">Load a text to see key vocabulary words.</p>
         </div>
         <div id="vocabDef" class="hidden"></div>
       </div>
@@ -363,8 +363,9 @@ function loadText() {
 }
 
 function clearText() {
+  var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){return k;};
   document.getElementById('readingInput').value = '';
-  document.getElementById('readingDisplay').innerHTML = 'Click Load Text to begin reading.';
+  document.getElementById('readingDisplay').innerHTML = _t('rc_reading_empty');
   loadedText = '';
   setStatus('Cleared.');
 }
@@ -671,20 +672,22 @@ function injectCelikVerseBook() {
 }
 
 function sendToTeacher() {
+  var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){return k;};
   var text = document.getElementById('readingDisplay') ?
     document.getElementById('readingDisplay').innerText :
     (document.getElementById('readingInput') ? document.getElementById('readingInput').value : '');
-  if (text.trim() && text.trim() !== 'Click Load Text to begin reading.') {
+  if (text.trim() && text.trim() !== _t('rc_reading_empty')) {
     localStorage.setItem('teacher_input_text', text.trim());
   }
   window.location.href = 'ai-teacher-agent.html';
 }
 
 function sendToSignAgent() {
+  var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){return k;};
   var text = document.getElementById('readingDisplay') ?
     document.getElementById('readingDisplay').innerText :
     (document.getElementById('readingInput') ? document.getElementById('readingInput').value : '');
-  if (!text.trim() || text.trim() === 'Click Load Text to begin reading.') {
+  if (!text.trim() || text.trim() === _t('rc_reading_empty')) {
     alert('Please load or paste text first.');
     return;
   }

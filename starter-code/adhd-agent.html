@@ -78,7 +78,7 @@
   <div class="page-header-card">
     <div class="page-badge"></div>
     <h1 class="page-title">ADHD Adaptive Reading Agent</h1>
-    <p class="page-subtitle">Focus-optimised reading with micro-sessions, timers, highlighting, and smart note builder.</p>
+    <p class="page-subtitle" data-i18n="adhd_page_subtitle">Focus-optimised reading with micro-sessions, timers, highlighting, and smart note builder.</p>
   </div>
   </div>
 </main>
@@ -90,13 +90,13 @@
     <div style="display:flex;align-items:center;gap:10px;">
       <span style="font-size:24px;">⏸</span>
       <div>
-        <div style="font-weight:700;font-size:15px;">Time for a Focus Break!</div>
-        <div style="font-size:13px;color:var(--text-muted);">Great work! Take a 5-minute break before continuing.</div>
+        <div style="font-weight:700;font-size:15px;" data-i18n="adhd_break_title">Time for a Focus Break!</div>
+        <div style="font-size:13px;color:var(--text-muted);" data-i18n="adhd_break_msg">Great work! Take a 5-minute break before continuing.</div>
       </div>
     </div>
     <div style="display:flex;gap:10px;">
-      <button class="btn btn-warning btn-sm" onclick="startBreak()">Take Break</button>
-      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('breakBanner').classList.add('hidden')">Skip</button>
+      <button class="btn btn-warning btn-sm" onclick="startBreak()" data-i18n="adhd_take_break">Take Break</button>
+      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('breakBanner').classList.add('hidden')" data-i18n="adhd_skip_break">Skip</button>
     </div>
   </div>
 
@@ -218,7 +218,7 @@
       <!-- Multi-Book Strategy -->
       <div class="control-panel" style="margin-bottom:16px;">
         <div class="panel-title" data-i18n="adhd_multi_book"> Multi-Book Strategy</div>
-        <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:10px;">ADHD learners often thrive reading 2–3 books simultaneously. Rotate based on energy level:</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:10px;" data-i18n="adhd_strategy_desc">ADHD learners often thrive reading 2–3 books simultaneously. Rotate based on energy level:</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;" data-i18n="adhd_high_focus"><strong>High Focus:</strong> Science / Maths</span></div>
           <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;" data-i18n="adhd_med_focus"><strong>Medium Focus:</strong> Stories</span></div>

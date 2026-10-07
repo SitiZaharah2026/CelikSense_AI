@@ -122,7 +122,7 @@
         <div class="panel-title" data-i18n="lib_book_search_title"> Book Search & Discovery</div>
         <div class="search-bar">
           <input type="text" class="form-control" id="searchInput" placeholder="Search books by title, author, or topic…" onkeydown="if(event.key==='Enter') searchBooks()">
-          <button class="btn btn-primary" onclick="searchBooks()">Search</button>
+          <button class="btn btn-primary" onclick="searchBooks()" data-i18n="lib_search_btn">Search</button>
         </div>
         <div class="filter-tabs">
           <button class="filter-tab active" onclick="setFilter('all',this)" aria-pressed="true">Semua</button>
@@ -137,7 +137,7 @@
       <div class="grid grid-3" id="bookGrid" style="margin-bottom:24px;" aria-live="polite" aria-relevant="additions removals"></div>
       <div id="noResults" class="hidden text-center" style="padding:40px;color:var(--text-muted);">
         <div style="font-size:40px;margin-bottom:12px;"></div>
-        <div>No books match your search. Try different keywords.</div>
+        <div data-i18n="lib_no_results">No books match your search. Try different keywords.</div>
       </div>
     </div>
 
@@ -469,6 +469,7 @@ async function searchBooks() {
 }
 
 function renderApiBooks(list) {
+  const _t = (k, fb) => (window.CS && CS.lang && CS.lang.t ? CS.lang.t(k) : null) || fb;
   const grid = document.getElementById('bookGrid');
   const noRes = document.getElementById('noResults');
   if (!list.length) { grid.innerHTML=''; noRes.classList.remove('hidden'); return; }
@@ -480,7 +481,7 @@ function renderApiBooks(list) {
     const sourceLabel = {gutenberg:' Gutenberg', openlibrary:' Open Library', googlebooks:' Google Books'}[b.source] || '';
     let actionBtn = '';
     if (b.source === 'gutenberg' && b.txtUrl) {
-      actionBtn = `<button class="btn btn-primary btn-sm" onclick="loadGutBook(${JSON.stringify(b.gutId)},${JSON.stringify(b.txtUrl)},${JSON.stringify(b.title)},this)">▶ Read</button>`;
+      actionBtn = `<button class="btn btn-primary btn-sm" onclick="loadGutBook(${JSON.stringify(b.gutId)},${JSON.stringify(b.txtUrl)},${JSON.stringify(b.title)},this)">${_t('lib_read_btn')}</button>`;
     } else if (b.source === 'openlibrary') {
       actionBtn = `<a href="https://openlibrary.org${escHtml(b.olKey)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm"> Open Library</a>`;
     } else if (b.source === 'googlebooks' && b.previewLink) {
@@ -494,7 +495,7 @@ function renderApiBooks(list) {
         <div class="book-title">${escHtml(b.title)}</div>
         <div class="book-author">by ${escHtml(b.author)}</div>
         <div style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px;">${escHtml(b.desc)}</div>
-        <div class="book-footer">${actionBtn}<button class="btn btn-ghost btn-sm" onclick="addApiToList(${JSON.stringify(b).replace(/"/g,'&quot;')})">+ Add</button></div>
+        <div class="book-footer">${actionBtn}<button class="btn btn-ghost btn-sm" onclick="addApiToList(${JSON.stringify(b).replace(/"/g,'&quot;')})">${_t('lib_add_btn')}</button></div>
       </div>
     </div>`;
   }).join('');
@@ -555,6 +556,7 @@ function sourceAvailability(b) {
 }
 
 function renderBooks(list) {
+  const _t = (k, fb) => (window.CS && CS.lang && CS.lang.t ? CS.lang.t(k) : null) || fb;
   const grid = document.getElementById('bookGrid');
   const noRes = document.getElementById('noResults');
   if (!list.length) { grid.innerHTML=''; noRes.classList.remove('hidden'); return; }
@@ -569,11 +571,11 @@ function renderBooks(list) {
       : `<div class="book-cover" style="background:${b.cover}22">${b.emoji}</div>`;
     let actionBtn = '';
     if (b.source === 'Gutenberg' && b.gutId) {
-      actionBtn = `<button class="btn btn-primary btn-sm" onclick="loadGutBook(${b.gutId},${JSON.stringify(b.txtUrl||'')},${JSON.stringify(b.title)},this)">▶ Read Free</button>`;
+      actionBtn = `<button class="btn btn-primary btn-sm" onclick="loadGutBook(${b.gutId},${JSON.stringify(b.txtUrl||'')},${JSON.stringify(b.title)},this)">${_t('lib_read_free_btn')}</button>`;
     } else if (b.source === 'OpenLibrary' || b.source === 'OxfordOwl' || b.source === 'IAB') {
       actionBtn = `<button class="btn btn-primary btn-sm" data-burl="${escHtml(b.url||'')}" data-btitle="${escHtml(b.title)}" onclick="showAgentPicker(this.dataset.burl,this.dataset.btitle)">▶ Buka</button>`;
     } else {
-      actionBtn = `<button class="btn btn-primary btn-sm" data-btitle="${escHtml(b.title)}" onclick="showAgentPicker('',this.dataset.btitle)">▶ Read</button>`;
+      actionBtn = `<button class="btn btn-primary btn-sm" data-btitle="${escHtml(b.title)}" onclick="showAgentPicker('',this.dataset.btitle)">${_t('lib_read_btn')}</button>`;
     }
     return `
     <div class="book-card">
@@ -586,7 +588,7 @@ function renderBooks(list) {
         <div style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px;">${escHtml(b.desc)}</div>
         <div class="book-footer">
           ${actionBtn}
-          <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add to reading list">+ Add</button>
+          <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add to reading list">${_t('lib_add_btn')}</button>
         </div>
       </div>
     </div>`;
@@ -671,8 +673,8 @@ async function updateRecommendations() {
       <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">${b.emoji}</span><div><div style="font-size:14px;font-weight:700;">${b.title}</div><div style="font-size:12px;color:var(--text-muted);">${b.author}</div></div></div>
       <div style="margin:8px 0 4px;">${availHTML}</div>
       <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-primary btn-sm" data-burl="${b.url||''}" data-btitle="${b.title}" onclick="showAgentPicker(this.dataset.burl,this.dataset.btitle)">▶ Read</button>
-        <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add ${b.title} to reading list">+ Add</button>
+        <button class="btn btn-primary btn-sm" data-burl="${b.url||''}" data-btitle="${b.title}" onclick="showAgentPicker(this.dataset.burl,this.dataset.btitle)">${_t('lib_read_btn')}</button>
+        <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add ${b.title} to reading list">${_t('lib_add_btn')}</button>
         <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-outline btn-sm" style="font-size:11px;"> Find</a>
       </div>
     </div>`).join('');
@@ -701,7 +703,7 @@ async function updateRecommendations() {
         <div style="margin:8px 0;font-size:13px;font-style:italic;color:var(--text-muted);">"${escHtml(b.reason)}"</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-primary btn-sm"> Find this book</a>
-          <button class="btn btn-ghost btn-sm" data-btitle="${escHtml(b.title||'')}" onclick="showAgentPicker('',this.dataset.btitle)">▶ Read</button>
+          <button class="btn btn-ghost btn-sm" data-btitle="${escHtml(b.title||'')}" onclick="showAgentPicker('',this.dataset.btitle)">${_t('lib_read_btn')}</button>
         </div>
       </div>`).join('') + `<div style="margin-top:8px;font-size:11px;color:var(--text-muted);text-align:center;"> Also showing ${recs.length} curated picks below</div>` + staticHTML;
     // Chain: save recommendations for other agents
