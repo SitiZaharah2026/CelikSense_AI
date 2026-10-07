@@ -887,10 +887,10 @@ a { color: inherit; text-decoration: none; }
       <button class="exp-close" onclick="closeExp()" aria-label="Tutup modal"></button>
     </div>
     <div class="exp-body">
-      <div class="exp-section-label"><span></span>Mod Aksesibiliti (Accessibility Modes)</div>
+      <div class="exp-section-label" data-i18n="hub_section_a11y_full"><span></span>Mod Aksesibiliti (Accessibility Modes)</div>
       <div class="exp-grid" id="expModeGrid"></div>
       <div class="exp-divider"></div>
-      <div class="exp-section-label"><span></span>Pengalaman AI (AI Experiences)</div>
+      <div class="exp-section-label" data-i18n="hub_section_ai_full"><span></span>Pengalaman AI (AI Experiences)</div>
       <div class="exp-grid" id="expAiGrid"></div>
     </div>
   </div>
@@ -1246,7 +1246,7 @@ function openExperience(id) {
     { icon:'', label:_t('hub_mode_adhd_reader'),     sub:'Fokus satu ayat',       url:'celiksense-reader.html', mode:'adhd'      },
     { icon:'<svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg>', label:_t('hub_mode_deaf_reader'),sub:'Visual & isyarat', url:'celiksense-reader.html', mode:'deaf'      },
     { icon:'', label:_t('hub_mode_audio_reader'),    sub:'Dengar buku',           url:'celiksense-reader.html', mode:'blind'     },
-    { icon:'',  label:'Braille Reader',              sub:'Output braille',        url:'celiksense-reader.html', mode:'blind'     },
+    { icon:'',  label:_t('hub_mode_braille_reader'),  sub:'Output braille',        url:'celiksense-reader.html', mode:'blind'     },
     { icon:'', label:_t('hub_mode_standard_reader'), sub:'Mod biasa',             url:'celiksense-reader.html', mode:'adhd'      },
   ];
   var modeHtml = modes.map(function(m){
@@ -1259,8 +1259,8 @@ function openExperience(id) {
 
   // AI grid
   var ais = [
-    { icon:'', label:'AI Teacher',       sub:'Ajar interaktif',     action:'page', url:'ai-teacher-agent.html' },
-    { icon:'', label:'Reading Companion', sub:'Baca bersama AI',     action:'page', url:'reading-companion.html' },
+    { icon:'', label:_t('hub_ai_teacher'),    sub:'Ajar interaktif',     action:'page', url:'ai-teacher-agent.html' },
+    { icon:'', label:_t('hub_ai_reading'),    sub:'Baca bersama AI',     action:'page', url:'reading-companion.html' },
     { icon:'', label:'AI Ringkasan',      sub:'Ringkaskan kandungan', action:'ai',   type:'summary' },
     { icon:'', label:'Jana Kuiz',         sub:'Soalan ujian AI',      action:'ai',   type:'quiz' },
     { icon:'', label:'Peta Minda',        sub:'Peta visual konsep',   action:'ai',   type:'mindmap' },
