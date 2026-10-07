@@ -157,7 +157,7 @@
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
       <a href="profile.html" class="btn btn-ghost btn-sm active"> Profile</a>
-      <a href="dashboard.html" class="btn btn-primary btn-sm">Dashboard</a>
+      <a href="dashboard.html" class="btn btn-primary btn-sm" data-i18n="nav_dashboard">Dashboard</a>
       <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
@@ -188,8 +188,8 @@
           </div>
           <div class="profile-badges">
             <span class="badge badge-warning" id="needBadge">ADHD</span>
-            <span class="badge badge-primary" id="langBadge">Bilingual</span>
-            <span class="badge badge-success">Active</span>
+            <span class="badge badge-primary" id="langBadge" data-i18n="prof_badge_bilingual">BILINGUAL</span>
+            <span class="badge badge-success" data-i18n="prof_badge_active">ACTIVE</span>
           </div>
           <button class="btn btn-outline btn-sm w-full" onclick="showTab('settings')" data-i18n="prof_edit">✎ Edit Profile</button>
         </div>
@@ -224,11 +224,11 @@
     <div>
       <!-- Tabs -->
       <div class="tab-nav" role="tablist">
-        <button class="tab-link active" id="tab-btn-overview" onclick="showTab('overview')" role="tab" aria-selected="true" aria-controls="tab-overview">Overview</button>
-        <button class="tab-link" id="tab-btn-settings" onclick="showTab('settings')" role="tab" aria-selected="false" aria-controls="tab-settings">Profile Settings</button>
-        <button class="tab-link" id="tab-btn-accessibility" onclick="showTab('accessibility')" role="tab" aria-selected="false" aria-controls="tab-accessibility">Accessibility</button>
-        <button class="tab-link" id="tab-btn-activity" onclick="showTab('activity')" role="tab" aria-selected="false" aria-controls="tab-activity">Activity</button>
-        <button class="tab-link" id="tab-btn-achievements" onclick="showTab('achievements')" role="tab" aria-selected="false" aria-controls="tab-achievements">Achievements</button>
+        <button class="tab-link active" id="tab-btn-overview" onclick="showTab('overview')" role="tab" aria-selected="true" aria-controls="tab-overview" data-i18n="prof_tab_overview">Overview</button>
+        <button class="tab-link" id="tab-btn-settings" onclick="showTab('settings')" role="tab" aria-selected="false" aria-controls="tab-settings" data-i18n="prof_tab_settings">Profile Settings</button>
+        <button class="tab-link" id="tab-btn-accessibility" onclick="showTab('accessibility')" role="tab" aria-selected="false" aria-controls="tab-accessibility" data-i18n="prof_tab_a11y">Accessibility</button>
+        <button class="tab-link" id="tab-btn-activity" onclick="showTab('activity')" role="tab" aria-selected="false" aria-controls="tab-activity" data-i18n="prof_tab_activity">Activity</button>
+        <button class="tab-link" id="tab-btn-achievements" onclick="showTab('achievements')" role="tab" aria-selected="false" aria-controls="tab-achievements" data-i18n="prof_tab_achievements">Achievements</button>
       </div>
 
       <!-- ── OVERVIEW ── -->
@@ -276,25 +276,25 @@
 
         <!-- Progress Overview -->
         <div class="card" style="margin-bottom:16px;">
-          <div class="panel-title"> Learning Progress</div>
+          <div class="panel-title" data-i18n="prof_learning_progress"> Learning Progress</div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;">
             <div>
-              <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">Reading Progress</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;" data-i18n="prof_reading_progress">Reading Progress</div>
               <div style="font-size:24px;font-weight:800;color:var(--primary-light);">72%</div>
               <div class="progress-bar" style="margin-top:8px;"><div class="progress-fill" style="width:72%"></div></div>
-              <div style="font-size:11px;color:var(--text-dim);margin-top:4px;">3 of 5 chapters</div>
+              <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="prof_chapters_label">3 of 5 chapters</div>
             </div>
             <div>
-              <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">Comprehension</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;" data-i18n="prof_comprehension_lbl">Comprehension</div>
               <div style="font-size:24px;font-weight:800;color:var(--success);">88%</div>
               <div class="progress-bar" style="margin-top:8px;"><div class="progress-fill" style="width:88%;background:var(--success)"></div></div>
-              <div style="font-size:11px;color:var(--text-dim);margin-top:4px;">Above average</div>
+              <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="prof_above_average">Above average</div>
             </div>
             <div>
-              <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">Focus Score</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;" data-i18n="prof_focus_score">Focus Score</div>
               <div style="font-size:24px;font-weight:800;color:var(--warning);">76</div>
               <div class="progress-bar" style="margin-top:8px;"><div class="progress-fill" style="width:76%;background:var(--warning)"></div></div>
-              <div style="font-size:11px;color:var(--text-dim);margin-top:4px;">Improving &larr;‘</div>
+              <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="prof_improving">Improving ←</div>
             </div>
           </div>
           <div class="alert alert-info" style="margin:0;font-size:13px;">
@@ -306,8 +306,8 @@
         <!-- Current Reading List -->
         <div class="card" style="margin-bottom:16px;">
           <div class="panel-title" style="display:flex;align-items:center;justify-content:space-between;">
-             Currently Reading
-            <a href="ai-librarian.html" class="btn btn-ghost btn-sm">Find More Books</a>
+            <span data-i18n="prof_currently_reading"> Currently Reading</span>
+            <a href="ai-librarian.html" class="btn btn-ghost btn-sm" data-i18n="prof_find_more_books">Find More Books</a>
           </div>
           <div id="readingListProfile">
             <div class="reading-item">
@@ -317,7 +317,7 @@
                 <div style="font-size:12px;color:var(--text-muted);">Ahmad Zaki · Chapter 3 of 5</div>
                 <div class="reading-progress-mini"><div class="reading-fill-mini" style="width:60%"></div></div>
               </div>
-              <a href="reading-companion.html" class="btn btn-primary btn-sm">Continue</a>
+              <a href="reading-companion.html" class="btn btn-primary btn-sm" data-i18n="prof_continue">Continue</a>
             </div>
             <div class="reading-item">
               <div class="reading-cover" style="background:rgba(99,102,241,0.1);"></div>
@@ -326,7 +326,7 @@
                 <div style="font-size:12px;color:var(--text-muted);">Nur Azlina · Chapter 1 of 8</div>
                 <div class="reading-progress-mini"><div class="reading-fill-mini" style="width:12%"></div></div>
               </div>
-              <a href="reading-companion.html" class="btn btn-outline btn-sm">Read</a>
+              <a href="reading-companion.html" class="btn btn-outline btn-sm" data-i18n="prof_read_btn">Read</a>
             </div>
             <div class="reading-item">
               <div class="reading-cover" style="background:rgba(245,158,11,0.1);"></div>
@@ -335,21 +335,21 @@
                 <div style="font-size:12px;color:var(--text-muted);">Raj Kumar · Complete ✓</div>
                 <div class="reading-progress-mini"><div class="reading-fill-mini" style="width:100%;background:var(--success)"></div></div>
               </div>
-              <span class="badge badge-success">Done</span>
+              <span class="badge badge-success" data-i18n="prof_done_badge">Done</span>
             </div>
           </div>
         </div>
 
         <!-- Recommended Intervention -->
         <div class="card">
-          <div class="panel-title"> AI Recommendation</div>
+          <div class="panel-title" data-i18n="prof_ai_recommendation"> AI Recommendation</div>
           <div class="intervention-card" style="margin-bottom:0;">
-            <div class="intervention-priority">Based on your last 7 sessions</div>
-            <div class="intervention-title">Try 15-Minute Focus Sessions This Week</div>
+            <div class="intervention-priority" data-i18n="prof_based_on_sessions">Based on your last 7 sessions</div>
+            <div class="intervention-title" data-i18n="dash_pilot_title">Try 15-Minute Focus Sessions This Week</div>
             <div class="intervention-desc">Your focus scores have been consistently above 75 for 3 sessions. The ADHD Agent suggests stepping up from 10-minute to 15-minute sessions while keeping 3-minute breaks.</div>
             <div style="display:flex;gap:8px;margin-top:12px;">
-              <a href="adhd-agent.html" class="btn btn-primary btn-sm">Open ADHD Agent</a>
-              <a href="intervention.html" class="btn btn-ghost btn-sm">Full Plan</a>
+              <a href="adhd-agent.html" class="btn btn-primary btn-sm" data-i18n="prof_open_adhd">Open ADHD Agent</a>
+              <a href="intervention.html" class="btn btn-ghost btn-sm" data-i18n="prof_full_plan">Full Plan</a>
             </div>
           </div>
         </div>
@@ -615,7 +615,7 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-bottom">
-      <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)">Dashboard</a></span>
+      <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)" data-i18n="nav_home">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)" data-i18n="nav_dashboard">Dashboard</a></span>
       <span> Learner Profile</span>
     </div>
   </div>

@@ -1368,7 +1368,8 @@ function renderMyLibrary() {
   var lib = CS.books.getLibrary();
   var grid = document.getElementById('myLibGrid');
   if (!lib.length) {
-    grid.innerHTML = '<p class="lib-empty" style="grid-column:1/-1;">Your library is empty. Save books from the search results above.</p>';
+    var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){return k;};
+    grid.innerHTML = '<p class="lib-empty" style="grid-column:1/-1;">'+_t('bd_library_empty')+'</p>';
     return;
   }
   grid.innerHTML = lib.map(function(b) {

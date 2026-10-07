@@ -66,7 +66,7 @@
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn" aria-label="Switch to Bahasa Melayu">BM</button>
       <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
-      <a href="dashboard.html" class="btn btn-outline btn-sm">← Dashboard</a>
+      <a href="dashboard.html" class="btn btn-outline btn-sm" data-i18n="nav_back_dashboard">← Dashboard</a>
       <a href="settings.html" class="btn btn-ghost btn-sm" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       <button class="nav-hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
@@ -127,9 +127,9 @@
 
       <!-- Session Controls -->
       <div class="control-panel" style="margin-bottom:20px;">
-        <div class="panel-title">⏱ Micro-Reading Session</div>
+        <div class="panel-title" data-i18n="adhd_micro_title">⏱ Micro-Reading Session</div>
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
-          <span style="font-size:13px;color:var(--text-muted);margin-right:4px;">Session Length:</span>
+          <span style="font-size:13px;color:var(--text-muted);margin-right:4px;" data-i18n="adhd_session_len">Session Length:</span>
           <button class="session-btn" onclick="setSession(5,this)">5 min</button>
           <button class="session-btn active" onclick="setSession(10,this)">10 min</button>
           <button class="session-btn" onclick="setSession(15,this)">15 min</button>
@@ -137,11 +137,11 @@
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
           <div>
             <div class="timer-display" id="timerDisplay" role="timer" aria-live="off" aria-label="Focus timer">10:00</div>
-            <div class="timer-label" id="timerLabel">Session Timer</div>
+            <div class="timer-label" id="timerLabel" data-i18n="adhd_session_timer">Session Timer</div>
           <div id="timerStatus" role="status" aria-live="polite" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:8px;margin-left:16px;">
-            <button class="btn btn-success" id="startBtn" onclick="startSession()">▶ Start Session</button>
+            <button class="btn btn-success" id="startBtn" onclick="startSession()" data-i18n="adhd_start_session">▶ Start Session</button>
             <button class="btn btn-ghost" id="pauseBtn" onclick="pauseSession()" disabled>⏸ Pause</button>
             <button class="btn btn-danger btn-sm" onclick="stopSession()">⏹ Stop</button>
           </div>
@@ -150,29 +150,29 @@
 
       <!-- Interest Input + Strategy -->
       <div class="control-panel" style="margin-bottom:20px;">
-        <div class="panel-title"> Interest & Strategy</div>
+        <div class="panel-title" data-i18n="adhd_interest_title"> Interest & Strategy</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
           <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label">My Interests</label>
+            <label class="form-label" data-i18n="adhd_my_interests">My Interests</label>
             <input type="text" class="form-control" id="interestInput" placeholder="e.g. science, football, music…">
           </div>
           <div class="form-group" style="margin-bottom:0;">
-            <label class="form-label">Reading Mode</label>
+            <label class="form-label" data-i18n="adhd_reading_mode">Reading Mode</label>
             <select class="form-control" id="readingMode" onchange="applyMode()">
-              <option value="focus">Focus Window Mode</option>
-              <option value="chunk">Chunk Reading Mode</option>
-              <option value="free">Free Reading Mode</option>
+              <option value="focus" data-i18n="adhd_focus_window">Focus Window Mode</option>
+              <option value="chunk" data-i18n="adhd_chunk_mode">Chunk Reading Mode</option>
+              <option value="free" data-i18n="adhd_free_mode">Free Reading Mode</option>
             </select>
           </div>
         </div>
-        <button class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="generateStrategy()"> Generate Strategy</button>
-        <button onclick="runReAct()" class="btn btn-sm" style="margin-top:12px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis"> ReAct</button>
+        <button class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="generateStrategy()" data-i18n="adhd_gen_strategy"> Generate Strategy</button>
+        <button onclick="runReAct()" class="btn btn-sm" style="margin-top:12px;background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis" data-i18n="rc_react"> ReAct</button>
         <div id="strategyOutput" class="hidden" style="margin-top:12px;padding:14px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:var(--radius);font-size:13px;line-height:1.6;"></div>
       </div>
 
       <!-- Reading Area with Focus Window -->
       <div class="control-panel" style="margin-bottom:20px;">
-        <div class="panel-title"> Reading Area</div>
+        <div class="panel-title" data-i18n="adhd_reading_area"> Reading Area</div>
 
         <!-- Highlight Toolbar -->
         <div class="highlight-toolbar" role="toolbar" aria-label="Text highlight colours" style="position:relative;z-index:10;">
@@ -207,43 +207,43 @@
     <div>
       <!-- Focus Score -->
       <div class="control-panel" style="margin-bottom:16px;text-align:center;">
-        <div class="panel-title"> Focus Score</div>
+        <div class="panel-title" data-i18n="adhd_focus"> Focus Score</div>
         <div class="gauge" id="focusGauge" style="--pct:72;">
           <div class="gauge-value" id="focusVal">72</div>
         </div>
-        <div style="font-size:12px;color:var(--text-muted);margin-top:10px;" id="focusMsg">Good Focus Level </div>
-        <button class="btn btn-ghost btn-sm w-full" style="margin-top:10px;" onclick="simulateFocus()">↻ Simulate Score</button>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:10px;" id="focusMsg" data-i18n="adhd_good_focus">Good Focus Level </div>
+        <button class="btn btn-ghost btn-sm w-full" style="margin-top:10px;" onclick="simulateFocus()" data-i18n="adhd_simulate">↻ Simulate Score</button>
       </div>
 
       <!-- Multi-Book Strategy -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title"> Multi-Book Strategy</div>
+        <div class="panel-title" data-i18n="adhd_multi_book"> Multi-Book Strategy</div>
         <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:10px;">ADHD learners often thrive reading 2–3 books simultaneously. Rotate based on energy level:</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;"><strong>High Focus:</strong> Science / Maths</span></div>
-          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;"><strong>Medium Focus:</strong> Stories</span></div>
-          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;"><strong>Low Focus:</strong> Comics / BIM</span></div>
+          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;" data-i18n="adhd_high_focus"><strong>High Focus:</strong> Science / Maths</span></div>
+          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;" data-i18n="adhd_med_focus"><strong>Medium Focus:</strong> Stories</span></div>
+          <div style="background:var(--bg);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;"><span></span><span style="font-size:13px;" data-i18n="adhd_low_focus"><strong>Low Focus:</strong> Comics / BIM</span></div>
         </div>
       </div>
 
       <!-- Note Builder -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title"> AI Note Builder</div>
+        <div class="panel-title" data-i18n="adhd_note_builder"> AI Note Builder</div>
         <div style="display:flex;gap:8px;margin-bottom:10px;">
           <input type="text" class="form-control" id="noteInput" placeholder="Add a note or quote…" style="flex:1;">
           <button class="btn btn-primary btn-sm" onclick="addNote()">+</button>
         </div>
         <div id="notesList" aria-live="polite" aria-label="Notes list"></div>
-        <button class="btn btn-ghost btn-sm w-full" onclick="exportNotes()" style="margin-top:8px;"> Export Notes</button>
+        <button class="btn btn-ghost btn-sm w-full" onclick="exportNotes()" style="margin-top:8px;" data-i18n="adhd_export_notes"> Export Notes</button>
       </div>
 
       <!-- Intervention Rec -->
       <div class="control-panel">
-        <div class="panel-title"> ADHD Intervention</div>
-        <div id="interventionRec" style="font-size:13px;color:var(--text-muted);line-height:1.6;">
+        <div class="panel-title" data-i18n="adhd_intervention"> ADHD Intervention</div>
+        <div id="interventionRec" style="font-size:13px;color:var(--text-muted);line-height:1.6;" data-i18n="adhd_intervention_empty">
           Start a session to receive personalised ADHD reading interventions.
         </div>
-        <a href="intervention.html" class="btn btn-outline btn-sm w-full" style="margin-top:10px;">View Full Intervention Plan</a>
+        <a href="intervention.html" class="btn btn-outline btn-sm w-full" style="margin-top:10px;" data-i18n="adhd_view_plan">View Full Intervention Plan</a>
       </div>
     </div>
   </div>
@@ -252,7 +252,7 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-bottom">
-      <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)">Dashboard</a></span>
+      <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)" data-i18n="nav_home">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)" data-i18n="nav_dashboard">Dashboard</a></span>
       <span> ADHD Adaptive Reading Agent</span>
     </div>
   </div>
