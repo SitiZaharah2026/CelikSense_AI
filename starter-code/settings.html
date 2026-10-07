@@ -1262,18 +1262,19 @@ function aeLoad() {
 
 function aeUpdateBadges(cfg) {
   if (!cfg) { try { cfg = JSON.parse(localStorage.getItem('cs_avatar_engine') || '{}'); } catch(e) { cfg = {}; } }
-  function badge(id, text, ready) {
+  var t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){ return k; };
+  function badge(id, key, ready) {
     var el = document.getElementById('ae-badge-' + id);
     if (!el) return;
-    el.textContent = text;
+    el.textContent = t(key);
     el.className = 'ae-status-badge' + (ready ? ' ae-ready' : '');
   }
-  badge('heygen', cfg.heygenApiKey ? 'Configured' : 'No API Key', !!cfg.heygenApiKey);
-  badge('did',    cfg.didApiKey    ? 'Configured' : 'No API Key', !!cfg.didApiKey);
-  badge('nvidia', (cfg.nvidiaEndpoint && cfg.nvidiaToken) ? 'Configured' : 'Not Configured',
+  badge('heygen', cfg.heygenApiKey ? 'ae_configured' : 'ae_no_api_key', !!cfg.heygenApiKey);
+  badge('did',    cfg.didApiKey    ? 'ae_configured' : 'ae_no_api_key', !!cfg.didApiKey);
+  badge('nvidia', (cfg.nvidiaEndpoint && cfg.nvidiaToken) ? 'ae_configured' : 'ae_not_configured',
         !!(cfg.nvidiaEndpoint && cfg.nvidiaToken));
-  badge('rpm',         'Available', true);
-  badge('placeholder', 'Always Available', true);
+  badge('rpm',         'ae_available',       true);
+  badge('placeholder', 'ae_always_available', true);
 }
 
 function aeSaveField(field, value) {
@@ -1299,8 +1300,9 @@ function aeToggleVisibility(inputId) {
 async function aeTestProvider(name) {
   var resultEl = document.getElementById('aeTestResult-' + name);
   var badge    = document.getElementById('ae-badge-' + name);
-  if (resultEl) { resultEl.style.display = 'block'; resultEl.style.color = '#a5b4fc'; resultEl.textContent = 'Testing…'; }
-  if (badge) { badge.textContent = 'Testing…'; badge.className = 'ae-status-badge ae-testing'; }
+  var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){ return k; };
+  if (resultEl) { resultEl.style.display = 'block'; resultEl.style.color = '#a5b4fc'; resultEl.textContent = _t('ae_testing'); }
+  if (badge) { badge.textContent = _t('ae_testing'); badge.className = 'ae-status-badge ae-testing'; }
 
   // Save the current key values first (in case user just typed without blur)
   var fieldMap = {

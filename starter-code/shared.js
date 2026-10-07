@@ -498,6 +498,8 @@ const CS_LANG = {
     ae_quality_medium:     'Medium',
     ae_quality_low:        'Low (faster)',
     ae_language:           'Language',
+    ae_configured:         'Configured',
+    ae_testing:            'Testing…',
     skip_link:              'Skip to main content',
     skip_to_main:           'Skip to main content',
     /* Personalisation Agent */
@@ -1341,6 +1343,8 @@ const CS_LANG = {
     ae_quality_medium:     'Sederhana',
     ae_quality_low:        'Rendah (lebih pantas)',
     ae_language:           'Bahasa',
+    ae_configured:         'Dikonfigurasi',
+    ae_testing:            'Menguji…',
     skip_link:              'Langkau ke kandungan utama',
     skip_to_main:           'Langkau ke kandungan utama',
     pa_title:               'Agen Pemperibadian',
