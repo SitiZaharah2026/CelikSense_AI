@@ -184,6 +184,20 @@ function updateIabWordCount() {
   clearBtn.style.display = 'inline-block';
 }
 
+function _iabSetImage(dataUrl) {
+  window._iabImageDataUrl = dataUrl;
+  try { localStorage.setItem('cs_iab_img', dataUrl); } catch(e) {}
+  document.getElementById('iabImgPreview').src = dataUrl;
+  document.getElementById('iabImgWrap').style.display = 'block';
+  document.getElementById('iabClearBtn').style.display = 'inline-block';
+  document.getElementById('iabWordCount').textContent = '📸 Gambar sedia untuk OCR';
+  document.getElementById('iabWordCount').style.color = '#7c3aed';
+}
+
+function _iabGetImage() {
+  return window._iabImageDataUrl || localStorage.getItem('cs_iab_img') || null;
+}
+
 function clearIabPaste() {
   document.getElementById('iabPasteBox').value = '';
   document.getElementById('iabWordCount').textContent = '';
@@ -191,18 +205,24 @@ function clearIabPaste() {
   document.getElementById('iabImgWrap').style.display = 'none';
   document.getElementById('iabImgPreview').src = '';
   window._iabImageDataUrl = null;
+  try { localStorage.removeItem('cs_iab_img'); } catch(e) {}
   document.getElementById('iabPasteBox').focus();
 }
 
 function sendIabToAgent(page) {
   var text = document.getElementById('iabPasteBox').value.trim();
   if (!text) {
-    if (window._iabImageDataUrl) {
-      if (confirm('Gambar dikesan.\n\nKlik OCR Agent dahulu untuk ekstrak teks dari gambar, kemudian pilih agen lain.\n\nBuka OCR Agent sekarang?')) {
-        sendIabImageToOcr();
+    var img = _iabGetImage();
+    if (img) {
+      // Image detected — send to OCR first, then redirect to target agent
+      localStorage.setItem('cs_ocr_image', img);
+      localStorage.setItem('cs_ocr_source', 'IAB Screenshot');
+      if (page !== 'ocr-agent.html') {
+        localStorage.setItem('cs_ocr_return_to', page);
       }
+      window.location.href = 'ocr-agent.html';
     } else {
-      alert('Sila tampal teks dari buku terlebih dahulu.');
+      alert('Sila tampal teks (Ctrl+C → Ctrl+V) atau screenshot gambar buku (Print Screen → Ctrl+V) ke dalam kotak di atas terlebih dahulu.');
     }
     return;
   }
@@ -212,14 +232,34 @@ function sendIabToAgent(page) {
 }
 
 function sendIabImageToOcr() {
-  if (window._iabImageDataUrl) {
-    localStorage.setItem('cs_ocr_image', window._iabImageDataUrl);
+  var img = _iabGetImage();
+  if (img) {
+    localStorage.setItem('cs_ocr_image', img);
     localStorage.setItem('cs_ocr_source', 'IAB Screenshot');
+    localStorage.removeItem('cs_ocr_return_to');
     window.location.href = 'ocr-agent.html';
   } else {
     sendIabToAgent('ocr-agent.html');
   }
 }
+
+// Restore cached image on load
+(function() {
+  var cached = localStorage.getItem('cs_iab_img');
+  if (cached) {
+    window._iabImageDataUrl = cached;
+    document.addEventListener('DOMContentLoaded', function() {
+      var prev = document.getElementById('iabImgPreview');
+      var wrap = document.getElementById('iabImgWrap');
+      var clr  = document.getElementById('iabClearBtn');
+      var wc   = document.getElementById('iabWordCount');
+      if (prev) prev.src = cached;
+      if (wrap) wrap.style.display = 'block';
+      if (clr)  clr.style.display = 'inline-block';
+      if (wc)   { wc.textContent = '📸 Gambar sedia untuk OCR'; wc.style.color = '#7c3aed'; }
+    });
+  }
+})();
 
 // Listen for paste events anywhere on the panel
 document.addEventListener('paste', function(e) {
@@ -230,14 +270,7 @@ document.addEventListener('paste', function(e) {
       e.preventDefault();
       var file = items[i].getAsFile();
       var reader = new FileReader();
-      reader.onload = function(ev) {
-        window._iabImageDataUrl = ev.target.result;
-        document.getElementById('iabImgPreview').src = ev.target.result;
-        document.getElementById('iabImgWrap').style.display = 'block';
-        document.getElementById('iabClearBtn').style.display = 'inline-block';
-        document.getElementById('iabWordCount').textContent = '📸 Gambar sedia untuk OCR';
-        document.getElementById('iabWordCount').style.color = '#7c3aed';
-      };
+      reader.onload = function(ev) { _iabSetImage(ev.target.result); };
       reader.readAsDataURL(file);
       return;
     }
