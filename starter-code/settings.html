@@ -706,15 +706,15 @@
       <div class="settings-panel" id="panel-avatar">
 
         <div class="settings-section">
-          <div class="settings-section-title"> Avatar Engine</div>
-          <div class="settings-section-desc">
+          <div class="settings-section-title" data-i18n="ae_title"> Avatar Engine</div>
+          <div class="settings-section-desc" data-i18n="ae_desc">
             Configure the professional AI avatar system for BIM Sign Language presentation.
             The engine automatically switches to a backup provider if one fails.
           </div>
 
           <!-- Active provider selector -->
           <div class="settings-row" style="margin-top:20px;">
-            <div class="settings-row-label">Active Provider</div>
+            <div class="settings-row-label" data-i18n="ae_active_provider">Active Provider</div>
             <div class="settings-row-control">
               <select id="aeProviderSelect" class="api-key-input" style="max-width:260px;padding:10px 14px;cursor:pointer;"
                       onchange="aeSetProvider(this.value)">
@@ -731,23 +731,23 @@
           <div id="aeProviderStatuses" style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             <div class="ae-status-card" id="ae-card-heygen">
               <div class="ae-status-name">HeyGen</div>
-              <div class="ae-status-badge" id="ae-badge-heygen">No API Key</div>
+              <div class="ae-status-badge" id="ae-badge-heygen" data-i18n="ae_no_api_key">No API Key</div>
             </div>
             <div class="ae-status-card" id="ae-card-did">
               <div class="ae-status-name">D-ID</div>
-              <div class="ae-status-badge" id="ae-badge-did">No API Key</div>
+              <div class="ae-status-badge" id="ae-badge-did" data-i18n="ae_no_api_key">No API Key</div>
             </div>
             <div class="ae-status-card" id="ae-card-nvidia">
               <div class="ae-status-name">NVIDIA ACE</div>
-              <div class="ae-status-badge" id="ae-badge-nvidia">Not Configured</div>
+              <div class="ae-status-badge" id="ae-badge-nvidia" data-i18n="ae_not_configured">Not Configured</div>
             </div>
             <div class="ae-status-card" id="ae-card-rpm">
               <div class="ae-status-name">Ready Player Me</div>
-              <div class="ae-status-badge ae-ready" id="ae-badge-rpm">Available</div>
+              <div class="ae-status-badge ae-ready" id="ae-badge-rpm" data-i18n="ae_available">Available</div>
             </div>
             <div class="ae-status-card" id="ae-card-placeholder">
               <div class="ae-status-name">Canvas (Offline)</div>
-              <div class="ae-status-badge ae-ready" id="ae-badge-placeholder">Always Available</div>
+              <div class="ae-status-badge ae-ready" id="ae-badge-placeholder" data-i18n="ae_always_available">Always Available</div>
             </div>
           </div>
         </div>
@@ -755,7 +755,7 @@
         <!-- HeyGen -->
         <div class="settings-section">
           <div class="settings-section-title" style="font-size:14px;">HeyGen API</div>
-          <div class="settings-section-desc">
+          <div class="settings-section-desc" data-i18n="ae_heygen_desc">
             HeyGen provides WebRTC streaming for near-real-time talking avatars.
             Get your API key from <strong>app.heygen.com → API</strong>.
           </div>
@@ -764,16 +764,16 @@
               placeholder="Paste HeyGen API key" autocomplete="off" spellcheck="false"
               oninput="aeSaveField('heygenApiKey', this.value)">
             <button class="api-key-btn" onclick="aeToggleVisibility('heygenKeyInput')"></button>
-            <button class="api-key-btn" onclick="aeTestProvider('heygen')">Test</button>
+            <button class="api-key-btn" onclick="aeTestProvider('heygen')" data-i18n="ae_test">Test</button>
           </div>
           <div class="settings-row" style="margin-top:10px;flex-wrap:wrap;gap:8px;">
-            <div class="settings-row-label" style="min-width:100px;">Avatar ID</div>
+            <div class="settings-row-label" style="min-width:100px;" data-i18n="ae_avatar_id">Avatar ID</div>
             <input type="text" id="heygenAvatarId" class="api-key-input" style="max-width:280px;"
               placeholder="e.g. Angela-inblackskirt-20220820"
               oninput="aeSaveField('heygenAvatarId', this.value)">
           </div>
           <div class="settings-row" style="margin-top:8px;flex-wrap:wrap;gap:8px;">
-            <div class="settings-row-label" style="min-width:100px;">Voice ID</div>
+            <div class="settings-row-label" style="min-width:100px;" data-i18n="ae_voice_id">Voice ID</div>
             <input type="text" id="heygenVoiceId" class="api-key-input" style="max-width:280px;"
               placeholder="e.g. en-US-JennyNeural"
               oninput="aeSaveField('heygenVoiceId', this.value)">
@@ -784,7 +784,7 @@
         <!-- D-ID -->
         <div class="settings-section">
           <div class="settings-section-title" style="font-size:14px;">D-ID API</div>
-          <div class="settings-section-desc">
+          <div class="settings-section-desc" data-i18n="ae_did_desc">
             D-ID generates talking-head videos from a photo and text.
             Get your API key from <strong>studio.d-id.com → API</strong>.
           </div>
@@ -793,10 +793,10 @@
               placeholder="Paste D-ID API key" autocomplete="off" spellcheck="false"
               oninput="aeSaveField('didApiKey', this.value)">
             <button class="api-key-btn" onclick="aeToggleVisibility('didKeyInput')"></button>
-            <button class="api-key-btn" onclick="aeTestProvider('did')">Test</button>
+            <button class="api-key-btn" onclick="aeTestProvider('did')" data-i18n="ae_test">Test</button>
           </div>
           <div class="settings-row" style="margin-top:10px;flex-wrap:wrap;gap:8px;">
-            <div class="settings-row-label" style="min-width:120px;">Presenter Image URL</div>
+            <div class="settings-row-label" style="min-width:120px;" data-i18n="ae_presenter_url">Presenter Image URL</div>
             <input type="url" id="didPresenterUrl" class="api-key-input" style="max-width:340px;"
               placeholder="https://... (photo of your presenter)"
               oninput="aeSaveField('didPresenterUrl', this.value)">
@@ -807,12 +807,12 @@
         <!-- NVIDIA ACE -->
         <div class="settings-section">
           <div class="settings-section-title" style="font-size:14px;">NVIDIA ACE (Enterprise)</div>
-          <div class="settings-section-desc">
+          <div class="settings-section-desc" data-i18n="ae_nvidia_desc">
             NVIDIA ACE requires an enterprise deployment (cloud or on-premise).
             Contact NVIDIA or your IT department for endpoint and token.
           </div>
           <div class="settings-row" style="margin-top:12px;flex-wrap:wrap;gap:8px;">
-            <div class="settings-row-label" style="min-width:100px;">Endpoint URL</div>
+            <div class="settings-row-label" style="min-width:100px;" data-i18n="ae_endpoint_url">Endpoint URL</div>
             <input type="url" id="nvidiaEndpoint" class="api-key-input" style="max-width:340px;"
               placeholder="https://your-ace-deployment/v1"
               oninput="aeSaveField('nvidiaEndpoint', this.value)">
@@ -822,7 +822,7 @@
               placeholder="NVIDIA NGC API token" autocomplete="off" spellcheck="false"
               oninput="aeSaveField('nvidiaToken', this.value)">
             <button class="api-key-btn" onclick="aeToggleVisibility('nvidiaToken')"></button>
-            <button class="api-key-btn" onclick="aeTestProvider('nvidia')">Test</button>
+            <button class="api-key-btn" onclick="aeTestProvider('nvidia')" data-i18n="ae_test">Test</button>
           </div>
           <div id="aeTestResult-nvidia" style="margin-top:8px;font-size:12px;display:none;"></div>
         </div>
@@ -830,35 +830,35 @@
         <!-- Ready Player Me -->
         <div class="settings-section">
           <div class="settings-section-title" style="font-size:14px;">Ready Player Me</div>
-          <div class="settings-section-desc">
+          <div class="settings-section-desc" data-i18n="ae_rpm_desc">
             No API key needed. Uses your RPM subdomain to embed a 3D avatar creator.
           </div>
           <div class="settings-row" style="margin-top:12px;flex-wrap:wrap;gap:8px;">
-            <div class="settings-row-label" style="min-width:100px;">Subdomain</div>
+            <div class="settings-row-label" style="min-width:100px;" data-i18n="ae_subdomain">Subdomain</div>
             <input type="text" id="rpmSubdomain" class="api-key-input" style="max-width:200px;"
               placeholder="celiksense"
               oninput="aeSaveField('rpmSubdomain', this.value)">
           </div>
           <div id="rpmAvatarPreview" style="margin-top:10px;display:none;">
-            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Saved Avatar URL:</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;" data-i18n="ae_saved_avatar_url">Saved Avatar URL:</div>
             <div id="rpmAvatarUrl" style="font-size:11px;color:var(--primary-light);word-break:break-all;"></div>
           </div>
         </div>
 
         <!-- Presentation Quality -->
         <div class="settings-section">
-          <div class="settings-section-title" style="font-size:14px;">Presentation Settings</div>
+          <div class="settings-section-title" style="font-size:14px;" data-i18n="ae_presentation">Presentation Settings</div>
           <div class="settings-row" style="margin-top:12px;">
-            <div class="settings-row-label">Animation Quality</div>
+            <div class="settings-row-label" data-i18n="ae_anim_quality">Animation Quality</div>
             <select id="aeQuality" class="api-key-input" style="max-width:160px;padding:8px 12px;cursor:pointer;"
                     onchange="aeSaveField('quality', this.value)">
-              <option value="high">High</option>
-              <option value="medium">Medium</option>
-              <option value="low">Low (faster)</option>
+              <option value="high" data-i18n="ae_quality_high">High</option>
+              <option value="medium" data-i18n="ae_quality_medium">Medium</option>
+              <option value="low" data-i18n="ae_quality_low">Low (faster)</option>
             </select>
           </div>
           <div class="settings-row" style="margin-top:8px;">
-            <div class="settings-row-label">Language</div>
+            <div class="settings-row-label" data-i18n="ae_language">Language</div>
             <select id="aeLanguage" class="api-key-input" style="max-width:200px;padding:8px 12px;cursor:pointer;"
                     onchange="aeSaveField('language', this.value)">
               <option value="ms">Bahasa Malaysia (BIM)</option>
