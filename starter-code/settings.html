@@ -648,15 +648,15 @@
 
           <div id="analyticsStats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;">
             <div class="widget" style="text-align:center;">
-              <div class="widget-label">Sessions</div>
+              <div class="widget-label" data-i18n="set_sessions">Sessions</div>
               <div class="widget-value" id="statSessions" style="font-size:22px;">—</div>
             </div>
             <div class="widget" style="text-align:center;">
-              <div class="widget-label">Avg Focus</div>
+              <div class="widget-label" data-i18n="set_avg_focus">Avg Focus</div>
               <div class="widget-value" id="statFocus" style="font-size:22px;">—</div>
             </div>
             <div class="widget" style="text-align:center;">
-              <div class="widget-label">Risk Score</div>
+              <div class="widget-label" data-i18n="set_risk_score">Risk Score</div>
               <div class="widget-value" id="statRisk" style="font-size:22px;">—</div>
             </div>
           </div>
@@ -665,17 +665,17 @@
         </div>
 
         <div class="settings-card">
-  <h3>Demo</h3>
+  <h3 data-i18n="set_demo_title">Demo</h3>
   <div class="setting-row">
-    <div class="setting-label">Demo Mode</div>
+    <div class="setting-label" data-i18n="set_demo_mode">Demo Mode</div>
     <div class="setting-control">
-      <button class="btn btn-outline btn-sm" onclick="enableDemo()">Enable Demo Mode</button>
-      <button class="btn btn-ghost btn-sm" onclick="disableDemo()" style="margin-left:8px;">Disable</button>
+      <button class="btn btn-outline btn-sm" onclick="enableDemo()" data-i18n="set_enable_demo">Enable Demo Mode</button>
+      <button class="btn btn-ghost btn-sm" onclick="disableDemo()" style="margin-left:8px;" data-i18n="set_disable_demo">Disable</button>
     </div>
   </div>
   <div class="setting-row">
-    <div class="setting-label">Export All Data</div>
-    <div class="setting-control"><button class="btn btn-outline btn-sm" onclick="exportData()">Export JSON</button></div>
+    <div class="setting-label" data-i18n="set_export_all">Export All Data</div>
+    <div class="setting-control"><button class="btn btn-outline btn-sm" onclick="exportData()" data-i18n="set_export_json">Export JSON</button></div>
   </div>
 </div>
 
