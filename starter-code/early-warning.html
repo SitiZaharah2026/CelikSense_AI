@@ -253,7 +253,7 @@
   <div class="container">
     <div class="footer-bottom">
       <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)" data-i18n="nav_home">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)" data-i18n="nav_dashboard">Dashboard</a></span>
-      <span>⚠ Early Warning Agent</span>
+      <span data-i18n="ew_footer_name">⚠ Early Warning Agent</span>
     </div>
   </div>
 </footer>
@@ -398,7 +398,7 @@ function renderRiskFactors(r,c,f,p,warnings,riskScore) {
   if (c < 55) factors.push({label:_t('ew_factor_comprehension','Comprehension'),val:c+'%',cls:'danger'});
   if (f < 50) factors.push({label:_t('ew_factor_focus','Focus/Attention'),val:f+'%',cls:'danger'});
   if (p < 60) factors.push({label:_t('ew_factor_participation','Participation'),val:p+'%',cls:'warning'});
-  if (warnings >= 4) factors.push({label:_t('ew_factor_multiple','Multiple Warning Signs'),val:warnings+' signs',cls:'danger'});
+  if (warnings >= 4) factors.push({label:_t('ew_factor_multiple','Multiple Warning Signs'),val:warnings+' '+_t('ew_signs','signs'),cls:'danger'});
 
   document.getElementById('riskFactors').innerHTML = factors.length
     ? factors.map(f=>`
@@ -417,11 +417,11 @@ function renderRiskFactors(r,c,f,p,warnings,riskScore) {
 function renderAlerts(riskScore, warnings, avg) {
   var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k,d){return d||k;};
   const alerts = [];
-  if (riskScore >= 65) alerts.push({icon:'',title:_t('ew_alert_immediate','Immediate Intervention Required'),desc:'Risk score exceeds 65%. Please connect learner with support services immediately.',type:'danger'});
-  if (avg < 55) alerts.push({icon:'',title:_t('ew_alert_below_avg','Below-Average Academic Performance'),desc:`Average score of ${avg}% is significantly below the expected level.`,type:'danger'});
-  if (warnings >= 3) alerts.push({icon:'⚠',title:_t('ew_alert_multiple','Multiple Warning Signs Detected'),desc:`${warnings} concurrent warning signs increase intervention urgency.`,type:'warning'});
-  if (riskScore >= 35 && riskScore < 65) alerts.push({icon:'',title:_t('ew_alert_proactive','Proactive Monitoring Advised'),desc:'Medium risk level. Schedule a learner review within the next two weeks.',type:'warning'});
-  if (!alerts.length) alerts.push({icon:'',title:_t('ew_alert_none','No Critical Alerts'),desc:'Learner appears to be managing at an acceptable level. Continue routine monitoring.',type:'success'});
+  if (riskScore >= 65) alerts.push({icon:'',title:_t('ew_alert_immediate','Immediate Intervention Required'),desc:_t('ew_alert_desc_immediate','Risk score exceeds 65%. Please connect learner with support services immediately.'),type:'danger'});
+  if (avg < 55) alerts.push({icon:'',title:_t('ew_alert_below_avg','Below-Average Academic Performance'),desc:_t('ew_alert_desc_below_avg','').replace('{avg}', avg),type:'danger'});
+  if (warnings >= 3) alerts.push({icon:'⚠',title:_t('ew_alert_multiple','Multiple Warning Signs Detected'),desc:_t('ew_alert_desc_multiple','').replace('{n}', warnings),type:'warning'});
+  if (riskScore >= 35 && riskScore < 65) alerts.push({icon:'',title:_t('ew_alert_proactive','Proactive Monitoring Advised'),desc:_t('ew_alert_desc_medium','Medium risk level. Schedule a learner review within the next two weeks.'),type:'warning'});
+  if (!alerts.length) alerts.push({icon:'',title:_t('ew_alert_none','No Critical Alerts'),desc:_t('ew_alert_desc_low','Learner appears to be managing at an acceptable level. Continue routine monitoring.'),type:'success'});
 
   document.getElementById('alertsList').innerHTML = alerts.map(a=>`
     <div class="alert alert-${a.type}" style="margin-bottom:8px;">

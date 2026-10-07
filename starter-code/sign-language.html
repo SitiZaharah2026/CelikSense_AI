@@ -730,10 +730,10 @@ body {
         </div>
 
         <div class="vca-integrations">
-          <span class="vca-integration-badge">&#10003; OCR Agent</span>
-          <span class="vca-integration-badge">&#10003; Reading Companion</span>
-          <span class="vca-integration-badge">&#10003; Gemini AI</span>
-          <span class="vca-integration-badge" style="background:#f0f9ff;border-color:#bae6fd;color:#0c4a6e;">&#8987; BIM Integration (Future)</span>
+          <span class="vca-integration-badge" id="sl_badge_ocr">&#10003; OCR Agent</span>
+          <span class="vca-integration-badge" id="sl_badge_reading">&#10003; Reading Companion</span>
+          <span class="vca-integration-badge" id="sl_badge_gemini">&#10003; Gemini AI</span>
+          <span class="vca-integration-badge" id="sl_badge_bim" style="background:#f0f9ff;border-color:#bae6fd;color:#0c4a6e;">&#8987; BIM Integration (Future)</span>
         </div>
       </div>
     </div>
@@ -912,7 +912,11 @@ var I18N = {
     downloadMM:         'Download',
     keyword:            'KEYWORD',
     step:               'STEP',
-    definition:         'Definition'
+    definition:         'Definition',
+    badge_ocr:          '✓ OCR Agent',
+    badge_reading:      '✓ Reading Companion',
+    badge_gemini:       '✓ Gemini AI',
+    badge_bim:          '⌛ BIM Integration (Future)'
   },
   ms: {
     heroTitle:          'Agen Komunikasi Visual',
@@ -951,7 +955,11 @@ var I18N = {
     downloadMM:         'Muat Turun',
     keyword:            'KATA KUNCI',
     step:               'LANGKAH',
-    definition:         'Definisi'
+    definition:         'Definisi',
+    badge_ocr:          '✓ Ejen OCR',
+    badge_reading:      '✓ Teman Membaca',
+    badge_gemini:       '✓ Gemini AI',
+    badge_bim:          '⌛ Integrasi BIM (Akan Datang)'
   }
 };
 
@@ -979,7 +987,9 @@ function applyLang() {
     glossaryTitle:'glossaryTitle', glossaryPlaceholder:'glossaryPH',
     captionLabel:'captionLabel',
     futureTitle:'futureTitle', futureText:'futureText',
-    btnDownloadMM:'downloadMM'
+    btnDownloadMM:'downloadMM',
+    sl_badge_ocr:'badge_ocr', sl_badge_reading:'badge_reading',
+    sl_badge_gemini:'badge_gemini', sl_badge_bim:'badge_bim'
   };
   Object.keys(map).forEach(function(id) {
     var el = document.getElementById(id);
