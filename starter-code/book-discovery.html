@@ -496,7 +496,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
            aria-label="Upload PDF or document &mdash; User Owned">
         <span class="source-icon" aria-hidden="true"></span>
         <div class="source-name">Upload PDF</div>
-        <span class="source-badge sb-owned">User Owned</span>
+        <span class="source-badge sb-owned" data-i18n="bd_badge_owned">User Owned</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
@@ -504,7 +504,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
            aria-label="Scan physical book &mdash; OCR Required">
         <span class="source-icon" aria-hidden="true"></span>
         <div class="source-name">Scan Physical Book</div>
-        <span class="source-badge sb-ocr">OCR Required</span>
+        <span class="source-badge sb-ocr" data-i18n="bd_badge_ocr">OCR Required</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
@@ -512,7 +512,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
            aria-label="School Library OPAC &mdash; Library Access">
         <span class="source-icon" aria-hidden="true"></span>
         <div class="source-name">School Library</div>
-        <span class="source-badge sb-library">Library Access</span>
+        <span class="source-badge sb-library" data-i18n="bd_badge_library">Library Access</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
@@ -520,7 +520,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
            aria-label="University Library OPAC &mdash; Library Access">
         <span class="source-icon" aria-hidden="true"></span>
         <div class="source-name">University Library</div>
-        <span class="source-badge sb-library">Library Access</span>
+        <span class="source-badge sb-library" data-i18n="bd_badge_library">Library Access</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
@@ -528,7 +528,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
            aria-label="Google Drive &mdash; User Owned">
         <span class="source-icon" aria-hidden="true">☁</span>
         <div class="source-name">Google Drive</div>
-        <span class="source-badge sb-owned">User Owned</span>
+        <span class="source-badge sb-owned" data-i18n="bd_badge_owned">User Owned</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
@@ -536,7 +536,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
            aria-label="OneDrive &mdash; User Owned">
         <span class="source-icon" aria-hidden="true">☁</span>
         <div class="source-name">OneDrive</div>
-        <span class="source-badge sb-owned">User Owned</span>
+        <span class="source-badge sb-owned" data-i18n="bd_badge_owned">User Owned</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
@@ -544,7 +544,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
            aria-label="Community Learning Materials">
         <span class="source-icon" aria-hidden="true"></span>
         <div class="source-name">Community Materials</div>
-        <span class="source-badge sb-learning">Learning Material</span>
+        <span class="source-badge sb-learning" data-i18n="bd_badge_learning">Learning Material</span>
       </div>
 
       <div class="source-card" role="listitem" tabindex="0"
@@ -562,7 +562,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 
   <!-- Upload PDF -->
   <section class="bd-card" id="panel-upload" style="display:none;" aria-labelledby="uploadHeading">
-    <h3 id="uploadHeading" class="bd-section-title"> Upload Your Book or Document</h3>
+    <h3 id="uploadHeading" class="bd-section-title" data-i18n="bd_upload_heading"> Upload Your Book or Document</h3>
     <div class="upload-zone" id="uploadZone"
          onclick="document.getElementById('fileInput').click()"
          ondragover="event.preventDefault();this.classList.add('dragover')"
@@ -571,8 +571,8 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
          role="button" tabindex="0" aria-label="Upload PDF or document"
          onkeydown="if(event.key==='Enter'||event.key===' ')document.getElementById('fileInput').click()">
       <span class="upload-icon" aria-hidden="true"></span>
-      <div class="upload-text">Click or drag to upload a PDF or document</div>
-      <div class="upload-sub">Supports PDF, DOC, DOCX, TXT &mdash; your files stay in your browser only</div>
+      <div class="upload-text" data-i18n="bd_upload_text">Click or drag to upload a PDF or document</div>
+      <div class="upload-sub" data-i18n="bd_upload_sub">Supports PDF, DOC, DOCX, TXT &mdash; your files stay in your browser only</div>
     </div>
     <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt" onchange="handleFileUpload(event)" aria-label="Choose file">
     <div id="uploadResult" style="margin-top:16px;display:none;" aria-live="polite"></div>
@@ -581,13 +581,13 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
   <!-- Scan Physical Book -->
   <section class="bd-card" id="panel-scan" style="display:none;" aria-labelledby="scanHeading">
     <h3 id="scanHeading" class="bd-section-title"> Scan a Physical Book</h3>
-    <p style="font-size:14px;color:#374151;margin-bottom:16px;line-height:1.6;">
+    <p style="font-size:14px;color:#374151;margin-bottom:16px;line-height:1.6;" data-i18n="bd_scan_desc">
       Use the OCR Agent to photograph a page from a book you own or have legal access to. The text will be extracted and sent directly to your chosen accessibility tool.
     </p>
-    <a href="ocr-agent.html" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+    <a href="ocr-agent.html" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;" data-i18n="bd_scan_open">
       <span aria-hidden="true"></span> Open OCR Scanner
     </a>
-    <div class="copyright-notice" style="margin-top:16px;">
+    <div class="copyright-notice" style="margin-top:16px;" data-i18n="bd_scan_notice">
       <strong>Important:</strong> Only scan books you own or have legal access to. Camera OCR is designed for personally owned or library-borrowed physical books.
     </div>
   </section>
@@ -687,34 +687,34 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
 
   <!-- Google Drive -->
   <section class="bd-card" id="panel-gdrive" style="display:none;" aria-labelledby="gdriveHeading">
-    <h3 id="gdriveHeading" class="bd-section-title">☁ Import from Google Drive</h3>
-    <p style="font-size:14px;color:#374151;margin-bottom:16px;line-height:1.6;">
+    <h3 id="gdriveHeading" class="bd-section-title" data-i18n="bd_drive_heading">☁ Import from Google Drive</h3>
+    <p style="font-size:14px;color:#374151;margin-bottom:16px;line-height:1.6;" data-i18n="bd_drive_desc">
       Import a document from your Google Drive. Requires signing in to your Google account. CelikSense AI will only read the file you explicitly choose.
     </p>
     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#78350f;">
       <strong>Prototype mode:</strong> Google Drive OAuth integration is planned for Phase 2. For now, upload your file directly using the Upload PDF option.
     </div>
-    <button class="btn btn-primary" onclick="simulateDriveImport()" style="opacity:0.7;" disabled aria-disabled="true">
+    <button class="btn btn-primary" onclick="simulateDriveImport()" style="opacity:0.7;" disabled aria-disabled="true" data-i18n="bd_drive_btn">
       ☁ Connect Google Drive (Coming Soon)
     </button>
-    <a href="#" onclick="activateSource('upload');return false;" class="btn btn-outline" style="margin-left:10px;">
+    <a href="#" onclick="activateSource('upload');return false;" class="btn btn-outline" style="margin-left:10px;" data-i18n="bd_upload_instead">
        Upload File Instead
     </a>
   </section>
 
   <!-- OneDrive -->
   <section class="bd-card" id="panel-onedrive" style="display:none;" aria-labelledby="onedriveHeading">
-    <h3 id="onedriveHeading" class="bd-section-title">☁ Import from OneDrive</h3>
+    <h3 id="onedriveHeading" class="bd-section-title" data-i18n="bd_onedrive_heading">☁ Import from OneDrive</h3>
     <p style="font-size:14px;color:#374151;margin-bottom:16px;line-height:1.6;">
       Import a document from your Microsoft OneDrive. Requires Microsoft account authentication.
     </p>
     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#78350f;">
       <strong>Prototype mode:</strong> OneDrive integration is planned for Phase 2. Upload your file directly for now.
     </div>
-    <button class="btn btn-primary" style="opacity:0.7;" disabled aria-disabled="true">
+    <button class="btn btn-primary" style="opacity:0.7;" disabled aria-disabled="true" data-i18n="bd_onedrive_btn">
       ☁ Connect OneDrive (Coming Soon)
     </button>
-    <a href="#" onclick="activateSource('upload');return false;" class="btn btn-outline" style="margin-left:10px;">
+    <a href="#" onclick="activateSource('upload');return false;" class="btn btn-outline" style="margin-left:10px;" data-i18n="bd_upload_instead">
        Upload File Instead
     </a>
   </section>
@@ -729,21 +729,21 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <summary class="btn btn-outline btn-sm" style="cursor:pointer;display:inline-block;" data-i18n="bd_community_share">Share a Learning Material</summary>
       <div class="share-form" style="margin-top:14px;padding:16px;background:#f8f7ff;border-radius:12px;">
         <div>
-          <label class="form-label" for="shareTitle">Title</label>
+          <label class="form-label" for="shareTitle" data-i18n="lbl_title">Title</label>
           <input id="shareTitle" class="form-control" type="text" placeholder="e.g. Nota Sains Tingkatan 3">
         </div>
         <div>
-          <label class="form-label" for="shareType">Type</label>
+          <label class="form-label" for="shareType" data-i18n="lbl_type">Type</label>
           <select id="shareType" class="form-control">
-            <option>Note</option><option>Summary</option><option>Mind Map</option>
-            <option>Quiz</option><option>Vocabulary</option>
+            <option data-i18n="bd_type_note">Note</option><option data-i18n="bd_type_summary">Summary</option><option data-i18n="bd_type_mindmap">Mind Map</option>
+            <option data-i18n="bd_type_quiz">Quiz</option><option data-i18n="bd_type_vocab">Vocabulary</option>
           </select>
         </div>
         <div>
-          <label class="form-label" for="shareContent">Content</label>
+          <label class="form-label" for="shareContent" data-i18n="lbl_content">Content</label>
           <textarea id="shareContent" class="form-control" rows="4" placeholder="Paste your notes, summary, or quiz here&hellip;"></textarea>
         </div>
-        <button class="btn btn-primary btn-sm" onclick="shareCommunityMaterial()">Share</button>
+        <button class="btn btn-primary btn-sm" onclick="shareCommunityMaterial()" data-i18n="btn_share">Share</button>
       </div>
     </details>
 
@@ -1021,7 +1021,7 @@ function legalBadgeHTML(status) {
 }
 
 function renderGutenbergBooks(books) {
-  if (!books.length) return '<p style="color:#64748b;font-size:13px;padding:12px 0;">No results found.</p>';
+  if (!books.length) return '<p style="color:#64748b;font-size:13px;padding:12px 0;">' + CS.lang.t('bd_no_results') + '</p>';
   return books.map(function(b) {
     var safeB = JSON.stringify(b).replace(/"/g,'&quot;');
     return '<div class="book-result">' +
@@ -1033,8 +1033,8 @@ function renderGutenbergBooks(books) {
           (b.extract ? '<div class="book-result-info" style="margin-top:6px;font-style:italic;">"' + escHtml(b.extract.substring(0,120)) + '…"</div>' : '') +
         '</div>' +
         '<div class="book-result-actions">' +
-          '<button class="btn-open-cs" onclick="selectBook(' + safeB + ')">Open with CelikSense</button>' +
-          '<button class="btn-save-lib" onclick="saveBook(' + safeB + ')">Save</button>' +
+          '<button class="btn-open-cs" onclick="selectBook(' + safeB + ')">' + CS.lang.t('bd_open_celiksense') + '</button>' +
+          '<button class="btn-save-lib" onclick="saveBook(' + safeB + ')">' + CS.lang.t('btn_save') + '</button>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -1116,7 +1116,7 @@ function showOpenLibrary(q) {
             '</div>' +
             '<div class="book-result-actions">' +
               '<a href="'+escHtml(b.ol_url)+'" target="_blank" class="btn-open-cs" style="text-decoration:none;">Buka di Open Library</a>' +
-              '<button class="btn-save-lib" onclick="saveBook('+safeB+')">Save</button>' +
+              '<button class="btn-save-lib" onclick="saveBook('+safeB+')">' + CS.lang.t('btn_save') + '</button>' +
             '</div>' +
           '</div></div>';
       }).join('');
@@ -1163,7 +1163,7 @@ function showGoogleBooks(q) {
           '</div>' +
           '<div class="book-result-actions">' +
             (b.preview_url ? '<a href="'+escHtml(b.preview_url)+'" target="_blank" class="btn-open-cs" style="text-decoration:none;">Buka Preview</a>' : '') +
-            '<button class="btn-save-lib" onclick="saveBook('+safeB+')">Save</button>' +
+            '<button class="btn-save-lib" onclick="saveBook('+safeB+')">' + CS.lang.t('btn_save') + '</button>' +
           '</div></div></div>';
       }).join('');
       setPill('googlebooks', 'done', items.length);

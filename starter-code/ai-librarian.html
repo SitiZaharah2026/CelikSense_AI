@@ -493,7 +493,7 @@ function renderApiBooks(list) {
       <div class="book-body">
         <div style="font-size:10px;color:var(--primary);font-weight:700;margin-bottom:4px;">${sourceLabel}</div>
         <div class="book-title">${escHtml(b.title)}</div>
-        <div class="book-author">by ${escHtml(b.author)}</div>
+        <div class="book-author">${CS.lang.t('lbl_by')} ${escHtml(b.author)}</div>
         <div style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px;">${escHtml(b.desc)}</div>
         <div class="book-footer">${actionBtn}<button class="btn btn-ghost btn-sm" onclick="addApiToList(${JSON.stringify(b).replace(/"/g,'&quot;')})">${_t('lib_add_btn')}</button></div>
       </div>
@@ -504,7 +504,7 @@ function renderApiBooks(list) {
 function loadGutBook(gutId, txtUrl, title, btn) {
   if (!btn) btn = event && event.currentTarget;
   const origLabel = btn ? btn.innerHTML : '';
-  if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Loading…'; }
+  if (btn) { btn.disabled = true; btn.innerHTML = CS.lang.t('lbl_loading'); }
 
   const proxies = [
     'https://corsproxy.io/?' + encodeURIComponent(txtUrl),
@@ -583,7 +583,7 @@ function renderBooks(list) {
       <div class="book-body">
         ${srcLabel ? `<div style="font-size:10px;color:${srcColor};font-weight:700;margin-bottom:4px;">${srcLabel}</div>` : ''}
         <div class="book-title">${escHtml(b.title)}</div>
-        <div class="book-author">by ${escHtml(b.author)}</div>
+        <div class="book-author">${CS.lang.t('lbl_by')} ${escHtml(b.author)}</div>
         <div class="book-tags">${b.tags.map(tag=>tagBadge(tag)).join('')}</div>
         <div style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px;">${escHtml(b.desc)}</div>
         <div class="book-footer">
@@ -615,7 +615,7 @@ function removeFromList(id) {
 
 function renderReadingList() {
   const el = document.getElementById('readingList');
-  if (!readingList.length) { el.innerHTML='<p style="font-size:13px;color:var(--text-muted);">No books added yet.</p>'; return; }
+  if (!readingList.length) { el.innerHTML='<p style="font-size:13px;color:var(--text-muted);">' + CS.lang.t('lib_no_books') + '</p>'; return; }
   el.innerHTML = readingList.map(b=>`
     <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);">
       <span style="font-size:22px;">${b.emoji}</span>
@@ -669,7 +669,7 @@ async function updateRecommendations() {
   const availHTML = avail.map(a=>`<div style="font-size:10px;color:#4f46e5;font-weight:600;margin-top:2px;"> ${availLabels[a]||a}</div>`).join('');
   const staticHTML = recs.map(b=>`
     <div class="recommend-card">
-      <div class="recommend-reason"> Recommended for ${type==='all'?'All Learners':type.toUpperCase()}</div>
+      <div class="recommend-reason"> ${CS.lang.t('lib_recommended_for').replace('{type}', type==='all'?CS.lang.t('lib_all_learners'):type.toUpperCase())}</div>
       <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">${b.emoji}</span><div><div style="font-size:14px;font-weight:700;">${b.title}</div><div style="font-size:12px;color:var(--text-muted);">${b.author}</div></div></div>
       <div style="margin:8px 0 4px;">${availHTML}</div>
       <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
@@ -682,7 +682,7 @@ async function updateRecommendations() {
   var apiKey = '';
   try { apiKey = localStorage.getItem('openrouter_api_key') || ''; } catch(e) {}
   if (!apiKey) {
-    el.innerHTML = '<div style="padding:14px;font-size:13px;color:var(--text-muted);"> API key required for AI recommendations. <a href="settings.html" style="color:var(--primary);">Go to Settings →</a></div>' + staticHTML;
+    el.innerHTML = '<div style="padding:14px;font-size:13px;color:var(--text-muted);"> <a href="settings.html" style="color:var(--primary);">' + CS.lang.t('lib_api_key_required') + '</a></div>' + staticHTML;
     return;
   }
 
@@ -698,14 +698,14 @@ async function updateRecommendations() {
     const aiBooks = JSON.parse(clean);
     el.innerHTML = aiBooks.map(b=>`
       <div class="recommend-card" style="border-left:3px solid #6366f1;">
-        <div class="recommend-reason" style="background:rgba(99,102,241,0.12);color:#6366f1;"> AI Recommendation · ${escHtml(b.level||'All levels')}</div>
+        <div class="recommend-reason" style="background:rgba(99,102,241,0.12);color:#6366f1;"> ${CS.lang.t('lib_ai_rec_label').replace('{level}', escHtml(b.level||'All levels'))}</div>
         <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:28px;">${escHtml(b.emoji||'')}</span><div><div style="font-size:14px;font-weight:700;">${escHtml(b.title)}</div><div style="font-size:12px;color:var(--text-muted);">${escHtml(b.author)}</div></div></div>
         <div style="margin:8px 0;font-size:13px;font-style:italic;color:var(--text-muted);">"${escHtml(b.reason)}"</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-primary btn-sm"> Find this book</a>
+          <a href="book-discovery.html?q=${encodeURIComponent(b.title)}" class="btn btn-primary btn-sm">${CS.lang.t('lib_find_book')}</a>
           <button class="btn btn-ghost btn-sm" data-btitle="${escHtml(b.title||'')}" onclick="showAgentPicker('',this.dataset.btitle)">${_t('lib_read_btn')}</button>
         </div>
-      </div>`).join('') + `<div style="margin-top:8px;font-size:11px;color:var(--text-muted);text-align:center;"> Also showing ${recs.length} curated picks below</div>` + staticHTML;
+      </div>`).join('') + `<div style="margin-top:8px;font-size:11px;color:var(--text-muted);text-align:center;"> ${CS.lang.t('lib_also_showing').replace('{n}', recs.length)}</div>` + staticHTML;
     // Chain: save recommendations for other agents
     localStorage.setItem('cs_lib_recs', JSON.stringify({type,topic,books:aiBooks,ts:Date.now()}));
   } catch(e) {
