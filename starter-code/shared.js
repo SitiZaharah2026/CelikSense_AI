@@ -1669,13 +1669,13 @@ const CS_VOICE_COMMANDS = {
  *   CS.lang.get()           // returns 'en' or 'ms'
  */
 const _lang = {
-  _current: localStorage.getItem('cs_lang') || 'en',
+  _current: (localStorage.getItem('cs_lang') || 'en').replace('bm','ms'),
 
   get() { return this._current; },
 
   set(code) {
-    this._current = code;
-    localStorage.setItem('cs_lang', code);
+    this._current = code.replace('bm','ms');
+    localStorage.setItem('cs_lang', this._current);
     document.documentElement.lang = (code === 'ms') ? 'ms-MY' : 'en';
     window.currentLang = code;
     /* Update all elements that have a data-i18n attribute */
