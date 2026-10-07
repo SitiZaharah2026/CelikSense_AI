@@ -361,8 +361,8 @@
   <div class="container">
   <div class="page-header-card">
     <div class="page-badge"></div>
-    <h1 class="page-title">OCR Reading Agent</h1>
-    <p class="page-subtitle" id="headerSubtitle">Upload a book image or photo of printed text — the agent extracts it, reads it aloud, and makes it fully accessible.</p>
+    <h1 class="page-title" data-i18n="ocr_page_title">OCR Reading Agent</h1>
+    <p class="page-subtitle" id="headerSubtitle" data-i18n="ocr_page_subtitle">Upload a book image or photo of printed text — the agent extracts it, reads it aloud, and makes it fully accessible.</p>
   </div>
   </div>
 </main>
@@ -479,9 +479,9 @@
            Extract Text
         </button>
         <button class="btn btn-ghost" id="appendBtn" onclick="setAppendMode(true)" disabled
-                title="Append next page to existing text" style="padding:14px 16px;"></button>
+                title="Append next page to existing text" data-i18n-title="ocr_append_btn" style="padding:14px 16px;"></button>
       </div>
-      <div id="appendNote" style="font-size:11px;color:var(--text-muted);margin-top:6px;display:none;"> Append mode — next extraction will be added to existing text</div>
+      <div id="appendNote" style="font-size:11px;color:var(--text-muted);margin-top:6px;display:none;" data-i18n="ocr_append_mode"> Append mode — next extraction will be added to existing text</div>
 
       <!-- Accessibility Settings -->
       <div class="control-panel" style="margin-top:16px;">
@@ -528,7 +528,7 @@
 
       <!-- Keyboard Shortcuts -->
       <div class="control-panel" style="margin-top:16px;">
-        <div class="panel-title">⌨ Keyboard Shortcuts</div>
+        <div class="panel-title" data-i18n="ocr_kbd_shortcuts">⌨ Keyboard Shortcuts</div>
         <div class="shortcut-row"><span class="key">Space</span><span>Upload / open file browser</span></div>
         <div class="shortcut-row"><span class="key">V</span><span>Open camera to take photo</span></div>
         <div class="shortcut-row"><span class="key">Enter</span><span>Run OCR on current image</span></div>
@@ -546,8 +546,8 @@
       <!-- Image Preview -->
       <div class="card" id="previewCard" style="margin-bottom:16px;display:none;">
         <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center;">
-          <span id="previewTitle">Image Preview</span>
-          <span class="badge badge-warning" id="pageCounter" style="display:none;">Page 1 of 1</span>
+          <span id="previewTitle" data-i18n="ocr_img_preview">Image Preview</span>
+          <span class="badge badge-warning" id="pageCounter" style="display:none;" data-i18n="ocr_page_counter">Page 1 of 1</span>
         </div>
         <div style="position:relative;border-radius:var(--radius);overflow:hidden;background:var(--bg);">
           <img id="previewImg" src="" alt="Uploaded image preview"
@@ -561,10 +561,10 @@
 
       <!-- Stats Row -->
       <div class="ocr-stats" id="statsRow" style="display:none;">
-        <div class="stat-mini"><div class="stat-mini-val" id="statWords">–</div><div class="stat-mini-lbl" id="lblStatWords">Words</div></div>
-        <div class="stat-mini"><div class="stat-mini-val" id="statChars">–</div><div class="stat-mini-lbl" id="lblStatChars">Characters</div></div>
-        <div class="stat-mini"><div class="stat-mini-val" id="statLines">–</div><div class="stat-mini-lbl" id="lblStatLines">Lines</div></div>
-        <div class="stat-mini"><div class="stat-mini-val" id="statTime">–</div><div class="stat-mini-lbl" id="lblStatTime">Read Time</div></div>
+        <div class="stat-mini"><div class="stat-mini-val" id="statWords">–</div><div class="stat-mini-lbl" id="lblStatWords" data-i18n="ocr_words">Words</div></div>
+        <div class="stat-mini"><div class="stat-mini-val" id="statChars">–</div><div class="stat-mini-lbl" id="lblStatChars" data-i18n="ocr_chars">Characters</div></div>
+        <div class="stat-mini"><div class="stat-mini-val" id="statLines">–</div><div class="stat-mini-lbl" id="lblStatLines" data-i18n="ocr_lines">Lines</div></div>
+        <div class="stat-mini"><div class="stat-mini-val" id="statTime">–</div><div class="stat-mini-lbl" id="lblStatTime" data-i18n="ocr_read_time">Read Time</div></div>
       </div>
 
       <!-- Extracted Text -->
@@ -572,10 +572,10 @@
         <div class="result-toolbar" id="resultToolbar">
           <span style="font-size:12px;font-weight:700;color:var(--text-muted);margin-right:4px;" id="lblExtracted" data-i18n="ocr_extracted_text">EXTRACTED TEXT</span>
           <div style="flex:1;"></div>
-          <button id="copyBtn" onclick="copyText()" disabled title="Copy (C)" style="padding:6px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#4338ca,#6366f1);color:#fff;font-size:12px;font-weight:700;cursor:pointer;opacity:0.4;"> Salin</button>
-          <button id="downloadBtn" onclick="downloadText()" disabled title="Download .txt" style="padding:6px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#059669,#10b981);color:#fff;font-size:12px;font-weight:700;cursor:pointer;opacity:0.4;"> Simpan</button>
-          <button id="editBtn" onclick="toggleEdit()" disabled title="Edit text" style="padding:6px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;font-size:12px;font-weight:700;cursor:pointer;opacity:0.4;"> Edit</button>
-          <button id="clearBtn" onclick="clearAll()" title="Clear (X)" style="padding:6px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:12px;font-weight:700;cursor:pointer;"> Padam</button>
+          <button id="copyBtn" onclick="copyText()" disabled title="Copy (C)" style="padding:6px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#4338ca,#6366f1);color:#fff;font-size:12px;font-weight:700;cursor:pointer;opacity:0.4;" data-i18n="ocr_copy_btn"> Copy</button>
+          <button id="downloadBtn" onclick="downloadText()" disabled title="Download .txt" style="padding:6px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#059669,#10b981);color:#fff;font-size:12px;font-weight:700;cursor:pointer;opacity:0.4;" data-i18n="ocr_download_btn"> Download .txt</button>
+          <button id="editBtn" onclick="toggleEdit()" disabled title="Edit text" style="padding:6px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;font-size:12px;font-weight:700;cursor:pointer;opacity:0.4;" data-i18n="ocr_edit_btn"> Edit text</button>
+          <button id="clearBtn" onclick="clearAll()" title="Clear (X)" style="padding:6px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:12px;font-weight:700;cursor:pointer;" data-i18n="ocr_clear_btn"> Clear</button>
         </div>
         <div class="result-body" id="resultBody" tabindex="0"
              role="region" aria-label="Extracted text output" aria-live="polite" aria-atomic="false">
@@ -585,11 +585,11 @@
           </div>
         </div>
         <div class="conf-legend" id="confLegend" style="display:none;">
-          <span>Confidence:</span>
-          <span><span class="conf-dot" style="background:var(--text);"></span>High (&gt;70%)</span>
-          <span><span class="conf-dot" style="background:#f59e0b;"></span>Medium (50–70%)</span>
-          <span><span class="conf-dot" style="background:#ef4444;"></span>Low (&lt;50%)</span>
-          <button class="btn btn-ghost btn-sm" onclick="toggleConfidence()" id="confToggleBtn" style="margin-left:auto;">Hide Highlights</button>
+          <span data-i18n="ocr_confidence_lbl">Confidence:</span>
+          <span><span class="conf-dot" style="background:var(--text);"></span><span data-i18n="ocr_conf_high">High (&gt;70%)</span></span>
+          <span><span class="conf-dot" style="background:#f59e0b;"></span><span data-i18n="ocr_conf_med">Medium (50–70%)</span></span>
+          <span><span class="conf-dot" style="background:#ef4444;"></span><span data-i18n="ocr_conf_low">Low (&lt;50%)</span></span>
+          <button class="btn btn-ghost btn-sm" onclick="toggleConfidence()" id="confToggleBtn" style="margin-left:auto;" data-i18n="ocr_hide_highlights">Hide Highlights</button>
         </div>
         <button id="btnSendSign" class="btn" onclick="sendOCRtoSign()" style="display:none;background:linear-gradient(135deg,#ec4899,#f43f5e);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;margin-top:8px;" data-i18n="ocr_btn_sign"> Open in Sign Language Agent</button>
         <button id="ocrBrailleBtn" onclick="ocrConvertToBraille()" style="display:none;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border:none;padding:10px 20px;border-radius:10px;font-weight:700;cursor:pointer;margin-top:8px;" aria-label="Convert OCR text to Braille" data-i18n="ocr_btn_braille"> Convert OCR Text to Braille</button>
@@ -606,10 +606,10 @@
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
           <select class="form-control" id="ttsSpeed" style="width:120px;font-size:12px;" onchange="updateTTSSpeed()">
-            <option value="0.6"> Slow</option>
-            <option value="0.9" selected>Normal</option>
-            <option value="1.2">Fast</option>
-            <option value="1.5">⚡ Very Fast</option>
+            <option value="0.6" data-i18n="rc_slow"> Slow</option>
+            <option value="0.9" selected data-i18n="rc_normal_speed">Normal</option>
+            <option value="1.2" data-i18n="rc_fast">Fast</option>
+            <option value="1.5" data-i18n="rc_very_fast">⚡ Very Fast</option>
           </select>
           <button class="btn btn-ghost btn-sm" onclick="stopSpeech();resetTTSUI()">⏹ Stop</button>
         </div>
@@ -636,7 +636,7 @@
     <!-- Header -->
     <div class="camera-panel-header">
       <span style="font-size:26px;" aria-hidden="true"></span>
-      <h2 class="panel-title camera-panel-title" id="cameraModalTitle">Camera Capture</h2>
+      <h2 class="panel-title camera-panel-title" id="cameraModalTitle" data-i18n="ocr_camera_title">Camera Capture</h2>
       <button class="btn btn-ghost btn-sm" onclick="closeCamera()" id="camCloseBtn"
               style="margin-left:auto;" aria-label="Close camera"> Close</button>
     </div>
@@ -662,7 +662,7 @@
     <!-- Controls -->
     <div class="cam-controls" id="camControls">
       <button class="cam-capture-btn" id="captureBtn" onclick="capturePhoto()"
-              aria-label="Capture photo — press Space or Enter as shortcut">
+              aria-label="Capture photo — press Space or Enter as shortcut" data-i18n="ocr_camera_capture_btn">
          Capture Image
       </button>
       <button class="btn btn-outline" id="switchCamBtn" onclick="switchCameraFacing()"
@@ -676,7 +676,7 @@
       </button>
       <button class="btn btn-primary" id="usePhotoBtn" onclick="useCapture()"
               style="display:none;background:linear-gradient(135deg,#22c55e,#16a34a);border-color:transparent;"
-              aria-label="Use this image and run OCR text extraction">
+              aria-label="Use this image and run OCR text extraction" data-i18n="ocr_camera_use_btn">
          Use This Image
       </button>
     </div>
@@ -795,6 +795,13 @@ function applyOCRTranslations() {
   document.getElementById('modeDesc').textContent       = ocrT('mode_desc');
   if (!extractedText) {
     document.getElementById('ttsStatus').textContent = ocrT('ready_status');
+  }
+  // Update confidence toggle button label
+  var confBtn = document.getElementById('confToggleBtn');
+  if (confBtn) {
+    confBtn.textContent = showConfidence
+      ? (CS && CS.lang ? CS.lang.t('ocr_hide_highlights') : 'Hide Highlights')
+      : (CS && CS.lang ? CS.lang.t('ocr_show_highlights') : 'Show Highlights');
   }
 }
 
@@ -1145,7 +1152,9 @@ function renderResult() {
 
 function toggleConfidence() {
   showConfidence = !showConfidence;
-  document.getElementById('confToggleBtn').textContent = showConfidence ? 'Hide Highlights' : 'Show Highlights';
+  var hideKey = (CS && CS.lang) ? CS.lang.t('ocr_hide_highlights') : 'Hide Highlights';
+  var showKey = (CS && CS.lang) ? CS.lang.t('ocr_show_highlights') : 'Show Highlights';
+  document.getElementById('confToggleBtn').textContent = showConfidence ? hideKey : showKey;
   renderResult();
 }
 
