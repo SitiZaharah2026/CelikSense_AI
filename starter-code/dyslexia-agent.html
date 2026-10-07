@@ -102,7 +102,7 @@
       </div>
       <!-- Font -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title"> Font Mode</div>
+        <div class="panel-title" data-i18n="dys_font_mode"> Font Mode</div>
         <div class="toggle-group">
           <button class="toggle-btn" id="fontNormal" onclick="setFont('normal')">Normal</button>
           <button class="toggle-btn" id="fontDys" onclick="setFont('dyslexic')">Lexend</button>
@@ -113,7 +113,7 @@
 
       <!-- Font Size -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title"> Text Size</div>
+        <div class="panel-title" data-i18n="dys_text_size"> Text Size</div>
         <div class="range-label">
           <span style="font-size:12px;color:var(--text-muted);">Size</span>
           <span class="range-value" id="sizeVal">16px</span>
@@ -129,7 +129,7 @@
 
       <!-- Line Spacing -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title">↕ Line Spacing</div>
+        <div class="panel-title" data-i18n="dys_line_spacing">↕ Line Spacing</div>
         <div class="range-label">
           <span style="font-size:12px;color:var(--text-muted);">Spacing</span>
           <span class="range-value" id="spacingVal">1.8</span>
@@ -139,7 +139,7 @@
 
       <!-- Colour Overlay -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title"> Colour Overlay</div>
+        <div class="panel-title" data-i18n="dys_colour_overlay"> Colour Overlay</div>
         <div class="color-swatches">
           <div class="color-swatch active" style="background:#fffdf5;" onclick="setOverlay('none',this)" title="None (White)" role="button" tabindex="0" aria-label="None (White) overlay" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()"></div>
           <div class="color-swatch" style="background:#fffde0;" onclick="setOverlay('overlay-yellow',this)" title="Yellow" role="button" tabindex="0" aria-label="Yellow overlay" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()"></div>
@@ -153,11 +153,11 @@
 
       <!-- Reading Ruler -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title"> Reading Ruler</div>
+        <div class="panel-title" data-i18n="dys_reading_ruler"> Reading Ruler</div>
         <div style="display:flex;align-items:center;gap:12px;">
           <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
             <input type="checkbox" id="rulerToggle" onchange="toggleRuler()" style="width:18px;height:18px;cursor:pointer;">
-            <span style="font-size:13px;font-weight:600;">Enable Reading Ruler</span>
+            <span style="font-size:13px;font-weight:600;" data-i18n="dys_enable_ruler">Enable Reading Ruler</span>
           </label>
         </div>
         <div style="font-size:11px;color:var(--text-dim);margin-top:8px;">The ruler highlights one line as your mouse moves over the text.</div>
@@ -165,14 +165,14 @@
 
       <!-- TTS Controls -->
       <div class="control-panel" style="margin-bottom:16px;">
-        <div class="panel-title"> Text-to-Speech</div>
+        <div class="panel-title" data-i18n="dys_tts"> Text-to-Speech</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <button class="btn btn-primary" onclick="readText()">▶ Read Text Aloud</button>
+          <button class="btn btn-primary" onclick="readText()" data-i18n="dys_read_aloud">▶ Read Text Aloud</button>
           <button class="btn btn-ghost" onclick="stopSpeech()">⏹ Stop Audio</button>
         </div>
         <div style="margin-top:10px;">
           <div class="range-label">
-            <span style="font-size:12px;color:var(--text-muted);">Speed</span>
+            <span style="font-size:12px;color:var(--text-muted);" data-i18n="dys_speed">Speed</span>
             <span class="range-value" id="speedVal">0.9x</span>
           </div>
           <input type="range" min="0.5" max="1.5" step="0.1" value="0.9" id="speedRange" aria-label="Reading speed" oninput="setSpeed(this.value)">
@@ -181,14 +181,14 @@
 
       <!-- Difficulty + Intervention -->
       <div class="control-panel">
-        <div class="panel-title"> Reading Difficulty</div>
+        <div class="panel-title" data-i18n="dys_difficulty"> Reading Difficulty</div>
         <select class="form-control" id="diffLevel" onchange="showIntervention()">
-          <option value="low">Low Difficulty</option>
-          <option value="medium" selected>Medium Difficulty</option>
-          <option value="high">High Difficulty</option>
+          <option value="low" data-i18n="dys_low_diff">Low Difficulty</option>
+          <option value="medium" selected data-i18n="dys_med_diff">Medium Difficulty</option>
+          <option value="high" data-i18n="dys_high_diff">High Difficulty</option>
         </select>
         <div id="interventionBox" style="margin-top:12px;font-size:13px;line-height:1.6;"></div>
-        <a href="intervention.html" class="btn btn-outline btn-sm w-full" style="margin-top:10px;">View Full Intervention Plan</a>
+        <a href="intervention.html" class="btn btn-outline btn-sm w-full" style="margin-top:10px;" data-i18n="dys_view_plan">View Full Intervention Plan</a>
       </div>
     </div>
 
@@ -196,13 +196,13 @@
     <div>
       <!-- Text Input -->
       <div class="control-panel" style="margin-bottom:20px;">
-        <div class="panel-title"> Reading Text</div>
+        <div class="panel-title" data-i18n="dys_reading_text"> Reading Text</div>
         <textarea class="form-control" id="dysInput" rows="5" placeholder="Paste or type your reading text here…">Coral reefs are one of the most beautiful and diverse ecosystems on Earth. They are sometimes called the "rainforests of the sea" because of the incredible variety of life they support. Coral reefs are built by tiny animals called coral polyps. These polyps live in a symbiotic relationship with algae called zooxanthellae. The algae provide the coral with food through photosynthesis. In return, the coral gives the algae a safe home. This relationship is very delicate. When sea temperatures rise, the coral becomes stressed and expels the algae. Without the algae, the coral turns white – a process known as coral bleaching. If the bleaching is severe or prolonged, the coral can die.</textarea>
         <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
-          <button class="btn btn-primary" onclick="loadDysText()"> Load Text</button>
+          <button class="btn btn-primary" onclick="loadDysText()" data-i18n="dys_load_text"> Load Text</button>
           <button class="btn btn-secondary" onclick="runSkimGuide()">⚡ Skim Guide</button>
-          <button class="btn btn-ghost" onclick="clearDysText()">Clear</button>
-          <button class="btn btn-sm" onclick="runReAct()" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="Run full ReAct reasoning loop"> ReAct Analysis</button>
+          <button class="btn btn-ghost" onclick="clearDysText()" data-i18n="clear">Clear</button>
+          <button class="btn btn-sm" onclick="runReAct()" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="Run full ReAct reasoning loop" data-i18n="dys_react"> ReAct Analysis</button>
         </div>
       </div>
 
@@ -233,11 +233,11 @@
 
       <!-- Reading Display -->
       <div class="control-panel" style="margin-bottom:20px;">
-        <div class="panel-title"> Reading Display</div>
+        <div class="panel-title" data-i18n="dys_reading_display"> Reading Display</div>
         <div class="reading-wrap" id="readingWrap">
           <div id="readingRuler" class="reading-ruler"></div>
           <div class="reading-area" id="dysReadArea" onmousemove="moveRuler(event)" style="min-height:220px;">
-            Click <strong>Load Text</strong> to begin.
+            <span data-i18n="dys_click_load">Click <strong>Load Text</strong> to begin.</span>
           </div>
         </div>
       </div>
@@ -250,10 +250,10 @@
 
       <!-- Mind Map -->
       <div class="control-panel">
-        <div class="panel-title"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" style="vertical-align:middle;margin-right:6px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="5" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="6.3" y1="6.3" x2="8.5" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="5" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="17.7" y1="6.3" x2="15.5" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="19" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="6.3" y1="17.7" x2="8.5" y2="15" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="19" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="17.7" y1="17.7" x2="15.5" y2="15" stroke="currentColor" stroke-width="1.5"/></svg> Visual Mind Map</div>
-        <button class="btn btn-primary btn-sm" style="margin-bottom:14px;" onclick="generateMindMap()"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Auto Mind Map (Pattern-based)</button>
+        <div class="panel-title" data-i18n="dys_mind_map"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" style="vertical-align:middle;margin-right:6px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="5" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="6.3" y1="6.3" x2="8.5" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="5" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="17.7" y1="6.3" x2="15.5" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="19" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="6.3" y1="17.7" x2="8.5" y2="15" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="19" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="17.7" y1="17.7" x2="15.5" y2="15" stroke="currentColor" stroke-width="1.5"/></svg> Visual Mind Map</div>
+        <button class="btn btn-primary btn-sm" style="margin-bottom:14px;" onclick="generateMindMap()" data-i18n="dys_auto_map"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Auto Mind Map (Pattern-based)</button>
         <div class="mindmap-canvas" id="mindmapCanvas">
-          <div style="text-align:center;color:var(--text-muted);font-size:14px;">Load a text and click Generate Mind Map</div>
+          <div style="text-align:center;color:var(--text-muted);font-size:14px;" data-i18n="dys_map_empty">Load a text and click Generate Mind Map</div>
         </div>
       </div>
 
