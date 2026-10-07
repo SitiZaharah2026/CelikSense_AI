@@ -525,6 +525,8 @@ async function runReAct() {
   var s4=document.getElementById('reactStep4'), rt=document.getElementById('reactRetry');
   var resultEl=document.getElementById('reactResult'), roundEl=document.getElementById('reactRound');
   [s1,s2,s3,s4].forEach(function(s){s.className='react-step';});
+  th.innerHTML='Menunggu…'; ac.innerHTML='Menunggu…'; ob.innerHTML='Menunggu…'; rt.innerHTML='Memperbaiki…';
+  resultEl.innerHTML=''; roundEl.textContent='';
   s4.style.display='none'; resultEl.style.display='none';
   var spinner='<span class="react-spinner"></span>';
 
