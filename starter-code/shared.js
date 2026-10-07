@@ -1022,7 +1022,7 @@ const CS_LANG = {
     hero_cta1:      'Mulakan',
 
     /* Bahagian Ejen */
-    agents_title:   '8 Ejen, Satu Ekosistem',
+    agents_title:   '10 Ejen, Satu Ekosistem',
     agents_desc:    'Setiap ejen dibina khusus untuk keperluan pembelajaran tertentu. Bersama-sama mereka membentuk sistem pembelajaran peribadi yang adaptif.',
 
     /* Profil pelajar */
@@ -1042,7 +1042,7 @@ const CS_LANG = {
     learner_deaf_agent:    'Agen Komunikasi Visual',
     learner_adhd_agent:    'Ejen ADHD',
     learner_dyslexia_agent:'Ejen Disleksia / Sindrom Down',
-    learner_general_agent: 'Semua 8 Ejen',
+    learner_general_agent: 'Semua 10 Ejen',
     /* Label statistik */
     stat_agents:'Ejen AI', stat_learner_types:'Jenis Pelajar', stat_languages:'Bahasa', stat_accessible:'Aksesibel',
     /* Tag orb */
