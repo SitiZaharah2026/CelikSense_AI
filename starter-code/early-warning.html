@@ -99,7 +99,7 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
           <div class="form-group" style="margin-bottom:0;">
             <label for="learnerName" class="form-label" data-i18n="ew_learner_name">Learner Name</label>
-            <input type="text" class="form-control" id="learnerName" placeholder="Enter name or ID…">
+            <input type="text" class="form-control" id="learnerName" placeholder="Enter name or ID…" data-i18n-placeholder="ew_name_placeholder">
           </div>
           <div class="form-group" style="margin-bottom:0;">
             <label for="learnerGrade" class="form-label" data-i18n="ew_grade_level">Grade Level</label>
@@ -223,7 +223,7 @@
         <div style="display:flex;gap:8px;font-size:11px;color:var(--text-dim);justify-content:space-around;">
           <span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span>
         </div>
-        <div style="margin-top:8px;font-size:12px;color:var(--danger);">↓ Declining performance trend over 6 weeks – intervention recommended</div>
+        <div style="margin-top:8px;font-size:12px;color:var(--danger);" data-i18n="ew_trend_declining">↓ Declining performance trend over 6 weeks – intervention recommended</div>
       </div>
 
       <!-- Risk Factors -->
@@ -323,7 +323,7 @@ function analyseRisk() {
     }));
   } catch(e) {}
 
-  CS.toast('Risk assessment saved to dashboard', 'success');
+  CS.toast(_t('ew_toast_saved','Risk assessment saved to dashboard'), 'success');
 
   /*  AI Interpretation (Gemini) — runs after static analysis  */
   _ewAiInterpret(riskScore, riskLevel, avg, warnings, priority, need);
@@ -385,9 +385,10 @@ async function _ewAiInterpret(riskScore, riskLevel, avg, warnings, priority, nee
 }
 
 function getDesc(score, avg, warnings) {
-  if (score >= 65) return `<span class="text-danger">⛔ High intervention urgency. Average score is ${avg}/100 with ${warnings} active warning signs. Immediate educator action required.</span>`;
-  if (score >= 35) return `<span class="text-warning">⚠ Moderate concern. Score of ${avg}/100 with ${warnings} warning signs. Proactive monitoring and support is recommended.</span>`;
-  return `<span class="text-success"> Learner is performing adequately with ${warnings} minor warning signs. Continue monitoring and provide light support.</span>`;
+  var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k,d){return d||k;};
+  if (score >= 65) return `<span class="text-danger">⛔ ${_t('ew_desc_high','High intervention urgency. Learner shows consistent low performance and multiple warning signs.')}</span>`;
+  if (score >= 35) return `<span class="text-warning">⚠ ${_t('ew_desc_medium','Moderate concern. Monitor closely and consider targeted support.')}</span>`;
+  return `<span class="text-success"> ${_t('ew_desc_low','Learner is performing adequately. Continue regular monitoring.')}</span>`;
 }
 
 function renderRiskFactors(r,c,f,p,warnings,riskScore) {
@@ -410,16 +411,17 @@ function renderRiskFactors(r,c,f,p,warnings,riskScore) {
           </div>
         </div>
       `).join('')
-    : '<div class="alert alert-success"><span></span>No critical risk factors identified.</div>';
+    : `<div class="alert alert-success"><span></span>${_t('ew_no_risk_factors','No critical risk factors identified.')}</div>`;
 }
 
 function renderAlerts(riskScore, warnings, avg) {
+  var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k,d){return d||k;};
   const alerts = [];
-  if (riskScore >= 65) alerts.push({icon:'',title:'Immediate Intervention Required',desc:'Risk score exceeds 65%. Please connect learner with support services immediately.',type:'danger'});
-  if (avg < 55) alerts.push({icon:'',title:'Below-Average Academic Performance',desc:`Average score of ${avg}% is significantly below the expected level.`,type:'danger'});
-  if (warnings >= 3) alerts.push({icon:'⚠',title:'Multiple Warning Signs Detected',desc:`${warnings} concurrent warning signs increase intervention urgency.`,type:'warning'});
-  if (riskScore >= 35 && riskScore < 65) alerts.push({icon:'',title:'Proactive Monitoring Advised',desc:'Medium risk level. Schedule a learner review within the next two weeks.',type:'warning'});
-  if (!alerts.length) alerts.push({icon:'',title:'No Critical Alerts',desc:'Learner appears to be managing at an acceptable level. Continue routine monitoring.',type:'success'});
+  if (riskScore >= 65) alerts.push({icon:'',title:_t('ew_alert_immediate','Immediate Intervention Required'),desc:'Risk score exceeds 65%. Please connect learner with support services immediately.',type:'danger'});
+  if (avg < 55) alerts.push({icon:'',title:_t('ew_alert_below_avg','Below-Average Academic Performance'),desc:`Average score of ${avg}% is significantly below the expected level.`,type:'danger'});
+  if (warnings >= 3) alerts.push({icon:'⚠',title:_t('ew_alert_multiple','Multiple Warning Signs Detected'),desc:`${warnings} concurrent warning signs increase intervention urgency.`,type:'warning'});
+  if (riskScore >= 35 && riskScore < 65) alerts.push({icon:'',title:_t('ew_alert_proactive','Proactive Monitoring Advised'),desc:'Medium risk level. Schedule a learner review within the next two weeks.',type:'warning'});
+  if (!alerts.length) alerts.push({icon:'',title:_t('ew_alert_none','No Critical Alerts'),desc:'Learner appears to be managing at an acceptable level. Continue routine monitoring.',type:'success'});
 
   document.getElementById('alertsList').innerHTML = alerts.map(a=>`
     <div class="alert alert-${a.type}" style="margin-bottom:8px;">

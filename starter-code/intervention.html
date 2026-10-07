@@ -101,7 +101,7 @@
 
         <div class="form-group">
           <label class="form-label" for="lName" data-i18n="iv_learner_name">Learner Name</label>
-          <input type="text" class="form-control" id="lName" placeholder="Name or ID…" value="Ahmad Zaki">
+          <input type="text" class="form-control" id="lName" placeholder="Name or ID…" data-i18n-placeholder="iv_name_placeholder" value="Ahmad Zaki">
         </div>
         <div class="form-group">
           <label class="form-label" for="lNeed" data-i18n="iv_primary_need">Primary Need</label>
@@ -202,7 +202,7 @@
   <div class="container">
     <div class="footer-bottom">
       <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)" data-i18n="nav_home">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)" data-i18n="nav_dashboard">Dashboard</a></span>
-      <span> Intervention Recommendation Agent</span>
+      <span data-i18n="iv_footer_name"> Intervention Recommendation Agent</span>
     </div>
   </div>
 </footer>
@@ -361,7 +361,7 @@ async function generateIntervention() {
         <div>
           <div style="font-size:13px;color:var(--text-muted);margin-bottom:4px;">${_t('iv_plan_for','Intervention Plan for')}</div>
           <div style="font-size:22px;font-weight:800;">${name}</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">${grade} · ${need.toUpperCase()} · Weakness: ${weakness}</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">${grade} · ${need.toUpperCase()} · ${_t('iv_weakness_label','Weakness:')} ${weakness}</div>
         </div>
         <div style="text-align:right;">
           <span class="badge badge-${risk==='high'?'danger':risk==='medium'?'warning':'success'}" style="font-size:13px;padding:6px 14px;">${riskLabels[risk]}</span>
@@ -440,14 +440,14 @@ async function generateIntervention() {
   if(!apiKey) {
     const noKeyNote = document.createElement('div');
     noKeyNote.style.cssText='margin-top:24px;padding:16px;background:rgba(245,158,11,0.08);border-radius:14px;border-left:4px solid #f59e0b;font-size:14px;';
-    noKeyNote.innerHTML='<strong>AI Personalised Recommendation</strong><br>An API key is required to generate a personalised AI plan. <a href="settings.html" style="color:#6366f1;font-weight:600;">Go to Settings →</a>';
+    noKeyNote.innerHTML=`<strong>${_t('iv_ai_rec_title','AI Personalised Recommendation')}</strong><br>${_t('iv_api_key_note','Add an OpenRouter API key in Settings for personalised AI recommendations.')} <a href="settings.html" style="color:#6366f1;font-weight:600;">Go to Settings →</a>`;
     document.getElementById('resultsPanel').appendChild(noKeyNote);
     return;
   }
 
   const aiSection = document.createElement('div');
   aiSection.style.cssText='margin-top:24px;padding:18px;background:rgba(99,102,241,0.07);border-radius:14px;border-left:4px solid #6366f1;';
-  aiSection.innerHTML='<div style="font-weight:700;margin-bottom:8px;color:#6366f1;"> AI Personalised Recommendation</div><div style="font-size:13px;color:var(--muted);">Generating personalised plan…</div>';
+  aiSection.innerHTML=`<div style="font-weight:700;margin-bottom:8px;color:#6366f1;"> ${_t('iv_ai_rec_title','AI Personalised Recommendation')}</div><div style="font-size:13px;color:var(--muted);">${_t('iv_generating','Generating personalised plan…')}</div>`;
   document.getElementById('resultsPanel').appendChild(aiSection);
 
   let lastRisk = null;
@@ -472,7 +472,8 @@ async function generateIntervention() {
       if(!actResult) return;
       const actSection = document.createElement('div');
       actSection.style.cssText='margin-top:16px;padding:16px;background:rgba(34,197,94,0.07);border-radius:12px;border-left:4px solid #22c55e;';
-      actSection.innerHTML=`<div style="font-weight:700;margin-bottom:8px;color:#22c55e;"> Specific Activities</div><div style="font-size:14px;line-height:1.8;">${escHtml(actResult).replace(/\n/g,'<br>').replace(/\*\*/g,'').replace(/###/g,'')}</div>`;
+      var _t2 = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k,d){return d||k;};
+      actSection.innerHTML=`<div style="font-weight:700;margin-bottom:8px;color:#22c55e;"> ${_t2('iv_specific_activities','Specific Activities')}</div><div style="font-size:14px;line-height:1.8;">${escHtml(actResult).replace(/\n/g,'<br>').replace(/\*\*/g,'').replace(/###/g,'')}</div>`;
       aiSection.appendChild(actSection);
     });
   });

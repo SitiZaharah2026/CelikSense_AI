@@ -259,7 +259,7 @@
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">BM</button>
-      <a href="profile.html" class="btn btn-ghost btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
+      <a href="profile.html" class="btn btn-ghost btn-sm" data-i18n="nav_profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</a>
       <a href="dashboard.html" class="btn btn-ghost btn-sm" data-i18n="nav_back_dashboard">← Dashboard</a>
     </div>
     <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('navLinks').classList.toggle('open')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
@@ -343,8 +343,8 @@
   <div id="bk-header"></div>
   <!-- Load / paste -->
   <div id="load-area">
-    <h3>⏳ Loading book content…</h3>
-    <p>Please wait while we retrieve the text.</p>
+    <h3 data-i18n="adhdr_loading_title">⏳ Loading book content…</h3>
+    <p data-i18n="adhdr_loading_desc">Please wait while we retrieve the text.</p>
     <textarea id="paste-txt" placeholder="Or paste the book text here…" data-i18n-placeholder="ar_paste_ph" style="display:none;"></textarea>
     <button class="load-btn" onclick="loadFromPaste()" style="display:none;" data-i18n="ar_start_reading">▶ Start Reading</button>
     <div id="load-spinner"></div>
@@ -377,9 +377,9 @@
     </div>
     <div id="focus-para" tabindex="0"></div>
     <div id="focus-nav">
-      <button class="fnav" id="fp-prev" onclick="fNav(-1)" aria-label="Previous paragraph" data-i18n-aria="ar_prev_para">← Prev</button>
+      <button class="fnav" id="fp-prev" onclick="fNav(-1)" aria-label="Previous paragraph" data-i18n-aria="ar_prev_para" data-i18n="adhdr_prev">← Prev</button>
       <span id="focus-ctr2" style="font-size:13px;color:var(--muted);min-width:70px;text-align:center;"></span>
-      <button class="fnav" id="fp-next" onclick="fNav(1)" aria-label="Next paragraph" data-i18n-aria="ar_next_para">Next →</button>
+      <button class="fnav" id="fp-next" onclick="fNav(1)" aria-label="Next paragraph" data-i18n-aria="ar_next_para" data-i18n="adhdr_next">Next →</button>
     </div>
     <div style="text-align:center;margin-top:16px;">
       <button id="focus-read-btn" onclick="readFocusPara()" data-i18n="ar_read_this"> Read This</button>
@@ -599,7 +599,8 @@ function renderParas() {
       wCount = 0;
       var hr = document.createElement('hr');
       hr.className = 'sec-div';
-      hr.setAttribute('data-lbl', ' Section '+secNum+' · ~'+microMin+' min read');
+      var _t2 = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){return k;};
+      hr.setAttribute('data-lbl', ' ' + _t2('adhdr_section_label').replace('{n}', secNum) + ' · ' + _t2('adhdr_min_read').replace('{n}', microMin));
       hr.dataset.sec = secNum;
       area.appendChild(hr);
       area.appendChild(mkSecBadge(secNum));
@@ -628,7 +629,7 @@ function renderParas() {
 
     var aib = document.createElement('button');
     aib.className = 'para-ai-btn';
-    aib.innerHTML = ' AI Help';
+    aib.innerHTML = (window.CS && CS.lang ? CS.lang.t('adhdr_ai_help') : ' AI Help');
     var aipanel = document.createElement('div');
     aipanel.className = 'para-ai-box';
     (function(p, panel){ aib.onclick = function(){ toggleAIBox(p, panel); }; })(para, aipanel);
@@ -643,7 +644,8 @@ function renderParas() {
 function mkSecBadge(n) {
   var d = document.createElement('div');
   d.className = 'sec-badge';
-  d.innerHTML = '<span> Section '+n+' · ~'+microMin+' min read</span>';
+  var _t3 = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){return k;};
+  d.innerHTML = '<span> ' + _t3('adhdr_section_label').replace('{n}', n) + ' · ' + _t3('adhdr_min_read').replace('{n}', microMin) + '</span>';
   return d;
 }
 

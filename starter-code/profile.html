@@ -297,7 +297,7 @@
               <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="prof_improving">Improving ←</div>
             </div>
           </div>
-          <div class="alert alert-info" style="margin:0;font-size:13px;">
+          <div class="alert alert-info" style="margin:0;font-size:13px;" data-i18n="prof_comprehension_tip">
             <span></span>
             <div>Your comprehension score is strong. Try increasing session length from 10 to 15 minutes this week. <a href="adhd-agent.html" style="color:var(--primary-light);font-weight:600;">Open ADHD Agent →</a></div>
           </div>
@@ -345,8 +345,8 @@
           <div class="panel-title" data-i18n="prof_ai_recommendation"> AI Recommendation</div>
           <div class="intervention-card" style="margin-bottom:0;">
             <div class="intervention-priority" data-i18n="prof_based_on_sessions">Based on your last 7 sessions</div>
-            <div class="intervention-title" data-i18n="dash_pilot_title">Try 15-Minute Focus Sessions This Week</div>
-            <div class="intervention-desc">Your focus scores have been consistently above 75 for 3 sessions. The ADHD Agent suggests stepping up from 10-minute to 15-minute sessions while keeping 3-minute breaks.</div>
+            <div class="intervention-title" data-i18n="prof_intervention_title">Try 15-Minute Focus Sessions This Week</div>
+            <div class="intervention-desc" data-i18n="prof_intervention_desc">Your focus scores have been consistently above 75 for 3 sessions. The ADHD Agent suggests stepping up from 10-minute to 15-minute sessions while keeping 3-minute breaks.</div>
             <div style="display:flex;gap:8px;margin-top:12px;">
               <a href="adhd-agent.html" class="btn btn-primary btn-sm" data-i18n="prof_open_adhd">Open ADHD Agent</a>
               <a href="intervention.html" class="btn btn-ghost btn-sm" data-i18n="prof_full_plan">Full Plan</a>
@@ -385,7 +385,7 @@
         </div>
 
         <div class="card" style="margin-bottom:16px;">
-          <div class="panel-title"> Learning Profile</div>
+          <div class="panel-title" data-i18n="prof_learning_profile"> Learning Profile</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
             <div class="form-group">
               <label class="form-label" data-i18n="prof_learning_need_lbl">Primary Learning Need</label>
@@ -421,23 +421,23 @@
         </div>
 
         <div class="card" style="margin-bottom:16px;">
-          <div class="panel-title">â± Session Preferences</div>
+          <div class="panel-title" data-i18n="prof_session_prefs">⏱ Session Preferences</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
             <div class="form-group">
               <label class="form-label" data-i18n="prof_session_len_lbl">Default Session Length</label>
               <select class="form-control" id="settingSession">
-                <option>5 minutes</option>
-                <option selected>10 minutes</option>
-                <option>15 minutes</option>
-                <option>20 minutes</option>
+                <option data-i18n="dur_5min">5 minutes</option>
+                <option selected data-i18n="dur_10min">10 minutes</option>
+                <option data-i18n="dur_15min">15 minutes</option>
+                <option data-i18n="dur_20min">20 minutes</option>
               </select>
             </div>
             <div class="form-group">
               <label class="form-label" data-i18n="prof_break_len_lbl">Break Length</label>
               <select class="form-control">
-                <option>2 minutes</option>
-                <option selected>3 minutes</option>
-                <option>5 minutes</option>
+                <option data-i18n="dur_2min">2 minutes</option>
+                <option selected data-i18n="dur_3min">3 minutes</option>
+                <option data-i18n="dur_5min">5 minutes</option>
               </select>
             </div>
           </div>
@@ -616,7 +616,7 @@
   <div class="container">
     <div class="footer-bottom">
       <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)" data-i18n="nav_home">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)" data-i18n="nav_dashboard">Dashboard</a></span>
-      <span> Learner Profile</span>
+      <span data-i18n="prof_footer_name"> Learner Profile</span>
     </div>
   </div>
 </footer>

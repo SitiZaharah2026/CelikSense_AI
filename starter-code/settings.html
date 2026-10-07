@@ -332,8 +332,8 @@
       <div class="settings-panel active" id="panel-ai">
 
         <div class="settings-section">
-          <div class="settings-section-title"> OpenRouter AI</div>
-          <div class="settings-section-desc">
+          <div class="settings-section-title" data-i18n="set_openrouter_title"> OpenRouter AI</div>
+          <div class="settings-section-desc" data-i18n="set_openrouter_desc">
             Enter your OpenRouter API key to enable AI summaries, quizzes, and intervention plans.
             Get a free key at <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="color:var(--primary-light);">openrouter.ai/keys ↗</a>
           </div>
@@ -359,7 +359,7 @@
           </div>
 
           <div style="margin-top:12px;">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;">AI Model</label>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px;" data-i18n="set_ai_model_label">AI Model</label>
             <select id="openrouterModel" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;">
               <option value="google/gemma-2-9b-it:free">google/gemma-2-9b-it:free (Free)</option>
               <option value="mistralai/mistral-7b-instruct:free">mistralai/mistral-7b-instruct:free (Free)</option>
@@ -460,7 +460,7 @@
 
           <div class="settings-row">
             <div>
-              <div class="settings-row-label">Letter spacing</div>
+              <div class="settings-row-label" data-i18n="set_letter_spacing">Letter spacing</div>
               <div class="settings-row-sub" id="letterSpacingLabel">Normal</div>
             </div>
             <input type="range" class="settings-range settings-row-ctrl" id="letterSpacingRange"
@@ -611,8 +611,8 @@
 
           <div class="settings-row">
             <div>
-              <div class="settings-row-label">English</div>
-              <div class="settings-row-sub">Interface in English</div>
+              <div class="settings-row-label" data-i18n="set_lang_english">English</div>
+              <div class="settings-row-sub" data-i18n="set_lang_english_sub">Interface in English</div>
             </div>
             <label class="toggle-switch settings-row-ctrl">
               <input type="radio" name="langRadio" value="en" id="langEn" onchange="setLanguage('en')" style="opacity:0;position:absolute;">
@@ -939,7 +939,7 @@ function clearKey() {
   document.getElementById('openrouterKeyInput').value = '';
   if (CS.gemini) CS.gemini.clearKey();
   loadApiStatus();
-  CS.toast('API key cleared', 'info');
+  CS.toast(CS.lang.t('set_toast_key_cleared'), 'info');
 }
 
 function toggleKeyVis() {
@@ -955,7 +955,7 @@ function testConnection() {
 
   badge.className = 'api-status testing';
   dot.textContent = '';
-  text.textContent = 'Testing connection...';
+  text.textContent = CS.lang.t('set_toast_testing');
   btn.disabled = true;
 
   CS.gemini.testConnection()
@@ -989,7 +989,7 @@ function savePref(key, value) {
   try { prefs = JSON.parse(localStorage.getItem('cs_prefs') || '{}'); } catch(e) {}
   prefs[key] = value;
   try { localStorage.setItem('cs_prefs', JSON.stringify(prefs)); } catch(e) {}
-  CS.toast('Saved', 'success');
+  CS.toast(CS.lang.t('set_toast_saved'), 'success');
 }
 
 function loadPrefs() {
@@ -1022,7 +1022,7 @@ function applyFontStyle(val) {
 }
 
 function applyLetterSpacing(val) {
-  document.getElementById('letterSpacingLabel').textContent = val === '0' ? 'Normal' : val + 'px';
+  document.getElementById('letterSpacingLabel').textContent = val === '0' ? CS.lang.t('set_spacing_normal') : val + 'px';
   document.documentElement.style.setProperty('--cs-letter-spacing', val + 'px');
   var a11y = CS.user.getA11y();
   a11y.letterSpacing = val;
@@ -1036,7 +1036,7 @@ function applyContrast(val) {
   var a11y = CS.user.getA11y();
   a11y.contrast = val;
   CS.user.updateA11y(a11y);
-  CS.toast('Contrast updated', 'success');
+  CS.toast(CS.lang.t('set_toast_contrast'), 'success');
 }
 
 function applyOverlay(color) {
@@ -1083,7 +1083,7 @@ function applyReadingWindow(on) {
 }
 
 function resetAccessibility() {
-  if (!confirm('Reset all accessibility settings to defaults?')) return;
+  if (!confirm(CS.lang.t('set_confirm_reset_a11y'))) return;
   CS.user.updateA11y({});
   CS.a11y.apply();
   loadAccessibilityPanel();
@@ -1100,7 +1100,7 @@ function loadAccessibilityPanel() {
   if (fst) fst.value = a11y.fontStyle || 'system';
 
   var ls = document.getElementById('letterSpacingRange');
-  if (ls) { ls.value = a11y.letterSpacing || 0; document.getElementById('letterSpacingLabel').textContent = (a11y.letterSpacing || 0) === 0 ? 'Normal' : a11y.letterSpacing + 'px'; }
+  if (ls) { ls.value = a11y.letterSpacing || 0; document.getElementById('letterSpacingLabel').textContent = (a11y.letterSpacing || 0) === 0 ? CS.lang.t('set_spacing_normal') : a11y.letterSpacing + 'px'; }
 
   var cs = document.getElementById('contrastSelect');
   if (cs) cs.value = a11y.contrast || 'normal';
@@ -1128,7 +1128,7 @@ function saveProfile() {
   profile.disability   = disability;
   profile.grade        = grade;
   CS.user.set(profile);
-  CS.toast('Profile saved', 'success');
+  CS.toast(CS.lang.t('set_toast_profile_saved'), 'success');
 }
 
 function loadProfilePanel() {
@@ -1158,7 +1158,7 @@ function setLanguage(lang) {
   if (enInput) enInput.checked = lang === 'en';
   if (msInput) msInput.checked = lang === 'ms';
 
-  CS.toast(lang === 'en' ? 'Language: English' : 'Bahasa: Melayu', 'success');
+  CS.toast(lang === 'en' ? CS.lang.t('set_toast_lang_english') : 'Bahasa: Melayu', 'success');
 }
 
 /*  Analytics stats  */
@@ -1180,27 +1180,27 @@ function loadAnalyticsStats() {
 
 /*  Clear / reset  */
 function clearAnalytics() {
-  if (!confirm('Clear all learning data? This cannot be undone.')) return;
+  if (!confirm(CS.lang.t('set_confirm_clear_data'))) return;
   try { localStorage.removeItem('cs_analytics'); localStorage.removeItem('cs_analytics_v1'); } catch(e) {}
   loadAnalyticsStats();
-  CS.toast('Learning data cleared', 'success');
+  CS.toast(CS.lang.t('set_toast_data_cleared'), 'success');
 }
 
 function clearProfile() {
-  if (!confirm('Reset learner profile?')) return;
+  if (!confirm(CS.lang.t('set_confirm_reset_profile'))) return;
   CS.user.set({ displayName: 'Learner', disability: 'general', grade: '' });
   loadProfilePanel();
-  CS.toast('Profile reset', 'success');
+  CS.toast(CS.lang.t('set_toast_profile_reset'), 'success');
 }
 
 function clearEverything() {
-  if (!confirm('Reset ALL data? This will clear your API key, profile, accessibility settings, and learning data.')) return;
+  if (!confirm(CS.lang.t('set_confirm_reset_all'))) return;
   var keys = ['openrouter_api_key','openrouter_model','cs_user','cs_user_v1','cs_analytics','cs_analytics_v1','cs_a11y','cs_lang','cs_prefs',
               'teacher_input_text','teacher_last_explanation','cs_last_risk',
               'ocrExtractedText','signLangText','cs_agent_history',
               'cs_sessions','cs_agent_counts','cs_feedback','cs_class_roster','cs_demo_mode'];
   keys.forEach(function(k) { try { localStorage.removeItem(k); } catch(e) {} });
-  CS.toast('All data cleared. Reloading...', 'info');
+  CS.toast(CS.lang.t('set_toast_all_cleared'), 'info');
   setTimeout(function() { location.reload(); }, 1200);
 }
 

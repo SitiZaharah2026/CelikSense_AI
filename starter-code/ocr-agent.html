@@ -389,7 +389,7 @@
         <div class="scan-overlay" id="scanOverlay"><div class="scan-line"></div></div>
         <span class="upload-icon" id="uploadIcon"></span>
         <div class="upload-title" id="uploadTitle" data-i18n="ocr_upload_title">Upload Book Image</div>
-        <div class="upload-hint" id="uploadHint">Drag &amp; drop an image here, or click to browse.<br>Supports JPG, PNG, WEBP, BMP, GIF, TIFF</div>
+        <div class="upload-hint" id="uploadHint" data-i18n="ocr_upload_hint">Drag &amp; drop an image here, or click to browse.<br>Supports JPG, PNG, WEBP, BMP, GIF, TIFF</div>
         <div class="upload-formats">
           <span class="badge badge-primary">JPG</span>
           <span class="badge badge-primary">PNG</span>
@@ -428,13 +428,13 @@
       <!-- OCR Progress -->
       <div class="ocr-progress" id="ocrProgress" style="margin-top:16px;">
         <div class="progress-status">
-          <span id="progressLabel">Initialising…</span>
+          <span id="progressLabel" data-i18n="ocr_initialising">Initialising…</span>
           <span id="progressPct">0%</span>
         </div>
         <div class="progress-track">
           <div class="progress-fill-ocr" id="progressBar"></div>
         </div>
-        <div class="ocr-log" id="ocrLog" aria-live="polite">Ready</div>
+        <div class="ocr-log" id="ocrLog" aria-live="polite" data-i18n="ocr_ready">Ready</div>
       </div>
 
       <!-- OCR Settings -->
@@ -490,7 +490,7 @@
         <div class="form-group">
           <label class="form-label" id="lblFontSize" data-i18n="ocr_text_size">Text Size</label>
           <div class="range-label">
-            <span style="font-size:12px;color:var(--text-muted);">Size</span>
+            <span style="font-size:12px;color:var(--text-muted);" data-i18n="lbl_size">Size</span>
             <span class="range-value" id="fontSizeVal">16px</span>
           </div>
           <input type="range" id="fontSizeRange" min="12" max="32" value="16"
@@ -518,7 +518,7 @@
         <div class="form-group" style="margin-bottom:0;">
           <label class="form-label" id="lblLineSpacing" data-i18n="ocr_line_spacing">Line Spacing</label>
           <div class="range-label">
-            <span style="font-size:12px;color:var(--text-muted);">Spacing</span>
+            <span style="font-size:12px;color:var(--text-muted);" data-i18n="lbl_spacing">Spacing</span>
             <span class="range-value" id="lineSpaceVal">1.85</span>
           </div>
           <input type="range" id="lineSpaceRange" min="1.2" max="3.0" step="0.1" value="1.85"
@@ -529,13 +529,13 @@
       <!-- Keyboard Shortcuts -->
       <div class="control-panel" style="margin-top:16px;">
         <div class="panel-title" data-i18n="ocr_kbd_shortcuts">⌨ Keyboard Shortcuts</div>
-        <div class="shortcut-row"><span class="key">Space</span><span>Upload / open file browser</span></div>
-        <div class="shortcut-row"><span class="key">V</span><span>Open camera to take photo</span></div>
-        <div class="shortcut-row"><span class="key">Enter</span><span>Run OCR on current image</span></div>
-        <div class="shortcut-row"><span class="key">R</span><span>Read extracted text aloud</span></div>
-        <div class="shortcut-row"><span class="key">S</span><span>Stop speech</span></div>
-        <div class="shortcut-row"><span class="key">C</span><span>Copy text to clipboard</span></div>
-        <div class="shortcut-row"><span class="key">X</span><span>Clear all</span></div>
+        <div class="shortcut-row"><span class="key">Space</span><span data-i18n="ocr_key_upload">Upload / open file browser</span></div>
+        <div class="shortcut-row"><span class="key">V</span><span data-i18n="ocr_key_camera">Open camera to take photo</span></div>
+        <div class="shortcut-row"><span class="key">Enter</span><span data-i18n="ocr_key_run">Run OCR on current image</span></div>
+        <div class="shortcut-row"><span class="key">R</span><span data-i18n="ocr_key_read">Read extracted text aloud</span></div>
+        <div class="shortcut-row"><span class="key">S</span><span data-i18n="ocr_key_stop">Stop speech</span></div>
+        <div class="shortcut-row"><span class="key">C</span><span data-i18n="ocr_key_copy">Copy text to clipboard</span></div>
+        <div class="shortcut-row"><span class="key">X</span><span data-i18n="ocr_key_clear">Clear all</span></div>
       </div>
 
     </div><!-- end left -->
@@ -611,7 +611,7 @@
             <option value="1.2" data-i18n="rc_fast">Fast</option>
             <option value="1.5" data-i18n="rc_very_fast">⚡ Very Fast</option>
           </select>
-          <button class="btn btn-ghost btn-sm" onclick="stopSpeech();resetTTSUI()">⏹ Stop</button>
+          <button class="btn btn-ghost btn-sm" onclick="stopSpeech();resetTTSUI()" data-i18n="btn_stop">⏹ Stop</button>
         </div>
       </div>
 
@@ -699,7 +699,7 @@
   <div class="container">
     <div class="footer-bottom">
       <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)" data-i18n="nav_home">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)" data-i18n="nav_dashboard">Dashboard</a></span>
-      <span> OCR Reading Agent</span>
+      <span data-i18n="ocr_footer_name"> OCR Reading Agent</span>
     </div>
   </div>
 </footer>
