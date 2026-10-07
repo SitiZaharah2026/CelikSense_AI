@@ -305,6 +305,10 @@ const CS_LANG = {
     a7_desc: 'Performance monitoring that flags at-risk learners and triggers timely educator alerts.',
     a8_name: 'Intervention Agent',
     a8_desc: 'AI-generated personalised strategies, action plans, and curated resource library.',
+    a9_name: 'Down Syndrome Agent',
+    a9_desc: 'Simplified language, visual storyboards, vocabulary drills, and inclusive learning support.',
+    a10_name: 'Rak Buku Maya',
+    a10_desc: 'Save, organise and re-read your favourite books — a personal collection in one digital shelf.',
 
     /* Settings page */
     set_title:               'Settings',
@@ -1089,6 +1093,10 @@ const CS_LANG = {
     a7_desc: 'Pemantauan prestasi yang mengenal pasti pelajar berisiko dan mencetuskan amaran tepat waktu.',
     a8_name: 'Ejen Intervensi',
     a8_desc: 'Strategi peribadi jana AI, pelan tindakan, dan perpustakaan sumber yang dikurasi.',
+    a9_name: 'Ejen Sindrom Down',
+    a9_desc: 'Bahasa dipermudahkan, papan cerita visual, latih tubi kosa kata, dan sokongan pembelajaran inklusif.',
+    a10_name: 'Rak Buku Maya',
+    a10_desc: 'Simpan, susun dan baca semula buku kegemaran anda — koleksi peribadi dalam satu rak digital.',
 
     /* Halaman Tetapan */
     set_title:               'Tetapan',
