@@ -53,15 +53,15 @@
       <div class="nav-dropdown">
         <button data-i18n="nav_agents" aria-haspopup="true" aria-expanded="false">Agents ▾</button>
         <div class="dropdown-menu">
-          <a href="ai-librarian.html"> AI Librarian</a>
-          <a href="reading-companion.html"> Reading Companion</a>
+          <a href="ai-librarian.html" data-i18n="nav_ai_librarian"> AI Librarian</a>
+          <a href="reading-companion.html" data-i18n="nav_reading_companion"> Reading Companion</a>
           <a href="adhd-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> ADHD Agent</a>
           <a href="dyslexia-agent.html"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14" style="vertical-align:middle;margin-right:4px;"><rect x="8" y="9" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="3" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="4.8" x2="12" y2="9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="21" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="12" y2="19.2" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="4.8" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><circle cx="21" cy="12" r="1.8" stroke="currentColor" stroke-width="1.5"/><line x1="16" y1="12" x2="19.2" y2="12" stroke="currentColor" stroke-width="1.5"/></svg> Dyslexia Agent</a>
-          <a href="down-syndrome-agent.html">🧩 Down Syndrome Agent</a>
-          <a href="blind-audio.html"> Blind Audio Agent</a>
+          <a href="down-syndrome-agent.html" data-i18n="nav_ds_agent">🧩 Down Syndrome Agent</a>
+          <a href="blind-audio.html" data-i18n="nav_blind_agent"> Blind Audio Agent</a>
           <a href="sign-language.html"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" style="vertical-align:middle;display:inline-block;"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg> Sign Language Agent</a>
-          <a href="early-warning.html">⚠ Early Warning Agent</a>
-          <a href="intervention.html"> Intervention Agent</a>
+          <a href="early-warning.html" data-i18n="nav_ew_agent">⚠ Early Warning Agent</a>
+          <a href="intervention.html" data-i18n="nav_iv_agent"> Intervention Agent</a>
         </div>
       </div>
     </div>
@@ -149,7 +149,7 @@
       <!-- Reading Display -->
       <div class="control-panel" style="margin-bottom:20px;">
         <div class="panel-title" data-i18n="rc_reading_area"> Reading Area</div>
-        <div class="reading-area" id="readingDisplay" style="min-height:180px;">
+        <div class="reading-area" id="readingDisplay" style="min-height:180px;" data-i18n="rc_click_load">
           Click <strong>Load Text</strong> to begin reading.
         </div>
         <div style="display:flex;gap:8px;margin-top:12px;">
@@ -230,7 +230,7 @@
 
       <!-- Status Log -->
       <div class="control-panel">
-        <div class="panel-title"> Status</div>
+        <div class="panel-title" data-i18n="rc_status_panel"> Status</div>
         <div id="statusLog" style="font-size:13px;color:var(--text-muted);line-height:1.6;">
           <span data-i18n="rc_status_ready">Ready. Load a text to begin.</span>
         </div>
@@ -243,7 +243,7 @@
   <div class="container">
     <div class="footer-bottom">
       <span>© 2026 CelikSense AI · <a href="index.html" style="color:var(--primary-light)" data-i18n="nav_home">Home</a> · <a href="dashboard.html" style="color:var(--primary-light)" data-i18n="nav_dashboard">Dashboard</a></span>
-      <span> Reading Companion Agent</span>
+      <span data-i18n="rc_footer_name"> Reading Companion Agent</span>
     </div>
   </div>
 </footer>
@@ -322,7 +322,11 @@ function _rcAutoPromptQuiz() {
   var b = document.createElement('div');
   b.id = 'rcAutoBanner';
   b.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;padding:14px 22px;border-radius:14px;font-size:14px;font-weight:700;box-shadow:0 4px 20px rgba(99,102,241,0.4);z-index:9999;display:flex;align-items:center;gap:12px;';
-  b.innerHTML=' You\'ve read most of the text! <button onclick="generateQuestions();document.getElementById(\'rcAutoBanner\').remove();" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:#fff;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;"> Test Understanding</button><button onclick="this.parentElement.remove();" style="background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:18px;padding:0 4px;"></button>';
+  var _rcPromptFull = (window.CS&&CS.lang?CS.lang.t('rc_auto_quiz_prompt'):' You\'ve read most of the text! Test Understanding');
+  var _rcPromptParts = _rcPromptFull.split('!');
+  var _rcPromptMsg = (_rcPromptParts[0]||'') + '!';
+  var _rcPromptBtn = (_rcPromptParts.slice(1).join('!').trim()) || 'Test Understanding';
+  b.innerHTML=_rcPromptMsg + ' <button onclick="generateQuestions();document.getElementById(\'rcAutoBanner\').remove();" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:#fff;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;">'+_rcPromptBtn+'</button><button onclick="this.parentElement.remove();" style="background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:18px;padding:0 4px;"></button>';
   document.body.appendChild(b);
 }
 
@@ -346,7 +350,7 @@ async function _rcAutoSummarise() {
 
 function loadText() {
   loadedText = document.getElementById('readingInput').value.trim();
-  if (!loadedText) { setStatus('Please enter some text first.'); return; }
+  if (!loadedText) { setStatus((window.CS&&CS.lang?CS.lang.t('rc_status_enter_text'):'Please enter some text first.')); return; }
   var _rdDisplay = document.getElementById('readingDisplay');
   _rdDisplay.textContent = '';
   loadedText.split('\n').forEach(function(line) {
@@ -354,7 +358,7 @@ function loadText() {
     p.textContent = line;
     _rdDisplay.appendChild(p);
   });
-  setStatus('Text loaded. Ready to read.');
+  setStatus((window.CS&&CS.lang?CS.lang.t('rc_status_loaded'):'Text loaded. Ready to read.'));
   extractVocab();
   updateStats();
   // Agentic: auto-summarise on load + watch scroll for quiz trigger
@@ -367,19 +371,19 @@ function clearText() {
   document.getElementById('readingInput').value = '';
   document.getElementById('readingDisplay').innerHTML = _t('rc_reading_empty');
   loadedText = '';
-  setStatus('Cleared.');
+  setStatus((window.CS&&CS.lang?CS.lang.t('rc_status_cleared'):'Cleared.'));
 }
 
 function readTextAloud() {
   const text = document.getElementById('readingInput').value || 'Please enter or paste text to read aloud.';
   speak(text);
-  setStatus('Reading text aloud…');
+  setStatus((window.CS&&CS.lang?CS.lang.t('rc_status_reading_aloud'):'Reading text aloud…'));
 }
 
 function readDisplayText() {
-  if (!loadedText) { setStatus('Load a text first.'); return; }
+  if (!loadedText) { setStatus((window.CS&&CS.lang?CS.lang.t('rc_status_load_first'):'Load a text first.')); return; }
   speak(loadedText);
-  setStatus('Reading aloud…');
+  setStatus((window.CS&&CS.lang?CS.lang.t('rc_status_reading'):'Reading aloud…'));
 }
 
 function setTTSRate(val) {
@@ -391,7 +395,7 @@ function startAudioGuide() {
     ? 'Selamat datang ke Teman Membaca CelikSense AI. Halaman ini menyokong navigasi audio untuk pelajar buta. Tampal teks anda ke dalam kotak teks, kemudian tekan butang Muat Teks. Kemudian tekan Baca Kuat untuk mendengar teks tersebut. Anda juga boleh menjana soalan pemahaman dan mencari makna kosa kata.'
     : 'Welcome to the CelikSense AI Reading Companion. This page supports audio navigation for blind learners. Paste your text into the text box, then press Load Text. Next, press Read Aloud to hear the text. You can also generate comprehension questions and look up vocabulary meanings.';
   speak(guide);
-  setStatus('Audio guide started.');
+  setStatus((window.CS&&CS.lang?CS.lang.t('rc_status_audio_guide'):'Audio guide started.'));
 }
 
 function setTextSize(size, btn) {
@@ -423,7 +427,7 @@ function highlightText() {
     highlighted = highlighted.replace(new RegExp(`\\b${w}\\b`,'gi'), `<mark style="background:#fbbf2440;border-radius:3px;padding:0 2px;">$&</mark>`);
   });
   document.getElementById('readingDisplay').innerHTML = highlighted;
-  setStatus('Key words highlighted.');
+  setStatus((window.CS&&CS.lang?CS.lang.t('rc_status_highlighted'):'Key words highlighted.'));
 }
 
 function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
@@ -433,7 +437,7 @@ function extractVocab() {
   const el = document.getElementById('vocabWords');
   var _t = window.CS && CS.lang ? CS.lang.t.bind(CS.lang) : function(k){return k;};
   if (!words.length) { el.innerHTML='<p style="font-size:13px;color:var(--text-muted);">'+_t('rc_vocab_empty')+'</p>'; return; }
-  el.innerHTML = '<p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Click a word to see its definition:</p>' +
+  el.innerHTML = '<p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">' + _t('rc_vocab_prompt') + '</p>' +
     words.map(w=>`<span class="vocab-word" role="button" tabindex="0" data-word="${escapeHtml(w)}" onkeydown="if(event.key==='Enter'||event.key===' ')showDef(this.dataset.word)">${escapeHtml(w)}</span>`).join('');
   el.addEventListener('click', function(e){ var btn = e.target.closest('[data-word]'); if(btn) showDef(btn.dataset.word); });
 }
@@ -454,7 +458,7 @@ function updateStats() {
       <div class="stat-card"><div class="stat-value" style="font-size:22px;">${words.length}</div><div class="stat-label">${(window.CS&&CS.lang?CS.lang.t('rc_words_lbl'):'Words')}</div></div>
       <div class="stat-card"><div class="stat-value" style="font-size:22px;">${sentences}</div><div class="stat-label">${(window.CS&&CS.lang?CS.lang.t('rc_sentences_lbl'):'Sentences')}</div></div>
       <div class="stat-card"><div class="stat-value" style="font-size:22px;">${readTime}</div><div class="stat-label">${(window.CS&&CS.lang?CS.lang.t('rc_min_read'):'Min Read')}</div></div>
-      <div class="stat-card"><div class="stat-value" style="font-size:22px;">A2</div><div class="stat-label">Level</div></div>
+      <div class="stat-card"><div class="stat-value" style="font-size:22px;">A2</div><div class="stat-label">${(window.CS&&CS.lang?CS.lang.t('rc_level_label'):'Level')}</div></div>
     </div>
   `;
 }
@@ -513,7 +517,7 @@ async function generateQuestions() {
   }).join('') +
   '<button class="btn btn-primary w-full" style="margin-top:16px;" onclick="submitQuiz()"> ' + (currentLang==='ms'?'Hantar Jawapan':'Submit Answers') + '</button>';
 
-  setStatus(currentLang==='ms'?'Soalan dijana. Pilih jawapan anda dan tekan Hantar.':'Questions generated. Choose your answers and press Submit.');
+  setStatus((window.CS&&CS.lang?CS.lang.t('rc_status_questions_ready'):'Questions generated. Choose your answers and press Submit.'));
 }
 
 function submitQuiz() {
