@@ -1285,6 +1285,20 @@ function submitSignup(e) {
   }
 })();
 </script>
+<script>
+(function(){
+  var BM = 'Ilmu Tanpa Sempadan, Kecerdasan Tanpa Had';
+  var EN = 'Knowledge Without Barrier, Intelligence Without Limits';
+  function updateMarquee(lang){
+    var txt = (lang==='ms'||lang==='bm') ? BM : EN;
+    document.querySelectorAll('.marquee-line1,.marquee-line2').forEach(function(el){ el.textContent=txt; });
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    updateMarquee(localStorage.getItem('cs_lang')||'ms');
+  });
+  window.addEventListener('cs:lang:changed', function(e){ updateMarquee(e.detail.lang); });
+})();
+</script>
 </body>
 </html>
 
