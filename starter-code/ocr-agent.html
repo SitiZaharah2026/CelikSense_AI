@@ -812,7 +812,11 @@ const ocrTr = {
     cam_use_aria:   'Guna imej ini dan jalankan OCR',
   }
 };
-function ocrT(k) { return (ocrTr[currentLang] || ocrTr.en)[k] || k; }
+function ocrT(k) {
+  /* shared.js stores BM as 'ms'; ocrTr keys are 'en'/'bm' — map both */
+  var lang = (currentLang === 'ms' || currentLang === 'bm') ? 'bm' : 'en';
+  return (ocrTr[lang] || ocrTr.en)[k] || k;
+}
 
 function applyOCRTranslations() {
   document.getElementById('headerSubtitle').textContent = ocrT('subtitle');
@@ -840,38 +844,38 @@ function applyOCRTranslations() {
     var key = 'swatch_' + el.getAttribute('data-swatch');
     el.title = ocrT(key);
   });
-  // Toolbar buttons
+  // Toolbar buttons — set text content (preserve leading icon via innerHTML split)
   var copyBtn = document.getElementById('copyBtn');
-  if (copyBtn) copyBtn.textContent = ocrT('copy_btn');
+  if (copyBtn) copyBtn.innerHTML = ' ' + ocrT('copy_btn');
   var downloadBtn = document.getElementById('downloadBtn');
-  if (downloadBtn) downloadBtn.textContent = ocrT('download_btn');
+  if (downloadBtn) downloadBtn.innerHTML = ' ' + ocrT('download_btn');
   var editBtn = document.getElementById('editBtn');
-  if (editBtn) editBtn.textContent = ocrT('edit_btn');
+  if (editBtn) editBtn.innerHTML = ' ' + ocrT('edit_btn');
   var clearBtn = document.getElementById('clearBtn');
-  if (clearBtn) clearBtn.textContent = ocrT('clear_btn');
-  // Braille / Avatar sign buttons
+  if (clearBtn) clearBtn.innerHTML = ' ' + ocrT('clear_btn');
+  // Braille / Avatar sign buttons — set both visible text and aria-label
   var brailleBtn = document.getElementById('ocrBrailleBtn');
-  if (brailleBtn) brailleBtn.setAttribute('aria-label', ocrT('braille_btn'));
+  if (brailleBtn) { brailleBtn.innerHTML = ' ' + ocrT('braille_btn'); brailleBtn.setAttribute('aria-label', ocrT('braille_btn')); }
   var avatarBtn = document.getElementById('ocrAvatarBtn');
-  if (avatarBtn) avatarBtn.setAttribute('aria-label', ocrT('sign_btn'));
+  if (avatarBtn) { avatarBtn.innerHTML = ' ' + ocrT('sign_btn'); avatarBtn.setAttribute('aria-label', ocrT('sign_btn')); }
   // TTS play/pause button
   var ttsBtn = document.getElementById('ttsBtn');
   if (ttsBtn) ttsBtn.setAttribute('aria-label', ocrT('play_pause_aria'));
-  // Camera modal aria-labels
+  // Camera modal — set visible text AND aria-labels
   var camCloseBtn = document.getElementById('camCloseBtn');
-  if (camCloseBtn) camCloseBtn.setAttribute('aria-label', ocrT('cam_close'));
+  if (camCloseBtn) { camCloseBtn.textContent = ocrT('cam_close'); camCloseBtn.setAttribute('aria-label', ocrT('cam_close')); }
   var captureBtn = document.getElementById('captureBtn');
-  if (captureBtn) captureBtn.setAttribute('aria-label', ocrT('cam_capture_aria'));
+  if (captureBtn) { captureBtn.innerHTML = ' ' + ocrT('cam_capture_aria'); captureBtn.setAttribute('aria-label', ocrT('cam_capture_aria')); }
   var camVideo = document.getElementById('cameraVideo');
   if (camVideo) camVideo.setAttribute('aria-label', ocrT('cam_aria_video'));
   var camPhoto = document.getElementById('capturedPreview');
-  if (camPhoto) camPhoto.setAttribute('alt', ocrT('cam_aria_photo'));
+  if (camPhoto) { camPhoto.setAttribute('alt', ocrT('cam_aria_photo')); camPhoto.setAttribute('aria-label', ocrT('cam_aria_photo')); }
   var switchBtn = document.getElementById('switchCamBtn');
-  if (switchBtn) switchBtn.setAttribute('aria-label', ocrT('cam_switch_aria'));
+  if (switchBtn) { switchBtn.innerHTML = ' ' + ocrT('cam_switch_aria'); switchBtn.setAttribute('aria-label', ocrT('cam_switch_aria')); }
   var retakeBtn = document.getElementById('retakeBtn');
-  if (retakeBtn) retakeBtn.setAttribute('aria-label', ocrT('cam_retake_aria'));
+  if (retakeBtn) { retakeBtn.innerHTML = ' ' + ocrT('cam_retake_aria'); retakeBtn.setAttribute('aria-label', ocrT('cam_retake_aria')); }
   var useBtn = document.getElementById('usePhotoBtn');
-  if (useBtn) useBtn.setAttribute('aria-label', ocrT('cam_use_aria'));
+  if (useBtn) { useBtn.innerHTML = ' ' + ocrT('cam_use_aria'); useBtn.setAttribute('aria-label', ocrT('cam_use_aria')); }
   // Upload zone aria-label
   var uploadZone = document.getElementById('uploadZone');
   if (uploadZone) uploadZone.setAttribute('aria-label', ocrT('upload_aria'));
@@ -890,13 +894,21 @@ function applyOCRTranslations() {
   }
 }
 
-/* Override shared applyTranslations to also run OCR strings */
-const _origApply = window.applyTranslations;
-document.addEventListener('DOMContentLoaded', () => {
+/* Run OCR translations on load and re-run whenever language toggles */
+document.addEventListener('DOMContentLoaded', function() {
   applyOCRTranslations();
-  // Re-run on language toggle
-  const origToggle = window.toggleLanguage;
-  window.toggleLanguage = function() { origToggle(); applyOCRTranslations(); };
+  // Also run the shared data-i18n renderer if available
+  if (window.CS && CS.lang && typeof CS.lang.apply === 'function') CS.lang.apply();
+  // Wrap toggleLanguage so OCR strings update on every toggle
+  var origToggle = window.toggleLanguage;
+  window.toggleLanguage = function() {
+    if (typeof origToggle === 'function') origToggle();
+    // Allow shared.js to update currentLang first, then re-apply
+    setTimeout(function() {
+      applyOCRTranslations();
+      if (window.CS && CS.lang && typeof CS.lang.apply === 'function') CS.lang.apply();
+    }, 0);
+  };
 });
 
 /*  FILE HANDLING  */
