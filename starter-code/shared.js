@@ -69,8 +69,13 @@ const CS_LANG = {
     nav_book_discovery: 'Book Discovery',
     nav_ocr_agent:   'OCR Reading Agent',
     nav_react_btn:   'ReAct AI Analysis',
+    nav_react_aria:  'Run full ReAct reasoning loop',
     nav_lang_switch: 'BM',
     nav_lang_aria:   'Switch to Bahasa Melayu',
+    nav_lang_aria_to_en: 'Switch to English',
+    nav_lang_aria_to_bm: 'Switch to Bahasa Melayu',
+    set_canvas_offline: 'Canvas (Offline)',
+    set_heygen_avatar_eg: 'e.g. Angela-inblackskirt-20220820',
     nav_sign_in:     'Sign In',
     nav_view_profile: 'View Profile',
     nav_demo:        'Demo',
@@ -1322,6 +1327,7 @@ const CS_LANG = {
     btn_share:          'Share',
 
     /* CelikVerse Library */
+    cv_lang_english: 'English',
     cv_subtitle:    'One Search. Many Collections. Unlimited Accessibility.',
     cv_iab_title:   'IAB Virtual Bookshelf',
     cv_demo_badge:  'Demo',
@@ -1769,6 +1775,7 @@ const CS_LANG = {
     iab_btn_ocr:         '📷 OCR Agent',
 
     /* AI Librarian — additional */
+    lib_free_tab:           '📗 Free Library',
     lib_search_btn:         'Search',
     lib_read_btn:           '▶ Read',
     lib_read_free_btn:      '▶ Read Free',
@@ -1937,8 +1944,13 @@ const CS_LANG = {
     nav_book_discovery: 'Penemuan Buku',
     nav_ocr_agent:   'Ejen OCR',
     nav_react_btn:   'Analisis ReAct AI',
+    nav_react_aria:  'Jalankan gelung penaakulan ReAct penuh',
     nav_lang_switch: 'EN',
     nav_lang_aria:   'Tukar ke Bahasa Inggeris',
+    nav_lang_aria_to_en: 'Tukar ke Bahasa Inggeris',
+    nav_lang_aria_to_bm: 'Tukar ke Bahasa Melayu',
+    set_canvas_offline: 'Kanvas (Luar Talian)',
+    set_heygen_avatar_eg: 'cth. Angela-inblackskirt-20220820',
     nav_sign_in:     'Log Masuk',
     nav_view_profile: 'Lihat Profil',
     nav_demo:        'Demo',
@@ -2940,7 +2952,7 @@ const CS_LANG = {
     agent_blind:             'Ejen Audio Buta',
     agent_blind_desc:   'Navigasi audio penuh dengan TTS, pintasan papan kekunci, dan arahan suara.',
     agent_sign:              'Ejen Komunikasi Visual',
-    agent_sign_desc:         'Sokongan bacaan mesra Deaf dengan kapsyen besar, kata kunci visual, peta minda dan urutan komik.',
+    agent_sign_desc:         'Sokongan bacaan mesra Pekak dengan kapsyen besar, kata kunci visual, peta minda dan urutan komik.',
     agent_sign_badge:        'Sokongan Pekak',
     agent_celikverse:        'Perpustakaan CelikVerse',
     agent_celikverse_desc:   'Cari buku, buku audio, jurnal dan sumber pendidikan dari sumber terpercaya di seluruh dunia — Open Library, Gutenberg, Google Books, IAB & lain-lain.',
@@ -3187,6 +3199,7 @@ const CS_LANG = {
     btn_share:          'Kongsi',
 
     /* CelikVerse Library */
+    cv_lang_english: 'Bahasa Inggeris',
     cv_subtitle:    'Satu Carian. Banyak Koleksi. Aksesibiliti Tanpa Had.',
     cv_iab_title:   'Rak Buku Maya IAB',
     cv_demo_badge:  'Demo',
@@ -3634,6 +3647,7 @@ const CS_LANG = {
     iab_btn_ocr:         '📷 Ejen OCR',
 
     /* Pustakawan AI — tambahan */
+    lib_free_tab:           '📗 Perpustakaan Percuma',
     lib_search_btn:         'Cari',
     lib_read_btn:           '▶ Baca',
     lib_read_free_btn:      '▶ Baca Percuma',
@@ -3862,7 +3876,10 @@ const _lang = {
     });
     /* Also update langBtn by ID (pages that omit data-lang-toggle) */
     const _lb = document.getElementById('langBtn');
-    if (_lb) _lb.textContent = this.t('nav_lang_switch');
+    if (_lb) {
+      _lb.textContent = this.t('nav_lang_switch');
+      _lb.setAttribute('aria-label', this.t('nav_lang_aria'));
+    }
     window.dispatchEvent(new CustomEvent('cs:lang:changed', { detail: { lang: code } }));
   },
 
@@ -5111,9 +5128,12 @@ window.stopSpeech = function() {
 window.toggleLanguage = function() {
   var next = _lang.get() === 'en' ? 'ms' : 'en';
   _lang.set(next);
-  /* Update every lang toggle button text */
+  /* Update every lang toggle button text and aria-label */
   var btn = document.getElementById('langBtn');
-  if (btn) btn.textContent = next === 'en' ? 'BM' : 'EN';
+  if (btn) {
+    btn.textContent = next === 'en' ? 'BM' : 'EN';
+    btn.setAttribute('aria-label', _lang.t('nav_lang_aria'));
+  }
   window.currentLang = next;
 };
 
