@@ -726,7 +726,7 @@ body {
             <span>&#128214;</span>
             <span id="btnCSLabel">Create Comic Sequence</span>
           </button>
-          <button onclick="runReAct()" class="vca-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis" data-i18n="nav_react_btn"> ReAct</button>
+          <button onclick="runReAct()" id="btnReAct" class="vca-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis">⚡ ReAct AI Analysis</button>
         </div>
 
         <div class="vca-integrations">
@@ -841,7 +841,7 @@ body {
           <span class="vca-future-tag">HeyGen Avatar API</span>
           <span class="vca-future-tag">D-ID API</span>
           <span class="vca-future-tag">MediaPipe Holistic</span>
-          <span class="vca-future-tag">Official BIM Dataset</span>
+          <span class="vca-future-tag" id="futurTagBimDataset">Official BIM Dataset</span>
           <span class="vca-future-tag">Jabatan Pendidikan Khas</span>
         </div>
         <!-- Sign resource buttons -->
@@ -889,8 +889,10 @@ body {
 // CelikSense AI · Deaf-Friendly Reading Support
 // 
 
-//  State 
+//  State
 var vcaLang        = localStorage.getItem('cs_lang') || 'ms';
+// Normalise legacy 'bm' value — CS_LANG and local I18N both use 'ms'
+if (vcaLang === 'bm') { vcaLang = 'ms'; localStorage.setItem('cs_lang', 'ms'); }
 var vcaSentences   = [];
 var vcaKeywords    = [];
 var vcaSimplified  = [];
@@ -939,7 +941,9 @@ var I18N = {
     badge_ocr:          '✓ OCR Agent',
     badge_reading:      '✓ Reading Companion',
     badge_gemini:       '✓ Gemini AI',
-    badge_bim:          '⌛ BIM Integration (Future)'
+    badge_bim:          '⌛ BIM Integration (Future)',
+    reactBtn:           '⚡ ReAct AI Analysis',
+    bimDatasetTag:      'Official BIM Dataset'
   },
   ms: {
     heroTitle:          'Agen Komunikasi Visual',
@@ -982,7 +986,9 @@ var I18N = {
     badge_ocr:          '✓ Ejen OCR',
     badge_reading:      '✓ Teman Membaca',
     badge_gemini:       '✓ Gemini AI',
-    badge_bim:          '⌛ Integrasi BIM (Akan Datang)'
+    badge_bim:          '⌛ Integrasi BIM (Akan Datang)',
+    reactBtn:           '⚡ Analisis ReAct AI',
+    bimDatasetTag:      'Set Data BIM Rasmi'
   }
 };
 
@@ -1012,7 +1018,8 @@ function applyLang() {
     futureTitle:'futureTitle', futureText:'futureText',
     btnDownloadMM:'downloadMM',
     sl_badge_ocr:'badge_ocr', sl_badge_reading:'badge_reading',
-    sl_badge_gemini:'badge_gemini', sl_badge_bim:'badge_bim'
+    sl_badge_gemini:'badge_gemini', sl_badge_bim:'badge_bim',
+    btnReAct:'reactBtn', futurTagBimDataset:'bimDatasetTag'
   };
   Object.keys(map).forEach(function(id) {
     var el = document.getElementById(id);

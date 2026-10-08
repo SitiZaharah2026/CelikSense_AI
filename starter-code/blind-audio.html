@@ -609,7 +609,7 @@
             <span class="btn-icon" aria-hidden="true">&#10067;</span>
             <span data-i18n="ba_btn_help">Help</span>
           </button>
-          <button onclick="runReAct()" class="quick-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;border-color:#6366f1;" title="ReAct AI Analysis" aria-label="ReAct AI Analysis" data-i18n="react_btn">
+          <button onclick="runReAct()" class="quick-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;border-color:#6366f1;" title="ReAct AI Analysis" aria-label="ReAct AI Analysis" data-i18n="react_btn" data-i18n-title="react_btn" data-i18n-aria-label="react_btn">
             <span class="btn-icon" aria-hidden="true"></span>
             ReAct
           </button>
@@ -714,13 +714,21 @@
        blind-audio.html — page controller
        ================================================================ */
 
-    var WELCOME_MSG =
+    var WELCOME_MSG_EN =
       "Welcome to CelikSense AI. I am your AI accessibility assistant. " +
       "You may control this application completely using your voice. " +
       "Please allow microphone access when prompted. " +
       "Say Start Guide to hear full instructions. " +
       "Say Guest Mode to begin immediately. " +
       "Say Login to sign in.";
+    var WELCOME_MSG_MS =
+      "Selamat datang ke CelikSense AI. Saya pembantu kebolehcapaian AI anda. " +
+      "Anda boleh mengawal aplikasi ini sepenuhnya menggunakan suara anda. " +
+      "Sila benarkan akses mikrofon apabila diminta. " +
+      "Sebut Panduan Mula untuk mendengar arahan penuh. " +
+      "Sebut Mod Tetamu untuk bermula serta-merta. " +
+      "Sebut Log Masuk untuk daftar masuk.";
+    var WELCOME_MSG = (function(){ try { return (JSON.parse(localStorage.getItem('cs_user_prefs')||'{}').lang || localStorage.getItem('cs_lang') || 'ms') === 'ms' ? WELCOME_MSG_MS : WELCOME_MSG_EN; } catch(e){ return WELCOME_MSG_EN; } })();
 
     var HELP_MSG =
       "Available voice commands: " +
@@ -1193,6 +1201,7 @@ function toggleBlindLang() {
   try { lang = localStorage.getItem('cs_lang') || 'ms'; } catch(e) {}
   lang = lang === 'ms' ? 'en' : 'ms';
   LANG = lang;
+  WELCOME_MSG = lang === 'ms' ? WELCOME_MSG_MS : WELCOME_MSG_EN;
   try { localStorage.setItem('cs_lang', lang); } catch(e) {}
   applyBlindI18n();
   var sp = lang === 'ms' ? 'Bahasa ditukar kepada Bahasa Melayu.' : 'Language switched to English.';

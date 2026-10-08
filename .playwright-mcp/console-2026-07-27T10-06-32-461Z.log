@@ -1,0 +1,1 @@
+[   19206ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=TEST_KEY_MOCK:0

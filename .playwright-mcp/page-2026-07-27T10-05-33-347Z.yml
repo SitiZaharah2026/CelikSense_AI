@@ -1,0 +1,164 @@
+- generic [active] [ref=f1e1]:
+  - link "Skip to main content" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - link "CS CelikSense AI Agentic Multi-Sensory Learning" [ref=f1e5] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=f1e6]: CS
+        - generic [ref=f1e7]:
+          - generic [ref=f1e8]: CelikSense AI
+          - generic [ref=f1e9]: Agentic Multi-Sensory Learning
+      - generic [ref=f1e10]:
+        - link "Home" [ref=f1e11] [cursor=pointer]:
+          - /url: index.html
+        - link "Dashboard" [ref=f1e12] [cursor=pointer]:
+          - /url: dashboard.html
+        - button "Agents ▾" [ref=f1e14] [cursor=pointer]
+        - button "📚 Buku Saya" [ref=f1e16] [cursor=pointer]
+      - generic [ref=f1e17]:
+        - button "Switch to Bahasa Melayu" [ref=f1e18] [cursor=pointer]: BM
+        - link "👤 Profile" [ref=f1e19] [cursor=pointer]:
+          - /url: profile.html
+        - link "← Dashboard" [ref=f1e20] [cursor=pointer]:
+          - /url: dashboard.html
+        - link "Settings" [ref=f1e21] [cursor=pointer]:
+          - /url: settings.html
+          - text: ⚙️
+  - main [ref=f1e22]:
+    - generic [ref=f1e24]:
+      - generic [ref=f1e25]: ⚠️
+      - heading "Early Warning Agent" [level=1] [ref=f1e26]
+      - paragraph [ref=f1e27]: Learner performance monitoring and risk assessment. Identify at-risk learners early and trigger timely interventions.
+  - generic [ref=f1e29]:
+    - generic [ref=f1e31]:
+      - generic [ref=f1e32]: 📋 Learner Assessment Form
+      - generic [ref=f1e33]:
+        - generic [ref=f1e34]:
+          - generic [ref=f1e35]: Learner Name
+          - textbox "Learner Name" [ref=f1e36]:
+            - /placeholder: Enter name or ID…
+        - generic [ref=f1e37]:
+          - generic [ref=f1e38]: Grade Level
+          - combobox "Grade Level" [ref=f1e39] [cursor=pointer]:
+            - option "Primary 1"
+            - option "Primary 2"
+            - option "Primary 3"
+            - option "Primary 4" [selected]
+            - option "Primary 5"
+            - option "Primary 6"
+            - option "Secondary 1"
+            - option "Secondary 2"
+            - option "Secondary 3"
+      - generic [ref=f1e40]:
+        - generic [ref=f1e41]: Primary Learning Need
+        - combobox "Primary Learning Need" [ref=f1e42] [cursor=pointer]:
+          - option "General Learner" [selected]
+          - option "ADHD"
+          - option "Dyslexia"
+          - option "Blind / Low Vision"
+          - option "Deaf / Hard of Hearing"
+      - generic [ref=f1e43]: 📊 Performance Scores (0–100)
+      - generic [ref=f1e44]:
+        - generic [ref=f1e45]:
+          - generic [ref=f1e46]: Reading Score
+          - spinbutton "Reading Score" [ref=f1e47]: "58"
+        - generic [ref=f1e48]:
+          - generic [ref=f1e49]: Comprehension
+          - spinbutton "Comprehension" [ref=f1e50]: "52"
+        - generic [ref=f1e51]:
+          - generic [ref=f1e52]: Attention/Focus
+          - spinbutton "Attention/Focus" [ref=f1e53]: "41"
+        - generic [ref=f1e54]:
+          - generic [ref=f1e55]: Participation
+          - spinbutton "Participation" [ref=f1e56]: "65"
+      - generic [ref=f1e57]: 🔍 Observed Warning Signs
+      - generic [ref=f1e58]:
+        - generic [ref=f1e59] [cursor=pointer]:
+          - checkbox "Frequently loses focus during reading" [checked] [ref=f1e60]
+          - generic [ref=f1e61]: Frequently loses focus during reading
+        - generic [ref=f1e62] [cursor=pointer]:
+          - checkbox "Reading speed significantly below average" [checked] [ref=f1e63]
+          - generic [ref=f1e64]: Reading speed significantly below average
+        - generic [ref=f1e65] [cursor=pointer]:
+          - checkbox "Difficulty recognising common words" [ref=f1e66]
+          - generic [ref=f1e67]: Difficulty recognising common words
+        - generic [ref=f1e68] [cursor=pointer]:
+          - checkbox "Low comprehension scores despite effort" [checked] [ref=f1e69]
+          - generic [ref=f1e70]: Low comprehension scores despite effort
+        - generic [ref=f1e71] [cursor=pointer]:
+          - checkbox "Avoids reading tasks consistently" [ref=f1e72]
+          - generic [ref=f1e73]: Avoids reading tasks consistently
+        - generic [ref=f1e74] [cursor=pointer]:
+          - checkbox "Incomplete assignments regularly" [checked] [ref=f1e75]
+          - generic [ref=f1e76]: Incomplete assignments regularly
+        - generic [ref=f1e77] [cursor=pointer]:
+          - checkbox "Emotional distress related to reading" [ref=f1e78]
+          - generic [ref=f1e79]: Emotional distress related to reading
+        - generic [ref=f1e80] [cursor=pointer]:
+          - checkbox "Difficulty with text organisation" [ref=f1e81]
+          - generic [ref=f1e82]: Difficulty with text organisation
+      - generic [ref=f1e83]:
+        - generic [ref=f1e84]: Duration of Concern
+        - combobox "Duration of Concern" [ref=f1e85] [cursor=pointer]:
+          - option "Less than 2 weeks"
+          - option "2–4 weeks" [selected]
+          - option "1–2 months"
+          - option "More than 2 months"
+      - generic [ref=f1e86]:
+        - button "⚠️ Analyse Risk Now" [ref=f1e87] [cursor=pointer]
+        - button "🧠 ReAct" [ref=f1e88] [cursor=pointer]
+    - status [ref=f1e89]:
+      - generic [ref=f1e90]:
+        - generic [ref=f1e91]:
+          - generic [ref=f1e92]: "--"
+          - generic [ref=f1e93]: Risk Level
+        - generic [ref=f1e94]:
+          - generic [ref=f1e95]: "--"
+          - generic [ref=f1e96]: Avg Score
+        - generic [ref=f1e97]:
+          - generic [ref=f1e98]: "0"
+          - generic [ref=f1e99]: Warning Signs
+        - generic [ref=f1e100]:
+          - generic [ref=f1e101]: "--"
+          - generic [ref=f1e102]: Priority
+      - generic [ref=f1e103]:
+        - generic [ref=f1e104]: 📊 Risk Assessment Meter
+        - generic [ref=f1e105]:
+          - generic [ref=f1e106]: Overall Risk Level
+          - generic [ref=f1e107]: Run Assessment
+        - generic [ref=f1e108]:
+          - progressbar "Risk score"
+        - generic [ref=f1e109]: Low RiskMediumHigh Risk
+        - generic [ref=f1e110]: Complete and submit the assessment form to see risk analysis.
+      - generic [ref=f1e111]:
+        - generic [ref=f1e112]: 📈 Performance Trend (Last 6 Weeks)
+        - generic [ref=f1e120]:
+          - generic [ref=f1e121]: W1
+          - generic [ref=f1e122]: W2
+          - generic [ref=f1e123]: W3
+          - generic [ref=f1e124]: W4
+          - generic [ref=f1e125]: W5
+          - generic [ref=f1e126]: W6
+        - generic [ref=f1e127]: ↓ Declining performance trend over 6 weeks – intervention recommended
+      - generic [ref=f1e128]:
+        - generic [ref=f1e129]: 🚨 Risk Factors
+        - generic [ref=f1e130]: Submit assessment to see risk factors.
+      - generic [ref=f1e131]:
+        - generic [ref=f1e132]: 🔔 Active Alerts
+        - generic [ref=f1e133]: No alerts generated yet.
+      - generic [ref=f1e134]:
+        - link "💡 View Intervention Plan" [ref=f1e135] [cursor=pointer]:
+          - /url: intervention.html
+        - button "📄 Generate Report" [ref=f1e136] [cursor=pointer]
+        - button "↺ Reset" [ref=f1e137] [cursor=pointer]
+  - contentinfo [ref=f1e138]:
+    - generic [ref=f1e140]:
+      - generic [ref=f1e141]:
+        - text: © 2026 CelikSense AI ·
+        - link "Home" [ref=f1e142] [cursor=pointer]:
+          - /url: index.html
+        - text: ·
+        - link "Dashboard" [ref=f1e143] [cursor=pointer]:
+          - /url: dashboard.html
+      - generic [ref=f1e144]: ⚠️ Early Warning Agent

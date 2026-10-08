@@ -189,7 +189,7 @@ nav.navbar{display:none!important;}
 <!-- OFFLINE BANNER -->
 <div id="offline-banner" role="alert" aria-live="polite">
   <span class="offline-icon">📵</span>
-  <span id="offline-msg">Anda sedang <strong>offline</strong>. Hanya buku yang telah dimuat turun boleh dibaca.</span>
+  <span id="offline-msg">Anda sedang <strong>luar talian</strong>. Hanya buku yang telah dimuat turun boleh dibaca.</span>
   <span class="offline-count" id="offline-avail-count"></span>
 </div>
 
@@ -856,10 +856,10 @@ function updateOfflineBanner(){
     countEl.textContent=avail.length+' buku tersedia';
     var lang=document.documentElement.lang||'ms';
     if(lang==='en'){
-      msgEl.innerHTML='You are <strong>offline</strong>. Only downloaded books can be read.';
+      msgEl.innerHTML='You are <strong>offline</strong>. Only downloaded books can be read.'; // EN
       countEl.textContent=avail.length+' book'+(avail.length!==1?'s':'')+' available';
     } else {
-      msgEl.innerHTML='Anda sedang <strong>offline</strong>. Hanya buku yang telah dimuat turun boleh dibaca.';
+      msgEl.innerHTML='Anda sedang <strong>luar talian</strong>. Hanya buku yang telah dimuat turun boleh dibaca.';
     }
     banner.classList.add('show');
   } else {

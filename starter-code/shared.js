@@ -1078,6 +1078,8 @@ const CS_LANG = {
     sl_mind_map_out:         'Mind Map',
     sl_story_seq:            'Visual Story Sequence',
     sl_glossary_out:         'Glossary of Key Words',
+    sl_react_btn:            '⚡ ReAct AI Analysis',
+    sl_bim_dataset_tag:      'Official BIM Dataset',
     agent_blind:             'Blind Audio Agent',
     agent_blind_desc:   'Full audio navigation with TTS, keyboard shortcuts, and voice instructions.',
     agent_sign:              'Visual Communication Agent',
@@ -1791,6 +1793,8 @@ const CS_LANG = {
     lib_mode_adhd:       'ADHD Agent',
     lib_mode_audio:      'Audio Agent',
     lib_mode_ds:         'Down Syndrome',
+    lib_mode_dyslexia:   'Dyslexia Agent',
+    lib_mode_ocr:        'OCR Agent',
     lib_dyslexia_opt:    'Dyslexia',
     lib_visual_keywords: 'Visual keywords',
     nav_skip_content:    'Skip to main content',
@@ -1913,6 +1917,19 @@ const CS_LANG = {
     set_display_name_aria:    'Display name',
     set_show_hide_key:        'Show/hide key',
     set_lang_en_bsl:          'English (BSL/ASL future)',
+
+    /* Global nav — hamburger toggle */
+    nav_toggle:               'Toggle navigation',
+
+    /* Index page — additional */
+    idx_view_profile:         'View Profile',
+    idx_close:                'Close',
+
+    /* Profile page — avatar name label */
+    prof_avatar_name:         'My Avatar',
+
+    /* Settings — Avatar Engine placeholders */
+    set_heygen_voice_eg:      'e.g. en-US-JennyNeural',
   },
 
   ms: {
@@ -2559,7 +2576,7 @@ const CS_LANG = {
     dys_moderate_support:'Sokongan Sederhana:',
     dys_api_tip:         'Tambah kunci API OpenRouter anda dalam Tetapan untuk tips AI diperibadikan.',
     dys_page_title_full: 'Ejen Membaca Adaptif Disleksia',
-    dys_font_normal:     'Normal',
+    dys_font_normal:     'Biasa',
     dys_font_lexend:     'Lexend',
     dys_font_od:         'OpenDyslexic',
     dys_load_prompt:     'Klik <strong>Muat Teks</strong> untuk mulakan.',
@@ -2951,6 +2968,8 @@ const CS_LANG = {
     sl_mind_map_out:         'Peta Minda',
     sl_story_seq:            'Jujukan Cerita Visual',
     sl_glossary_out:         'Glosari Kata-Kata Penting',
+    sl_react_btn:            '⚡ Analisis ReAct AI',
+    sl_bim_dataset_tag:      'Set Data BIM Rasmi',
     agent_blind:             'Ejen Audio Buta',
     agent_blind_desc:   'Navigasi audio penuh dengan TTS, pintasan papan kekunci, dan arahan suara.',
     agent_sign:              'Ejen Komunikasi Visual',
@@ -3664,6 +3683,8 @@ const CS_LANG = {
     lib_mode_adhd:       'Ejen ADHD',
     lib_mode_audio:      'Ejen Audio',
     lib_mode_ds:         'Sindrom Down',
+    lib_mode_dyslexia:   'Ejen Disleksia',
+    lib_mode_ocr:        'Ejen OCR',
     lib_dyslexia_opt:    'Disleksia',
     lib_visual_keywords: 'Kata Kunci Visual',
     nav_skip_content:    'Langkau ke kandungan utama',
@@ -3786,6 +3807,19 @@ const CS_LANG = {
     set_display_name_aria:    'Nama paparan',
     set_show_hide_key:        'Tunjuk/sembunyikan kunci',
     set_lang_en_bsl:          'Bahasa Inggeris (BSL/ASL masa hadapan)',
+
+    /* Global nav — hamburger toggle */
+    nav_toggle:               'Togol navigasi',
+
+    /* Index page — additional */
+    idx_view_profile:         'Lihat Profil',
+    idx_close:                'Tutup',
+
+    /* Profile page — avatar name label */
+    prof_avatar_name:         'Avatar Saya',
+
+    /* Settings — Avatar Engine placeholders */
+    set_heygen_voice_eg:      'cth. en-US-JennyNeural',
   }
 };
 
@@ -3881,6 +3915,40 @@ const _lang = {
     if (_lb) {
       _lb.textContent = this.t('nav_lang_switch');
       _lb.setAttribute('aria-label', this.t('nav_lang_aria'));
+    }
+    /* Update all hamburger / navbar-toggler buttons */
+    document.querySelectorAll('.navbar-toggler, .nav-hamburger, [id="hamburger"]').forEach(btn => {
+      btn.setAttribute('aria-label', this.t('nav_toggle'));
+    });
+    /* Update page title when switching to BM */
+    const _PAGE_TITLES_BM = {
+      'index.html':             'CelikSense AI — Beranda',
+      'dashboard.html':         'Papan Pemuka — CelikSense AI',
+      'profile.html':           'Profil Saya — CelikSense AI',
+      'settings.html':          'Tetapan — CelikSense AI',
+      'ocr-agent.html':         'Ejen OCR — CelikSense AI',
+      'sign-language.html':     'Bahasa Isyarat — CelikSense AI',
+      'adhd-agent.html':        'Ejen ADHD — CelikSense AI',
+      'dyslexia-agent.html':    'Ejen Disleksia — CelikSense AI',
+      'blind-audio.html':       'Audio Buta — CelikSense AI',
+      'early-warning.html':     'Amaran Awal — CelikSense AI',
+      'intervention.html':      'Intervensi — CelikSense AI',
+      'book-discovery.html':    'Penemuan Buku — CelikSense AI',
+      'ai-librarian.html':      'Pustakawan AI — CelikSense AI',
+      'iab-library.html':       'Perpustakaan IAB — CelikSense AI',
+      'celikverse-library.html':'Perpustakaan CelikVerse — CelikSense AI',
+      'down-syndrome-agent.html':'Ejen Sindrom Down — CelikSense AI',
+      'reading-shelf.html':     'Rak Bacaan Saya — CelikSense AI',
+      'celiksense-reader.html': 'Pembaca CelikSense — CelikSense AI',
+      'ai-teacher-agent.html':  'Guru AI — CelikSense AI',
+      'adhd-reader.html':       'Pembaca ADHD — CelikSense AI',
+    };
+    if (!this._origTitle) this._origTitle = document.title;
+    const _pageName = location.pathname.split('/').pop() || 'index.html';
+    if (this._current === 'ms' && _PAGE_TITLES_BM[_pageName]) {
+      document.title = _PAGE_TITLES_BM[_pageName];
+    } else {
+      document.title = this._origTitle;
     }
     window.dispatchEvent(new CustomEvent('cs:lang:changed', { detail: { lang: code } }));
   },

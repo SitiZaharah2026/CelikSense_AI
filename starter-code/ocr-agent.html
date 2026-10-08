@@ -757,6 +757,11 @@ const ocrTr = {
     copy_btn:       'Copy (C)',
     download_btn:   'Download .txt',
     edit_btn:       'Edit text',
+    edit_done_btn:  'Done',
+    edit_off_msg:   'Edit mode off. Text saved.',
+    edit_on_msg:    'Edit mode on. You can now edit the extracted text.',
+    download_done:  'Text file downloaded.',
+    clear_confirm:  'Clear all extracted text?',
     clear_btn:      'Clear (X)',
     braille_btn:    'Convert OCR Text to Braille',
     sign_btn:       'Sign OCR text with My Avatar',
@@ -801,6 +806,11 @@ const ocrTr = {
     copy_btn:       'Salin (C)',
     download_btn:   'Muat turun .txt',
     edit_btn:       'Edit teks',
+    edit_done_btn:  'Selesai',
+    edit_off_msg:   'Mod edit dimatikan. Teks disimpan.',
+    edit_on_msg:    'Mod edit dihidupkan. Anda boleh mengedit teks yang diekstrak.',
+    download_done:  'Fail teks dimuat turun.',
+    clear_confirm:  'Padam semua teks yang diekstrak?',
     clear_btn:      'Padam (X)',
     braille_btn:    'Tukar teks OCR ke Braille',
     sign_btn:       'Tandatangan teks OCR dengan Avatar Saya',
@@ -1331,7 +1341,7 @@ function copyText() {
   navigator.clipboard.writeText(extractedText).then(() => {
     const btn = document.getElementById('copyBtn');
     btn.textContent = ' ' + ocrT('copied');
-    setTimeout(() => btn.textContent = ' Copy', 2000);
+    setTimeout(() => btn.textContent = ' ' + ocrT('copy_btn'), 2000);
     announce(ocrT('copied'));
   }).catch(() => {
     const ta = document.createElement('textarea');
@@ -1349,7 +1359,7 @@ function downloadText() {
   a.href = URL.createObjectURL(blob);
   a.download = 'ocr-extracted-' + new Date().toISOString().slice(0,10) + '.txt';
   a.click();
-  announce('Text file downloaded.');
+  announce(ocrT('download_done'));
 }
 
 function toggleEdit() {
@@ -1359,18 +1369,18 @@ function toggleEdit() {
     body.contentEditable = 'false';
     extractedText = body.innerText;
     updateStats();
-    document.getElementById('editBtn').textContent = ' Edit';
-    announce('Edit mode off. Text saved.');
+    document.getElementById('editBtn').textContent = ' ' + ocrT('edit_btn');
+    announce(ocrT('edit_off_msg'));
   } else {
     body.contentEditable = 'true';
     body.focus();
-    document.getElementById('editBtn').textContent = ' Done';
-    announce('Edit mode on. You can now edit the extracted text.');
+    document.getElementById('editBtn').textContent = ' ' + ocrT('edit_done_btn');
+    announce(ocrT('edit_on_msg'));
   }
 }
 
 function clearAll() {
-  if (extractedText && !confirm('Clear all extracted text?')) return;
+  if (extractedText && !confirm(ocrT('clear_confirm'))) return;
   extractedText = '';
   wordData = [];
   files = [];

@@ -1,0 +1,128 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "CS CelikSense AI Agentic Multi-Sensory Learning" [ref=e5] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=e6]: CS
+        - generic [ref=e7]:
+          - generic [ref=e8]: CelikSense AI
+          - generic [ref=e9]: Agentic Multi-Sensory Learning
+      - generic [ref=e10]:
+        - link "Home" [ref=e11] [cursor=pointer]:
+          - /url: index.html
+        - link "Dashboard" [ref=e12] [cursor=pointer]:
+          - /url: dashboard.html
+        - button "Agents ▾" [ref=e14] [cursor=pointer]
+        - button "📚 Buku Saya" [ref=e16] [cursor=pointer]
+      - generic [ref=e17]:
+        - button "Switch to Bahasa Melayu" [ref=e18] [cursor=pointer]: BM
+        - link "👤 Profile" [ref=e19] [cursor=pointer]:
+          - /url: profile.html
+        - link "← Dashboard" [ref=e20] [cursor=pointer]:
+          - /url: dashboard.html
+        - link "Settings" [ref=e21] [cursor=pointer]:
+          - /url: settings.html
+          - text: ⚙️
+  - main [ref=e22]:
+    - note "Personalised ADHD Tip" [ref=e23]:
+      - generic [ref=e24]: ⚡ Personalised Tip
+      - generic [ref=e25]: "Based on your reading pattern: 10-minute micro-reading sessions work best for your focus. Set a timer and take 5-minute breaks between sessions."
+    - generic [ref=e27]:
+      - generic [ref=e28]: 🧠
+      - heading "ADHD Adaptive Reading Agent" [level=1] [ref=e29]
+      - paragraph [ref=e30]: Focus-optimised reading with micro-sessions, timers, highlighting, and smart note builder.
+  - generic [ref=e32]:
+    - generic [ref=e33]:
+      - generic [ref=e34]:
+        - generic [ref=e35]: ⏱ Micro-Reading Session
+        - generic [ref=e36]:
+          - generic [ref=e37]: "Session Length:"
+          - button "5 min" [ref=e38] [cursor=pointer]
+          - button "10 min" [ref=e39] [cursor=pointer]
+          - button "15 min" [ref=e40] [cursor=pointer]
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - timer "Focus timer" [ref=e43]: 10:00
+            - generic [ref=e44]: Session Timer
+            - status [ref=e45]
+          - generic [ref=e46]:
+            - button "▶ Start Session" [ref=e47] [cursor=pointer]
+            - button "⏸ Pause" [disabled] [ref=e48]
+            - button "⏹ Stop" [ref=e49] [cursor=pointer]
+      - generic [ref=e50]:
+        - generic [ref=e51]: 🎯 Interest & Strategy
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - generic [ref=e54]: My Interests
+            - textbox "e.g. science, football, music…" [ref=e55]
+          - generic [ref=e56]:
+            - generic [ref=e57]: Reading Mode
+            - combobox [ref=e58] [cursor=pointer]:
+              - option "Focus Window Mode" [selected]
+              - option "Chunk Reading Mode"
+              - option "Free Reading Mode"
+        - button "🤖 Generate Strategy" [ref=e59] [cursor=pointer]
+        - button "🧠 ReAct" [ref=e60] [cursor=pointer]
+      - generic [ref=e61]:
+        - generic [ref=e62]: 📖 Reading Area
+        - toolbar "Text highlight colours" [ref=e63]:
+          - button "Highlight selection yellow" [ref=e64] [cursor=pointer]: Yellow
+          - button "Highlight selection green" [ref=e65] [cursor=pointer]: Green
+          - button "Highlight selection purple" [ref=e66] [cursor=pointer]: Purple
+          - button "Highlight selection red" [ref=e67] [cursor=pointer]: Red
+          - button "Clear all highlights" [ref=e68] [cursor=pointer]: Clear
+        - generic [ref=e69]: Scientists have discovered that the human brain is incredibly adaptable. This remarkable quality, known as neuroplasticity, means that our brains can form new connections throughout our lives. Regular reading has been shown to strengthen these neural pathways. For learners with ADHD, short focused reading sessions are particularly effective. The key is to match the reading content to areas of genuine interest. When students read about topics they love, their brain naturally produces dopamine, which helps maintain focus. Try reading for just 5 to 10 minutes at a time, then take a short break before continuing. This micro-reading approach works with the ADHD brain rather than against it.
+        - generic [ref=e71]:
+          - button "🔊 Read Aloud" [ref=e72] [cursor=pointer]
+          - button "👁 Focus Window" [ref=e73] [cursor=pointer]
+          - button "⏹ Stop" [ref=e74] [cursor=pointer]
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - generic [ref=e77]: 🎯 Focus Score
+        - generic [ref=e78]: "72"
+        - generic [ref=e80]: Good Focus Level 👍
+        - button "↻ Simulate Score" [ref=e81] [cursor=pointer]
+      - generic [ref=e82]:
+        - generic [ref=e83]: 📚 Multi-Book Strategy
+        - generic [ref=e84]: "ADHD learners often thrive reading 2–3 books simultaneously. Rotate based on energy level:"
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - generic [ref=e87]: 🔵
+            - generic [ref=e88]:
+              - strong [ref=e89]: "High Focus:"
+              - text: Science / Maths
+          - generic [ref=e90]:
+            - generic [ref=e91]: 🟡
+            - generic [ref=e92]:
+              - strong [ref=e93]: "Medium Focus:"
+              - text: Stories
+          - generic [ref=e94]:
+            - generic [ref=e95]: 🟢
+            - generic [ref=e96]:
+              - strong [ref=e97]: "Low Focus:"
+              - text: Comics / BIM
+      - generic [ref=e98]:
+        - generic [ref=e99]: 📝 AI Note Builder
+        - generic [ref=e100]:
+          - textbox "Add a note or quote…" [ref=e101]
+          - button "+" [ref=e102] [cursor=pointer]
+        - generic "Notes list" [ref=e103]:
+          - paragraph [ref=e104]: No notes yet.
+        - button "📤 Export Notes" [ref=e105] [cursor=pointer]
+      - generic [ref=e106]:
+        - generic [ref=e107]: 💡 ADHD Intervention
+        - generic [ref=e108]: Start a session to receive personalised ADHD reading interventions.
+        - link "View Full Intervention Plan" [ref=e109] [cursor=pointer]:
+          - /url: intervention.html
+  - contentinfo [ref=e110]:
+    - generic [ref=e112]:
+      - generic [ref=e113]:
+        - text: © 2026 CelikSense AI ·
+        - link "Home" [ref=e114] [cursor=pointer]:
+          - /url: index.html
+        - text: ·
+        - link "Dashboard" [ref=e115] [cursor=pointer]:
+          - /url: dashboard.html
+      - generic [ref=e116]: 🧠 ADHD Adaptive Reading Agent

@@ -1,0 +1,8 @@
+[   42108ms] ReferenceError: LANG is not defined
+    at _callAgent (https://starter-code-phi.vercel.app/early-warning.html:334:48)
+    at _ewAiInterpret (https://starter-code-phi.vercel.app/early-warning.html:370:22)
+    at analyseRisk (https://starter-code-phi.vercel.app/early-warning.html:327:3)
+    at eval (eval at <anonymous> (eval at evaluate (:303:30)), <anonymous>:14:13)
+    at eval (eval at evaluate (:303:30), <anonymous>:4:50)
+    at UtilityScript.evaluate (<anonymous>:305:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
