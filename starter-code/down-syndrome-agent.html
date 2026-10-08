@@ -452,6 +452,13 @@ var I18N = {
 };
 
 function applyI18n(){
+  // Use CS.lang.set() which handles [data-i18n], [data-i18n-title],
+  // [data-i18n-placeholder], [data-i18n-aria-label] in one pass via CS_LANG.
+  // Then layer in any local I18N overrides (page-specific keys not in shared.js).
+  if (window.CS && CS.lang && typeof CS.lang.set === 'function') {
+    CS.lang.set(LANG);
+  }
+  // Local I18N overrides (ds_* keys not in shared.js CS_LANG)
   var t = I18N[LANG] || I18N['ms'];
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var key = el.getAttribute('data-i18n');
@@ -467,7 +474,8 @@ function toggleLanguage(){
   applyI18n();
 }
 
-applyI18n();
+// Apply on DOMContentLoaded so CS is fully initialised before we call CS.lang.set().
+document.addEventListener('DOMContentLoaded', applyI18n);
 
 /*  ReAct Loop  */
 async function _reactAI(prompt) {

@@ -1047,6 +1047,7 @@
 
     /* Init */
     document.addEventListener("DOMContentLoaded", function() {
+      applyBlindI18n();
       injectCelikVerseBook();
       if (window.CS_BRAILLE) {
         CS_BRAILLE.injectStyles();
@@ -1177,13 +1178,23 @@ async function runReAct() {
   }
 }
 
+/* ----------------------------------------------------------------
+   i18n — apply all data-i18n attributes using shared.js CS_LANG.set()
+   CS.lang.set(code) translates every [data-i18n] element on the page.
+   ---------------------------------------------------------------- */
+function applyBlindI18n() {
+  if (window.CS && CS.lang && typeof CS.lang.set === 'function') {
+    CS.lang.set(LANG);
+  }
+}
+
 function toggleBlindLang() {
   var lang = 'ms';
   try { lang = localStorage.getItem('cs_lang') || 'ms'; } catch(e) {}
   lang = lang === 'ms' ? 'en' : 'ms';
+  LANG = lang;
   try { localStorage.setItem('cs_lang', lang); } catch(e) {}
-  var btn = document.getElementById('langBtn');
-  if (btn) btn.textContent = lang === 'ms' ? 'EN' : 'BM';
+  applyBlindI18n();
   var sp = lang === 'ms' ? 'Bahasa ditukar kepada Bahasa Melayu.' : 'Language switched to English.';
   if (window.speechSynthesis) { var u = new SpeechSynthesisUtterance(sp); u.lang = lang === 'ms' ? 'ms-MY' : 'en-US'; window.speechSynthesis.speak(u); }
 }
