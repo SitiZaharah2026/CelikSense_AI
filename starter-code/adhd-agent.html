@@ -175,12 +175,12 @@
         <div class="panel-title" data-i18n="adhd_reading_area"> Reading Area</div>
 
         <!-- Highlight Toolbar -->
-        <div class="highlight-toolbar" role="toolbar" aria-label="Text highlight colours" style="position:relative;z-index:10;">
-          <button class="hl-btn" style="background:#fbbf2440;color:#92400e;cursor:pointer;" onmousedown="hlColor('#fbbf2440')" aria-label="Highlight selection yellow" data-i18n="color_yellow">Yellow</button>
-          <button class="hl-btn" style="background:#6ee7b740;color:#065f46;cursor:pointer;" onmousedown="hlColor('#6ee7b740')" aria-label="Highlight selection green" data-i18n="color_green">Green</button>
-          <button class="hl-btn" style="background:#a5b4fc40;color:#3730a3;cursor:pointer;" onmousedown="hlColor('#a5b4fc40')" aria-label="Highlight selection purple" data-i18n="color_purple">Purple</button>
-          <button class="hl-btn" style="background:#fca5a540;color:#7f1d1d;cursor:pointer;" onmousedown="hlColor('#fca5a540')" aria-label="Highlight selection red" data-i18n="color_red">Red</button>
-          <button class="hl-btn" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;" onclick="clearHighlights()" aria-label="Clear all highlights" data-i18n="color_clear">Clear</button>
+        <div class="highlight-toolbar" role="toolbar" aria-label="Text highlight colours" data-i18n-aria-label="adhd_hl_toolbar_aria" style="position:relative;z-index:10;">
+          <button class="hl-btn" style="background:#fbbf2440;color:#92400e;cursor:pointer;" onmousedown="hlColor('#fbbf2440')" aria-label="Highlight selection yellow" data-i18n-aria-label="adhd_hl_yellow" data-i18n="color_yellow">Yellow</button>
+          <button class="hl-btn" style="background:#6ee7b740;color:#065f46;cursor:pointer;" onmousedown="hlColor('#6ee7b740')" aria-label="Highlight selection green" data-i18n-aria-label="adhd_hl_green" data-i18n="color_green">Green</button>
+          <button class="hl-btn" style="background:#a5b4fc40;color:#3730a3;cursor:pointer;" onmousedown="hlColor('#a5b4fc40')" aria-label="Highlight selection purple" data-i18n-aria-label="adhd_hl_purple" data-i18n="color_purple">Purple</button>
+          <button class="hl-btn" style="background:#fca5a540;color:#7f1d1d;cursor:pointer;" onmousedown="hlColor('#fca5a540')" aria-label="Highlight selection red" data-i18n-aria-label="adhd_hl_red" data-i18n="color_red">Red</button>
+          <button class="hl-btn" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;" onclick="clearHighlights()" aria-label="Clear all highlights" data-i18n-aria-label="adhd_hl_clear" data-i18n="color_clear">Clear</button>
           <span style="width:1px;background:var(--border);margin:0 4px;align-self:stretch;display:inline-block;"></span>
           <button class="hl-btn" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);font-size:15px;cursor:pointer;" onclick="changeFontSize(-1)" title="Kecilkan teks">A−</button>
           <button class="hl-btn" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);font-size:15px;cursor:pointer;" onclick="changeFontSize(1)" title="Besarkan teks">A+</button>
@@ -771,7 +771,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var banner = document.createElement('div');
   banner.className = 'ps-card';
   banner.setAttribute('role','note');
-  banner.setAttribute('aria-label','Personalised ADHD Tip');
+  banner.setAttribute('aria-label', CS.lang.t('adhd_tip_aria'));
+  banner.setAttribute('data-i18n-aria-label','adhd_tip_aria');
   banner.innerHTML = '<div class="ps-card-title">⚡ ' + (lang==='ms'?'Petua Diperibadikan':'Personalised Tip') + '</div>' +
     '<div class="ps-insight">' + (lang==='ms'?'Berdasarkan corak bacaan anda: Sesi mikro-bacaan 10 minit adalah yang terbaik untuk tumpuan anda. Tetapkan pemasa dan berehat 5 minit setiap sesi.':'Based on your reading pattern: 10-minute micro-reading sessions work best for your focus. Set a timer and take 5-minute breaks between sessions.') + '</div>';
   var main = document.querySelector('main') || document.querySelector('.container') || document.body;

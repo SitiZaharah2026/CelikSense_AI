@@ -379,9 +379,10 @@ function renderCard(book){
   if(book.lastMode){
     var badge=document.createElement('span');
     badge.className='bk-badge badge-'+(book.lastMode||'none');
-    var modeNames={blind:t('rsh_mode_blind')||'BLIND',lowvision:'LowVis',dyslexia:t('rsh_mode_dyslexia')||'DYSLEXIA',adhd:'ADHD',deaf:'Deaf',normal:t('rsh_mode_normal')||'NORMAL'};
+    var _ct=function(k,fb){return (window.CS&&CS.lang&&typeof CS.lang.t==='function')?CS.lang.t(k):(t(k)||fb);};
+    var modeNames={blind:_ct('rsh_mode_blind','BLIND'),lowvision:'LowVis',dyslexia:_ct('rsh_mode_dyslexia','DYSLEXIA'),adhd:'ADHD',deaf:'Deaf',normal:_ct('rsh_mode_normal','NORMAL')};
     badge.textContent=modeNames[book.lastMode]||book.lastMode;
-    badge.setAttribute('aria-label','Last mode: '+book.lastMode);
+    badge.setAttribute('aria-label',(_ct('rsh_last_mode','Last mode:')+' '+book.lastMode));
     coverWrap.appendChild(badge);
   }
   // Offline-ready badge

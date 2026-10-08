@@ -754,6 +754,18 @@ const ocrTr = {
     cam_aria_use:   'Use this image and run OCR text extraction',
     upload_aria:    'Upload image. Press Enter or Space to open file browser.',
     divider_or:     'or',
+    copy_btn:       'Copy (C)',
+    download_btn:   'Download .txt',
+    edit_btn:       'Edit text',
+    clear_btn:      'Clear (X)',
+    braille_btn:    'Convert OCR Text to Braille',
+    sign_btn:       'Sign OCR text with My Avatar',
+    play_pause_aria:'Play / Pause text-to-speech',
+    cam_close:      'Close camera',
+    cam_capture_aria:'Capture photo',
+    cam_switch_aria: 'Switch camera',
+    cam_retake_aria: 'Retake',
+    cam_use_aria:   'Use this image and run OCR',
   },
   bm: {
     subtitle:    'Muat naik imej buku atau foto teks bercetak — ejen mengekstrak, membaca kuat, dan menjadikannya mudah diakses.',
@@ -784,8 +796,20 @@ const ocrTr = {
     cam_aria_switch: 'Tukar antara kamera hadapan dan belakang',
     cam_aria_retake: 'Ambil semula foto — buang tangkapan semasa dan cuba lagi',
     cam_aria_use:   'Guna gambar ini dan jalankan pengekstrakan teks OCR',
-    upload_aria:    'Muat naik gambar. Tekan Enter atau Ruang untuk buka pelayar fail.',
+    upload_aria:    'Muat naik imej. Tekan Enter atau Ruang untuk buka pelayar fail.',
     divider_or:     'atau',
+    copy_btn:       'Salin (C)',
+    download_btn:   'Muat turun .txt',
+    edit_btn:       'Edit teks',
+    clear_btn:      'Padam (X)',
+    braille_btn:    'Tukar teks OCR ke Braille',
+    sign_btn:       'Tandatangan teks OCR dengan Avatar Saya',
+    play_pause_aria:'Main / Jeda teks-ke-suara',
+    cam_close:      'Tutup kamera',
+    cam_capture_aria:'Ambil gambar',
+    cam_switch_aria: 'Tukar kamera',
+    cam_retake_aria: 'Ambil semula',
+    cam_use_aria:   'Guna imej ini dan jalankan OCR',
   }
 };
 function ocrT(k) { return (ocrTr[currentLang] || ocrTr.en)[k] || k; }
@@ -816,17 +840,38 @@ function applyOCRTranslations() {
     var key = 'swatch_' + el.getAttribute('data-swatch');
     el.title = ocrT(key);
   });
+  // Toolbar buttons
+  var copyBtn = document.getElementById('copyBtn');
+  if (copyBtn) copyBtn.textContent = ocrT('copy_btn');
+  var downloadBtn = document.getElementById('downloadBtn');
+  if (downloadBtn) downloadBtn.textContent = ocrT('download_btn');
+  var editBtn = document.getElementById('editBtn');
+  if (editBtn) editBtn.textContent = ocrT('edit_btn');
+  var clearBtn = document.getElementById('clearBtn');
+  if (clearBtn) clearBtn.textContent = ocrT('clear_btn');
+  // Braille / Avatar sign buttons
+  var brailleBtn = document.getElementById('ocrBrailleBtn');
+  if (brailleBtn) brailleBtn.setAttribute('aria-label', ocrT('braille_btn'));
+  var avatarBtn = document.getElementById('ocrAvatarBtn');
+  if (avatarBtn) avatarBtn.setAttribute('aria-label', ocrT('sign_btn'));
+  // TTS play/pause button
+  var ttsBtn = document.getElementById('ttsBtn');
+  if (ttsBtn) ttsBtn.setAttribute('aria-label', ocrT('play_pause_aria'));
   // Camera modal aria-labels
+  var camCloseBtn = document.getElementById('camCloseBtn');
+  if (camCloseBtn) camCloseBtn.setAttribute('aria-label', ocrT('cam_close'));
+  var captureBtn = document.getElementById('captureBtn');
+  if (captureBtn) captureBtn.setAttribute('aria-label', ocrT('cam_capture_aria'));
   var camVideo = document.getElementById('cameraVideo');
   if (camVideo) camVideo.setAttribute('aria-label', ocrT('cam_aria_video'));
   var camPhoto = document.getElementById('capturedPreview');
   if (camPhoto) camPhoto.setAttribute('alt', ocrT('cam_aria_photo'));
   var switchBtn = document.getElementById('switchCamBtn');
-  if (switchBtn) switchBtn.setAttribute('aria-label', ocrT('cam_aria_switch'));
+  if (switchBtn) switchBtn.setAttribute('aria-label', ocrT('cam_switch_aria'));
   var retakeBtn = document.getElementById('retakeBtn');
-  if (retakeBtn) retakeBtn.setAttribute('aria-label', ocrT('cam_aria_retake'));
+  if (retakeBtn) retakeBtn.setAttribute('aria-label', ocrT('cam_retake_aria'));
   var useBtn = document.getElementById('usePhotoBtn');
-  if (useBtn) useBtn.setAttribute('aria-label', ocrT('cam_aria_use'));
+  if (useBtn) useBtn.setAttribute('aria-label', ocrT('cam_use_aria'));
   // Upload zone aria-label
   var uploadZone = document.getElementById('uploadZone');
   if (uploadZone) uploadZone.setAttribute('aria-label', ocrT('upload_aria'));

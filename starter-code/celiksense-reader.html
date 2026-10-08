@@ -423,7 +423,7 @@ body.mode-blind #blind-ui{display:block;}
       <button class="tbb"    id="hc-yellow" onclick="setHC('yellow')">Yellow</button>
     </div>
     <div class="tbg"><button class="tbb" id="guide-btn" onclick="toggleGuide()"> Guide</button></div>
-    <div class="tbg"><button class="tbb" onclick="toggleRead()"> Read</button></div>
+    <div class="tbg"><button class="tbb" id="lv-read-btn" onclick="toggleRead()"> Read</button></div>
     <div class="tbg"><button class="tbb" onclick="toggleSidebar()"> AI</button></div>
   </div>
   <!-- Dyslexia -->
@@ -444,7 +444,7 @@ body.mode-blind #blind-ui{display:block;}
       <button class="tbb" onclick="adjWS(0.05)">+</button>
     </div>
     <div class="tbg"><span class="tbl">OVERLAY</span>
-      <button class="tbb on" onclick="setOverlay('none')">None</button>
+      <button class="tbb on" id="overlay-none-btn" onclick="setOverlay('none')">None</button>
       <button class="tbb" onclick="setOverlay('#ffff00')"></button>
       <button class="tbb" onclick="setOverlay('#aad4f5')"></button>
       <button class="tbb" onclick="setOverlay('#90ee90')"></button>
@@ -468,8 +468,8 @@ body.mode-blind #blind-ui{display:block;}
   <div class="tb" id="tb-deaf">
     <div class="tbg"><button class="tbb" id="simp-btn" onclick="toggleSimplify()"> Simplify</button></div>
     <div class="tbg"><button class="tbb" id="kw-btn"   onclick="toggleKeywords()"> Keywords</button></div>
-    <div class="tbg"><button class="tbb" onclick="toggleSidebar()"> Mind Map</button></div>
-    <div class="tbg"><a href="signsense-dictionary.html" class="tbb" style="text-decoration:none;"> Sign Dict</a></div>
+    <div class="tbg"><button class="tbb" id="mindmap-btn" onclick="toggleSidebar()"> Mind Map</button></div>
+    <div class="tbg"><a href="signsense-dictionary.html" id="signdict-link" class="tbb" style="text-decoration:none;"> Sign Dict</a></div>
   </div>
 </div>
 
@@ -498,9 +498,9 @@ body.mode-blind #blind-ui{display:block;}
   <button class="ai-s-btn" onclick="doAI('mindmap')"><span class="si"></span> Mind Map</button>
   <button class="ai-s-btn" onclick="doAI('summary')"><span class="si"></span> Summary</button>
   <div id="ai-s-out" style="margin-top:4px;font-size:13px;line-height:1.7;color:var(--text);"></div>
-  <div class="ai-s-lbl"> MY NOTES</div>
+  <div class="ai-s-lbl" id="sb-notes-label"> MY NOTES</div>
   <textarea id="notes-area" placeholder="Write your notes here…" oninput="saveNotes()"></textarea>
-  <button class="ai-s-btn" style="margin-top:8px;" onclick="saveBookmark()"><span class="si"></span> Bookmark Position</button>
+  <button class="ai-s-btn" id="bookmark-btn" style="margin-top:8px;" onclick="saveBookmark()"><span class="si"></span> Bookmark Position</button>
   <div id="bm-msg" style="font-size:11px;color:#22c55e;margin-top:4px;display:none;font-weight:700;"> Bookmarked!</div>
 </div>
 
@@ -521,13 +521,13 @@ body.mode-blind #blind-ui{display:block;}
   <div id="blind-ui" aria-label="Blind reader controls">
     <div style="font-size:11px;font-weight:900;letter-spacing:2px;color:#818cf8;margin-bottom:16px;text-align:center;"> BLIND READER — AUDIO FIRST</div>
     <div class="bl-row">
-      <button class="bl-btn" onclick="toggleRead()">▶ Read Aloud</button>
-      <button class="bl-btn" onclick="prevSent()">⏮ Previous</button>
-      <button class="bl-btn" onclick="nextSent()">⏭ Next</button>
+      <button class="bl-btn" id="blind-read-btn" onclick="toggleRead()">▶ Read Aloud</button>
+      <button class="bl-btn" id="blind-prev-btn" onclick="prevSent()">⏮ Previous</button>
+      <button class="bl-btn" id="blind-next-btn" onclick="nextSent()">⏭ Next</button>
     </div>
     <div class="bl-row">
-      <button class="bl-btn secondary" onclick="toggleBraille()"> Braille Output</button>
-      <button class="bl-btn secondary" onclick="toggleSidebar()"> AI Help</button>
+      <button class="bl-btn secondary" id="blind-braille-btn" onclick="toggleBraille()"> Braille Output</button>
+      <button class="bl-btn secondary" id="blind-ai-btn" onclick="toggleSidebar()"> AI Help</button>
     </div>
     <div id="braille-panel" aria-label="Braille output"></div>
   </div>
@@ -550,7 +550,7 @@ body.mode-blind #blind-ui{display:block;}
     <div id="focus-para" tabindex="0"></div>
     <div id="focus-nav">
       <button class="fn outline" id="fp-prev" onclick="fNav(-1)">← Prev</button>
-      <button class="fn" onclick="readFocusPara()"> Read</button>
+      <button class="fn" id="fp-read-btn" onclick="readFocusPara()"> Read</button>
       <button class="fn" id="fp-next" onclick="fNav(1)">Next →</button>
     </div>
   </div>
@@ -561,9 +561,9 @@ body.mode-blind #blind-ui{display:block;}
   <div id="break-card">
     <div style="font-size:52px;margin-bottom:8px;">☕</div>
     <h2 style="font-size:22px;font-weight:900;margin-bottom:8px;">Time for a Break!</h2>
-    <p style="color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:4px;">You've been reading for 7 minutes.<br>Rest your eyes, breathe slowly.</p>
+    <p id="break-text-p" style="color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:4px;">You've been reading for 7 minutes.<br>Rest your eyes, breathe slowly.</p>
     <div id="break-cd">0:30</div>
-    <button class="br-btn" onclick="skipBreak()">Skip Break →</button>
+    <button class="br-btn" id="skip-break-btn" onclick="skipBreak()">Skip Break →</button>
   </div>
 </div>
 
@@ -575,9 +575,9 @@ body.mode-blind #blind-ui{display:block;}
     <input type="text" id="cp-in" placeholder="Your answer…" onkeydown="if(event.key==='Enter')checkAns()">
     <div id="cp-fb"></div>
     <div class="cp-row">
-      <button class="cp-btn" style="background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;" onclick="checkAns()">Submit</button>
-      <button class="cp-btn" style="background:#ede9fe;color:#6366f1;" onclick="explainAgain()">Explain Again</button>
-      <button class="cp-btn" style="background:var(--border);color:var(--muted);" onclick="skipCP()">Continue →</button>
+      <button class="cp-btn" id="cp-submit-btn" style="background:linear-gradient(135deg,#6366f1,#0891b2);color:#fff;" onclick="checkAns()">Submit</button>
+      <button class="cp-btn" id="cp-explain-btn" style="background:#ede9fe;color:#6366f1;" onclick="explainAgain()">Explain Again</button>
+      <button class="cp-btn" id="cp-continue-btn" style="background:var(--border);color:var(--muted);" onclick="skipCP()">Continue →</button>
     </div>
   </div>
 </div>
@@ -624,16 +624,21 @@ var READER_T = {
     sb_simplify: ' Simplify This Section', sb_keywords: ' Extract Keywords',
     sb_teacher: '‍ AI Teacher — Explain This', sb_quiz: ' Generate Quiz',
     sb_mindmap: ' Mind Map', sb_summary: ' Summary',
-    sb_notes: ' MY NOTES', sb_notes_ph: 'Write your notes here…',
+    sb_notes_label: ' MY NOTES', sb_notes_ph: 'Write your notes here…',
     sb_bookmark: ' Bookmark Position', sb_bookmarked: ' Bookmarked!',
     focus_mode_pill: ' FOCUS MODE',
     btn_fp_prev: '← Prev', btn_fp_read: ' Read', btn_fp_next: 'Next →',
+    btn_exit_focus: 'Exit focus mode',
     break_title: 'Time for a Break!',
-    break_sub: "You've been reading for 7 minutes.\nRest your eyes, breathe slowly.",
+    break_sub: "You've been reading for {min} minutes.\nRest your eyes, breathe slowly.",
     break_skip: 'Skip Break →',
     cp_header: 'Quick Checkpoint — How well did you follow?',
     cp_placeholder: 'Your answer…',
     cp_submit: 'Submit', cp_explain: 'Explain Again', cp_continue: 'Continue →',
+    skip_link: 'Skip to content',
+    overlay_none: 'None',
+    btn_ruler_lbl: ' Ruler', btn_simplify_lbl: ' Simplify', btn_keywords_lbl: ' Keywords', btn_mindmap_lbl: ' Mind Map',
+    tts_stop: 'Stop reading', tts_prev_sent: 'Previous sentence', tts_next_sent: 'Next sentence',
     section_label: ' Section',
     min_label: '~', min_unit: ' min'
   },
@@ -643,7 +648,7 @@ var READER_T = {
     mode_blind: 'Buta', mode_lowvision: 'Penglihatan Rendah', mode_dyslexia: 'Disleksia', mode_adhd: 'ADHD', mode_deaf: 'Pekak',
     mode_badge: 'PEMBACA ADAPTIF',
     tb_read: 'BACA', tb_speed: 'KELAJUAN', tb_zoom: 'ZUM', tb_contrast: 'KONTRAS',
-    tb_font: 'FOUNT', tb_letter: 'HURUF', tb_word: 'PERKATAAN', tb_overlay: 'LAPISAN', tb_session: 'SESI',
+    tb_font: 'FON', tb_letter: 'HURUF', tb_word: 'PERKATAAN', tb_overlay: 'LAPISAN', tb_session: 'SESI',
     btn_read_aloud: '▶ Baca Kuat', btn_braille: ' Braille', btn_ai: ' AI', btn_guide: ' Panduan',
     btn_read: ' Baca', btn_focus: ' Fokus', btn_simplify: ' Mudahkan', btn_keywords: ' Kata Kunci',
     btn_mind_map: ' Peta Minda', btn_sign_dict: ' Kamus Isyarat',
@@ -652,30 +657,36 @@ var READER_T = {
     no_book_sub: 'Pilih mana-mana buku dari Perpustakaan CelikVerse dan ia akan dibuka di sini dengan mod aksesibiliti anda digunakan secara automatik.',
     no_book_cta: ' Layari Perpustakaan CelikVerse →',
     blind_ui_label: ' PEMBACA BUTA — UTAMAKAN AUDIO',
-    btn_prev: '⏮ Sebelumnya', btn_next: '⏭ Seterusnya',
+    btn_prev: '⏮ Sebelum', btn_next: '⏭ Seterusnya',
     btn_braille_output: ' Output Braille', btn_ai_help: ' Bantuan AI',
     sidebar_title: ' Pembantu Bacaan AI',
     sidebar_powered: 'Dikuasakan oleh Gemini · Tambah kunci dalam Tetapan',
     sb_simplify: ' Mudahkan Bahagian Ini', sb_keywords: ' Ekstrak Kata Kunci',
     sb_teacher: '‍ Guru AI — Jelaskan Ini', sb_quiz: ' Jana Kuiz',
     sb_mindmap: ' Peta Minda', sb_summary: ' Ringkasan',
-    sb_notes: ' NOTA SAYA', sb_notes_ph: 'Tulis nota anda di sini…',
-    sb_bookmark: ' Tandai Kedudukan', sb_bookmarked: ' Ditanda!',
+    sb_notes_label: ' NOTA SAYA', sb_notes_ph: 'Tulis nota anda di sini…',
+    sb_bookmark: ' Tandabuku Kedudukan', sb_bookmarked: ' Ditanda!',
     focus_mode_pill: ' MOD FOKUS',
     btn_fp_prev: '← Sebelum', btn_fp_read: ' Baca', btn_fp_next: 'Seterusnya →',
+    btn_exit_focus: 'Keluar mod fokus',
     break_title: 'Masa Rehat!',
-    break_sub: 'Anda telah membaca selama 7 minit.\nRehatkan mata anda, bernafas perlahan.',
+    break_sub: 'Anda telah membaca selama {min} minit.\nRehatkan mata anda, bernafas perlahan.',
     break_skip: 'Langkau Rehat →',
     cp_header: 'Semak Pemahaman — Sejauh mana anda ikuti?',
     cp_placeholder: 'Jawapan anda…',
-    cp_submit: 'Hantar', cp_explain: 'Jelaskan Lagi', cp_continue: 'Teruskan →',
+    cp_submit: 'Hantar', cp_explain: 'Terang Semula', cp_continue: 'Teruskan →',
+    skip_link: 'Langkau ke kandungan utama',
+    overlay_none: 'Tiada',
+    btn_ruler_lbl: ' Pembaris', btn_simplify_lbl: ' Ringkas', btn_keywords_lbl: ' Kata Kunci', btn_mindmap_lbl: ' Peta Minda',
+    tts_stop: 'Henti baca', tts_prev_sent: 'Ayat sebelum', tts_next_sent: 'Ayat seterusnya',
     section_label: ' Bahagian',
     min_label: '~', min_unit: ' min'
   }
 };
 function rT(k){ var d=READER_T[READER_LANG]||READER_T.ms; return d[k]||READER_T.en[k]||k; }
 function applyReaderLang(){
-  var L=READER_LANG;
+  // Skip link
+  var skipLnk=document.querySelector('.skip'); if(skipLnk) skipLnk.textContent=rT('skip_link');
   // Navbar
   var subEl=document.querySelector('.tn-sub'); if(subEl) subEl.textContent=rT('sub_label');
   var links=document.querySelectorAll('.tn-link');
@@ -693,6 +704,20 @@ function applyReaderLang(){
   var tbls=document.querySelectorAll('.tbl');
   var tblKeys=['tb_read','tb_speed','tb_zoom','tb_contrast','tb_font','tb_letter','tb_word','tb_overlay','tb_session','tb_session'];
   tbls.forEach(function(el,i){ if(tblKeys[i]) el.textContent=rT(tblKeys[i]); });
+  // Toolbar buttons: Read Aloud (blind), Guide (lowvision), Read (lowvision + adhd)
+  var tbAutoread=document.getElementById('tb-autoread'); if(tbAutoread) tbAutoread.textContent=rT('btn_read_aloud');
+  var guideBtn=document.getElementById('guide-btn'); if(guideBtn) guideBtn.textContent=rT('btn_guide');
+  var lvReadBtn=document.getElementById('lv-read-btn'); if(lvReadBtn) lvReadBtn.textContent=rT('btn_read');
+  var readBtn=document.getElementById('read-btn'); if(readBtn) readBtn.textContent=rT('btn_read');
+  // Overlay None button
+  var overlayNone=document.getElementById('overlay-none-btn'); if(overlayNone) overlayNone.textContent=rT('overlay_none');
+  // Dyslexia Ruler button
+  var rulerBtn=document.getElementById('ruler-btn'); if(rulerBtn) rulerBtn.textContent=rT('btn_ruler_lbl');
+  // Deaf toolbar: Simplify, Keywords, Mind Map, Sign Dict
+  var simpBtn=document.getElementById('simp-btn'); if(simpBtn) simpBtn.textContent=rT('btn_simplify_lbl');
+  var kwBtn=document.getElementById('kw-btn'); if(kwBtn) kwBtn.textContent=rT('btn_keywords_lbl');
+  var mmBtn=document.getElementById('mindmap-btn'); if(mmBtn) mmBtn.textContent=rT('btn_mindmap_lbl');
+  var sdLink=document.getElementById('signdict-link'); if(sdLink) sdLink.textContent=rT('btn_sign_dict');
   // Contrast buttons
   var hcNorm=document.getElementById('hc-norm'); if(hcNorm) hcNorm.textContent=rT('hc_normal');
   var hcDark=document.getElementById('hc-dark'); if(hcDark) hcDark.textContent=rT('hc_dark');
@@ -700,6 +725,12 @@ function applyReaderLang(){
   // Blind UI label
   var blindLbl=document.querySelector('#blind-ui div[style*="letter-spacing"]');
   if(blindLbl) blindLbl.textContent=rT('blind_ui_label');
+  // Blind large buttons
+  var blReadBtn=document.getElementById('blind-read-btn'); if(blReadBtn) blReadBtn.textContent=rT('btn_read_aloud');
+  var blPrevBtn=document.getElementById('blind-prev-btn'); if(blPrevBtn) blPrevBtn.textContent=rT('btn_prev');
+  var blNextBtn=document.getElementById('blind-next-btn'); if(blNextBtn) blNextBtn.textContent=rT('btn_next');
+  var blBrailleBtn=document.getElementById('blind-braille-btn'); if(blBrailleBtn) blBrailleBtn.textContent=rT('btn_braille_output');
+  var blAiBtn=document.getElementById('blind-ai-btn'); if(blAiBtn) blAiBtn.textContent=rT('btn_ai_help');
   // No-book state
   var nbH=document.querySelector('#no-book h2'); if(nbH) nbH.textContent=rT('no_book_title');
   var nbP=document.querySelector('#no-book p'); if(nbP) nbP.textContent=rT('no_book_sub');
@@ -715,18 +746,41 @@ function applyReaderLang(){
     var m=oc.match(/doAI\('(\w+)'\)/);
     if(m&&sbMap[m[1]]){b.innerHTML=b.querySelector('.si')?'<span class="si">'+b.querySelector('.si').textContent+'</span> '+rT(sbMap[m[1]]):rT(sbMap[m[1]]);}
   });
-  // Notes area
+  // Notes label and area placeholder
+  var notesLbl=document.getElementById('sb-notes-label'); if(notesLbl) notesLbl.textContent=rT('sb_notes_label');
   var notesArea=document.getElementById('notes-area'); if(notesArea) notesArea.placeholder=rT('sb_notes_ph');
-  // Break modal
+  // Bookmark button
+  var bmBtn=document.getElementById('bookmark-btn');
+  if(bmBtn){ var bmSi=bmBtn.querySelector('.si'); bmBtn.innerHTML=(bmSi?'<span class="si">'+bmSi.textContent+'</span> ':' ')+rT('sb_bookmark'); }
+  // Break modal title and skip button (body text is handled in showBreak with actual minutes)
   var brTitle=document.querySelector('#break-card h2'); if(brTitle) brTitle.textContent=rT('break_title');
-  // Focus mode pill
+  var skipBreakBtn=document.getElementById('skip-break-btn'); if(skipBreakBtn) skipBreakBtn.textContent=rT('break_skip');
+  // Focus mode pill and nav buttons
   var focPill=document.getElementById('focus-pill'); if(focPill) focPill.textContent=rT('focus_mode_pill');
-  // CP header
+  var fpPrev=document.getElementById('fp-prev'); if(fpPrev) fpPrev.textContent=rT('btn_fp_prev');
+  var fpRead=document.getElementById('fp-read-btn'); if(fpRead) fpRead.textContent=rT('btn_fp_read');
+  var fpNext=document.getElementById('fp-next'); if(fpNext) fpNext.textContent=rT('btn_fp_next');
+  // Exit focus button (aria-label only — button has no text)
+  var exitFocBtn=document.querySelector('#focus-ov > button[aria-label]');
+  if(exitFocBtn) exitFocBtn.setAttribute('aria-label', rT('btn_exit_focus'));
+  // CP header, input placeholder, and action buttons
   var cpHdr=document.querySelector('#cp-header div'); if(cpHdr) cpHdr.textContent=rT('cp_header');
-  // CP input placeholder
   var cpIn=document.getElementById('cp-in'); if(cpIn) cpIn.placeholder=rT('cp_placeholder');
+  var cpSubmit=document.getElementById('cp-submit-btn'); if(cpSubmit) cpSubmit.textContent=rT('cp_submit');
+  var cpExplain=document.getElementById('cp-explain-btn'); if(cpExplain) cpExplain.textContent=rT('cp_explain');
+  var cpCont=document.getElementById('cp-continue-btn'); if(cpCont) cpCont.textContent=rT('cp_continue');
+  // TTS bar aria-labels
+  var aloudBar=document.getElementById('aloud-bar');
+  if(aloudBar){
+    var aBtns=aloudBar.querySelectorAll('.a-btn');
+    if(aBtns[0]) aBtns[0].setAttribute('aria-label', rT('tts_stop'));
+    if(aBtns[1]) aBtns[1].setAttribute('aria-label', rT('tts_prev_sent'));
+    if(aBtns[2]) aBtns[2].setAttribute('aria-label', rT('tts_next_sent'));
+  }
 }
 document.addEventListener('DOMContentLoaded', applyReaderLang);
+// Re-apply when language changes (e.g. toggled in shared.js)
+document.addEventListener('cs:langchange', applyReaderLang);
 </script>
 <script>
 /*  BOOK DATA  */
@@ -995,6 +1049,9 @@ function saveShelfProgress(){
 function showBreak(){
   var modal=document.getElementById('break-modal');modal.classList.add('on');
   if(isRead)speechSynthesis.cancel();
+  var minElapsed=Math.floor(sessSec/60);
+  var btp=document.getElementById('break-text-p');
+  if(btp) btp.innerHTML=rT('break_sub').replace('{min}',minElapsed).replace(/\n/g,'<br>');
   var sec=30;document.getElementById('break-cd').textContent='0:30';
   clearInterval(breakInt);
   breakInt=setInterval(function(){sec--;document.getElementById('break-cd').textContent='0:'+(sec<10?'0':'')+sec;if(sec<=0){clearInterval(breakInt);document.getElementById('break-modal').classList.remove('on');}},1000);

@@ -463,7 +463,7 @@
               <div class="pref-label" data-i18n="prof_dyslexia_font">OpenDyslexic Font</div>
               <div class="pref-desc" data-i18n="prof_dyslexia_font_desc">Use dyslexia-friendly font across all reading areas</div>
             </div>
-            <label class="toggle-switch" aria-label="Toggle OpenDyslexic font">
+            <label class="toggle-switch" aria-label="Toggle OpenDyslexic font" data-i18n-aria-label="prof_toggle_opendyslexic">
               <input type="checkbox" id="prefDyslexicFont" onchange="savePref()">
               <span class="toggle-slider"></span>
             </label>
@@ -489,7 +489,7 @@
               <div class="pref-label" data-i18n="prof_large_text">Large Text Mode</div>
               <div class="pref-desc" data-i18n="prof_large_text_desc">Increase default font size across all pages</div>
             </div>
-            <label class="toggle-switch" aria-label="Toggle large text mode">
+            <label class="toggle-switch" aria-label="Toggle large text mode" data-i18n-aria-label="prof_toggle_large_text">
               <input type="checkbox" id="prefLargeText" onchange="savePref();applyLargeText()">
               <span class="toggle-slider"></span>
             </label>
@@ -500,7 +500,7 @@
               <div class="pref-label" data-i18n="prof_high_contrast">High Contrast Mode</div>
               <div class="pref-desc" data-i18n="prof_high_contrast_desc">Increase contrast for low-vision learners</div>
             </div>
-            <label class="toggle-switch" aria-label="Toggle high contrast">
+            <label class="toggle-switch" aria-label="Toggle high contrast" data-i18n-aria-label="prof_toggle_high_contrast">
               <input type="checkbox" id="prefHighContrast" onchange="savePref()">
               <span class="toggle-slider"></span>
             </label>
@@ -511,7 +511,7 @@
               <div class="pref-label" data-i18n="prof_ruler_lbl">Reading Ruler</div>
               <div class="pref-desc" data-i18n="prof_ruler_desc">Show reading ruler by default on all pages</div>
             </div>
-            <label class="toggle-switch" aria-label="Toggle reading ruler">
+            <label class="toggle-switch" aria-label="Toggle reading ruler" data-i18n-aria-label="prof_toggle_ruler">
               <input type="checkbox" id="prefRuler" onchange="savePref()">
               <span class="toggle-slider"></span>
             </label>
@@ -526,7 +526,7 @@
               <div class="pref-label" data-i18n="prof_auto_read">Auto-Read on Page Load</div>
               <div class="pref-desc" data-i18n="prof_auto_read_desc">Automatically start audio guide when any agent opens</div>
             </div>
-            <label class="toggle-switch" aria-label="Toggle auto-read">
+            <label class="toggle-switch" aria-label="Toggle auto-read" data-i18n-aria-label="prof_toggle_auto_read">
               <input type="checkbox" id="prefAutoRead" onchange="savePref()">
               <span class="toggle-slider"></span>
             </label>
@@ -647,9 +647,12 @@ function updateDisplayName() {
 }
 
 function updateRole() {
-  const role = document.getElementById('settingRole');
   const grade = document.getElementById('settingGrade');
-  document.getElementById('displayRole').textContent = `${grade ? grade.value : 'Primary 4'} · ${needLabel(document.getElementById('settingNeed').value)} Learner`;
+  const isBM = window.CS && CS.lang && CS.lang.get() === 'ms';
+  const primaryWord = isBM ? CS.lang.t('prof_primary') : 'Primary';
+  const learnerWord = isBM ? CS.lang.t('prof_learner_suffix') : 'Learner';
+  const gradeText = grade ? grade.options[grade.selectedIndex].text : (isBM ? 'Darjah 4' : 'Primary 4');
+  document.getElementById('displayRole').textContent = `${gradeText} · ${needLabel(document.getElementById('settingNeed').value)} ${learnerWord}`;
 }
 
 function updateNeedBadge() {
@@ -746,6 +749,17 @@ function loadPrefs() {
 }
 
 /* ── ACTIVITY LOG ── */
+function fmtActivityTime(enTime) {
+  const isBM = window.CS && CS.lang && CS.lang.get() === 'ms';
+  if (!isBM) return enTime;
+  return enTime
+    .replace(/^Today/, 'Hari ini')
+    .replace(/^Yesterday/, 'Semalam')
+    .replace(/^(\d+) days? ago$/, '$1 hari lalu')
+    .replace(/ AM$/, ' PG')
+    .replace(/ PM$/, ' PTG');
+}
+
 function getActivityData() {
   const t = (k,fb) => (window.CS && CS.lang ? CS.lang.t(k) : fb);
   return [
@@ -757,7 +771,7 @@ function getActivityData() {
     {titleKey:'act_title_intervention', title:'Intervention Plan – ADHD strategy generated',  time:'2 days ago',        color:'#10b981',badgeKey:'act_tag_plan',    badge:'Plan',        badgeCls:'badge-success'},
     {titleKey:'act_title_sign_lang',    title:'Sign Language – Practised BIM alphabet A–M',   time:'3 days ago',        color:'#ec4899',badgeKey:'act_tag_sign',    badge:'Sign',        badgeCls:'badge-violet'},
     {titleKey:'act_title_reading_done', title:'Reading Companion – My First Science Book completed',time:'4 days ago',  color:'#06b6d4',badgeKey:'act_tag_complete',badge:'Complete',    badgeCls:'badge-success'},
-  ].map(a => Object.assign({}, a, {title: t(a.titleKey, a.title), badge: t(a.badgeKey, a.badge)}));
+  ].map(a => Object.assign({}, a, {title: t(a.titleKey, a.title), badge: t(a.badgeKey, a.badge), time: fmtActivityTime(a.time)}));
 }
 
 function renderActivity() {

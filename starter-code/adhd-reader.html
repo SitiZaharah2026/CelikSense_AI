@@ -230,7 +230,7 @@
   </style>
 </head>
 <body>
-<a href="#rd-wrap" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#6366f1;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;font-family:sans-serif;">Skip to content</a>
+<a href="#rd-wrap" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#6366f1;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;font-family:sans-serif;" data-i18n="nav_skip_content">Skip to content</a>
 
 <!-- Navbar -->
 <nav class="navbar">
@@ -279,7 +279,7 @@
 </div>
 
 <!-- Toolbar -->
-<div id="rd-toolbar" role="toolbar" aria-label="Reading controls">
+<div id="rd-toolbar" role="toolbar" aria-label="Reading controls" data-i18n-aria-label="adhdr_controls_aria">
   <!-- Font: fixed Lexend -->
   <div class="tbg">
     <span class="tbl" data-i18n="ar_font">FONT</span>
@@ -288,16 +288,16 @@
   <!-- Size -->
   <div class="tbg">
     <span class="tbl" data-i18n="ar_size">SIZE</span>
-    <button class="tbb" onclick="adjSize(-2)" aria-label="Decrease font size">A−</button>
+    <button class="tbb" onclick="adjSize(-2)" aria-label="Decrease font size" data-i18n-aria-label="adhdr_font_dec">A−</button>
     <span class="tbb-val" id="lbl-size">18</span>
-    <button class="tbb" onclick="adjSize(2)" aria-label="Increase font size">A+</button>
+    <button class="tbb" onclick="adjSize(2)" aria-label="Increase font size" data-i18n-aria-label="adhdr_font_inc">A+</button>
   </div>
   <!-- Line spacing -->
   <div class="tbg">
     <span class="tbl" data-i18n="ar_line">LINE</span>
-    <button class="tbb" onclick="adjLine(-0.2)" aria-label="Decrease line spacing">↓</button>
+    <button class="tbb" onclick="adjLine(-0.2)" aria-label="Decrease line spacing" data-i18n-aria-label="adhdr_space_dec">↓</button>
     <span class="tbb-val" id="lbl-line">1.9</span>
-    <button class="tbb" onclick="adjLine(0.2)" aria-label="Increase line spacing">↑</button>
+    <button class="tbb" onclick="adjLine(0.2)" aria-label="Increase line spacing" data-i18n-aria-label="adhdr_space_inc">↑</button>
   </div>
   <!-- Para spacing -->
   <div class="tbg">
@@ -368,7 +368,7 @@
 </div>
 
 <!-- Focus Overlay -->
-<div id="focus-ov" role="dialog" aria-modal="true" aria-label="Focus reading mode">
+<div id="focus-ov" role="dialog" aria-modal="true" aria-label="Focus reading mode" data-i18n-aria-label="adhdr_focus_dialog_aria">
   <button id="focus-close" onclick="toggleFocus()" aria-label="Exit focus mode" data-i18n-aria-label="adhdr_exit_focus"></button>
   <div id="focus-card">
     <div id="focus-meta">

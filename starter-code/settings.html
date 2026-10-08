@@ -349,11 +349,12 @@
               id="openrouterKeyInput"
               class="api-key-input"
               placeholder="Paste your OpenRouter API key here (sk-or-...)"
+              data-i18n-placeholder="set_api_key_placeholder"
               aria-label="OpenRouter API key"
               autocomplete="off"
               spellcheck="false"
             />
-            <button class="btn btn-ghost btn-sm" id="toggleKeyVisBtn" onclick="toggleKeyVis()" aria-label="Show/hide key"></button>
+            <button class="btn btn-ghost btn-sm" id="toggleKeyVisBtn" onclick="toggleKeyVis()" aria-label="Show/hide key" data-i18n-aria-label="set_show_hide_key"></button>
             <button class="btn btn-primary btn-sm" onclick="saveKey()" data-i18n="set_save_key">Save Key</button>
             <button class="btn btn-ghost btn-sm" onclick="testConnection()" id="testBtn" data-i18n="set_test">Test</button>
           </div>
@@ -443,7 +444,7 @@
             <input type="range" class="settings-range settings-row-ctrl" id="fontSizeRange"
               min="80" max="150" step="5" value="100"
               oninput="applyFontSize(this.value)"
-              aria-label="Text size">
+              aria-label="Text size" data-i18n-aria-label="set_text_size_aria">
           </div>
 
           <div class="settings-row">
@@ -466,7 +467,7 @@
             <input type="range" class="settings-range settings-row-ctrl" id="letterSpacingRange"
               min="0" max="4" step="0.5" value="0"
               oninput="applyLetterSpacing(this.value)"
-              aria-label="Letter spacing">
+              aria-label="Letter spacing" data-i18n-aria-label="set_letter_spacing_aria">
           </div>
         </div>
 
@@ -511,7 +512,7 @@
             <input type="range" class="settings-range settings-row-ctrl" id="ttsSpeedRange"
               min="0.5" max="2.5" step="0.1" value="1.0"
               oninput="applyTtsSpeed(this.value)"
-              aria-label="Speech speed">
+              aria-label="Speech speed" data-i18n-aria-label="set_speech_speed_aria">
           </div>
 
           <div class="settings-row">
@@ -564,7 +565,7 @@
           <div class="settings-row">
             <div class="settings-row-label" data-i18n="set_name">Display name</div>
             <input type="text" id="profileName" class="api-key-input" style="max-width:220px;"
-              placeholder="Your name" data-i18n-placeholder="prof_display_name_placeholder" aria-label="Display name"
+              placeholder="Your name" data-i18n-placeholder="prof_display_name_placeholder" aria-label="Display name" data-i18n-aria-label="set_display_name_aria"
               oninput="saveProfile()">
           </div>
 
@@ -761,7 +762,7 @@
           </div>
           <div class="api-key-row" style="margin-top:12px;">
             <input type="password" id="heygenKeyInput" class="api-key-input"
-              placeholder="Paste HeyGen API key" autocomplete="off" spellcheck="false"
+              placeholder="Paste HeyGen API key" data-i18n-placeholder="set_heygen_key" autocomplete="off" spellcheck="false"
               oninput="aeSaveField('heygenApiKey', this.value)">
             <button class="api-key-btn" onclick="aeToggleVisibility('heygenKeyInput')"></button>
             <button class="api-key-btn" onclick="aeTestProvider('heygen')" data-i18n="ae_test">Test</button>
@@ -790,7 +791,7 @@
           </div>
           <div class="api-key-row" style="margin-top:12px;">
             <input type="password" id="didKeyInput" class="api-key-input"
-              placeholder="Paste D-ID API key" autocomplete="off" spellcheck="false"
+              placeholder="Paste D-ID API key" data-i18n-placeholder="set_did_key" autocomplete="off" spellcheck="false"
               oninput="aeSaveField('didApiKey', this.value)">
             <button class="api-key-btn" onclick="aeToggleVisibility('didKeyInput')"></button>
             <button class="api-key-btn" onclick="aeTestProvider('did')" data-i18n="ae_test">Test</button>
@@ -798,7 +799,7 @@
           <div class="settings-row" style="margin-top:10px;flex-wrap:wrap;gap:8px;">
             <div class="settings-row-label" style="min-width:120px;" data-i18n="ae_presenter_url">Presenter Image URL</div>
             <input type="url" id="didPresenterUrl" class="api-key-input" style="max-width:340px;"
-              placeholder="https://... (photo of your presenter)"
+              placeholder="https://... (photo of your presenter)" data-i18n-placeholder="set_photo_url"
               oninput="aeSaveField('didPresenterUrl', this.value)">
           </div>
           <div id="aeTestResult-did" style="margin-top:8px;font-size:12px;display:none;"></div>
@@ -819,7 +820,7 @@
           </div>
           <div class="api-key-row" style="margin-top:8px;">
             <input type="password" id="nvidiaToken" class="api-key-input"
-              placeholder="NVIDIA NGC API token" autocomplete="off" spellcheck="false"
+              placeholder="NVIDIA NGC API token" data-i18n-placeholder="set_nvidia_key" autocomplete="off" spellcheck="false"
               oninput="aeSaveField('nvidiaToken', this.value)">
             <button class="api-key-btn" onclick="aeToggleVisibility('nvidiaToken')"></button>
             <button class="api-key-btn" onclick="aeTestProvider('nvidia')" data-i18n="ae_test">Test</button>
@@ -862,7 +863,7 @@
             <select id="aeLanguage" class="api-key-input" style="max-width:200px;padding:8px 12px;cursor:pointer;"
                     onchange="aeSaveField('language', this.value)">
               <option value="ms">Bahasa Malaysia (BIM)</option>
-              <option value="en">English (BSL/ASL future)</option>
+              <option value="en" data-i18n="set_lang_en_bsl">English (BSL/ASL future)</option>
             </select>
           </div>
         </div>

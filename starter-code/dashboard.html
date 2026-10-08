@@ -141,7 +141,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
         <div class="dropdown-menu">
           <a href="ai-librarian.html" role="menuitem" data-i18n="nav_ai_librarian">AI Librarian</a>
           <a href="reading-companion.html" role="menuitem" data-i18n="nav_reading_companion">Reading Companion</a>
-          <a href="reading-shelf.html" role="menuitem">Rak Buku Maya</a>
+          <a href="reading-shelf.html" role="menuitem" data-i18n="nav_reading_shelf">Rak Buku Maya</a>
           <a href="adhd-agent.html" role="menuitem" data-i18n="nav_adhd_agent">ADHD Agent</a>
           <a href="dyslexia-agent.html" role="menuitem" data-i18n="nav_dyslexia_agent">Dyslexia Agent</a>
           <a href="down-syndrome-agent.html" role="menuitem" data-i18n="nav_ds_agent">Down Syndrome Agent</a>
@@ -314,7 +314,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <span class="agent-badge" style="background:linear-gradient(135deg,#6366f1,#06b6d4);" data-i18n="bd_agent_badge">Book Discovery</span>
     </a>
 
-    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#6366f1,#8b5cf6);" aria-label="AI Librarian agent – Find and recommend books tailored to your learning profile and accessibility needs" tabindex="0">
+    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#6366f1,#8b5cf6);" aria-label="AI Librarian agent – Find and recommend books tailored to your learning profile and accessibility needs" data-i18n-aria-label="dash_agent_librarian_aria" tabindex="0">
       <div class="agent-icon" style="background:rgba(99,102,241,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_lib">AI Librarian</div>
       <div class="agent-desc" data-i18n="agent_lib_desc">Find and recommend books tailored to your learning profile and accessibility needs.</div>
@@ -324,7 +324,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       </div>
     </div>
 
-    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#06b6d4,#6366f1);" aria-label="Reading Companion agent – Read with AI assistance including comprehension questions, vocabulary, and audio support" tabindex="0">
+    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#06b6d4,#6366f1);" aria-label="Reading Companion agent – Read with AI assistance including comprehension questions, vocabulary, and audio support" data-i18n-aria-label="dash_agent_reading_aria" tabindex="0">
       <div class="agent-icon" style="background:rgba(6,182,212,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_read">Reading Companion</div>
       <div class="agent-desc" data-i18n="agent_read_desc">Read with AI assistance – comprehension questions, vocabulary, and audio support.</div>
@@ -334,7 +334,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       </div>
     </div>
 
-    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#f59e0b,#ef4444);" aria-label="ADHD Agent – Micro-reading sessions with focus timers, reading window, and note builder" tabindex="0">
+    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#f59e0b,#ef4444);" aria-label="ADHD Agent – Micro-reading sessions with focus timers, reading window, and note builder" data-i18n-aria-label="dash_agent_adhd_aria" tabindex="0">
       <div class="agent-icon" style="background:rgba(245,158,11,0.08)" aria-hidden="true"><svg viewBox="0 0 108 52" xmlns="http://www.w3.org/2000/svg" width="48" height="24"><text x="2" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#6366f1">A</text><text x="28" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#22c55e">D</text><text x="54" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#f59e0b">H</text><text x="80" y="44" font-family="Arial Black,sans-serif" font-weight="900" font-size="42" fill="#ef4444">D</text></svg></div>
       <div class="agent-name" data-i18n="agent_adhd">ADHD Agent</div>
       <div class="agent-desc" data-i18n="agent_adhd_desc">Micro-reading sessions with focus timers, reading window, and note builder.</div>
@@ -354,7 +354,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       </div>
     </div>
 
-<div class="agent-card" style="--agent-top:linear-gradient(90deg,#8b5cf6,#ec4899);" aria-label="Blind Audio Agent – Full audio navigation with text-to-speech, keyboard shortcuts, and voice instructions" tabindex="0">
+<div class="agent-card" style="--agent-top:linear-gradient(90deg,#8b5cf6,#ec4899);" aria-label="Blind Audio Agent – Full audio navigation with text-to-speech, keyboard shortcuts, and voice instructions" data-i18n-aria-label="dash_agent_blind_aria" tabindex="0">
       <div class="agent-icon" style="background:rgba(139,92,246,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_blind">Blind Audio Agent</div>
       <div class="agent-desc" data-i18n="agent_blind_desc">Full audio navigation with TTS, keyboard shortcuts, and voice instructions.</div>
@@ -364,7 +364,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       </div>
     </div>
 
-    <a href="sign-language.html" class="agent-card" style="border-top:3px solid #6366f1;" aria-label="Open Visual Communication Agent for Deaf Learners">
+    <a href="sign-language.html" class="agent-card" style="border-top:3px solid #6366f1;" aria-label="Open Visual Communication Agent for Deaf Learners" data-i18n-aria-label="dash_agent_sign_aria">
       <div class="agent-icon" style="background:linear-gradient(135deg,#6366f1,#0891b2);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 130 130" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="32" height="32"><path stroke-width="8" d="M52 112 C44 120 60 126 72 120 C84 114 88 104 86 92 C84 80 96 72 96 60 C96 44 90 28 76 18 C62 8 46 12 40 26 C36 36 40 44 48 44"/><path stroke-width="6" d="M60 106 C66 110 74 106 74 96 C74 86 64 80 66 68 C68 56 80 50 78 36 C76 26 64 22 58 28"/><path stroke-width="6" d="M48 44 C38 52 38 68 44 76 C48 82 52 84 52 94"/></svg></div>
       <div class="agent-info">
         <div class="agent-name" data-i18n="agent_sign">Visual Communication Agent</div>
@@ -400,7 +400,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       <span class="agent-badge" style="background:linear-gradient(135deg,#0891b2,#4f46e5);" data-i18n="agent_signsense_badge">SignSense</span>
     </a>
 
-    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#ef4444,#f59e0b);" aria-label="Early Warning Agent – Learner risk assessment, performance monitoring, and educator alerts" tabindex="0">
+    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#ef4444,#f59e0b);" aria-label="Early Warning Agent – Learner risk assessment, performance monitoring, and educator alerts" data-i18n-aria-label="dash_agent_ew_aria" tabindex="0">
       <div class="agent-icon" style="background:rgba(239,68,68,0.12)" aria-hidden="true">⚠</div>
       <div class="agent-name" data-i18n="agent_warn">Early Warning Agent</div>
       <div class="agent-desc" data-i18n="agent_warn_desc">Learner risk assessment, performance monitoring, and educator alerts.</div>
@@ -410,7 +410,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       </div>
     </div>
 
-    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#10b981,#6366f1);" aria-label="Intervention Agent – Personalised strategies, action plans, and curated resources for every need" tabindex="0">
+    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#10b981,#6366f1);" aria-label="Intervention Agent – Personalised strategies, action plans, and curated resources for every need" data-i18n-aria-label="dash_agent_iv_aria" tabindex="0">
       <div class="agent-icon" style="background:rgba(16,185,129,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_inter">Intervention Agent</div>
       <div class="agent-desc" data-i18n="agent_inter_desc">Personalised strategies, action plans, and curated resources for every need.</div>
@@ -420,7 +420,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       </div>
     </div>
 
-    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#f97316,#fbbf24);" aria-label="OCR Reading Agent – Upload book images to extract text with Tesseract.js, then read aloud with full text-to-speech support" tabindex="0">
+    <div class="agent-card" style="--agent-top:linear-gradient(90deg,#f97316,#fbbf24);" aria-label="OCR Reading Agent – Upload book images to extract text with Tesseract.js, then read aloud with full text-to-speech support" data-i18n-aria-label="dash_agent_ocr_aria" tabindex="0">
       <div class="agent-icon" style="background:rgba(249,115,22,0.12)" aria-hidden="true"></div>
       <div class="agent-name" data-i18n="agent_ocr">OCR Reading Agent</div>
       <div class="agent-desc" data-i18n="agent_ocr_desc">Upload book images to extract text with Tesseract.js, then read aloud with full TTS support.</div>
@@ -430,7 +430,7 @@ body { background: linear-gradient(160deg,#c4b8ff 0%,#ddd6ff 40%,#7dd3ea 100%); 
       </div>
     </div>
 
-    <div class="widget" style="border-left:4px solid #6366f1;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(16,185,129,0.05));" aria-label="Braille Output Feature">
+    <div class="widget" style="border-left:4px solid #6366f1;background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(16,185,129,0.05));" aria-label="Braille Output Feature" data-i18n-aria-label="dash_agent_braille_aria">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
         <span style="font-size:24px;" aria-hidden="true"></span>
         <div class="widget-label" style="color:#0f172a;font-weight:800;" data-i18n="braille_agent_title">Braille Output Agent</div>
