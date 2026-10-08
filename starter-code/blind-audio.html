@@ -4,7 +4,7 @@
 <script>(function(){try{var p=JSON.parse(localStorage.getItem('cs_user_prefs')||'{}');document.documentElement.lang=p.lang||localStorage.getItem('cs_lang')||'ms';}catch(e){}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CelikSense AI – Voice-First Blind Navigation</title>
+  <title>CelikSense AI – Navigasi Buta Utamakan Suara</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     /*  Base Reset & Variables  */
@@ -522,7 +522,7 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="logo-badge" aria-hidden="true">CS</div>
         <h1 id="hero-title">CelikSense AI</h1>
-        <p class="subtitle">Voice-First Blind Navigation</p>
+        <p class="subtitle" data-i18n="ba_subtitle">Voice-First Blind Navigation</p>
       </section>
 
       <!-- Mic Orb -->
@@ -543,10 +543,10 @@
 
         <div class="status-badge" aria-live="polite" aria-atomic="true" id="status-badge">
           <span class="status-dot ready" id="status-dot" aria-hidden="true"></span>
-          <span id="status-text">Ready</span>
+          <span id="status-text" data-i18n="ba_status_ready">Ready</span>
         </div>
 
-        <p class="status-hint" id="status-hint">
+        <p class="status-hint" id="status-hint" data-i18n="ba_status_hint">
           Say <strong>"Start Guide"</strong> or <strong>"Help"</strong> to begin
         </p>
       </section>
@@ -563,11 +563,11 @@
       <section aria-label="Voice activity log">
         <div class="info-cards">
           <div class="info-card">
-            <div class="card-label">Last Recognised Command</div>
+            <div class="card-label" data-i18n="ba_label_last_cmd">Last Recognised Command</div>
             <div class="card-value" id="last-command" aria-live="polite" aria-atomic="true">&#8212;</div>
           </div>
           <div class="info-card">
-            <div class="card-label">Last Spoken Text</div>
+            <div class="card-label" data-i18n="ba_label_last_speech">Last Spoken Text</div>
             <div class="card-value" id="last-speech" aria-live="polite" aria-atomic="true">&#8212;</div>
           </div>
         </div>
@@ -591,23 +591,23 @@
 
       <!-- Quick Access -->
       <section aria-labelledby="quick-label">
-        <p class="section-title" id="quick-label">Quick Access</p>
+        <p class="section-title" id="quick-label" data-i18n="ba_quick_title">Quick Access</p>
         <div class="quick-grid" role="group" aria-labelledby="quick-label">
-          <button class="quick-btn accent" id="btn-start-guide" type="button" aria-label="Start Guide — hear full instructions">
+          <button class="quick-btn accent" id="btn-start-guide" type="button" data-i18n-attr="aria-label" data-i18n="ba_btn_start_guide_aria" aria-label="Start Guide — hear full instructions">
             <span class="btn-icon" aria-hidden="true">&#128218;</span>
-            Start Guide
+            <span data-i18n="ba_btn_start_guide">Start Guide</span>
           </button>
-          <button class="quick-btn success" id="btn-guest" type="button" aria-label="Guest Mode — begin without login">
+          <button class="quick-btn success" id="btn-guest" type="button" data-i18n-attr="aria-label" data-i18n="ba_btn_guest_aria" aria-label="Guest Mode — begin without login">
             <span class="btn-icon" aria-hidden="true">&#128100;</span>
-            Guest Mode
+            <span data-i18n="ba_btn_guest">Guest Mode</span>
           </button>
-          <a class="quick-btn" href="dashboard.html" id="btn-dashboard" aria-label="Open Dashboard">
+          <a class="quick-btn" href="dashboard.html" id="btn-dashboard" data-i18n-attr="aria-label" data-i18n="ba_btn_dashboard" aria-label="Open Dashboard">
             <span class="btn-icon" aria-hidden="true">&#127968;</span>
-            Open Dashboard
+            <span data-i18n="ba_btn_dashboard">Open Dashboard</span>
           </a>
-          <button class="quick-btn" id="btn-help" type="button" aria-label="Help — hear all available commands">
+          <button class="quick-btn" id="btn-help" type="button" data-i18n-attr="aria-label" data-i18n="ba_btn_help_aria" aria-label="Help — hear all available commands">
             <span class="btn-icon" aria-hidden="true">&#10067;</span>
-            Help
+            <span data-i18n="ba_btn_help">Help</span>
           </button>
           <button onclick="runReAct()" class="quick-btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;border-color:#6366f1;" title="ReAct AI Analysis" aria-label="ReAct AI Analysis" data-i18n="react_btn">
             <span class="btn-icon" aria-hidden="true"></span>
@@ -623,29 +623,29 @@
 
       <!-- Feature Grid -->
       <section aria-labelledby="features-label">
-        <p class="section-title" id="features-label">Features</p>
+        <p class="section-title" id="features-label" data-i18n="ba_features_title">Features</p>
         <div class="feature-grid" role="group" aria-labelledby="features-label">
-          <a class="feature-btn" href="ocr-agent.html" aria-label="OCR — scan and read text from images">
+          <a class="feature-btn" href="ocr-agent.html" data-i18n="ba_feat_ocr_aria" data-i18n-attr="aria-label" aria-label="OCR — scan and read text from images">
             <span class="feat-icon" aria-hidden="true">&#128247;</span>
             OCR
           </a>
-          <a class="feature-btn" href="reading-companion.html" aria-label="Read Page — have any page read aloud">
+          <a class="feature-btn" href="reading-companion.html" data-i18n="ba_feat_readpage_aria" data-i18n-attr="aria-label" aria-label="Read Page — have any page read aloud">
             <span class="feat-icon" aria-hidden="true">&#128266;</span>
             Read Page
           </a>
-          <a class="feature-btn" href="ai-librarian.html" aria-label="Library — browse accessible reading materials">
+          <a class="feature-btn" href="ai-librarian.html" data-i18n="ba_feat_library_aria" data-i18n-attr="aria-label" aria-label="Library — browse accessible reading materials">
             <span class="feat-icon" aria-hidden="true">&#128218;</span>
             Library
           </a>
-          <a class="feature-btn" href="reading-companion.html" aria-label="Reading — adaptive reading mode">
+          <a class="feature-btn" href="reading-companion.html" data-i18n="ba_feat_reading_aria" data-i18n-attr="aria-label" aria-label="Reading — adaptive reading mode">
             <span class="feat-icon" aria-hidden="true">&#128221;</span>
             Reading
           </a>
-          <a class="feature-btn" href="adhd-agent.html" aria-label="ADHD — focus-friendly reading support">
+          <a class="feature-btn" href="adhd-agent.html" data-i18n="ba_feat_adhd_aria" data-i18n-attr="aria-label" aria-label="ADHD — focus-friendly reading support">
             <span class="feat-icon" aria-hidden="true">&#129504;</span>
             ADHD
           </a>
-          <a class="feature-btn" href="sign-language.html" aria-label="Sign Language — sign language support">
+          <a class="feature-btn" href="sign-language.html" data-i18n="ba_feat_signlang_aria" data-i18n-attr="aria-label" aria-label="Sign Language — sign language support">
             <span class="feat-icon" aria-hidden="true">&#129335;</span>
             Sign Language
           </a>
@@ -654,42 +654,44 @@
 
       <!-- Voice Login (hidden until triggered) -->
       <section id="voice-login" aria-labelledby="login-title" aria-hidden="true">
-        <h2 id="login-title">Voice Login</h2>
-        <p>Speak your credentials or type them below. Your data is never stored.</p>
+        <h2 id="login-title" data-i18n="ba_login_title">Voice Login</h2>
+        <p data-i18n="ba_login_desc">Speak your credentials or type them below. Your data is never stored.</p>
         <form class="login-form" id="login-form" novalidate>
-          <label for="login-email" class="sr-only">Email address</label>
+          <label for="login-email" class="sr-only" data-i18n="ba_login_email_ph">Email address</label>
           <input
             type="email"
             id="login-email"
             name="email"
             placeholder="Email address"
+            data-i18n-placeholder="ba_login_email_ph"
             autocomplete="email"
             aria-required="true"
           />
-          <label for="login-password" class="sr-only">Password</label>
+          <label for="login-password" class="sr-only" data-i18n="ba_login_password_ph">Password</label>
           <input
             type="password"
             id="login-password"
             name="password"
             placeholder="Password"
+            data-i18n-placeholder="ba_login_password_ph"
             autocomplete="current-password"
             aria-required="true"
           />
-          <button type="submit">Sign In</button>
+          <button type="submit" data-i18n="ba_login_submit">Sign In</button>
         </form>
       </section>
 
       <!-- Keyboard Shortcuts -->
       <section class="shortcuts-panel" aria-labelledby="shortcuts-title">
-        <h2 id="shortcuts-title">Keyboard Fallbacks</h2>
+        <h2 id="shortcuts-title" data-i18n="ba_shortcuts_title">Keyboard Fallbacks</h2>
         <ul class="shortcut-list" aria-label="Keyboard shortcuts">
-          <li class="shortcut-item"><kbd>Space</kbd><span class="shortcut-desc">Start / stop listening</span></li>
-          <li class="shortcut-item"><kbd>R</kbd>    <span class="shortcut-desc">Repeat last speech</span></li>
-          <li class="shortcut-item"><kbd>H</kbd>    <span class="shortcut-desc">Help</span></li>
-          <li class="shortcut-item"><kbd>G</kbd>    <span class="shortcut-desc">Guest mode</span></li>
-          <li class="shortcut-item"><kbd>D</kbd>    <span class="shortcut-desc">Open Dashboard</span></li>
-          <li class="shortcut-item"><kbd>Esc</kbd>  <span class="shortcut-desc">Stop all</span></li>
-          <li class="shortcut-item"><kbd>B</kbd>    <span class="shortcut-desc">Toggle Braille Mode</span></li>
+          <li class="shortcut-item"><kbd>Space</kbd><span class="shortcut-desc" data-i18n="ba_shortcut_space">Start / stop listening</span></li>
+          <li class="shortcut-item"><kbd>R</kbd>    <span class="shortcut-desc" data-i18n="ba_shortcut_r">Repeat last speech</span></li>
+          <li class="shortcut-item"><kbd>H</kbd>    <span class="shortcut-desc" data-i18n="ba_shortcut_h">Help</span></li>
+          <li class="shortcut-item"><kbd>G</kbd>    <span class="shortcut-desc" data-i18n="ba_shortcut_g">Guest mode</span></li>
+          <li class="shortcut-item"><kbd>D</kbd>    <span class="shortcut-desc" data-i18n="ba_shortcut_d">Open Dashboard</span></li>
+          <li class="shortcut-item"><kbd>Esc</kbd>  <span class="shortcut-desc" data-i18n="ba_shortcut_esc">Stop all</span></li>
+          <li class="shortcut-item"><kbd>B</kbd>    <span class="shortcut-desc" data-i18n="ba_shortcut_b">Toggle Braille Mode</span></li>
         </ul>
       </section>
 
@@ -697,9 +699,9 @@
   </main>
 
   <footer>
-    <p>CelikSense AI &mdash; Empowering every learner &mdash; <a href="dashboard.html">Dashboard</a> &mdash; <a href="settings.html">Settings</a></p>
+    <p>CelikSense AI &mdash; <span data-i18n="ba_footer_tagline">Empowering every learner</span> &mdash; <a href="dashboard.html" data-i18n="ba_footer_dashboard">Dashboard</a> &mdash; <a href="settings.html" data-i18n="ba_footer_settings">Settings</a></p>
     <div style="margin-top:8px;">
-      <button id="langBtn" onclick="toggleBlindLang()" style="background:rgba(99,102,241,0.15);border:1.5px solid #6366f1;color:#6366f1;border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;cursor:pointer;" aria-label="Toggle language between Bahasa Melayu and English">BM / EN</button>
+      <button id="langBtn" onclick="toggleBlindLang()" style="background:rgba(99,102,241,0.15);border:1.5px solid #6366f1;color:#6366f1;border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;cursor:pointer;" data-i18n="ba_lang_toggle_aria" data-i18n-attr="aria-label" aria-label="Toggle language between Bahasa Melayu and English">BM / EN</button>
     </div>
   </footer>
 
@@ -793,16 +795,21 @@
       lastSpeech.textContent = text || "—";
     }
 
+    /* i18n helper — falls back to English string if CS not ready */
+    function _t(key, fallback) {
+      return (window.CS && CS.lang && typeof CS.lang.t === 'function') ? CS.lang.t(key) : fallback;
+    }
+
     /* TTS wrapper */
     function speak(text, onEnd) {
-      setStatus("Speaking…", "speaking");
+      setStatus(_t('ba_status_speaking', 'Speaking…'), "speaking");
       announce("Speaking: " + text);
       showLastSpeech(text);
       lastUtterance = text;
 
       if (window.CS_VOICE && typeof CS_VOICE.speak === "function") {
         CS_VOICE.speak(text, function() {
-          setStatus("Ready", "ready");
+          setStatus(_t('ba_status_ready', 'Ready'), "ready");
           if (typeof onEnd === "function") onEnd();
         });
         return;
@@ -813,7 +820,7 @@
       utt.lang = "en-GB";
       utt.rate = 0.92;
       utt.onend = function() {
-        setStatus("Ready", "ready");
+        setStatus(_t('ba_status_ready', 'Ready'), "ready");
         if (typeof onEnd === "function") onEnd();
       };
       window.speechSynthesis && window.speechSynthesis.speak(utt);
@@ -926,7 +933,7 @@
     function startListening() {
       if (isListening) return;
       isListening = true;
-      setStatus("Listening…", "listening");
+      setStatus(_t('ba_status_listening', 'Listening…'), "listening");
       announce("Listening for voice commands.");
 
       if (window.CS_VOICE && typeof CS_VOICE.listen === "function") {
@@ -956,7 +963,7 @@
 
     function stopListening() {
       isListening = false;
-      setStatus("Ready", "ready");
+      setStatus(_t('ba_status_ready', 'Ready'), "ready");
     }
 
     /* Mic orb click */

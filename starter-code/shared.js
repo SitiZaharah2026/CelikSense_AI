@@ -1398,6 +1398,40 @@ const CS_LANG = {
     act_tag_sign:           'Sign',
     act_tag_complete:       'Complete',
 
+    /* Profile — new i18n keys */
+    prof_status_online:           'Online',
+    prof_my_avatar:               'My Avatar',
+    prof_open_ai_teacher:         'Open AI Teacher Agent',
+    prof_chapter_of:              'Chapter {n} of {total}',
+    prof_complete:                'Complete ✓',
+    prof_email_placeholder:       'Your email address',
+    prof_interests_placeholder:   'e.g. science, football, music…',
+    prof_display_name_placeholder:'Your name',
+    prof_grade_year1:             'Year 1',
+    prof_grade_year2:             'Year 2',
+    prof_grade_year3:             'Year 3',
+    prof_grade_year4:             'Year 4',
+    prof_grade_year5:             'Year 5',
+    prof_grade_year6:             'Year 6',
+    prof_grade_form1:             'Form 1',
+    prof_grade_form2:             'Form 2',
+    prof_grade_form3:             'Form 3',
+    prof_grade_form4:             'Form 4',
+    prof_grade_form5:             'Form 5',
+
+    /* Settings — overlay buttons and profile dropdowns */
+    set_overlay_none:             'No overlay',
+    set_overlay_yellow:           'Yellow overlay',
+    set_overlay_blue:             'Blue overlay',
+    set_overlay_green:            'Green overlay',
+    set_overlay_grey:             'Grey overlay',
+    set_overlay_pink:             'Pink overlay',
+    set_need_general:             'General',
+    set_need_adhd:                'ADHD',
+    set_need_dyslexia:            'Dyslexia',
+    set_need_blind:               'Blind / Low Vision',
+    set_need_deaf:                'Deaf / Hard of Hearing',
+
     /* AI Librarian */
     lib_book_search:        'BOOK SEARCH & DISCOVERY',
     lib_learner_profile:    'LEARNER PROFILE',
@@ -1656,6 +1690,47 @@ const CS_LANG = {
     prof_learning_profile: 'Learning Profile',
     prof_session_prefs: '⏱ Session Preferences',
     prof_footer_name: 'Learner Profile',
+
+    /* Blind Audio Agent (ba_*) */
+    ba_subtitle:              'Voice-First Blind Navigation',
+    ba_status_speaking:       'Speaking…',
+    ba_status_ready:          'Ready',
+    ba_status_listening:      'Listening…',
+    ba_status_hint:           'Say "Start Guide" or "Help" to begin',
+    ba_label_last_cmd:        'Last Recognised Command',
+    ba_label_last_speech:     'Last Spoken Text',
+    ba_quick_title:           'Quick Access',
+    ba_btn_start_guide:       'Start Guide',
+    ba_btn_start_guide_aria:  'Start Guide — hear full instructions',
+    ba_btn_guest:             'Guest Mode',
+    ba_btn_guest_aria:        'Guest Mode — begin without login',
+    ba_btn_dashboard:         'Open Dashboard',
+    ba_btn_help:              'Help',
+    ba_btn_help_aria:         'Help — hear all available commands',
+    ba_features_title:        'Features',
+    ba_feat_ocr_aria:         'OCR — scan and read text from images',
+    ba_feat_readpage_aria:    'Read Page — have any page read aloud',
+    ba_feat_library_aria:     'Library — browse accessible reading materials',
+    ba_feat_reading_aria:     'Reading — adaptive reading mode',
+    ba_feat_adhd_aria:        'ADHD — focus-friendly reading support',
+    ba_feat_signlang_aria:    'Sign Language — sign language support',
+    ba_login_title:           'Voice Login',
+    ba_login_desc:            'Speak your credentials or type them below. Your data is never stored.',
+    ba_login_email_ph:        'Email address',
+    ba_login_password_ph:     'Password',
+    ba_login_submit:          'Sign In',
+    ba_shortcuts_title:       'Keyboard Fallbacks',
+    ba_shortcut_space:        'Start / stop listening',
+    ba_shortcut_r:            'Repeat last speech',
+    ba_shortcut_h:            'Help',
+    ba_shortcut_g:            'Guest mode',
+    ba_shortcut_d:            'Open Dashboard',
+    ba_shortcut_esc:          'Stop all',
+    ba_shortcut_b:            'Toggle Braille Mode',
+    ba_lang_toggle_aria:      'Toggle language between Bahasa Melayu and English',
+    ba_footer_tagline:        'Empowering every learner',
+    ba_footer_dashboard:      'Dashboard',
+    ba_footer_settings:       'Settings',
   },
 
   ms: {
@@ -3014,6 +3089,40 @@ const CS_LANG = {
     act_tag_sign:           'Isyarat',
     act_tag_complete:       'Selesai',
 
+    /* Profile — kunci i18n baharu */
+    prof_status_online:           'Dalam Talian',
+    prof_my_avatar:               'Avatar Saya',
+    prof_open_ai_teacher:         'Buka Ejen Guru AI',
+    prof_chapter_of:              'Bab {n} daripada {total}',
+    prof_complete:                'Selesai ✓',
+    prof_email_placeholder:       'Alamat e-mel anda',
+    prof_interests_placeholder:   'cth. sains, bola sepak, muzik…',
+    prof_display_name_placeholder:'Nama paparan',
+    prof_grade_year1:             'Tahun 1',
+    prof_grade_year2:             'Tahun 2',
+    prof_grade_year3:             'Tahun 3',
+    prof_grade_year4:             'Tahun 4',
+    prof_grade_year5:             'Tahun 5',
+    prof_grade_year6:             'Tahun 6',
+    prof_grade_form1:             'Tingkatan 1',
+    prof_grade_form2:             'Tingkatan 2',
+    prof_grade_form3:             'Tingkatan 3',
+    prof_grade_form4:             'Tingkatan 4',
+    prof_grade_form5:             'Tingkatan 5',
+
+    /* Tetapan — butang lapisan dan dropdown profil */
+    set_overlay_none:             'Tiada',
+    set_overlay_yellow:           'Kuning',
+    set_overlay_blue:             'Biru',
+    set_overlay_green:            'Hijau',
+    set_overlay_grey:             'Kelabu',
+    set_overlay_pink:             'Merah Jambu',
+    set_need_general:             'Umum',
+    set_need_adhd:                'ADHD',
+    set_need_dyslexia:            'Disleksia',
+    set_need_blind:               'Buta / Penglihatan Terhad',
+    set_need_deaf:                'Pekak / Pendengaran Terhad',
+
     /* Pustakawan AI */
     lib_book_search:        'CARIAN & PENEMUAN BUKU',
     lib_learner_profile:    'PROFIL PELAJAR',
@@ -3272,6 +3381,47 @@ const CS_LANG = {
     prof_learning_profile: 'Profil Pembelajaran',
     prof_session_prefs: '⏱ Keutamaan Sesi',
     prof_footer_name: 'Profil Pelajar',
+
+    /* Blind Audio Agent (ba_*) */
+    ba_subtitle:              'Navigasi Buta Utamakan Suara',
+    ba_status_speaking:       'Bercakap…',
+    ba_status_ready:          'Sedia',
+    ba_status_listening:      'Mendengar…',
+    ba_status_hint:           'Sebut "Mula Panduan" atau "Bantuan" untuk bermula',
+    ba_label_last_cmd:        'Arahan Terakhir Dikenali',
+    ba_label_last_speech:     'Teks Terakhir Diucapkan',
+    ba_quick_title:           'Akses Pantas',
+    ba_btn_start_guide:       'Mula Panduan',
+    ba_btn_start_guide_aria:  'Mula Panduan — dengar arahan penuh',
+    ba_btn_guest:             'Mod Tetamu',
+    ba_btn_guest_aria:        'Mod Tetamu — mula tanpa log masuk',
+    ba_btn_dashboard:         'Buka Papan Pemuka',
+    ba_btn_help:              'Bantuan',
+    ba_btn_help_aria:         'Bantuan — dengar semua arahan tersedia',
+    ba_features_title:        'Ciri-Ciri',
+    ba_feat_ocr_aria:         'OCR — imbas dan baca teks dari imej',
+    ba_feat_readpage_aria:    'Baca Halaman — baca mana-mana halaman dengan kuat',
+    ba_feat_library_aria:     'Perpustakaan — layari bahan bacaan yang boleh diakses',
+    ba_feat_reading_aria:     'Membaca — mod membaca adaptif',
+    ba_feat_adhd_aria:        'ADHD — sokongan membaca mesra fokus',
+    ba_feat_signlang_aria:    'Bahasa Isyarat — sokongan bahasa isyarat',
+    ba_login_title:           'Log Masuk Suara',
+    ba_login_desc:            'Sebut kelayakan anda atau taip di bawah. Data anda tidak pernah disimpan.',
+    ba_login_email_ph:        'Alamat e-mel',
+    ba_login_password_ph:     'Kata laluan',
+    ba_login_submit:          'Log Masuk',
+    ba_shortcuts_title:       'Pintasan Papan Kekunci',
+    ba_shortcut_space:        'Mula / berhenti mendengar',
+    ba_shortcut_r:            'Ulang ucapan terakhir',
+    ba_shortcut_h:            'Bantuan',
+    ba_shortcut_g:            'Mod tetamu',
+    ba_shortcut_d:            'Buka Papan Pemuka',
+    ba_shortcut_esc:          'Henti semua',
+    ba_shortcut_b:            'Togol Mod Braille',
+    ba_lang_toggle_aria:      'Togol bahasa antara Bahasa Melayu dan Inggeris',
+    ba_footer_tagline:        'Memperkasakan setiap pelajar',
+    ba_footer_dashboard:      'Papan Pemuka',
+    ba_footer_settings:       'Tetapan',
   }
 };
 
@@ -3348,6 +3498,15 @@ const _lang = {
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       el.placeholder = this.t(el.getAttribute('data-i18n-placeholder'));
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+      el.title = this.t(el.getAttribute('data-i18n-title'));
+    });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+      el.setAttribute('aria-label', this.t(el.getAttribute('data-i18n-aria-label')));
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+      el.alt = this.t(el.getAttribute('data-i18n-alt'));
     });
     /* Update the language switch button label */
     document.querySelectorAll('[data-lang-toggle]').forEach(btn => {
