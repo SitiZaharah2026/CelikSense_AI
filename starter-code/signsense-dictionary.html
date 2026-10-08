@@ -535,6 +535,123 @@ body {
     </div>
 
   </div><!-- /ss-container -->
+
+  <!-- ── Abjad Jari BIM (Offline Fingerspelling) ── -->
+  <div id="fs-section" style="max-width:900px;margin:0 auto 48px;padding:0 20px;">
+    <div style="background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:20px;padding:28px 28px 32px;box-shadow:0 8px 32px rgba(49,46,129,.35);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+        <span style="font-size:28px;">🤟</span>
+        <h2 id="fsTitle" style="margin:0;font-size:1.25rem;font-weight:800;color:#fff;">Abjad Jari BIM — Ejaan Jari Bahasa Isyarat Malaysia</h2>
+      </div>
+      <p id="fsDesc" style="margin:0 0 20px;font-size:13px;color:rgba(199,210,254,.8);">Boleh guna tanpa internet. Klik huruf untuk lihat cara tangan.</p>
+
+      <!-- Grid A-Z -->
+      <div id="fsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:10px;margin-bottom:20px;"></div>
+
+      <!-- Detail panel -->
+      <div id="fsDetail" style="display:none;background:rgba(255,255,255,.08);border-radius:14px;padding:20px 22px;margin-top:4px;">
+        <div style="display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;">
+          <div id="fsLetterBig" style="font-size:72px;font-weight:900;color:#a5b4fc;line-height:1;min-width:80px;text-align:center;"></div>
+          <div style="flex:1;min-width:180px;">
+            <div id="fsHandSVG" style="margin-bottom:10px;"></div>
+            <p id="fsGesture" style="margin:0;font-size:14px;color:rgba(255,255,255,.9);line-height:1.6;"></p>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin:16px 0 0;font-size:11px;color:rgba(199,210,254,.5);text-align:center;" id="fsNote">
+        BIM menggunakan sistem ejaan jari satu tangan • Rujukan: Dewan Bahasa & Pustaka / Jabatan Pendidikan Khas
+      </p>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    /* BIM one-handed fingerspelling descriptions */
+    var FS = {
+      A:{en:'Closed fist, thumb resting on side of index finger.',ms:'Genggam tangan, ibu jari rehat di sisi jari telunjuk.'},
+      B:{en:'Four fingers held straight up together, thumb folded across palm.',ms:'Empat jari lurus ke atas, ibu jari dilipat merentasi tapak tangan.'},
+      C:{en:'Hand curved into a C-shape, fingers together.',ms:'Tangan melengkung seperti huruf C, jari-jari bersama.'},
+      D:{en:'Index finger points up, other fingers and thumb form a circle.',ms:'Jari telunjuk ke atas, jari lain dan ibu jari membentuk bulatan.'},
+      E:{en:'All fingers bent and curled, thumb tucked under fingers.',ms:'Semua jari bengkok dan melengkung, ibu jari di bawah jari.'},
+      F:{en:'Index finger and thumb touch to form a circle, other three fingers point up.',ms:'Jari telunjuk dan ibu jari membentuk bulatan, tiga jari lain ke atas.'},
+      G:{en:'Index finger and thumb point sideways, as if holding something small.',ms:'Jari telunjuk dan ibu jari menuding ke tepi seolah memegang sesuatu yang kecil.'},
+      H:{en:'Index and middle fingers point sideways together, other fingers closed.',ms:'Jari telunjuk dan jari tengah menuding ke tepi bersama, jari lain ditutup.'},
+      I:{en:'Closed fist, pinky finger raised straight up.',ms:'Genggam tangan, jari kelingking lurus ke atas.'},
+      J:{en:'Pinky up, trace a J shape in the air.',ms:'Jari kelingking ke atas, lakar bentuk J di udara.'},
+      K:{en:'Index and middle fingers point up in a V, thumb between them.',ms:'Jari telunjuk dan jari tengah ke atas membentuk V, ibu jari di antara mereka.'},
+      L:{en:'Index finger points up, thumb points out — L-shape.',ms:'Jari telunjuk ke atas, ibu jari keluar — bentuk huruf L.'},
+      M:{en:'Three fingers folded over thumb.',ms:'Tiga jari dilipat di atas ibu jari.'},
+      N:{en:'Two fingers folded over thumb.',ms:'Dua jari dilipat di atas ibu jari.'},
+      O:{en:'All fingers and thumb form an O-shape.',ms:'Semua jari dan ibu jari membentuk bulatan O.'},
+      P:{en:'Like K but hand points down.',ms:'Seperti K tetapi tangan menuding ke bawah.'},
+      Q:{en:'Index and thumb point downward.',ms:'Jari telunjuk dan ibu jari menuding ke bawah.'},
+      R:{en:'Index and middle fingers crossed.',ms:'Jari telunjuk dan jari tengah bersilang.'},
+      S:{en:'Closed fist, thumb over fingers.',ms:'Genggam tangan, ibu jari di atas jari-jari.'},
+      T:{en:'Thumb tucked between index and middle finger.',ms:'Ibu jari di antara jari telunjuk dan jari tengah.'},
+      U:{en:'Index and middle fingers point straight up together.',ms:'Jari telunjuk dan jari tengah ke atas lurus bersama.'},
+      V:{en:'Index and middle fingers form a V (peace sign).',ms:'Jari telunjuk dan jari tengah membentuk V (tanda damai).'},
+      W:{en:'Index, middle and ring fingers spread up — three fingers up.',ms:'Jari telunjuk, tengah dan manis terbuka ke atas — tiga jari ke atas.'},
+      X:{en:'Index finger hooks/bends like a hook.',ms:'Jari telunjuk membengkok seperti kait.'},
+      Y:{en:'Pinky and thumb out, other fingers closed — hang loose.',ms:'Jari kelingking dan ibu jari keluar, jari lain ditutup — tanda seronok.'},
+      Z:{en:'Index finger traces a Z in the air.',ms:'Jari telunjuk melakar huruf Z di udara.'}
+    };
+
+    var LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    var colors = ['#6366f1','#8b5cf6','#ec4899','#0ea5e9','#10b981','#f59e0b',
+                  '#ef4444','#14b8a6','#3b82f6','#a855f7','#f43f5e','#22c55e',
+                  '#6366f1','#8b5cf6','#ec4899','#0ea5e9','#10b981','#f59e0b',
+                  '#ef4444','#14b8a6','#3b82f6','#a855f7','#f43f5e','#22c55e',
+                  '#6366f1','#8b5cf6'];
+
+    var grid = document.getElementById('fsGrid');
+    var detail = document.getElementById('fsDetail');
+    var bigLetter = document.getElementById('fsLetterBig');
+    var gesture = document.getElementById('fsGesture');
+    var activeLetter = null;
+
+    function getLang(){
+      var l = localStorage.getItem('cs_lang')||'ms';
+      return (l==='bm'||l==='ms') ? 'ms' : 'en';
+    }
+
+    function showLetter(letter, btn){
+      if(activeLetter===letter){ detail.style.display='none'; activeLetter=null; btn.style.transform=''; return; }
+      activeLetter = letter;
+      document.querySelectorAll('.fs-btn').forEach(function(b){ b.style.transform=''; b.style.boxShadow=''; });
+      btn.style.transform='scale(1.15)';
+      btn.style.boxShadow='0 0 0 3px #a5b4fc';
+      bigLetter.textContent = letter;
+      gesture.textContent = FS[letter][getLang()];
+      detail.style.display='block';
+      detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+
+    LETTERS.forEach(function(l, i){
+      var btn = document.createElement('button');
+      btn.className = 'fs-btn';
+      btn.textContent = l;
+      btn.setAttribute('aria-label', 'Fingerspelling ' + l);
+      btn.style.cssText = 'background:'+colors[i]+';color:#fff;border:none;border-radius:12px;font-size:22px;font-weight:900;padding:14px 0;cursor:pointer;transition:transform .15s,box-shadow .15s;width:100%;letter-spacing:.02em;';
+      btn.addEventListener('click', function(){ showLetter(l, btn); });
+      grid.appendChild(btn);
+    });
+
+    window.addEventListener('cs:lang:changed', function(){
+      if(activeLetter){ gesture.textContent = FS[activeLetter][getLang()]; }
+      var lang = getLang();
+      document.getElementById('fsTitle').textContent = lang==='ms'
+        ? 'Abjad Jari BIM — Ejaan Jari Bahasa Isyarat Malaysia'
+        : 'BIM Fingerspelling Alphabet — Malaysian Sign Language';
+      document.getElementById('fsDesc').textContent = lang==='ms'
+        ? 'Boleh guna tanpa internet. Klik huruf untuk lihat cara tangan.'
+        : 'Works offline. Tap a letter to see the handshape description.';
+      document.getElementById('fsNote').textContent = lang==='ms'
+        ? 'BIM menggunakan sistem ejaan jari satu tangan • Rujukan: Dewan Bahasa & Pustaka / Jabatan Pendidikan Khas'
+        : 'BIM uses a one-handed fingerspelling system • Reference: Dewan Bahasa & Pustaka / Jabatan Pendidikan Khas';
+    });
+  })();
+  </script>
 </main>
 
 <div id="ssToast" class="ss-toast" role="status" aria-live="polite"></div>
