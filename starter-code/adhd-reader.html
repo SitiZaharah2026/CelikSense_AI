@@ -369,7 +369,7 @@
 
 <!-- Focus Overlay -->
 <div id="focus-ov" role="dialog" aria-modal="true" aria-label="Focus reading mode">
-  <button id="focus-close" onclick="toggleFocus()" aria-label="Exit focus mode" data-i18n-aria="ar_exit_focus"></button>
+  <button id="focus-close" onclick="toggleFocus()" aria-label="Exit focus mode" data-i18n-aria-label="adhdr_exit_focus"></button>
   <div id="focus-card">
     <div id="focus-meta">
       <span data-i18n="ar_focus_mode"> FOCUS MODE</span>
@@ -377,9 +377,9 @@
     </div>
     <div id="focus-para" tabindex="0"></div>
     <div id="focus-nav">
-      <button class="fnav" id="fp-prev" onclick="fNav(-1)" aria-label="Previous paragraph" data-i18n-aria="ar_prev_para" data-i18n="adhdr_prev">← Prev</button>
+      <button class="fnav" id="fp-prev" onclick="fNav(-1)" aria-label="Previous paragraph" data-i18n-aria-label="adhdr_prev_para" data-i18n="adhdr_prev">← Prev</button>
       <span id="focus-ctr2" style="font-size:13px;color:var(--muted);min-width:70px;text-align:center;"></span>
-      <button class="fnav" id="fp-next" onclick="fNav(1)" aria-label="Next paragraph" data-i18n-aria="ar_next_para" data-i18n="adhdr_next">Next →</button>
+      <button class="fnav" id="fp-next" onclick="fNav(1)" aria-label="Next paragraph" data-i18n-aria-label="adhdr_next_para" data-i18n="adhdr_next">Next →</button>
     </div>
     <div style="text-align:center;margin-top:16px;">
       <button id="focus-read-btn" onclick="readFocusPara()" data-i18n="ar_read_this"> Read This</button>
@@ -415,9 +415,9 @@
 
 <!-- Read Aloud Bar -->
 <div id="aloud-bar" role="status" aria-live="polite">
-  <button class="a-btn" onclick="toggleRead()" title="Stop reading">⏹</button>
-  <button class="a-btn" onclick="prevSent()" title="Previous sentence">⏮</button>
-  <button class="a-btn" onclick="nextSent()" title="Next sentence">⏭</button>
+  <button class="a-btn" onclick="toggleRead()" title="Stop reading" data-i18n-title="adhdr_stop_reading">⏹</button>
+  <button class="a-btn" onclick="prevSent()" title="Previous sentence" data-i18n-title="adhdr_prev_sentence">⏮</button>
+  <button class="a-btn" onclick="nextSent()" title="Next sentence" data-i18n-title="adhdr_next_sentence">⏭</button>
   <span id="a-prog">0 / 0</span>
   <button class="a-spd on" data-r="1" onclick="setSpd(1)">1.0×</button>
   <button class="a-spd" data-r="0.75" onclick="setSpd(0.75)">0.75×</button>
