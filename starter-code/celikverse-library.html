@@ -4989,7 +4989,7 @@ function cardHTML(b){
     imgHtml+
     '<div class="cv-card-body">'+
     '<div class="cv-card-title">'+escHtml(b.title)+'</div>'+
-    '<div class="cv-card-meta">'+escHtml(b.categoryname||catLabel)+'</div>'+
+    '<div class="cv-card-meta">'+escHtml((b.categoryname==='Default'?(window.CS&&CS.lang?CS.lang.t('cv_cat_default'):'Umum'):b.categoryname)||catLabel)+'</div>'+
     '<div class="cv-card-badges"><span class="cv-badge-src cv-badge-celiksense">CelikSense</span>'+
     (catLabel?'<span class="cv-badge-cat">'+escHtml(catLabel)+'</span>':'')+
     (isFav?'<span style="font-size:10px;">&#11088;</span>':'')+

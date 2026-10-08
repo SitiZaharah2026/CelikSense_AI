@@ -41,7 +41,7 @@
 </style>
 </head>
 <body>
-<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#6366f1;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;font-family:sans-serif;">Skip to main content</a>
+<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#6366f1;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;font-family:sans-serif;" data-i18n="nav_skip_content">Skip to main content</a>
 
 <nav class="navbar">
   <div class="container nav-container">
@@ -588,7 +588,7 @@ function renderBooks(list) {
         <div style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px;">${escHtml(b.desc)}</div>
         <div class="book-footer">
           ${actionBtn}
-          <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add to reading list">${_t('lib_add_btn')}</button>
+          <button class="btn btn-ghost btn-sm" onclick="addToList(${b.id})" aria-label="Add to reading list">${_t('lib_add_to_list')}</button>
         </div>
       </div>
     </div>`;
@@ -753,7 +753,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="agent-grid">
       <div class="agent-choice" onclick="openWithAgent('adhd')">
         <div class="agent-icon">🎯</div>
-        <div class="agent-name">ADHD Agent</div>
+        <div class="agent-name" data-i18n="lib_mode_adhd">ADHD Agent</div>
         <div class="agent-desc">Fokus & mod tenang</div>
       </div>
       <div class="agent-choice" onclick="openWithAgent('dyslexia')">
@@ -763,18 +763,18 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       <div class="agent-choice" onclick="openWithAgent('blind')">
         <div class="agent-icon">🔊</div>
-        <div class="agent-name">Audio Agent</div>
+        <div class="agent-name" data-i18n="lib_mode_audio">Audio Agent</div>
         <div class="agent-desc">Baca teks kuat</div>
       </div>
       <div class="agent-choice" onclick="openWithAgent('downsyndrome')">
         <div class="agent-icon">🧩</div>
-        <div class="agent-name">Down Syndrome</div>
+        <div class="agent-name" data-i18n="lib_mode_ds">Down Syndrome</div>
         <div class="agent-desc">Ringkas & visual</div>
       </div>
       <div class="agent-choice" onclick="openWithAgent('sign')">
         <div class="agent-icon">🤟</div>
         <div class="agent-name">Bahasa Isyarat</div>
-        <div class="agent-desc">Visual keywords</div>
+        <div class="agent-desc" data-i18n="lib_visual_keywords">Visual keywords</div>
       </div>
       <div class="agent-choice" onclick="openWithAgent('ocr')">
         <div class="agent-icon">📷</div>

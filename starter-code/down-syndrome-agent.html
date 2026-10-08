@@ -116,7 +116,7 @@
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;padding:14px;background:linear-gradient(135deg,rgba(249,115,22,0.08),rgba(251,146,60,0.05));border-radius:12px;border:1px solid rgba(249,115,22,0.2);">
         <div style="font-size:12px;font-weight:700;color:#c2410c;margin-bottom:4px;">⚡ Tindakan Pantas</div>
         <button onclick="simplifyText()" style="display:flex;align-items:center;gap:8px;padding:11px 14px;background:linear-gradient(135deg,#f97316,#fb923c);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">🧩 Ringkaskan Teks</button>
-        <button onclick="makeStoryBoard()" style="display:flex;align-items:center;gap:8px;padding:11px 14px;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">🖼 Buat Story Board</button>
+        <button onclick="makeStoryBoard()" style="display:flex;align-items:center;gap:8px;padding:11px 14px;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">🖼 Buat <span data-i18n="ds_story_board">Story Board</span></button>
         <button onclick="makeDrill()" style="display:flex;align-items:center;gap:8px;padding:11px 14px;background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">🃏 Latih Kosa Kata</button>
       </div>
 
@@ -130,7 +130,7 @@
         <button onclick="simplifyText()" class="btn btn-primary btn-sm" style="flex:1;background:linear-gradient(135deg,#f97316,#fb923c);" data-i18n="ds_simplify">
            Simplify Text
         </button>
-        <button onclick="runReAct()" class="btn btn-sm" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" title="ReAct AI Analysis" data-i18n="react_btn"> ReAct</button>
+        <button onclick="runReAct()" class="btn btn-sm" style="background:linear-gradient(135deg,#6366f1,#06b6d4);color:#fff;font-weight:700;" data-i18n-title="react_btn" title="ReAct AI Analysis" data-i18n="react_btn"> ReAct</button>
         </div>
       </div>
 
@@ -159,10 +159,10 @@
         <input type="range" min="16" max="28" value="18" oninput="setFontSize(this.value)" style="width:100%;accent-color:#f97316;" aria-label="Text size slider">
         <label style="font-size:13px;color:var(--text-muted);display:block;margin:12px 0 8px;" data-i18n="ds_bgcolor">Background</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button onclick="setBg('#fffbf0')" style="width:32px;height:32px;border-radius:8px;background:#fffbf0;border:2px solid #d97706;cursor:pointer;" data-i18n="ds_warm" title="Warm"></button>
-          <button onclick="setBg('#f0fdf4')" style="width:32px;height:32px;border-radius:8px;background:#f0fdf4;border:2px solid #16a34a;cursor:pointer;" data-i18n="ds_mint" title="Mint"></button>
-          <button onclick="setBg('#fdf4ff')" style="width:32px;height:32px;border-radius:8px;background:#fdf4ff;border:2px solid #9333ea;cursor:pointer;" data-i18n="ds_lavender" title="Lavender"></button>
-          <button onclick="setBg('#ffffff')" style="width:32px;height:32px;border-radius:8px;background:#ffffff;border:2px solid #d1d5db;cursor:pointer;" data-i18n="ds_white" title="White"></button>
+          <button onclick="setBg('#fffbf0')" style="width:32px;height:32px;border-radius:8px;background:#fffbf0;border:2px solid #d97706;cursor:pointer;" data-i18n="ds_warm" data-i18n-title="ds_warm" title="Warm"></button>
+          <button onclick="setBg('#f0fdf4')" style="width:32px;height:32px;border-radius:8px;background:#f0fdf4;border:2px solid #16a34a;cursor:pointer;" data-i18n="ds_mint" data-i18n-title="ds_mint" title="Mint"></button>
+          <button onclick="setBg('#fdf4ff')" style="width:32px;height:32px;border-radius:8px;background:#fdf4ff;border:2px solid #9333ea;cursor:pointer;" data-i18n="ds_color_lavender" data-i18n-title="ds_color_lavender" title="Lavender"></button>
+          <button onclick="setBg('#ffffff')" style="width:32px;height:32px;border-radius:8px;background:#ffffff;border:2px solid #d1d5db;cursor:pointer;" data-i18n="ds_white" data-i18n-title="ds_white" title="White"></button>
         </div>
       </div>
 
@@ -195,8 +195,8 @@
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
           <h3 style="margin:0;font-size:16px;" data-i18n="ds_result"> Simplified Text</h3>
           <div style="display:flex;gap:8px;">
-            <button onclick="speakText()" class="btn btn-ghost btn-sm" data-i18n="read_aloud" title="Read aloud" aria-label="Read aloud"></button>
-            <button onclick="copyResult()" class="btn btn-ghost btn-sm" data-i18n="ds_copy_text" title="Copy" aria-label="Copy text"></button>
+            <button onclick="speakText()" class="btn btn-ghost btn-sm" data-i18n="read_aloud" data-i18n-title="read_aloud" title="Read aloud" aria-label="Read aloud"></button>
+            <button onclick="copyResult()" class="btn btn-ghost btn-sm" data-i18n="ds_copy_text" data-i18n-title="copy" title="Copy" aria-label="Copy text"></button>
           </div>
         </div>
         <div id="dsResult" class="simple-sentence" style="font-size:18px;" aria-live="polite" data-i18n-aria-label="ds_simplified_output" aria-label="Simplified text output">

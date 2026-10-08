@@ -228,15 +228,15 @@ nav.navbar{display:none!important;}
     <p class="modal-sub" id="modal-sub">Buka buku dengan ejen pembelajaran pilihan anda</p>
     <div class="modal-book-name" id="modal-book-name"></div>
     <div class="agent-grid" id="agent-grid"></div>
-    <button class="modal-close" id="modal-close-btn" aria-label="Close modal">Batal</button>
+    <button class="modal-close" id="modal-close-btn" data-i18n="rsh_close_modal" aria-label="Close modal">Tutup</button>
   </div>
 </div>
 
 <!-- AI PANEL -->
 <aside id="ai-panel" role="complementary" aria-label="AI assistant panel">
   <div class="panel-header">
-    <h3 id="panel-title">AI Summary</h3>
-    <button class="panel-close" id="panel-close-btn" aria-label="Close panel"></button>
+    <h3 id="panel-title" data-i18n="rsh_ai_summary">AI Summary</h3>
+    <button class="panel-close" id="panel-close-btn" data-i18n="rsh_close_panel" aria-label="Close panel"></button>
   </div>
   <div class="panel-body" id="panel-body">
     <div class="panel-loader"><span class="spin">⚙</span>Memuatkan…</div>
@@ -375,7 +375,7 @@ function renderCard(book){
   if(book.lastMode){
     var badge=document.createElement('span');
     badge.className='bk-badge badge-'+(book.lastMode||'none');
-    var modeNames={blind:'Blind',lowvision:'LowVis',dyslexia:'Dyslexia',adhd:'ADHD',deaf:'Deaf'};
+    var modeNames={blind:t('rsh_mode_blind')||'BLIND',lowvision:'LowVis',dyslexia:t('rsh_mode_dyslexia')||'DYSLEXIA',adhd:'ADHD',deaf:'Deaf',normal:t('rsh_mode_normal')||'NORMAL'};
     badge.textContent=modeNames[book.lastMode]||book.lastMode;
     badge.setAttribute('aria-label','Last mode: '+book.lastMode);
     coverWrap.appendChild(badge);
@@ -417,7 +417,7 @@ function renderCard(book){
   progBar.appendChild(progFill);
   var progLabel=document.createElement('div');
   progLabel.className='bk-progress-label';
-  progLabel.textContent=pct>=100?t('finished'):(pct+'% '+t('pct_done'));
+  progLabel.textContent=pct>=100?t('finished'):(pct+t('pct_done'));
   progWrap.appendChild(progBar);
   progWrap.appendChild(progLabel);
 
@@ -503,7 +503,7 @@ function renderSmartSection(books){
     var ph=last.cover?'<img src="'+last.cover+'" class="continue-cover" alt="cover" onerror="this.style.display=\'none\'">'
       :'<div class="continue-cover-ph"></div>';
     var pct=Math.min(100,Math.max(0,last.progress||0));
-    card.innerHTML=ph+'<div class="continue-info"><div class="continue-title">'+escHtml(last.title||'')+'</div><div class="continue-author">'+escHtml(last.author||'')+'</div><div class="bk-progress-bar" style="max-width:240px;"><div class="bk-progress-fill" style="width:'+pct+'%"></div></div><div class="bk-progress-label" style="margin-top:4px;font-size:12px;color:var(--muted);">'+pct+'% '+t('pct_done')+'</div></div><button class="btn-primary" onclick="openBook(\''+last.id+'\',\''+( last.lastMode||'adhd')+'\')" style="margin-left:auto;font-size:14px;padding:10px 20px;">'+t('continue')+' →</button>';
+    card.innerHTML=ph+'<div class="continue-info"><div class="continue-title">'+escHtml(last.title||'')+'</div><div class="continue-author">'+escHtml(last.author||'')+'</div><div class="bk-progress-bar" style="max-width:240px;"><div class="bk-progress-fill" style="width:'+pct+'%"></div></div><div class="bk-progress-label" style="margin-top:4px;font-size:12px;color:var(--muted);">'+pct+t('pct_done')+'</div></div><button class="btn-primary" onclick="openBook(\''+last.id+'\',\''+( last.lastMode||'adhd')+'\')" style="margin-left:auto;font-size:14px;padding:10px 20px;">'+t('continue')+' →</button>';
   } else {
     contSec.style.display='none';
   }
