@@ -1240,6 +1240,7 @@ const CS_LANG = {
     cv_mode_deaf:   'Deaf Reader',
     cv_mode_reading: 'Reading Companion',
     cv_mode_teacher: 'AI Teacher',
+    cv_cat_default:  'Default',
 
     /* My Knowledge Hub */
     hub_title:      'My Knowledge Hub',
@@ -1655,6 +1656,12 @@ const CS_LANG = {
     lib_find_book:          ' Find this book',
     lib_ai_rec_label:       'AI Recommendation · {level}',
     lib_add_btn:         '+ Add',
+    lib_add_to_list:     'Add to reading list',
+    lib_mode_adhd:       'ADHD Agent',
+    lib_mode_audio:      'Audio Agent',
+    lib_mode_ds:         'Down Syndrome',
+    lib_visual_keywords: 'Visual keywords',
+    nav_skip_content:    'Skip to main content',
 
     /* Book Discovery — filter chips */
     bd_chip_adhd:        'ADHD Friendly',
