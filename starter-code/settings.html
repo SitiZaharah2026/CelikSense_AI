@@ -489,12 +489,12 @@
               <div class="settings-row-sub" data-i18n="set_overlay_sub">Helps with visual stress and dyslexia</div>
             </div>
             <div class="overlay-chips settings-row-ctrl" role="group" aria-label="Colour overlay">
-              <button class="overlay-chip active" data-color="none"   onclick="applyOverlay('none')"   aria-label="No overlay"    title="None"></button>
-              <button class="overlay-chip" data-color="yellow" onclick="applyOverlay('yellow')" aria-label="Yellow overlay" title="Yellow"></button>
-              <button class="overlay-chip" data-color="blue"   onclick="applyOverlay('blue')"   aria-label="Blue overlay"   title="Blue"></button>
-              <button class="overlay-chip" data-color="green"  onclick="applyOverlay('green')"  aria-label="Green overlay"  title="Green"></button>
-              <button class="overlay-chip" data-color="grey"   onclick="applyOverlay('grey')"   aria-label="Grey overlay"   title="Grey"></button>
-              <button class="overlay-chip" data-color="pink"   onclick="applyOverlay('pink')"   aria-label="Pink overlay"   title="Pink"></button>
+              <button class="overlay-chip active" data-color="none"   onclick="applyOverlay('none')"   aria-label="No overlay"    title="None"   data-i18n-title="set_overlay_none"   data-i18n-aria-label="set_overlay_none"></button>
+              <button class="overlay-chip" data-color="yellow" onclick="applyOverlay('yellow')" aria-label="Yellow overlay" title="Yellow" data-i18n-title="set_overlay_yellow" data-i18n-aria-label="set_overlay_yellow"></button>
+              <button class="overlay-chip" data-color="blue"   onclick="applyOverlay('blue')"   aria-label="Blue overlay"   title="Blue"   data-i18n-title="set_overlay_blue"   data-i18n-aria-label="set_overlay_blue"></button>
+              <button class="overlay-chip" data-color="green"  onclick="applyOverlay('green')"  aria-label="Green overlay"  title="Green"  data-i18n-title="set_overlay_green"  data-i18n-aria-label="set_overlay_green"></button>
+              <button class="overlay-chip" data-color="grey"   onclick="applyOverlay('grey')"   aria-label="Grey overlay"   title="Grey"   data-i18n-title="set_overlay_grey"   data-i18n-aria-label="set_overlay_grey"></button>
+              <button class="overlay-chip" data-color="pink"   onclick="applyOverlay('pink')"   aria-label="Pink overlay"   title="Pink"   data-i18n-title="set_overlay_pink"   data-i18n-aria-label="set_overlay_pink"></button>
             </div>
           </div>
         </div>
@@ -564,37 +564,37 @@
           <div class="settings-row">
             <div class="settings-row-label" data-i18n="set_name">Display name</div>
             <input type="text" id="profileName" class="api-key-input" style="max-width:220px;"
-              placeholder="Your name" aria-label="Display name"
+              placeholder="Your name" data-i18n-placeholder="prof_display_name_placeholder" aria-label="Display name"
               oninput="saveProfile()">
           </div>
 
           <div class="settings-row">
             <div class="settings-row-label" data-i18n="set_disability">Accessibility need</div>
             <select class="settings-select settings-row-ctrl" id="profileDisability" onchange="saveProfile()">
-              <option value="general">General</option>
-              <option value="adhd">ADHD</option>
-              <option value="dyslexia">Dyslexia</option>
-              <option value="blind">Blind / Low Vision</option>
-              <option value="deaf">Deaf / Hard of Hearing</option>
+              <option value="general" data-i18n="set_need_general">General</option>
+              <option value="adhd" data-i18n="set_need_adhd">ADHD</option>
+              <option value="dyslexia" data-i18n="set_need_dyslexia">Dyslexia</option>
+              <option value="blind" data-i18n="set_need_blind">Blind / Low Vision</option>
+              <option value="deaf" data-i18n="set_need_deaf">Deaf / Hard of Hearing</option>
             </select>
           </div>
 
           <div class="settings-row">
             <div class="settings-row-label" data-i18n="set_grade">Year / Grade</div>
             <select class="settings-select settings-row-ctrl" id="profileGrade" onchange="saveProfile()">
-              <option value="">Not specified</option>
-              <option value="1">Year 1</option>
-              <option value="2">Year 2</option>
-              <option value="3">Year 3</option>
-              <option value="4">Year 4</option>
-              <option value="5">Year 5</option>
-              <option value="6">Year 6</option>
-              <option value="f1">Form 1</option>
-              <option value="f2">Form 2</option>
-              <option value="f3">Form 3</option>
-              <option value="f4">Form 4</option>
-              <option value="f5">Form 5</option>
-              <option value="uni">University</option>
+              <option value="" data-i18n="prof_grade_none">Not specified</option>
+              <option value="1" data-i18n="prof_grade_year1">Year 1</option>
+              <option value="2" data-i18n="prof_grade_year2">Year 2</option>
+              <option value="3" data-i18n="prof_grade_year3">Year 3</option>
+              <option value="4" data-i18n="prof_grade_year4">Year 4</option>
+              <option value="5" data-i18n="prof_grade_year5">Year 5</option>
+              <option value="6" data-i18n="prof_grade_year6">Year 6</option>
+              <option value="f1" data-i18n="prof_grade_form1">Form 1</option>
+              <option value="f2" data-i18n="prof_grade_form2">Form 2</option>
+              <option value="f3" data-i18n="prof_grade_form3">Form 3</option>
+              <option value="f4" data-i18n="prof_grade_form4">Form 4</option>
+              <option value="f5" data-i18n="prof_grade_form5">Form 5</option>
+              <option value="uni" data-i18n="prof_grade_uni">University</option>
             </select>
           </div>
 

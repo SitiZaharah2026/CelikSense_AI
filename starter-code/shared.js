@@ -60,6 +60,7 @@ const CS_LANG = {
     footer_built_with: 'Built with Agentic AI',
     nav_settings:    '⚙ Settings',
     nav_ocr_agent:   'OCR Reading Agent',
+    nav_react_btn:   'ReAct AI Analysis',
     nav_lang_switch: 'BM',
 
     /* Common actions */
@@ -960,6 +961,14 @@ const CS_LANG = {
     ds_lavender:        'Lavender',
     ds_white:           'White',
     ds_copy_text:       'Copy text',
+    ds_story_board:     'Story Board',
+    ds_color_lavender:  'Lavender',
+    rsh_mode_normal:    'NORMAL',
+    rsh_mode_dyslexia:  'DYSLEXIA',
+    rsh_mode_blind:     'BLIND',
+    rsh_ai_summary:     'AI Summary',
+    rsh_close_panel:    'Close panel',
+    rsh_close_modal:    'Close',
     ds_simplified_output: 'Simplified text output',
     ds_tap_reveal:      'Tap to reveal word meaning',
     ds_correct:         'correct',
@@ -1754,6 +1763,7 @@ const CS_LANG = {
     footer_built_with: 'Dibina dengan AI Agentik',
     nav_settings:    '⚙ Tetapan',
     nav_ocr_agent:   'Ejen OCR',
+    nav_react_btn:   'Analisis ReAct AI',
     nav_lang_switch: 'EN',
 
     /* Common actions */

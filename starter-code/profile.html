@@ -180,7 +180,7 @@
         <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
           <div class="avatar-ring" id="avatarEl">
             <span id="avatarInitials">AZ</span>
-            <div class="status-dot" title="Online"></div>
+            <div class="status-dot" title="Online" data-i18n-title="prof_status_online"></div>
           </div>
           <div>
             <div class="profile-name" id="displayName">Ahmad Zaki</div>
@@ -244,7 +244,7 @@
           <a href="personalisation-agent.html" style="display:inline-block;margin-top:14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:10px 22px;border-radius:12px;font-weight:800;font-size:14px;text-decoration:none;" data-i18n="ps_view_full"> View Full Learning Profile</a>
         </section>
 
-        <a href="ai-teacher-agent.html" style="display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(239,68,68,.05));border:1.5px solid rgba(245,158,11,.3);border-radius:16px;padding:16px;text-decoration:none;color:#1e293b;margin:8px 0;transition:box-shadow .2s;" aria-label="Open AI Teacher Agent" onmouseover="this.style.boxShadow='0 4px 18px rgba(245,158,11,.2)'" onmouseout="this.style.boxShadow=''">
+        <a href="ai-teacher-agent.html" style="display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(239,68,68,.05));border:1.5px solid rgba(245,158,11,.3);border-radius:16px;padding:16px;text-decoration:none;color:#1e293b;margin:8px 0;transition:box-shadow .2s;" aria-label="Open AI Teacher Agent" data-i18n-aria-label="prof_open_ai_teacher" onmouseover="this.style.boxShadow='0 4px 18px rgba(245,158,11,.2)'" onmouseout="this.style.boxShadow=''">
           <span style="font-size:30px;" aria-hidden="true"></span>
           <div>
             <div style="font-weight:800;font-size:15px;" data-i18n="teacher_agent_title">AI Teacher Agent</div>
@@ -256,7 +256,7 @@
   <div class="sl-card-title" data-i18n="avatar_profile_section"> My Sign Language Avatar</div>
   <div id="profileAvatarDisplay" style="display:none;">
     <div class="ca-avatar-widget">
-      <img id="profileAvatarImg" class="ca-avatar-mini" alt="My Avatar" />
+      <img id="profileAvatarImg" class="ca-avatar-mini" alt="My Avatar" data-i18n-alt="prof_my_avatar" />
       <div>
         <div style="font-weight:800;font-size:15px;" id="profileAvatarName">My Avatar</div>
         <div style="font-size:12px;color:#64748b;margin-top:3px;" data-i18n="avatar_profile_ready">Avatar ready for signing</div>
@@ -370,7 +370,7 @@
             </div>
             <div class="form-group">
               <label class="form-label" data-i18n="prof_email">Email Address</label>
-              <input type="email" class="form-control" value="learner@celiksense.demo" placeholder="Your email address">
+              <input type="email" class="form-control" value="learner@celiksense.demo" placeholder="Your email address" data-i18n-placeholder="prof_email_placeholder">
             </div>
             <div class="form-group">
               <label class="form-label" data-i18n="prof_role">Role</label>
@@ -418,7 +418,7 @@
             </div>
             <div class="form-group">
               <label class="form-label" data-i18n="prof_interests_lbl">Interests (for book matching)</label>
-              <input type="text" class="form-control" id="settingInterests" placeholder="e.g. science, football, music&hellip;" value="science, nature, sports">
+              <input type="text" class="form-control" id="settingInterests" placeholder="e.g. science, football, music&hellip;" data-i18n-placeholder="prof_interests_placeholder" value="science, nature, sports">
             </div>
           </div>
         </div>
