@@ -623,7 +623,7 @@
           <div class="settings-row">
             <div>
               <div class="settings-row-label">Bahasa Melayu</div>
-              <div class="settings-row-sub">Antara muka dalam Bahasa Melayu</div>
+              <div class="settings-row-sub" data-i18n="set_lang_bm_sub">Antara muka dalam Bahasa Melayu</div>
             </div>
             <label class="toggle-switch settings-row-ctrl">
               <input type="radio" name="langRadio" value="ms" id="langMs" onchange="setLanguage('ms')" style="opacity:0;position:absolute;">
@@ -718,10 +718,10 @@
             <div class="settings-row-control">
               <select id="aeProviderSelect" class="api-key-input" style="max-width:260px;padding:10px 14px;cursor:pointer;"
                       onchange="aeSetProvider(this.value)">
-                <option value="placeholder">Canvas Presenter (Offline — always available)</option>
-                <option value="heygen">HeyGen Avatar API  Highest Quality</option>
+                <option value="placeholder" data-i18n="set_avatar_offline">Offline — always available</option>
+                <option value="heygen" data-i18n="set_avatar_quality">Highest Quality</option>
                 <option value="did">D-ID API</option>
-                <option value="nvidia">NVIDIA ACE (Enterprise)</option>
+                <option value="nvidia" data-i18n="set_avatar_enterprise">Enterprise</option>
                 <option value="rpm">Ready Player Me (3D)</option>
               </select>
             </div>

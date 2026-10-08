@@ -599,6 +599,136 @@ body.mode-blind #blind-ui{display:block;}
 
 <script src="shared.js?v=2"></script>
 <script>
+/* ===  LOCAL i18n FOR READER PAGE  === */
+var READER_LANG = (function(){ try{ return (JSON.parse(localStorage.getItem('cs_user_prefs')||'{}')).lang || localStorage.getItem('cs_lang') || 'ms'; }catch(e){ return 'ms'; } })();
+var READER_T = {
+  en: {
+    sub_label: 'ADAPTIVE READER',
+    nav_home: 'Home', nav_dashboard: 'Dashboard', nav_library: ' Library', nav_settings: '⚙ Settings',
+    mode_blind: 'Blind', mode_lowvision: 'Low Vision', mode_dyslexia: 'Dyslexia', mode_adhd: 'ADHD', mode_deaf: 'Deaf',
+    mode_badge: 'ADAPTIVE READER',
+    tb_read: 'READ', tb_speed: 'SPEED', tb_zoom: 'ZOOM', tb_contrast: 'CONTRAST',
+    tb_font: 'FONT', tb_letter: 'LETTER', tb_word: 'WORD', tb_overlay: 'OVERLAY', tb_session: 'SESSION',
+    btn_read_aloud: '▶ Read Aloud', btn_braille: ' Braille', btn_ai: ' AI', btn_guide: ' Guide',
+    btn_read: ' Read', btn_focus: ' Focus', btn_simplify: ' Simplify', btn_keywords: ' Keywords',
+    btn_mind_map: ' Mind Map', btn_sign_dict: ' Sign Dict',
+    hc_normal: 'Normal', hc_dark: 'Dark', hc_yellow: 'Yellow',
+    no_book_title: 'Choose a Book to Begin',
+    no_book_sub: 'Pick any book from CelikVerse Library and it will open here with your accessibility mode automatically applied.',
+    no_book_cta: ' Browse CelikVerse Library →',
+    blind_ui_label: ' BLIND READER — AUDIO FIRST',
+    btn_prev: '⏮ Previous', btn_next: '⏭ Next',
+    btn_braille_output: ' Braille Output', btn_ai_help: ' AI Help',
+    sidebar_title: ' AI Reading Assistant',
+    sidebar_powered: 'Powered by Gemini · Add key in Settings',
+    sb_simplify: ' Simplify This Section', sb_keywords: ' Extract Keywords',
+    sb_teacher: '‍ AI Teacher — Explain This', sb_quiz: ' Generate Quiz',
+    sb_mindmap: ' Mind Map', sb_summary: ' Summary',
+    sb_notes: ' MY NOTES', sb_notes_ph: 'Write your notes here…',
+    sb_bookmark: ' Bookmark Position', sb_bookmarked: ' Bookmarked!',
+    focus_mode_pill: ' FOCUS MODE',
+    btn_fp_prev: '← Prev', btn_fp_read: ' Read', btn_fp_next: 'Next →',
+    break_title: 'Time for a Break!',
+    break_sub: "You've been reading for 7 minutes.\nRest your eyes, breathe slowly.",
+    break_skip: 'Skip Break →',
+    cp_header: 'Quick Checkpoint — How well did you follow?',
+    cp_placeholder: 'Your answer…',
+    cp_submit: 'Submit', cp_explain: 'Explain Again', cp_continue: 'Continue →',
+    section_label: ' Section',
+    min_label: '~', min_unit: ' min'
+  },
+  ms: {
+    sub_label: 'PEMBACA ADAPTIF',
+    nav_home: 'Utama', nav_dashboard: 'Papan Pemuka', nav_library: ' Perpustakaan', nav_settings: '⚙ Tetapan',
+    mode_blind: 'Buta', mode_lowvision: 'Penglihatan Rendah', mode_dyslexia: 'Disleksia', mode_adhd: 'ADHD', mode_deaf: 'Pekak',
+    mode_badge: 'PEMBACA ADAPTIF',
+    tb_read: 'BACA', tb_speed: 'KELAJUAN', tb_zoom: 'ZUM', tb_contrast: 'KONTRAS',
+    tb_font: 'FOUNT', tb_letter: 'HURUF', tb_word: 'PERKATAAN', tb_overlay: 'LAPISAN', tb_session: 'SESI',
+    btn_read_aloud: '▶ Baca Kuat', btn_braille: ' Braille', btn_ai: ' AI', btn_guide: ' Panduan',
+    btn_read: ' Baca', btn_focus: ' Fokus', btn_simplify: ' Mudahkan', btn_keywords: ' Kata Kunci',
+    btn_mind_map: ' Peta Minda', btn_sign_dict: ' Kamus Isyarat',
+    hc_normal: 'Normal', hc_dark: 'Gelap', hc_yellow: 'Kuning',
+    no_book_title: 'Pilih Buku untuk Bermula',
+    no_book_sub: 'Pilih mana-mana buku dari Perpustakaan CelikVerse dan ia akan dibuka di sini dengan mod aksesibiliti anda digunakan secara automatik.',
+    no_book_cta: ' Layari Perpustakaan CelikVerse →',
+    blind_ui_label: ' PEMBACA BUTA — UTAMAKAN AUDIO',
+    btn_prev: '⏮ Sebelumnya', btn_next: '⏭ Seterusnya',
+    btn_braille_output: ' Output Braille', btn_ai_help: ' Bantuan AI',
+    sidebar_title: ' Pembantu Bacaan AI',
+    sidebar_powered: 'Dikuasakan oleh Gemini · Tambah kunci dalam Tetapan',
+    sb_simplify: ' Mudahkan Bahagian Ini', sb_keywords: ' Ekstrak Kata Kunci',
+    sb_teacher: '‍ Guru AI — Jelaskan Ini', sb_quiz: ' Jana Kuiz',
+    sb_mindmap: ' Peta Minda', sb_summary: ' Ringkasan',
+    sb_notes: ' NOTA SAYA', sb_notes_ph: 'Tulis nota anda di sini…',
+    sb_bookmark: ' Tandai Kedudukan', sb_bookmarked: ' Ditanda!',
+    focus_mode_pill: ' MOD FOKUS',
+    btn_fp_prev: '← Sebelum', btn_fp_read: ' Baca', btn_fp_next: 'Seterusnya →',
+    break_title: 'Masa Rehat!',
+    break_sub: 'Anda telah membaca selama 7 minit.\nRehatkan mata anda, bernafas perlahan.',
+    break_skip: 'Langkau Rehat →',
+    cp_header: 'Semak Pemahaman — Sejauh mana anda ikuti?',
+    cp_placeholder: 'Jawapan anda…',
+    cp_submit: 'Hantar', cp_explain: 'Jelaskan Lagi', cp_continue: 'Teruskan →',
+    section_label: ' Bahagian',
+    min_label: '~', min_unit: ' min'
+  }
+};
+function rT(k){ var d=READER_T[READER_LANG]||READER_T.ms; return d[k]||READER_T.en[k]||k; }
+function applyReaderLang(){
+  var L=READER_LANG;
+  // Navbar
+  var subEl=document.querySelector('.tn-sub'); if(subEl) subEl.textContent=rT('sub_label');
+  var links=document.querySelectorAll('.tn-link');
+  var linkMap=['nav_home','nav_dashboard','nav_library','nav_settings'];
+  links.forEach(function(el,i){ if(linkMap[i]) el.textContent=rT(linkMap[i]); });
+  // Mode pills
+  var modes=['blind','lowvision','dyslexia','adhd','deaf'];
+  modes.forEach(function(m){
+    var pill=document.getElementById('pill-'+m);
+    if(pill){ var lbl=pill.querySelector('.mp-lbl'); if(lbl) lbl.textContent=rT('mode_'+m); }
+  });
+  // Mode badge
+  var badge=document.getElementById('mode-badge'); if(badge) badge.textContent=rT('mode_badge');
+  // Toolbar group labels
+  var tbls=document.querySelectorAll('.tbl');
+  var tblKeys=['tb_read','tb_speed','tb_zoom','tb_contrast','tb_font','tb_letter','tb_word','tb_overlay','tb_session','tb_session'];
+  tbls.forEach(function(el,i){ if(tblKeys[i]) el.textContent=rT(tblKeys[i]); });
+  // Contrast buttons
+  var hcNorm=document.getElementById('hc-norm'); if(hcNorm) hcNorm.textContent=rT('hc_normal');
+  var hcDark=document.getElementById('hc-dark'); if(hcDark) hcDark.textContent=rT('hc_dark');
+  var hcYell=document.getElementById('hc-yellow'); if(hcYell) hcYell.textContent=rT('hc_yellow');
+  // Blind UI label
+  var blindLbl=document.querySelector('#blind-ui div[style*="letter-spacing"]');
+  if(blindLbl) blindLbl.textContent=rT('blind_ui_label');
+  // No-book state
+  var nbH=document.querySelector('#no-book h2'); if(nbH) nbH.textContent=rT('no_book_title');
+  var nbP=document.querySelector('#no-book p'); if(nbP) nbP.textContent=rT('no_book_sub');
+  var nbCta=document.querySelector('#no-book .nb-cta'); if(nbCta) nbCta.textContent=rT('no_book_cta');
+  // AI Sidebar
+  var sbHead=document.querySelector('.sb-head-t'); if(sbHead) sbHead.textContent=rT('sidebar_title');
+  var sbSub=document.querySelector('.sb-head-s'); if(sbSub) sbSub.textContent=rT('sidebar_powered');
+  // Sidebar action buttons — by onclick value
+  var sbtns=document.querySelectorAll('.ai-s-btn');
+  var sbMap={simplify:'sb_simplify',keywords:'sb_keywords',teacher:'sb_teacher',quiz:'sb_quiz',mindmap:'sb_mindmap',summary:'sb_summary'};
+  sbtns.forEach(function(b){
+    var oc=b.getAttribute('onclick')||'';
+    var m=oc.match(/doAI\('(\w+)'\)/);
+    if(m&&sbMap[m[1]]){b.innerHTML=b.querySelector('.si')?'<span class="si">'+b.querySelector('.si').textContent+'</span> '+rT(sbMap[m[1]]):rT(sbMap[m[1]]);}
+  });
+  // Notes area
+  var notesArea=document.getElementById('notes-area'); if(notesArea) notesArea.placeholder=rT('sb_notes_ph');
+  // Break modal
+  var brTitle=document.querySelector('#break-card h2'); if(brTitle) brTitle.textContent=rT('break_title');
+  // Focus mode pill
+  var focPill=document.getElementById('focus-pill'); if(focPill) focPill.textContent=rT('focus_mode_pill');
+  // CP header
+  var cpHdr=document.querySelector('#cp-header div'); if(cpHdr) cpHdr.textContent=rT('cp_header');
+  // CP input placeholder
+  var cpIn=document.getElementById('cp-in'); if(cpIn) cpIn.placeholder=rT('cp_placeholder');
+}
+document.addEventListener('DOMContentLoaded', applyReaderLang);
+</script>
+<script>
 /*  BOOK DATA  */
 var BK = {}, SHELF_ID = null;
 function _bkKey(){return SHELF_ID||BK.title.toLowerCase().trim().replace(/[^a-z0-9]/g,'_').slice(0,60);}

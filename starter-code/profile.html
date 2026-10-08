@@ -314,7 +314,7 @@
               <div class="reading-cover" style="background:rgba(34,197,94,0.1);"></div>
               <div style="flex:1;">
                 <div class="reading-title">The Magic of Reading</div>
-                <div style="font-size:12px;color:var(--text-muted);">Ahmad Zaki · Chapter 3 of 5</div>
+                <div style="font-size:12px;color:var(--text-muted);">Ahmad Zaki · <span data-i18n="prof_chapter">Chapter</span> 3 <span data-i18n="prof_of">of</span> 5</div>
                 <div class="reading-progress-mini"><div class="reading-fill-mini" style="width:60%"></div></div>
               </div>
               <a href="reading-companion.html" class="btn btn-primary btn-sm" data-i18n="prof_continue">Continue</a>
@@ -323,7 +323,7 @@
               <div class="reading-cover" style="background:rgba(99,102,241,0.1);"></div>
               <div style="flex:1;">
                 <div class="reading-title">Dunia Sains Kita</div>
-                <div style="font-size:12px;color:var(--text-muted);">Nur Azlina · Chapter 1 of 8</div>
+                <div style="font-size:12px;color:var(--text-muted);">Nur Azlina · <span data-i18n="prof_chapter">Chapter</span> 1 <span data-i18n="prof_of">of</span> 8</div>
                 <div class="reading-progress-mini"><div class="reading-fill-mini" style="width:12%"></div></div>
               </div>
               <a href="reading-companion.html" class="btn btn-outline btn-sm" data-i18n="prof_read_btn">Read</a>
@@ -332,7 +332,7 @@
               <div class="reading-cover" style="background:rgba(245,158,11,0.1);"></div>
               <div style="flex:1;">
                 <div class="reading-title">My First Science Book</div>
-                <div style="font-size:12px;color:var(--text-muted);">Raj Kumar · Complete ✓</div>
+                <div style="font-size:12px;color:var(--text-muted);">Raj Kumar · <span data-i18n="prof_complete">Complete ✓</span></div>
                 <div class="reading-progress-mini"><div class="reading-fill-mini" style="width:100%;background:var(--success)"></div></div>
               </div>
               <span class="badge badge-success" data-i18n="prof_done_badge">Done</span>
@@ -749,15 +749,15 @@ function loadPrefs() {
 function getActivityData() {
   const t = (k,fb) => (window.CS && CS.lang ? CS.lang.t(k) : fb);
   return [
-    {title:'ADHD Agent – 10 min Focus Session',time:'Today, 9:42 AM',color:'#f59e0b',badgeKey:'act_tag_focus',badge:'Focus',badgeCls:'badge-warning'},
-    {title:'Reading Companion – The Magic of Reading Ch. 3',time:'Today, 9:15 AM',color:'#06b6d4',badgeKey:'act_tag_reading',badge:'Reading',badgeCls:'badge-cyan'},
-    {title:'AI Librarian – Added "Dunia Sains Kita"',time:'Yesterday, 4:30 PM',color:'#6366f1',badgeKey:'act_tag_library',badge:'Library',badgeCls:'badge-primary'},
-    {title:'Dyslexia Agent – Green overlay enabled',time:'Yesterday, 3:00 PM',color:'#22c55e',badgeKey:'act_tag_a11y',badge:'Accessibility',badgeCls:'badge-success'},
-    {title:'Early Warning – Risk assessment completed',time:'2 days ago',color:'#ef4444',badgeKey:'act_tag_low_risk',badge:'Low Risk',badgeCls:'badge-success'},
-    {title:'Intervention Plan – ADHD strategy generated',time:'2 days ago',color:'#10b981',badgeKey:'act_tag_plan',badge:'Plan',badgeCls:'badge-success'},
-    {title:'Sign Language – Practised BIM alphabet A–M',time:'3 days ago',color:'#ec4899',badgeKey:'act_tag_sign',badge:'Sign',badgeCls:'badge-violet'},
-    {title:'Reading Companion – My First Science Book completed',time:'4 days ago',color:'#06b6d4',badgeKey:'act_tag_complete',badge:'Complete',badgeCls:'badge-success'},
-  ].map(a => Object.assign({}, a, {badge: t(a.badgeKey, a.badge)}));
+    {titleKey:'act_title_adhd_focus',   title:'ADHD Agent – 10 min Focus Session',           time:'Today, 9:42 AM',    color:'#f59e0b',badgeKey:'act_tag_focus',   badge:'Focus',       badgeCls:'badge-warning'},
+    {titleKey:'act_title_reading_ch3',  title:'Reading Companion – The Magic of Reading Ch. 3',time:'Today, 9:15 AM',  color:'#06b6d4',badgeKey:'act_tag_reading', badge:'Reading',     badgeCls:'badge-cyan'},
+    {titleKey:'act_title_library_added',title:'AI Librarian – Added "Dunia Sains Kita"',      time:'Yesterday, 4:30 PM',color:'#6366f1',badgeKey:'act_tag_library', badge:'Library',     badgeCls:'badge-primary'},
+    {titleKey:'act_title_dyslexia_overlay',title:'Dyslexia Agent – Green overlay enabled',    time:'Yesterday, 3:00 PM',color:'#22c55e',badgeKey:'act_tag_a11y',   badge:'Accessibility',badgeCls:'badge-success'},
+    {titleKey:'act_title_early_warning',title:'Early Warning – Risk assessment completed',     time:'2 days ago',        color:'#ef4444',badgeKey:'act_tag_low_risk',badge:'Low Risk',    badgeCls:'badge-success'},
+    {titleKey:'act_title_intervention', title:'Intervention Plan – ADHD strategy generated',  time:'2 days ago',        color:'#10b981',badgeKey:'act_tag_plan',    badge:'Plan',        badgeCls:'badge-success'},
+    {titleKey:'act_title_sign_lang',    title:'Sign Language – Practised BIM alphabet A–M',   time:'3 days ago',        color:'#ec4899',badgeKey:'act_tag_sign',    badge:'Sign',        badgeCls:'badge-violet'},
+    {titleKey:'act_title_reading_done', title:'Reading Companion – My First Science Book completed',time:'4 days ago',  color:'#06b6d4',badgeKey:'act_tag_complete',badge:'Complete',    badgeCls:'badge-success'},
+  ].map(a => Object.assign({}, a, {title: t(a.titleKey, a.title), badge: t(a.badgeKey, a.badge)}));
 }
 
 function renderActivity() {
@@ -809,7 +809,22 @@ function renderAchievements() {
   `).join('');
 }
 
+/* ── PREFERRED MODE LABEL ── */
+function modLabel(mode) {
+  const modLabels = {
+    text:  (window.CS&&CS.lang&&CS.lang.get()==='ms') ? 'Teks'   : 'Text',
+    audio: (window.CS&&CS.lang&&CS.lang.get()==='ms') ? 'Audio'  : 'Audio',
+    visual:(window.CS&&CS.lang&&CS.lang.get()==='ms') ? 'Visual' : 'Visual',
+    mixed: (window.CS&&CS.lang&&CS.lang.get()==='ms') ? 'Campuran':'Mixed',
+  };
+  return modLabels[mode] || mode;
+}
+
 /* ── INIT ── */
+(function updatePageTitle(){
+  const lang = window.CS&&CS.lang ? CS.lang.get() : (localStorage.getItem('cs_lang')||'en');
+  document.title = lang==='ms' ? 'Profil Saya – CelikSense AI' : 'My Profile – CelikSense AI';
+})();
 renderActivity();
 renderAchievements();
 loadPrefs();
@@ -835,7 +850,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }).join('');
   }
   var badge = document.getElementById('psPreferredModeBadge');
-  if (badge) badge.textContent = p.preferredMode;
+  if (badge) badge.textContent = modLabel(p.preferredMode);
 });
 </script>
 <script>

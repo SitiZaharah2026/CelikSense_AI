@@ -155,8 +155,8 @@ nav.navbar{display:none!important;}
   <span class="nav-title" id="nav-shelf-label"> My Reading Shelf</span>
   <div class="nav-spacer"></div>
   <input class="nav-search" id="nav-search-input" type="search" placeholder="Cari buku…" aria-label="Search books" autocomplete="off"/>
-  <a class="nav-link" href="celikverse-library.html">← Library</a>
-  <a class="nav-link" href="settings.html">⚙ Settings</a>
+  <a class="nav-link" href="celikverse-library.html" id="nav-back-library">← Library</a>
+  <a class="nav-link" href="settings.html" id="nav-settings-link">⚙ Settings</a>
 </nav>
 
 <!-- FILTER BAR -->
@@ -298,7 +298,11 @@ var T={
   deaf:{ms:'Pembaca Pekak',en:'Deaf Reader'},
   companion:{ms:'Teman Membaca',en:'Reading Companion'},
   aiteacher:{ms:'Guru AI',en:'AI Teacher'},
-  audio:{ms:'Pembaca Audio',en:'Audio Reader'}
+  audio:{ms:'Pembaca Audio',en:'Audio Reader'},
+  untitled:{ms:'Tiada Tajuk',en:'Untitled'},
+  unknown_author:{ms:'Penulis Tidak Diketahui',en:'Unknown Author'},
+  back_library:{ms:'← Perpustakaan',en:'← Library'},
+  nav_settings:{ms:'⚙ Tetapan',en:'⚙ Settings'}
 };
 function t(k){return (T[k]&&T[k][LANG])||k;}
 
@@ -396,10 +400,10 @@ function renderCard(book){
   var titleEl=document.createElement('div');
   titleEl.className='bk-title';
   titleEl.title=book.title||'';
-  titleEl.textContent=book.title||'Untitled';
+  titleEl.textContent=book.title||t('untitled');
   var authorEl=document.createElement('div');
   authorEl.className='bk-author';
-  authorEl.textContent=book.author||'Unknown Author';
+  authorEl.textContent=book.author||t('unknown_author');
 
   // Progress
   var progWrap=document.createElement('div');
@@ -710,6 +714,10 @@ document.addEventListener('keydown',function(e){
   document.getElementById('modal-sub').textContent=t('modal_sub');
   document.getElementById('modal-close-btn').textContent=t('cancel');
   document.getElementById('streak-lbl').textContent=' '+t('streak_label');
+  var navLib=document.getElementById('nav-back-library');
+  if(navLib) navLib.textContent=t('back_library');
+  var navSet=document.getElementById('nav-settings-link');
+  if(navSet) navSet.textContent=t('nav_settings');
   var nav=document.getElementById('nav-search-input');
   nav.placeholder=LANG==='en'?'Search books…':'Cari buku…';
   document.querySelectorAll('#sort-select option').forEach(function(o){
