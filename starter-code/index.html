@@ -740,8 +740,8 @@
 
       <div class="hero-orb-marquee-row" aria-hidden="true" style="position:relative;">
         <div class="hero-orb-marquee-inner">
-          <span class="marquee-line1" data-i18n="hero_tagline">Ilmu Tanpa Sempadan, Kecerdasan Tanpa Had</span>
-          <span class="marquee-line2" data-i18n="hero_tagline">Knowledge Without Barrier, Intelligence Without Limits</span>
+          <span class="marquee-line1" id="marqueeL1">Ilmu Tanpa Sempadan, Kecerdasan Tanpa Had</span>
+          <span class="marquee-line2" id="marqueeL2">Ilmu Tanpa Sempadan, Kecerdasan Tanpa Had</span>
         </div>
       </div>
     </div>
@@ -1290,13 +1290,16 @@ function submitSignup(e) {
   var BM = 'Ilmu Tanpa Sempadan, Kecerdasan Tanpa Had';
   var EN = 'Knowledge Without Barrier, Intelligence Without Limits';
   function updateMarquee(lang){
-    var txt = (lang==='ms'||lang==='bm') ? BM : EN;
-    document.querySelectorAll('.marquee-line1,.marquee-line2').forEach(function(el){ el.textContent=txt; });
+    var txt = (lang==='en') ? EN : BM;
+    var l1 = document.getElementById('marqueeL1');
+    var l2 = document.getElementById('marqueeL2');
+    if(l1) l1.textContent = txt;
+    if(l2) l2.textContent = txt;
   }
   document.addEventListener('DOMContentLoaded', function(){
     updateMarquee(localStorage.getItem('cs_lang')||'ms');
   });
-  window.addEventListener('cs:lang:changed', function(e){ updateMarquee(e.detail.lang); });
+  window.addEventListener('cs:lang:changed', function(e){ updateMarquee(e.detail&&e.detail.lang); });
 })();
 </script>
 </body>
