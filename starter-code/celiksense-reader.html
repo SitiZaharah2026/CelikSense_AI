@@ -640,7 +640,12 @@ var READER_T = {
     btn_ruler_lbl: ' Ruler', btn_simplify_lbl: ' Simplify', btn_keywords_lbl: ' Keywords', btn_mindmap_lbl: ' Mind Map',
     tts_stop: 'Stop reading', tts_prev_sent: 'Previous sentence', tts_next_sent: 'Next sentence',
     section_label: ' Section',
-    min_label: '~', min_unit: ' min'
+    min_label: '~', min_unit: ' min',
+    reader_font_system: 'System',
+    reader_bookmarked: ' Bookmarked!',
+    reader_loading: 'Loading…',
+    mname_blind: '👁️ Blind Reader', mname_lowvision: '🔍 Low Vision', mname_dyslexia: '📖 Dyslexia',
+    mname_adhd: '⚡ ADHD Reader', mname_deaf: '🤟 Deaf Reader'
   },
   ms: {
     sub_label: 'PEMBACA ADAPTIF',
@@ -680,7 +685,12 @@ var READER_T = {
     btn_ruler_lbl: ' Pembaris', btn_simplify_lbl: ' Ringkas', btn_keywords_lbl: ' Kata Kunci', btn_mindmap_lbl: ' Peta Minda',
     tts_stop: 'Henti baca', tts_prev_sent: 'Ayat sebelum', tts_next_sent: 'Ayat seterusnya',
     section_label: ' Bahagian',
-    min_label: '~', min_unit: ' min'
+    min_label: '~', min_unit: ' min',
+    reader_font_system: 'Sistem',
+    reader_bookmarked: '✅ Ditanda Buku!',
+    reader_loading: 'Memuatkan…',
+    mname_blind: '👁️ Pembaca Buta', mname_lowvision: '🔍 Penglihatan Rendah', mname_dyslexia: '📖 Disleksia',
+    mname_adhd: '⚡ Pembaca ADHD', mname_deaf: '🤟 Pembaca Pekak'
   }
 };
 function rT(k){ var d=READER_T[READER_LANG]||READER_T.ms; return d[k]||READER_T.en[k]||k; }
@@ -709,6 +719,10 @@ function applyReaderLang(){
   var guideBtn=document.getElementById('guide-btn'); if(guideBtn) guideBtn.textContent=rT('btn_guide');
   var lvReadBtn=document.getElementById('lv-read-btn'); if(lvReadBtn) lvReadBtn.textContent=rT('btn_read');
   var readBtn=document.getElementById('read-btn'); if(readBtn) readBtn.textContent=rT('btn_read');
+  // ADHD Focus button
+  var focusBtn=document.getElementById('focus-btn'); if(focusBtn) focusBtn.textContent=rT('btn_focus');
+  // Dyslexia System font button
+  var fSystem=document.getElementById('f-system'); if(fSystem) fSystem.textContent=rT('reader_font_system');
   // Overlay None button
   var overlayNone=document.getElementById('overlay-none-btn'); if(overlayNone) overlayNone.textContent=rT('overlay_none');
   // Dyslexia Ruler button
@@ -752,6 +766,8 @@ function applyReaderLang(){
   // Bookmark button
   var bmBtn=document.getElementById('bookmark-btn');
   if(bmBtn){ var bmSi=bmBtn.querySelector('.si'); bmBtn.innerHTML=(bmSi?'<span class="si">'+bmSi.textContent+'</span> ':' ')+rT('sb_bookmark'); }
+  // Bookmarked toast message
+  var bmMsg=document.getElementById('bm-msg'); if(bmMsg) bmMsg.textContent=rT('reader_bookmarked');
   // Break modal title and skip button (body text is handled in showBreak with actual minutes)
   var brTitle=document.querySelector('#break-card h2'); if(brTitle) brTitle.textContent=rT('break_title');
   var skipBreakBtn=document.getElementById('skip-break-btn'); if(skipBreakBtn) skipBreakBtn.textContent=rT('break_skip');
@@ -844,7 +860,7 @@ function renderBkHero(){
   var cov=BK.cover?'<img src="'+esc(BK.cover)+'" alt="Book cover" onerror="this.outerHTML=\'<div id=bk-ph></div>\'">':'<div id="bk-ph"></div>';
   h.innerHTML='<div id="bk-cover-wrap">'+cov+'</div>'
     +'<div id="bk-info">'
-    +'<div id="bk-mode-tag">'+MNAMES[mode]+'</div>'
+    +'<div id="bk-mode-tag">'+(rT('mname_'+mode)||MNAMES[mode]||mode)+'</div>'
     +'<div class="bk-title">'+esc(BK.title)+'</div>'
     +(BK.author?'<div class="bk-author">by '+esc(BK.author)+'</div>':'')
     +(BK.source?'<span class="bk-source-badge"> '+esc(BK.source)+'</span>':'')
@@ -1000,9 +1016,10 @@ function setMode(m){
   document.body.classList.add('mode-'+m);
   var pill=document.getElementById('pill-'+m);if(pill){pill.classList.add('on');pill.setAttribute('aria-selected','true');}
   var tb=document.getElementById('tb-'+m);if(tb)tb.classList.add('on');
-  document.getElementById('mode-badge').textContent=MNAMES[m]||m.toUpperCase();
+  var mLabel=rT('mname_'+m)||MNAMES[m]||m.toUpperCase();
+  document.getElementById('mode-badge').textContent=mLabel;
   // Update hero tag
-  var tag=document.getElementById('bk-mode-tag');if(tag)tag.textContent=MNAMES[m]||m;
+  var tag=document.getElementById('bk-mode-tag');if(tag)tag.textContent=mLabel;
   if(m==='adhd')document.getElementById('micro-timer').classList.add('show');
   else document.getElementById('micro-timer').classList.remove('show');
   PR.mode=m;saveP();
@@ -1124,7 +1141,7 @@ async function genParaAI(text,panel){
 }
 
 /*  CHECKPOINT  */
-function showCP(secText){document.getElementById('cp-modal').classList.add('on');document.getElementById('cp-q').textContent='Loading…';document.getElementById('cp-in').value='';document.getElementById('cp-fb').style.display='none';_cpAns='';genCPQ(secText);}
+function showCP(secText){document.getElementById('cp-modal').classList.add('on');document.getElementById('cp-q').textContent=rT('reader_loading');document.getElementById('cp-in').value='';document.getElementById('cp-fb').style.display='none';_cpAns='';genCPQ(secText);}
 async function genCPQ(text){var key=getKey();if(!key){document.getElementById('cp-q').textContent='What was the main idea of this section?';return;}try{var r=await gemCall('Create ONE comprehension question and its answer. Format:\nQUESTION: ...\nANSWER: ...\n\nText: "'+text.slice(0,800)+'"',key);var qm=r.match(/QUESTION:\s*(.+)/i),am=r.match(/ANSWER:\s*(.+)/i);document.getElementById('cp-q').textContent=qm?qm[1].trim():'What was the main idea?';_cpAns=am?am[1].trim().toLowerCase():'';}catch(e){document.getElementById('cp-q').textContent='What was the main idea of this section?';}}
 function checkAns(){var ans=document.getElementById('cp-in').value.trim().toLowerCase();var fb=document.getElementById('cp-fb');fb.style.display='block';if(!ans){fb.className='';fb.textContent='Please write an answer.';return;}var ok=!_cpAns||(ans.length>3&&(_cpAns.slice(0,15).split(/\s+/).some(function(w){return w.length>2&&ans.includes(w);})||ans.length>20));fb.className=ok?'ok':'no';fb.textContent=ok?' Great! Keep reading.':' Not quite. '+(_cpAns?'Hint: '+_cpAns:'Try again.');if(ok)setTimeout(skipCP,1600);}
 function explainAgain(){skipCP();if(sIdx>8){sIdx=Math.max(0,sIdx-8);if(!isRead)startRead();else readAt(sIdx);}}

@@ -45,7 +45,7 @@
 </style>
 </head>
 <body>
-<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#6366f1;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;font-family:sans-serif;">Skip to main content</a>
+<a href="#main-content" class="skip-link" data-i18n="ait_skip_main" style="position:absolute;left:-9999px;top:8px;z-index:9999;padding:8px 16px;background:#6366f1;color:#fff;border-radius:4px;font-size:14px;text-decoration:none;font-family:sans-serif;">Skip to main content</a>
 
 <!-- NAV -->
 <nav class="nav" role="navigation" aria-label="Main Navigation">
@@ -60,7 +60,7 @@
       <a href="profile.html" class="nav-link" data-i18n="nav_profile">Profile</a>
       <a href="settings.html" class="nav-link" data-i18n="nav_settings">Settings</a>
     </div>
-    <button class="lang-toggle" id="langToggle" aria-label="Toggle language" onclick="toggleLang()">BM / EN</button>
+    <button class="lang-toggle" id="langToggle" data-lang-toggle data-i18n-aria-label="nav_lang_aria" aria-label="Toggle language" onclick="toggleLang()">BM / EN</button>
   </div>
 </nav>
 
@@ -826,8 +826,8 @@ function toggleLang() {
 }
 
 function updateLangDisplay() {
-  if (typeof CS !== 'undefined' && CS.lang && typeof CS.lang.apply === 'function') {
-    CS.lang.apply();
+  if (typeof CS !== 'undefined' && CS.lang && typeof CS.lang.set === 'function') {
+    CS.lang.set(currentLang);
   }
 }
 
